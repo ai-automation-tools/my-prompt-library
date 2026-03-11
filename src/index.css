@@ -190,6 +190,26 @@
   --glass-border-hover: rgba(255, 184, 0, 0.3);
 }
 
+/* VOID BLACK — Pure dark glass: true black bg, cool white accent, monochrome glass */
+[data-theme='void-black'] {
+  --bg-primary: #050505;
+  --bg-secondary: rgba(14, 14, 14, 0.88);
+  --bg-tertiary: rgba(24, 24, 24, 0.6);
+  --text-primary: #e8e8e8;
+  --text-secondary: #888888;
+  --text-tertiary: #505050;
+  --accent: #d4d4d4;
+  --accent-secondary: #a0a0a0;
+  --accent-glow: rgba(212, 212, 212, 0.25);
+  --accent-glow-subtle: rgba(212, 212, 212, 0.08);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.16);
+}
+
 /* FROSTED STEEL — Cool neutral: blue-grey bg, muted silver accent, steely glass */
 [data-theme='frosted-steel'] {
   --bg-primary: #0e1218;
