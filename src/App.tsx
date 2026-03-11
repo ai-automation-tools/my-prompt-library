@@ -39,11 +39,19 @@ interface Prompt {
   lastModified: string;
 }
 
-type Theme = 'light' | 'retro-wave' | 'emerald-glass';
+type Theme = 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'oled-mono' | 'deep-sea' | 'abyss-black' | 'terminal-hacker' | 'github-dark-pro';
 
 const THEMES: { id: Theme; name: string; icon: string }[] = [
   { id: 'retro-wave', name: 'Retro Wave', icon: '⚡' },
+  { id: 'obsidian-cyan', name: 'Obsidian Cyan', icon: '💎' },
+  { id: 'carbon-ember', name: 'Carbon Ember', icon: '🔥' },
+  { id: 'midnight-violet', name: 'Midnight Violet', icon: '🌙' },
   { id: 'emerald-glass', name: 'Emerald Glass', icon: '🌿' },
+  { id: 'deep-sea', name: 'Deep Sea', icon: '🌊' },
+  { id: 'terminal-hacker', name: 'Terminal Hacker', icon: '💻' },
+  { id: 'github-dark-pro', name: 'GitHub Dark Pro', icon: '🐙' },
+  { id: 'oled-mono', name: 'OLED Mono', icon: '⬛' },
+  { id: 'abyss-black', name: 'Abyss Black', icon: '🕳️' },
   { id: 'light', name: 'Light', icon: '☀️' },
 ];
 
