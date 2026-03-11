@@ -70,7 +70,7 @@ export default function App() {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
-  const [showAllPrompts, setShowAllPrompts] = useState(false);
+  const [showAllPrompts, setShowAllPrompts] = useState(true);
   const [theme, setTheme] = useState<Theme>('retro-wave');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
@@ -83,7 +83,7 @@ export default function App() {
       .then(res => res.json())
       .then(data => {
         setPrompts(data);
-        if (data.length > 0) setSelectedPrompt(data[0]);
+        // Start with All Prompts view, don't auto-select a prompt
       })
       .catch(err => console.error('Failed to fetch prompts:', err));
   }, []);
