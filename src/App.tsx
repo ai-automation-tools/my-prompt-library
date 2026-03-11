@@ -61,12 +61,12 @@ const FIXED_CATEGORIES = [
 export default function App() {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [theme, setTheme] = useState<Theme>('retro-wave');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
-  const [expandedSubcategories, setExpandedSubcategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'all' | 'collections'>('all');
 
   useEffect(() => {
@@ -100,19 +100,36 @@ export default function App() {
     );
   }, [prompts, searchQuery]);
 
+  const subcategoryPrompts = useMemo(() => {
+    if (!selectedSubcategory) return [];
+    if (selectedSubcategory.subcategory === 'ALL') {
+      // Show all prompts from the category
+      return filteredPrompts.filter(p => p.category === selectedSubcategory.category);
+    }
+    return filteredPrompts.filter(p => 
+      p.category === selectedSubcategory.category && 
+      p.subcategory === selectedSubcategory.subcategory
+    );
+  }, [selectedSubcategory, filteredPrompts]);
+
   const toggleCategory = (cat: string) => {
     setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
   };
 
-  const toggleSubcategory = (key: string) => {
-    setExpandedSubcategories(prev => ({ ...prev, [key]: !prev[key] }));
+  const handleSubcategoryClick = (category: string, subcategory: string | 'ALL') => {
+    setSelectedSubcategory({ category, subcategory });
+    setSelectedPrompt(null);
   };
 
-  const handleCopy = () => {
-    if (!selectedPrompt) return;
-    navigator.clipboard.writeText(selectedPrompt.content);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handlePromptClick = (prompt: Prompt) => {
+    setSelectedPrompt(prompt);
+    setSelectedSubcategory(null);
+  };
+
+  const handleCopy = (content: string, promptId: string) => {
+    navigator.clipboard.writeText(content);
+    setCopied(promptId);
+    setTimeout(() => setCopied(null), 2000);
   };
 
   return (
@@ -180,77 +197,44 @@ export default function App() {
 
                   {expandedCategories[cat] && (
                     <div className="mt-2 space-y-1 pl-2">
-                      {/* Prompts with no subcategory */}
-                      {filteredPrompts
-                        .filter(p => p.category === cat && !p.subcategory)
-                        .map(p => (
-                          <button
-                            key={p.id}
-                            onClick={() => setSelectedPrompt(p)}
-                            className={cn(
-                              "w-full text-left px-4 py-2 rounded-lg text-xs font-medium transition-all duration-200",
-                              selectedPrompt?.id === p.id 
-                                ? "text-pink-400 bg-pink-500/10" 
-                                : "text-white/40 hover:text-white/80 hover:bg-white/5"
-                            )}
-                          >
-                            {p.title}
-                          </button>
-                        ))}
-
+                      {/* "All" option to show all prompts in category */}
+                      <button 
+                        onClick={() => handleSubcategoryClick(cat, 'ALL')}
+                        className={cn(
+                          "w-full flex items-center justify-between px-4 py-2 rounded-lg transition-all duration-200 group",
+                          selectedSubcategory?.category === cat && selectedSubcategory?.subcategory === 'ALL' 
+                            ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-[0_0_15px_rgba(236,72,153,0.3)]" 
+                            : "hover:bg-white/5 text-white/60 group-hover:text-white/90"
+                        )}
+                      >
+                        <span className={cn(
+                          "text-[10px] font-black uppercase tracking-widest transition-colors",
+                          selectedSubcategory?.category === cat && selectedSubcategory?.subcategory === 'ALL' ? "text-white" : ""
+                        )}>
+                          🔹 All
+                        </span>
+                      </button>
+                      
                       {/* Subcategories */}
                       {Array.from(categories[cat] || []).sort().map(subcat => {
-                        const subcatPrompts = filteredPrompts.filter(p => p.category === cat && p.subcategory === subcat);
-                        const readmePrompt = subcatPrompts.find(p => p.title.toLowerCase() === 'readme');
-                        const otherPrompts = subcatPrompts.filter(p => p.title.toLowerCase() !== 'readme');
-                        const isExpanded = expandedSubcategories[`${cat}:${subcat}`];
-
+                        const isSelected = selectedSubcategory?.category === cat && selectedSubcategory?.subcategory === subcat;
+                        
                         return (
-                          <div key={subcat} className="space-y-1">
-                            <button 
-                              onClick={() => {
-                                toggleSubcategory(`${cat}:${subcat}`);
-                                if (readmePrompt) setSelectedPrompt(readmePrompt);
-                              }}
-                              className={cn(
-                                "w-full flex items-center justify-between px-4 py-2 rounded-lg transition-all duration-200 group",
-                                isExpanded ? "bg-white/5" : "hover:bg-white/5"
-                              )}
-                            >
-                              <span className={cn(
-                                "text-[10px] font-black uppercase tracking-widest transition-colors",
-                                isExpanded || (readmePrompt && selectedPrompt?.id === readmePrompt.id) ? "text-pink-400" : "text-white/40 group-hover:text-white/80"
-                              )}>
-                                {subcat.replace(/_/g, ' ')}
-                              </span>
-                              {otherPrompts.length > 0 && (
-                                isExpanded ? (
-                                  <ChevronDown className="w-3 h-3 opacity-20" />
-                                ) : (
-                                  <ChevronRight className="w-3 h-3 opacity-20" />
-                                )
-                              )}
-                            </button>
-                            
-                            {isExpanded && otherPrompts.length > 0 && (
-                              <div className="pl-4 space-y-1">
-                                {otherPrompts.map(p => (
-                                  <button
-                                    key={p.id}
-                                    onClick={() => setSelectedPrompt(p)}
-                                    className={cn(
-                                      "w-full text-left px-4 py-2 rounded-lg text-[10px] font-medium transition-all duration-200",
-                                      selectedPrompt?.id === p.id 
-                                        ? "text-pink-400 bg-pink-500/10" 
-                                        : "text-white/30 hover:text-white/70 hover:bg-white/5"
-                                    )}
-                                  >
-                                    {p.title}
-                                  </button>
-                                ))}
-                              </div>
+                          <button 
+                            key={subcat}
+                            onClick={() => handleSubcategoryClick(cat, subcat)}
+                            className={cn(
+                              "w-full flex items-center justify-between px-4 py-2 rounded-lg transition-all duration-200 group",
+                              isSelected ? "bg-pink-500/10 text-pink-400" : "hover:bg-white/5 text-white/40 group-hover:text-white/80"
                             )}
-                          </div>
+                          >
+                            <span className={cn(
+                              "text-[10px] font-black uppercase tracking-widest transition-colors",
+                              isSelected ? "text-pink-400" : ""
+                            )}>
+                              {subcat.replace(/_/g, ' ')}
+                            </span>
+                          </button>
                         );
                       })}
                     </div>
@@ -317,17 +301,83 @@ export default function App() {
 
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto p-8 md:p-12 pt-8">
-          {selectedPrompt ? (
+          {/* Grid View for Subcategory */}
+          {selectedSubcategory && subcategoryPrompts.length > 0 ? (
+            <div className="max-w-[1600px] mx-auto">
+              <div className="mb-8">
+                <h2 className="text-3xl font-black tracking-tight uppercase italic">
+                  {selectedSubcategory.category} / {selectedSubcategory.subcategory === 'ALL' ? 'All' : selectedSubcategory.subcategory.replace(/_/g, ' ')}
+                </h2>
+                <p className="text-sm text-white/40 mt-2">{subcategoryPrompts.length} prompts</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {subcategoryPrompts.map(prompt => (
+                  <div 
+                    key={prompt.id}
+                    className="glass-card rounded-2xl p-6 relative group hover:border-pink-500/50 transition-all cursor-pointer"
+                    onClick={() => handlePromptClick(prompt)}
+                  >
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCopy(prompt.content, prompt.id);
+                      }}
+                      className="absolute top-4 right-4 p-2 rounded-lg bg-white/5 hover:bg-pink-500 text-[10px] font-black uppercase tracking-widest transition-all duration-300 border border-white/10 hover:border-pink-500 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] z-10"
+                    >
+                      {copied === prompt.id ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                    </button>
+
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center shrink-0">
+                          <FileText className="w-4 h-4 text-pink-500" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-black tracking-tight uppercase leading-tight mb-1 pr-8">
+                            {prompt.title}
+                          </h3>
+                          <p className="text-[9px] font-black uppercase tracking-widest opacity-30 truncate">
+                            {prompt.id}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {prompt.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                          {prompt.tags.slice(0, 3).map(tag => (
+                            <span key={tag} className="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest opacity-60">
+                              {tag}
+                            </span>
+                          ))}
+                          {prompt.tags.length > 3 && (
+                            <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest opacity-60">
+                              +{prompt.tags.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      <div className="text-xs text-white/40 line-clamp-3 font-medium">
+                        {prompt.content.substring(0, 150)}...
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : selectedPrompt ? (
+            // Single Prompt View
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-[1600px] mx-auto">
               <div className="lg:col-span-8 space-y-8">
                 <div className="glass-card rounded-[2.5rem] p-8 md:p-12 relative group overflow-hidden">
                   {/* Copy Button */}
                   <button 
-                    onClick={handleCopy}
+                    onClick={() => handleCopy(selectedPrompt.content, selectedPrompt.id)}
                     className="absolute top-8 right-8 px-4 py-2 rounded-lg bg-white/5 hover:bg-pink-500 text-[10px] font-black uppercase tracking-widest transition-all duration-300 border border-white/10 hover:border-pink-500 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] z-10"
                   >
-                    {copied ? <Check className="w-4 h-4 inline mr-2" /> : <Copy className="w-4 h-4 inline mr-2" />}
-                    {copied ? 'Copied' : 'Copy'}
+                    {copied === selectedPrompt.id ? <Check className="w-4 h-4 inline mr-2" /> : <Copy className="w-4 h-4 inline mr-2" />}
+                    {copied === selectedPrompt.id ? 'Copied' : 'Copy'}
                   </button>
 
                   <div className="space-y-6 mb-12">
@@ -382,7 +432,14 @@ export default function App() {
                 <div className="glass rounded-3xl p-8 border-white/5 space-y-6">
                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">Quick Actions</h3>
                   <div className="grid grid-cols-2 gap-3">
-                    <button className="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-pink-500/50 hover:bg-pink-500/5 transition-all group">
+                    <button 
+                      onClick={() => {
+                        if (selectedPrompt.subcategory) {
+                          handleSubcategoryClick(selectedPrompt.category, selectedPrompt.subcategory);
+                        }
+                      }}
+                      className="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-pink-500/50 hover:bg-pink-500/5 transition-all group"
+                    >
                       <LayoutGrid className="w-5 h-5 opacity-40 group-hover:text-pink-500 group-hover:opacity-100" />
                       <span className="text-[9px] font-black uppercase tracking-widest opacity-40 group-hover:opacity-100">Grid View</span>
                     </button>
@@ -401,7 +458,7 @@ export default function App() {
               </div>
               <div className="space-y-2">
                 <p className="text-2xl font-black uppercase tracking-widest italic">System Ready</p>
-                <p className="text-xs font-bold opacity-60">Select a prompt from the sidebar to begin</p>
+                <p className="text-xs font-bold opacity-60">Select a category or subcategory from the sidebar to begin</p>
               </div>
             </div>
           )}
