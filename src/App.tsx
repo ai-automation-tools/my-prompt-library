@@ -62,6 +62,7 @@ export default function App() {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
+  const [showAllPrompts, setShowAllPrompts] = useState(false);
   const [theme, setTheme] = useState<Theme>('retro-wave');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
@@ -119,11 +120,20 @@ export default function App() {
   const handleSubcategoryClick = (category: string, subcategory: string | 'ALL') => {
     setSelectedSubcategory({ category, subcategory });
     setSelectedPrompt(null);
+    setShowAllPrompts(false);
   };
 
   const handlePromptClick = (prompt: Prompt) => {
     setSelectedPrompt(prompt);
     setSelectedSubcategory(null);
+    setShowAllPrompts(false);
+  };
+
+  const handleShowAllPrompts = () => {
+    setShowAllPrompts(true);
+    setSelectedPrompt(null);
+    setSelectedSubcategory(null);
+    setActiveTab('all');
   };
 
   const handleCopy = (content: string, promptId: string) => {
@@ -147,10 +157,10 @@ export default function App() {
             
             <div className="space-y-3 mb-8">
               <button 
-                onClick={() => setActiveTab('all')}
+                onClick={handleShowAllPrompts}
                 className={cn(
                   "w-full py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300",
-                  activeTab === 'all' 
+                  showAllPrompts 
                     ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-[0_0_20px_rgba(236,72,153,0.4)]" 
                     : "border border-white/10 hover:bg-white/5 opacity-60"
                 )}
@@ -301,8 +311,72 @@ export default function App() {
 
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto p-8 md:p-12 pt-8">
-          {/* Grid View for Subcategory */}
-          {selectedSubcategory && subcategoryPrompts.length > 0 ? (
+          {/* Grid View for All Prompts */}
+          {showAllPrompts ? (
+            <div className="max-w-[1600px] mx-auto">
+              <div className="mb-8">
+                <h2 className="text-3xl font-black tracking-tight uppercase italic">
+                  All Prompts
+                </h2>
+                <p className="text-sm text-white/40 mt-2">{filteredPrompts.length} prompts</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredPrompts.map(prompt => (
+                  <div 
+                    key={prompt.id}
+                    className="glass-card rounded-2xl p-6 relative group hover:border-pink-500/50 transition-all cursor-pointer"
+                    onClick={() => handlePromptClick(prompt)}
+                  >
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCopy(prompt.content, prompt.id);
+                      }}
+                      className="absolute top-4 right-4 p-2 rounded-lg bg-white/5 hover:bg-pink-500 text-[10px] font-black uppercase tracking-widest transition-all duration-300 border border-white/10 hover:border-pink-500 hover:shadow-[0_0_20px_rgba(236,72,153,0.4)] z-10"
+                    >
+                      {copied === prompt.id ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                    </button>
+
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center shrink-0">
+                          <FileText className="w-4 h-4 text-pink-500" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-black tracking-tight uppercase leading-tight mb-1 pr-8">
+                            {prompt.title}
+                          </h3>
+                          <p className="text-[9px] font-black uppercase tracking-widest opacity-30 truncate">
+                            {prompt.category} / {prompt.subcategory || 'General'}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {prompt.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                          {prompt.tags.slice(0, 3).map(tag => (
+                            <span key={tag} className="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest opacity-60">
+                              {tag}
+                            </span>
+                          ))}
+                          {prompt.tags.length > 3 && (
+                            <span className="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest opacity-60">
+                              +{prompt.tags.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      <div className="text-xs text-white/40 line-clamp-3 font-medium">
+                        {prompt.content.substring(0, 150)}...
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : selectedSubcategory && subcategoryPrompts.length > 0 ? (
             <div className="max-w-[1600px] mx-auto">
               <div className="mb-8">
                 <h2 className="text-3xl font-black tracking-tight uppercase italic">
