@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./themes.css";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -63,7 +64,7 @@ body {
   min-height: 100vh;
   background-image: 
     radial-gradient(circle at 50% 0%, var(--accent-glow) 0%, transparent 50%),
-    radial-gradient(circle at 0% 100%, rgba(0, 255, 255, 0.05) 0%, transparent 40%);
+    radial-gradient(circle at 0% 100%, var(--accent-glow) 0%, transparent 40%);
   background-attachment: fixed;
 }
 
@@ -88,7 +89,8 @@ body {
 }
 
 .neon-text {
-  text-shadow: 0 0 10px var(--accent-glow);
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
 }
 
 .markdown-body {
@@ -132,6 +134,54 @@ body {
   height: 1px;
   background: linear-gradient(to right, transparent, var(--border), transparent);
   margin: 2em 0;
+}
+
+/* Theme-aware accent utilities */
+.accent-text {
+  color: var(--accent);
+}
+
+.accent-bg {
+  background-color: var(--accent);
+}
+
+.accent-border {
+  border-color: var(--accent);
+}
+
+.accent-glow-bg {
+  background-color: var(--accent-glow);
+}
+
+.accent-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-glow) 100%);
+}
+
+/* Override Tailwind pink colors to use theme accent */
+.text-pink-500, .text-pink-400 {
+  color: var(--accent) !important;
+}
+
+.bg-pink-500, .from-pink-500 {
+  background-color: var(--accent) !important;
+}
+
+.bg-pink-500\/20, .bg-pink-500\/10, .bg-pink-500\/5 {
+  background-color: var(--accent-glow) !important;
+}
+
+.border-pink-500, .border-pink-500\/50 {
+  border-color: var(--accent) !important;
+}
+
+.hover\:bg-pink-500:hover, .hover\:border-pink-500:hover {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+.shadow-\[0_0_20px_rgba\(236\2c 72\2c 153\2c 0\.4\)\],
+.shadow-\[0_0_15px_rgba\(236\2c 72\2c 153\2c 0\.3\)\] {
+  box-shadow: 0 0 20px var(--accent-glow) !important;
 }
 
 /* Custom Scrollbar */
