@@ -35,6 +35,7 @@ function cn(...inputs: ClassValue[]) {
 interface Prompt {
   id: string;
   title: string;
+  section: string;
   category: string;
   subcategory: string | null;
   tags: string[];
@@ -58,18 +59,6 @@ const THEMES: { id: Theme; name: string; icon: string }[] = [
   { id: 'light', name: 'Light', icon: '☀️' },
 ];
 
-const FIXED_CATEGORIES = [
-  "AI_Tools",
-  "Business",
-  "Finance",
-  "Images",
-  "IT",
-  "MCP_Servers",
-  "Social_Media",
-  "Video",
-  "Writing"
-];
-
 export default function App() {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
@@ -80,7 +69,7 @@ export default function App() {
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'all' | 'collections'>('all');
+  const [activeTab, setActiveTab] = useState<'my-prompts' | 'collections'>('my-prompts');
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -107,22 +96,28 @@ export default function App() {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
+  const activeSection = activeTab === 'my-prompts' ? 'My_Prompts' : 'Collections';
+
+  const sectionPrompts = useMemo(() => {
+    return prompts.filter(p => p.section === activeSection);
+  }, [prompts, activeSection]);
+
   const categories = useMemo(() => {
     const map: Record<string, Set<string>> = {};
-    prompts.forEach(p => {
+    sectionPrompts.forEach(p => {
       if (!map[p.category]) map[p.category] = new Set();
       if (p.subcategory) map[p.category].add(p.subcategory);
     });
     return map;
-  }, [prompts]);
+  }, [sectionPrompts]);
 
   const filteredPrompts = useMemo(() => {
-    return prompts.filter(p =>
+    return sectionPrompts.filter(p =>
       p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))
     );
-  }, [prompts, searchQuery]);
+  }, [sectionPrompts, searchQuery]);
 
   const subcategoryPrompts = useMemo(() => {
     if (!selectedSubcategory) return [];
@@ -155,7 +150,6 @@ export default function App() {
     setShowAllPrompts(true);
     setSelectedPrompt(null);
     setSelectedSubcategory(null);
-    setActiveTab('all');
   };
 
   const handleBack = () => {
@@ -296,21 +290,21 @@ export default function App() {
           <div className="px-6 pb-4">
             <div className="flex gap-1.5 p-1 rounded-[var(--radius-sm)] bg-[var(--glass-bg)]">
               <button
-                onClick={handleShowAllPrompts}
+                onClick={() => { setActiveTab('my-prompts'); setShowAllPrompts(true); setSelectedPrompt(null); setSelectedSubcategory(null); }}
                 className={cn(
                   "flex-1 py-2 px-3 rounded-[10px] text-[0.65rem] font-semibold tracking-wider uppercase transition-all duration-300",
-                  showAllPrompts
+                  activeTab === 'my-prompts'
                     ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
                     : "text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
                 )}
               >
-                All
+                My Prompts
               </button>
               <button
-                onClick={() => { setActiveTab('collections'); setShowAllPrompts(false); setSelectedPrompt(null); }}
+                onClick={() => { setActiveTab('collections'); setShowAllPrompts(true); setSelectedPrompt(null); setSelectedSubcategory(null); }}
                 className={cn(
                   "flex-1 py-2 px-3 rounded-[10px] text-[0.65rem] font-semibold tracking-wider uppercase transition-all duration-300",
-                  activeTab === 'collections' && !showAllPrompts
+                  activeTab === 'collections'
                     ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
                     : "text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
                 )}
@@ -322,7 +316,7 @@ export default function App() {
 
           {/* Category list */}
           <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-1">
-            {FIXED_CATEGORIES.map(cat => (
+            {Object.keys(categories).sort().map(cat => (
               <div key={cat}>
                 <button
                   onClick={() => toggleCategory(cat)}
@@ -484,7 +478,7 @@ export default function App() {
             {/* Stat badges */}
             <div className="hidden md:flex items-center gap-3 pt-12">
               <div className="glass rounded-[var(--radius-md)] px-5 py-3 text-center min-w-[90px]">
-                <div className="heading-display text-2xl font-bold text-[var(--accent)]">{prompts.length}</div>
+                <div className="heading-display text-2xl font-bold text-[var(--accent)]">{sectionPrompts.length}</div>
                 <div className="label mt-1">Prompts</div>
               </div>
               <div className="glass rounded-[var(--radius-md)] px-5 py-3 text-center min-w-[90px]">
@@ -514,7 +508,7 @@ export default function App() {
                 <div className="flex items-center justify-between mb-8">
                   <div>
                     <h2 className="heading-display text-2xl font-bold tracking-tight text-[var(--text-primary)]">
-                      All Prompts
+                      {activeTab === 'my-prompts' ? 'My Prompts' : 'Collections'}
                     </h2>
                     <p className="label mt-2">{filteredPrompts.length} prompts</p>
                   </div>

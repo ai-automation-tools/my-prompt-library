@@ -39,15 +39,18 @@ async function startServer() {
         const fileContent = fs.readFileSync(filePath, "utf8");
         const { data, content } = matter(fileContent);
         const relativePath = path.relative(promptsDir, filePath);
-        
-        // Infer category/subcategory from path if not in frontmatter
+
+        // Path structure: Section/Category/Subcategory/file.md
+        // e.g. My_Prompts/IT/DevOps/prompt.md or Collections/Curated/prompt.md
         const pathParts = relativePath.split(path.sep);
-        const inferredCategory = pathParts.length > 1 ? pathParts[0] : "General";
-        const inferredSubcategory = pathParts.length > 2 ? pathParts[1] : null;
+        const inferredSection = pathParts.length > 1 ? pathParts[0] : "My_Prompts";
+        const inferredCategory = pathParts.length > 2 ? pathParts[1] : (pathParts.length > 1 ? pathParts[0] : "General");
+        const inferredSubcategory = pathParts.length > 3 ? pathParts[2] : null;
 
         return {
           id: relativePath,
           title: data.title || path.basename(filePath, ".md"),
+          section: inferredSection,
           category: data.category || inferredCategory,
           subcategory: data.subcategory || inferredSubcategory,
           tags: data.tags || [],
