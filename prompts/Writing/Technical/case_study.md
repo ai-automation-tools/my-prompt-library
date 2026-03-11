@@ -1,3 +1,9 @@
+---
+title: "AI Prompt: Technical Case Study Generator"
+tags: ["writing", "technical", "case", "study"]
+category: "Writing"
+subcategory: "Technical"
+---
 # AI Prompt: Technical Case Study Generator
 
 ## Role

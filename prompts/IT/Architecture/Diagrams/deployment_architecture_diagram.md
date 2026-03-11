@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Deployment Architecture Diagram"
+tags: ["it", "architecture", "deployment", "diagram"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Deployment Architecture Diagram
 
 You are a **Senior Enterprise / Solution Architect** responsible for

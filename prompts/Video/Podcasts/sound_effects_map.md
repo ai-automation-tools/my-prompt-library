@@ -1,3 +1,9 @@
+---
+title: "Sound Effects Map Generator"
+tags: ["video", "podcasts", "sound", "effects"]
+category: "Video"
+subcategory: "Podcasts"
+---
 # Sound Effects Map Generator
 
 <!-- Analyzes a podcast script and generates a detailed sound effects plan with timestamps and descriptions. -->

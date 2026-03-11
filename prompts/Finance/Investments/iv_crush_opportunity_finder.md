@@ -1,3 +1,9 @@
+---
+title: "IV Crush Opportunity Finder"
+tags: ["finance", "investments", "crush", "opportunity", "finder"]
+category: "Finance"
+subcategory: "Investments"
+---
 # IV Crush Opportunity Finder
 
 ## Objective

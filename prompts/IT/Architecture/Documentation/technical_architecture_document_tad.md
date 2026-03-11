@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Technical Architecture Document (TAD)"
+tags: ["it", "architecture", "technical", "document"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Technical Architecture Document (TAD)
 
 You are a **Senior Enterprise / Solution Architect** responsible for

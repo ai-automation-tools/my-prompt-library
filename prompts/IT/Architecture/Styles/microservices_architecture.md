@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Microservices Architecture"
+tags: ["it", "architecture", "microservices"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Microservices Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

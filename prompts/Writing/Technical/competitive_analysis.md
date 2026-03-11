@@ -1,3 +1,9 @@
+---
+title: "AI Prompt: Competitive Technology Analysis"
+tags: ["writing", "technical", "competitive", "analysis"]
+category: "Writing"
+subcategory: "Technical"
+---
 # AI Prompt: Competitive Technology Analysis
 
 ## Role

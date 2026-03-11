@@ -1,3 +1,9 @@
+---
+title: "Enterprise Technical Documentation Prompt Library"
+tags: ["it", "operations", "documentation"]
+category: "IT"
+subcategory: "Operations"
+---
 # Enterprise Technical Documentation Prompt Library
 
 *Download this file and use the prompts to generate implementation-ready technical documentation.*

@@ -1,3 +1,9 @@
+---
+title: "Phase 7: Unique Physical Formatting"
+tags: ["writing", "cookbooks", "physical", "layout", "ideas"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # Phase 7: Unique Physical Formatting
 **Goal:** Design the physical object for maximum impact.
 

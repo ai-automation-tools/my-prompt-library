@@ -1,3 +1,9 @@
+---
+title: "Bash Script Generator"
+tags: ["it", "development", "bash", "script", "generator"]
+category: "IT"
+subcategory: "Development"
+---
 # Bash Script Generator
 
 Generate robust, production-ready Bash scripts with error handling, logging, and best practices.

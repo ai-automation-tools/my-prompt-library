@@ -1,3 +1,9 @@
+---
+title: "Phase 6: Publishing & Automation Scripts"
+tags: ["writing", "cookbooks", "publishing", "scripts"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # Phase 6: Publishing & Automation Scripts
 **Goal:** Use Python/Pandoc to convert your library into formats.
 

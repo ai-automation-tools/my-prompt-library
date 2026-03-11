@@ -1,3 +1,9 @@
+---
+title: "Knowledge Base Setup"
+tags: ["writing", "create-documentation", "knowledge", "base", "setup"]
+category: "Writing"
+subcategory: "Create_Documentation"
+---
 # Knowledge Base Setup
 
 Create and organize an Obsidian-based knowledge management system for technical projects, agent documentation, and workflows.

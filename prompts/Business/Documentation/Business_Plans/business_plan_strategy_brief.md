@@ -1,3 +1,9 @@
+---
+title: "Business Plan Strategy Brief"
+tags: ["business", "documentation", "plan", "strategy"]
+category: "Business"
+subcategory: "Documentation"
+---
 # Business Plan Strategy Brief
 
 ## Objective

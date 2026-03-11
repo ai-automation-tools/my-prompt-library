@@ -1,3 +1,9 @@
+---
+title: "Electron Markdown Editor"
+tags: ["it", "build-apps", "electron", "markdown", "editor"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Electron Markdown Editor
 
 Build a fast, native-feeling Markdown editor using Electron, featuring a live preview, file system integration, and customizable themes.

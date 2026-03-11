@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Cloud Deployment Architecture"
+tags: ["it", "architecture", "cloud", "deployment"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Cloud Deployment Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

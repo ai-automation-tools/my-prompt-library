@@ -1,3 +1,9 @@
+---
+title: "Event Risk Trading Playbook"
+tags: ["finance", "investments", "event", "risk", "trading"]
+category: "Finance"
+subcategory: "Investments"
+---
 # Event Risk Trading Playbook
 
 ## Objective

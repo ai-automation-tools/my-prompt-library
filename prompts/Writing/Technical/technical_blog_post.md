@@ -1,3 +1,9 @@
+---
+title: "Technical Blog Post Architect"
+tags: ["writing", "technical", "blog", "post"]
+category: "Writing"
+subcategory: "Technical"
+---
 # Technical Blog Post Architect
 
 ## Context

@@ -1,3 +1,9 @@
+---
+title: "Short-Form Clip Visuals Planner"
+tags: ["video", "podcasts", "short", "form", "clip"]
+category: "Video"
+subcategory: "Podcasts"
+---
 # Short-Form Clip Visuals Planner
 
 <!-- Analyzes a long-form podcast script to identify viral moments and plan visual overlays for Shorts/Reels. -->

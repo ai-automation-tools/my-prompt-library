@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a C4 Container Diagram"
+tags: ["it", "architecture", "container", "diagram"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a C4 Container Diagram
 
 You are a **Senior Enterprise / Solution Architect** responsible for

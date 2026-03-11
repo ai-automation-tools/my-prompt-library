@@ -1,3 +1,9 @@
+---
+title: "2. Cyber Security Prompt Library"
+tags: ["it", "security", "cyber", "prompt"]
+category: "IT"
+subcategory: "Security"
+---
 # 2. Cyber Security Prompt Library
 
 This document contains categorized prompts for building Cyber Security documentation, standards, policies, and controls.

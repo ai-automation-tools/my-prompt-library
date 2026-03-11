@@ -1,3 +1,9 @@
+---
+title: "Vue E-Commerce Storefront"
+tags: ["it", "build-apps", "ecommerce", "storefront"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Vue E-Commerce Storefront
 
 Build a modern, high-performance E-Commerce Storefront using Vue.js designed for speed, SEO, and seamless user experience.

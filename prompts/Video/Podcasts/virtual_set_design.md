@@ -1,3 +1,9 @@
+---
+title: "Virtual Set Design Prompts"
+tags: ["video", "podcasts", "virtual", "design"]
+category: "Video"
+subcategory: "Podcasts"
+---
 # Virtual Set Design Prompts
 
 <!-- Analyzes podcast themes and generates Midjourney prompts for virtual studio backgrounds. -->

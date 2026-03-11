@@ -1,3 +1,9 @@
+---
+title: "Windows Inventory Management Client"
+tags: ["it", "build-apps", "windows", "inventory", "management"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Windows Inventory Management Client
 
 Build a fully-featured, offline-capable Windows Desktop application for managing warehouse inventory, tracking stock levels, and generating reports.

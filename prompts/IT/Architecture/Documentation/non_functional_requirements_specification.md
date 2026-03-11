@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Non Functional Requirements Specification"
+tags: ["it", "architecture", "functional", "requirements", "specification"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Non Functional Requirements Specification
 
 You are a **Senior Enterprise / Solution Architect** responsible for

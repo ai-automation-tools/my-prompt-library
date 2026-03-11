@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a High Level Design (HLD)"
+tags: ["it", "architecture", "high", "level", "design"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a High Level Design (HLD)
 
 You are a **Senior Enterprise / Solution Architect** responsible for

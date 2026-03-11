@@ -1,3 +1,9 @@
+---
+title: "Obsidian Skill Prompt List"
+tags: ["mcp-servers", "notes", "obsidian"]
+category: "MCP_Servers"
+subcategory: "Notes"
+---
 # Obsidian Skill Prompt List
 
 ## Vault & Notes

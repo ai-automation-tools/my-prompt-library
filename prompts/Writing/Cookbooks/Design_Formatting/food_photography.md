@@ -1,3 +1,9 @@
+---
+title: "Phase 3: Visual Identity & Image Generation"
+tags: ["writing", "cookbooks", "food", "photography"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # Phase 3: Visual Identity & Image Generation
 **Goal:** Create stunning visuals for the dishes.
 

@@ -1,3 +1,9 @@
+---
+title: "14. Asset & Configuration Management Prompt Library"
+tags: ["it", "security", "asset", "configuration", "management"]
+category: "IT"
+subcategory: "Security"
+---
 # 14. Asset & Configuration Management Prompt Library
 
 This document contains categorized prompts for building Asset and Configuration Management documentation, standards, and processes.

@@ -1,3 +1,9 @@
+---
+title: "AI Voice Generation Cues"
+tags: ["video", "podcasts", "voice", "generation", "cues"]
+category: "Video"
+subcategory: "Podcasts"
+---
 # AI Voice Generation Cues
 
 <!-- Analyzes a script and adds pacing, emotion, and emphasis tags for AI text-to-speech tools. -->

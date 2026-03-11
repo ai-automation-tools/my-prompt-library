@@ -1,3 +1,9 @@
+---
+title: "1. IAM Prompt Library"
+tags: ["it", "iam", "prompt", "library"]
+category: "IT"
+subcategory: "IAM"
+---
 # 1. IAM Prompt Library
 
 This document contains categorized prompts for building IAM documentation, standards, architecture, policies, and controls.

@@ -1,3 +1,9 @@
+---
+title: "[Product/Service Name] - Sales Pitch Deck"
+tags: ["business", "documentation", "product", "sales", "pitch"]
+category: "Business"
+subcategory: "Documentation"
+---
 # [Product/Service Name] - Sales Pitch Deck
 
 <!-- Pitch to customers, not investors -->

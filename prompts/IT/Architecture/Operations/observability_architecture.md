@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Observability Architecture"
+tags: ["it", "architecture", "observability"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Observability Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

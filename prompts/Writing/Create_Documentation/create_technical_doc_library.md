@@ -1,3 +1,9 @@
+---
+title: "IT Technical Documentation Library Generator Prompt"
+tags: ["writing", "create-documentation", "create", "technical", "library"]
+category: "Writing"
+subcategory: "Create_Documentation"
+---
 # IT Technical Documentation Library Generator Prompt
 
 ## ROLE

@@ -1,3 +1,9 @@
+---
+title: "Investor-Ready Pitch Narrative"
+tags: ["business", "documentation", "investor", "ready", "pitch"]
+category: "Business"
+subcategory: "Documentation"
+---
 # Investor-Ready Pitch Narrative
 
 ## Objective

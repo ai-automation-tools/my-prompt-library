@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Sequence Diagram"
+tags: ["it", "architecture", "sequence", "diagram"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Sequence Diagram
 
 You are a **Senior Enterprise / Solution Architect** responsible for

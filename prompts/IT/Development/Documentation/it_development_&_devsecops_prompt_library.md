@@ -1,3 +1,9 @@
+---
+title: "5. IT Development / DevSecOps Prompt Library"
+tags: ["it", "development", "devsecops", "prompt"]
+category: "IT"
+subcategory: "Development"
+---
 # 5. IT Development / DevSecOps Prompt Library
 
 This document contains categorized prompts for building IT Development and DevSecOps documentation, standards, and pipelines.

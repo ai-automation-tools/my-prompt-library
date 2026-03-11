@@ -1,3 +1,9 @@
+---
+title: "12 — Foreword & Bonus Sections"
+tags: ["writing", "cookbooks", "foreword", "intro"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 12 — Foreword & Bonus Sections
 
 Write a **compelling foreword or introduction** for:

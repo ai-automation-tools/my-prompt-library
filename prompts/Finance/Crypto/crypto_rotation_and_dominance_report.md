@@ -1,3 +1,9 @@
+---
+title: "Crypto Rotation & Dominance Report"
+tags: ["finance", "crypto", "rotation", "dominance"]
+category: "Finance"
+subcategory: "Crypto"
+---
 # Crypto Rotation & Dominance Report
 
 ## Objective

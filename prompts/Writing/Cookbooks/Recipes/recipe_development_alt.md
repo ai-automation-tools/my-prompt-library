@@ -1,3 +1,9 @@
+---
+title: "03 — Recipe Development Prompt"
+tags: ["writing", "cookbooks", "recipe", "development"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 03 — Recipe Development Prompt
 
 You are a **James Beard Award–winning chef and recipe developer**.

@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a C4 Code Diagram"
+tags: ["it", "architecture", "code", "diagram"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a C4 Code Diagram
 
 You are a **Senior Enterprise / Solution Architect** responsible for

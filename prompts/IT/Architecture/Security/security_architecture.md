@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Security Architecture"
+tags: ["it", "architecture", "security"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Security Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

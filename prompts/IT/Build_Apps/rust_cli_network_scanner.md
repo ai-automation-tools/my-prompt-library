@@ -1,3 +1,9 @@
+---
+title: "Rust CLI Network Scanner"
+tags: ["it", "build-apps", "rust", "network", "scanner"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Rust CLI Network Scanner
 
 Build a fast, concurrent, and cross-platform Command-Line Interface (CLI) network scanner tool using Rust to discover active devices and open ports on a local network.

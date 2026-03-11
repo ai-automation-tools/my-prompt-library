@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a C4 Context Diagram"
+tags: ["it", "architecture", "context", "diagram"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a C4 Context Diagram
 
 You are a **Senior Enterprise / Solution Architect** responsible for

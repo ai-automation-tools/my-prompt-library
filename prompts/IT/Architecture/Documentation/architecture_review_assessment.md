@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Architecture Review Assessment"
+tags: ["it", "architecture", "review", "assessment"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Architecture Review Assessment
 
 You are a **Senior Enterprise / Solution Architect** responsible for

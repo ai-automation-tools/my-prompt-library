@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Architecture Definition Document (ADD)"
+tags: ["it", "architecture", "definition", "document"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Architecture Definition Document (ADD)
 
 You are a **Senior Enterprise / Solution Architect** responsible for

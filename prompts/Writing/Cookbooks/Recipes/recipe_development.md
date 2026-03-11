@@ -1,3 +1,9 @@
+---
+title: "Phase 2: Recipe Development"
+tags: ["writing", "cookbooks", "recipe", "development"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # Phase 2: Recipe Development
 **Goal:** Generate high-quality, repeatable recipes with a personal voice.
 

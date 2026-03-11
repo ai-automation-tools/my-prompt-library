@@ -1,3 +1,9 @@
+---
+title: "Operations and Scaling Playbook"
+tags: ["business", "documentation", "operations", "scaling", "playbook"]
+category: "Business"
+subcategory: "Documentation"
+---
 # Operations and Scaling Playbook
 
 ## Objective

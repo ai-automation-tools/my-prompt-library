@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a IAM Architecture"
+tags: ["it", "architecture"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a IAM Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

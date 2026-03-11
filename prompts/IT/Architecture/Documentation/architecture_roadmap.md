@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Architecture Roadmap"
+tags: ["it", "architecture", "roadmap"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Architecture Roadmap
 
 You are a **Senior Enterprise / Solution Architect** responsible for

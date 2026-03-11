@@ -1,3 +1,9 @@
+---
+title: "AI Prompt: Software User Guide Generator"
+tags: ["writing", "technical", "user", "guide"]
+category: "Writing"
+subcategory: "Technical"
+---
 # AI Prompt: Software User Guide Generator
 
 ## Role

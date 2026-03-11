@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Data Governance Architecture"
+tags: ["it", "architecture", "data", "governance"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Data Governance Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

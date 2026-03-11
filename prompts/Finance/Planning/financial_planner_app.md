@@ -1,3 +1,9 @@
+---
+title: "Financial Planning Report Builder"
+tags: ["finance", "planning", "financial", "planner"]
+category: "Finance"
+subcategory: "Planning"
+---
 # Financial Planning Report Builder
 
 ## Objective

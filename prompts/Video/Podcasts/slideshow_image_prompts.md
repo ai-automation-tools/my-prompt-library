@@ -1,3 +1,9 @@
+---
+title: "Slideshow Image Prompts Generator"
+tags: ["video", "podcasts", "slideshow", "image", "prompts"]
+category: "Video"
+subcategory: "Podcasts"
+---
 # Slideshow Image Prompts Generator
 
 <!-- Converts a podcast script into a series of visual prompts (e.g., for Midjourney) to create a slideshow for video podcasts. -->

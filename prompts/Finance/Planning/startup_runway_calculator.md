@@ -1,3 +1,9 @@
+---
+title: "Startup Runway Calculator"
+tags: ["finance", "planning", "startup", "runway", "calculator"]
+category: "Finance"
+subcategory: "Planning"
+---
 # Startup Runway Calculator
 
 <!-- Calculates and models startup cash runway under different growth and burn scenarios. -->

@@ -1,3 +1,9 @@
+---
+title: "7. Cloud Architecture & Security Prompt Library"
+tags: ["it", "architecture", "cloud", "security"]
+category: "IT"
+subcategory: "Architecture"
+---
 # 7. Cloud Architecture & Security Prompt Library
 
 This document contains categorized prompts for building Cloud Architecture and Security documentation, standards, and controls.

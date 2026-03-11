@@ -1,3 +1,9 @@
+---
+title: "React Task Management Web App"
+tags: ["it", "build-apps", "react", "task", "management"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # React Task Management Web App
 
 Build a comprehensive Task Management Web Application from scratch. The application should allow users to create, organize, and track tasks across different projects with collaborative features.

@@ -1,3 +1,9 @@
+---
+title: "Go Microservice Payment Gateway"
+tags: ["it", "build-apps", "microservice", "payment", "gateway"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Go Microservice Payment Gateway
 
 Build a scalable, high-performance Payment Gateway microservice using Go (Golang) designed to process transactions across multiple third-party providers (e.g., Stripe, PayPal).

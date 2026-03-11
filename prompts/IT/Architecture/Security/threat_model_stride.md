@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Threat Model (STRIDE)"
+tags: ["it", "architecture", "threat", "model", "stride"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Threat Model (STRIDE)
 
 You are a **Senior Enterprise / Solution Architect** responsible for

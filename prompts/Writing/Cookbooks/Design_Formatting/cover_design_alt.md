@@ -1,3 +1,9 @@
+---
+title: "Phase 4: Cookbook Cover Design"
+tags: ["writing", "cookbooks", "cover", "design"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # Phase 4: Cookbook Cover Design
 **Goal:** Create a cover that stops the scroll.
 

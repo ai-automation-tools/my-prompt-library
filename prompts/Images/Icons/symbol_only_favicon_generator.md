@@ -1,3 +1,9 @@
+---
+title: "Symbol-Only Favicon Generator"
+tags: ["images", "icons", "symbol", "only", "favicon"]
+category: "Images"
+subcategory: "Icons"
+---
 # Symbol-Only Favicon Generator
 
 Create **2 symbol-only favicon concepts** for [BRAND NAME] using a simple icon mark (no text).

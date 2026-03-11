@@ -1,3 +1,9 @@
+---
+title: "11 — Nutritional Analysis & Index"
+tags: ["writing", "cookbooks", "nutritional", "analysis"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 11 — Nutritional Analysis & Index
 
 You are a **registered dietitian + cookbook indexer**.

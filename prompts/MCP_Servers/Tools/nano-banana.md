@@ -1,3 +1,9 @@
+---
+title: "nano-banana Prompts"
+tags: ["mcp-servers", "tools", "nano", "banana"]
+category: "MCP_Servers"
+subcategory: "Tools"
+---
 # nano-banana Prompts
 
 - Use nano-banana to generate a meme about someone "just checking one notification" and suddenly it's 2 hours later and they've watched 47 random videos.

@@ -1,3 +1,9 @@
+---
+title: "Background Music Score Planner"
+tags: ["video", "podcasts", "background", "music", "score"]
+category: "Video"
+subcategory: "Podcasts"
+---
 # Background Music Score Planner
 
 <!-- Analyzes a podcast script and suggests a cohesive background music strategy including genres, moods, and transition points. -->

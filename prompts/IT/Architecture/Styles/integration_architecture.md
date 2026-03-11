@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Integration Architecture"
+tags: ["it", "architecture", "integration"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Integration Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

@@ -1,3 +1,9 @@
+---
+title: "Discord Automation System"
+tags: ["it", "build-apps", "discord", "automation", "system"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Discord Automation System
 
 Build an automated content distribution system for Discord channels with external source scraping and AI-powered content generation.

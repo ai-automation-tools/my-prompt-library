@@ -1,3 +1,9 @@
+---
+title: "10 — Print-on-Demand Setup"
+tags: ["writing", "cookbooks", "print", "demand"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 10 — Print-on-Demand Setup
 
 Create a **step‑by‑step launch checklist** to publish:

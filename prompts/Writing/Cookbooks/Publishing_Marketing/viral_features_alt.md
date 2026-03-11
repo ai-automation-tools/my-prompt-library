@@ -1,3 +1,9 @@
+---
+title: "Phase 5: Unique Viral Features"
+tags: ["writing", "cookbooks", "viral", "features"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # Phase 5: Unique Viral Features
 **Goal:** Make the book stand out in a crowded market.
 

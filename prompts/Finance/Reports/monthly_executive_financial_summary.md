@@ -1,3 +1,9 @@
+---
+title: "Monthly Executive Financial Summary"
+tags: ["finance", "reports", "monthly", "executive", "financial"]
+category: "Finance"
+subcategory: "Reports"
+---
 # Monthly Executive Financial Summary
 
 <!-- Generates a concise, high-level financial summary for C-suite executives or board members. -->

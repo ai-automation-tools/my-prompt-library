@@ -1,3 +1,9 @@
+---
+title: "3. IT Architecture Prompt Library"
+tags: ["it", "architecture", "prompt", "library"]
+category: "IT"
+subcategory: "Architecture"
+---
 # 3. IT Architecture Prompt Library
 
 This document contains categorized prompts for building IT Architecture documentation, standards, and decision records.

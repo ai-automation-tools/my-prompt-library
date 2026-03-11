@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a SaaS Architecture"
+tags: ["it", "architecture", "saas"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a SaaS Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

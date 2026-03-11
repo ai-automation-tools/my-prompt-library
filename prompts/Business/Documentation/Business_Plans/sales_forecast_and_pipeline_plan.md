@@ -1,3 +1,9 @@
+---
+title: "Sales Forecast and Pipeline Plan"
+tags: ["business", "documentation", "sales", "forecast", "pipeline"]
+category: "Business"
+subcategory: "Documentation"
+---
 # Sales Forecast and Pipeline Plan
 
 ## Objective

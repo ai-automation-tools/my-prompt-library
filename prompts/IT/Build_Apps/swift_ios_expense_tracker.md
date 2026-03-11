@@ -1,3 +1,9 @@
+---
+title: "Swift iOS Expense Tracker"
+tags: ["it", "build-apps", "swift", "expense", "tracker"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Swift iOS Expense Tracker
 
 Build a native iOS mobile application using Swift and SwiftUI designed to securely log, categorize, and visualize personal financial expenses on the go.

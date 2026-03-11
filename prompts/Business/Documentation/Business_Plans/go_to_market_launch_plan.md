@@ -1,3 +1,9 @@
+---
+title: "Go-To-Market Launch Plan"
+tags: ["business", "documentation", "market", "launch", "plan"]
+category: "Business"
+subcategory: "Documentation"
+---
 # Go-To-Market Launch Plan
 
 ## Objective

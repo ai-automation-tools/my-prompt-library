@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Architecture Decision Record (ADR)"
+tags: ["it", "architecture", "decision", "record"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Architecture Decision Record (ADR)
 
 You are a **Senior Enterprise / Solution Architect** responsible for

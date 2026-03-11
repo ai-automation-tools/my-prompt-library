@@ -1,3 +1,9 @@
+---
+title: "6. IT Operations Prompt Library"
+tags: ["it", "operations", "prompt", "library"]
+category: "IT"
+subcategory: "Operations"
+---
 # 6. IT Operations Prompt Library
 
 This document contains categorized prompts for building IT Operations documentation, standards, and runbooks.

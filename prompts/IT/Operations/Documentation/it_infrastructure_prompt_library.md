@@ -1,3 +1,9 @@
+---
+title: "4. IT Infrastructure Prompt Library"
+tags: ["it", "operations", "infrastructure", "prompt", "library"]
+category: "IT"
+subcategory: "Operations"
+---
 # 4. IT Infrastructure Prompt Library
 
 This document contains categorized prompts for building IT Infrastructure documentation, standards, and operating procedures.

@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Proof of Concept (PoC) Report"
+tags: ["it", "architecture", "proof", "concept", "report"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Proof of Concept (PoC) Report
 
 You are a **Senior Enterprise / Solution Architect** responsible for

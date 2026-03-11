@@ -1,3 +1,9 @@
+---
+title: "15 — Cookbook Series Expansion"
+tags: ["writing", "cookbooks", "series", "expansion"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 15 — Cookbook Series Expansion
 
 You are a **cookbook empire strategist**.

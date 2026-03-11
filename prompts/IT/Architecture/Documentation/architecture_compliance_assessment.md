@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Architecture Compliance Assessment"
+tags: ["it", "architecture", "compliance", "assessment"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Architecture Compliance Assessment
 
 You are a **Senior Enterprise / Solution Architect** responsible for

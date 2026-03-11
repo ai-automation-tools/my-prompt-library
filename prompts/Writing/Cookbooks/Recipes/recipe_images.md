@@ -1,3 +1,9 @@
+---
+title: "04 — Recipe Image Prompts"
+tags: ["writing", "cookbooks", "recipe", "images"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 04 — Recipe Image Prompts
 
 You are a **professional food photographer and AI prompt engineer**.

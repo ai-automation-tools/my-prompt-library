@@ -1,3 +1,9 @@
+---
+title: "Modern Website Favicon Set Generator"
+tags: ["images", "icons", "modern", "website", "favicon"]
+category: "Images"
+subcategory: "Icons"
+---
 # Modern Website Favicon Set Generator
 
 Create **2 distinct favicon concepts** for [BRAND NAME] based on this brand direction: [BRAND STYLE / COLORS / KEYWORD VIBE].

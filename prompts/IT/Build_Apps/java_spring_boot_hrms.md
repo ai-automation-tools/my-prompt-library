@@ -1,3 +1,9 @@
+---
+title: "Java Spring Boot HRMS API"
+tags: ["it", "build-apps", "java", "spring", "boot"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Java Spring Boot HRMS API
 
 Build an Enterprise-grade Human Resources Management System (HRMS) backend API using Java Spring Boot.

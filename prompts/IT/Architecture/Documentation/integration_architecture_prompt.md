@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate an Integration Architecture"
+tags: ["it", "architecture", "integration", "prompt"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate an Integration Architecture
 
 You are an integration architect designing system connectivity.

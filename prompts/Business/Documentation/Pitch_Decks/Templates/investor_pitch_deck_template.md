@@ -1,3 +1,9 @@
+---
+title: "[Company/Product Name] - Investor Pitch Deck"
+tags: ["business", "documentation", "investor", "pitch", "deck"]
+category: "Business"
+subcategory: "Documentation"
+---
 # [Company/Product Name] - Investor Pitch Deck
 
 <!-- One-line elevator pitch -->

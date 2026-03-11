@@ -1,3 +1,9 @@
+---
+title: "Technical Documentation Generator"
+tags: ["writing", "technical", "documentation"]
+category: "Writing"
+subcategory: "Technical"
+---
 # Technical Documentation Generator
 
 ## Context

@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Cloud Cost Estimate"
+tags: ["it", "architecture", "cloud", "cost", "estimate"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Cloud Cost Estimate
 
 You are a **Senior Enterprise / Solution Architect** responsible for

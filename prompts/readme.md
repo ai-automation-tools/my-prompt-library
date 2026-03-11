@@ -1,3 +1,9 @@
+---
+title: "My Prompts"
+tags: ["readme.md", "readme"]
+category: "readme.md"
+subcategory: ""
+---
 # My Prompts
 
 **Personal prompt workspace** - Your custom prompts and templates organized by category.

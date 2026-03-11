@@ -1,3 +1,9 @@
+---
+title: "Multi-Voice Podcast Generator"
+tags: ["it", "build-apps", "multi", "voice", "podcast"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Multi-Voice Podcast Generator
 
 Build a podcast generation system with multiple AI voices, natural dialogue, and automated audio production.

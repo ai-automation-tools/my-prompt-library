@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Data Platform Architecture"
+tags: ["it", "architecture", "data", "platform"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Data Platform Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

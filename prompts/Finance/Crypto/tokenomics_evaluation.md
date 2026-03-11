@@ -1,3 +1,9 @@
+---
+title: "Tokenomics Evaluation"
+tags: ["finance", "crypto", "tokenomics", "evaluation"]
+category: "Finance"
+subcategory: "Crypto"
+---
 # Tokenomics Evaluation
 
 <!-- Assesses the economic model, supply dynamics, and utility of a cryptocurrency project. -->

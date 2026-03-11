@@ -1,3 +1,9 @@
+---
+title: "Phase 1: Concept & Niche Selection"
+tags: ["writing", "cookbooks", "concept", "naming"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # Phase 1: Concept & Niche Selection
 **Goal:** Define a unique "North Star" for the cookbook.
 

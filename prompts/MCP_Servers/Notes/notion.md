@@ -1,3 +1,9 @@
+---
+title: "Notion MCP Prompt Library (30+ Prompts)"
+tags: ["mcp-servers", "notes", "notion"]
+category: "MCP_Servers"
+subcategory: "Notes"
+---
 # Notion MCP Prompt Library (30+ Prompts)
 
 A ready‑to‑use prompt library for working with Notion via MCP. Store these in a Notion “Prompt Library” database and tag by use case (Projects, Tasks, Knowledge, etc.).

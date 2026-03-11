@@ -1,3 +1,9 @@
+---
+title: "API Integration Template"
+tags: ["it", "development", "integration", "template"]
+category: "IT"
+subcategory: "Development"
+---
 # API Integration Template
 
 Template for integrating with external APIs including authentication, error handling, and rate limiting.

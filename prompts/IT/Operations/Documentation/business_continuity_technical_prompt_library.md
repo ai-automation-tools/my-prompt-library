@@ -1,3 +1,9 @@
+---
+title: "12. Business Continuity (Technical Aspects) Prompt Library"
+tags: ["it", "operations", "business", "continuity", "technical"]
+category: "IT"
+subcategory: "Operations"
+---
 # 12. Business Continuity (Technical Aspects) Prompt Library
 
 This document contains categorized prompts for building technical Business Continuity and Disaster Recovery documentation.

@@ -1,3 +1,9 @@
+---
+title: "AI Video Storyboard Generator"
+tags: ["video", "podcasts", "storyboard"]
+category: "Video"
+subcategory: "Podcasts"
+---
 # AI Video Storyboard Generator
 
 <!-- Converts a podcast script into video generation prompts for tools like Runway or Sora to create b-roll. -->

@@ -1,3 +1,9 @@
+---
+title: "MCP_Prompts Prompts"
+tags: ["mcp-servers", "tools", "index"]
+category: "MCP_Servers"
+subcategory: "Tools"
+---
 # MCP_Prompts Prompts
 
 Last Updated: 2026-02-11

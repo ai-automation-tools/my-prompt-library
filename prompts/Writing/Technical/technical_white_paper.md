@@ -1,3 +1,9 @@
+---
+title: "Technical White Paper Generator"
+tags: ["writing", "technical", "white", "paper"]
+category: "Writing"
+subcategory: "Technical"
+---
 # Technical White Paper Generator
 
 ## Context

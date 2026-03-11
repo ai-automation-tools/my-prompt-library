@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Event Driven Architecture"
+tags: ["it", "architecture", "event", "driven"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Event Driven Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

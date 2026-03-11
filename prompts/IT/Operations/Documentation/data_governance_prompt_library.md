@@ -1,3 +1,9 @@
+---
+title: "8. Data Governance Prompt Library"
+tags: ["it", "operations", "data", "governance", "prompt"]
+category: "IT"
+subcategory: "Operations"
+---
 # 8. Data Governance Prompt Library
 
 This document contains categorized prompts for building Data Governance documentation, standards, and policies.

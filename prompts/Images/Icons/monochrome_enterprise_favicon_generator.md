@@ -1,3 +1,9 @@
+---
+title: "Monochrome Enterprise Favicon Generator"
+tags: ["images", "icons", "monochrome", "enterprise", "favicon"]
+category: "Images"
+subcategory: "Icons"
+---
 # Monochrome Enterprise Favicon Generator
 
 Generate **2 enterprise-style favicon concepts** for [COMPANY NAME] using a monochrome visual system.

@@ -1,3 +1,9 @@
+---
+title: "Interest Rate Impact Report"
+tags: ["finance", "investments", "interest", "rate", "impact"]
+category: "Finance"
+subcategory: "Investments"
+---
 # Interest Rate Impact Report
 
 ## Objective

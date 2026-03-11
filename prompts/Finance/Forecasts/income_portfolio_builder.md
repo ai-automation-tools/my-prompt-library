@@ -1,3 +1,9 @@
+---
+title: "Income Portfolio Builder"
+tags: ["finance", "forecasts", "income", "portfolio", "builder"]
+category: "Finance"
+subcategory: "Forecasts"
+---
 # Income Portfolio Builder
 
 ## Objective

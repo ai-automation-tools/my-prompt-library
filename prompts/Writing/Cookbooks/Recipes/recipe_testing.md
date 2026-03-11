@@ -1,3 +1,9 @@
+---
+title: "13 — Recipe Testing Simulation"
+tags: ["writing", "cookbooks", "recipe", "testing"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 13 — Recipe Testing Simulation
 
 Act as a **professional recipe tester from America’s Test Kitchen**.

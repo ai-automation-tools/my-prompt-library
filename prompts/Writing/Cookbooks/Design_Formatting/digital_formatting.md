@@ -1,3 +1,9 @@
+---
+title: "07 — Digital Formatting Ideas"
+tags: ["writing", "cookbooks", "digital", "formatting"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 07 — Digital Formatting Ideas
 
 Generate **10 innovative digital‑first formatting ideas** for:

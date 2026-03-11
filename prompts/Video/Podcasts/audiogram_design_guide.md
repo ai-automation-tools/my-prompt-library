@@ -1,3 +1,9 @@
+---
+title: "Audiogram Design Guide"
+tags: ["video", "podcasts", "audiogram", "design", "guide"]
+category: "Video"
+subcategory: "Podcasts"
+---
 # Audiogram Design Guide
 
 <!-- Recommends visual styling, waveforms, and layout for promotional podcast audiograms. -->

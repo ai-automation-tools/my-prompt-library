@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Network Architecture"
+tags: ["it", "architecture", "network"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Network Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

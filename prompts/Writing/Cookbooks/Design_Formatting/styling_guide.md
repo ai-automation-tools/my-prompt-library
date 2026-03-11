@@ -1,3 +1,9 @@
+---
+title: "05 — Cookbook Styling Guide Prompt"
+tags: ["writing", "cookbooks", "styling", "guide"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 05 — Cookbook Styling Guide Prompt
 
 Act as a **book designer who has styled 50+ New York Times bestselling cookbooks**.

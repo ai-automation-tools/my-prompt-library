@@ -1,3 +1,9 @@
+---
+title: "Context7 Prompt Pack (Mike)"
+tags: ["mcp-servers", "tools", "context7"]
+category: "MCP_Servers"
+subcategory: "Tools"
+---
 # Context7 Prompt Pack (Mike)  
 **Targets:** SailPoint IdentityIQ (IIQ), Python, React, PowerShell, + misc scripting  
 **Use:** Copy a prompt, replace the `[PLACEHOLDERS]`, run it with Context7.

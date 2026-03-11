@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Resilience Architecture"
+tags: ["it", "architecture", "resilience"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Resilience Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

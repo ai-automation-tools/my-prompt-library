@@ -1,3 +1,9 @@
+---
+title: "AI Prompt: Enterprise Technical White Paper Generator"
+tags: ["writing", "technical", "whitepaper"]
+category: "Writing"
+subcategory: "Technical"
+---
 # AI Prompt: Enterprise Technical White Paper Generator
 
 ## Role

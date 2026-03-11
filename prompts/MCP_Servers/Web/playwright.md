@@ -1,3 +1,9 @@
+---
+title: "Playwright Skill Prompt List"
+tags: ["mcp-servers", "web", "playwright"]
+category: "MCP_Servers"
+subcategory: "Web"
+---
 # Playwright Skill Prompt List
 _Focus: scraping data, pulling images, and technical analysis of websites_
 

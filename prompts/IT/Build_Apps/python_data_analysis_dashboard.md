@@ -1,3 +1,9 @@
+---
+title: "Python Data Analysis Dashboard"
+tags: ["it", "build-apps", "python", "data", "analysis"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Python Data Analysis Dashboard
 
 Build a high-performance Python-based Data Analysis Dashboard designed to ingest, process, and visualize large datasets from various sources (CSV, SQL, API).

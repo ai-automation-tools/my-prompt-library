@@ -1,3 +1,9 @@
+---
+title: "Text-Initial Favicon Generator"
+tags: ["images", "icons", "text", "initial", "favicon"]
+category: "Images"
+subcategory: "Icons"
+---
 # Text-Initial Favicon Generator
 
 Create **2 favicon concepts** for [BRAND NAME] that use a **single letter or monogram** (e.g., first initial).

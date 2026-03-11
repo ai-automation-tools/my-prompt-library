@@ -1,3 +1,9 @@
+---
+title: "09 — Publishing Scripts Prompt"
+tags: ["writing", "cookbooks", "publishing", "scripts"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 09 — Publishing Scripts Prompt
 
 Write **ready‑to‑run scripts** that convert a folder of Markdown recipes into professional publishing formats.

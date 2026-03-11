@@ -1,3 +1,9 @@
+---
+title: "Stock Valuation Reality Check"
+tags: ["finance", "investments", "stock", "valuation", "reality"]
+category: "Finance"
+subcategory: "Investments"
+---
 # Stock Valuation Reality Check
 
 ## Objective

@@ -1,3 +1,9 @@
+---
+title: "AI Prompt: Technical Marketing Slide Deck Generator"
+tags: ["writing", "technical", "slide", "deck"]
+category: "Writing"
+subcategory: "Technical"
+---
 # AI Prompt: Technical Marketing Slide Deck Generator
 
 ## Role

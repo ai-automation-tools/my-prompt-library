@@ -1,3 +1,9 @@
+---
+title: "Technical Documentation Prompt Generator (Meta-Prompt)"
+tags: ["writing", "create-documentation", "technical", "documentation", "prompt"]
+category: "Writing"
+subcategory: "Create_Documentation"
+---
 # Technical Documentation Prompt Generator (Meta-Prompt)
 
 ## ROLE

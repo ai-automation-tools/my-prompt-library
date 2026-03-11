@@ -1,3 +1,9 @@
+---
+title: "AI Prompt: Solution Architecture Design"
+tags: ["writing", "technical", "solution", "architecture"]
+category: "Writing"
+subcategory: "Technical"
+---
 # AI Prompt: Solution Architecture Design
 
 ## Role

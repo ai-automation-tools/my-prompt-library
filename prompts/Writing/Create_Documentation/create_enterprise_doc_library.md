@@ -1,3 +1,9 @@
+---
+title: "Operational Business Documentation Library Generator Prompt"
+tags: ["writing", "create-documentation", "create", "enterprise", "library"]
+category: "Writing"
+subcategory: "Create_Documentation"
+---
 # Operational Business Documentation Library Generator Prompt
 
 ## ROLE

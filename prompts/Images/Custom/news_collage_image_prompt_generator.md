@@ -1,3 +1,9 @@
+---
+title: "News Collage Image Prompt Generator"
+tags: ["images", "custom", "news", "collage", "image"]
+category: "Images"
+subcategory: "Custom"
+---
 # News Collage Image Prompt Generator
 
 Generate detailed image generation prompts for cartoon-style illustrated news collages based on daily news stories.

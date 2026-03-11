@@ -1,3 +1,9 @@
+---
+title: "Risk, Compliance, and Contingency Plan"
+tags: ["business", "documentation", "risk", "compliance", "contingency"]
+category: "Business"
+subcategory: "Documentation"
+---
 # Risk, Compliance, and Contingency Plan
 
 ## Objective

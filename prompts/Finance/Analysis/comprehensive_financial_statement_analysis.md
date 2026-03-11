@@ -1,3 +1,9 @@
+---
+title: "Comprehensive Financial Statement Analysis"
+tags: ["finance", "analysis", "comprehensive", "financial", "statement"]
+category: "Finance"
+subcategory: "Analysis"
+---
 # Comprehensive Financial Statement Analysis
 
 <!-- Performs an in-depth analysis of a company's financial statements including income statement, balance sheet, and cash flow. -->

@@ -1,3 +1,9 @@
+---
+title: "9. Logging & Monitoring Prompt Library"
+tags: ["it", "operations", "logging", "monitoring", "prompt"]
+category: "IT"
+subcategory: "Operations"
+---
 # 9. Logging & Monitoring Prompt Library
 
 This document contains categorized prompts for building Logging and Monitoring documentation, standards, and strategies.

@@ -1,3 +1,9 @@
+---
+title: "[Company Name] - Quick Pitch"
+tags: ["business", "documentation", "quick", "pitch", "template"]
+category: "Business"
+subcategory: "Documentation"
+---
 # [Company Name] - Quick Pitch
 
 <!-- 30-second to 5-minute pitch -->

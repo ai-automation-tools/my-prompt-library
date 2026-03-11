@@ -1,3 +1,9 @@
+---
+title: "10. Incident Response Prompt Library"
+tags: ["it", "security", "incident", "response", "prompt"]
+category: "IT"
+subcategory: "Security"
+---
 # 10. Incident Response Prompt Library
 
 This document contains categorized prompts for building Incident Response documentation, playbooks, and standards.

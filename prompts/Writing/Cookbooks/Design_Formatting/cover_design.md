@@ -1,3 +1,9 @@
+---
+title: "06 — Cover Design Prompts"
+tags: ["writing", "cookbooks", "cover", "design"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 06 — Cover Design Prompts
 
 You are a **bestselling cookbook cover designer**.

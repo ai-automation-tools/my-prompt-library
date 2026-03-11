@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a AI / ML Architecture"
+tags: ["it", "architecture"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a AI / ML Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

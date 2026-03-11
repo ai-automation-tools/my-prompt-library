@@ -1,3 +1,9 @@
+---
+title: "01 — Cookbook Concepts Prompt"
+tags: ["writing", "cookbooks", "concepts"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 01 — Cookbook Concepts Prompt
 
 You are a bestselling cookbook author and viral food-content strategist. Brainstorm 8 original cookbook concepts for the following theme/audience:

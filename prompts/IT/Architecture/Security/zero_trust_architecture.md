@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Zero Trust Architecture"
+tags: ["it", "architecture", "zero", "trust"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Zero Trust Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Low Level Design (LLD)"
+tags: ["it", "architecture", "level", "design", "prompt"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Low Level Design (LLD)
 
 You are a technical architect creating a **Low Level Design document**.

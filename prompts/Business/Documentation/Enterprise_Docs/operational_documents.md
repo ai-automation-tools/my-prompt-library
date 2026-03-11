@@ -1,3 +1,9 @@
+---
+title: "Enterprise Operational Documentation Prompt Library"
+tags: ["business", "documentation", "operational", "documents"]
+category: "Business"
+subcategory: "Documentation"
+---
 # Enterprise Operational Documentation Prompt Library
 
 ## Standards and research foundations

@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a System Landscape Diagram"
+tags: ["it", "architecture", "system", "landscape", "diagram"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a System Landscape Diagram
 
 You are a **Senior Enterprise / Solution Architect** responsible for

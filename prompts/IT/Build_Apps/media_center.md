@@ -1,3 +1,9 @@
+---
+title: "Private Media Server – Site Builder Agent Prompt"
+tags: ["it", "build-apps", "media", "center"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Private Media Server – Site Builder Agent Prompt
 
 You are a full-stack site builder. Build me a **private, self-hosted media library web app** (UI + authentication + deployment) for streaming/playing media I already own. The result must be **sleek, modern, and clean**, optimized for **large cover art** per movie and TV show.

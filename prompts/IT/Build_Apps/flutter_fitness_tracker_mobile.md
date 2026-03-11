@@ -1,3 +1,9 @@
+---
+title: "Flutter Fitness Tracker Mobile App"
+tags: ["it", "build-apps", "flutter", "fitness", "tracker"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Flutter Fitness Tracker Mobile App
 
 Build a cross-platform mobile application for tracking fitness activities, workouts, and personal health metrics.

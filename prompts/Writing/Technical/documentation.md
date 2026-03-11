@@ -1,3 +1,9 @@
+---
+title: "AI Prompt: Product Technical Documentation Generator"
+tags: ["writing", "technical", "documentation"]
+category: "Writing"
+subcategory: "Technical"
+---
 # AI Prompt: Product Technical Documentation Generator
 
 ## Role

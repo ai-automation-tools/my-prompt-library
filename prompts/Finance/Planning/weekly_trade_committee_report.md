@@ -1,3 +1,9 @@
+---
+title: "Weekly Trade Committee Report"
+tags: ["finance", "planning", "weekly", "trade", "committee"]
+category: "Finance"
+subcategory: "Planning"
+---
 # Weekly Trade Committee Report
 
 ## Objective

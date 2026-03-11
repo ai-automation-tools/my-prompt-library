@@ -1,3 +1,9 @@
+---
+title: "Market Sentiment & Positioning Map"
+tags: ["finance", "analysis", "market", "sentiment", "positioning"]
+category: "Finance"
+subcategory: "Analysis"
+---
 # Market Sentiment & Positioning Map
 
 ## Objective

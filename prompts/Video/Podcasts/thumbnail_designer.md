@@ -1,3 +1,9 @@
+---
+title: "Thumbnail Designer Concepts"
+tags: ["video", "podcasts", "thumbnail", "designer"]
+category: "Video"
+subcategory: "Podcasts"
+---
 # Thumbnail Designer Concepts
 
 <!-- Analyzes a podcast episode summary to generate high-converting YouTube thumbnail concepts and text. -->

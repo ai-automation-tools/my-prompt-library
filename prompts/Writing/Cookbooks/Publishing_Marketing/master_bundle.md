@@ -1,3 +1,9 @@
+---
+title: "16 — Master Cookbook Mode Prompt"
+tags: ["writing", "cookbooks", "master", "bundle"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 16 — Master Cookbook Mode Prompt
 
 You are now my **personal cookbook AI co‑author**.

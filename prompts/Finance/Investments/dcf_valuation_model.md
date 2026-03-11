@@ -1,3 +1,9 @@
+---
+title: "Discounted Cash Flow (DCF) Valuation Model"
+tags: ["finance", "investments", "valuation", "model"]
+category: "Finance"
+subcategory: "Investments"
+---
 # Discounted Cash Flow (DCF) Valuation Model
 
 <!-- Guides the generation of a DCF valuation model based on user-provided inputs and assumptions. -->

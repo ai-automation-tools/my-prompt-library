@@ -1,3 +1,9 @@
+---
+title: "Revenue Growth Projection"
+tags: ["finance", "forecasts", "revenue", "growth", "projection"]
+category: "Finance"
+subcategory: "Forecasts"
+---
 # Revenue Growth Projection
 
 Projects future revenue using historical data and specified growth assumptions.

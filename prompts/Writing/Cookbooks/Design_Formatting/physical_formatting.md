@@ -1,3 +1,9 @@
+---
+title: "08 — Physical Formatting Ideas"
+tags: ["writing", "cookbooks", "physical", "formatting"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 08 — Physical Formatting Ideas
 
 You are a **Kickstarter cookbook product designer**.

@@ -1,3 +1,9 @@
+---
+title: "Financial Model and Funding Plan"
+tags: ["business", "documentation", "financial", "model", "funding"]
+category: "Business"
+subcategory: "Documentation"
+---
 # Financial Model and Funding Plan
 
 ## Objective

@@ -1,3 +1,9 @@
+---
+title: "Pitch Deck Templates"
+tags: ["business", "documentation", "readme"]
+category: "Business"
+subcategory: "Documentation"
+---
 # Pitch Deck Templates
 
 Professional templates for creating compelling pitch decks for investors, customers, and partners.

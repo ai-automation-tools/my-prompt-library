@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Data Flow Diagram"
+tags: ["it", "architecture", "data", "flow", "diagram"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Data Flow Diagram
 
 You are a **Senior Enterprise / Solution Architect** responsible for

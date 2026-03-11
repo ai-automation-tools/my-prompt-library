@@ -1,3 +1,9 @@
+---
+title: "AI Prompt: Technical Blog Article Generator"
+tags: ["writing", "technical", "blog"]
+category: "Writing"
+subcategory: "Technical"
+---
 # AI Prompt: Technical Blog Article Generator
 
 ## Role

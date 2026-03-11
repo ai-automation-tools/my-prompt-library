@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Serverless Architecture"
+tags: ["it", "architecture", "serverless"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Serverless Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

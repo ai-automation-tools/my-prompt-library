@@ -1,3 +1,9 @@
+---
+title: "Budget Variance Analysis"
+tags: ["finance", "budgets", "budget", "variance", "analysis"]
+category: "Finance"
+subcategory: "Budgets"
+---
 # Budget Variance Analysis
 
 Quickly calculates and explains variances between budgeted and actual figures.

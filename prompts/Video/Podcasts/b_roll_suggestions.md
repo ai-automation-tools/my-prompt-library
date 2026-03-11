@@ -1,3 +1,9 @@
+---
+title: "B-Roll and Stock Footage Suggester"
+tags: ["video", "podcasts", "roll", "suggestions"]
+category: "Video"
+subcategory: "Podcasts"
+---
 # B-Roll and Stock Footage Suggester
 
 <!-- Analyzes a podcast script to suggest specific stock video clips for B-roll overlays. -->

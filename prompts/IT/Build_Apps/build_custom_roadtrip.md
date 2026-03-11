@@ -1,3 +1,9 @@
+---
+title: "Map Builder Prompt: US Road Trip Master Map (Start/End California)"
+tags: ["it", "build-apps", "build", "custom", "roadtrip"]
+category: "IT"
+subcategory: "Build_Apps"
+---
 # Map Builder Prompt: US Road Trip Master Map (Start/End California)
 
 You are a **map-building agent**. Create a comprehensive, shareable road trip map for an upcoming **multi-week US road trip**. The map must include a clearly drawn driving route, categorized stops, and practical routing logic (reasonable daily driving segments, clustered stops, and minimal backtracking).

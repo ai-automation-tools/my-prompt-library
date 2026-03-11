@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Cloud Migration Architecture"
+tags: ["it", "architecture", "cloud", "migration"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Cloud Migration Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

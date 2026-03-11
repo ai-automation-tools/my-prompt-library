@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Disaster Recovery Architecture"
+tags: ["it", "architecture", "disaster", "recovery"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Disaster Recovery Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

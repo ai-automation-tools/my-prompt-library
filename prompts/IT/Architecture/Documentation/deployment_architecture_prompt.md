@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Deployment Architecture"
+tags: ["it", "architecture", "deployment", "prompt"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Deployment Architecture
 
 You are a cloud architect designing the deployment model.

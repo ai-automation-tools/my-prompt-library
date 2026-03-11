@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a API Architecture"
+tags: ["it", "architecture"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a API Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

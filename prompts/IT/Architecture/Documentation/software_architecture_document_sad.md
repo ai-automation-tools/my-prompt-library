@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Software Architecture Document (SAD)"
+tags: ["it", "architecture", "software", "document"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Software Architecture Document (SAD)
 
 You are a **Senior Enterprise / Solution Architect** responsible for

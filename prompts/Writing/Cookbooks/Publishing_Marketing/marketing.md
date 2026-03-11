@@ -1,3 +1,9 @@
+---
+title: "14 — Viral Marketing Campaign"
+tags: ["writing", "cookbooks", "marketing"]
+category: "Writing"
+subcategory: "Cookbooks"
+---
 # 14 — Viral Marketing Campaign
 
 You are a **7‑figure cookbook launch strategist**.

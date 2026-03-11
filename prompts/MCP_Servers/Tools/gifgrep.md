@@ -1,3 +1,9 @@
+---
+title: "Gifgrep Skill Prompt List"
+tags: ["mcp-servers", "tools", "gifgrep"]
+category: "MCP_Servers"
+subcategory: "Tools"
+---
 # Gifgrep Skill Prompt List
 _A tool designed to search for animated GIFs and emojis_
 

@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a C4 Component Diagram"
+tags: ["it", "architecture", "component", "diagram"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a C4 Component Diagram
 
 You are a **Senior Enterprise / Solution Architect** responsible for

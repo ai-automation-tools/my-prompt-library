@@ -1,3 +1,9 @@
+---
+title: "Prompt: Generate a Service Mesh Architecture"
+tags: ["it", "architecture", "service", "mesh"]
+category: "IT"
+subcategory: "Architecture"
+---
 # Prompt: Generate a Service Mesh Architecture
 
 You are a **Senior Enterprise / Solution Architect** responsible for

@@ -1,3 +1,9 @@
+---
+title: "Google Places Skill Prompt List"
+tags: ["mcp-servers", "search", "google", "places"]
+category: "MCP_Servers"
+subcategory: "Search"
+---
 # Google Places Skill Prompt List
 
 ## Food & Drink
