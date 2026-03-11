@@ -61,7 +61,7 @@ const FIXED_CATEGORIES = [
 export default function App() {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
-  const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string} | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [theme, setTheme] = useState<Theme>('retro-wave');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
@@ -102,6 +102,10 @@ export default function App() {
 
   const subcategoryPrompts = useMemo(() => {
     if (!selectedSubcategory) return [];
+    if (selectedSubcategory.subcategory === 'ALL') {
+      // Show all prompts from the category
+      return filteredPrompts.filter(p => p.category === selectedSubcategory.category);
+    }
     return filteredPrompts.filter(p => 
       p.category === selectedSubcategory.category && 
       p.subcategory === selectedSubcategory.subcategory
@@ -112,7 +116,7 @@ export default function App() {
     setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
   };
 
-  const handleSubcategoryClick = (category: string, subcategory: string) => {
+  const handleSubcategoryClick = (category: string, subcategory: string | 'ALL') => {
     setSelectedSubcategory({ category, subcategory });
     setSelectedPrompt(null);
   };
@@ -193,7 +197,25 @@ export default function App() {
 
                   {expandedCategories[cat] && (
                     <div className="mt-2 space-y-1 pl-2">
-                      {/* Subcategories only - no individual prompts */}
+                      {/* "All" option to show all prompts in category */}
+                      <button 
+                        onClick={() => handleSubcategoryClick(cat, 'ALL')}
+                        className={cn(
+                          "w-full flex items-center justify-between px-4 py-2 rounded-lg transition-all duration-200 group",
+                          selectedSubcategory?.category === cat && selectedSubcategory?.subcategory === 'ALL' 
+                            ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-[0_0_15px_rgba(236,72,153,0.3)]" 
+                            : "hover:bg-white/5 text-white/60 group-hover:text-white/90"
+                        )}
+                      >
+                        <span className={cn(
+                          "text-[10px] font-black uppercase tracking-widest transition-colors",
+                          selectedSubcategory?.category === cat && selectedSubcategory?.subcategory === 'ALL' ? "text-white" : ""
+                        )}>
+                          🔹 All
+                        </span>
+                      </button>
+                      
+                      {/* Subcategories */}
                       {Array.from(categories[cat] || []).sort().map(subcat => {
                         const isSelected = selectedSubcategory?.category === cat && selectedSubcategory?.subcategory === subcat;
                         
@@ -284,7 +306,7 @@ export default function App() {
             <div className="max-w-[1600px] mx-auto">
               <div className="mb-8">
                 <h2 className="text-3xl font-black tracking-tight uppercase italic">
-                  {selectedSubcategory.category} / {selectedSubcategory.subcategory.replace(/_/g, ' ')}
+                  {selectedSubcategory.category} / {selectedSubcategory.subcategory === 'ALL' ? 'All' : selectedSubcategory.subcategory.replace(/_/g, ' ')}
                 </h2>
                 <p className="text-sm text-white/40 mt-2">{subcategoryPrompts.length} prompts</p>
               </div>
