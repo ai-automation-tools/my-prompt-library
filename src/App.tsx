@@ -42,7 +42,7 @@ interface Prompt {
   lastModified: string;
 }
 
-type Theme = 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro';
+type Theme = 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro';
 
 const THEMES: { id: Theme; name: string; icon: string }[] = [
   { id: 'retro-wave', name: 'Retro Wave', icon: '⚡' },
@@ -54,6 +54,7 @@ const THEMES: { id: Theme; name: string; icon: string }[] = [
   { id: 'sahara-gold', name: 'Sahara Gold', icon: '🏜️' },
   { id: 'terminal-hacker', name: 'Terminal Hacker', icon: '💻' },
   { id: 'github-dark-pro', name: 'GitHub Dark Pro', icon: '🐙' },
+  { id: 'void-black', name: 'Void Black', icon: '🖤' },
   { id: 'frosted-steel', name: 'Frosted Steel', icon: '🔩' },
   { id: 'light', name: 'Light', icon: '☀️' },
 ];
