@@ -59,6 +59,7 @@ const THEMES: { id: Theme; name: string; icon: string }[] = [
 ];
 
 const FIXED_CATEGORIES = [
+  "AI_Tools",
   "Business",
   "Finance",
   "Images",

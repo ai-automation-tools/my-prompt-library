@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Cowork — Scheduled Task Prompts</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg: #0a0b0f;
+    --surface: #111318;
+    --surface2: #181c24;
+    --border: #1e2330;
+    --accent: #4fffb0;
+    --accent2: #7b61ff;
+    --accent3: #ff9f4a;
+    --accent4: #38bdf8;
+    --accent5: #f472b6;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --dim: #334155;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(79,255,176,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,255,176,0.015) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    margin-bottom: 56px;
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .header-sub {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 560px;
+  }
+
+  /* Filter tabs */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .filter-btn {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-radius: 2px;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+  }
+
+  /* Cards grid */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    gap: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+
+  .card:hover {
+    border-color: var(--dim);
+    transform: translateY(-1px);
+  }
+
+  .card-accent-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .card-title-group h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+
+  .card-title-group .schedule {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* Prompt block */
+  .prompt-block {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px;
+    font-size: 12px;
+    line-height: 1.75;
+    color: #94a3b8;
+    position: relative;
+    margin-bottom: 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .prompt-block .variable {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .prompt-block .keyword {
+    color: var(--accent4);
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--border);
+    border: none;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+
+  .copy-btn:hover {
+    background: var(--accent);
+    color: #000;
+  }
+
+  .copy-btn.copied {
+    background: var(--accent);
+    color: #000;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    font-size: 10px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+  }
+
+  /* Section labels */
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .count-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-left: auto;
+  }
+
+  footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  .hidden { display: none !important; }
+
+  /* Pulse dot */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    animation: pulse 2s ease infinite;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-eyebrow"><span class="dot"></span> Claude Cowork</div>
+    <h1>Scheduled Task<br><span>Prompt Library</span></h1>
+    <p class="header-sub">Copy-ready prompts for automating your recurring workflows. Configure each in Claude Cowork's task scheduler with the suggested cadence.</p>
+  </header>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filter('all', this)">All Tasks</button>
+    <button class="filter-btn" onclick="filter('finance', this)">📈 Finance</button>
+    <button class="filter-btn" onclick="filter('dev', this)">⚙️ Dev</button>
+    <button class="filter-btn" onclick="filter('ai-news', this)">🤖 AI News</button>
+    <button class="filter-btn" onclick="filter('security', this)">🔐 Security</button>
+    <button class="filter-btn" onclick="filter('ops', this)">🗂 Ops</button>
+    <button class="filter-btn" onclick="filter('rewards', this)">✈️ Rewards</button>
+    <button class="filter-btn" onclick="filter('recipes', this)">🍳 Recipes</button>
+    <button class="filter-btn" onclick="filter('prompts', this)">🧠 AI Prompts</button>
+  </div>
+
+  <div class="cards" id="card-grid">
+
+    <!-- ── FINANCE ── -->
+
+    <div class="card" data-cat="finance">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #4fffb0, #38bdf8)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#4fffb015">📈</div>
+          <div class="card-title-group">
+            <h3>Portfolio Morning Briefing</h3>
+            <div class="schedule">⏰ Daily — 7:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#4fffb015;color:#4fffb0;border:1px solid #4fffb030">Finance</span>
+      </div>
+      <div class="prompt-block" id="p1">Search for current market conditions and pre-market data. Then review my portfolio tracked in Notion — pull holdings, cost basis, and sector allocations. For each position:
+1. Flag any after-hours news or earnings surprises
+2. Note if any position is +/-5% from prior close
+3. Check if any dividend ex-dates are within 7 days
+
+Summarize in a concise briefing: overall market tone, top movers in my portfolio, and one actionable watchlist item for the day. Keep it under 200 words.
+<button class="copy-btn" onclick="copyPrompt('p1', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Notion</span><span class="badge">Web Search</span><span class="badge">~3 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="finance">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #4fffb0, #7b61ff)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#4fffb015">💰</div>
+          <div class="card-title-group">
+            <h3>Dividend Tracker Weekly Sync</h3>
+            <div class="schedule">⏰ Every Monday — 8:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#4fffb015;color:#4fffb0;border:1px solid #4fffb030">Finance</span>
+      </div>
+      <div class="prompt-block" id="p2">Open my Notion dividend tracking database. For each dividend-paying stock in the portfolio:
+1. Search for any announced dividend changes (raises, cuts, or special dividends) from the past 7 days
+2. Calculate forward annual yield based on most recent share price
+3. Flag any stocks with a payout ratio above 80% or dividend coverage concerns
+
+Update the Notion database with current yield values and add a "⚠️ Review" tag to any flagged stocks. Then write a brief summary of this week's dividend health — total projected annual income, any changes, and stocks worth monitoring.
+<button class="copy-btn" onclick="copyPrompt('p2', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Notion</span><span class="badge">Web Search</span><span class="badge">~5 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="finance">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #7b61ff, #f472b6)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#7b61ff15">📊</div>
+          <div class="card-title-group">
+            <h3>AI & Tech Stock Deep Dive</h3>
+            <div class="schedule">⏰ Every Friday — 4:30 PM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#7b61ff15;color:#7b61ff;border:1px solid #7b61ff30">Finance</span>
+      </div>
+      <div class="prompt-block" id="p3">Search for this week's key news and analyst activity for AI and tech sector holdings. Focus on:
+- Any analyst upgrades/downgrades or price target changes
+- Significant product announcements or partnership news
+- Macro events affecting the sector (Fed commentary, trade policy, chip export rules)
+- Insider buying/selling above $1M in value
+
+Cross-reference against my Notion portfolio. Flag any position where the investment thesis has materially changed this week. Produce a "Week in Review" for my tech/AI positions — 3–5 bullets per notable name, and a sector sentiment score (Bullish / Neutral / Cautious) with one-line rationale.
+<button class="copy-btn" onclick="copyPrompt('p3', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Notion</span><span class="badge">Web Search</span><span class="badge">~8 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="finance">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #ff9f4a, #f472b6)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#ff9f4a15">🗓</div>
+          <div class="card-title-group">
+            <h3>Earnings Calendar Alert</h3>
+            <div class="schedule">⏰ Every Sunday — 6:00 PM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#ff9f4a15;color:#ff9f4a;border:1px solid #ff9f4a30">Finance</span>
+      </div>
+      <div class="prompt-block" id="p4">Search for the upcoming week's earnings calendar. Cross-reference against my Notion portfolio holdings and watchlist. For each company reporting this week that I hold or watch:
+1. Report date + time (pre/post market)
+2. Analyst consensus EPS and revenue estimates
+3. Key metric to watch (e.g. cloud revenue growth, margins, guidance)
+4. Historical beat/miss rate over last 4 quarters
+
+Format as a clean weekly earnings preview table and add a "📅 Earnings This Week" note to relevant Notion entries. Flag any high-IV options plays if applicable.
+<button class="copy-btn" onclick="copyPrompt('p4', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Notion</span><span class="badge">Web Search</span><span class="badge">~6 min</span>
+      </div>
+    </div>
+
+    <!-- ── DEV ── -->
+
+    <div class="card" data-cat="dev">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #38bdf8, #7b61ff)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#38bdf815">⚙️</div>
+          <div class="card-title-group">
+            <h3>GitHub Repo Health Check</h3>
+            <div class="schedule">⏰ Daily — 9:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#38bdf815;color:#38bdf8;border:1px solid #38bdf830">Dev</span>
+      </div>
+      <div class="prompt-block" id="p5">Check the health of my active GitHub repositories. For each repo in my active development list:
+1. Review open pull requests older than 3 days — summarize what's pending
+2. Check for any failed GitHub Actions workflows in the last 24 hours
+3. Flag any dependency security alerts (Dependabot)
+4. Note if main branch hasn't had a commit in more than 7 days
+
+Produce a morning dev standup summary: what needs attention today, any broken CI/CD pipelines, and the top 1–2 PRs to review or merge. Keep it actionable and under 150 words.
+<button class="copy-btn" onclick="copyPrompt('p5', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">GitHub</span><span class="badge">~4 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="dev">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #7b61ff, #38bdf8)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#7b61ff15">📦</div>
+          <div class="card-title-group">
+            <h3>AX Platform Changelog Draft</h3>
+            <div class="schedule">⏰ Every Friday — 3:00 PM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#38bdf815;color:#38bdf8;border:1px solid #38bdf830">Dev</span>
+      </div>
+      <div class="prompt-block" id="p6">Review all commits to the ax-platform repositories made this week. Summarize changes into a structured changelog draft organized by category:
+- 🚀 New Features
+- 🐛 Bug Fixes  
+- 🔐 Security & IAM Updates
+- 📚 Documentation
+- ⚙️ Infrastructure / MCP Config
+
+Use conventional commit format where possible. Write entries from a user/partner perspective — what does this change mean for them? Flag any breaking changes that need release notes. Output a markdown-formatted CHANGELOG.md snippet ready to paste into the repo.
+<button class="copy-btn" onclick="copyPrompt('p6', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">GitHub</span><span class="badge">Markdown output</span><span class="badge">~5 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="dev">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #4fffb0, #38bdf8)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#4fffb015">🔄</div>
+          <div class="card-title-group">
+            <h3>MCP Server Dependency Audit</h3>
+            <div class="schedule">⏰ Every Monday — 8:30 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#38bdf815;color:#38bdf8;border:1px solid #38bdf830">Dev</span>
+      </div>
+      <div class="prompt-block" id="p7">Search for updates to the MCP (Model Context Protocol) ecosystem and dependencies relevant to AX Platform. Check:
+1. Any new MCP spec versions or protocol changes from the official repo
+2. Updates to key npm/pip packages used in our MCP server implementations
+3. New MCP servers or tools published in the community that may be relevant to enterprise IAM / agent collaboration use cases
+4. Any security advisories affecting Node.js or Python MCP server dependencies
+
+Summarize findings as a "Monday MCP Briefing" with: what to update, what to watch, and any new tools worth prototyping. Flag anything that could affect Agent Sprawl management features.
+<button class="copy-btn" onclick="copyPrompt('p7', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">GitHub</span><span class="badge">~6 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="dev">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #f472b6, #7b61ff)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#f472b615">📝</div>
+          <div class="card-title-group">
+            <h3>GitHub Pages Deployment Check</h3>
+            <div class="schedule">⏰ Daily — 10:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#38bdf815;color:#38bdf8;border:1px solid #38bdf830">Dev</span>
+      </div>
+      <div class="prompt-block" id="p8">Check the status of all GitHub Pages deployments across my repositories. For each site:
+1. Confirm the last deployment completed successfully
+2. Check if the live site is returning a 200 status (no broken deployments)
+3. Review if any pending content changes in main haven't been published yet
+4. Note if any Actions workflow for deployment has been queued more than 10 minutes
+
+If any deployment failed, provide the most likely cause and the exact fix command or config change needed. Output a simple status table: Repo | URL | Last Deploy | Status | Action Needed.
+<button class="copy-btn" onclick="copyPrompt('p8', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">GitHub</span><span class="badge">Web Fetch</span><span class="badge">~3 min</span>
+      </div>
+    </div>
+
+    <!-- ── AI NEWS ── -->
+
+    <div class="card" data-cat="ai-news">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #f472b6, #ff9f4a)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#f472b615">🤖</div>
+          <div class="card-title-group">
+            <h3>AI News Bulletin (Daily)</h3>
+            <div class="schedule">⏰ Daily — 6:30 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#f472b615;color:#f472b6;border:1px solid #f472b630">AI News</span>
+      </div>
+      <div class="prompt-block" id="p9">Search for the top AI news from the last 24 hours. Focus on:
+- Model releases, benchmarks, or major capability announcements
+- Enterprise AI deployments and Fortune 500 adoption stories
+- MCP / agent tooling ecosystem updates
+- AI regulation, policy, or safety developments
+- Funding rounds above $50M in AI startups
+
+Format as the "AI News Bulletin" — 5–7 items max, each with a one-sentence summary and a relevance note for AX Platform (how might this affect our market, our tech stack, or our pitch?). Keep it scannable. Bold the most important item of the day.
+<button class="copy-btn" onclick="copyPrompt('p9', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">n8n-ready</span><span class="badge">~4 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="ai-news">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #ff9f4a, #7b61ff)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#ff9f4a15">📬</div>
+          <div class="card-title-group">
+            <h3>AX MCP Updates Newsletter Draft</h3>
+            <div class="schedule">⏰ Every Wednesday — 2:00 PM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#f472b615;color:#f472b6;border:1px solid #f472b630">AI News</span>
+      </div>
+      <div class="prompt-block" id="p10">Search for this week's notable developments in the MCP (Model Context Protocol) and AI agent ecosystem. Then draft the weekly "AX MCP Updates" newsletter. Structure:
+
+**Subject line**: [options — give 3 variants]
+**Intro** (2 sentences): What's the big theme this week?
+**This Week in MCP** (3 items): New servers, spec updates, community projects
+**Enterprise Agent Watch** (2 items): Real-world agent deployment news
+**AX Platform Spotlight**: One internal update or use case to highlight (use placeholder [INSERT UPDATE])
+**CTA**: Drive to ax-platform.com or a relevant doc
+
+Tone: sharp, technical, written for builders and enterprise architects. No fluff.
+<button class="copy-btn" onclick="copyPrompt('p10', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Email-ready</span><span class="badge">~7 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="ai-news">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #38bdf8, #f472b6)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#38bdf815">🔬</div>
+          <div class="card-title-group">
+            <h3>AI Research Paper Digest</h3>
+            <div class="schedule">⏰ Every Tuesday & Thursday — 7:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#f472b615;color:#f472b6;border:1px solid #f472b630">AI News</span>
+      </div>
+      <div class="prompt-block" id="p11">Search arXiv and recent AI research outlets for papers published in the last 48 hours relevant to:
+- Multi-agent systems and orchestration
+- Identity and access management in AI systems
+- LLM tool use, function calling, and MCP-related architectures
+- Enterprise AI security and compliance
+
+Pick the top 3 most relevant papers. For each: title, authors, one-paragraph plain-English summary, and a "So what for AX?" note (1–2 sentences on practical relevance). Link to the abstract. Flag any that represent a significant advance worth sharing with Jacob.
+<button class="copy-btn" onclick="copyPrompt('p11', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">~5 min</span>
+      </div>
+    </div>
+
+    <!-- ── SECURITY ── -->
+
+    <div class="card" data-cat="security">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #7b61ff, #4fffb0)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#7b61ff15">🔐</div>
+          <div class="card-title-group">
+            <h3>IAM & Security CVE Watch</h3>
+            <div class="schedule">⏰ Daily — 8:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#7b61ff15;color:#7b61ff;border:1px solid #7b61ff30">Security</span>
+      </div>
+      <div class="prompt-block" id="p12">Search for new CVEs and security advisories published in the last 24 hours relevant to:
+- Identity and Access Management systems (OAuth, SAML, OIDC, SCIM)
+- AI agent platforms and MCP implementations
+- Cloudflare Workers and edge compute security
+- Node.js, Python, and common web framework vulnerabilities
+
+For each critical or high severity finding: CVE ID, affected product/version, brief description, CVSS score, and recommended action. Flag anything that could affect AX Platform's stack or our enterprise customers' environments. Output as a clean security digest sorted by severity.
+<button class="copy-btn" onclick="copyPrompt('p12', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">CISSP-aligned</span><span class="badge">~5 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="security">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #4fffb0, #7b61ff)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#4fffb015">🛡️</div>
+          <div class="card-title-group">
+            <h3>Agent Sprawl Risk Report</h3>
+            <div class="schedule">⏰ Every Friday — 5:00 PM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#7b61ff15;color:#7b61ff;border:1px solid #7b61ff30">Security</span>
+      </div>
+      <div class="prompt-block" id="p13">Search for this week's news and incidents related to AI agent security failures, unauthorized agent access, or enterprise AI governance incidents. Also check for:
+- New enterprise AI security frameworks or standards published
+- Regulatory updates affecting AI agents in enterprise environments
+- Case studies of agent-related data breaches or policy violations
+
+Compile a weekly "Agent Sprawl Risk Report" that: summarizes top 3 risk themes this week, identifies relevant talking points for AX Platform's sales narrative, and flags any compliance or regulatory developments Jacob should know about. End with a one-paragraph "threat landscape summary" suitable for our investor updates.
+<button class="copy-btn" onclick="copyPrompt('p13', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Investor-ready</span><span class="badge">~8 min</span>
+      </div>
+    </div>
+
+    <!-- ── OPS ── -->
+
+    <div class="card" data-cat="ops">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #ff9f4a, #4fffb0)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#ff9f4a15">📅</div>
+          <div class="card-title-group">
+            <h3>Weekly Priority Planner</h3>
+            <div class="schedule">⏰ Every Sunday — 7:00 PM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#ff9f4a15;color:#ff9f4a;border:1px solid #ff9f4a30">Ops</span>
+      </div>
+      <div class="prompt-block" id="p14">Check my Google Calendar for the upcoming week's meetings and commitments. Review any open tasks or notes in Notion. Then build my weekly plan:
+
+1. **This week's top 3 priorities** — highest leverage work across AX Platform, dev, and investing
+2. **Schedule conflicts or heavy days** — flag days with 3+ meetings
+3. **Prep needed** — any meeting or commitment that needs prep work flagged 1 day ahead
+4. **Carry-over items** — anything from last week still unresolved
+
+Format as a clean weekly brief I can reference each morning. Add a "Focus Block Recommendation" — the best 2-hour deep work window each day based on my calendar.
+<button class="copy-btn" onclick="copyPrompt('p14', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Google Calendar</span><span class="badge">Notion</span><span class="badge">~5 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="ops">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #f472b6, #ff9f4a)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#f472b615">✉️</div>
+          <div class="card-title-group">
+            <h3>Inbox Zero Morning Triage</h3>
+            <div class="schedule">⏰ Daily — 7:30 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#ff9f4a15;color:#ff9f4a;border:1px solid #ff9f4a30">Ops</span>
+      </div>
+      <div class="prompt-block" id="p15">Scan my Gmail inbox for unread messages from the last 18 hours. Categorize each as:
+- 🔴 Action Required (needs reply or decision today)
+- 🟡 Review (read but no immediate action)
+- 🔵 FYI / Digest (newsletters, notifications)
+- 🗑️ Archive (safe to dismiss)
+
+For 🔴 items: draft a one-line suggested reply or next step. For investor or partner emails, flag with [HIGH VALUE]. Output a morning triage list sorted by priority. Do not move or delete anything — just produce the triage report so I can work through it efficiently.
+<button class="copy-btn" onclick="copyPrompt('p15', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Gmail</span><span class="badge">~4 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="ops">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #38bdf8, #4fffb0)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#38bdf815">📊</div>
+          <div class="card-title-group">
+            <h3>Notion Weekly Hygiene</h3>
+            <div class="schedule">⏰ Every Saturday — 10:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#ff9f4a15;color:#ff9f4a;border:1px solid #ff9f4a30">Ops</span>
+      </div>
+      <div class="prompt-block" id="p16">Do a weekly hygiene pass on my Notion workspace. Check:
+1. Any tasks marked "In Progress" for more than 10 days — flag for review
+2. Database entries missing required fields (status, owner, due date)
+3. Pages in "Inbox" or unsorted sections that haven't been organized
+4. Any stale portfolio tracking rows (stocks with price data older than 5 days)
+5. Project pages without an update in the last 7 days
+
+Output a Notion Health Report: what's stale, what's missing, and the top 5 cleanup actions. Prioritize items related to AX Platform and the investment portfolio. Suggest which items I can batch-fix in under 15 minutes.
+<button class="copy-btn" onclick="copyPrompt('p16', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Notion</span><span class="badge">~6 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="ops">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #7b61ff, #f472b6)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#7b61ff15">🚀</div>
+          <div class="card-title-group">
+            <h3>AX Platform Competitor Intel</h3>
+            <div class="schedule">⏰ Every Wednesday — 9:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#ff9f4a15;color:#ff9f4a;border:1px solid #ff9f4a30">Ops</span>
+      </div>
+      <div class="prompt-block" id="p17">Search for recent news and updates from companies in the enterprise AI agent security and collaboration space. Monitor for:
+- Product launches or feature announcements from direct competitors
+- New funding rounds or M&A activity in the AI agent governance space
+- Enterprise customer win announcements
+- Job postings that signal strategic direction (e.g. a competitor hiring IAM engineers)
+- Any coverage mentioning "Agent Sprawl", "MCP security", or "AI governance platform"
+
+Produce a competitive intel brief: 3–5 notable moves this week, a "threat level" assessment (Low/Medium/High) for each competitor, and one strategic recommendation for Jacob based on the landscape shift. Keep it crisp — this is boardroom-ready intel.
+<button class="copy-btn" onclick="copyPrompt('p17', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Strategic</span><span class="badge">~7 min</span>
+      </div>
+    </div>
+
+    <!-- ── REWARDS ── -->
+
+    <div class="card" data-cat="rewards">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #fbbf24, #f472b6)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#fbbf2415">🃏</div>
+          <div class="card-title-group">
+            <h3>Top Credit Card Signup Bonuses</h3>
+            <div class="schedule">⏰ Every Monday — 8:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fbbf2415;color:#fbbf24;border:1px solid #fbbf2430">Rewards</span>
+      </div>
+      <div class="prompt-block" id="p18">Search for the best credit card signup bonuses currently available this week. Check sources like The Points Guy, NerdWallet, Doctor of Credit, and CardRatings. Look for:
+1. Cards with elevated limited-time offers above their standard bonus (e.g. 100k+ point offers)
+2. New card launches with intro bonuses
+3. Any referral bonuses that exceed public offers
+4. Business card offers worth noting separately
+
+For each top pick: card name, bonus amount, minimum spend requirement, time to earn, annual fee, and estimated cash/travel value of the bonus at standard redemption rates. Flag any offers expiring within 14 days. Rank the top 5 by value-to-effort ratio.
+<button class="copy-btn" onclick="copyPrompt('p18', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Weekly</span><span class="badge">~5 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="rewards">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #38bdf8, #fbbf24)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#38bdf815">✈️</div>
+          <div class="card-title-group">
+            <h3>Airline Miles Transfer & Sweet Spot Alert</h3>
+            <div class="schedule">⏰ Every Tuesday & Friday — 7:30 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fbbf2415;color:#fbbf24;border:1px solid #fbbf2430">Rewards</span>
+      </div>
+      <div class="prompt-block" id="p19">Search for current airline miles transfer bonuses and award booking sweet spots. Check The Points Guy, View from the Wing, One Mile at a Time, and FlyerTalk. Look for:
+1. Active transfer bonuses from Amex, Chase, Citi, Capital One, or Bilt to airline partners (e.g. "30% bonus transferring to Air France/KLM")
+2. Any newly discovered or restored award sweet spots in airline programs
+3. Mileage sale announcements (buy miles at a discount)
+4. Partner redemption deals — e.g. using United miles on ANA, using Avios on AA
+
+For each find: program name, transfer ratio or deal terms, expiration date, and a practical example redemption (e.g. "Business class JFK→NRT for 88k miles vs. normal 110k"). Flag anything expiring within 7 days as 🔥 URGENT.
+<button class="copy-btn" onclick="copyPrompt('p19', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">2x weekly</span><span class="badge">~6 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="rewards">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #f472b6, #fbbf24)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#f472b615">🏨</div>
+          <div class="card-title-group">
+            <h3>Hotel Points & Status Deals Digest</h3>
+            <div class="schedule">⏰ Every Wednesday — 7:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fbbf2415;color:#fbbf24;border:1px solid #fbbf2430">Rewards</span>
+      </div>
+      <div class="prompt-block" id="p20">Search for current hotel loyalty program promotions, status challenges, and points deals. Cover Marriott Bonvoy, Hilton Honors, Hyatt World of Hyatt, IHG One Rewards, and Wyndham. Look for:
+1. Active points bonus promotions (e.g. "earn 2x points on stays through June")
+2. Status match or status challenge offers
+3. Free night certificate deals or category changes
+4. Credit card-linked hotel offers (e.g. Amex Offers, Chase Offers for hotel spend)
+5. Hyatt Category 1–4 properties that represent outsized value for points
+
+Summarize the top 3–5 actionable deals this week. For each: program, offer details, expiration, and a "Best Use Case" note (e.g. "great for a weekend Yosemite-area getaway" or "use for an upcoming work trip"). Flag any no-annual-fee hotel card bonuses worth considering.
+<button class="copy-btn" onclick="copyPrompt('p20', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Weekly</span><span class="badge">~5 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="rewards">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #4fffb0, #fbbf24)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#4fffb015">💳</div>
+          <div class="card-title-group">
+            <h3>Card Portal & Shopping Portal Deals</h3>
+            <div class="schedule">⏰ Daily — 9:30 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fbbf2415;color:#fbbf24;border:1px solid #fbbf2430">Rewards</span>
+      </div>
+      <div class="prompt-block" id="p21">Search for today's best credit card shopping portal bonuses and Amex/Chase/Citi/Capital One statement credit offers. Check CashBackMonitor, PointsHound, and portal comparison tools. Focus on:
+1. Shopping portal rates above 5% or 5x points at major retailers (Amazon, Apple, Best Buy, etc.)
+2. Amex Offers or Chase Offers with high statement credit value (>$20 or >5%)
+3. Elevated dining or travel category bonuses this month
+4. Any rotating quarterly category activations needed (e.g. Chase Freedom 5% categories)
+
+Output a quick "Today's Portal Wins" list — top 3 portals/offers to route purchases through today, with merchant name, bonus rate, and expiration. Note if any require enrollment or activation before use.
+<button class="copy-btn" onclick="copyPrompt('p21', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Daily</span><span class="badge">~4 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="rewards">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #7b61ff, #fbbf24)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#7b61ff15">🌴</div>
+          <div class="card-title-group">
+            <h3>Mistake Fare & Award Space Finder</h3>
+            <div class="schedule">⏰ Daily — 6:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fbbf2415;color:#fbbf24;border:1px solid #fbbf2430">Rewards</span>
+      </div>
+      <div class="prompt-block" id="p22">Search for mistake fares, unadvertised flight deals, and premium cabin award availability published in the last 24 hours. Check Secret Flying, Scott's Cheap Flights (Going), Airfarewatchdog, and travel deal forums/subreddits. Look for:
+1. Mistake fares — pricing errors on domestic or international routes
+2. Deeply discounted premium cabin cash fares (business/first under $1,500 transatlantic, under $2,500 transpacific)
+3. Saver-level business or first class award space openings on aspirational routes
+4. Flash sales from major airlines (Southwest, Delta, AA, United, Southwest, international carriers)
+
+For each deal: route, price or award cost, travel window, booking link or source, and estimated real value vs. normal price. Flag anything under $300 RT domestic or under $800 RT transatlantic as 🔥. Note if bookable with specific points currencies.
+<button class="copy-btn" onclick="copyPrompt('p22', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Daily 6AM</span><span class="badge">~5 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="rewards">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #ff9f4a, #fbbf24)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#ff9f4a15">🏖️</div>
+          <div class="card-title-group">
+            <h3>Vacation Deals & Travel Package Scout</h3>
+            <div class="schedule">⏰ Every Thursday — 8:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fbbf2415;color:#fbbf24;border:1px solid #fbbf2430">Rewards</span>
+      </div>
+      <div class="prompt-block" id="p23">Search for the best current travel package deals, resort promotions, and vacation discounts. Cover sources like Costco Travel, Amex Travel, Chase Travel, Priceline Express Deals, and hotel/resort direct promotions. Look for:
+1. All-inclusive resort deals under $200/night per person
+2. Amex Fine Hotels & Resorts or Chase Luxury Hotel & Resort Collection value-adds
+3. Vacation package deals that combine flights + hotel with meaningful discounts
+4. National Park area lodging deals (relevant for dog-friendly destinations like Yosemite)
+5. Last-minute weekend getaway deals within driving distance of Sanger, CA
+
+For each deal: destination, price, what's included, booking window, and "points angle" — can this be booked with travel portal points for extra value? Flag dog-friendly properties with 🐾.
+<button class="copy-btn" onclick="copyPrompt('p23', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Weekly</span><span class="badge">~6 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="rewards">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #fbbf24, #38bdf8)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#fbbf2415">📊</div>
+          <div class="card-title-group">
+            <h3>Points Valuation & Redemption Optimizer</h3>
+            <div class="schedule">⏰ Every Sunday — 9:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fbbf2415;color:#fbbf24;border:1px solid #fbbf2430">Rewards</span>
+      </div>
+      <div class="prompt-block" id="p24">Search for the latest points and miles valuations from The Points Guy, NerdWallet, and Upgraded Points. Then build a personal redemption strategy snapshot:
+
+1. Pull current CPP (cents per point) valuations for: Chase UR, Amex MR, Citi TY, Capital One, Bilt, United, Delta, Southwest, Hyatt, Marriott, Hilton
+2. Flag any programs where valuations have changed more than 0.2 CPP since last month
+3. Identify my highest-value redemption opportunity right now based on balances: [INSERT CURRENT BALANCES]
+4. Surface any upcoming devaluations or program changes that should trigger "burn before devalue" action
+
+Output as a ranked "Redeem Now vs. Hold" table. Include a recommended burn target for any currency currently above its peak valuation. Add a note on any currencies worth accumulating vs. spending this quarter.
+<button class="copy-btn" onclick="copyPrompt('p24', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Weekly</span><span class="badge">~6 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="rewards">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #f472b6, #38bdf8)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#f472b615">⚡</div>
+          <div class="card-title-group">
+            <h3>Weekly Rewards Deals Roundup</h3>
+            <div class="schedule">⏰ Every Sunday — 7:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fbbf2415;color:#fbbf24;border:1px solid #fbbf2430">Rewards</span>
+      </div>
+      <div class="prompt-block" id="p25">Search for this week's best credit card rewards, travel hacking, and points deals across the major communities and publications. Aggregate the top finds from: Doctor of Credit, r/churning, r/churningcanada, The Points Guy, One Mile at a Time, and Frequent Miler.
+
+Compile a "Weekly Rewards Roundup" with sections:
+- 🃏 **Best Signup Bonuses** (elevated or expiring offers)
+- ✈️ **Miles & Points Moves** (transfers, sweet spots, award space)
+- 🏨 **Hotel Wins** (promos, status deals, free nights)
+- 💸 **Save on Purchases** (portal bonuses, merchant offers, cash back stackers)
+- ⚠️ **Act Before It's Gone** (anything expiring this week)
+
+Keep each item to 2 lines max. This is my Sunday prep read — make it scannable, no fluff, maximum signal.
+<button class="copy-btn" onclick="copyPrompt('p25', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Sunday digest</span><span class="badge">~8 min</span>
+      </div>
+    </div>
+
+    <!-- ── RECIPES ── -->
+
+    <div class="card" data-cat="recipes">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #fb923c, #fbbf24)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#fb923c15">🍳</div>
+          <div class="card-title-group">
+            <h3>Top Recipe Harvest — Weekly Picks</h3>
+            <div class="schedule">⏰ Every Saturday — 9:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fb923c15;color:#fb923c;border:1px solid #fb923c30">Recipes</span>
+      </div>
+      <div class="prompt-block" id="p26">Search for this week's most popular and trending recipes across major cooking sites: Serious Eats, NYT Cooking, Bon Appétit, Food52, The Kitchn, AllRecipes, and Smitten Kitchen. Look for:
+1. Most-saved or most-viewed recipes published or featured this week
+2. Seasonal ingredients currently at peak (check what's in season for Central California / San Joaquin Valley)
+3. One "project recipe" — something ambitious and impressive for a weekend cook
+4. One quick weeknight recipe under 30 minutes
+5. One recipe featuring an unusual technique or ingredient worth learning
+
+For each recipe: title, source site, key ingredients, estimated time, difficulty level, and a one-sentence "why this one" note. Then fetch the full recipe text and ingredients list for each and save them as individual markdown files to the local workspace at: ~/recipes/YYYY-MM-DD/[recipe-slug].md
+
+Include the source URL at the top of each saved file.
+<button class="copy-btn" onclick="copyPrompt('p26', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Web Fetch</span><span class="badge">Saves to ~/recipes/</span><span class="badge">~10 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="recipes">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #4fffb0, #fb923c)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#4fffb015">📸</div>
+          <div class="card-title-group">
+            <h3>Recipe + Food Photo Archive Builder</h3>
+            <div class="schedule">⏰ Every Sunday — 10:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fb923c15;color:#fb923c;border:1px solid #fb923c30">Recipes</span>
+      </div>
+      <div class="prompt-block" id="p27">Search for visually stunning food photography and recipes from photography-forward cooking sites: Half Baked Harvest, Minimalist Baker, Pinch of Yum, Ambitious Kitchen, and Salt & Lavender. Prioritize recipes that have exceptional plating or that would work well as FlavorAtlas content.
+
+For each of the top 5 finds:
+1. Fetch the full recipe — title, ingredients, method steps, serving size, notes
+2. Download the hero image and any step photos if accessible
+3. Note the visual style (rustic, minimalist, dark moody, bright airy, etc.)
+4. Tag with relevant categories: [cuisine type] [dietary tags] [occasion] [difficulty]
+
+Save each recipe as ~/recipes/archive/[recipe-slug]/recipe.md and save image URLs to ~/recipes/archive/[recipe-slug]/images.txt. Append a one-line entry to ~/recipes/archive/index.md with title, date, source, and tags.
+<button class="copy-btn" onclick="copyPrompt('p27', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Web Fetch</span><span class="badge">Saves to ~/recipes/archive/</span><span class="badge">~12 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="recipes">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #f472b6, #fb923c)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#f472b615">🌎</div>
+          <div class="card-title-group">
+            <h3>Global Cuisine Deep Dive</h3>
+            <div class="schedule">⏰ Every Tuesday — 8:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fb923c15;color:#fb923c;border:1px solid #fb923c30">Recipes</span>
+      </div>
+      <div class="prompt-block" id="p28">Each week focus on one underrepresented or regional cuisine. Rotate through: West African, Peruvian, Georgian (Caucasus), Yemeni, Oaxacan, Sichuan, Filipino, Ethiopian, Basque, Sri Lankan, Palestinian, and others. This week's cuisine: [AUTO-ROTATE or specify].
+
+Search for authentic recipe sources — prioritize food writers or home cooks from that culture over mainstream sites. Find:
+1. One "gateway dish" — the most accessible entry point to the cuisine
+2. One "cornerstone dish" — a defining recipe that serious cooks should know
+3. One pantry/ingredient guide — what staples to stock for this cuisine
+
+Fetch all three recipes in full. For each include: cultural context (2–3 sentences), ingredient substitutions for hard-to-find items, and sourcing notes. Save to ~/recipes/global/[cuisine-name]/[dish-slug].md. Update ~/recipes/global/index.md with the new entries.
+<button class="copy-btn" onclick="copyPrompt('p28', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Web Fetch</span><span class="badge">Saves to ~/recipes/global/</span><span class="badge">~10 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="recipes">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #fbbf24, #4fffb0)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#fbbf2415">🔥</div>
+          <div class="card-title-group">
+            <h3>Viral Recipe Catcher</h3>
+            <div class="schedule">⏰ Daily — 11:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#fb923c15;color:#fb923c;border:1px solid #fb923c30">Recipes</span>
+      </div>
+      <div class="prompt-block" id="p29">Search for recipes that went viral or are trending heavily in the last 48 hours across Reddit (r/recipes, r/food, r/Cooking, r/FoodPorn), TikTok food accounts mentioned in articles, and food-focused Twitter/X. Also check Substack food newsletters for highly shared posts.
+
+Capture any recipe with significant engagement (1k+ upvotes or widely shared). For each:
+1. Fetch the full recipe if a source link exists — ingredients + method
+2. Note why it went viral (unusual technique? 3-ingredient hack? nostalgia? diet trend?)
+3. Rate "actual cookability" — is this genuinely good or just photogenic?
+4. Tag: [trending] [platform: reddit/tiktok/etc] [difficulty] [time]
+
+Save to ~/recipes/trending/[YYYY-MM-DD]-[slug].md. If 3 or more are captured today, also append a summary line to ~/recipes/trending/digest.md.
+<button class="copy-btn" onclick="copyPrompt('p29', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Web Fetch</span><span class="badge">Saves to ~/recipes/trending/</span><span class="badge">~8 min</span>
+      </div>
+    </div>
+
+    <!-- ── AI PROMPTS ── -->
+
+    <div class="card" data-cat="prompts">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #a78bfa, #38bdf8)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#a78bfa15">🧠</div>
+          <div class="card-title-group">
+            <h3>Top Prompts Harvest — Weekly</h3>
+            <div class="schedule">⏰ Every Wednesday — 8:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#a78bfa15;color:#a78bfa;border:1px solid #a78bfa30">AI Prompts</span>
+      </div>
+      <div class="prompt-block" id="p30">Search for the most popular, most-upvoted, or most-shared AI prompts published this week. Check: PromptHero, PromptBase, r/ChatGPT, r/ClaudeAI, r/PromptEngineering, FlowGPT, ShareGPT, and any curated GitHub "awesome-prompts" repos with recent commits.
+
+Collect the top 10 most notable prompts. For each:
+1. The full prompt text (fetch if behind a link)
+2. Source platform and engagement metric (upvotes, saves, views)
+3. Category tag: [productivity] [coding] [creative writing] [roleplay] [research] [image gen] [business] [other]
+4. A one-line "why it works" annotation — what technique makes it effective?
+5. Which model it was designed for (if specified)
+
+Save all 10 as individual files to ~/prompts/popular/[YYYY-MM-DD]-[slug].md. Append a summary table row to ~/prompts/popular/index.md with: date, title, source, category, and engagement score.
+<button class="copy-btn" onclick="copyPrompt('p30', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Web Fetch</span><span class="badge">Saves to ~/prompts/popular/</span><span class="badge">~10 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="prompts">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #38bdf8, #a78bfa)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#38bdf815">💡</div>
+          <div class="card-title-group">
+            <h3>Unique & Unconventional Prompt Finder</h3>
+            <div class="schedule">⏰ Every Friday — 9:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#a78bfa15;color:#a78bfa;border:1px solid #a78bfa30">AI Prompts</span>
+      </div>
+      <div class="prompt-block" id="p31">Search specifically for AI prompts that are creative, unusual, philosophically interesting, or represent novel prompting techniques — NOT standard productivity prompts. Sources to mine: LessWrong, Alignment Forum, r/PromptEngineering deep threads, Gwern.net, Simon Willison's blog, Ethan Mollick's posts, and niche AI Discord servers mentioned in articles.
+
+Look for prompts that use: unconventional framing, meta-cognitive techniques, adversarial setups, persona paradoxes, structured chain-of-thought innovations, constraint-based creativity, or prompts that explore model behavior in interesting ways.
+
+For each of the top 5 unique finds:
+1. Full prompt text
+2. What makes it conceptually different from standard prompts
+3. Suggested use case or experiment to run with it
+4. Difficulty/complexity rating: [Beginner / Intermediate / Advanced / Research-grade]
+5. Related technique or paper if applicable
+
+Save to ~/prompts/unique/[YYYY-MM-DD]-[slug].md. Tag with [technique type]. Append to ~/prompts/unique/index.md.
+<button class="copy-btn" onclick="copyPrompt('p31', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Web Fetch</span><span class="badge">Saves to ~/prompts/unique/</span><span class="badge">~10 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="prompts">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #f472b6, #a78bfa)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#f472b615">🎨</div>
+          <div class="card-title-group">
+            <h3>Image Generation Prompt Library Builder</h3>
+            <div class="schedule">⏰ Every Thursday — 8:30 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#a78bfa15;color:#a78bfa;border:1px solid #a78bfa30">AI Prompts</span>
+      </div>
+      <div class="prompt-block" id="p32">Search for high-performing image generation prompts for Midjourney, DALL-E, Flux, and Stable Diffusion. Check PromptHero, Civitai, Lexica.art, and r/midjourney top posts from this week.
+
+Focus on:
+1. Prompts producing photorealistic food photography (relevant for FlavorAtlas)
+2. Prompts for editorial / tech / startup visual styles (relevant for AX Platform marketing)
+3. Prompts using innovative style or lighting techniques worth cataloging
+4. Any "prompt formulas" — reusable structural templates with fill-in-the-blank variables
+
+For each prompt collected:
+- Full prompt text with any negative prompts
+- Target model and recommended parameters (steps, CFG, aspect ratio)
+- Example output description or link if available
+- Category: [food] [tech/corporate] [portrait] [landscape] [abstract] [product]
+
+Save to ~/prompts/image-gen/[model]/[YYYY-MM-DD]-[slug].md. Update ~/prompts/image-gen/index.md with new entries grouped by category.
+<button class="copy-btn" onclick="copyPrompt('p32', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Web Fetch</span><span class="badge">Saves to ~/prompts/image-gen/</span><span class="badge">~9 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="prompts">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #4fffb0, #a78bfa)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#4fffb015">🗂️</div>
+          <div class="card-title-group">
+            <h3>System Prompt & Agent Config Collector</h3>
+            <div class="schedule">⏰ Every Monday — 9:30 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#a78bfa15;color:#a78bfa;border:1px solid #a78bfa30">AI Prompts</span>
+      </div>
+      <div class="prompt-block" id="p33">Search for leaked, published, or open-sourced system prompts and agent configurations from AI products and tools. Check: GitHub (search "system prompt" recently updated), Simon Willison's blog, Anthropic/OpenAI usage policy pages, r/ClaudeAI, r/ChatGPT, and any "awesome-system-prompts" repositories.
+
+Also search for: MCP server tool descriptions, agent persona configs, and multi-agent orchestration prompt patterns.
+
+For each notable system prompt or config found:
+1. Full text (or as much as is available)
+2. Source / product it belongs to (if known)
+3. Interesting techniques used: [persona definition] [tool use framing] [constraint setting] [chain-of-thought scaffolding] [safety instructions] [output formatting]
+4. Relevance note for AX Platform agent design
+
+Save to ~/prompts/system-prompts/[source-slug].md. Particularly flag any enterprise agent configs or IAM-adjacent prompts with an [AX-RELEVANT] tag. Append entries to ~/prompts/system-prompts/index.md.
+<button class="copy-btn" onclick="copyPrompt('p33', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Search</span><span class="badge">Web Fetch</span><span class="badge">Saves to ~/prompts/system-prompts/</span><span class="badge">~10 min</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="prompts">
+      <div class="card-accent-line" style="background: linear-gradient(90deg, #fbbf24, #a78bfa)"></div>
+      <div class="card-header">
+        <div class="card-meta">
+          <div class="card-icon" style="background:#fbbf2415">📚</div>
+          <div class="card-title-group">
+            <h3>GitHub Awesome-Prompts Sync</h3>
+            <div class="schedule">⏰ Every Sunday — 8:00 AM</div>
+          </div>
+        </div>
+        <span class="tag" style="background:#a78bfa15;color:#a78bfa;border:1px solid #a78bfa30">AI Prompts</span>
+      </div>
+      <div class="prompt-block" id="p34">Fetch and sync the most active "awesome prompts" GitHub repositories that have had commits in the last 7 days. Check these repos for new additions:
+- f/awesome-chatgpt-prompts
+- ai-boost/awesome-prompts  
+- willwulfken/MidJourney-Styles-and-Keywords-Reference
+- dair-ai/Prompt-Engineering-Guide
+- brexhq/prompt-engineering
+- Any other repos with "prompt" in the name and 500+ stars updated this week
+
+For each repo: fetch the diff or new entries since last sync. Extract newly added prompts only. Categorize and save new entries to ~/prompts/github-sync/[repo-name]/new-[YYYY-MM-DD].md.
+
+Also check the Prompt Engineering Guide for any new techniques or patterns added. If a new technique is documented, save a summary to ~/prompts/techniques/[technique-name].md. Update ~/prompts/github-sync/last-sync.md with timestamp and count of new items found.
+<button class="copy-btn" onclick="copyPrompt('p34', this)">Copy</button></div>
+      <div class="card-footer">
+        <span class="badge">Web Fetch</span><span class="badge">GitHub</span><span class="badge">Saves to ~/prompts/github-sync/</span><span class="badge">~12 min</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>AX Platform · Claude Cowork Prompt Library · v1.0</span>
+    <span><span class="dot"></span> 34 scheduled tasks</span>
+  </footer>
+</div>
+
+<script>
+  function filter(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  function copyPrompt(id, btn) {
+    const block = document.getElementById(id);
+    // Get text without the button text
+    let text = block.innerText.replace(/\s*Copy\s*$/, '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copied';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
