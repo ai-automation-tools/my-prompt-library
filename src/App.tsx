@@ -70,7 +70,7 @@ export default function App() {
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'my-prompts' | 'collections'>('my-prompts');
+  const [activeTab, setActiveTab] = useState<'my-prompts' | 'collections' | 'system-prompts' | 'agent-guides'>('my-prompts');
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -97,7 +97,11 @@ export default function App() {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
-  const activeSection = activeTab === 'my-prompts' ? 'My_Prompts' : 'Collections';
+  const activeSection = 
+    activeTab === 'my-prompts' ? 'My_Prompts' : 
+    activeTab === 'collections' ? 'Collections' : 
+    activeTab === 'system-prompts' ? 'System_Prompts' : 
+    'Agent_Guides';
 
   const sectionPrompts = useMemo(() => {
     return prompts.filter(p => p.section === activeSection);
@@ -312,6 +316,28 @@ export default function App() {
               >
                 Collections
               </button>
+              <button
+                onClick={() => { setActiveTab('system-prompts'); setShowAllPrompts(true); setSelectedPrompt(null); setSelectedSubcategory(null); }}
+                className={cn(
+                  "flex-1 py-2 px-3 rounded-[10px] text-[0.65rem] font-semibold tracking-wider uppercase transition-all duration-300",
+                  activeTab === 'system-prompts'
+                    ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
+                    : "text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
+                )}
+              >
+                System Prompts
+              </button>
+              <button
+                onClick={() => { setActiveTab('agent-guides'); setShowAllPrompts(true); setSelectedPrompt(null); setSelectedSubcategory(null); }}
+                className={cn(
+                  "flex-1 py-2 px-3 rounded-[10px] text-[0.65rem] font-semibold tracking-wider uppercase transition-all duration-300",
+                  activeTab === 'agent-guides'
+                    ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
+                    : "text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
+                )}
+              >
+                Agent Guides
+              </button>
             </div>
           </div>
 
@@ -509,7 +535,10 @@ export default function App() {
                 <div className="flex items-center justify-between mb-8">
                   <div>
                     <h2 className="heading-display text-2xl font-bold tracking-tight text-[var(--text-primary)]">
-                      {activeTab === 'my-prompts' ? 'My Prompts' : 'Collections'}
+                      {activeTab === 'my-prompts' ? 'My Prompts' : 
+                       activeTab === 'collections' ? 'Collections' : 
+                       activeTab === 'system-prompts' ? 'System Prompts' : 
+                       'Agent Guides'}
                     </h2>
                     <p className="label mt-2">{filteredPrompts.length} prompts</p>
                   </div>
