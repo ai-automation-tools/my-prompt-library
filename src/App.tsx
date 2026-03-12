@@ -24,6 +24,7 @@ import {
   Layers
 } from 'lucide-react';
 import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { motion, AnimatePresence } from 'motion/react';
@@ -643,7 +644,7 @@ export default function App() {
                     )}
 
                     <div className="markdown-body prose prose-invert max-w-none">
-                      <Markdown>{selectedPrompt.content}</Markdown>
+                      <Markdown remarkPlugins={[remarkGfm]}>{selectedPrompt.content}</Markdown>
                     </div>
 
                     {/* Decorative corner glow */}
