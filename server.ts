@@ -41,18 +41,21 @@ async function startServer() {
         const relativePath = path.relative(promptsDir, filePath);
 
         // Path structure: Section/Category/Subcategory/file.md
-        // e.g. My_Prompts/IT/DevOps/prompt.md or Collections/Curated/prompt.md
+        // e.g. My_Prompts/IT/DevOps/prompt.md or Collections/AI/agent_dev/prompt.md
         const pathParts = relativePath.split(path.sep);
         const inferredSection = pathParts.length > 1 ? pathParts[0] : "My_Prompts";
         const inferredCategory = pathParts.length > 2 ? pathParts[1] : (pathParts.length > 1 ? pathParts[0] : "General");
         const inferredSubcategory = pathParts.length > 3 ? pathParts[2] : null;
 
+        // Always use path-inferred category/subcategory for the section structure.
+        // Frontmatter category often duplicates the section name (e.g. category: "Collections")
+        // which breaks the sidebar hierarchy. Path is the source of truth.
         return {
           id: relativePath,
           title: data.title || path.basename(filePath, ".md"),
           section: inferredSection,
-          category: data.category || inferredCategory,
-          subcategory: data.subcategory || inferredSubcategory,
+          category: inferredCategory,
+          subcategory: inferredSubcategory,
           tags: data.tags || [],
           content: content,
           lastModified: fs.statSync(filePath).mtime,
