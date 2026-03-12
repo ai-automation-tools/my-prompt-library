@@ -24,7 +24,10 @@ import {
   Layers,
   Plus,
   Edit,
-  Trash2
+  Trash2,
+  Star,
+  Home,
+  ChevronRight as BreadcrumbArrow
 } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -85,6 +88,25 @@ export default function App() {
   const [searchFocused, setSearchFocused] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editingPrompt, setEditingPrompt] = useState<Prompt | null>(null);
+  
+  // Navigation & Organization
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    const saved = localStorage.getItem('prompt-favorites');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [recentlyViewed, setRecentlyViewed] = useState<string[]>(() => {
+    const saved = localStorage.getItem('prompt-recently-viewed');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // Persist favorites and recently viewed to localStorage
+  useEffect(() => {
+    localStorage.setItem('prompt-favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  useEffect(() => {
+    localStorage.setItem('prompt-recently-viewed', JSON.stringify(recentlyViewed));
+  }, [recentlyViewed]);
 
   // Debounce search input for better performance
   useEffect(() => {
@@ -156,6 +178,18 @@ export default function App() {
     );
   }, [selectedSubcategory, filteredPrompts]);
 
+  // Get favorite prompts
+  const favoritePrompts = useMemo(() => {
+    return prompts.filter(p => favorites.includes(p.id));
+  }, [prompts, favorites]);
+
+  // Get recently viewed prompts
+  const recentlyViewedPrompts = useMemo(() => {
+    return recentlyViewed
+      .map(id => prompts.find(p => p.id === id))
+      .filter((p): p is Prompt => p !== undefined);
+  }, [prompts, recentlyViewed]);
+
   const toggleCategory = useCallback((cat: string) => {
     setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
   }, []);
@@ -170,6 +204,12 @@ export default function App() {
     setSelectedPrompt(prompt);
     setSelectedSubcategory(null);
     setShowAllPrompts(false);
+    
+    // Track in recently viewed
+    setRecentlyViewed(prev => {
+      const filtered = prev.filter(id => id !== prompt.id);
+      return [prompt.id, ...filtered].slice(0, 10); // Keep last 10
+    });
   }, []);
 
   const handleShowAllPrompts = useCallback(() => {
@@ -190,6 +230,19 @@ export default function App() {
     navigator.clipboard.writeText(content);
     setCopied(promptId);
     setTimeout(() => setCopied(null), 2000);
+  }, []);
+
+  const toggleFavorite = useCallback((promptId: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    setFavorites(prev => {
+      if (prev.includes(promptId)) {
+        return prev.filter(id => id !== promptId);
+      } else {
+        return [...prev, promptId];
+      }
+    });
   }, []);
 
   const refreshPrompts = useCallback(() => {
@@ -265,6 +318,18 @@ export default function App() {
       </div>
 
       <div className="absolute top-5 right-5 flex gap-2 z-10">
+        <button
+          onClick={(e) => toggleFavorite(prompt.id, e)}
+          className={cn(
+            "p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] transition-all duration-300 border backdrop-blur-sm",
+            favorites.includes(prompt.id)
+              ? "text-yellow-400 border-yellow-400/50 hover:bg-yellow-400/20"
+              : "text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
+          )}
+          title={favorites.includes(prompt.id) ? "Remove from favorites" : "Add to favorites"}
+        >
+          <Star className={cn("w-3.5 h-3.5", favorites.includes(prompt.id) && "fill-yellow-400")} />
+        </button>
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -410,6 +475,72 @@ export default function App() {
               <option value="agent-guides">🤖 Agent Guides</option>
             </select>
           </div>
+
+          {/* Favorites */}
+          {favoritePrompts.length > 0 && (
+            <div className="px-4 pb-4">
+              <div className="glass-card rounded-[var(--radius-sm)] p-3 space-y-2">
+                <div className="flex items-center gap-2 px-1">
+                  <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
+                  <span className="text-[0.7rem] font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+                    Favorites ({favoritePrompts.length})
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  {favoritePrompts.slice(0, 5).map(prompt => (
+                    <button
+                      key={prompt.id}
+                      onClick={() => handlePromptClick(prompt)}
+                      className="w-full text-left px-2 py-1.5 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <p className="text-[0.75rem] font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
+                        {prompt.title}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+                {favoritePrompts.length > 5 && (
+                  <button
+                    onClick={() => {
+                      setShowAllPrompts(true);
+                      setSelectedPrompt(null);
+                      setSelectedSubcategory(null);
+                    }}
+                    className="text-[0.7rem] text-[var(--accent)] hover:underline px-1"
+                  >
+                    +{favoritePrompts.length - 5} more
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Recently Viewed */}
+          {recentlyViewedPrompts.length > 0 && (
+            <div className="px-4 pb-4">
+              <div className="glass-card rounded-[var(--radius-sm)] p-3 space-y-2">
+                <div className="flex items-center gap-2 px-1">
+                  <Clock className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  <span className="text-[0.7rem] font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+                    Recently Viewed
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  {recentlyViewedPrompts.slice(0, 5).map(prompt => (
+                    <button
+                      key={prompt.id}
+                      onClick={() => handlePromptClick(prompt)}
+                      className="w-full text-left px-2 py-1.5 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <p className="text-[0.75rem] font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
+                        {prompt.title}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Category list */}
           <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-1">
@@ -591,6 +722,51 @@ export default function App() {
 
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto px-6 md:px-10 pb-10">
+          {/* Breadcrumbs */}
+          {(selectedPrompt || selectedSubcategory) && (
+            <div className="mb-6 flex items-center gap-2 text-sm text-[var(--text-tertiary)]">
+              <button
+                onClick={handleShowAllPrompts}
+                className="flex items-center gap-1 hover:text-[var(--accent)] transition-colors"
+              >
+                <Home className="w-3.5 h-3.5" />
+                <span>{activeTab === 'my-prompts' ? 'My Prompts' : activeTab === 'collections' ? 'Collections' : activeTab === 'system-prompts' ? 'System Prompts' : 'Agent Guides'}</span>
+              </button>
+              {selectedSubcategory && (
+                <>
+                  <BreadcrumbArrow className="w-3.5 h-3.5" />
+                  <button
+                    onClick={() => {
+                      setSelectedSubcategory(null);
+                      setShowAllPrompts(false);
+                    }}
+                    className="hover:text-[var(--accent)] transition-colors"
+                  >
+                    {selectedSubcategory.category.replace(/_/g, ' ')}
+                  </button>
+                  {selectedSubcategory.subcategory !== 'ALL' && (
+                    <>
+                      <BreadcrumbArrow className="w-3.5 h-3.5" />
+                      <span>{selectedSubcategory.subcategory.replace(/_/g, ' ')}</span>
+                    </>
+                  )}
+                </>
+              )}
+              {selectedPrompt && (
+                <>
+                  <BreadcrumbArrow className="w-3.5 h-3.5" />
+                  {selectedPrompt.category && (
+                    <>
+                      <span>{selectedPrompt.category.replace(/_/g, ' ')}</span>
+                      <BreadcrumbArrow className="w-3.5 h-3.5" />
+                    </>
+                  )}
+                  <span className="text-[var(--text-primary)] font-medium">{selectedPrompt.title}</span>
+                </>
+              )}
+            </div>
+          )}
+
           <AnimatePresence mode="wait">
             {/* All Prompts Grid */}
             {showAllPrompts ? (
