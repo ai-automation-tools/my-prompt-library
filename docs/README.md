@@ -6,6 +6,7 @@ This folder contains comprehensive documentation for all features and updates to
 
 ### Features
 
+- [Quick Wins UX Improvements](./quick-wins-ux.md) - Toast notifications, loading states, empty states, and more
 - [Prompt Editor UI](./prompt-editor-ui.md) - Create, edit, and delete prompts directly from the UI
 - [Navigation & Organization](./navigation-organization.md) - Favorites, recently viewed, breadcrumbs, and enhanced sidebar
 
