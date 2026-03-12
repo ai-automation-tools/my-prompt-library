@@ -73,7 +73,7 @@ export default function App() {
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
-  const [theme, setTheme] = useState<Theme>('retro-wave');
+  const [theme, setTheme] = useState<Theme>('github-dark-pro');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
