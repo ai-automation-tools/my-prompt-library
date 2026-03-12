@@ -293,7 +293,7 @@ export default function App() {
 
           {/* Navigation tabs */}
           <div className="px-6 pb-4">
-            <div className="flex gap-1.5 p-1 rounded-[var(--radius-sm)] bg-[var(--glass-bg)]">
+            <div className="grid grid-cols-2 gap-1.5 p-1 rounded-[var(--radius-sm)] bg-[var(--glass-bg)]">
               <button
                 onClick={() => { setActiveTab('my-prompts'); setShowAllPrompts(true); setSelectedPrompt(null); setSelectedSubcategory(null); }}
                 className={cn(
