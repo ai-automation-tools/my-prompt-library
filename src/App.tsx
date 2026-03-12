@@ -35,6 +35,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { motion, AnimatePresence } from 'motion/react';
 import PromptEditorModal from './components/PromptEditorModal';
+import { ToastContainer, type ToastProps } from './components/Toast';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -99,6 +100,21 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
+  // Toast notifications
+  const [toasts, setToasts] = useState<ToastProps[]>([]);
+  
+  // Loading states
+  const [isLoading, setIsLoading] = useState(true);
+
+  const showToast = useCallback((type: ToastProps['type'], message: string) => {
+    const id = Math.random().toString(36).substr(2, 9);
+    setToasts(prev => [...prev, { id, type, message, onClose: () => {} }]);
+  }, []);
+
+  const closeToast = useCallback((id: string) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id));
+  }, []);
+
   // Persist favorites and recently viewed to localStorage
   useEffect(() => {
     localStorage.setItem('prompt-favorites', JSON.stringify(favorites));
@@ -117,11 +133,19 @@ export default function App() {
   }, [searchQuery]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch('/api/prompts')
       .then(res => res.json())
-      .then(data => setPrompts(data))
-      .catch(err => console.error('Failed to fetch prompts:', err));
-  }, []);
+      .then(data => {
+        setPrompts(data);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.error('Failed to fetch prompts:', err);
+        showToast('error', 'Failed to load prompts');
+        setIsLoading(false);
+      });
+  }, [showToast]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -230,7 +254,8 @@ export default function App() {
     navigator.clipboard.writeText(content);
     setCopied(promptId);
     setTimeout(() => setCopied(null), 2000);
-  }, []);
+    showToast('success', 'Copied to clipboard');
+  }, [showToast]);
 
   const toggleFavorite = useCallback((promptId: string, e?: React.MouseEvent) => {
     if (e) {
@@ -256,41 +281,52 @@ export default function App() {
     const method = prompt.id ? 'PUT' : 'POST';
     const url = prompt.id ? `/api/prompts/${encodeURIComponent(prompt.id)}` : '/api/prompts';
 
-    const response = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(prompt)
-    });
+    try {
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(prompt)
+      });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Failed to save prompt');
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to save prompt');
+      }
+
+      refreshPrompts();
+      showToast('success', prompt.id ? 'Prompt updated successfully' : 'Prompt created successfully');
+    } catch (error: any) {
+      showToast('error', error.message || 'Failed to save prompt');
+      throw error;
     }
-
-    refreshPrompts();
-  }, [refreshPrompts]);
+  }, [refreshPrompts, showToast]);
 
   const handleDeletePrompt = useCallback(async (promptId: string) => {
     if (!confirm('Are you sure you want to delete this prompt? This action cannot be undone.')) {
       return;
     }
 
-    const response = await fetch(`/api/prompts/${encodeURIComponent(promptId)}`, {
-      method: 'DELETE'
-    });
+    try {
+      const response = await fetch(`/api/prompts/${encodeURIComponent(promptId)}`, {
+        method: 'DELETE'
+      });
 
-    if (!response.ok) {
-      const error = await response.json();
-      alert(error.error || 'Failed to delete prompt');
-      return;
-    }
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to delete prompt');
+      }
 
-    refreshPrompts();
-    if (selectedPrompt?.id === promptId) {
-      setSelectedPrompt(null);
-      setShowAllPrompts(true);
+      refreshPrompts();
+      showToast('success', 'Prompt deleted successfully');
+      
+      if (selectedPrompt?.id === promptId) {
+        setSelectedPrompt(null);
+        setShowAllPrompts(true);
+      }
+    } catch (error: any) {
+      showToast('error', error.message || 'Failed to delete prompt');
     }
-  }, [refreshPrompts, selectedPrompt]);
+  }, [refreshPrompts, selectedPrompt, showToast]);
 
   const handleEditPrompt = useCallback((prompt: Prompt) => {
     setEditingPrompt(prompt);
@@ -566,6 +602,14 @@ export default function App() {
                     )}>
                       {cat.replace(/_/g, ' ')}
                     </span>
+                    <span className={cn(
+                      "text-[0.65rem] px-1.5 py-0.5 rounded-full transition-colors",
+                      expandedCategories[cat] 
+                        ? "bg-[var(--accent-glow-subtle)] text-[var(--accent)]"
+                        : "bg-[var(--glass-bg)] text-[var(--text-tertiary)]"
+                    )}>
+                      {sectionPrompts.filter(p => p.category === cat).length}
+                    </span>
                   </div>
                   <ChevronDown className={cn(
                     "w-3.5 h-3.5 transition-all duration-300",
@@ -790,11 +834,43 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                  {filteredPrompts.map((prompt, i) => (
-                    <PromptCard key={prompt.id} prompt={prompt} index={i} />
-                  ))}
-                </div>
+                {isLoading ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                    {[...Array(6)].map((_, i) => (
+                      <div key={i} className="glass-card rounded-[var(--radius-lg)] p-6 animate-pulse">
+                        <div className="h-4 bg-[var(--glass-bg)] rounded w-3/4 mb-4"></div>
+                        <div className="h-3 bg-[var(--glass-bg)] rounded w-1/2 mb-6"></div>
+                        <div className="space-y-2">
+                          <div className="h-2 bg-[var(--glass-bg)] rounded"></div>
+                          <div className="h-2 bg-[var(--glass-bg)] rounded w-5/6"></div>
+                          <div className="h-2 bg-[var(--glass-bg)] rounded w-4/6"></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : filteredPrompts.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-20 text-center">
+                    <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
+                    <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
+                    <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
+                      {searchQuery ? `No prompts match "${searchQuery}". Try a different search term.` : 'Get started by creating your first prompt!'}
+                    </p>
+                    {!searchQuery && (
+                      <button
+                        onClick={handleNewPrompt}
+                        className="px-6 py-3 bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white rounded-lg font-semibold transition-colors"
+                      >
+                        Create Your First Prompt
+                      </button>
+                    )}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                    {filteredPrompts.map((prompt, i) => (
+                      <PromptCard key={prompt.id} prompt={prompt} index={i} />
+                    ))}
+                  </div>
+                )}
               </motion.div>
 
             ) : selectedSubcategory && subcategoryPrompts.length > 0 ? (
@@ -859,19 +935,46 @@ export default function App() {
                       </h2>
                       <p className="label mt-0.5 truncate">{selectedPrompt.id}</p>
                     </div>
-                    <motion.button
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => handleCopy(selectedPrompt.content, selectedPrompt.id)}
-                      className={cn(
-                        "flex items-center gap-2 px-5 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0",
-                        copied === selectedPrompt.id
-                          ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
-                          : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
-                      )}
-                    >
-                      {copied === selectedPrompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                      {copied === selectedPrompt.id ? 'Copied' : 'Copy'}
-                    </motion.button>
+                    <div className="flex gap-2">
+                      <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => {
+                          const fullContent = `---
+title: "${selectedPrompt.title}"
+tags: [${selectedPrompt.tags.map(t => `"${t}"`).join(', ')}]
+category: "${selectedPrompt.category}"
+subcategory: "${selectedPrompt.subcategory || selectedPrompt.category}"
+---
+
+${selectedPrompt.content}`;
+                          handleCopy(fullContent, `${selectedPrompt.id}-full`);
+                        }}
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0",
+                          copied === `${selectedPrompt.id}-full`
+                            ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
+                            : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                        )}
+                        title="Copy with frontmatter"
+                      >
+                        {copied === `${selectedPrompt.id}-full` ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                        Copy All
+                      </motion.button>
+                      <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleCopy(selectedPrompt.content, selectedPrompt.id)}
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0",
+                          copied === selectedPrompt.id
+                            ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
+                            : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                        )}
+                        title="Copy content only"
+                      >
+                        {copied === selectedPrompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                        Copy
+                      </motion.button>
+                    </div>
                   </div>
 
                   {/* Content card */}
@@ -988,6 +1091,9 @@ export default function App() {
         editingPrompt={editingPrompt}
         defaultSection={activeSection}
       />
+
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} onClose={closeToast} />
     </div>
   );
 }
