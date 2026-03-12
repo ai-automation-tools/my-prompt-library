@@ -270,6 +270,69 @@
   --glass-border-hover: rgba(47, 129, 247, 0.2);
 }
 
+/* REACT MODERN — Modern React app aesthetic: solid dark blue-gray, vibrant cyan accent, no glass */
+[data-theme='react-modern'] {
+  --bg-primary: #1a1f2e;
+  --bg-secondary: #242b3d;
+  --bg-tertiary: #2d3548;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --accent: #61dafb;
+  --accent-secondary: #4fc3dc;
+  --accent-glow: rgba(97, 218, 251, 0.3);
+  --accent-glow-subtle: rgba(97, 218, 251, 0.12);
+  --border: rgba(148, 163, 184, 0.12);
+  --border-hover: rgba(97, 218, 251, 0.3);
+  --glass-bg: #2d3548;
+  --glass-bg-hover: #3a4358;
+  --glass-border: rgba(148, 163, 184, 0.15);
+  --glass-border-hover: rgba(97, 218, 251, 0.4);
+  --noise-opacity: 0.02;
+}
+
+/* DARK PRO — Professional dark: solid charcoal, electric purple accent, modern and clean */
+[data-theme='dark-pro'] {
+  --bg-primary: #0f1419;
+  --bg-secondary: #1a1f29;
+  --bg-tertiary: #252b38;
+  --text-primary: #e6edf3;
+  --text-secondary: #9198a1;
+  --text-tertiary: #6e7681;
+  --accent: #9d4edd;
+  --accent-secondary: #7b2cbf;
+  --accent-glow: rgba(157, 78, 221, 0.35);
+  --accent-glow-subtle: rgba(157, 78, 221, 0.12);
+  --border: rgba(145, 152, 161, 0.12);
+  --border-hover: rgba(157, 78, 221, 0.35);
+  --glass-bg: #252b38;
+  --glass-bg-hover: #2f3747;
+  --glass-border: rgba(145, 152, 161, 0.15);
+  --glass-border-hover: rgba(157, 78, 221, 0.4);
+  --noise-opacity: 0.015;
+}
+
+/* NORDIC NIGHT — Cool Scandinavian: solid slate-blue, ice blue accent, minimalist and modern */
+[data-theme='nordic-night'] {
+  --bg-primary: #1e2430;
+  --bg-secondary: #2a303c;
+  --bg-tertiary: #343d4f;
+  --text-primary: #d8dee9;
+  --text-secondary: #81a1c1;
+  --text-tertiary: #616e88;
+  --accent: #88c0d0;
+  --accent-secondary: #5e81ac;
+  --accent-glow: rgba(136, 192, 208, 0.3);
+  --accent-glow-subtle: rgba(136, 192, 208, 0.1);
+  --border: rgba(129, 161, 193, 0.12);
+  --border-hover: rgba(136, 192, 208, 0.3);
+  --glass-bg: #343d4f;
+  --glass-bg-hover: #3e4759;
+  --glass-border: rgba(129, 161, 193, 0.15);
+  --glass-border-hover: rgba(136, 192, 208, 0.4);
+  --noise-opacity: 0.015;
+}
+
 /* ===== Base ===== */
 
 body {
