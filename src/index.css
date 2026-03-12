@@ -480,6 +480,61 @@ body::after {
   font-weight: 600;
 }
 
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.9rem;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.markdown-body thead {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.markdown-body th {
+  padding: 0.9rem 1.2rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--accent);
+  border-bottom: 2px solid var(--glass-border);
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+}
+
+.markdown-body td {
+  padding: 0.85rem 1.2rem;
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+
+.markdown-body tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown-body tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.markdown-body tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.markdown-body td a {
+  color: var(--accent);
+  text-decoration: none;
+  word-break: break-word;
+  transition: color 0.2s ease;
+}
+
+.markdown-body td a:hover {
+  color: var(--accent-secondary);
+  text-decoration: underline;
+}
+
 /* ===== Theme-aware accent overrides ===== */
 
 .text-pink-500, .text-pink-400 {
