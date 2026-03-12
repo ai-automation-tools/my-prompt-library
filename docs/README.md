@@ -7,7 +7,7 @@ This folder contains comprehensive documentation for all features and updates to
 ### Features
 
 - [Prompt Editor UI](./prompt-editor-ui.md) - Create, edit, and delete prompts directly from the UI
-- _(More features to be documented as they are added)_
+- [Navigation & Organization](./navigation-organization.md) - Favorites, recently viewed, breadcrumbs, and enhanced sidebar
 
 ### Deployment
 
