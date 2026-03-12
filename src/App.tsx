@@ -292,54 +292,23 @@ export default function App() {
             </div>
           </div>
 
-          {/* Navigation tabs */}
+          {/* Navigation dropdown */}
           <div className="px-6 pb-4">
-            <div className="grid grid-cols-2 gap-1.5 p-1 rounded-[var(--radius-sm)] bg-[var(--glass-bg)]">
-              <button
-                onClick={() => { setActiveTab('my-prompts'); setShowAllPrompts(true); setSelectedPrompt(null); setSelectedSubcategory(null); }}
-                className={cn(
-                  "flex-1 py-2 px-3 rounded-[10px] text-[0.65rem] font-semibold tracking-wider uppercase transition-all duration-300",
-                  activeTab === 'my-prompts'
-                    ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                    : "text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
-                )}
-              >
-                My Prompts
-              </button>
-              <button
-                onClick={() => { setActiveTab('collections'); setShowAllPrompts(true); setSelectedPrompt(null); setSelectedSubcategory(null); }}
-                className={cn(
-                  "flex-1 py-2 px-3 rounded-[10px] text-[0.65rem] font-semibold tracking-wider uppercase transition-all duration-300",
-                  activeTab === 'collections'
-                    ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                    : "text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
-                )}
-              >
-                Collections
-              </button>
-              <button
-                onClick={() => { setActiveTab('system-prompts'); setShowAllPrompts(true); setSelectedPrompt(null); setSelectedSubcategory(null); }}
-                className={cn(
-                  "flex-1 py-2 px-3 rounded-[10px] text-[0.65rem] font-semibold tracking-wider uppercase transition-all duration-300",
-                  activeTab === 'system-prompts'
-                    ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                    : "text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
-                )}
-              >
-                System Prompts
-              </button>
-              <button
-                onClick={() => { setActiveTab('agent-guides'); setShowAllPrompts(true); setSelectedPrompt(null); setSelectedSubcategory(null); }}
-                className={cn(
-                  "flex-1 py-2 px-3 rounded-[10px] text-[0.65rem] font-semibold tracking-wider uppercase transition-all duration-300",
-                  activeTab === 'agent-guides'
-                    ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                    : "text-[var(--text-tertiary)] hover:text-[var(--text-secondary)]"
-                )}
-              >
-                Agent Guides
-              </button>
-            </div>
+            <select
+              value={activeTab}
+              onChange={(e) => {
+                setActiveTab(e.target.value as typeof activeTab);
+                setShowAllPrompts(true);
+                setSelectedPrompt(null);
+                setSelectedSubcategory(null);
+              }}
+              className="w-full py-3 px-4 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.75rem] font-semibold tracking-wider uppercase text-[var(--text-primary)] cursor-pointer transition-all duration-300 hover:bg-[var(--glass-bg-hover)] hover:border-[var(--accent)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)]"
+            >
+              <option value="my-prompts">📝 My Prompts</option>
+              <option value="collections">📚 Collections</option>
+              <option value="system-prompts">⚙️ System Prompts</option>
+              <option value="agent-guides">🤖 Agent Guides</option>
+            </select>
           </div>
 
           {/* Category list */}
