@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback, memo } from 'react';
 import {
   ChevronDown,
   ChevronRight,
@@ -71,6 +71,7 @@ export default function App() {
   const [showAllPrompts, setShowAllPrompts] = useState(true);
   const [theme, setTheme] = useState<Theme>('retro-wave');
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
@@ -78,6 +79,14 @@ export default function App() {
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
   const [searchFocused, setSearchFocused] = useState(false);
+
+  // Debounce search input for better performance
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   useEffect(() => {
     fetch('/api/prompts')
@@ -121,12 +130,14 @@ export default function App() {
   }, [sectionPrompts]);
 
   const filteredPrompts = useMemo(() => {
+    if (!debouncedSearch) return sectionPrompts;
+    const searchLower = debouncedSearch.toLowerCase();
     return sectionPrompts.filter(p =>
-      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))
+      p.title.toLowerCase().includes(searchLower) ||
+      p.content.toLowerCase().includes(searchLower) ||
+      p.tags.some(t => t.toLowerCase().includes(searchLower))
     );
-  }, [sectionPrompts, searchQuery]);
+  }, [sectionPrompts, debouncedSearch]);
 
   const subcategoryPrompts = useMemo(() => {
     if (!selectedSubcategory) return [];
@@ -139,44 +150,44 @@ export default function App() {
     );
   }, [selectedSubcategory, filteredPrompts]);
 
-  const toggleCategory = (cat: string) => {
+  const toggleCategory = useCallback((cat: string) => {
     setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
-  };
+  }, []);
 
-  const handleSubcategoryClick = (category: string, subcategory: string | 'ALL') => {
+  const handleSubcategoryClick = useCallback((category: string, subcategory: string | 'ALL') => {
     setSelectedSubcategory({ category, subcategory });
     setSelectedPrompt(null);
     setShowAllPrompts(false);
-  };
+  }, []);
 
-  const handlePromptClick = (prompt: Prompt) => {
+  const handlePromptClick = useCallback((prompt: Prompt) => {
     setSelectedPrompt(prompt);
     setSelectedSubcategory(null);
     setShowAllPrompts(false);
-  };
+  }, []);
 
-  const handleShowAllPrompts = () => {
+  const handleShowAllPrompts = useCallback(() => {
     setShowAllPrompts(true);
     setSelectedPrompt(null);
     setSelectedSubcategory(null);
-  };
+  }, []);
 
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     if (selectedPrompt && selectedSubcategory) {
       setSelectedPrompt(null);
     } else {
       handleShowAllPrompts();
     }
-  };
+  }, [selectedPrompt, selectedSubcategory, handleShowAllPrompts]);
 
-  const handleCopy = (content: string, promptId: string) => {
+  const handleCopy = useCallback((content: string, promptId: string) => {
     navigator.clipboard.writeText(content);
     setCopied(promptId);
     setTimeout(() => setCopied(null), 2000);
-  };
+  }, []);
 
-  // Prompt card component for reuse
-  const PromptCard = ({ prompt, index }: { prompt: Prompt; index: number }) => (
+  // Prompt card component for reuse (memoized for performance)
+  const PromptCard = memo(({ prompt, index }: { prompt: Prompt; index: number }) => (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
@@ -235,7 +246,7 @@ export default function App() {
         </p>
       </div>
     </motion.div>
-  );
+  ));
 
   return (
     <div className="flex h-screen overflow-hidden font-[var(--font-sans)]">
