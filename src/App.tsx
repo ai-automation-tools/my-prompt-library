@@ -44,7 +44,7 @@ interface Prompt {
   lastModified: string;
 }
 
-type Theme = 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro';
+type Theme = 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro' | 'react-modern' | 'dark-pro' | 'nordic-night';
 
 const THEMES: { id: Theme; name: string; icon: string }[] = [
   { id: 'retro-wave', name: 'Retro Wave', icon: '⚡' },
@@ -58,6 +58,9 @@ const THEMES: { id: Theme; name: string; icon: string }[] = [
   { id: 'github-dark-pro', name: 'GitHub Dark Pro', icon: '🐙' },
   { id: 'void-black', name: 'Void Black', icon: '🖤' },
   { id: 'frosted-steel', name: 'Frosted Steel', icon: '🔩' },
+  { id: 'react-modern', name: 'React Modern', icon: '⚛️' },
+  { id: 'dark-pro', name: 'Dark Pro', icon: '🎯' },
+  { id: 'nordic-night', name: 'Nordic Night', icon: '🌨️' },
   { id: 'light', name: 'Light', icon: '☀️' },
 ];
 
