@@ -21,13 +21,17 @@ import {
   Clock,
   Tag,
   FolderOpen,
-  Layers
+  Layers,
+  Plus,
+  Edit,
+  Trash2
 } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { motion, AnimatePresence } from 'motion/react';
+import PromptEditorModal from './components/PromptEditorModal';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -79,6 +83,8 @@ export default function App() {
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
   const [searchFocused, setSearchFocused] = useState(false);
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [editingPrompt, setEditingPrompt] = useState<Prompt | null>(null);
 
   // Debounce search input for better performance
   useEffect(() => {
@@ -186,6 +192,63 @@ export default function App() {
     setTimeout(() => setCopied(null), 2000);
   }, []);
 
+  const refreshPrompts = useCallback(() => {
+    fetch('/api/prompts')
+      .then(res => res.json())
+      .then(data => setPrompts(data))
+      .catch(err => console.error('Failed to fetch prompts:', err));
+  }, []);
+
+  const handleSavePrompt = useCallback(async (prompt: Omit<Prompt, 'lastModified'>) => {
+    const method = prompt.id ? 'PUT' : 'POST';
+    const url = prompt.id ? `/api/prompts/${encodeURIComponent(prompt.id)}` : '/api/prompts';
+
+    const response = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(prompt)
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to save prompt');
+    }
+
+    refreshPrompts();
+  }, [refreshPrompts]);
+
+  const handleDeletePrompt = useCallback(async (promptId: string) => {
+    if (!confirm('Are you sure you want to delete this prompt? This action cannot be undone.')) {
+      return;
+    }
+
+    const response = await fetch(`/api/prompts/${encodeURIComponent(promptId)}`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      alert(error.error || 'Failed to delete prompt');
+      return;
+    }
+
+    refreshPrompts();
+    if (selectedPrompt?.id === promptId) {
+      setSelectedPrompt(null);
+      setShowAllPrompts(true);
+    }
+  }, [refreshPrompts, selectedPrompt]);
+
+  const handleEditPrompt = useCallback((prompt: Prompt) => {
+    setEditingPrompt(prompt);
+    setIsEditorOpen(true);
+  }, []);
+
+  const handleNewPrompt = useCallback(() => {
+    setEditingPrompt(null);
+    setIsEditorOpen(true);
+  }, []);
+
   // Prompt card component for reuse (memoized for performance)
   const PromptCard = memo(({ prompt, index }: { prompt: Prompt; index: number }) => (
     <motion.div
@@ -201,15 +264,38 @@ export default function App() {
         <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-[var(--accent-glow-subtle)] blur-[60px]" />
       </div>
 
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          handleCopy(prompt.content, prompt.id);
-        }}
-        className="absolute top-5 right-5 p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] z-10 backdrop-blur-sm"
-      >
-        {copied === prompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-      </button>
+      <div className="absolute top-5 right-5 flex gap-2 z-10">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleEditPrompt(prompt);
+          }}
+          className="p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
+          title="Edit prompt"
+        >
+          <Edit className="w-3.5 h-3.5" />
+        </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDeletePrompt(prompt.id);
+          }}
+          className="p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-red-500 text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-red-500 backdrop-blur-sm"
+          title="Delete prompt"
+        >
+          <Trash2 className="w-3.5 h-3.5" />
+        </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleCopy(prompt.content, prompt.id);
+          }}
+          className="p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
+          title="Copy content"
+        >
+          {copied === prompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+        </button>
+      </div>
 
       <div className="space-y-4 relative z-[1]">
         <div className="flex items-start gap-3.5">
@@ -705,6 +791,27 @@ export default function App() {
           </AnimatePresence>
         </div>
       </main>
+
+      {/* Floating Action Button */}
+      <button
+        onClick={handleNewPrompt}
+        className="fixed bottom-8 right-8 w-16 h-16 bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white rounded-full shadow-lg hover:shadow-[0_0_40px_var(--accent-glow)] transition-all duration-300 flex items-center justify-center z-40 group"
+        title="Create new prompt"
+      >
+        <Plus className="w-7 h-7 group-hover:rotate-90 transition-transform duration-300" />
+      </button>
+
+      {/* Prompt Editor Modal */}
+      <PromptEditorModal
+        isOpen={isEditorOpen}
+        onClose={() => {
+          setIsEditorOpen(false);
+          setEditingPrompt(null);
+        }}
+        onSave={handleSavePrompt}
+        editingPrompt={editingPrompt}
+        defaultSection={activeSection}
+      />
     </div>
   );
 }
