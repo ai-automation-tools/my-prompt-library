@@ -287,6 +287,35 @@ Fully responsive design optimized for touch devices and small screens.
 
 ## Changelog
 
+### v2.0 - March 13, 2026 (Major UI Overhaul)
+**Layout & Navigation:**
+- ✅ Compact top bar with horizontal filter chips (Favorites, Recent, Tags)
+- ✅ Removed large hero header to save vertical space
+- ✅ Stat badges moved to top bar (compact inline design)
+- ✅ Filters always accessible without scrolling
+- ✅ Clean navigation-focused sidebar with solid theme backgrounds
+
+**Prompt Cards:**
+- ✅ 4-column grid on desktop (was 3-column)
+- ✅ Dedicated vertical button column with separator
+- ✅ Centered action buttons (no title/button overlay issues)
+- ✅ Smaller card gaps for denser layout (gap-4)
+- ✅ Full-width content area (removed max-width constraints)
+
+**Space Efficiency:**
+- ✅ Reduced padding throughout (px-4 md:px-6)
+- ✅ Compact breadcrumbs (text-xs, mb-4)
+- ✅ Smaller section headings (text-xl)
+- ✅ More prompts visible at once
+- ✅ Better use of screen real estate
+
+**Design Improvements:**
+- ✅ Solid sidebar backgrounds (no glass effect on sidebar)
+- ✅ Modern app-like layout (similar to GitHub, Notion)
+- ✅ Vertical separator between content and buttons
+- ✅ Professional, clean aesthetic
+- ✅ Less visual clutter, more content focus
+
 ### v1.1 - March 13, 2026
 - ✅ Fuzzy search with Fuse.js
 - ✅ Tag filtering with multi-select
@@ -303,6 +332,6 @@ Fully responsive design optimized for touch devices and small screens.
 
 ---
 
-**Documentation Version:** 1.1  
+**Documentation Version:** 2.0  
 **Last Updated:** March 13, 2026  
 **Author:** OpenClaw AI Assistant

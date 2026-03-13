@@ -1,12 +1,12 @@
 # Navigation & Organization Features
 
 **Feature Added:** March 12, 2026  
-**Version:** 1.0  
-**Commit:** `d558402`
+**Major Update:** March 13, 2026 (v2.0 - UI Overhaul)  
+**Version:** 2.0  
 
 ## Overview
 
-Comprehensive navigation and organization features that make it easier to find, access, and manage prompts. Includes favorites system, recently viewed tracking, breadcrumb navigation, and enhanced sidebar organization.
+Comprehensive navigation and organization features that make it easier to find, access, and manage prompts. Features a **horizontal filter bar** at the top of the screen for quick access to favorites, recent prompts, and tag filtering - always visible without scrolling. Includes breadcrumb navigation and clean, navigation-focused sidebar.
 
 ---
 
@@ -14,39 +14,43 @@ Comprehensive navigation and organization features that make it easier to find, 
 
 ### ✅ Favorites System
 
-Star your most-used prompts for quick access.
+Star your most-used prompts for quick access via the **top bar filter chip**.
 
 **Features:**
-- Star button on every prompt card
+- Star button on every prompt card (vertical button column)
 - Favorites persist across sessions (localStorage)
-- Dedicated favorites section in sidebar
-- Shows top 5 favorites with "more" indicator
+- **Top bar chip** with count badge - always visible
+- Click to open dropdown with all favorites
 - Yellow star icon (filled when favorited)
-- Click anywhere in favorites list to jump to prompt
+- Dropdown shows prompt title and category
+- Auto-closes when selecting a prompt
 
 **How to Use:**
-1. Hover over any prompt card
-2. Click the **⭐ star button** (top-left in the button group)
-3. Star turns yellow and prompt is added to favorites
-4. View your favorites in the sidebar under "Favorites"
+1. Click the **⭐ star button** in the prompt card's button column (right side)
+2. Star turns yellow and prompt is added to favorites
+3. View your favorites by clicking the **"Favorites (N)"** chip in the top bar
+4. Select a prompt from the dropdown to navigate to it
 5. Click star again to remove from favorites
 
 **Visual Indicators:**
 - **Unfavorited:** Gray outline star
 - **Favorited:** Solid yellow star (filled)
+- **Top Bar Chip:** Shows count (e.g., "Favorites (5)")
 
 ---
 
 ### ✅ Recently Viewed
 
-Automatically tracks the last 10 prompts you viewed.
+Automatically tracks the last 10 prompts you viewed, accessible via the **top bar filter chip**.
 
 **Features:**
 - Automatic tracking when you view a prompt
 - Persists across sessions (localStorage)
-- Dedicated sidebar section
-- Shows 5 most recent with chronological order
-- Click any item to return to that prompt
+- **Top bar chip** with count badge - always visible
+- Click to open dropdown with all recently viewed prompts
+- Chronological order (most recent first)
+- Dropdown shows prompt title and category
+- Auto-closes when selecting a prompt
 
 **How It Works:**
 1. Click on any prompt to view it
@@ -104,53 +108,57 @@ Visual navigation path showing where you are.
 
 ---
 
-### ✅ Enhanced Sidebar Organization
+### ✅ Horizontal Filter Bar (Top Bar)
 
-Sidebar now shows context-aware sections.
+Quick access to favorites, recent prompts, and tag filtering - always visible at the top of the screen.
 
-**Sidebar Sections (in order):**
-1. **Header** - Logo and search
-2. **Navigation Dropdown** - Switch between sections
-3. **Favorites** ⭐ - Starred prompts (if any)
-4. **Recently Viewed** 🕐 - Recent prompts (if any)
-5. **Categories** - Expandable category tree
+**Top Bar Layout:**
+1. **Mobile Menu Button** - Toggle sidebar on mobile
+2. **Filter Chips** - Favorites, Recent, Tags (with count badges)
+3. **Stat Badges** - Prompt count and category count (desktop only)
 
-**Smart Display:**
-- Favorites section only shows if you have favorites
-- Recently Viewed only shows if you've viewed prompts
-- Each section shows top 5 items
-- "+X more" indicator when there are more items
-- Click any item to navigate directly
+**Filter Chips:**
+- **Favorites (N)** ⭐ - Click to see dropdown of all favorites
+- **Recent (N)** 🕐 - Click to see dropdown of recently viewed
+- **Tags (N)** 🏷️ - Click to open tag multi-select dropdown
+
+**Features:**
+- **Always Visible**: No scrolling needed to access filters
+- **Dropdown Menus**: Click chip to open, click outside to close
+- **Count Badges**: See how many items in each filter
+- **Auto-Close**: Dropdowns close when you select an item
+- **Clean Design**: Pill-shaped chips with subtle glass effect
+
+**Benefits:**
+- Filters always accessible without scrolling
+- Modern app-like layout (similar to GitHub, Notion)
+- More vertical space for content
+- Quick access to most-used features
+- Clean, uncluttered interface
 
 ---
 
-### ✅ Collapsible Sidebar Sections
+### ✅ Clean Navigation Sidebar
 
-All sidebar sections can be collapsed to save space and reduce clutter.
+Sidebar focused on category navigation with solid theme backgrounds.
 
-**Collapsible Sections:**
-- **Favorites** ⭐ - Collapsed by default
-- **Recently Viewed** 🕐 - Collapsed by default
-- **Filter by Tags** 🏷️ - Collapsed by default
+**Sidebar Sections:**
+1. **Header** - "Prompt Library" title with theme switcher
+2. **Search Bar** - Fuzzy search across all prompts
+3. **Navigation Tabs** - Switch between sections (My Prompts, Collections, etc.)
+4. **Categories** - Expandable category tree with prompt counts
 
-**Features:**
-- **Default State**: All sections start collapsed (closed)
-- **Click to Expand**: Click the section header to expand/collapse
-- **Visual Indicators**: Chevron icons show state (→ collapsed, ↓ expanded)
-- **Persistent Controls**: "Clear" button for tags stays visible even when collapsed
-- **Clean Interface**: Keeps sidebar organized and reduces scrolling
-
-**How to Use:**
-1. **See a collapsed section** with a → chevron
-2. **Click the header** to expand the section
-3. **See the content** appear with a ↓ chevron
-4. **Click again** to collapse
+**Design:**
+- **Solid Backgrounds**: No glass effect - uses theme-specific solid colors
+- **Clean Layout**: Only navigation, no filter clutter
+- **Theme Colors**: Each theme has a custom sidebar background color
+- **Collapsible Categories**: Click to expand/collapse category groups
 
 **Benefits:**
-- Reduces vertical sidebar scrolling
-- Cleaner, more focused interface
-- Show only what you need when you need it
-- Faster navigation to categories
+- Navigation-focused (filters moved to top bar)
+- Better sidebar readability with solid backgrounds
+- Less scrolling needed
+- Professional, clean aesthetic
 
 ---
 
@@ -159,16 +167,17 @@ All sidebar sections can be collapsed to save space and reduce clutter.
 ### Starring a Prompt
 
 1. **Find a prompt** you use often
-2. **Hover over the card** - buttons appear
-3. **Click the ⭐ star** (first button, top-right)
+2. **Look at the right side** of the prompt card - vertical button column
+3. **Click the ⭐ star** (top button in the column)
 4. **Star turns yellow** - prompt is now favorited
-5. **Check sidebar** - appears under "Favorites"
+5. **Check top bar** - "Favorites (N)" chip appears
 
 ### Accessing Favorites
 
-1. **Look at the sidebar** - "Favorites" section
-2. **See your starred prompts** - top 5 shown
+1. **Look at the top bar** - "Favorites (N)" chip
+2. **Click the chip** - dropdown opens with all favorites
 3. **Click any prompt** - jumps directly to it
+4. **Dropdown auto-closes** after selection
 4. **Click "+X more"** - view all prompts (scroll to find favorites)
 
 ### Using Recently Viewed

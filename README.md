@@ -29,12 +29,13 @@ We've developed a robust set of features to make managing your AI prompts effort
 
 ### 🧭 Navigation & Organization
 - **Fuzzy Search**: Powered by Fuse.js for intelligent, typo-tolerant search across titles, content, tags, and categories.
+- **Horizontal Filter Bar**: Compact top bar with Favorites, Recent, and Tags filters - always visible, no scrolling needed.
 - **Advanced Filtering**: Filter prompts by tags with multi-select support and visual feedback.
 - **Sorting Options**: Sort prompts by title (A-Z, Z-A) or modification date (newest/oldest first).
-- **Favorites System**: Star your most-used prompts for quick access, persisted in local storage.
-- **Recently Viewed**: Automatically track and access your last 10 viewed prompts.
+- **Favorites System**: Star your most-used prompts for quick access via top bar dropdown.
+- **Recently Viewed**: Automatically track and access your last 10 viewed prompts via top bar dropdown.
 - **Breadcrumb Navigation**: Intuitive visual path showing your current location, with clickable elements to go back.
-- **Collapsible Sidebar Sections**: Favorites, Recently Viewed, and Tag Filter sections collapse by default for a cleaner interface.
+- **Clean Sidebar**: Navigation-focused sidebar with solid theme colors (no glass effect) and category organization.
 
 ### ⚡ Quick Wins UX Improvements
 - **Toast Notifications**: Get immediate, non-intrusive feedback (success, error, info) for all actions.
@@ -44,8 +45,10 @@ We've developed a robust set of features to make managing your AI prompts effort
 - **Copy All Button**: On prompt detail, copy the full markdown *including frontmatter*, or just the content.
 
 ### User Experience & Theming
-- **Professional Themes**: Choose from 15 professionally designed themes, with persistence.
-- **Glass Morphism UI**: Modern frosted glass effects and neon accents.
+- **Professional Themes**: Choose from 8 professionally designed themes with solid sidebar backgrounds.
+- **Glass Morphism UI**: Modern frosted glass effects on content cards with neon accents.
+- **Space-Efficient Layout**: Compact top bar, 4-column grid on desktop, minimal margins for maximum content visibility.
+- **Smart Prompt Cards**: Dedicated vertical button column with separator - no title/button overlap.
 - **Fully Responsive**: Mobile-optimized with adaptive layouts, touch-friendly buttons, and vertical stacking on small screens.
 - **Accessible**: Proper ARIA labels, keyboard navigation, and semantic HTML throughout.
 

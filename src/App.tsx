@@ -475,7 +475,7 @@ export default function App() {
       </div>
 
       {/* Button column with separator */}
-      <div className="flex flex-col gap-2 p-3 border-l border-[var(--glass-border)] relative z-10">
+      <div className="flex flex-col gap-2 p-3 border-l border-[var(--glass-border)] relative z-10 justify-center">
         <button
           onClick={(e) => toggleFavorite(prompt.id, e)}
           className={cn(
