@@ -1,5 +1,5 @@
 ﻿---
-title: "AI Prompt: Technical Case Study"
+title: "Technical Case Study"
 tags: ["writing", "technical", "case", "study"]
 category: "Writing"
 subcategory: "Technical"
@@ -30,5 +30,6 @@ Produce a **technical case study** demonstrating business impact.
 7.  Future Opportunities
 
 Return in Markdown.
+
 
 

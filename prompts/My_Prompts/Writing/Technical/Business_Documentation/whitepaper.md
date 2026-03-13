@@ -1,5 +1,5 @@
 ﻿---
-title: "AI Prompt: Enterprise Technical White Paper"
+title: "Enterprise Technical White Paper"
 tags: ["writing", "technical", "whitepaper"]
 category: "Writing"
 subcategory: "Technical"
@@ -63,5 +63,6 @@ Include architecture and operational considerations
 ## Output Format
 
 Return in **Markdown** with clearly labeled sections.
+
 
 
