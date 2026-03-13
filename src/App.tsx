@@ -562,22 +562,6 @@ export default function App() {
               </button>
             </div>
 
-            {/* Search */}
-            <div className={cn(
-              "relative rounded-[var(--radius-sm)] border transition-all duration-300",
-              searchFocused ? "border-[var(--accent)] shadow-[0_0_20px_var(--accent-glow-subtle)]" : "border-[var(--glass-border)]"
-            )}>
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[var(--text-tertiary)]" />
-              <input
-                type="text"
-                placeholder="Search prompts..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => setSearchFocused(true)}
-                onBlur={() => setSearchFocused(false)}
-                className="w-full bg-[var(--glass-bg)] pl-10 pr-4 py-2.5 rounded-[var(--radius-sm)] text-[0.8rem] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none"
-              />
-            </div>
           </div>
 
           {/* Navigation dropdown */}
@@ -911,21 +895,12 @@ export default function App() {
           {!selectedPrompt && !selectedSubcategory && (
             <div className="py-8 md:py-12 mb-8">
               <div className="max-w-4xl">
-                <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-4">
+                <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-6">
                   {activeTab === 'my-prompts' ? 'My Prompts' : 
                    activeTab === 'collections' ? 'Collections' : 
                    activeTab === 'system-prompts' ? 'System Prompts' : 
                    'Agent Guides'}
                 </h1>
-                <p className="text-base md:text-lg text-[var(--text-secondary)] leading-relaxed mb-6">
-                  {activeTab === 'my-prompts' 
-                    ? 'Your personally curated collection of favorite prompts. Star prompts from Collections to add them here.'
-                    : activeTab === 'collections'
-                    ? 'Browse the complete library of AI prompts across all categories. Find, filter, and organize prompts for any use case.'
-                    : activeTab === 'system-prompts'
-                    ? 'System-level prompts and configurations for AI agents and assistants.'
-                    : 'Comprehensive guides for working with AI coding agents and development tools.'}
-                </p>
                 
                 {/* Search Bar */}
                 <div className="relative max-w-2xl">
