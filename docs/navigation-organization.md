@@ -124,6 +124,36 @@ Sidebar now shows context-aware sections.
 
 ---
 
+### ✅ Collapsible Sidebar Sections
+
+All sidebar sections can be collapsed to save space and reduce clutter.
+
+**Collapsible Sections:**
+- **Favorites** ⭐ - Collapsed by default
+- **Recently Viewed** 🕐 - Collapsed by default
+- **Filter by Tags** 🏷️ - Collapsed by default
+
+**Features:**
+- **Default State**: All sections start collapsed (closed)
+- **Click to Expand**: Click the section header to expand/collapse
+- **Visual Indicators**: Chevron icons show state (→ collapsed, ↓ expanded)
+- **Persistent Controls**: "Clear" button for tags stays visible even when collapsed
+- **Clean Interface**: Keeps sidebar organized and reduces scrolling
+
+**How to Use:**
+1. **See a collapsed section** with a → chevron
+2. **Click the header** to expand the section
+3. **See the content** appear with a ↓ chevron
+4. **Click again** to collapse
+
+**Benefits:**
+- Reduces vertical sidebar scrolling
+- Cleaner, more focused interface
+- Show only what you need when you need it
+- Faster navigation to categories
+
+---
+
 ## Usage Guide
 
 ### Starring a Prompt

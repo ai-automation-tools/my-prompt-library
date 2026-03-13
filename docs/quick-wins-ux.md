@@ -137,6 +137,109 @@ subcategory: "[Subcategory Name]"
 
 ---
 
+### ✅ Fuzzy Search (Fuse.js)
+
+Intelligent, typo-tolerant search powered by Fuse.js for finding prompts even with inexact queries.
+
+**Features:**
+- **Searches Across:** Title, content, tags, category, and subcategory
+- **Typo-Tolerant:** Finds matches even with spelling errors
+- **Real-Time Results:** Updates as you type
+- **Debounced Input:** Optimized performance with 300ms delay
+- **Clear Indicator:** Search icon with focus state
+
+**How to Use:**
+1. Type in the search box at the top of the page
+2. Results filter automatically as you type
+3. Works across all fields - titles, content, tags, categories
+4. Case-insensitive and fuzzy-matched
+
+**Benefits:**
+- Find prompts even with approximate terms
+- Faster discovery without exact matches
+- Search across all prompt metadata
+- Professional search experience
+
+---
+
+### ✅ Tag Filtering
+
+Multi-select tag filtering with visual feedback and quick clearing.
+
+**Features:**
+- **Multi-Select:** Select multiple tags to narrow results
+- **Visual Feedback:** Selected tags highlighted with accent color
+- **Clear All:** One-click button to remove all tag filters
+- **Collapsible Section:** Keeps sidebar clean when not in use
+- **Tag Count:** Shows number of active filters
+
+**How to Use:**
+1. Expand "Filter by Tags" section in sidebar
+2. Click on any tags to filter
+3. Multiple tags combine (AND logic - must have all selected tags)
+4. Click "Clear" to remove all filters
+
+**Benefits:**
+- Quickly narrow down prompts by topic
+- Combine multiple tags for precise filtering
+- Visual indication of active filters
+- Easy to reset and try different combinations
+
+---
+
+### ✅ Sorting Options
+
+Sort prompts by title or modification date in ascending/descending order.
+
+**Features:**
+- **4 Sort Options:**
+  - Title (A-Z)
+  - Title (Z-A)
+  - Modified (Newest First)
+  - Modified (Oldest First)
+- **Dropdown Menu:** Clean, accessible sorting interface
+- **Persistent State:** Sorting preference maintained while browsing
+- **Real-Time Updates:** Results re-sort immediately
+
+**How to Use:**
+1. Click the "Sort by" dropdown in the header
+2. Select your preferred sorting method
+3. Prompts re-order immediately
+4. Sorting applies to current view (search results, category, etc.)
+
+**Benefits:**
+- Find newest/oldest prompts quickly
+- Alphabetical browsing for large collections
+- Flexible organization to match your workflow
+- Professional library experience
+
+---
+
+### ✅ Mobile Optimization
+
+Fully responsive design optimized for touch devices and small screens.
+
+**Features:**
+- **Adaptive Layouts:** Single-column on mobile, multi-column on desktop
+- **Touch-Friendly Buttons:** Larger tap targets for mobile users
+- **Vertical Stacking:** Action buttons stack vertically on narrow screens
+- **Responsive Typography:** Text sizes scale appropriately
+- **Mobile Navigation:** Hamburger menu and collapsible sections
+
+**Optimizations:**
+- Prompt card buttons stack vertically on mobile (no overlay issues)
+- Reduced padding and gaps on small screens
+- Full-width buttons for better touch targets
+- Collapsible sections default to closed on mobile
+
+**Benefits:**
+- Seamless experience across all devices
+- No button overlays or cut-off text
+- Easy one-handed mobile use
+- Professional mobile UX
+
+---
+
 ## Technical Implementation Highlights
 
 ### `Toast.tsx` Component
@@ -164,6 +267,10 @@ subcategory: "[Subcategory Name]"
 - ❌ Confusing empty states (e.g., after a search with no results)
 - ❌ No quick way to see how many prompts were in a category
 - ❌ Only able to copy prompt content, not metadata
+- ❌ Basic text search only
+- ❌ No tag filtering
+- ❌ No sorting options
+- ❌ Mobile layout issues (button overlays)
 
 ### After
 - ✅ Clear, concise feedback on every action
@@ -171,10 +278,21 @@ subcategory: "[Subcategory Name]"
 - ✅ Guided experience with helpful empty state messages
 - ✅ Informative sidebar with prompt counts per category
 - ✅ Flexible copying options, including full markdown with frontmatter
+- ✅ Intelligent fuzzy search with Fuse.js
+- ✅ Multi-select tag filtering
+- ✅ Four sorting options (title/date, asc/desc)
+- ✅ Fully responsive mobile layout with collapsible sections
 
 ---
 
 ## Changelog
+
+### v1.1 - March 13, 2026
+- ✅ Fuzzy search with Fuse.js
+- ✅ Tag filtering with multi-select
+- ✅ Sorting options (title A-Z/Z-A, modified newest/oldest)
+- ✅ Mobile optimization (vertical button stacking, responsive layouts)
+- ✅ Collapsible sidebar sections (Favorites, Recently Viewed, Tags)
 
 ### v1.0 - March 12, 2026
 - ✅ Toast notifications for all actions
@@ -185,6 +303,6 @@ subcategory: "[Subcategory Name]"
 
 ---
 
-**Documentation Version:** 1.0  
-**Last Updated:** March 12, 2026  
+**Documentation Version:** 1.1  
+**Last Updated:** March 13, 2026  
 **Author:** OpenClaw AI Assistant
