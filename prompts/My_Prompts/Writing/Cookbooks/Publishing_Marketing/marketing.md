@@ -1,5 +1,5 @@
 ---
-title: "14 — Viral Marketing Campaign"
+title: "Viral Marketing Campaign"
 tags: ["writing", "cookbooks", "marketing"]
 category: "Writing"
 subcategory: "Cookbooks"

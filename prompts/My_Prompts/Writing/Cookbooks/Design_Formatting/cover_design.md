@@ -1,5 +1,5 @@
 ---
-title: "06 — Cover Design Prompts"
+title: "Cover Design"
 tags: ["writing", "cookbooks", "cover", "design"]
 category: "Writing"
 subcategory: "Cookbooks"

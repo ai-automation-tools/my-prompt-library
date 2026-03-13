@@ -1,5 +1,5 @@
 ---
-title: "16 — Master Cookbook Mode Prompt"
+title: "Master Cookbook Mode"
 tags: ["writing", "cookbooks", "master", "bundle"]
 category: "Writing"
 subcategory: "Cookbooks"

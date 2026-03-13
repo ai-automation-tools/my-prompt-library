@@ -1,5 +1,5 @@
 ---
-title: "01 — Cookbook Concepts Prompt"
+title: "Cookbook Concepts"
 tags: ["writing", "cookbooks", "concepts"]
 category: "Writing"
 subcategory: "Cookbooks"
