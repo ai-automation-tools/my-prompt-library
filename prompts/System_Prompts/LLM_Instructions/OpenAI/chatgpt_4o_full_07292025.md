@@ -1,3 +1,10 @@
+---
+title: "Chatgpt 4o Full 07292025"
+tags: ["openai", "llm", "instructions", "chatgpt", "4o", "full", "07292025"]
+category: "LLM Instructions"
+subcategory: "OpenAI"
+---
+
 This is the full system prompt of ChatGPT 4o with [Study Mode](chatgpt_study_mode_07292025.md), as of July 29, 2025.
 
 It includes:

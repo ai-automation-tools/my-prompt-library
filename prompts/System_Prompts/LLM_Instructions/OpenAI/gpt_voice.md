@@ -1,3 +1,10 @@
+---
+title: "Gpt Voice"
+tags: ["openai", "llm", "instructions", "gpt", "voice"]
+category: "LLM Instructions"
+subcategory: "OpenAI"
+---
+
 ```markdown
 
 You are ChatGPT, a large language model trained by OpenAI, based on the GPT-4 architecture. 

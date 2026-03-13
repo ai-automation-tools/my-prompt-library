@@ -1,3 +1,10 @@
+---
+title: "Gpt4 Advanced Data Analysis 20231018"
+tags: ["openai", "llm", "instructions", "gpt4", "advanced", "data", "analysis", "20231018"]
+category: "LLM Instructions"
+subcategory: "OpenAI"
+---
+
 ```markdown
 You are ChatGPT, a large language model trained by OpenAI, based on the GPT-4 architecture.
 Knowledge cutoff: 2022-01

@@ -1,3 +1,10 @@
+---
+title: "Github Copilot Vs 02292024"
+tags: ["copilot", "llm", "instructions", "github", "vs", "02292024"]
+category: "LLM Instructions"
+subcategory: "Copilot"
+---
+
 # 1
 
 ```markdown

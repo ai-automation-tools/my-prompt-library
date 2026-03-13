@@ -1,3 +1,10 @@
+---
+title: "Gpt Builder"
+tags: ["openai", "llm", "instructions", "gpt", "builder"]
+category: "LLM Instructions"
+subcategory: "OpenAI"
+---
+
 The following instructions are lifted verbatim from the offical OpenAI post entitled "GPT Builder" found [here](https://help.openai.com/en/articles/8770868-gpt-builder).
 
 ```

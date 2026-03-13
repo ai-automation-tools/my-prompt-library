@@ -1,3 +1,10 @@
+---
+title: "Github Copilot Cli 20260121"
+tags: ["copilot", "llm", "instructions", "github", "cli", "20260121"]
+category: "LLM Instructions"
+subcategory: "Copilot"
+---
+
 # GitHub Copilot CLI (Terminal Assistant)
 
 - **Version**: 0.0.388

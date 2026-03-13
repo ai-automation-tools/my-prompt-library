@@ -1,3 +1,10 @@
+---
+title: "Gpt4o Canvas 10032024"
+tags: ["openai", "llm", "instructions", "gpt4o", "canvas", "10032024"]
+category: "LLM Instructions"
+subcategory: "OpenAI"
+---
+
 ChatGPT 4o with the Canvas tool - System Prompt
 
 ```markdown

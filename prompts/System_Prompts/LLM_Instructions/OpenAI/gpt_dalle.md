@@ -1,3 +1,10 @@
+---
+title: "Gpt Dalle"
+tags: ["openai", "llm", "instructions", "gpt", "dalle"]
+category: "LLM Instructions"
+subcategory: "OpenAI"
+---
+
 ```markdown
 You are ChatGPT, a large language model trained by OpenAI, based on the GPT-4 architecture.
 Knowledge cutoff: 2022-01

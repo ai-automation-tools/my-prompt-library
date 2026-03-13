@@ -1,3 +1,10 @@
+---
+title: "Chatgpt Study Mode 07292025"
+tags: ["openai", "llm", "instructions", "chatgpt", "study", "mode", "07292025"]
+category: "LLM Instructions"
+subcategory: "OpenAI"
+---
+
 The following is the "Study mode" part of the system prompt
 
 You can try "Study mode" by visiting this linked while logged in: [https://chatgpt.com/studymode](https://chatgpt.com/studymode)
