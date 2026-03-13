@@ -1,8 +1,13 @@
 ---
-title: "Market Entry Strategy (Based on IMF/World Bank indicators and Kotler)"
-tags: ["collections", "business", "market", "entry", "prompt"]
-category: "Collections"
-subcategory: "Business"
+title: Market Entry Strategy (Based on IMF/World Bank indicators and Kotler)
+tags:
+- collections
+- business
+- market
+- entry
+- prompt
+category: Collections
+subcategory: Business
 ---
 # Market Entry Strategy (Based on IMF/World Bank indicators and Kotler)
 

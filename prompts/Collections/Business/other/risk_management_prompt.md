@@ -1,8 +1,13 @@
 ---
-title: "Enterprise Risk Assessment (Based on ISO 31000)"
-tags: ["collections", "business", "risk", "management", "prompt"]
-category: "Collections"
-subcategory: "Business"
+title: Enterprise Risk Assessment (Based on ISO 31000)
+tags:
+- collections
+- business
+- risk
+- management
+- prompt
+category: Collections
+subcategory: Business
 ---
 # Enterprise Risk Assessment (Based on ISO 31000)
 

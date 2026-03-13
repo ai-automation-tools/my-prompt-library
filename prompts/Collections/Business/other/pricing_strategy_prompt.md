@@ -1,8 +1,13 @@
 ---
-title: "Pricing Strategy Framework (Based on Nagle & Holden, and OECD guidance)"
-tags: ["collections", "business", "pricing", "strategy", "prompt"]
-category: "Collections"
-subcategory: "Business"
+title: Pricing Strategy Framework (Based on Nagle & Holden, and OECD guidance)
+tags:
+- collections
+- business
+- pricing
+- strategy
+- prompt
+category: Collections
+subcategory: Business
 ---
 # Pricing Strategy Framework (Based on Nagle & Holden, and OECD guidance)
 

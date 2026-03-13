@@ -1,8 +1,14 @@
 ---
-title: "Strategic Planning Synthesis (Based on Kaplan & Norton Balanced Scorecard, Porter, and HBR)"
-tags: ["collections", "business", "strategic", "planning", "prompt"]
-category: "Collections"
-subcategory: "Business"
+title: Strategic Planning Synthesis (Based on Kaplan & Norton Balanced Scorecard,
+  Porter, and HBR)
+tags:
+- collections
+- business
+- strategic
+- planning
+- prompt
+category: Collections
+subcategory: Business
 ---
 # Strategic Planning Synthesis (Based on Kaplan & Norton Balanced Scorecard, Porter, and HBR)
 

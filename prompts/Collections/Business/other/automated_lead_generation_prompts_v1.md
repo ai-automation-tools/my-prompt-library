@@ -1,8 +1,14 @@
 ---
-title: "AI Agent Prompts for Automated Lead Generation"
-tags: ["collections", "business", "automated", "lead", "generation"]
-category: "Collections"
-subcategory: "Business"
+title: AI Agent Prompts for Automated Lead Generation
+tags:
+- collections
+- business
+- automated
+- lead
+- generation
+- prompts
+category: Collections
+subcategory: Business
 ---
 # AI Agent Prompts for Automated Lead Generation
 

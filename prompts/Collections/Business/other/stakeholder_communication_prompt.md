@@ -1,8 +1,13 @@
 ---
-title: "Stakeholder Communication Plan (Based on PMI PMBOK)"
-tags: ["collections", "business", "stakeholder", "communication", "prompt"]
-category: "Collections"
-subcategory: "Business"
+title: Stakeholder Communication Plan (Based on PMI PMBOK)
+tags:
+- collections
+- business
+- stakeholder
+- communication
+- prompt
+category: Collections
+subcategory: Business
 ---
 # Stakeholder Communication Plan (Based on PMI PMBOK)
 

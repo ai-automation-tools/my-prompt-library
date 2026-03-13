@@ -1,8 +1,12 @@
 ---
-title: "Prompt for Generating an Architecture Decision Record (ADR)"
-tags: ["collections", "engineering", "prompt"]
-category: "Collections"
-subcategory: "Engineering"
+title: Prompt for Generating an Architecture Decision Record (ADR)
+tags:
+- collections
+- engineering
+- adr
+- prompt
+category: Collections
+subcategory: Engineering
 ---
 # Prompt for Generating an Architecture Decision Record (ADR)
 

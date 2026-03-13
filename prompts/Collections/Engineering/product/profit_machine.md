@@ -1,15 +1,13 @@
 ---
-title: "Profit Machine"
-tags: ["collections", "engineering", "profit", "machine"]
-category: "Collections"
-subcategory: "Engineering"
+title: Profit Machine
+tags:
+- collections
+- engineering
+- profit
+- machine
+category: Collections
+subcategory: Engineering
 ---
-# Profit Machine
-
-**Category:** product
-
-## Prompt
-
 Design a profit machine
 Prompt: Act like a business systems
 architect who has scaled multiple 7-figure

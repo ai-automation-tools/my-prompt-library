@@ -1,9 +1,16 @@
 ---
-title: "Prompt: Pricing Model Builder for AX-Platform"
-tags: ["collections", "business", "pricing", "model", "builder"]
-category: "Collections"
-subcategory: "Business"
+title: 'Prompt: Pricing Model Builder for AX-Platform'
+tags:
+- collections
+- business
+- pricing
+- model
+- builder
+- prompt
+category: Collections
+subcategory: Business
 ---
+
 # Prompt: Pricing Model Builder for AX-Platform
 
 ## Objective

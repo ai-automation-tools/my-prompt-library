@@ -1,5 +1,5 @@
 ---
-title: "B2B SaaS LinkedIn Lead Generation Campaign"
+title: "Bb SAAS Linkedin Lead Generation Campaign"
 tags: ["b2b", "saas", "linkedin", "lead-generation", "campaign"]
 category: "Social_Media"
 subcategory: "Campaigns"

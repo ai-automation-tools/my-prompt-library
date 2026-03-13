@@ -1,9 +1,16 @@
 ---
-title: "Prompt: Brainstorm New Feature Ideas"
-tags: ["collections", "engineering", "brainstorm", "feature", "ideas"]
-category: "Collections"
-subcategory: "Engineering"
+title: 'Prompt: Brainstorm New Feature Ideas'
+tags:
+- collections
+- engineering
+- brainstorm
+- new
+- feature
+- ideas
+category: Collections
+subcategory: Engineering
 ---
+
 # Prompt: Brainstorm New Feature Ideas
 
 ## Description

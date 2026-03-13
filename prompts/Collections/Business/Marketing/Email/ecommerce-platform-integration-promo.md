@@ -1,5 +1,5 @@
 ---
-title: "E-commerce Platform Integration Promo"
+title: "E Commerce Platform Integration Promo"
 tags: ["ecommerce", "integration", "b2b", "partner-marketing", "email-marketing"]
 category: "Business"
 subcategory: "Marketing"

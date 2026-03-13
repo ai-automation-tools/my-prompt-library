@@ -1,8 +1,13 @@
 ---
-title: "AI Virtual Assistant Prompts"
-tags: ["collections", "business", "virtual", "assistant", "prompts"]
-category: "Collections"
-subcategory: "Business"
+title: AI Virtual Assistant Prompts
+tags:
+- collections
+- business
+- virtual
+- assistant
+- prompts
+category: Collections
+subcategory: Business
 ---
 # AI Virtual Assistant Prompts
 

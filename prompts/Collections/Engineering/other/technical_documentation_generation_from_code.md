@@ -1,9 +1,17 @@
 ---
-title: "Prompt: Technical Documentation Generation from Code"
-tags: ["collections", "engineering", "technical", "documentation", "generation"]
-category: "Collections"
-subcategory: "Engineering"
+title: 'Prompt: Technical Documentation Generation from Code'
+tags:
+- collections
+- engineering
+- technical
+- documentation
+- generation
+- from
+- code
+category: Collections
+subcategory: Engineering
 ---
+
 # Prompt: Technical Documentation Generation from Code
 
 ## Description

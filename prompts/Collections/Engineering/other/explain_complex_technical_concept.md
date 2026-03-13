@@ -1,9 +1,16 @@
 ---
-title: "Prompt: Explain Complex Technical Concept (Non-Technical Audience)"
-tags: ["collections", "engineering", "explain", "complex", "technical"]
-category: "Collections"
-subcategory: "Engineering"
+title: 'Prompt: Explain Complex Technical Concept (Non-Technical Audience)'
+tags:
+- collections
+- engineering
+- explain
+- complex
+- technical
+- concept
+category: Collections
+subcategory: Engineering
 ---
+
 # Prompt: Explain Complex Technical Concept (Non-Technical Audience)
 
 ## Description

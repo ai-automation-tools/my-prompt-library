@@ -1,5 +1,5 @@
 ---
-title: "Startup Runway and Growth Scenario Planner"
+title: "Startup Runway And Growth Scenario Planner"
 tags: ["finance", "runway", "forecasting", "growth", "startup"]
 category: "Finance"
 subcategory: "Forecasts"
