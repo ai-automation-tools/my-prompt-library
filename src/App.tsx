@@ -413,11 +413,11 @@ export default function App() {
         <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-[var(--accent-glow-subtle)] blur-[60px]" />
       </div>
 
-      <div className="absolute top-5 right-5 flex gap-2 z-10">
+      <div className="absolute top-3 right-3 sm:top-5 sm:right-5 flex flex-col sm:flex-row gap-1.5 sm:gap-2 z-10">
         <button
           onClick={(e) => toggleFavorite(prompt.id, e)}
           className={cn(
-            "p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] transition-all duration-300 border backdrop-blur-sm",
+            "p-2 sm:p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] transition-all duration-300 border backdrop-blur-sm",
             favorites.includes(prompt.id)
               ? "text-yellow-400 border-yellow-400/50 hover:bg-yellow-400/20"
               : "text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
@@ -431,7 +431,7 @@ export default function App() {
             e.stopPropagation();
             handleEditPrompt(prompt);
           }}
-          className="p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
+          className="p-2 sm:p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
           title="Edit prompt"
         >
           <Edit className="w-3.5 h-3.5" />
@@ -441,7 +441,7 @@ export default function App() {
             e.stopPropagation();
             handleDeletePrompt(prompt.id);
           }}
-          className="p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-red-500 text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-red-500 backdrop-blur-sm"
+          className="p-2 sm:p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-red-500 text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-red-500 backdrop-blur-sm"
           title="Delete prompt"
         >
           <Trash2 className="w-3.5 h-3.5" />
@@ -451,7 +451,7 @@ export default function App() {
             e.stopPropagation();
             handleCopy(prompt.content, prompt.id);
           }}
-          className="p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
+          className="p-2 sm:p-2.5 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
           title="Copy content"
         >
           {copied === prompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
@@ -464,7 +464,7 @@ export default function App() {
             <FileText className="w-4 h-4 text-[var(--accent)]" />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="heading-display text-base font-bold tracking-tight leading-snug mb-1.5 pr-10 text-[var(--text-primary)]">
+            <h3 className="heading-display text-base font-bold tracking-tight leading-snug mb-1.5 pr-12 sm:pr-10 text-[var(--text-primary)]">
               {prompt.title}
             </h3>
             <p className="label truncate">
