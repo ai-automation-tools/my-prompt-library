@@ -18,6 +18,7 @@
   --glass-bg-hover: rgba(0, 140, 200, 0.2);
   --glass-border: rgba(0, 229, 255, 0.16);
   --glass-border-hover: rgba(0, 229, 255, 0.32);
+  --sidebar-bg: #081e3c;
 }
 
 /* CARBON EMBER — Smoldering forge: visible brown-charcoal bg, hot orange, warm amber glass */
@@ -38,6 +39,7 @@
   --glass-bg-hover: rgba(200, 80, 20, 0.2);
   --glass-border: rgba(255, 107, 44, 0.16);
   --glass-border-hover: rgba(255, 107, 44, 0.3);
+  --sidebar-bg: #281c0e;
 }
 
 /* MIDNIGHT VIOLET — Royal purple haze: deep saturated purple bg, luminous lavender, violet-tinted glass */
@@ -58,6 +60,7 @@
   --glass-bg-hover: rgba(120, 60, 220, 0.2);
   --glass-border: rgba(192, 132, 252, 0.16);
   --glass-border-hover: rgba(192, 132, 252, 0.3);
+  --sidebar-bg: #1c1242;
 }
 
 /* SOLAR FLARE — Volcanic crimson: deep red-black bg, blazing hot pink-red, red-tinted glass */
@@ -78,6 +81,7 @@
   --glass-bg-hover: rgba(220, 30, 60, 0.2);
   --glass-border: rgba(255, 45, 85, 0.18);
   --glass-border-hover: rgba(255, 45, 85, 0.34);
+  --sidebar-bg: #300c16;
 }
 
 /* SAHARA GOLD — Desert sunset: warm sandy-brown bg (lightest dark theme), rich gold, amber-tinted glass */
@@ -98,6 +102,7 @@
   --glass-bg-hover: rgba(200, 140, 0, 0.2);
   --glass-border: rgba(255, 184, 0, 0.16);
   --glass-border-hover: rgba(255, 184, 0, 0.3);
+  --sidebar-bg: #322610;
 }
 
 /* FROSTED STEEL — Cool neutral: blue-grey bg, muted silver accent, steely glass */
@@ -118,6 +123,7 @@
   --glass-bg-hover: rgba(120, 140, 170, 0.12);
   --glass-border: rgba(148, 163, 184, 0.1);
   --glass-border-hover: rgba(148, 163, 184, 0.2);
+  --sidebar-bg: #141a24;
 }
 
 /* TERMINAL HACKER — CRT green-on-black: true black bg, neon green, green phosphor glass */
@@ -138,6 +144,7 @@
   --glass-bg-hover: rgba(40, 200, 20, 0.15);
   --glass-border: rgba(57, 255, 20, 0.14);
   --glass-border-hover: rgba(57, 255, 20, 0.26);
+  --sidebar-bg: #061008;
 }
 
 /* GITHUB DARK PRO — Familiar dev: slate-charcoal bg, GitHub blue accent, neutral glass */
@@ -158,4 +165,5 @@
   --glass-bg-hover: rgba(40, 100, 220, 0.12);
   --glass-border: rgba(47, 129, 247, 0.1);
   --glass-border-hover: rgba(47, 129, 247, 0.2);
+  --sidebar-bg: #161c26;
 }
