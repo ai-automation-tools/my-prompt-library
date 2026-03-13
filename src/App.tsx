@@ -770,7 +770,7 @@ export default function App() {
                       )}
                     </button>
                     {favoritesExpanded && (
-                      <div className="absolute top-full left-0 mt-2 z-50 w-72 glass-card rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]">
+                      <div className="absolute top-full left-0 mt-2 z-50 w-72 dropdown-solid rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]">
                         <div className="space-y-1 max-h-80 overflow-y-auto custom-scrollbar">
                           {favoritePrompts.map(prompt => (
                             <button
@@ -812,7 +812,7 @@ export default function App() {
                       )}
                     </button>
                     {recentlyViewedExpanded && (
-                      <div className="absolute top-full left-0 mt-2 z-50 w-72 glass-card rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]">
+                      <div className="absolute top-full left-0 mt-2 z-50 w-72 dropdown-solid rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]">
                         <div className="space-y-1 max-h-80 overflow-y-auto custom-scrollbar">
                           {recentlyViewedPrompts.map(prompt => (
                             <button
@@ -856,7 +856,7 @@ export default function App() {
                       )}
                     </button>
                     {tagsExpanded && (
-                      <div className="absolute top-full left-0 mt-2 z-50 w-96 glass-card rounded-[var(--radius-md)] p-4 shadow-xl border border-[var(--glass-border)]">
+                      <div className="absolute top-full left-0 mt-2 z-50 w-96 dropdown-solid rounded-[var(--radius-md)] p-4 shadow-xl border border-[var(--glass-border)]">
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-xs font-semibold text-[var(--text-secondary)] uppercase">Select Tags</span>
                           {selectedTags.length > 0 && (
@@ -907,9 +907,46 @@ export default function App() {
 
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto px-4 md:px-6 pb-6">
+          {/* Hero Section */}
+          {!selectedPrompt && !selectedSubcategory && (
+            <div className="py-8 md:py-12 mb-8">
+              <div className="max-w-4xl">
+                <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-4">
+                  {activeTab === 'my-prompts' ? 'My Prompts' : 
+                   activeTab === 'collections' ? 'Collections' : 
+                   activeTab === 'system-prompts' ? 'System Prompts' : 
+                   'Agent Guides'}
+                </h1>
+                <p className="text-base md:text-lg text-[var(--text-secondary)] leading-relaxed mb-6">
+                  {activeTab === 'my-prompts' 
+                    ? 'Your personally curated collection of favorite prompts. Star prompts from Collections to add them here.'
+                    : activeTab === 'collections'
+                    ? 'Browse the complete library of AI prompts across all categories. Find, filter, and organize prompts for any use case.'
+                    : activeTab === 'system-prompts'
+                    ? 'System-level prompts and configurations for AI agents and assistants.'
+                    : 'Comprehensive guides for working with AI coding agents and development tools.'}
+                </p>
+                
+                {/* Search Bar */}
+                <div className="relative max-w-2xl">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <Search className="w-5 h-5 text-[var(--text-tertiary)]" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search prompts by title, content, tags, or category..."
+                    className="w-full pl-12 pr-4 py-3.5 rounded-[var(--radius-lg)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all duration-300"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Breadcrumbs */}
           {(selectedPrompt || selectedSubcategory) && (
-            <div className="mb-4 flex items-center gap-2 text-xs text-[var(--text-tertiary)]">
+            <div className="mb-4 mt-4 flex items-center gap-2 text-xs text-[var(--text-tertiary)]">
               <button
                 onClick={handleShowAllPrompts}
                 className="flex items-center gap-1 hover:text-[var(--accent)] transition-colors"
