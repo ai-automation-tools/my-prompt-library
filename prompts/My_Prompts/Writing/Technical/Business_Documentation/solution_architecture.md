@@ -1,5 +1,5 @@
 ﻿---
-title: "AI Prompt: Solution Architecture Design"
+title: "Solution Architecture Design"
 tags: ["writing", "technical", "solution", "architecture"]
 category: "Writing"
 subcategory: "Technical"
@@ -30,4 +30,5 @@ Design a **complete technical architecture**.
 7.  Cost Considerations
 
 Return Markdown with architecture diagrams suggested.
+
 

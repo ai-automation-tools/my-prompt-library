@@ -1,5 +1,5 @@
 ﻿---
-title: "AI Prompt: Product Technical Documentation"
+title: "Product Technical Documentation"
 tags: ["writing", "technical", "documentation"]
 category: "Writing"
 subcategory: "Technical"
@@ -54,5 +54,6 @@ Produce structured documentation usable by:
 ## Output
 
 Markdown formatted documentation.
+
 
 

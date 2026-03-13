@@ -1,5 +1,5 @@
 ﻿---
-title: "AI Prompt: Technical Blog Article"
+title: "Technical Blog Article"
 tags: ["writing", "technical", "blog"]
 category: "Writing"
 subcategory: "Technical"
@@ -52,5 +52,6 @@ Write a **1500--2500 word blog article** that:
 
 Return in **Markdown with headings, code blocks, and diagrams where
 useful.**
+
 
 
