@@ -406,8 +406,12 @@ export default function App() {
     }
 
     try {
-      const response = await fetch(`/api/prompts/add-to-my-prompts/${encodeURIComponent(promptId)}`, {
-        method: 'POST'
+      const response = await fetch('/api/prompts/add-to-my-prompts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ promptId })
       });
 
       if (!response.ok) {
