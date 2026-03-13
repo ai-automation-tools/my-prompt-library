@@ -1,3 +1,10 @@
+---
+title: "Gpt All Tools"
+tags: ["openai", "llm", "instructions", "gpt", "all", "tools"]
+category: "LLM Instructions"
+subcategory: "OpenAI"
+---
+
 > [!NOTE]
 > The "All Tools" omni-prompt takes a whopping 2,756 tokens, but it's also using the GPT-4 32k model, with a 32,767 token context window. 
 ```markdown

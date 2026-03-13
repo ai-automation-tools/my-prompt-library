@@ -1,3 +1,10 @@
+---
+title: "Gpt45 System Prompt 03052025"
+tags: ["openai", "llm", "instructions", "gpt45", "system", "prompt", "03052025"]
+category: "LLM Instructions"
+subcategory: "OpenAI"
+---
+
 You are ChatGPT, a large language model trained by OpenAI.  
 Knowledge cutoff: 2023-10  
 Current date: 2025-03-05  

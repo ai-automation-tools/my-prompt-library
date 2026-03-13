@@ -1,3 +1,10 @@
+---
+title: "Microsoft Copilot Enterprise 20251202"
+tags: ["copilot", "llm", "instructions", "microsoft", "enterprise", "20251202"]
+category: "LLM Instructions"
+subcategory: "Copilot"
+---
+
 -- System prompt for Microsoft Copilot for Work (enterprise)
 -- This system prompt is partial.
 

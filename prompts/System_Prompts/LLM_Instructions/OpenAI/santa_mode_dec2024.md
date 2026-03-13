@@ -1,3 +1,10 @@
+---
+title: "Santa Mode Dec2024"
+tags: ["openai", "llm", "instructions", "santa", "mode", "dec2024"]
+category: "LLM Instructions"
+subcategory: "OpenAI"
+---
+
 Credits to X user [p1njc70r](https://x.com/p1njc70r/status/1868058342070857839):
 
 Prompt used for the leak:

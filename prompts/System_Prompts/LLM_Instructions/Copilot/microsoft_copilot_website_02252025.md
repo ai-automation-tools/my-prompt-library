@@ -1,3 +1,10 @@
+---
+title: "Microsoft Copilot Website 02252025"
+tags: ["copilot", "llm", "instructions", "microsoft", "website", "02252025"]
+category: "LLM Instructions"
+subcategory: "Copilot"
+---
+
 System Prompt for [Microsoft Copilot (Website)](https://copilot.microsoft.com/)
 
 ```markdown
