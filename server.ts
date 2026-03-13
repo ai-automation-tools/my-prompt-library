@@ -210,9 +210,9 @@ async function startServer() {
   });
 
   // API to copy a prompt from Collections to My_Prompts
-  app.post("/api/prompts/add-to-my-prompts/:id", (req, res) => {
+  app.post("/api/prompts/add-to-my-prompts/*", (req, res) => {
     try {
-      const promptId = decodeURIComponent(req.params.id);
+      const promptId = decodeURIComponent(req.params[0]);
       
       // Only allow copying from Collections
       if (!promptId.startsWith('Collections/')) {
