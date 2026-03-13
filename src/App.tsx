@@ -145,6 +145,9 @@ export default function App() {
     fetch('/api/prompts')
       .then(res => res.json())
       .then(data => {
+        console.log('🔍 DEBUG: Fetched prompts:', data.length);
+        console.log('🔍 DEBUG: First prompt:', data[0]);
+        console.log('🔍 DEBUG: Sections:', [...new Set(data.map((p: Prompt) => p.section))]);
         setPrompts(data);
         setIsLoading(false);
       })
@@ -177,7 +180,9 @@ export default function App() {
     'Agent_Guides';
 
   const sectionPrompts = useMemo(() => {
-    return prompts.filter(p => p.section === activeSection);
+    const filtered = prompts.filter(p => p.section === activeSection);
+    console.log(`🔍 DEBUG: activeSection="${activeSection}", sectionPrompts=${filtered.length}/${prompts.length}`);
+    return filtered;
   }, [prompts, activeSection]);
 
   const categories = useMemo(() => {
@@ -205,6 +210,7 @@ export default function App() {
       if (activeTab === 'agent-guides' && !prompt.id.startsWith('Agent_Guides/')) return false;
       return true;
     });
+    console.log(`🔍 DEBUG: activeTab="${activeTab}", after path filter=${currentPrompts.length}/${sectionPrompts.length}`);
 
     // Apply tag filters
     if (selectedTags.length > 0) {
