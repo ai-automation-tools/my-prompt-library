@@ -139,6 +139,18 @@ GET http://localhost:3010/api/prompts
 
 ---
 
+## 📚 Documentation
+
+Comprehensive guides to help you use and contribute to the prompt library:
+
+- **[Prompt Template & Formatting Guide](docs/prompt-template-guide.md)** - How to create and format prompts
+- **[Navigation & Organization](docs/navigation-organization.md)** - UI features and navigation guide
+- **[Prompt Editor UI](docs/prompt-editor-ui.md)** - CRUD operations and editor features
+- **[Quick Wins & UX](docs/quick-wins-ux.md)** - Toast notifications, loading states, and UX improvements
+- **[Deployment Guide](docs/deployment-vercel.md)** - Deploy to Vercel step-by-step
+
+---
+
 ## 📈 Roadmap
 
 We're constantly improving the Prompt Library. Here's what's next:
@@ -162,13 +174,21 @@ We're constantly improving the Prompt Library. Here's what's next:
 ## 🤝 Contributing
 
 Contributions are welcome!
-1. Fork the repository.
-2. Create a feature branch.
-3. Add your prompts or code changes (follow existing style).
-4. Test locally (`npm run dev`).
-5. Commit your changes (`git commit -m 'Add amazing feature'`).
-6. Push to the branch.
-7. Open a Pull Request.
+
+### Adding New Prompts
+1. Review the **[Prompt Template & Formatting Guide](docs/prompt-template-guide.md)**
+2. Create your prompt file following the template
+3. Place it in the appropriate category folder under `prompts/Collections/`
+4. Test locally to ensure proper rendering
+
+### Code Contributions
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Follow existing code style and conventions
+4. Test locally (`npm run dev`)
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
 ---
 
