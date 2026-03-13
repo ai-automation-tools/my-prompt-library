@@ -108,6 +108,30 @@ Visual navigation path showing where you are.
 
 ---
 
+### ✅ Hero Section with Search
+
+Large, prominent search bar positioned in a clean hero section at the top of the content area.
+
+**Hero Section Layout:**
+1. **Section Title** - Large (4xl-5xl) heading showing current section
+2. **Search Bar** - Prominent search with icon and placeholder text
+3. **Minimal Design** - Just title + search, no clutter
+
+**Search Features:**
+- **Fuzzy Search**: Powered by Fuse.js for typo-tolerant search
+- **Searches Across**: Title, content, tags, category, subcategory
+- **Real-Time Results**: Updates as you type
+- **Prominent Design**: Large input with left icon
+- **Focus State**: Accent color border and shadow on focus
+
+**Benefits:**
+- Primary search location (removed from sidebar)
+- Always visible when browsing prompts
+- Professional, clean interface
+- Large, easy-to-find search bar
+
+---
+
 ### ✅ Horizontal Filter Bar (Top Bar)
 
 Quick access to favorites, recent prompts, and tag filtering - always visible at the top of the screen.
@@ -122,43 +146,41 @@ Quick access to favorites, recent prompts, and tag filtering - always visible at
 - **Recent (N)** 🕐 - Click to see dropdown of recently viewed
 - **Tags (N)** 🏷️ - Click to open tag multi-select dropdown
 
-**Features:**
-- **Always Visible**: No scrolling needed to access filters
-- **Dropdown Menus**: Click chip to open, click outside to close
-- **Count Badges**: See how many items in each filter
-- **Auto-Close**: Dropdowns close when you select an item
-- **Clean Design**: Pill-shaped chips with subtle glass effect
+**Dropdown Design:**
+- **Solid Backgrounds**: Opaque backgrounds (no glass effect)
+- **Click to Open/Close**: Click outside to dismiss
+- **Count Badges**: Shows number of items in each
+- **Auto-Close on Select**: Closes when you pick an item
 
 **Benefits:**
 - Filters always accessible without scrolling
+- Solid dropdown menus (better visibility)
 - Modern app-like layout (similar to GitHub, Notion)
 - More vertical space for content
-- Quick access to most-used features
 - Clean, uncluttered interface
 
 ---
 
 ### ✅ Clean Navigation Sidebar
 
-Sidebar focused on category navigation with solid theme backgrounds.
+Sidebar focused purely on navigation with solid theme backgrounds.
 
 **Sidebar Sections:**
 1. **Header** - "Prompt Library" title with theme switcher
-2. **Search Bar** - Fuzzy search across all prompts
-3. **Navigation Tabs** - Switch between sections (My Prompts, Collections, etc.)
-4. **Categories** - Expandable category tree with prompt counts
+2. **Navigation Tabs** - Switch between sections (My Prompts, Collections, etc.)
+3. **Categories** - Expandable category tree with prompt counts
 
 **Design:**
 - **Solid Backgrounds**: No glass effect - uses theme-specific solid colors
-- **Clean Layout**: Only navigation, no filter clutter
+- **Navigation Only**: No search (moved to hero), no filters (moved to top bar)
 - **Theme Colors**: Each theme has a custom sidebar background color
 - **Collapsible Categories**: Click to expand/collapse category groups
 
 **Benefits:**
-- Navigation-focused (filters moved to top bar)
-- Better sidebar readability with solid backgrounds
-- Less scrolling needed
-- Professional, clean aesthetic
+- Pure navigation focus (search and filters elsewhere)
+- Better readability with solid backgrounds
+- Less clutter, more space for categories
+- Professional, minimal aesthetic
 
 ---
 

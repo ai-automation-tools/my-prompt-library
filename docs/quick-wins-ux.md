@@ -290,10 +290,16 @@ Fully responsive design optimized for touch devices and small screens.
 ### v2.0 - March 13, 2026 (Major UI Overhaul)
 **Layout & Navigation:**
 - ✅ Compact top bar with horizontal filter chips (Favorites, Recent, Tags)
-- ✅ Removed large hero header to save vertical space
+- ✅ Hero section with large title and prominent search bar
 - ✅ Stat badges moved to top bar (compact inline design)
-- ✅ Filters always accessible without scrolling
-- ✅ Clean navigation-focused sidebar with solid theme backgrounds
+- ✅ Filters with solid dropdown menus (no glass overlay)
+- ✅ Clean navigation-focused sidebar (removed search, solid backgrounds)
+
+**Hero Section:**
+- ✅ Large section title (4xl-5xl heading)
+- ✅ Prominent search bar with icon and placeholder
+- ✅ Minimal, clean design (title + search only)
+- ✅ Only shows when not viewing specific prompt/subcategory
 
 **Prompt Cards:**
 - ✅ 4-column grid on desktop (was 3-column)
@@ -306,15 +312,15 @@ Fully responsive design optimized for touch devices and small screens.
 - ✅ Reduced padding throughout (px-4 md:px-6)
 - ✅ Compact breadcrumbs (text-xs, mb-4)
 - ✅ Smaller section headings (text-xl)
-- ✅ More prompts visible at once
+- ✅ More prompts visible at once (~20% more vertical space)
 - ✅ Better use of screen real estate
 
 **Design Improvements:**
-- ✅ Solid sidebar backgrounds (no glass effect on sidebar)
+- ✅ Solid backgrounds (sidebar + filter dropdowns)
 - ✅ Modern app-like layout (similar to GitHub, Notion)
 - ✅ Vertical separator between content and buttons
 - ✅ Professional, clean aesthetic
-- ✅ Less visual clutter, more content focus
+- ✅ No redundant elements (removed sidebar search, description text)
 
 ### v1.1 - March 13, 2026
 - ✅ Fuzzy search with Fuse.js
