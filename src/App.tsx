@@ -399,41 +399,6 @@ export default function App() {
     }
   }, [refreshPrompts, selectedPrompt, showToast]);
 
-  const handleAddToMyPrompts = useCallback(async (promptId: string) => {
-    if (!promptId.startsWith('Collections/')) {
-      showToast('error', 'Can only add prompts from Collections');
-      return;
-    }
-
-    try {
-      const response = await fetch('/api/prompts/add-to-my-prompts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ promptId })
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to add prompt to My_Prompts');
-      }
-
-      const result = await response.json();
-      refreshPrompts();
-      showToast('success', 'Prompt added to My_Prompts successfully');
-      
-      // Optionally navigate to the new prompt in My_Prompts
-      // Or stay on the current Collections prompt
-    } catch (error: any) {
-      if (error.message.includes('already exists')) {
-        showToast('info', 'This prompt is already in My_Prompts');
-      } else {
-        showToast('error', error.message || 'Failed to add prompt to My_Prompts');
-      }
-    }
-  }, [refreshPrompts, showToast]);
-
   const handleEditPrompt = useCallback((prompt: Prompt) => {
     setEditingPrompt(prompt);
     setIsEditorOpen(true);
@@ -1221,38 +1186,25 @@ ${selectedPrompt.content}`;
 
                   <div className="glass rounded-[var(--radius-lg)] p-6 space-y-4">
                     <h3 className="label">Quick Actions</h3>
-                    <div className="space-y-2.5">
-                      {/* Add to My Prompts button - only show for Collections prompts */}
-                      {selectedPrompt.id.startsWith('Collections/') && (
-                        <button
-                          onClick={() => handleAddToMyPrompts(selectedPrompt.id)}
-                          className="w-full flex items-center justify-center gap-2.5 p-4 rounded-[var(--radius-md)] bg-[var(--accent)]/10 border border-[var(--accent)]/30 hover:bg-[var(--accent)]/20 hover:border-[var(--accent)] transition-all duration-300 group"
-                        >
-                          <Plus className="w-4 h-4 text-[var(--accent)] group-hover:scale-110 transition-transform" />
-                          <span className="text-[0.65rem] font-bold tracking-wider uppercase text-[var(--accent)]">Add to My Prompts</span>
-                        </button>
-                      )}
-                      
-                      <div className="grid grid-cols-2 gap-2.5">
-                        <button
-                          onClick={() => {
-                            if (selectedPrompt.subcategory) {
-                              handleSubcategoryClick(selectedPrompt.category, selectedPrompt.subcategory);
-                            }
-                          }}
-                          className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-[var(--radius-md)] bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:border-[var(--accent)] hover:bg-[var(--accent-glow-subtle)] transition-all duration-300 group"
-                        >
-                          <LayoutGrid className="w-4.5 h-4.5 text-[var(--text-tertiary)] group-hover:text-[var(--accent)] transition-colors" />
-                          <span className="text-[0.6rem] font-semibold tracking-wider uppercase text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)] transition-colors">Grid View</span>
-                        </button>
-                        <button
-                          onClick={handleShowAllPrompts}
-                          className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-[var(--radius-md)] bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:border-[var(--accent)] hover:bg-[var(--accent-glow-subtle)] transition-all duration-300 group"
-                        >
-                          <Library className="w-4.5 h-4.5 text-[var(--text-tertiary)] group-hover:text-[var(--accent)] transition-colors" />
-                          <span className="text-[0.6rem] font-semibold tracking-wider uppercase text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)] transition-colors">Library</span>
-                        </button>
-                      </div>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      <button
+                        onClick={() => {
+                          if (selectedPrompt.subcategory) {
+                            handleSubcategoryClick(selectedPrompt.category, selectedPrompt.subcategory);
+                          }
+                        }}
+                        className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-[var(--radius-md)] bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:border-[var(--accent)] hover:bg-[var(--accent-glow-subtle)] transition-all duration-300 group"
+                      >
+                        <LayoutGrid className="w-4.5 h-4.5 text-[var(--text-tertiary)] group-hover:text-[var(--accent)] transition-colors" />
+                        <span className="text-[0.6rem] font-semibold tracking-wider uppercase text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)] transition-colors">Grid View</span>
+                      </button>
+                      <button
+                        onClick={handleShowAllPrompts}
+                        className="flex flex-col items-center justify-center gap-2.5 p-5 rounded-[var(--radius-md)] bg-[var(--glass-bg)] border border-[var(--glass-border)] hover:border-[var(--accent)] hover:bg-[var(--accent-glow-subtle)] transition-all duration-300 group"
+                      >
+                        <Library className="w-4.5 h-4.5 text-[var(--text-tertiary)] group-hover:text-[var(--accent)] transition-colors" />
+                        <span className="text-[0.6rem] font-semibold tracking-wider uppercase text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)] transition-colors">Library</span>
+                      </button>
                     </div>
                   </div>
                 </div>

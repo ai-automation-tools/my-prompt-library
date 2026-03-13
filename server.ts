@@ -209,55 +209,6 @@ async function startServer() {
     }
   });
 
-  // API to copy a prompt from Collections to My_Prompts
-  app.post("/api/prompts/add-to-my-prompts", (req, res) => {
-    try {
-      const { promptId } = req.body;
-      
-      if (!promptId) {
-        return res.status(400).json({ error: "promptId is required" });
-      }
-      
-      // Only allow copying from Collections
-      if (!promptId.startsWith('Collections/')) {
-        return res.status(400).json({ error: "Can only add prompts from Collections" });
-      }
-
-      const sourcePath = path.join(process.cwd(), "prompts", promptId);
-      
-      if (!fs.existsSync(sourcePath)) {
-        return res.status(404).json({ error: "Prompt not found" });
-      }
-
-      // Get the path after Collections/
-      const relativePromptPath = promptId.replace('Collections/', '');
-      const targetPath = path.join(process.cwd(), "prompts", "My_Prompts", relativePromptPath);
-      
-      // Check if already exists in My_Prompts
-      if (fs.existsSync(targetPath)) {
-        return res.status(409).json({ error: "Prompt already exists in My_Prompts" });
-      }
-
-      // Create target directory
-      const targetDir = path.dirname(targetPath);
-      ensureDir(targetDir);
-
-      // Copy the file
-      fs.copyFileSync(sourcePath, targetPath);
-
-      // Get the new prompt ID
-      const newPromptId = `My_Prompts/${relativePromptPath}`;
-
-      res.json({
-        message: "Prompt added to My_Prompts successfully",
-        newId: newPromptId
-      });
-    } catch (error) {
-      console.error("Error adding prompt to My_Prompts:", error);
-      res.status(500).json({ error: "Failed to add prompt to My_Prompts" });
-    }
-  });
-
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
