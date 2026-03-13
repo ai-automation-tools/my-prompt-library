@@ -2,11 +2,11 @@
 
 **Feature Added:** March 12, 2026  
 **Version:** 1.0  
-**Commit:** `a705316`
+**Commit:** `cb83551`
 
 ## Overview
 
-The Prompt Editor UI enables users to create, edit, and delete prompts directly from the web interface without manually editing markdown files. This feature provides full CRUD (Create, Read, Update, Delete) functionality with a modern, user-friendly interface.
+The Prompt Editor UI enables users to create, edit, and delete prompts directly from the web interface without manually editing markdown files. This feature provides full CRUD (Create, Read, Update, Delete) functionality with a modern, user-friendly interface, now enhanced with immediate feedback via toast notifications and loading states.
 
 ---
 
@@ -40,6 +40,11 @@ The Prompt Editor UI enables users to create, edit, and delete prompts directly 
 - Remove tags with a single click
 - Prevents duplicate tags
 - Tags are saved to frontmatter
+
+### ✅ Immediate Feedback via Toast Notifications
+- All CRUD operations (create, edit, delete) now trigger clear, contextual toast notifications.
+- Provides success or error messages (e.g., "Prompt saved successfully," "Failed to delete prompt").
+- Integrated with the global toast system for consistent user feedback.
 
 ---
 
@@ -308,7 +313,9 @@ Folders are created automatically if they don't exist.
 
 ## Error Handling
 
-### User-Facing Errors
+All user-facing errors are now displayed via toast notifications for a non-intrusive experience.
+
+### User-Facing Errors (via Toast Notifications)
 
 **"Title is required"**
 - Displayed when title field is empty
@@ -374,27 +381,36 @@ const handleSavePrompt = async (prompt: Prompt) => {
     ? `/api/prompts/${encodeURIComponent(prompt.id)}` 
     : '/api/prompts';
   // ... fetch logic
+  // Integrates `showToast` for success/error messages
+  // Throws error on failure for modal to catch
 };
 
 const handleDeletePrompt = async (promptId: string) => {
   if (!confirm('Are you sure...')) return;
-  await fetch(`/api/prompts/${encodeURIComponent(promptId)}`, {
-    method: 'DELETE'
-  });
+  // Integrates `showToast` for success/error messages
+  // ... fetch logic
   refreshPrompts();
 };
 ```
 
 ### Auto-Refresh
 
-After any CRUD operation, the prompt list is automatically refreshed:
+After any CRUD operation, the prompt list is automatically refreshed. This process now integrates loading states and error toasts:
 ```typescript
 const refreshPrompts = useCallback(() => {
+  setIsLoading(true); // Set loading state
   fetch('/api/prompts')
     .then(res => res.json())
-    .then(data => setPrompts(data))
-    .catch(err => console.error('Failed to fetch prompts:', err));
-}, []);
+    .then(data => {
+      setPrompts(data);
+      setIsLoading(false); // Clear loading state
+    })
+    .catch(err => {
+      console.error('Failed to fetch prompts:', err);
+      showToast('error', 'Failed to load prompts'); // Show error toast
+      setIsLoading(false); // Clear loading state
+    });
+}, [showToast]);
 ```
 
 Called after:
@@ -641,6 +657,7 @@ const frontmatter = {
 - ✅ Floating action button
 - ✅ Confirmation dialogs
 - ✅ Auto-refresh after operations
+- ✅ Integrated with global toast notification system for feedback
 
 ---
 
