@@ -1,15 +1,15 @@
----
+﻿---
 title: "Cookbook Concepts"
 tags: ["writing", "cookbooks", "concepts"]
 category: "Writing"
 subcategory: "Cookbooks"
 ---
-# 01 — Cookbook Concepts Prompt
+# 01 â€” Cookbook Concepts Prompt
 
 You are a bestselling cookbook author and viral food-content strategist. Brainstorm 8 original cookbook concepts for the following theme/audience:
 
 **[INSERT THEME OR AUDIENCE HERE]**
-Example: “30-minute keto meals for busy moms” or “zero-waste Italian grandmother recipes”.
+Example: â€œ30-minute keto meals for busy momsâ€ or â€œzero-waste Italian grandmother recipesâ€.
 
 For EACH concept deliver:
 
@@ -17,7 +17,7 @@ For EACH concept deliver:
 - One-sentence hook
 - Target reader persona (age, lifestyle, pain points)
 - Why it will go viral on TikTok/Instagram/Pinterest
-- Full table of contents with 12–18 recipe chapter titles
+- Full table of contents with 12â€“18 recipe chapter titles
 - Unique angle that no other cookbook has
 
 Output in clean markdown with emoji section headers.

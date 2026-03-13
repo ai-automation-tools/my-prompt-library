@@ -1,14 +1,14 @@
----
+﻿---
 title: "Viral Marketing Campaign"
 tags: ["writing", "cookbooks", "marketing"]
 category: "Writing"
 subcategory: "Cookbooks"
 ---
-# 14 — Viral Marketing Campaign
+# 14 â€” Viral Marketing Campaign
 
-You are a **7‑figure cookbook launch strategist**.
+You are a **7â€‘figure cookbook launch strategist**.
 
-Create a **30‑day organic launch plan** for:
+Create a **30â€‘day organic launch plan** for:
 
 **"[INSERT TITLE]"**
 
@@ -18,10 +18,10 @@ Include:
 
 - TikTok / Instagram / Pinterest content calendar
 - Email schedule
-- 10 hook‑based video scripts
+- 10 hookâ€‘based video scripts
 - Giveaway mechanics
 - Collaborator outreach template
 - Amazon review seeding strategy
 - Hashtag challenge
 
-Output as a **Notion‑ready daily schedule**.
+Output as a **Notionâ€‘ready daily schedule**.

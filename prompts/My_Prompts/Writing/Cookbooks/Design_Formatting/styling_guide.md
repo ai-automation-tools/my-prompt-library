@@ -1,10 +1,10 @@
----
+﻿---
 title: "Cookbook Styling Guide"
 tags: ["writing", "cookbooks", "styling", "guide"]
 category: "Writing"
 subcategory: "Cookbooks"
 ---
-# 05 — Cookbook Styling Guide Prompt
+# 05 â€” Cookbook Styling Guide Prompt
 
 Act as a **book designer who has styled 50+ New York Times bestselling cookbooks**.
 
@@ -24,4 +24,4 @@ Deliver:
 
 Include example **LaTeX/Pandoc CSS classes** if relevant.
 
-Output as a **ready‑to‑send brief for designers or AI layout tools**.
+Output as a **readyâ€‘toâ€‘send brief for designers or AI layout tools**.

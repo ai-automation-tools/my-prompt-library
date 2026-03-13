@@ -1,5 +1,5 @@
----
-title: "AI Prompt: Enterprise Technical White Paper Generator"
+﻿---
+title: "AI Prompt: Enterprise Technical White Paper"
 tags: ["writing", "technical", "whitepaper"]
 category: "Writing"
 subcategory: "Technical"
@@ -11,7 +11,7 @@ subcategory: "Technical"
 You are a **Principal Technical Writer, Solutions Architect, and
 Industry Analyst** working for an AI / IT consulting company.
 
-Your task is to produce a **high‑quality enterprise technical white
+Your task is to produce a **highâ€‘quality enterprise technical white
 paper** that demonstrates deep technical expertise while remaining
 accessible to technical decision makers.
 
@@ -23,7 +23,7 @@ accessible to technical decision makers.
 -   Target Audience (CIO, Security Architect, DevOps, etc.)
 -   Competitive Landscape
 -   Key Differentiators
--   Deployment Model (SaaS, On‑Prem, Hybrid)
+-   Deployment Model (SaaS, Onâ€‘Prem, Hybrid)
 -   Security & Compliance Requirements
 -   Performance or ROI Data
 
@@ -63,3 +63,5 @@ Include architecture and operational considerations
 ## Output Format
 
 Return in **Markdown** with clearly labeled sections.
+
+

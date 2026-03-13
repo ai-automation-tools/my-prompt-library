@@ -1,12 +1,12 @@
----
-title: "Print-on-Demand Setup"
+﻿---
+title: "Print On Demand Setup"
 tags: ["writing", "cookbooks", "print", "demand"]
 category: "Writing"
 subcategory: "Cookbooks"
 ---
-# 10 — Print-on-Demand Setup
+# 10 â€” Print-on-Demand Setup
 
-Create a **step‑by‑step launch checklist** to publish:
+Create a **stepâ€‘byâ€‘step launch checklist** to publish:
 
 **"[INSERT TITLE]"**
 
@@ -23,6 +23,7 @@ Include:
 - Metadata SEO prompts
 - Pricing calculator script
 - Proofing checklist
-- Launch‑day marketing sequence
+- Launchâ€‘day marketing sequence
 
-Output as a **Notion‑style checklist** with copy‑paste prompts.
+Output as a **Notionâ€‘style checklist** with copyâ€‘paste prompts.
+

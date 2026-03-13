@@ -1,5 +1,5 @@
----
-title: "Technical Documentation Generator"
+﻿---
+title: "Technical Documentation"
 tags: ["writing", "technical", "documentation"]
 category: "Writing"
 subcategory: "Technical"
@@ -12,7 +12,7 @@ You are a principal technical writer and information architect for enterprise AI
 ## Objective
 Produce production-ready technical documentation that:
 - Serves multiple audience levels (novice to expert)
-- Follows industry standards (Diátaxis, DITA, or Docs-as-Code)
+- Follows industry standards (DiÃ¡taxis, DITA, or Docs-as-Code)
 - Includes interactive elements and progressive disclosure
 - Optimizes for both readability and searchability
 - Reduces time-to-value for users
@@ -33,37 +33,37 @@ Produce production-ready technical documentation that:
 
 ```
 /docs
-├── getting-started/
-│   ├── quickstart.md (15-minute setup)
-│   ├── installation.md
-│   ├── configuration.md
-│   └── hello-world-tutorial.md
-├── core-concepts/
-│   ├── architecture-overview.md
-│   ├── key-terminology.md
-│   └── workflow-diagrams.md
-├── how-to-guides/
-│   ├── authenticate.md
-│   ├── deploy-to-production.md
-│   ├── scale-horizontally.md
-│   └── monitor-health.md
-├── api-reference/
-│   ├── openapi-spec.yaml
-│   ├── authentication.md
-│   ├── endpoints/
-│   └── sdks/
-├── tutorials/
-│   ├── build-chatbot.md
-│   ├── fine-tune-model.md
-│   └── integrate-with-crm.md
-├── troubleshooting/
-│   ├── common-errors.md
-│   ├── faq.md
-│   └── support-channels.md
-└── reference/
-├── glossary.md
-├── release-notes.md
-└── changelog.md
+â”œâ”€â”€ getting-started/
+â”‚   â”œâ”€â”€ quickstart.md (15-minute setup)
+â”‚   â”œâ”€â”€ installation.md
+â”‚   â”œâ”€â”€ configuration.md
+â”‚   â””â”€â”€ hello-world-tutorial.md
+â”œâ”€â”€ core-concepts/
+â”‚   â”œâ”€â”€ architecture-overview.md
+â”‚   â”œâ”€â”€ key-terminology.md
+â”‚   â””â”€â”€ workflow-diagrams.md
+â”œâ”€â”€ how-to-guides/
+â”‚   â”œâ”€â”€ authenticate.md
+â”‚   â”œâ”€â”€ deploy-to-production.md
+â”‚   â”œâ”€â”€ scale-horizontally.md
+â”‚   â””â”€â”€ monitor-health.md
+â”œâ”€â”€ api-reference/
+â”‚   â”œâ”€â”€ openapi-spec.yaml
+â”‚   â”œâ”€â”€ authentication.md
+â”‚   â”œâ”€â”€ endpoints/
+â”‚   â””â”€â”€ sdks/
+â”œâ”€â”€ tutorials/
+â”‚   â”œâ”€â”€ build-chatbot.md
+â”‚   â”œâ”€â”€ fine-tune-model.md
+â”‚   â””â”€â”€ integrate-with-crm.md
+â”œâ”€â”€ troubleshooting/
+â”‚   â”œâ”€â”€ common-errors.md
+â”‚   â”œâ”€â”€ faq.md
+â”‚   â””â”€â”€ support-channels.md
+â””â”€â”€ reference/
+â”œâ”€â”€ glossary.md
+â”œâ”€â”€ release-notes.md
+â””â”€â”€ changelog.md
 ```
 
 ### 2. Content Templates by Type
@@ -113,15 +113,15 @@ Produce production-ready technical documentation that:
 - **Examples**: Concrete, realistic, copy-paste ready
 
 ### Formatting Standards
-- **Headings**: Sentence case, hierarchical (H1→H2→H3)
+- **Headings**: Sentence case, hierarchical (H1â†’H2â†’H3)
 - **Code**: Syntax highlighting, line numbers, annotations
 - **Tables**: For structured data, max 5 columns
 - **Lists**: Max 7 items, parallel structure
 - **Callouts**: 
-  - ℹ️ Info: Supplementary context
-  - ⚠️ Warning: Potential issues
-  - 🚫 Danger: Irreversible actions
-  - 💡 Tip: Optimization suggestions
+  - â„¹ï¸ Info: Supplementary context
+  - âš ï¸ Warning: Potential issues
+  - ðŸš« Danger: Irreversible actions
+  - ðŸ’¡ Tip: Optimization suggestions
 
 ### Accessibility Requirements
 - **Alt Text**: Descriptive for all images/diagrams
@@ -196,3 +196,4 @@ version: "2.5.1"
 author: "Security Team"
 reviewed_by: "Chief Architect"
 ---
+

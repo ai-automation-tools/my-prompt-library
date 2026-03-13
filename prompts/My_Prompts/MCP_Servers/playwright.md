@@ -1,4 +1,4 @@
----
+﻿---
 title: "Playwright Skill Prompt List"
 tags: ["mcp-servers", "web", "playwright"]
 category: "MCP_Servers"
@@ -17,7 +17,7 @@ _Focus: scraping data, pulling images, and technical analysis of websites_
 ## Page Scraping (Text / Structured Data)
 - Use the Playwright skill to Scrape all visible text from [url]
 - Use the Playwright skill to Extract the main article content from [url]
-- Use the Playwright skill to Scrape all headings (h1–h6) from [url]
+- Use the Playwright skill to Scrape all headings (h1â€“h6) from [url]
 - Use the Playwright skill to Scrape all links from [url] and return them as JSON
 - Use the Playwright skill to Scrape all tables from [url] into structured rows/columns
 - Use the Playwright skill to Extract all product names and prices from [url]
@@ -86,3 +86,4 @@ _Focus: scraping data, pulling images, and technical analysis of websites_
 - Use the Playwright skill to Scrape [url] and export results as JSON
 - Use the Playwright skill to Scrape [url] and export results as CSV
 - Use the Playwright skill to Scrape [url] and save screenshots + HTML snapshots for analysis
+

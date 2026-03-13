@@ -1,5 +1,5 @@
----
-title: "Prompt Template"
+﻿---
+title: "Prompt"
 tags: ["writing", "create-documentation", "prompt", "template"]
 category: "Writing"
 subcategory: "Create_Documentation"
@@ -37,3 +37,5 @@ Define constraints or desired tone.]
 ---
 **Version:** 1.0
 **Last Updated:** 2026-02-12
+
+

@@ -1,4 +1,4 @@
----
+﻿---
 title: "Obsidian Skill Prompt List"
 tags: ["mcp-servers", "notes", "obsidian"]
 category: "MCP_Servers"
@@ -92,3 +92,4 @@ subcategory: "Notes"
 - Use the obsidian skill to Create a Dataview task query for incomplete tasks
 - Use the obsidian skill to Generate a weekly review dashboard note
 - Use the obsidian skill to Generate a habit tracker table for this month
+

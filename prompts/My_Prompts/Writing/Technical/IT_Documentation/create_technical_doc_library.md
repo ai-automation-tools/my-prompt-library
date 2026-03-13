@@ -1,5 +1,5 @@
----
-title: "IT Technical Documentation Library Generator Prompt"
+﻿---
+title: "IT Technical Documentation Library"
 tags: ["writing", "create-documentation", "create", "technical", "library"]
 category: "Writing"
 subcategory: "Create_Documentation"
@@ -76,7 +76,7 @@ required in an enterprise environment, such as:
 First, generate:
 
 -   A hierarchical documentation structure
--   Organized by Domain → Category → Document Type
+-   Organized by Domain â†’ Category â†’ Document Type
 -   Include:
     -   Policies
     -   Standards
@@ -239,3 +239,5 @@ For best results, execute in stages:
 5.  Deep dive IAM separately.
 
 This improves clarity, scalability, and output quality.
+
+

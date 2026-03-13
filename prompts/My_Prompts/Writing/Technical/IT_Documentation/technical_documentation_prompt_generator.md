@@ -1,5 +1,5 @@
----
-title: "Technical Documentation Prompt Generator (Meta-Prompt)"
+﻿---
+title: "Technical Documentation Prompt Generator (Meta Prompt)"
 tags: ["writing", "create-documentation", "technical", "documentation", "prompt"]
 category: "Writing"
 subcategory: "Create_Documentation"
@@ -112,3 +112,5 @@ First generate a categorized list of documentation artifacts per domain.
 Then generate the prompt for each artifact.
 
 Do not generate documentation content itself.
+
+

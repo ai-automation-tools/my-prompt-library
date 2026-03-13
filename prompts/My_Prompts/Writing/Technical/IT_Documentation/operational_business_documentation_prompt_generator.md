@@ -1,5 +1,5 @@
----
-title: "Operational Business Documentation Prompt Generator (Meta-Prompt)"
+﻿---
+title: "Operational Business Documentation Prompt Generator (Meta Prompt)"
 tags: ["writing", "create-documentation", "operational", "business", "documentation"]
 category: "Writing"
 subcategory: "Create_Documentation"
@@ -104,3 +104,5 @@ artifacts.
 Then generate a high-quality prompt for each.
 
 Do not generate the documentation itself.
+
+

@@ -1,4 +1,4 @@
----
+﻿---
 title: "AI Prompt: Competitive Technology Analysis"
 tags: ["writing", "technical", "competitive", "analysis"]
 category: "Writing"
@@ -33,3 +33,4 @@ Perform a **deep competitive analysis** of a product or technology.
 ## Output
 
 Professional competitive analysis report in Markdown.
+
