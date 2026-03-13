@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Architecture Compliance Assessment"
+title: "Generate A Architecture Compliance Assessment"
 tags: ["it", "architecture", "compliance", "assessment"]
 category: "IT"
 subcategory: "Architecture"

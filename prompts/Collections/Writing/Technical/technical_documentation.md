@@ -1,5 +1,5 @@
 ---
-title: "Technical Documentation Generator"
+title: "Technical Documentation"
 tags: ["writing", "technical", "documentation"]
 category: "Writing"
 subcategory: "Technical"

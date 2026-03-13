@@ -1,5 +1,5 @@
 ---
-title: "05 — Cookbook Styling Guide Prompt"
+title: "Cookbook Styling Guide"
 tags: ["writing", "cookbooks", "styling", "guide"]
 category: "Writing"
 subcategory: "Cookbooks"

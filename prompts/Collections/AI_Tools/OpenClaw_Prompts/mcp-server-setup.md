@@ -1,5 +1,5 @@
 ---
-title: "MCP Server Setup Prompt"
+title: "MCP Server Setup"
 tags: ["ai-tools", "openclaw-prompts", "server", "setup"]
 category: "AI_Tools"
 subcategory: "OpenClaw_Prompts"

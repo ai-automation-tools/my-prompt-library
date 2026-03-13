@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Partner-Led Growth Operator"
+title: "AI Agent Partner Led Growth Operator"
 tags: ["growth", "go-to-market", "partnerships", "startup", "finance"]
 category: "Business"
 subcategory: "Growth"

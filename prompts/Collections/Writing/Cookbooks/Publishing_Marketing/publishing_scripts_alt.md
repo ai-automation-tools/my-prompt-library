@@ -1,5 +1,5 @@
 ---
-title: "09 — Publishing Scripts Prompt"
+title: "Publishing Scripts"
 tags: ["writing", "cookbooks", "publishing", "scripts"]
 category: "Writing"
 subcategory: "Cookbooks"

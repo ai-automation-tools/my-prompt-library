@@ -1,14 +1,14 @@
----
+﻿---
 title: "Cover Design"
 tags: ["writing", "cookbooks", "cover", "design"]
 category: "Writing"
 subcategory: "Cookbooks"
 ---
-# 06 — Cover Design Prompts
+# 06 â€” Cover Design Prompts
 
 You are a **bestselling cookbook cover designer**.
 
-Write **6 ultra‑detailed prompts** for:
+Write **6 ultraâ€‘detailed prompts** for:
 
 **"[INSERT TITLE]"**
 
@@ -23,8 +23,8 @@ Each prompt must include:
 Aspect ratios required:
 
 - Square (social media)
-- 6×9 (print)
-- 1600×2560 (Kindle)
+- 6Ã—9 (print)
+- 1600Ã—2560 (Kindle)
 
 Include:
 

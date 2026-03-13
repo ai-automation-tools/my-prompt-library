@@ -1,5 +1,5 @@
 ---
-title: "Risk, Compliance, and Contingency Plan"
+title: "Risk, Compliance, And Contingency Plan"
 tags: ["business", "documentation", "risk", "compliance", "contingency"]
 category: "Business"
 subcategory: "Documentation"

@@ -1,5 +1,5 @@
 ---
-title: "Incident Postmortem (Based on Google SRE and Etsy)"
+title: "Incident Postmortem"
 tags: ["collections", "engineering", "incident", "postmortem", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

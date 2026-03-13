@@ -1,5 +1,5 @@
 ---
-title: "Context7 Prompt Pack (Mike)"
+title: "Context Prompt Pack (mike)"
 tags: ["mcp-servers", "tools", "context7"]
 category: "MCP_Servers"
 subcategory: "Tools"

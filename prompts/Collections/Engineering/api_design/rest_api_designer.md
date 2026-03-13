@@ -1,5 +1,5 @@
 ---
-title: "REST API Designer"
+title: "Rest API Designer"
 tags: ["collections", "engineering", "rest", "designer"]
 category: "Collections"
 subcategory: "Engineering"

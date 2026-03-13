@@ -1,5 +1,5 @@
 ---
-title: "Fintech App Launch Cross-Platform Campaign"
+title: "Fintech App Launch Cross Platform Campaign"
 tags: ["fintech", "app-launch", "cross-platform", "consumer", "campaign"]
 category: "Social_Media"
 subcategory: "Campaigns"

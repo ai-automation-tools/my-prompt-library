@@ -1,5 +1,5 @@
 ---
-title: "Top Prompts Harvest — Weekly"
+title: "Weekly Top Prompts Harvest —"
 tags: ["ai-tools", "claude-cowork", "prompts", "harvest", "weekly"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

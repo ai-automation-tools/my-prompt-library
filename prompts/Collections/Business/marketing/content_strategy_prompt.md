@@ -1,5 +1,5 @@
 ---
-title: "Content Strategy (Based on Content Marketing Institute)"
+title: "Content Strategy"
 tags: ["collections", "business", "content", "strategy", "prompt"]
 category: "Collections"
 subcategory: "Business"

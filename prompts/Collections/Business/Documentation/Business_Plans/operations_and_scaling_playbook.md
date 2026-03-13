@@ -1,5 +1,5 @@
 ---
-title: "Operations and Scaling Playbook"
+title: "Operations And Scaling Playbook"
 tags: ["business", "documentation", "operations", "scaling", "playbook"]
 category: "Business"
 subcategory: "Documentation"

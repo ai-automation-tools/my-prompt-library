@@ -1,5 +1,5 @@
 ---
-title: "CI/CD Pipeline Design Prompt"
+title: "Ci/cd Pipeline Design"
 tags: ["collections", "engineering", "cicd", "pipeline", "design"]
 category: "Collections"
 subcategory: "Engineering"

@@ -1,4 +1,4 @@
-# [Company/Product Name] - Investor Pitch Deck
+﻿# [Company/Product Name] - Investor Pitch Deck
 
 <!-- One-line elevator pitch -->
 
@@ -256,3 +256,4 @@ Be prepared to answer:
 
 **Created by:** [Your name]  
 **Inspired by:** YC, a16z, and Sequoia pitch deck frameworks
+

@@ -1,5 +1,5 @@
 ---
-title: "System Migration Plan (Based on AWS Migration Framework)"
+title: "System Migration Plan"
 tags: ["collections", "engineering", "migration", "plan", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

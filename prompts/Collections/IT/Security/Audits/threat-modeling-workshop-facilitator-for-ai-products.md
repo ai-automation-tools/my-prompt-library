@@ -1,5 +1,5 @@
 ---
-title: "Threat Modeling Workshop Facilitator for AI Products"
+title: "Threat Modeling Workshop Facilitator For AI Products"
 tags: ["security", "threat-modeling", "ai-security", "risk-assessment", "secure-design"]
 category: "IT"
 subcategory: "Security"

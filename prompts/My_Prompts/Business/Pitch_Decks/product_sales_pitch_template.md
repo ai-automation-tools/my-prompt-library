@@ -1,4 +1,4 @@
-# [Product/Service Name] - Sales Pitch Deck
+﻿# [Product/Service Name] - Sales Pitch Deck
 
 <!-- Pitch to customers, not investors -->
 
@@ -147,7 +147,7 @@ A sales deck that:
 
 **Talking Points:**
 - "Based on your team size and current [metric]..."
-- "Conservative estimate—many customers see higher returns"
+- "Conservative estimateâ€”many customers see higher returns"
 - "Break even in quarter one, then pure value"
 
 ---
@@ -299,3 +299,4 @@ A sales deck that:
 
 **Created by:** [Your name]  
 **Inspired by:** Enterprise sales best practices
+

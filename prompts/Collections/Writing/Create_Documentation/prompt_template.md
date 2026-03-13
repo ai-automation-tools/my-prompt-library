@@ -1,5 +1,5 @@
 ---
-title: "Prompt Template"
+title: ""
 tags: ["writing", "create-documentation", "prompt", "template"]
 category: "Writing"
 subcategory: "Create_Documentation"

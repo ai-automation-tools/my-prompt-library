@@ -1,5 +1,5 @@
 ---
-title: "Testing Strategy (Based on ISTQB and Martin Fowler)"
+title: "Testing Strategy"
 tags: ["collections", "engineering", "testing", "strategy", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

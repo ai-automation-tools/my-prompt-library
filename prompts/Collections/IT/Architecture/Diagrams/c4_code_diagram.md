@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a C4 Code Diagram"
+title: "Generate A C Code Diagram"
 tags: ["it", "architecture", "code", "diagram"]
 category: "IT"
 subcategory: "Architecture"

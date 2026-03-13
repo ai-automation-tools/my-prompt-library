@@ -1,5 +1,5 @@
 ---
-title: "Data Visualization Guide"
+title: "Data Visualization"
 tags: ["data", "visualization", "guide"]
 category: "IT"
 subcategory: "Architecture"

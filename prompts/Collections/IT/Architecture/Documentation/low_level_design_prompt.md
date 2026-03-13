@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Low Level Design (LLD)"
+title: "Generate A Low Level Design LLD"
 tags: ["it", "architecture", "level", "design", "prompt"]
 category: "IT"
 subcategory: "Architecture"

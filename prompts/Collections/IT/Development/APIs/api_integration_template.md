@@ -1,5 +1,5 @@
 ---
-title: "API Integration Template"
+title: "API Integration"
 tags: ["it", "development", "integration", "template"]
 category: "IT"
 subcategory: "Development"

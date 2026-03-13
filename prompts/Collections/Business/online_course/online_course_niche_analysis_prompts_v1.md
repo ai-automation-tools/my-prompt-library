@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Prompts for Online Course Niche Analysis"
+title: "AI Agent Prompts For Online Course Niche Analysis"
 tags: ["collections", "business", "online", "course", "niche"]
 category: "Collections"
 subcategory: "Business"

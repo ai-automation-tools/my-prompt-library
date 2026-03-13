@@ -1,5 +1,5 @@
 ---
-title: "Notion MCP Prompt Library (30+ Prompts)"
+title: "Notion MCP Prompt Library (+ Prompts)"
 tags: ["mcp-servers", "notes", "notion"]
 category: "MCP_Servers"
 subcategory: "Notes"

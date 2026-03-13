@@ -1,5 +1,5 @@
 ---
-title: "3. IT Architecture Prompt Library"
+title: "IT Architecture Prompt Library"
 tags: ["it", "architecture", "prompt", "library"]
 category: "IT"
 subcategory: "Architecture"

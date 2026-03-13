@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a System Landscape Diagram"
+title: "Generate A System Landscape Diagram"
 tags: ["it", "architecture", "system", "landscape", "diagram"]
 category: "IT"
 subcategory: "Architecture"

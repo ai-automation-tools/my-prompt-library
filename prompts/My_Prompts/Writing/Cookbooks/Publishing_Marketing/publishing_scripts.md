@@ -1,4 +1,4 @@
----
+﻿---
 title: "Publishing & Automation Scripts"
 tags: ["writing", "cookbooks", "publishing", "scripts"]
 category: "Writing"

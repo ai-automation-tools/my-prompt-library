@@ -1,10 +1,10 @@
----
+﻿---
 title: "Foreword & Bonus Sections"
 tags: ["writing", "cookbooks", "foreword", "intro"]
 category: "Writing"
 subcategory: "Cookbooks"
 ---
-# 12 — Foreword & Bonus Sections
+# 12 â€” Foreword & Bonus Sections
 
 Write a **compelling foreword or introduction** for:
 
@@ -19,8 +19,8 @@ Voice options:
 
 Also generate:
 
-- Author note (“Why I wrote this book”)
-- “How to use this book” page
+- Author note (â€œWhy I wrote this bookâ€)
+- â€œHow to use this bookâ€ page
 - 3 reader testimonials (placeholder)
 - Seasonal menu planner
 - Pantry staples list
@@ -29,4 +29,4 @@ Tone:
 
 Warm, aspirational, **zero fluff**.
 
-Each section: **400–600 words**.
+Each section: **400â€“600 words**.

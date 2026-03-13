@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Service Level Objective (SLO) and Service Level Agreement (SLA) Definition"
+title: "Service Level Objective (slo) And Service Level Agreement (sla) Definition"
 tags: ["collections", "business", "definition", "prompt"]
 category: "Collections"
 subcategory: "Business"

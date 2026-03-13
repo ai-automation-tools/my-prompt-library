@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Network Architecture"
+title: "Generate A Network Architecture"
 tags: ["it", "architecture", "network"]
 category: "IT"
 subcategory: "Architecture"

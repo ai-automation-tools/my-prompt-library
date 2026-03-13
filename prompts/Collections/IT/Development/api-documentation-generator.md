@@ -1,5 +1,5 @@
 ---
-title: "API Documentation Generator"
+title: "API Documentation"
 tags: ["documentation", "generator"]
 category: "IT"
 subcategory: "Development"

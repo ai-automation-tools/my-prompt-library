@@ -1,5 +1,5 @@
 ---
-title: "Financial Modeling Blueprint (Based on CFA Institute practices)"
+title: "Financial Modeling Blueprint"
 tags: ["collections", "business", "financial", "modeling", "prompt"]
 category: "Collections"
 subcategory: "Business"

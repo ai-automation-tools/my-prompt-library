@@ -1,5 +1,5 @@
 ---
-title: "GitHub Repo Health Check"
+title: "Github Repo Health Check"
 tags: ["ai-tools", "claude-cowork", "github", "repo", "health"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

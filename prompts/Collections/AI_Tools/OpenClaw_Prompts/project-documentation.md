@@ -1,5 +1,5 @@
 ---
-title: "Project Documentation Prompt"
+title: "Project Documentation"
 tags: ["ai-tools", "openclaw-prompts", "project", "documentation"]
 category: "AI_Tools"
 subcategory: "OpenClaw_Prompts"

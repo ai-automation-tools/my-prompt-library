@@ -1,5 +1,5 @@
 ---
-title: "AI Prompt: Technical Marketing Slide Deck Generator"
+title: "AI Prompt: Technical Marketing Slide Deck"
 tags: ["writing", "technical", "slide", "deck"]
 category: "Writing"
 subcategory: "Technical"

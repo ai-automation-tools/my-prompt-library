@@ -1,5 +1,5 @@
 ---
-title: "Awesome ChatGPT Prompts"
+title: "Awesome Chatgpt Prompts"
 tags: ["my-prompts", "ai-tools", "awesome", "chatgpt", "prompts"]
 category: "My_Prompts"
 subcategory: "AI_Tools"

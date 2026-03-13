@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Resilience Architecture"
+title: "Generate A Resilience Architecture"
 tags: ["it", "architecture", "resilience"]
 category: "IT"
 subcategory: "Architecture"
