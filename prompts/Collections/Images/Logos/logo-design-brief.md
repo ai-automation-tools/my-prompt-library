@@ -1,5 +1,5 @@
 ---
-title: "Logo Design Guide"
+title: "Logo Design"
 tags: ["logo", "design", "guide"]
 category: "Images"
 subcategory: "Logos"

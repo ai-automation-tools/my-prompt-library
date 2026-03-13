@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Budget & Runway Planning Generator"
+title: "Budget & Runway Planning"
 tags: ["collections", "finance", "budget", "runway", "planning"]
 category: "Collections"
 subcategory: "Finance"

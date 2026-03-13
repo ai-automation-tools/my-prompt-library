@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a IAM Architecture"
+title: "Generate A IAM Architecture"
 tags: ["it", "architecture"]
 category: "IT"
 subcategory: "Architecture"

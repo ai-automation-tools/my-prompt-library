@@ -1,5 +1,5 @@
 ---
-title: "Market Research Prompt for an Online Course"
+title: "Market Research Prompt For An Online Course"
 tags: ["collections", "business", "online", "course", "market"]
 category: "Collections"
 subcategory: "Business"

@@ -1,5 +1,5 @@
 ---
-title: "Swift iOS Expense Tracker"
+title: "Swift Ios Expense Tracker"
 tags: ["it", "build-apps", "swift", "expense", "tracker"]
 category: "IT"
 subcategory: "Build_Apps"

@@ -1,5 +1,5 @@
 ---
-title: "Cron Job Setup Prompt"
+title: "Cron Job Setup"
 tags: ["ai-tools", "openclaw-prompts", "cron", "setup"]
 category: "AI_Tools"
 subcategory: "OpenClaw_Prompts"

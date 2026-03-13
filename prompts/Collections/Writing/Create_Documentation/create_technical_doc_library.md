@@ -1,5 +1,5 @@
 ---
-title: "IT Technical Documentation Library Generator Prompt"
+title: "IT Technical Documentation Library Generator"
 tags: ["writing", "create-documentation", "create", "technical", "library"]
 category: "Writing"
 subcategory: "Create_Documentation"

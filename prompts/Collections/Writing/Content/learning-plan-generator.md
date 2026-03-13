@@ -1,5 +1,5 @@
 ---
-title: "Study Plan Generator"
+title: "Study Plan"
 tags: ["study", "plan", "generator"]
 category: "Writing"
 subcategory: "Content"

@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Board/Investor Narrative Generator"
+title: "Board/investor Narrative"
 tags: ["collections", "business", "board", "investor", "narrative"]
 category: "Collections"
 subcategory: "Business"

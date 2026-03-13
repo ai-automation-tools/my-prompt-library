@@ -1,5 +1,5 @@
 ---
-title: "Startup Idea Generator"
+title: "Startup Idea"
 tags: ["collections", "engineering", "startup", "idea", "generator"]
 category: "Collections"
 subcategory: "Engineering"

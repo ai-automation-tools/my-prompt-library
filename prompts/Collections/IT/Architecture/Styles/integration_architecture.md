@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Integration Architecture"
+title: "Generate A Integration Architecture"
 tags: ["it", "architecture", "integration"]
 category: "IT"
 subcategory: "Architecture"

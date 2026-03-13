@@ -1,5 +1,5 @@
 ---
-title: "MCP_Prompts Prompts"
+title: "MCP Prompts Prompts"
 tags: ["mcp-servers", "tools", "index"]
 category: "MCP_Servers"
 subcategory: "Tools"

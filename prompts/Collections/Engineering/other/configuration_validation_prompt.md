@@ -1,5 +1,5 @@
 ---
-title: "Configuration Validation Script Generation (Based on Schema-Driven and Policy-as-Code Principles)"
+title: "Configuration Validation Script Generation"
 tags: ["collections", "engineering", "configuration", "validation", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

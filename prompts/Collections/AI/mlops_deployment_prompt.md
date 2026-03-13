@@ -1,5 +1,5 @@
 ---
-title: "MLOps Deployment Plan (Based on Google MLOps)"
+title: "MLOPS Deployment Plan"
 tags: ["collections", "ai", "mlops", "deployment", "prompt"]
 category: "Collections"
 subcategory: "AI"

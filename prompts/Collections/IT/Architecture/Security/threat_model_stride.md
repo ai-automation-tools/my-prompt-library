@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Threat Model (STRIDE)"
+title: "Generate A Threat Model (stride)"
 tags: ["it", "architecture", "threat", "model", "stride"]
 category: "IT"
 subcategory: "Architecture"

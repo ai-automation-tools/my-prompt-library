@@ -1,5 +1,5 @@
 ---
-title: "14. Asset & Configuration Management Prompt Library"
+title: "Asset & Configuration Management Prompt Library"
 tags: ["it", "security", "asset", "configuration", "management"]
 category: "IT"
 subcategory: "Security"

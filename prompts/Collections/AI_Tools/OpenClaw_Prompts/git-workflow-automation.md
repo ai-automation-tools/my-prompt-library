@@ -1,5 +1,5 @@
 ---
-title: "Git Workflow Automation Prompt"
+title: "Git Workflow Automation"
 tags: ["ai-tools", "openclaw-prompts", "workflow", "automation"]
 category: "AI_Tools"
 subcategory: "OpenClaw_Prompts"

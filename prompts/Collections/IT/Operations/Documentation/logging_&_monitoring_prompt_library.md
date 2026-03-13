@@ -1,5 +1,5 @@
 ---
-title: "9. Logging & Monitoring Prompt Library"
+title: "Logging & Monitoring Prompt Library"
 tags: ["it", "operations", "logging", "monitoring", "prompt"]
 category: "IT"
 subcategory: "Operations"

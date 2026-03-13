@@ -1,5 +1,5 @@
 ---
-title: "Weekly Newsletter Generator"
+title: "Weekly Newsletter"
 tags: ["writing", "content", "weekly", "newsletter", "generator"]
 category: "Writing"
 subcategory: "Content"

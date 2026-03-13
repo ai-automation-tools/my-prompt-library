@@ -1,5 +1,5 @@
 ---
-title: "Integrated Campaign Brief (Based on ANA and IPA)"
+title: "Integrated Campaign Brief"
 tags: ["collections", "business", "campaign", "brief", "prompt"]
 category: "Collections"
 subcategory: "Business"

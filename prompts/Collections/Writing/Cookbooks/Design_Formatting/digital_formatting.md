@@ -1,5 +1,5 @@
 ---
-title: "07 — Digital Formatting Ideas"
+title: "Digital Formatting Ideas"
 tags: ["writing", "cookbooks", "digital", "formatting"]
 category: "Writing"
 subcategory: "Cookbooks"

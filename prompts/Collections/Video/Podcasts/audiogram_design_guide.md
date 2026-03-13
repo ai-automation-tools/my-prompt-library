@@ -1,5 +1,5 @@
 ---
-title: "Audiogram Design Guide"
+title: "Audiogram Design"
 tags: ["video", "podcasts", "audiogram", "design", "guide"]
 category: "Video"
 subcategory: "Podcasts"

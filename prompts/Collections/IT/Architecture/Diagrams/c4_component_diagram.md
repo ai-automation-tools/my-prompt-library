@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a C4 Component Diagram"
+title: "Generate A C Component Diagram"
 tags: ["it", "architecture", "component", "diagram"]
 category: "IT"
 subcategory: "Architecture"

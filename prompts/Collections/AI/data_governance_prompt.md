@@ -1,5 +1,5 @@
 ---
-title: "Data Governance Plan (Based on DAMA-DMBOK)"
+title: "Data Governance Plan"
 tags: ["collections", "ai", "data", "governance", "prompt"]
 category: "Collections"
 subcategory: "AI"

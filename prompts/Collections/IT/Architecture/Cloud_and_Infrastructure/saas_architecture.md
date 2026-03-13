@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a SaaS Architecture"
+title: "Generate A SAAS Architecture"
 tags: ["it", "architecture", "saas"]
 category: "IT"
 subcategory: "Architecture"

@@ -1,5 +1,5 @@
 ---
-title: "Professional Article Generator"
+title: "Professional Article"
 tags: ["professional", "article", "generator"]
 category: "Writing"
 subcategory: "Content"

@@ -1,5 +1,5 @@
 ---
-title: "News Collage Image Prompt Generator"
+title: "News Collage Image Prompt"
 tags: ["images", "custom", "news", "collage", "image"]
 category: "Images"
 subcategory: "Custom"

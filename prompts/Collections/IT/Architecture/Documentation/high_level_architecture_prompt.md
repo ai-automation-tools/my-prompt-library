@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a High Level Architecture (HLD)"
+title: "Generate A High Level Architecture HLD"
 tags: ["it", "architecture", "high", "level"]
 category: "IT"
 subcategory: "Architecture"

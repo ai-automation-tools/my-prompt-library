@@ -1,5 +1,5 @@
 ---
-title: "Brand Positioning Brief (Based on Kotler and Ries/Trout)"
+title: "Brand Positioning Brief"
 tags: ["collections", "business", "brand", "positioning", "prompt"]
 category: "Collections"
 subcategory: "Business"

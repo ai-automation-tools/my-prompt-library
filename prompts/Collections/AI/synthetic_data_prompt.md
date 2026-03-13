@@ -1,5 +1,5 @@
 ---
-title: "Synthetic Data Strategy (Based on MIT/IEEE guidance)"
+title: "Synthetic Data Strategy"
 tags: ["collections", "ai", "synthetic", "data", "prompt"]
 category: "Collections"
 subcategory: "AI"

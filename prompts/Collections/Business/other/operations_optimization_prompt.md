@@ -1,5 +1,5 @@
 ---
-title: "Operations Optimization (Based on Lean/Six Sigma and APQC)"
+title: "Operations Optimization"
 tags: ["collections", "business", "operations", "optimization", "prompt"]
 category: "Collections"
 subcategory: "Business"

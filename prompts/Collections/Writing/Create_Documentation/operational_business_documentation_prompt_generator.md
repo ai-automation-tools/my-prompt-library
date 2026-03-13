@@ -1,5 +1,5 @@
 ---
-title: "Operational Business Documentation Prompt Generator (Meta-Prompt)"
+title: "Operational Business Documentation Prompt Generator (meta Prompt)"
 tags: ["writing", "create-documentation", "operational", "business", "documentation"]
 category: "Writing"
 subcategory: "Create_Documentation"

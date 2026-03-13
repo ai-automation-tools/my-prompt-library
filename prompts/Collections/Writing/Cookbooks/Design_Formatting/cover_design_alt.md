@@ -1,5 +1,5 @@
 ---
-title: "Phase 4: Cookbook Cover Design"
+title: "Phase : Cookbook Cover Design"
 tags: ["writing", "cookbooks", "cover", "design"]
 category: "Writing"
 subcategory: "Cookbooks"

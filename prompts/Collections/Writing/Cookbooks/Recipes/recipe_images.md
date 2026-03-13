@@ -1,5 +1,5 @@
 ---
-title: "04 — Recipe Image Prompts"
+title: "Recipe Image Prompts"
 tags: ["writing", "cookbooks", "recipe", "images"]
 category: "Writing"
 subcategory: "Cookbooks"

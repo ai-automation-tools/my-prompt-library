@@ -1,5 +1,5 @@
 ---
-title: "LLM Prompt Set for Grant Proposal Writing"
+title: "LLM Prompt Set For Grant Proposal Writing"
 tags: ["collections", "writing", "grant", "proposal"]
 category: "Collections"
 subcategory: "Writing"

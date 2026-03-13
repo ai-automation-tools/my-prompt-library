@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Security Architecture"
+title: "Generate A Security Architecture"
 tags: ["it", "architecture", "security"]
 category: "IT"
 subcategory: "Architecture"

@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Disaster Recovery Architecture"
+title: "Generate A Disaster Recovery Architecture"
 tags: ["it", "architecture", "disaster", "recovery"]
 category: "IT"
 subcategory: "Architecture"

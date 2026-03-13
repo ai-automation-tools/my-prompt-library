@@ -1,5 +1,5 @@
 ---
-title: "Prompt Safety Review (Based on OWASP LLM Top 10)"
+title: "Safety Review"
 tags: ["collections", "ai", "prompt", "safety"]
 category: "Collections"
 subcategory: "AI"

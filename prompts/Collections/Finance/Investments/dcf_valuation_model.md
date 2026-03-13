@@ -1,5 +1,5 @@
 ---
-title: "Discounted Cash Flow (DCF) Valuation Model"
+title: "Discounted Cash Flow DCF Valuation Model"
 tags: ["finance", "investments", "valuation", "model"]
 category: "Finance"
 subcategory: "Investments"

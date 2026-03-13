@@ -1,5 +1,5 @@
 ---
-title: "AI Prompt: Software User Guide Generator"
+title: "AI Prompt: Software User Guide"
 tags: ["writing", "technical", "user", "guide"]
 category: "Writing"
 subcategory: "Technical"

@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Deployment Architecture Diagram"
+title: "Generate A Deployment Architecture Diagram"
 tags: ["it", "architecture", "deployment", "diagram"]
 category: "IT"
 subcategory: "Architecture"
