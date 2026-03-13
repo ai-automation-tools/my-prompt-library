@@ -36,6 +36,7 @@ import { twMerge } from 'tailwind-merge';
 import { motion, AnimatePresence } from 'motion/react';
 import PromptEditorModal from './components/PromptEditorModal';
 import { ToastContainer, type ToastProps } from './components/Toast';
+import Fuse from 'fuse.js';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -182,14 +183,28 @@ export default function App() {
   }, [sectionPrompts]);
 
   const filteredPrompts = useMemo(() => {
-    if (!debouncedSearch) return sectionPrompts;
-    const searchLower = debouncedSearch.toLowerCase();
-    return sectionPrompts.filter(p =>
-      p.title.toLowerCase().includes(searchLower) ||
-      p.content.toLowerCase().includes(searchLower) ||
-      p.tags.some(t => t.toLowerCase().includes(searchLower))
-    );
-  }, [sectionPrompts, debouncedSearch]);
+    const promptsToFilter = sectionPrompts.filter(prompt => {
+      if (activeTab === 'my-prompts' && !prompt.id.startsWith('My_Prompts/')) return false;
+      if (activeTab === 'collections' && !prompt.id.startsWith('Collections/')) return false;
+      if (activeTab === 'system-prompts' && !prompt.id.startsWith('System_Prompts/')) return false;
+      if (activeTab === 'agent-guides' && !prompt.id.startsWith('Agent_Guides/')) return false;
+      return true;
+    });
+
+    if (!debouncedSearch) {
+      return promptsToFilter;
+    }
+
+    const fuse = new Fuse(promptsToFilter, {
+      keys: ['title', 'content', 'tags', 'category', 'subcategory'],
+      includeScore: true,
+      threshold: 0.3, // Fuzziness (0 = exact match, 1 = any match)
+      ignoreLocation: true,
+      minMatchCharLength: 2,
+    });
+
+    return fuse.search(debouncedSearch).map(result => result.item);
+  }, [sectionPrompts, debouncedSearch, activeTab]);
 
   const subcategoryPrompts = useMemo(() => {
     if (!selectedSubcategory) return [];
