@@ -1,4 +1,4 @@
----
+﻿---
 title: "Google Places Skill Prompt List"
 tags: ["mcp-servers", "search", "google", "places"]
 category: "MCP_Servers"
@@ -81,3 +81,4 @@ subcategory: "Search"
 - use the google places skill to Get phone number and website for place_id [place_id]
 - use the google places skill to Get reviews and rating for place_id [place_id]
 - use the google places skill to Get the formatted address for place_id [place_id]
+

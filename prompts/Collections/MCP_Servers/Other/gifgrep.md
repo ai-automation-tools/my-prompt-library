@@ -1,4 +1,4 @@
----
+﻿---
 title: "Gifgrep Skill Prompt List"
 tags: ["mcp-servers", "tools", "gifgrep"]
 category: "MCP_Servers"
@@ -66,3 +66,4 @@ _A tool designed to search for animated GIFs and emojis_
 - Use the Gifgrep skill to Get a random GIF result for [keyword]
 - Use the Gifgrep skill to Get GIFs that are safe for work for [keyword]
 - Use the Gifgrep skill to Get GIFs that avoid text overlays for [keyword]
+

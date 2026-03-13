@@ -1,4 +1,4 @@
----
+﻿---
 title: "Nano Banana Prompts"
 tags: ["mcp-servers", "tools", "nano", "banana"]
 category: "MCP_Servers"
@@ -50,7 +50,7 @@ subcategory: "Tools"
 - Use nano-banana to generate a meme where a pet owner asks their cat "Who's a good boy?" and the cat responds with a look of pure judgment.
 - Use nano-banana to generate a meme about trying to assemble IKEA furniture with only the picture instructions and a growing sense of existential dread.
 - Use nano-banana to generate a meme showing a person's face when they realize they've been talking on mute for the last five minutes in a video call.
-- Use nano-banana to generate a meme about the feeling of finding a forgotten $20 bill in an old coat pocket – pure, unadulterated joy.
+- Use nano-banana to generate a meme about the feeling of finding a forgotten $20 bill in an old coat pocket â€“ pure, unadulterated joy.
 - Use nano-banana to generate a meme mocking how every online recipe starts with a 10-page personal essay before getting to the ingredients.
 - Use nano-banana to generate a meme of someone trying to look busy at work by furiously typing, but they're actually just writing a grocery list.
 - Use nano-banana to generate a meme about the awkward moment when you wave back at someone who wasn't waving at you.
@@ -64,3 +64,5 @@ subcategory: "Tools"
 - Use nano-banana to generate a meme mocking how every self-help book cover features a blurry person looking contemplatively into the distance.
 - Use nano-banana to generate a meme of a person trying to look cool while slipping on ice, but failing spectacularly.
 - Use nano-banana to generate a meme about the existential crisis that hits when you realize you're too old for TikTok trends but too young for bingo night.
+
+
