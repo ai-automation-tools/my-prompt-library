@@ -1,5 +1,5 @@
 ---
-title: "Sales Forecast and Pipeline Plan"
+title: "Sales Forecast And Pipeline Plan"
 tags: ["business", "documentation", "sales", "forecast", "pipeline"]
 category: "Business"
 subcategory: "Documentation"

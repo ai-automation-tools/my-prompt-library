@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a AI / ML Architecture"
+title: "Generate A AI / Ml Architecture"
 tags: ["it", "architecture"]
 category: "IT"
 subcategory: "Architecture"

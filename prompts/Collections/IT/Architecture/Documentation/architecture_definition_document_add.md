@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Architecture Definition Document (ADD)"
+title: "Generate A Architecture Definition Document (add)"
 tags: ["it", "architecture", "definition", "document"]
 category: "IT"
 subcategory: "Architecture"

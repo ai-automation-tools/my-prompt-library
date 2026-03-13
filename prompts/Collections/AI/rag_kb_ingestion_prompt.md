@@ -1,5 +1,5 @@
 ---
-title: "RAG/KB Ingestion Prompt"
+title: "Rag/kb Ingestion"
 tags: ["collections", "ai", "ingestion", "prompt"]
 category: "Collections"
 subcategory: "AI"

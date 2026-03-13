@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Data Governance Architecture"
+title: "Generate A Data Governance Architecture"
 tags: ["it", "architecture", "data", "governance"]
 category: "IT"
 subcategory: "Architecture"

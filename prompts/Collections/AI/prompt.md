@@ -1,5 +1,5 @@
 ---
-title: "Prompt Standardizer"
+title: "Standardizer"
 tags: ["collections", "ai", "prompt"]
 category: "Collections"
 subcategory: "AI"

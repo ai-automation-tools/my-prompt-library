@@ -1,5 +1,5 @@
 ---
-title: "Fiction Character Cast and Arc Designer"
+title: "Fiction Character Cast And Arc Designer"
 tags: ["writing", "fiction", "characters", "story-arc", "novel-development"]
 category: "Writing"
 subcategory: "Books/Fiction"

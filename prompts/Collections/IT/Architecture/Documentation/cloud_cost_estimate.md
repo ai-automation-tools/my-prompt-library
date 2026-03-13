@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Cloud Cost Estimate"
+title: "Generate A Cloud Cost Estimate"
 tags: ["it", "architecture", "cloud", "cost", "estimate"]
 category: "IT"
 subcategory: "Architecture"

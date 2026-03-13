@@ -1,5 +1,5 @@
 ---
-title: "12-Month Execution Roadmap"
+title: "Month Execution Roadmap"
 tags: ["business", "documentation", "month", "execution", "roadmap"]
 category: "Business"
 subcategory: "Documentation"

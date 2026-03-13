@@ -1,5 +1,5 @@
 ---
-title: "IT System Integration Architect for AI Agents"
+title: "IT System Integration Architect For AI Agents"
 tags: ["it-architecture", "system-integration", "ai-agents", "enterprise-architecture", "solution-design"]
 category: "IT"
 subcategory: "Architecture"

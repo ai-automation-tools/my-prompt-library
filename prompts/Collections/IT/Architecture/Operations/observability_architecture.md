@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Observability Architecture"
+title: "Generate A Observability Architecture"
 tags: ["it", "architecture", "observability"]
 category: "IT"
 subcategory: "Architecture"

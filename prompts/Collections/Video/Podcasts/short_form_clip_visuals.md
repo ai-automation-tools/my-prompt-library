@@ -1,5 +1,5 @@
 ---
-title: "Short-Form Clip Visuals Planner"
+title: "Short Form Clip Visuals Planner"
 tags: ["video", "podcasts", "short", "form", "clip"]
 category: "Video"
 subcategory: "Podcasts"

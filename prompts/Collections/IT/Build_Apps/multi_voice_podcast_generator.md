@@ -1,5 +1,5 @@
 ---
-title: "Multi-Voice Podcast Generator"
+title: "Multi Voice Podcast"
 tags: ["it", "build-apps", "multi", "voice", "podcast"]
 category: "IT"
 subcategory: "Build_Apps"

@@ -1,5 +1,5 @@
 ---
-title: "GitHub Pages Deployment Check"
+title: "Github Pages Deployment Check"
 tags: ["ai-tools", "claude-cowork", "github", "pages", "deployment"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

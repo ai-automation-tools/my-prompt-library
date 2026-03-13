@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Technical Architecture Document (TAD)"
+title: "Generate A Technical Architecture Document TAD"
 tags: ["it", "architecture", "technical", "document"]
 category: "IT"
 subcategory: "Architecture"

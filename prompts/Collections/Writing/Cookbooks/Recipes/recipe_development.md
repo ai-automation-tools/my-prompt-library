@@ -1,5 +1,5 @@
 ---
-title: "Phase 2: Recipe Development"
+title: "Phase : Recipe Development"
 tags: ["writing", "cookbooks", "recipe", "development"]
 category: "Writing"
 subcategory: "Cookbooks"

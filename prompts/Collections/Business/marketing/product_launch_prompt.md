@@ -1,5 +1,5 @@
 ---
-title: "Product Launch Playbook (Based on Pragmatic Marketing)"
+title: "Product Launch Playbook"
 tags: ["collections", "business", "product", "launch", "prompt"]
 category: "Collections"
 subcategory: "Business"

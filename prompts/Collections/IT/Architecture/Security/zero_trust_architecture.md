@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Zero Trust Architecture"
+title: "Generate A Zero Trust Architecture"
 tags: ["it", "architecture", "zero", "trust"]
 category: "IT"
 subcategory: "Architecture"

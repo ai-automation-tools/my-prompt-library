@@ -1,5 +1,5 @@
 ---
-title: "Fiction Self-Publishing Launch Planner"
+title: "Fiction Self Publishing Launch Planner"
 tags: ["writing", "fiction", "publishing", "book-launch", "distribution"]
 category: "Writing"
 subcategory: "Books/Fiction"

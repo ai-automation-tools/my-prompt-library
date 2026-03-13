@@ -1,5 +1,5 @@
 ---
-title: "8. Data Governance Prompt Library"
+title: "Data Governance Prompt Library"
 tags: ["it", "operations", "data", "governance", "prompt"]
 category: "IT"
 subcategory: "Operations"

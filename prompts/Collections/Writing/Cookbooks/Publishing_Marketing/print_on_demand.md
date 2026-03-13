@@ -1,5 +1,5 @@
 ---
-title: "10 — Print-on-Demand Setup"
+title: "Print On Demand Setup"
 tags: ["writing", "cookbooks", "print", "demand"]
 category: "Writing"
 subcategory: "Cookbooks"

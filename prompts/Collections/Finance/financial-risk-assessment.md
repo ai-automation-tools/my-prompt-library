@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Financial Risk Assessment Generator"
+title: "Financial Risk Assessment"
 tags: ["collections", "finance", "financial", "risk", "assessment"]
 category: "Collections"
 subcategory: "Finance"

@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Microservices Architecture"
+title: "Generate A Microservices Architecture"
 tags: ["it", "architecture", "microservices"]
 category: "IT"
 subcategory: "Architecture"

@@ -1,5 +1,5 @@
 ---
-title: "Private Media Server – Site Builder Agent Prompt"
+title: "Private Media Server – Site Builder Agent"
 tags: ["it", "build-apps", "media", "center"]
 category: "IT"
 subcategory: "Build_Apps"

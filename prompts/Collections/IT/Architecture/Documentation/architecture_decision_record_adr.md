@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Architecture Decision Record (ADR)"
+title: "Generate A Architecture Decision Record ADR"
 tags: ["it", "architecture", "decision", "record"]
 category: "IT"
 subcategory: "Architecture"

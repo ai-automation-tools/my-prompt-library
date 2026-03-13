@@ -1,5 +1,5 @@
 ---
-title: "🤖 DEV ChatGPT Prompts"
+title: "🤖 Dev Chatgpt Prompts"
 tags: ["collections", "engineering", "code", "development"]
 category: "Collections"
 subcategory: "Engineering"

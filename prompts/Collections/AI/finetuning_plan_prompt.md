@@ -1,5 +1,5 @@
 ---
-title: "Fine-Tuning Plan (Based on OpenAI/DeepMind papers)"
+title: "Fine Tuning Plan"
 tags: ["collections", "ai", "finetuning", "plan", "prompt"]
 category: "Collections"
 subcategory: "AI"

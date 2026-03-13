@@ -1,5 +1,5 @@
 ---
-title: "B-Roll and Stock Footage Suggester"
+title: "B Roll And Stock Footage Suggester"
 tags: ["video", "podcasts", "roll", "suggestions"]
 category: "Video"
 subcategory: "Podcasts"

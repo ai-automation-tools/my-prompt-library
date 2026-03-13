@@ -1,5 +1,5 @@
 ---
-title: "Prompt Generator"
+title: ""
 tags: ["collections", "ai", "prompt", "generator"]
 category: "Collections"
 subcategory: "AI"

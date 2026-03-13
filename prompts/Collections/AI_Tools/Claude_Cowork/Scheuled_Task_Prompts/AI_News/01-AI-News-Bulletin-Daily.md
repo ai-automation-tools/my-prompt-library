@@ -1,5 +1,5 @@
 ---
-title: "AI News Bulletin (Daily)"
+title: "Daily AI News Bulletin"
 tags: ["ai-tools", "claude-cowork", "news", "bulletin", "daily"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

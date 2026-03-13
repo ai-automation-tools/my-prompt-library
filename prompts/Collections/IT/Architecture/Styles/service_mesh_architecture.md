@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Service Mesh Architecture"
+title: "Generate A Service Mesh Architecture"
 tags: ["it", "architecture", "service", "mesh"]
 category: "IT"
 subcategory: "Architecture"

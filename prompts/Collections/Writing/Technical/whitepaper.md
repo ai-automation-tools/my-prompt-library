@@ -1,5 +1,5 @@
 ---
-title: "AI Prompt: Enterprise Technical White Paper Generator"
+title: "AI Prompt: Enterprise Technical White Paper"
 tags: ["writing", "technical", "whitepaper"]
 category: "Writing"
 subcategory: "Technical"

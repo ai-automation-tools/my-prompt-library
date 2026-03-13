@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Brainstorm New Feature Ideas"
+title: "Brainstorm New Feature Ideas"
 tags: ["collections", "engineering", "brainstorm", "feature", "ideas"]
 category: "Collections"
 subcategory: "Engineering"

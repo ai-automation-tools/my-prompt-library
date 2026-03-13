@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Test Case Generation"
+title: "Test Case Generation"
 tags: ["collections", "engineering", "test", "case", "generation"]
 category: "Collections"
 subcategory: "Engineering"

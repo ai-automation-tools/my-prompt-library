@@ -1,5 +1,5 @@
 ---
-title: "Test Prompt"
+title: "Test"
 tags: []
 category: "Test"
 subcategory: "Testing"

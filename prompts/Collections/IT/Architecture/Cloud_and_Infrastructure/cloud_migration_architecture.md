@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Cloud Migration Architecture"
+title: "Generate A Cloud Migration Architecture"
 tags: ["it", "architecture", "cloud", "migration"]
 category: "IT"
 subcategory: "Architecture"

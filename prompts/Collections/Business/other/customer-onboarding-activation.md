@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Customer Onboarding & Activation Strategy Generator"
+title: "Customer Onboarding & Activation Strategy"
 tags: ["collections", "business", "customer", "onboarding", "activation"]
 category: "Collections"
 subcategory: "Business"

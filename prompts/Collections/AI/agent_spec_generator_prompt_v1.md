@@ -1,5 +1,5 @@
 ---
-title: "Agent Spec Generator Prompt for AX-Platform"
+title: "Agent Spec Generator Prompt For AX Platform"
 tags: ["collections", "ai", "agent", "spec", "generator"]
 category: "Collections"
 subcategory: "AI"

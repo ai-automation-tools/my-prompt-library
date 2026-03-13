@@ -1,5 +1,5 @@
 ---
-title: "Phase 1: Concept & Niche Selection"
+title: "Phase : Concept & Niche Selection"
 tags: ["writing", "cookbooks", "concept", "naming"]
 category: "Writing"
 subcategory: "Cookbooks"

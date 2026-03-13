@@ -1,5 +1,5 @@
 ---
-title: "15 — Cookbook Series Expansion"
+title: "Cookbook Series Expansion"
 tags: ["writing", "cookbooks", "series", "expansion"]
 category: "Writing"
 subcategory: "Cookbooks"

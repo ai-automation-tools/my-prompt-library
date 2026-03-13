@@ -1,5 +1,5 @@
 ---
-title: "nano-banana Prompts"
+title: "Nano Banana Prompts"
 tags: ["mcp-servers", "tools", "nano", "banana"]
 category: "MCP_Servers"
 subcategory: "Tools"

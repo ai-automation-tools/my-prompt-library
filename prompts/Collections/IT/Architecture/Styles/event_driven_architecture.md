@@ -1,5 +1,5 @@
 ---
-title: "Prompt: Generate a Event Driven Architecture"
+title: "Generate A Event Driven Architecture"
 tags: ["it", "architecture", "event", "driven"]
 category: "IT"
 subcategory: "Architecture"

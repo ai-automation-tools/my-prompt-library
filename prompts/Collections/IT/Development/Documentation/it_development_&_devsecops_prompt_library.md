@@ -1,5 +1,5 @@
 ---
-title: "5. IT Development / DevSecOps Prompt Library"
+title: "IT Development / Devsecops Prompt Library"
 tags: ["it", "development", "devsecops", "prompt"]
 category: "IT"
 subcategory: "Development"

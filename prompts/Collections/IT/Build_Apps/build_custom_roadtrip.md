@@ -1,5 +1,5 @@
 ---
-title: "Map Builder Prompt: US Road Trip Master Map (Start/End California)"
+title: "Map Builder Prompt: Us Road Trip Master Map (start/end California)"
 tags: ["it", "build-apps", "build", "custom", "roadtrip"]
 category: "IT"
 subcategory: "Build_Apps"

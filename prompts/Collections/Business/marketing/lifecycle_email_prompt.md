@@ -1,5 +1,5 @@
 ---
-title: "Lifecycle Email Program (Based on Klaviyo/HubSpot best practices)"
+title: "Lifecycle Email Program"
 tags: ["collections", "business", "lifecycle", "email", "prompt"]
 category: "Collections"
 subcategory: "Business"

@@ -1,5 +1,5 @@
 ---
-title: "Code Review Protocol (Based on Google Engineering Practices)"
+title: "Code Review Protocol"
 tags: ["collections", "engineering", "code", "review", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

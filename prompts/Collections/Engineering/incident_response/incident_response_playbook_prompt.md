@@ -1,5 +1,5 @@
 ---
-title: "Incident Response Playbook Generator"
+title: "Incident Response Playbook"
 tags: ["collections", "engineering", "incident", "response", "playbook"]
 category: "Collections"
 subcategory: "Engineering"

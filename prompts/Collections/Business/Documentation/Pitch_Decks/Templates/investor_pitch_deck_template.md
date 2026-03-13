@@ -1,5 +1,5 @@
 ---
-title: "[Company/Product Name] - Investor Pitch Deck"
+title: "Investor Pitch Deck"
 tags: ["business", "documentation", "investor", "pitch", "deck"]
 category: "Business"
 subcategory: "Documentation"

@@ -1,5 +1,5 @@
 ---
-title: "Vue E-Commerce Storefront"
+title: "Vue E Commerce Storefront"
 tags: ["it", "build-apps", "ecommerce", "storefront"]
 category: "IT"
 subcategory: "Build_Apps"

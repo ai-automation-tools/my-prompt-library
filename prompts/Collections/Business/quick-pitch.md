@@ -1,5 +1,5 @@
 ---
-title: "[Company Name] - Quick Pitch"
+title: "Quick Pitch"
 category: "Business"
 subcategory: "Documentation"
 tags: ["business", "pitch", "template"]

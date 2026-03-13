@@ -1,5 +1,5 @@
 ---
-title: "6. IT Operations Prompt Library"
+title: "IT Operations Prompt Library"
 tags: ["it", "operations", "prompt", "library"]
 category: "IT"
 subcategory: "Operations"

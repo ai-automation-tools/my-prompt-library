@@ -1,5 +1,5 @@
 ---
-title: "Startup Ideas Cyber It"
+title: "Startup Ideas Cyber IT"
 tags: ["collections", "engineering", "startup", "ideas", "cyber"]
 category: "Collections"
 subcategory: "Engineering"

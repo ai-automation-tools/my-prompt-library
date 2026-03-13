@@ -1,5 +1,5 @@
 ---
-title: "AI Video Storyboard Generator"
+title: "AI Video Storyboard"
 tags: ["video", "podcasts", "storyboard"]
 category: "Video"
 subcategory: "Podcasts"

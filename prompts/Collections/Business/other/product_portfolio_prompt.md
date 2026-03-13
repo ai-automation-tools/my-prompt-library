@@ -1,5 +1,5 @@
 ---
-title: "Product Portfolio Optimization (Based on BCG Matrix and Ansoff)"
+title: "Product Portfolio Optimization"
 tags: ["collections", "business", "product", "portfolio", "prompt"]
 category: "Collections"
 subcategory: "Business"

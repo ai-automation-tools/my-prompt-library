@@ -1,5 +1,5 @@
 ---
-title: "Fiction Marketing Funnel and Reader Growth Engine"
+title: "Fiction Marketing Funnel And Reader Growth Engine"
 tags: ["writing", "fiction", "marketing", "audience-growth", "book-sales"]
 category: "Writing"
 subcategory: "Books/Fiction"
