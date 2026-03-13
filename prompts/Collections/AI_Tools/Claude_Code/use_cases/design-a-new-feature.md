@@ -1,5 +1,5 @@
 ---
-title: "Design a New Feature"
+title: "Design A New Feature"
 tags: ["architecture", "design", "feature", "planning", "proposal"]
 category: "Architecture_and_Design"
 subcategory: "Feature_Design"

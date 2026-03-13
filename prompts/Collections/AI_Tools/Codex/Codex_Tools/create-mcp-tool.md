@@ -6,7 +6,7 @@ tags:
 - mcp
 - tool
 - automation
-title: Create a New MCP Tool
+title: "Create A New MCP Tool"
 ---
 
 # Codex Prompt: Create a New MCP Tool

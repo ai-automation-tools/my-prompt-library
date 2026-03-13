@@ -1,5 +1,5 @@
 ---
-title: "Spawn Sub-Agent for Task"
+title: "Spawn Sub Agent For Task"
 tags: ["agents", "orchestration", "task", "delegation", "sub-agent"]
 category: "Agents_and_Orchestration"
 subcategory: "Task_Delegation"

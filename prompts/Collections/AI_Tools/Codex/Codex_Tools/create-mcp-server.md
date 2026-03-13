@@ -6,7 +6,7 @@ tags:
 - mcp
 - server
 - tools
-title: Create an MCP Server
+title: "Create An MCP Server"
 ---
 
 # Codex Prompt: Create a New MCP Server

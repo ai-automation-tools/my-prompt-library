@@ -1,5 +1,5 @@
 ---
-title: "Cookbook Styling Guide"
+title: "Cookbook Styling"
 tags: ["writing", "cookbooks", "styling", "guide"]
 category: "Writing"
 subcategory: "Cookbooks"

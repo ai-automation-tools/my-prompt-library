@@ -5,7 +5,7 @@ tags:
 - gemini
 - cli
 - agent
-title: Gemini CLI Agent
+title: "Gemini Cli Agent"
 ---
 
 # Prompt: Gemini CLI Agent

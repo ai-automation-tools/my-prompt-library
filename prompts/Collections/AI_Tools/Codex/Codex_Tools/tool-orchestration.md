@@ -5,7 +5,7 @@ tags:
 - codex
 - tools
 - automation
-title: Tool Orchestration Prompt
+title: "Tool Orchestration"
 ---
 
 # Codex Prompt: Tool Orchestration

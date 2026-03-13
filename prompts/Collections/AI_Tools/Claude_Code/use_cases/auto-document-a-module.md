@@ -1,5 +1,5 @@
 ---
-title: "Auto-Document a Module"
+title: "Auto Document A Module"
 tags: ["documentation", "jsdoc", "docstrings", "api", "readme"]
 category: "Documentation"
 subcategory: "Module_Documentation"

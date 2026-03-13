@@ -1,5 +1,5 @@
 ---
-title: "Operational Business Documentation Library Generator"
+title: "Operational Business Documentation Library"
 tags: ["writing", "create-documentation", "create", "enterprise", "library"]
 category: "Writing"
 subcategory: "Create_Documentation"
