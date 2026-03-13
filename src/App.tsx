@@ -102,6 +102,10 @@ export default function App() {
     const saved = localStorage.getItem('prompt-recently-viewed');
     return saved ? JSON.parse(saved) : [];
   });
+  
+  // Sidebar section expansion (default closed)
+  const [favoritesExpanded, setFavoritesExpanded] = useState(false);
+  const [recentlyViewedExpanded, setRecentlyViewedExpanded] = useState(false);
 
   // Toast notifications
   const [toasts, setToasts] = useState<ToastProps[]>([]);
@@ -576,36 +580,48 @@ export default function App() {
           {favoritePrompts.length > 0 && (
             <div className="px-4 pb-4">
               <div className="glass-card rounded-[var(--radius-sm)] p-3 space-y-2">
-                <div className="flex items-center gap-2 px-1">
-                  <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
-                  <span className="text-[0.7rem] font-bold uppercase tracking-wider text-[var(--text-secondary)]">
-                    Favorites ({favoritePrompts.length})
-                  </span>
-                </div>
-                <div className="space-y-1">
-                  {favoritePrompts.slice(0, 5).map(prompt => (
-                    <button
-                      key={prompt.id}
-                      onClick={() => handlePromptClick(prompt)}
-                      className="w-full text-left px-2 py-1.5 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                    >
-                      <p className="text-[0.75rem] font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
-                        {prompt.title}
-                      </p>
-                    </button>
-                  ))}
-                </div>
-                {favoritePrompts.length > 5 && (
-                  <button
-                    onClick={() => {
-                      setShowAllPrompts(true);
-                      setSelectedPrompt(null);
-                      setSelectedSubcategory(null);
-                    }}
-                    className="text-[0.7rem] text-[var(--accent)] hover:underline px-1"
-                  >
-                    +{favoritePrompts.length - 5} more
-                  </button>
+                <button
+                  onClick={() => setFavoritesExpanded(!favoritesExpanded)}
+                  className="flex items-center justify-between w-full px-1 hover:bg-[var(--glass-bg-hover)] rounded-md transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
+                    <span className="text-[0.7rem] font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+                      Favorites ({favoritePrompts.length})
+                    </span>
+                  </div>
+                  {favoritesExpanded ? (
+                    <ChevronDown className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+                  ) : (
+                    <ChevronRight className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+                  )}
+                </button>
+                {favoritesExpanded && (
+                  <div className="space-y-1">
+                    {favoritePrompts.slice(0, 5).map(prompt => (
+                      <button
+                        key={prompt.id}
+                        onClick={() => handlePromptClick(prompt)}
+                        className="w-full text-left px-2 py-1.5 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      >
+                        <p className="text-[0.75rem] font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
+                          {prompt.title}
+                        </p>
+                      </button>
+                    ))}
+                    {favoritePrompts.length > 5 && (
+                      <button
+                        onClick={() => {
+                          setShowAllPrompts(true);
+                          setSelectedPrompt(null);
+                          setSelectedSubcategory(null);
+                        }}
+                        className="text-[0.7rem] text-[var(--accent)] hover:underline px-1"
+                      >
+                        +{favoritePrompts.length - 5} more
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
             </div>
@@ -615,25 +631,37 @@ export default function App() {
           {recentlyViewedPrompts.length > 0 && (
             <div className="px-4 pb-4">
               <div className="glass-card rounded-[var(--radius-sm)] p-3 space-y-2">
-                <div className="flex items-center gap-2 px-1">
-                  <Clock className="w-3.5 h-3.5 text-[var(--accent)]" />
-                  <span className="text-[0.7rem] font-bold uppercase tracking-wider text-[var(--text-secondary)]">
-                    Recently Viewed
-                  </span>
-                </div>
-                <div className="space-y-1">
-                  {recentlyViewedPrompts.slice(0, 5).map(prompt => (
-                    <button
-                      key={prompt.id}
-                      onClick={() => handlePromptClick(prompt)}
-                      className="w-full text-left px-2 py-1.5 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                    >
-                      <p className="text-[0.75rem] font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
-                        {prompt.title}
-                      </p>
-                    </button>
-                  ))}
-                </div>
+                <button
+                  onClick={() => setRecentlyViewedExpanded(!recentlyViewedExpanded)}
+                  className="flex items-center justify-between w-full px-1 hover:bg-[var(--glass-bg-hover)] rounded-md transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-3.5 h-3.5 text-[var(--accent)]" />
+                    <span className="text-[0.7rem] font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+                      Recently Viewed
+                    </span>
+                  </div>
+                  {recentlyViewedExpanded ? (
+                    <ChevronDown className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+                  ) : (
+                    <ChevronRight className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+                  )}
+                </button>
+                {recentlyViewedExpanded && (
+                  <div className="space-y-1">
+                    {recentlyViewedPrompts.slice(0, 5).map(prompt => (
+                      <button
+                        key={prompt.id}
+                        onClick={() => handlePromptClick(prompt)}
+                        className="w-full text-left px-2 py-1.5 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      >
+                        <p className="text-[0.75rem] font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
+                          {prompt.title}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}
