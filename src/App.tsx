@@ -106,6 +106,7 @@ export default function App() {
   // Sidebar section expansion (default closed)
   const [favoritesExpanded, setFavoritesExpanded] = useState(false);
   const [recentlyViewedExpanded, setRecentlyViewedExpanded] = useState(false);
+  const [tagsExpanded, setTagsExpanded] = useState(false);
 
   // Toast notifications
   const [toasts, setToasts] = useState<ToastProps[]>([]);
@@ -670,36 +671,53 @@ export default function App() {
           {allTags.length > 0 && (
             <div className="px-4 pb-4">
               <div className="glass-card rounded-[var(--radius-sm)] p-3 space-y-2">
-                <div className="flex items-center gap-2 px-1">
-                  <Tag className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
-                  <span className="text-[0.7rem] font-bold uppercase tracking-wider text-[var(--text-secondary)]">
-                    Filter by Tags ({selectedTags.length})
-                  </span>
-                  {selectedTags.length > 0 && (
-                    <button
-                      onClick={() => setSelectedTags([])}
-                      className="text-[0.65rem] px-1.5 py-0.5 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
-                    >
-                      Clear All
-                    </button>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-2 px-1 py-1 max-h-36 overflow-y-auto custom-scrollbar">
-                  {allTags.map(tag => (
-                    <button
-                      key={tag}
-                      onClick={() => handleTagToggle(tag)}
-                      className={cn(
-                        "px-3 py-1.5 rounded-full text-[0.65rem] font-semibold tracking-wider uppercase transition-colors",
-                        selectedTags.includes(tag)
-                          ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                          : "bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-tertiary)] hover:bg-[var(--glass-bg-hover)] hover:text-[var(--text-primary)]"
-                      )}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
+                <button
+                  onClick={() => setTagsExpanded(!tagsExpanded)}
+                  className="flex items-center justify-between w-full px-1 hover:bg-[var(--glass-bg-hover)] rounded-md transition-colors"
+                >
+                  <div className="flex items-center gap-2">
+                    <Tag className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+                    <span className="text-[0.7rem] font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+                      Filter by Tags ({selectedTags.length})
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {selectedTags.length > 0 && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedTags([]);
+                        }}
+                        className="text-[0.65rem] px-1.5 py-0.5 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
+                      >
+                        Clear
+                      </button>
+                    )}
+                    {tagsExpanded ? (
+                      <ChevronDown className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+                    ) : (
+                      <ChevronRight className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+                    )}
+                  </div>
+                </button>
+                {tagsExpanded && (
+                  <div className="flex flex-wrap gap-2 px-1 py-1 max-h-36 overflow-y-auto custom-scrollbar">
+                    {allTags.map(tag => (
+                      <button
+                        key={tag}
+                        onClick={() => handleTagToggle(tag)}
+                        className={cn(
+                          "px-3 py-1.5 rounded-full text-[0.65rem] font-semibold tracking-wider uppercase transition-colors",
+                          selectedTags.includes(tag)
+                            ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
+                            : "bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-tertiary)] hover:bg-[var(--glass-bg-hover)] hover:text-[var(--text-primary)]"
+                        )}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}
