@@ -1,5 +1,5 @@
 ---
-title: "02 — Viral Unique Features Prompt"
+title: "Viral Unique Features"
 tags: ["writing", "cookbooks", "viral", "features"]
 category: "Writing"
 subcategory: "Cookbooks"

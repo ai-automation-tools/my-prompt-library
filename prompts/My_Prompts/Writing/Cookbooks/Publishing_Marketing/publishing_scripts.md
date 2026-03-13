@@ -1,5 +1,5 @@
 ---
-title: "Phase 6: Publishing & Automation Scripts"
+title: "Publishing & Automation Scripts"
 tags: ["writing", "cookbooks", "publishing", "scripts"]
 category: "Writing"
 subcategory: "Cookbooks"

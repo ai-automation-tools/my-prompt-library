@@ -1,5 +1,5 @@
 ---
-title: "08 — Physical Formatting Ideas"
+title: "Physical Formatting Ideas"
 tags: ["writing", "cookbooks", "physical", "formatting"]
 category: "Writing"
 subcategory: "Cookbooks"
