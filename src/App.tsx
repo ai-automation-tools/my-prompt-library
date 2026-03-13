@@ -82,6 +82,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [sortOption, setSortOption] = useState<'title-asc' | 'title-desc' | 'modified-desc' | 'modified-asc'>('title-asc');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
@@ -223,16 +224,33 @@ export default function App() {
     return fuse.search(debouncedSearch).map(result => result.item);
   }, [sectionPrompts, debouncedSearch, activeTab, selectedTags]);
 
+  const sortedPrompts = useMemo(() => {
+    const promptsToSort = [...filteredPrompts];
+    
+    switch (sortOption) {
+      case 'title-asc':
+        return promptsToSort.sort((a, b) => a.title.localeCompare(b.title));
+      case 'title-desc':
+        return promptsToSort.sort((a, b) => b.title.localeCompare(a.title));
+      case 'modified-desc':
+        return promptsToSort.sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime());
+      case 'modified-asc':
+        return promptsToSort.sort((a, b) => new Date(a.lastModified).getTime() - new Date(b.lastModified).getTime());
+      default:
+        return promptsToSort;
+    }
+  }, [filteredPrompts, sortOption]);
+
   const subcategoryPrompts = useMemo(() => {
     if (!selectedSubcategory) return [];
     if (selectedSubcategory.subcategory === 'ALL') {
-      return filteredPrompts.filter(p => p.category === selectedSubcategory.category);
+      return sortedPrompts.filter(p => p.category === selectedSubcategory.category);
     }
-    return filteredPrompts.filter(p =>
+    return sortedPrompts.filter(p =>
       p.category === selectedSubcategory.category &&
       p.subcategory === selectedSubcategory.subcategory
     );
-  }, [selectedSubcategory, filteredPrompts]);
+  }, [selectedSubcategory, sortedPrompts]);
 
   // Get favorite prompts
   const favoritePrompts = useMemo(() => {
@@ -910,7 +928,20 @@ export default function App() {
                        activeTab === 'system-prompts' ? 'System Prompts' : 
                        'Agent Guides'}
                     </h2>
-                    <p className="label mt-2">{filteredPrompts.length} prompts</p>
+                    <p className="label mt-2">{sortedPrompts.length} prompts</p>
+                  </div>
+                  <div className="relative">
+                    <select
+                      value={sortOption}
+                      onChange={(e) => setSortOption(e.target.value as typeof sortOption)}
+                      className="py-2 pl-3 pr-8 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.75rem] font-medium tracking-wider uppercase text-[var(--text-secondary)] cursor-pointer appearance-none transition-all duration-300 hover:border-[var(--accent)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)]"
+                    >
+                      <option value="title-asc">Title (A-Z)</option>
+                      <option value="title-desc">Title (Z-A)</option>
+                      <option value="modified-desc">Newest</option>
+                      <option value="modified-asc">Oldest</option>
+                    </select>
+                    <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)] pointer-events-none" />
                   </div>
                 </div>
 
@@ -928,7 +959,7 @@ export default function App() {
                       </div>
                     ))}
                   </div>
-                ) : filteredPrompts.length === 0 ? (
+                ) : sortedPrompts.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-20 text-center">
                     <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
                     <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
@@ -946,7 +977,7 @@ export default function App() {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                    {filteredPrompts.map((prompt, i) => (
+                    {sortedPrompts.map((prompt, i) => (
                       <PromptCard key={prompt.id} prompt={prompt} index={i} />
                     ))}
                   </div>
