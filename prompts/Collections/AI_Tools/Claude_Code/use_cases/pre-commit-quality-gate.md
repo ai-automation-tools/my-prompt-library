@@ -1,5 +1,5 @@
 ---
-title: "Pre-Commit Quality Gate"
+title: "Pre Commit Quality Gate"
 tags: ["testing", "quality", "lint", "typecheck", "pre-commit"]
 category: "Testing_and_Quality"
 subcategory: "Quality_Gates"

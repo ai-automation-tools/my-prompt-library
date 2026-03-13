@@ -1,5 +1,5 @@
 ---
-title: "Automate a Repetitive Task"
+title: "Automate A Repetitive Task"
 tags: ["automation", "scripting", "idempotent", "dry-run", "devops"]
 category: "Automation_and_Workflows"
 subcategory: "Task_Automation"

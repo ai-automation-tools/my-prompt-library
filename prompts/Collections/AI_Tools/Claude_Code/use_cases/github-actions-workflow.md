@@ -1,5 +1,5 @@
 ---
-title: "GitHub Actions Workflow"
+title: "Github Actions Workflow"
 tags: ["github-actions", "ci-cd", "automation", "pipeline", "devops"]
 category: "Automation_and_Workflows"
 subcategory: "CI_CD"

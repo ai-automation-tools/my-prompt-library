@@ -1,5 +1,5 @@
 ---
-title: "Agent with Memory Context"
+title: "Agent With Memory Context"
 tags: ["agents", "memory", "CLAUDE.md", "context", "persistence"]
 category: "Agents_and_Orchestration"
 subcategory: "Memory_and_Context"

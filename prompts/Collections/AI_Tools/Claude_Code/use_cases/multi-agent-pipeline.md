@@ -1,5 +1,5 @@
 ---
-title: "Multi-Agent Pipeline"
+title: "Multi Agent Pipeline"
 tags: ["agents", "orchestration", "pipeline", "workflow", "sequential"]
 category: "Agents_and_Orchestration"
 subcategory: "Pipeline_Design"

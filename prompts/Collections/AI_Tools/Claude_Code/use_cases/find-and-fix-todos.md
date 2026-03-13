@@ -1,5 +1,5 @@
 ---
-title: "Find and Fix All TODOs"
+title: "Find And Fix All Todos"
 tags: ["todo", "fixme", "debt", "cleanup", "code-quality"]
 category: "File_and_Code_Operations"
 subcategory: "Code_Cleanup"
