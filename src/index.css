@@ -30,6 +30,7 @@
   --radius-md: 20px;
   --radius-lg: 28px;
   --radius-xl: 36px;
+  --sidebar-bg: #12121a;
 }
 
 [data-theme='light'] {
@@ -378,6 +379,13 @@ body::after {
 }
 
 /* ===== Glass System ===== */
+
+.sidebar-solid {
+  background: var(--sidebar-bg) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--glass-border);
+}
 
 .glass {
   background: var(--glass-bg);
