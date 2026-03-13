@@ -81,6 +81,7 @@ export default function App() {
   const [theme, setTheme] = useState<Theme>('github-dark-pro');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
@@ -182,8 +183,16 @@ export default function App() {
     return map;
   }, [sectionPrompts]);
 
+  const allTags = useMemo(() => {
+    const tags = new Set<string>();
+    sectionPrompts.forEach(p => {
+      p.tags.forEach(tag => tags.add(tag));
+    });
+    return Array.from(tags).sort();
+  }, [sectionPrompts]);
+
   const filteredPrompts = useMemo(() => {
-    const promptsToFilter = sectionPrompts.filter(prompt => {
+    let currentPrompts = sectionPrompts.filter(prompt => {
       if (activeTab === 'my-prompts' && !prompt.id.startsWith('My_Prompts/')) return false;
       if (activeTab === 'collections' && !prompt.id.startsWith('Collections/')) return false;
       if (activeTab === 'system-prompts' && !prompt.id.startsWith('System_Prompts/')) return false;
@@ -191,11 +200,19 @@ export default function App() {
       return true;
     });
 
-    if (!debouncedSearch) {
-      return promptsToFilter;
+    // Apply tag filters
+    if (selectedTags.length > 0) {
+      currentPrompts = currentPrompts.filter(prompt =>
+        selectedTags.every(tag => prompt.tags.includes(tag))
+      );
     }
 
-    const fuse = new Fuse(promptsToFilter, {
+    // Apply fuzzy search
+    if (!debouncedSearch) {
+      return currentPrompts;
+    }
+
+    const fuse = new Fuse(currentPrompts, {
       keys: ['title', 'content', 'tags', 'category', 'subcategory'],
       includeScore: true,
       threshold: 0.3, // Fuzziness (0 = exact match, 1 = any match)
@@ -204,7 +221,7 @@ export default function App() {
     });
 
     return fuse.search(debouncedSearch).map(result => result.item);
-  }, [sectionPrompts, debouncedSearch, activeTab]);
+  }, [sectionPrompts, debouncedSearch, activeTab, selectedTags]);
 
   const subcategoryPrompts = useMemo(() => {
     if (!selectedSubcategory) return [];
@@ -281,6 +298,16 @@ export default function App() {
         return prev.filter(id => id !== promptId);
       } else {
         return [...prev, promptId];
+      }
+    });
+  }, []);
+
+  const handleTagToggle = useCallback((tag: string) => {
+    setSelectedTags(prev => {
+      if (prev.includes(tag)) {
+        return prev.filter(t => t !== tag);
+      } else {
+        return [...prev, tag];
       }
     });
   }, []);
@@ -586,6 +613,44 @@ export default function App() {
                       <p className="text-[0.75rem] font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
                         {prompt.title}
                       </p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tag Filter */}
+          {allTags.length > 0 && (
+            <div className="px-4 pb-4">
+              <div className="glass-card rounded-[var(--radius-sm)] p-3 space-y-2">
+                <div className="flex items-center gap-2 px-1">
+                  <Tag className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+                  <span className="text-[0.7rem] font-bold uppercase tracking-wider text-[var(--text-secondary)]">
+                    Filter by Tags ({selectedTags.length})
+                  </span>
+                  {selectedTags.length > 0 && (
+                    <button
+                      onClick={() => setSelectedTags([])}
+                      className="text-[0.65rem] px-1.5 py-0.5 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
+                    >
+                      Clear All
+                    </button>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-2 px-1 py-1 max-h-36 overflow-y-auto custom-scrollbar">
+                  {allTags.map(tag => (
+                    <button
+                      key={tag}
+                      onClick={() => handleTagToggle(tag)}
+                      className={cn(
+                        "px-3 py-1.5 rounded-full text-[0.65rem] font-semibold tracking-wider uppercase transition-colors",
+                        selectedTags.includes(tag)
+                          ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
+                          : "bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-tertiary)] hover:bg-[var(--glass-bg-hover)] hover:text-[var(--text-primary)]"
+                      )}
+                    >
+                      {tag}
                     </button>
                   ))}
                 </div>
