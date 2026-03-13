@@ -528,7 +528,7 @@ export default function App() {
           !isSidebarOpen && "-translate-x-full md:hidden"
         )}
       >
-        <div className="flex flex-col h-full m-3 rounded-[var(--radius-xl)] overflow-hidden border border-[var(--glass-border)]" style={{ backgroundColor: 'var(--sidebar-bg)' }}>
+        <div className="flex flex-col h-full m-3 rounded-[var(--radius-xl)] overflow-hidden sidebar-solid">
           {/* Sidebar header */}
           <div className="p-6 pb-4">
             <div className="flex items-center justify-between mb-6">
