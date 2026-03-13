@@ -1,5 +1,5 @@
 ---
-title: "Schedule and Monitor a Job"
+title: "Schedule And Monitor A Job"
 tags: ["scheduling", "cron", "monitoring", "alerting", "automation"]
 category: "Automation_and_Workflows"
 subcategory: "Scheduled_Jobs"

@@ -1,5 +1,5 @@
 ---
-title: "Self-Reviewing Agent"
+title: "Self Reviewing Agent"
 tags: ["agents", "self-review", "critique", "quality", "iteration"]
 category: "Agents_and_Orchestration"
 subcategory: "Quality_Assurance"

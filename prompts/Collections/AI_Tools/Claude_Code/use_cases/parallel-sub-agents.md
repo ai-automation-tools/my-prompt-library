@@ -1,5 +1,5 @@
 ---
-title: "Parallel Sub-Agents"
+title: "Parallel Sub Agents"
 tags: ["agents", "orchestration", "parallel", "concurrent", "fan-out"]
 category: "Agents_and_Orchestration"
 subcategory: "Parallel_Execution"
