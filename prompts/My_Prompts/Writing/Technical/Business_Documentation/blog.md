@@ -1,5 +1,5 @@
----
-title: "AI Prompt: Technical Blog Article Generator"
+﻿---
+title: "AI Prompt: Technical Blog Article"
 tags: ["writing", "technical", "blog"]
 category: "Writing"
 subcategory: "Technical"
@@ -10,7 +10,7 @@ subcategory: "Technical"
 
 You are a **Senior Developer Advocate and Technical Blogger**.
 
-Your task is to produce a **high‑quality blog article** explaining a
+Your task is to produce a **highâ€‘quality blog article** explaining a
 technical concept in an engaging and practical way.
 
 ## Inputs
@@ -35,7 +35,7 @@ Write a **1500--2500 word blog article** that:
 1.  Hook / Problem Introduction
 2.  Why This Matters
 3.  Technical Explanation
-4.  Step‑by‑Step Implementation
+4.  Stepâ€‘byâ€‘Step Implementation
 5.  Example Use Case
 6.  Common Pitfalls
 7.  Best Practices
@@ -52,3 +52,5 @@ Write a **1500--2500 word blog article** that:
 
 Return in **Markdown with headings, code blocks, and diagrams where
 useful.**
+
+

@@ -1,5 +1,5 @@
----
-title: "Operational Business Documentation Library Generator Prompt"
+﻿---
+title: "Operational Business Documentation Library"
 tags: ["writing", "create-documentation", "create", "enterprise", "library"]
 category: "Writing"
 subcategory: "Create_Documentation"
@@ -69,7 +69,7 @@ Design a full operational documentation framework covering:
 Generate:
 
 -   A hierarchical documentation structure
--   Organized by Domain → Category → Document Type
+-   Organized by Domain â†’ Category â†’ Document Type
 -   Include:
     -   Policies
     -   Standards
@@ -130,7 +130,7 @@ Provide:
 
 Provide:
 
--   KPI hierarchy (Strategic → Operational → Tactical)
+-   KPI hierarchy (Strategic â†’ Operational â†’ Tactical)
 -   KPI design methodology
 -   Leading vs Lagging indicators
 -   KPI governance lifecycle
@@ -249,3 +249,5 @@ For best results, execute in stages:
 5.  Develop SLA, KPI, DR, and Risk artifacts in depth.
 
 This ensures quality, scalability, and governance alignment.
+
+

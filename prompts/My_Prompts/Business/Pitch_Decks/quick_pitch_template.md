@@ -1,4 +1,4 @@
-# [Company Name] - Quick Pitch
+﻿# [Company Name] - Quick Pitch
 
 <!-- 30-second to 5-minute pitch -->
 
@@ -137,13 +137,13 @@ Create a compelling [30-SECOND | 2-MINUTE | 5-MINUTE] pitch for [COMPANY NAME].
 
 ## Common Mistakes to Avoid
 
-❌ **Too much detail:** Keep it high-level  
-❌ **Jargon overload:** Use simple language  
-❌ **No clear ask:** Be explicit about what you want  
-❌ **Overconfident:** Balance ambition with realism  
-❌ **Ignoring audience:** Tailor to who's listening  
-❌ **Memorized robot:** Sound natural and conversational  
-❌ **Weak opening:** Hook them in first 10 seconds  
+âŒ **Too much detail:** Keep it high-level  
+âŒ **Jargon overload:** Use simple language  
+âŒ **No clear ask:** Be explicit about what you want  
+âŒ **Overconfident:** Balance ambition with realism  
+âŒ **Ignoring audience:** Tailor to who's listening  
+âŒ **Memorized robot:** Sound natural and conversational  
+âŒ **Weak opening:** Hook them in first 10 seconds  
 
 ---
 
@@ -190,7 +190,7 @@ Create a compelling [30-SECOND | 2-MINUTE | 5-MINUTE] pitch for [COMPANY NAME].
 > "We're building a SaaS platform using AI and machine learning to optimize workflows in the enterprise segment with a focus on digital transformation..."
 
 **Good:**
-> "Companies lose $150B a year to inefficient team communication. We built Acme—think Slack meets Asana, powered by AI. We've got 5,000 users in 3 months, growing 40% month-over-month. Raising $2M seed to scale our go-to-market. Can I send you our deck?"
+> "Companies lose $150B a year to inefficient team communication. We built Acmeâ€”think Slack meets Asana, powered by AI. We've got 5,000 users in 3 months, growing 40% month-over-month. Raising $2M seed to scale our go-to-market. Can I send you our deck?"
 
 ---
 
@@ -219,3 +219,4 @@ Create a compelling [30-SECOND | 2-MINUTE | 5-MINUTE] pitch for [COMPANY NAME].
 ---
 
 **Version:** 1.0 | **Updated:** [YYYY-MM-DD]
+

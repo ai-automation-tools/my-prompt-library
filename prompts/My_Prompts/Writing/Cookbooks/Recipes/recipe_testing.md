@@ -1,12 +1,12 @@
----
+﻿---
 title: "Recipe Testing Simulation"
 tags: ["writing", "cookbooks", "recipe", "testing"]
 category: "Writing"
 subcategory: "Cookbooks"
 ---
-# 13 — Recipe Testing Simulation
+# 13 â€” Recipe Testing Simulation
 
-Act as a **professional recipe tester from America’s Test Kitchen**.
+Act as a **professional recipe tester from Americaâ€™s Test Kitchen**.
 
 Simulate testing:
 
@@ -22,4 +22,4 @@ Provide:
 
 End with:
 
-**“Ready for photography” verdict** and visual improvement suggestions.
+**â€œReady for photographyâ€ verdict** and visual improvement suggestions.

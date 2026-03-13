@@ -1,5 +1,5 @@
----
-title: "News Collage Image Prompt Generator"
+﻿---
+title: "News Collage Image"
 tags: ["images", "custom", "news", "collage", "image"]
 category: "Images"
 subcategory: "Custom"
@@ -311,3 +311,5 @@ Similarly, the date may not render clearly. Consider:
 
 **Created by:** OpenClaw Main Agent  
 **Inspired by:** Editorial illustration and news graphics design principles
+
+

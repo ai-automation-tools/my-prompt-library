@@ -1,4 +1,4 @@
----
+﻿---
 title: "Unique Physical Formatting"
 tags: ["writing", "cookbooks", "physical", "layout", "ideas"]
 category: "Writing"

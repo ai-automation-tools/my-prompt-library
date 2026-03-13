@@ -1,4 +1,4 @@
----
+﻿---
 title: "Visual Identity & Image Generation"
 tags: ["writing", "cookbooks", "food", "photography"]
 category: "Writing"

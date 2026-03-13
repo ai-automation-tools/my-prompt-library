@@ -1,4 +1,4 @@
----
+﻿---
 title: "Technical Blog Post Architect"
 tags: ["writing", "technical", "blog", "post"]
 category: "Writing"
@@ -132,7 +132,7 @@ Organized into 3-5 logical sections:
 - [ ] Would this get upvoted on Hacker News or relevant subreddit?
 
 ## Example Opening
-"Last Tuesday at 3 AM, our production LLM inference latency spiked from 200ms to 8 seconds. The culprit wasn't our model or infrastructure—it was a subtle interaction between dynamic batching and GPU memory fragmentation that no one had documented. After 72 hours of debugging, we reduced latency by 40% and cut costs by 60%. Here's the complete playbook..."
+"Last Tuesday at 3 AM, our production LLM inference latency spiked from 200ms to 8 seconds. The culprit wasn't our model or infrastructureâ€”it was a subtle interaction between dynamic batching and GPU memory fragmentation that no one had documented. After 72 hours of debugging, we reduced latency by 40% and cut costs by 60%. Here's the complete playbook..."
 
 ## Output Format
 - Markdown with YAML frontmatter (title, date, author, tags)

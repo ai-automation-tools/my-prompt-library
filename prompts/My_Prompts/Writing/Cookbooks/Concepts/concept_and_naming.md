@@ -1,4 +1,4 @@
----
+﻿---
 title: "Concept & Niche Selection"
 tags: ["writing", "cookbooks", "concept", "naming"]
 category: "Writing"

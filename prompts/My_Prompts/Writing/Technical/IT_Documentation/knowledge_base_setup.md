@@ -1,4 +1,4 @@
----
+﻿---
 title: "Knowledge Base Setup"
 tags: ["writing", "create-documentation", "knowledge", "base", "setup"]
 category: "Writing"
@@ -197,3 +197,4 @@ git push origin main
 
 *Based on: Obsidian vault creation for my-agents project*  
 *Location: `~/.openclaw/workspace/projects/my-agents/vault/`*
+

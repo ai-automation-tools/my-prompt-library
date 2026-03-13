@@ -1,24 +1,24 @@
----
+﻿---
 title: "Physical Formatting Ideas"
 tags: ["writing", "cookbooks", "physical", "formatting"]
 category: "Writing"
 subcategory: "Cookbooks"
 ---
-# 08 — Physical Formatting Ideas
+# 08 â€” Physical Formatting Ideas
 
 You are a **Kickstarter cookbook product designer**.
 
-Invent **8 never‑before‑seen physical formats** for:
+Invent **8 neverâ€‘beforeâ€‘seen physical formats** for:
 
 **"[INSERT TITLE]"**
 
 Examples for inspiration:
 
-- Seed‑paper covers
-- Spiral‑bound with stand
+- Seedâ€‘paper covers
+- Spiralâ€‘bound with stand
 - Magnetic pages
-- Scratch‑and‑sniff
-- Recipe‑card tear‑outs
+- Scratchâ€‘andâ€‘sniff
+- Recipeâ€‘card tearâ€‘outs
 - Edible ink pages
 
 For each concept provide:
