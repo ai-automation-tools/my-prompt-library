@@ -37,6 +37,32 @@ const githubApiUrlForPath = (repoPath: string) => {
   return `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${encodedPath}`;
 };
 
+// Helper to batch async operations and prevent overwhelming API/file descriptors
+async function batchProcess<T, R>(
+  items: T[],
+  processFn: (item: T) => Promise<R>,
+  batchSize = 50,
+  delayMs = 100
+): Promise<R[]> {
+  const results: R[] = [];
+  for (let i = 0; i < items.length; i += batchSize) {
+    const batch = items.slice(i, i + batchSize);
+    const batchNum = Math.floor(i / batchSize) + 1;
+    const totalBatches = Math.ceil(items.length / batchSize);
+    
+    console.log(`Processing batch ${batchNum}/${totalBatches} (${batch.length} items)...`);
+    
+    const batchResults = await Promise.all(batch.map(processFn));
+    results.push(...batchResults);
+    
+    // Small delay between batches to avoid rate limits
+    if (i + batchSize < items.length) {
+      await new Promise(resolve => setTimeout(resolve, delayMs));
+    }
+  }
+  return results;
+}
+
 const githubHeaders = {
   Authorization: `Bearer ${GITHUB_TOKEN}`,
   Accept: 'application/vnd.github+json',
@@ -99,38 +125,45 @@ app.get("/api/prompts", async (req, res) => {
         item.path.endsWith('.md')
       );
 
-      const prompts = await Promise.all(promptFiles.map(async (file: any) => {
-        const blobResponse = await fetch(
-          `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/blobs/${file.sha}`,
-          { headers: githubHeaders }
-        );
+      console.log(`Found ${promptFiles.length} prompt files, processing in batches...`);
 
-        if (!blobResponse.ok) {
-          console.error(`Failed to fetch blob ${file.sha} for ${file.path}`);
-          return null;
-        }
+      const prompts = await batchProcess(
+        promptFiles,
+        async (file: any) => {
+          const blobResponse = await fetch(
+            `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/blobs/${file.sha}`,
+            { headers: githubHeaders }
+          );
 
-        const blobData = await blobResponse.json();
-        const fileContent = Buffer.from(blobData.content, 'base64').toString('utf8');
-        const { data, content } = matter(fileContent);
-        
-        const relativePath = file.path.replace('prompts/', '');
-        const pathParts = relativePath.split('/');
-        const inferredSection = pathParts.length > 1 ? pathParts[0] : "My_Prompts";
-        const inferredCategory = pathParts.length > 2 ? pathParts[1] : (pathParts.length > 1 ? pathParts[0] : "General");
-        const inferredSubcategory = pathParts.length > 3 ? pathParts[2] : null;
+          if (!blobResponse.ok) {
+            console.error(`Failed to fetch blob ${file.sha} for ${file.path}`);
+            return null;
+          }
 
-        return {
-          id: relativePath,
-          title: data.title || path.basename(file.path, ".md"),
-          section: inferredSection,
-          category: inferredCategory,
-          subcategory: inferredSubcategory,
-          tags: data.tags || [],
-          content: content,
-          lastModified: new Date().toISOString(),
-        };
-      }));
+          const blobData = await blobResponse.json();
+          const fileContent = Buffer.from(blobData.content, 'base64').toString('utf8');
+          const { data, content } = matter(fileContent);
+          
+          const relativePath = file.path.replace('prompts/', '');
+          const pathParts = relativePath.split('/');
+          const inferredSection = pathParts.length > 1 ? pathParts[0] : "My_Prompts";
+          const inferredCategory = pathParts.length > 2 ? pathParts[1] : (pathParts.length > 1 ? pathParts[0] : "General");
+          const inferredSubcategory = pathParts.length > 3 ? pathParts[2] : null;
+
+          return {
+            id: relativePath,
+            title: data.title || path.basename(file.path, ".md"),
+            section: inferredSection,
+            category: inferredCategory,
+            subcategory: inferredSubcategory,
+            tags: data.tags || [],
+            content: content,
+            lastModified: new Date().toISOString(),
+          };
+        },
+        50,  // Process 50 files at a time
+        100  // 100ms delay between batches
+      );
 
       return res.json(prompts.filter(p => p !== null));
     }
