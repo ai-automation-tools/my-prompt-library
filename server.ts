@@ -25,6 +25,26 @@ async function startServer() {
     }
   };
 
+  const promptsRoot = path.join(process.cwd(), "prompts");
+  const ALLOWED_SOURCE_SECTIONS = new Set(["Collections", "System_Prompts", "Agent_Guides"]);
+
+  const resolvePromptPath = (promptId: string) => {
+    const normalizedId = promptId.replace(/\\/g, '/');
+
+    if (!normalizedId.endsWith('.md')) {
+      throw new Error('Invalid prompt path');
+    }
+
+    const absolutePath = path.resolve(promptsRoot, normalizedId);
+    const rootWithSep = promptsRoot.endsWith(path.sep) ? promptsRoot : `${promptsRoot}${path.sep}`;
+
+    if (!absolutePath.startsWith(rootWithSep)) {
+      throw new Error('Invalid prompt path');
+    }
+
+    return absolutePath;
+  };
+
   // API to list all prompts and their metadata
   app.get("/api/prompts", (req, res) => {
     const promptsDir = path.join(process.cwd(), "prompts");
@@ -206,6 +226,43 @@ async function startServer() {
     } catch (error) {
       console.error("Error deleting prompt:", error);
       res.status(500).json({ error: "Failed to delete prompt" });
+    }
+  });
+
+  // API to copy a prompt into My_Prompts
+  app.post("/api/prompts/:id/copy-to-my-prompts", (req, res) => {
+    try {
+      const promptId = decodeURIComponent(req.params.id).replace(/\\/g, '/');
+      const pathParts = promptId.split('/');
+      const sourceSection = pathParts[0];
+
+      if (!ALLOWED_SOURCE_SECTIONS.has(sourceSection)) {
+        return res.status(400).json({ error: "Only prompts from Collections, System_Prompts, and Agent_Guides can be copied to My Prompts" });
+      }
+
+      const sourceFilePath = resolvePromptPath(promptId);
+
+      if (!fs.existsSync(sourceFilePath)) {
+        return res.status(404).json({ error: "Prompt not found" });
+      }
+
+      const destinationRelativePath = path.posix.join('My_Prompts', ...pathParts.slice(1));
+      const destinationFilePath = resolvePromptPath(destinationRelativePath);
+
+      if (fs.existsSync(destinationFilePath)) {
+        return res.status(409).json({ error: "A prompt with this name already exists in My Prompts" });
+      }
+
+      ensureDir(path.dirname(destinationFilePath));
+      fs.copyFileSync(sourceFilePath, destinationFilePath, fs.constants.COPYFILE_EXCL);
+
+      return res.json({
+        id: destinationRelativePath,
+        message: "Prompt copied to My Prompts"
+      });
+    } catch (error: any) {
+      console.error("Error copying prompt to My_Prompts:", error);
+      return res.status(500).json({ error: error.message || "Failed to copy prompt to My Prompts" });
     }
   });
 
