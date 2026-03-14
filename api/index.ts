@@ -29,8 +29,9 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_OWNER = process.env.GITHUB_OWNER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH || "mike_desktop";
+const USE_GITHUB_MODE = process.env.USE_GITHUB_MODE === 'true'; // Feature flag
 
-const isGitHubConfigured = () => !!(GITHUB_TOKEN && GITHUB_OWNER && GITHUB_REPO);
+const isGitHubConfigured = () => USE_GITHUB_MODE && !!(GITHUB_TOKEN && GITHUB_OWNER && GITHUB_REPO);
 
 const githubApiUrlForPath = (repoPath: string) => {
   const encodedPath = repoPath.split('/').map(encodeURIComponent).join('/');
