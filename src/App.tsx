@@ -28,7 +28,11 @@ import {
   Trash2,
   Star,
   Home,
-  ChevronRight as BreadcrumbArrow
+  ChevronRight as BreadcrumbArrow,
+  Github,
+  ExternalLink,
+  BookOpen,
+  Bot
 } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -94,6 +98,11 @@ export default function App() {
   const [searchFocused, setSearchFocused] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editingPrompt, setEditingPrompt] = useState<Prompt | null>(null);
+  
+  // External Resources Dropdowns
+  const [cliReposOpen, setCliReposOpen] = useState(false);
+  const [promptLibsOpen, setPromptLibsOpen] = useState(false);
+  const [agentTemplatesOpen, setAgentTemplatesOpen] = useState(false);
   
   // Navigation & Organization
   const [favorites, setFavorites] = useState<string[]>(() => {
@@ -905,8 +914,200 @@ export default function App() {
               </div>
             )}
 
+            {/* External Resources Dropdowns */}
+            <div className="hidden md:flex items-center gap-2 ml-auto">
+              {/* CLI Repos */}
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setCliReposOpen(!cliReposOpen);
+                    setPromptLibsOpen(false);
+                    setAgentTemplatesOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+                >
+                  <Terminal className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  <span className="font-semibold text-[var(--text-secondary)]">CLI</span>
+                  <ChevronDown className={cn(
+                    "w-3 h-3 text-[var(--text-tertiary)] transition-transform",
+                    cliReposOpen && "rotate-180"
+                  )} />
+                </button>
+                {cliReposOpen && (
+                  <div className="absolute top-full right-0 mt-2 z-50 w-56 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]">
+                    <a
+                      href="https://github.com/anthropics/claude-code"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Claude Code</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                    <a
+                      href="https://github.com/google-gemini/gemini-cli"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Gemini CLI</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                    <a
+                      href="https://github.com/openai/codex"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Codex CLI</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* Prompt Libraries */}
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setPromptLibsOpen(!promptLibsOpen);
+                    setCliReposOpen(false);
+                    setAgentTemplatesOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  <span className="font-semibold text-[var(--text-secondary)]">Libraries</span>
+                  <ChevronDown className={cn(
+                    "w-3 h-3 text-[var(--text-tertiary)] transition-transform",
+                    promptLibsOpen && "rotate-180"
+                  )} />
+                </button>
+                {promptLibsOpen && (
+                  <div className="absolute top-full right-0 mt-2 z-50 w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]">
+                    <a
+                      href="https://prompts.chat/prompts"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompts.chat</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                    <a
+                      href="https://prompthero.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Sparkles className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">PromptHero</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                    <a
+                      href="https://cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Vertex AI Gallery</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                    <a
+                      href="https://workmind.ai/ai-prompt-library/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">WorkMind</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                    <a
+                      href="https://www.promptingguide.ai/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guide</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* Agent Templates */}
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setAgentTemplatesOpen(!agentTemplatesOpen);
+                    setCliReposOpen(false);
+                    setPromptLibsOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+                >
+                  <Bot className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  <span className="font-semibold text-[var(--text-secondary)]">Agents</span>
+                  <ChevronDown className={cn(
+                    "w-3 h-3 text-[var(--text-tertiary)] transition-transform",
+                    agentTemplatesOpen && "rotate-180"
+                  )} />
+                </button>
+                {agentTemplatesOpen && (
+                  <div className="absolute top-full right-0 mt-2 z-50 w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]">
+                    <a
+                      href="https://www.aitmpl.com/agents"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Bot className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">AI Template</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                    <a
+                      href="https://github.com/ashishpatel26/500-AI-Agents-Projects"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">500 AI Agents</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                    <a
+                      href="https://github.com/e2b-dev/awesome-ai-agents"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Awesome AI Agents</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                    <a
+                      href="https://huggingface.co/spaces?sort=trending&search=agent"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    >
+                      <Bot className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">HuggingFace Agents</span>
+                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+
             {/* Stat badges - Right side */}
-            <div className="hidden lg:flex items-center gap-2 ml-auto">
+            <div className="hidden lg:flex items-center gap-2">
               <div className="glass rounded-[var(--radius-sm)] px-3 py-1.5 text-center">
                 <span className="text-sm font-bold text-[var(--accent)]">{sectionPrompts.length}</span>
                 <span className="text-xs text-[var(--text-tertiary)] ml-1">Prompts</span>
@@ -944,154 +1145,6 @@ export default function App() {
                     placeholder="Search prompts by title, content, tags, or category..."
                     className="w-full pl-12 pr-4 py-3.5 rounded-[var(--radius-lg)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all duration-300"
                   />
-                </div>
-
-                {/* External Resources Section */}
-                <div className="mt-12">
-                  <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6 flex items-center gap-3">
-                    <Sparkles className="w-6 h-6 text-[var(--accent)]" />
-                    External Resources
-                  </h2>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl">
-                    {/* CLI Repositories */}
-                    <div className="glass rounded-[var(--radius-lg)] p-6 border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all duration-300 hover:shadow-[0_8px_32px_var(--accent-glow-subtle)]">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Terminal className="w-5 h-5 text-[var(--accent)]" />
-                        <h3 className="text-lg font-bold text-[var(--text-primary)]">CLI Repositories</h3>
-                      </div>
-                      <div className="space-y-2">
-                        <a
-                          href="https://github.com/anthropics/claude-code"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">🤖</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Claude Code</span>
-                        </a>
-                        <a
-                          href="https://github.com/google-gemini/gemini-cli"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">💎</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Gemini CLI</span>
-                        </a>
-                        <a
-                          href="https://github.com/openai/codex"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">⚡</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Codex CLI</span>
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Prompt Libraries */}
-                    <div className="glass rounded-[var(--radius-lg)] p-6 border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all duration-300 hover:shadow-[0_8px_32px_var(--accent-glow-subtle)]">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Library className="w-5 h-5 text-[var(--accent)]" />
-                        <h3 className="text-lg font-bold text-[var(--text-primary)]">Prompt Libraries</h3>
-                      </div>
-                      <div className="space-y-2">
-                        <a
-                          href="https://prompts.chat/prompts"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">💬</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Prompts.chat</span>
-                        </a>
-                        <a
-                          href="https://prompthero.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">🦸</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">PromptHero</span>
-                        </a>
-                        <a
-                          href="https://cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">☁️</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Vertex AI Gallery</span>
-                        </a>
-                        <a
-                          href="https://workmind.ai/ai-prompt-library/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">🧠</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">WorkMind</span>
-                        </a>
-                        <a
-                          href="https://www.promptingguide.ai/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">📚</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Prompting Guide</span>
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Agent Templates */}
-                    <div className="glass rounded-[var(--radius-lg)] p-6 border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all duration-300 hover:shadow-[0_8px_32px_var(--accent-glow-subtle)]">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Layers className="w-5 h-5 text-[var(--accent)]" />
-                        <h3 className="text-lg font-bold text-[var(--text-primary)]">Agent Templates</h3>
-                      </div>
-                      <div className="space-y-2">
-                        <a
-                          href="https://www.aitmpl.com/agents"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">🎯</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">AI Template</span>
-                        </a>
-                        <a
-                          href="https://github.com/ashishpatel26/500-AI-Agents-Projects"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">🚀</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">500 AI Agents</span>
-                        </a>
-                        <a
-                          href="https://github.com/e2b-dev/awesome-ai-agents"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">⭐</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Awesome AI Agents</span>
-                        </a>
-                        <a
-                          href="https://huggingface.co/spaces?sort=trending&search=agent"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
-                        >
-                          <span className="text-2xl">🤗</span>
-                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">HuggingFace Agents</span>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
