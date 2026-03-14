@@ -64,45 +64,111 @@ async function startServer() {
   };
 
   // API to list all prompts and their metadata
-  app.get("/api/prompts", (req, res) => {
-    const promptsDir = path.join(process.cwd(), "prompts");
-    if (!fs.existsSync(promptsDir)) {
-      return res.json([]);
-    }
-
-    const getAllFiles = (dirPath: string, arrayOfFiles: string[] = []) => {
-      const files = fs.readdirSync(dirPath);
-
-      files.forEach((file) => {
-        if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
-          arrayOfFiles = getAllFiles(path.join(dirPath, file), arrayOfFiles);
-        } else {
-          if (file.endsWith(".md")) {
-            arrayOfFiles.push(path.join(dirPath, file));
-          }
-        }
-      });
-
-      return arrayOfFiles;
-    };
-
+  app.get("/api/prompts", async (req, res) => {
     try {
+      // Production path: read from GitHub repository
+      if (isGitHubConfigured()) {
+        const branchResponse = await fetch(
+          `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/ref/heads/${encodeURIComponent(GITHUB_BRANCH)}`,
+          { headers: githubHeaders }
+        );
+
+        if (!branchResponse.ok) {
+          const errorText = await branchResponse.text();
+          console.error('GitHub branch fetch failed:', errorText);
+          return res.status(502).json({ error: "Failed to fetch branch from GitHub" });
+        }
+
+        const branchData = await branchResponse.json();
+        const commitSha = branchData.object.sha;
+
+        const treeResponse = await fetch(
+          `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${commitSha}?recursive=1`,
+          { headers: githubHeaders }
+        );
+
+        if (!treeResponse.ok) {
+          const errorText = await treeResponse.text();
+          console.error('GitHub tree fetch failed:', errorText);
+          return res.status(502).json({ error: "Failed to fetch file tree from GitHub" });
+        }
+
+        const treeData = await treeResponse.json();
+        const promptFiles = treeData.tree.filter((item: any) => 
+          item.type === 'blob' && 
+          item.path.startsWith('prompts/') && 
+          item.path.endsWith('.md')
+        );
+
+        const prompts = await Promise.all(promptFiles.map(async (file: any) => {
+          const blobResponse = await fetch(
+            `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/blobs/${file.sha}`,
+            { headers: githubHeaders }
+          );
+
+          if (!blobResponse.ok) {
+            console.error(`Failed to fetch blob ${file.sha} for ${file.path}`);
+            return null;
+          }
+
+          const blobData = await blobResponse.json();
+          const fileContent = Buffer.from(blobData.content, 'base64').toString('utf8');
+          const { data, content } = matter(fileContent);
+          
+          const relativePath = file.path.replace('prompts/', '');
+          const pathParts = relativePath.split('/');
+          const inferredSection = pathParts.length > 1 ? pathParts[0] : "My_Prompts";
+          const inferredCategory = pathParts.length > 2 ? pathParts[1] : (pathParts.length > 1 ? pathParts[0] : "General");
+          const inferredSubcategory = pathParts.length > 3 ? pathParts[2] : null;
+
+          return {
+            id: relativePath,
+            title: data.title || path.basename(file.path, ".md"),
+            section: inferredSection,
+            category: inferredCategory,
+            subcategory: inferredSubcategory,
+            tags: data.tags || [],
+            content: content,
+            lastModified: new Date().toISOString(),
+          };
+        }));
+
+        return res.json(prompts.filter(p => p !== null));
+      }
+
+      // Local/dev fallback: filesystem read
+      const promptsDir = path.join(process.cwd(), "prompts");
+      if (!fs.existsSync(promptsDir)) {
+        return res.json([]);
+      }
+
+      const getAllFiles = (dirPath: string, arrayOfFiles: string[] = []) => {
+        const files = fs.readdirSync(dirPath);
+
+        files.forEach((file) => {
+          if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
+            arrayOfFiles = getAllFiles(path.join(dirPath, file), arrayOfFiles);
+          } else {
+            if (file.endsWith(".md")) {
+              arrayOfFiles.push(path.join(dirPath, file));
+            }
+          }
+        });
+
+        return arrayOfFiles;
+      };
+
       const filePaths = getAllFiles(promptsDir);
       const prompts = filePaths.map((filePath) => {
         const fileContent = fs.readFileSync(filePath, "utf8");
         const { data, content } = matter(fileContent);
         const relativePath = path.relative(promptsDir, filePath);
 
-        // Path structure: Section/Category/Subcategory/file.md
-        // e.g. My_Prompts/IT/DevOps/prompt.md or Collections/AI/agent_dev/prompt.md
         const pathParts = relativePath.split(path.sep);
         const inferredSection = pathParts.length > 1 ? pathParts[0] : "My_Prompts";
         const inferredCategory = pathParts.length > 2 ? pathParts[1] : (pathParts.length > 1 ? pathParts[0] : "General");
         const inferredSubcategory = pathParts.length > 3 ? pathParts[2] : null;
 
-        // Always use path-inferred category/subcategory for the section structure.
-        // Frontmatter category often duplicates the section name (e.g. category: "Collections")
-        // which breaks the sidebar hierarchy. Path is the source of truth.
         return {
           id: relativePath,
           title: data.title || path.basename(filePath, ".md"),
