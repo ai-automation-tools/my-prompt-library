@@ -268,6 +268,7 @@ These can be used instead of flags:
 
 ---
 
-**Last Updated**: March 2026  
+**Last Updated**: 2026-03-14  
 **Claude Code Version**: Latest  
+**Source**: Synced from official Anthropic documentation  
 **Documentation**: [code.claude.com/docs/cli-reference](https://code.claude.com/docs/en/cli-reference.md)

@@ -12,7 +12,7 @@ Comprehensive reference for building and managing agents with OpenAI Codex CLI.
 - 🌐 Web and cloud-based versions available
 - 🔧 MCP (Model Context Protocol) support (experimental)
 
-**Authentication:** Recommended to use ChatGPT account (Plus, Pro, Team, Edu, Enterprise). API key authentication requires additional setup.
+**Authentication:** Codex is included with ChatGPT Plus, Pro, Business, Edu, and Enterprise plans. Recommended to authenticate with your ChatGPT account when prompted. API key authentication is also available but requires additional setup.
 
 ---
 
@@ -487,5 +487,8 @@ Or via slash command:
 | `Ctrl+L` | Clear screen |
 
 ---
+
+**Last Updated:** 2026-03-14  
+**Source:** Synced from official OpenAI Codex documentation
 
 *Part of the [my_agents](../../) repository*

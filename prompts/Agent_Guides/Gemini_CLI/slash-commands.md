@@ -177,16 +177,19 @@ Add YouTube video transcript to context.
 ### `/model <name>` - Switch Model
 Change the active Gemini model.
 ```bash
-/model gemini-2.0-flash-exp
-/model gemini-1.5-pro-002
-/model gemini-1.5-flash-002
+/model gemini-2.5-flash
+/model gemini-3-pro
+/model gemini-3-flash
 ```
 
-**Available Models:**
-- `gemini-2.0-flash-exp` - Latest experimental flash model
-- `gemini-1.5-pro-002` - Most capable, best for complex tasks
-- `gemini-1.5-flash-002` - Fastest, good for most tasks
-- `gemini-1.5-flash-8b` - Ultra-fast, efficient for simple tasks
+**Available Models (2026):**
+- `gemini-2.5-flash` - Latest flash model, fast with excellent quality
+- `gemini-3-pro` - Most capable with improved reasoning, 1M token context
+- `gemini-3-flash` - Balanced speed and quality, 1M token context
+- `gemini-2.0-flash-exp` - Experimental flash variant
+- `gemini-1.5-pro-002` - Previous generation Pro (still highly capable)
+- `gemini-1.5-flash-002` - Previous generation Flash
+- `gemini-1.5-flash-8b` - Ultra-fast for simple tasks
 
 ### `/models` - List Models
 Show all available Gemini models.
@@ -519,14 +522,15 @@ Clear cached data.
 1. **Use multimodal features**: Gemini excels at analyzing images, videos, and documents
 2. **Enable grounding for facts**: Use `/grounding on` for factual queries
 3. **Choose the right model**: 
-   - `gemini-1.5-pro-002` for complex reasoning
-   - `gemini-2.0-flash-exp` for speed with good quality
-   - `gemini-1.5-flash-8b` for simple tasks
-4. **Manage context carefully**: Check `/tokens` to avoid hitting limits
+   - `gemini-3-pro` for complex reasoning and advanced tasks (1M token context)
+   - `gemini-2.5-flash` for speed with excellent quality
+   - `gemini-3-flash` for balanced performance
+   - `gemini-1.5-flash-8b` for simple, quick tasks
+4. **Manage context carefully**: Check `/tokens` to avoid hitting limits (1M token context available on Gemini 3 models)
 5. **Save important sessions**: Use `/save` for work you want to continue
 6. **Leverage thinking mode**: Enable `/thinking on` for complex problems
 7. **Use web search**: `/web` and `/search` for up-to-date information
-8. **Combine modalities**: Add images, PDFs, and code together
+8. **Combine modalities**: Add images, PDFs, and code together for comprehensive analysis
 
 ---
 
@@ -563,6 +567,7 @@ Summarize the key points from both videos
 
 ---
 
-**Last Updated**: March 2026  
+**Last Updated**: 2026-03-14  
 **Gemini CLI Version**: Latest  
-**Supported Models**: Gemini 1.5 & 2.0 series
+**Source**: Synced from official Google Gemini CLI documentation  
+**Supported Models**: Gemini 2.5 Flash, Gemini 3.0 Pro/Flash (1M token context)

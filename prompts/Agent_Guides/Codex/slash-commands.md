@@ -726,6 +726,7 @@ Clear conversation and start fresh.
 
 ---
 
-**Last Updated**: March 2026  
+**Last Updated**: 2026-03-14  
 **Codex Version**: Latest  
-**Supported Models**: GPT-4o, o1-preview, GPT-4 Turbo
+**Source**: Synced from official OpenAI documentation  
+**Supported Models**: GPT-5.4, GPT-5.3-Codex, GPT-4o, o1-preview, GPT-4 Turbo

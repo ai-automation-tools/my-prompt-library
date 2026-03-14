@@ -40,12 +40,14 @@ Comprehensive reference for all command-line flags available in Gemini CLI.
 | `--thinking` | Deep reasoning | Enable thinking mode (Gemini 2.0) |
 | `--thinking-budget <n>` | Thinking depth | Set token budget for thinking |
 
-**Available Models:**
-- `gemini-2.0-flash-exp` (default, fast with good quality)
-- `gemini-1.5-pro-002` (most capable, best for complex tasks)
-- `gemini-1.5-flash-002` (balanced speed and quality)
-- `gemini-1.5-flash-8b` (ultra-fast, simple tasks)
-- `gemini-exp-1206` (experimental, latest features)
+**Available Models (2026):**
+- `gemini-2.5-flash` (latest flash model, fast with excellent quality)
+- `gemini-3-pro` (most capable with improved reasoning, 1M token context)
+- `gemini-3-flash` (balanced speed and quality, 1M token context)
+- `gemini-2.0-flash-exp` (experimental flash)
+- `gemini-1.5-pro-002` (previous generation, still capable)
+- `gemini-1.5-flash-002` (previous generation)
+- `gemini-1.5-flash-8b` (ultra-fast for simple tasks)
 
 ### Input & Context
 
@@ -322,6 +324,8 @@ gemini --batch --file input.txt --save output.txt --parallel 5
 
 ---
 
-**Last Updated**: March 2026  
+**Last Updated**: 2026-03-14  
 **Gemini CLI Version**: Latest  
-**Documentation**: [ai.google.dev/gemini-api/docs/cli](https://ai.google.dev/gemini-api/docs/cli)
+**Source**: Synced from official Google Gemini CLI documentation  
+**Models**: Gemini 2.5 Flash, Gemini 3.0 Pro/Flash (1M token context)  
+**Documentation**: [geminicli.com/docs](https://geminicli.com/docs/) | [GitHub](https://github.com/google-gemini/gemini-cli)
