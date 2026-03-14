@@ -169,6 +169,23 @@ export default function App() {
       });
   }, [showToast]);
 
+  // Close external resource dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.external-resource-dropdown')) {
+        setCliReposOpen(false);
+        setPromptLibsOpen(false);
+        setAgentTemplatesOpen(false);
+      }
+    };
+
+    if (cliReposOpen || promptLibsOpen || agentTemplatesOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [cliReposOpen, promptLibsOpen, agentTemplatesOpen]);
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
@@ -915,11 +932,24 @@ export default function App() {
             )}
 
             {/* External Resources Dropdowns */}
-            <div className="hidden md:flex items-center gap-2 ml-auto">
+            <div className="hidden md:flex items-center gap-3 ml-auto">
+              {/* aX Platform Standalone Link */}
+              <a
+                href="https://ax-platform.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900 border-2 border-slate-700 hover:border-blue-500 transition-all duration-300 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] group"
+              >
+                <span className="text-sm font-bold text-slate-100 tracking-wide">aX-</span>
+                <div className="w-px h-4 bg-slate-600 group-hover:bg-blue-500 transition-colors"></div>
+                <span className="text-sm font-bold text-blue-400 group-hover:text-blue-300 transition-colors tracking-wide">Platform</span>
+              </a>
+
               {/* CLI Repos */}
-              <div className="relative">
+              <div className="relative external-resource-dropdown">
                 <button
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setCliReposOpen(!cliReposOpen);
                     setPromptLibsOpen(false);
                     setAgentTemplatesOpen(false);
@@ -933,8 +963,15 @@ export default function App() {
                     cliReposOpen && "rotate-180"
                   )} />
                 </button>
-                {cliReposOpen && (
-                  <div className="absolute top-full right-0 mt-2 z-50 w-56 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]">
+                <AnimatePresence>
+                  {cliReposOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full right-0 mt-2 z-[100] w-56 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                    >
                     <a
                       href="https://github.com/anthropics/claude-code"
                       target="_blank"
@@ -965,14 +1002,16 @@ export default function App() {
                       <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Codex CLI</span>
                       <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                     </a>
-                  </div>
-                )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Prompt Libraries */}
-              <div className="relative">
+              <div className="relative external-resource-dropdown">
                 <button
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setPromptLibsOpen(!promptLibsOpen);
                     setCliReposOpen(false);
                     setAgentTemplatesOpen(false);
@@ -986,8 +1025,15 @@ export default function App() {
                     promptLibsOpen && "rotate-180"
                   )} />
                 </button>
-                {promptLibsOpen && (
-                  <div className="absolute top-full right-0 mt-2 z-50 w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]">
+                <AnimatePresence>
+                  {promptLibsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full right-0 mt-2 z-[100] w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                    >
                     <a
                       href="https://prompts.chat/prompts"
                       target="_blank"
@@ -1038,14 +1084,16 @@ export default function App() {
                       <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guide</span>
                       <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                     </a>
-                  </div>
-                )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Agent Templates */}
-              <div className="relative">
+              <div className="relative external-resource-dropdown">
                 <button
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setAgentTemplatesOpen(!agentTemplatesOpen);
                     setCliReposOpen(false);
                     setPromptLibsOpen(false);
@@ -1059,8 +1107,15 @@ export default function App() {
                     agentTemplatesOpen && "rotate-180"
                   )} />
                 </button>
-                {agentTemplatesOpen && (
-                  <div className="absolute top-full right-0 mt-2 z-50 w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]">
+                <AnimatePresence>
+                  {agentTemplatesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full right-0 mt-2 z-[100] w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                    >
                     <a
                       href="https://www.aitmpl.com/agents"
                       target="_blank"
@@ -1101,8 +1156,9 @@ export default function App() {
                       <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">HuggingFace Agents</span>
                       <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                     </a>
-                  </div>
-                )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 
