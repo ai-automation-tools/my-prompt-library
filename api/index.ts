@@ -37,6 +37,34 @@ const githubApiUrlForPath = (repoPath: string) => {
   return `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${encodedPath}`;
 };
 
+// Simple in-memory cache to reduce GitHub API calls
+interface CacheEntry<T> {
+  data: T;
+  timestamp: number;
+}
+
+const cache = new Map<string, CacheEntry<any>>();
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+function getCached<T>(key: string): T | null {
+  const entry = cache.get(key);
+  if (!entry) return null;
+  
+  const age = Date.now() - entry.timestamp;
+  if (age > CACHE_TTL_MS) {
+    cache.delete(key);
+    return null;
+  }
+  
+  console.log(`[Cache HIT] ${key} (age: ${Math.round(age / 1000)}s)`);
+  return entry.data;
+}
+
+function setCache<T>(key: string, data: T): void {
+  cache.set(key, { data, timestamp: Date.now() });
+  console.log(`[Cache SET] ${key}`);
+}
+
 // Helper to batch async operations and prevent overwhelming API/file descriptors
 async function batchProcess<T, R>(
   items: T[],
@@ -89,6 +117,13 @@ const resolvePromptPath = (promptId: string) => {
 // API to list all prompts and their metadata
 app.get("/api/prompts", async (req, res) => {
   try {
+    // Check cache first
+    const cacheKey = `prompts:${GITHUB_BRANCH || 'local'}`;
+    const cached = getCached(cacheKey);
+    if (cached) {
+      return res.json(cached);
+    }
+
     // Production path: read from GitHub repository
     if (isGitHubConfigured()) {
       console.log(`[GitHub Mode] GITHUB_OWNER=${GITHUB_OWNER}, GITHUB_REPO=${GITHUB_REPO}, GITHUB_BRANCH=${GITHUB_BRANCH}`);
@@ -165,7 +200,9 @@ app.get("/api/prompts", async (req, res) => {
         100  // 100ms delay between batches
       );
 
-      return res.json(prompts.filter(p => p !== null));
+      const filteredPrompts = prompts.filter(p => p !== null);
+      setCache(cacheKey, filteredPrompts);
+      return res.json(filteredPrompts);
     }
 
     // Local/dev fallback: filesystem read
@@ -213,6 +250,7 @@ app.get("/api/prompts", async (req, res) => {
       };
     });
 
+    setCache(cacheKey, prompts);
     res.json(prompts);
   } catch (error: any) {
     console.error("Error reading prompts:", error);
