@@ -790,6 +790,18 @@ export default function App() {
               <Menu className="w-5 h-5 text-[var(--text-secondary)]" />
             </button>
 
+            {/* aX Platform - Mobile (top right) */}
+            <a
+              href="https://ax-platform.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="md:hidden ml-auto flex items-center gap-1 px-3 py-1.5 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900 border-2 border-slate-700 hover:border-blue-500 transition-all duration-300 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] group"
+            >
+              <span className="text-xs font-bold text-slate-100 tracking-wide">aX-</span>
+              <div className="w-px h-3.5 bg-slate-600 group-hover:bg-blue-500 transition-colors"></div>
+              <span className="text-xs font-bold text-blue-400 group-hover:text-blue-300 transition-colors tracking-wide">Platform</span>
+            </a>
+
             {/* Filter Bar */}
             {(favoritePrompts.length > 0 || recentlyViewedPrompts.length > 0 || allTags.length > 0) && (
               <div className="flex flex-wrap gap-2 flex-1">
@@ -1162,17 +1174,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Stat badges - Right side */}
-            <div className="hidden lg:flex items-center gap-2">
-              <div className="glass rounded-[var(--radius-sm)] px-3 py-1.5 text-center">
-                <span className="text-sm font-bold text-[var(--accent)]">{sectionPrompts.length}</span>
-                <span className="text-xs text-[var(--text-tertiary)] ml-1">Prompts</span>
-              </div>
-              <div className="glass rounded-[var(--radius-sm)] px-3 py-1.5 text-center">
-                <span className="text-sm font-bold text-[var(--text-primary)]">{Object.keys(categories).length}</span>
-                <span className="text-xs text-[var(--text-tertiary)] ml-1">Categories</span>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -1262,15 +1263,29 @@ export default function App() {
                 transition={{ duration: 0.3 }}
                 className="w-full"
               >
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <h2 className="heading-display text-xl font-bold tracking-tight text-[var(--text-primary)]">
-                      {activeTab === 'my-prompts' ? 'My Prompts' : 
-                       activeTab === 'collections' ? 'Collections' : 
-                       activeTab === 'system-prompts' ? 'System Prompts' : 
-                       'Agent Guides'}
-                    </h2>
-                    <p className="label mt-2">{sortedPrompts.length} prompts</p>
+                <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <div>
+                      <h2 className="heading-display text-xl font-bold tracking-tight text-[var(--text-primary)]">
+                        {activeTab === 'my-prompts' ? 'My Prompts' : 
+                         activeTab === 'collections' ? 'Collections' : 
+                         activeTab === 'system-prompts' ? 'System Prompts' : 
+                         'Agent Guides'}
+                      </h2>
+                      <p className="label mt-2">{sortedPrompts.length} prompts</p>
+                    </div>
+                    
+                    {/* Stat badges - Moved here from top bar */}
+                    <div className="flex items-center gap-2">
+                      <div className="glass rounded-[var(--radius-sm)] px-3 py-1.5 text-center">
+                        <span className="text-sm font-bold text-[var(--accent)]">{sectionPrompts.length}</span>
+                        <span className="text-xs text-[var(--text-tertiary)] ml-1">Total</span>
+                      </div>
+                      <div className="glass rounded-[var(--radius-sm)] px-3 py-1.5 text-center">
+                        <span className="text-sm font-bold text-[var(--text-primary)]">{Object.keys(categories).length}</span>
+                        <span className="text-xs text-[var(--text-tertiary)] ml-1">Categories</span>
+                      </div>
+                    </div>
                   </div>
                   <div className="relative">
                     <select
