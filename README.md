@@ -97,12 +97,47 @@ We've developed a robust set of features to make managing your AI prompts effort
 
 ## 📚 Documentation
 
-For detailed guides and technical insights into various features:
+**[📖 Full Documentation](./docs/README.md)** - Complete documentation index
 
-- **[Quick Wins UX Improvements](./docs/quick-wins-ux.md)**: Details on toasts, loading states, empty states, copy all button, and category counts.
-- **[Navigation & Organization](./docs/navigation-organization.md)**: Comprehensive guide for favorites, recently viewed, and breadcrumb navigation.
-- **[Prompt Editor UI](./docs/prompt-editor-ui.md)**: Full instructions on creating, editing, and deleting prompts, including live preview and tag management.
-- **[Vercel Deployment Guide](./docs/deployment-vercel.md)**: Step-by-step instructions for deploying to Vercel.
+### Quick Links
+
+#### Getting Started & Setup
+- **[Setup Guide](./docs/SETUP.md)** - Complete setup instructions for local and GitHub modes
+- **[Quick Reference](./docs/QUICK_REFERENCE.md)** - Fast toggle guide for switching storage modes
+
+#### Technical Documentation
+- **[Architecture](./docs/ARCHITECTURE.md)** - System architecture and design decisions
+- **[GitHub Mode](./docs/GITHUB_MODE.md)** - GitHub API integration details and batching strategy
+
+#### Feature Guides
+- **[Quick Wins UX Improvements](./docs/quick-wins-ux.md)** - Toasts, loading states, empty states
+- **[Navigation & Organization](./docs/navigation-organization.md)** - Favorites, recently viewed, breadcrumb navigation
+- **[Prompt Editor UI](./docs/prompt-editor-ui.md)** - Creating, editing, and deleting prompts
+- **[Prompt Template & Formatting](./docs/prompt-template-guide.md)** - How to create and format prompts
+- **[Vercel Deployment](./docs/deployment-vercel.md)** - Deploy to Vercel step-by-step
+
+---
+
+## 💾 Storage Modes
+
+The Prompt Library supports **two storage modes** that can be toggled via environment variable:
+
+### 🏠 Local Mode (Default)
+- Reads prompts from local `prompts/` directory
+- ⚡ Fast, no API calls
+- 🔒 No rate limits
+- **Perfect for development**
+
+### ☁️ GitHub Mode
+- Fetches prompts from GitHub repository
+- 🌐 Centralized storage with version control
+- 🔄 Batched API calls (50 at a time)
+- ⏱️ 5-minute cache to reduce API usage
+- **Required for Vercel deployment**
+
+**Toggle between modes:** Set `USE_GITHUB_MODE=true` in `.env` file
+
+See **[Setup Guide](./docs/SETUP.md)** for complete configuration instructions.
 
 ---
 
@@ -136,18 +171,6 @@ The app exposes a REST API for prompts:
 GET http://localhost:3010/api/prompts
 ```
 (Also `POST`, `PUT`, `DELETE` via `api/prompts` and `api/prompts/:id` respectively)
-
----
-
-## 📚 Documentation
-
-Comprehensive guides to help you use and contribute to the prompt library:
-
-- **[Prompt Template & Formatting Guide](docs/prompt-template-guide.md)** - How to create and format prompts
-- **[Navigation & Organization](docs/navigation-organization.md)** - UI features and navigation guide
-- **[Prompt Editor UI](docs/prompt-editor-ui.md)** - CRUD operations and editor features
-- **[Quick Wins & UX](docs/quick-wins-ux.md)** - Toast notifications, loading states, and UX improvements
-- **[Deployment Guide](docs/deployment-vercel.md)** - Deploy to Vercel step-by-step
 
 ---
 
