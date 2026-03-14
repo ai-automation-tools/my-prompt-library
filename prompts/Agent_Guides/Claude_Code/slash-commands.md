@@ -5,481 +5,181 @@ category: "Agent_Guides"
 subcategory: "Claude_Code"
 ---
 
+<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->
+
 # Claude Code Slash Commands Reference
 
-Comprehensive reference for all slash commands available in Claude Code CLI.
+Built-in commands available in Claude Code CLI interactive mode.
 
-## Most Useful Commands (Top 10)
+**Source**: [code.claude.com/docs/en/commands](https://code.claude.com/docs/en/commands)
 
-### 1. `/edit <file>` - Edit Files
-Edit a specific file or multiple files with AI assistance.
-```bash
-/edit src/app.ts
-/edit src/*.tsx
-```
+Type `/` in Claude Code to see all available commands, or type `/` followed by letters to filter.
 
-### 2. `/add <path>` - Add Files to Context
-Add files or directories to the conversation context.
-```bash
-/add src/components/
-/add package.json
-```
+## Core Commands
 
-### 3. `/drop <path>` - Remove from Context
-Remove files from the conversation context.
-```bash
-/drop src/old-code.ts
-/drop tests/
-```
-
-### 4. `/run <command>` - Execute Shell Commands
-Run shell commands and capture output.
-```bash
-/run npm test
-/run git status
-```
-
-### 5. `/search <pattern>` - Search Codebase
-Search for patterns across the codebase.
-```bash
-/search "TODO:"
-/search function.*main
-```
-
-### 6. `/diff` - Show Changes
-Display uncommitted changes in the working directory.
-```bash
-/diff
-```
-
-### 7. `/undo` - Undo Last Operation
-Undo the last file operation performed by Claude.
-```bash
-/undo
-```
-
-### 8. `/task <description>` - Create Task
-Create a multi-step task for Claude to execute.
-```bash
-/task Refactor authentication module to use JWT tokens
-```
-
-### 9. `/help` - Show Available Commands
-Display all available slash commands.
-```bash
-/help
-```
-
-### 10. `/context` - View Current Context
-Show all files currently in the conversation context.
-```bash
-/context
-```
-
----
-
-## File Management Commands
-
-### `/ls [path]` - List Files
-List files and directories in the workspace.
-```bash
-/ls
-/ls src/
-```
-
-### `/cat <file>` - Display File Contents
-Show the contents of a file.
-```bash
-/cat README.md
-```
-
-### `/tree [path]` - Show Directory Tree
-Display directory structure as a tree.
-```bash
-/tree
-/tree src/
-```
-
-### `/find <pattern>` - Find Files
-Find files matching a pattern.
-```bash
-/find "*.test.ts"
-/find component
-```
-
-### `/grep <pattern>` - Search File Contents
-Search for text patterns in files.
-```bash
-/grep "import React"
-/grep -i "todo"
-```
-
----
-
-## Context Management
-
-### `/context` - Show Context
-Display current context (files, tokens, etc.).
-```bash
-/context
-```
-
-### `/add <path>` - Add to Context
-Add files or directories to context.
-```bash
-/add src/utils/
-/add *.md
-```
-
-### `/drop <path>` - Remove from Context
-Remove files from context.
-```bash
-/drop old-code.js
-```
-
-### `/clear` - Clear Context
-Remove all files from context.
-```bash
-/clear
-```
-
-### `/reset` - Reset Conversation
-Start a fresh conversation, clearing all context and history.
-```bash
-/reset
-```
-
----
-
-## Code Editing
-
-### `/edit <file>` - Edit Files
-Request edits to specific files.
-```bash
-/edit app.py
-/edit src/**/*.ts
-```
-
-### `/create <file>` - Create New File
-Create a new file with specified content.
-```bash
-/create src/newComponent.tsx
-```
-
-### `/delete <file>` - Delete File
-Delete a file from the workspace.
-```bash
-/delete temp.js
-```
-
-### `/rename <old> <new>` - Rename File
-Rename or move a file.
-```bash
-/rename old.js new.js
-```
-
-### `/move <source> <dest>` - Move File
-Move file to a different location.
-```bash
-/move src/old.ts src/components/new.ts
-```
-
----
-
-## Development Workflow
-
-### `/run <command>` - Execute Command
-Run shell commands and capture output.
-```bash
-/run npm install
-/run pytest
-/run git log --oneline -10
-```
-
-### `/test [pattern]` - Run Tests
-Execute test suite or specific tests.
-```bash
-/test
-/test auth
-```
-
-### `/lint [path]` - Run Linter
-Run linting on files.
-```bash
-/lint
-/lint src/
-```
-
-### `/format [path]` - Format Code
-Format code using project's formatter.
-```bash
-/format
-/format src/app.ts
-```
-
-### `/build` - Build Project
-Run the project's build command.
-```bash
-/build
-```
-
----
-
-## Git Integration
-
-### `/diff` - Show Git Diff
-Display uncommitted changes.
-```bash
-/diff
-```
-
-### `/commit <message>` - Git Commit
-Stage and commit changes.
-```bash
-/commit "feat: add user authentication"
-```
-
-### `/status` - Git Status
-Show git status of the repository.
-```bash
-/status
-```
-
-### `/log [count]` - Git Log
-Show recent git commits.
-```bash
-/log
-/log 20
-```
-
-### `/branch` - Show Git Branch
-Display current git branch.
-```bash
-/branch
-```
-
----
-
-## Task Management
-
-### `/task <description>` - Create Task
-Define a multi-step task for Claude to execute.
-```bash
-/task Add error handling to all API endpoints
-```
-
-### `/tasks` - List Tasks
-Show all active tasks.
-```bash
-/tasks
-```
-
-### `/task cancel <id>` - Cancel Task
-Cancel a specific task.
-```bash
-/task cancel 1
-```
-
----
-
-## Search & Analysis
-
-### `/search <pattern>` - Search Codebase
-Search for patterns across all files.
-```bash
-/search "deprecated"
-/search function.*\(
-```
-
-### `/refs <symbol>` - Find References
-Find all references to a symbol.
-```bash
-/refs MyComponent
-```
-
-### `/def <symbol>` - Go to Definition
-Show the definition of a symbol.
-```bash
-/def authenticate
-```
-
-### `/analyze [path]` - Analyze Code
-Perform static analysis on code.
-```bash
-/analyze
-/analyze src/auth.ts
-```
-
----
-
-## Documentation
-
-### `/docs [topic]` - View Documentation
-View Claude Code documentation.
-```bash
-/docs
-/docs commands
-```
-
-### `/explain <file>` - Explain Code
-Get explanation of code in a file.
-```bash
-/explain src/complex-algorithm.ts
-```
-
-### `/comment <file>` - Add Comments
-Request comments to be added to code.
-```bash
-/comment src/utils.ts
-```
-
----
-
-## Configuration
-
-### `/config` - Show Configuration
-Display current Claude Code configuration.
-```bash
-/config
-```
-
-### `/config set <key> <value>` - Set Config
-Set a configuration value.
-```bash
-/config set model claude-3-5-sonnet-20241022
-```
-
-### `/config get <key>` - Get Config Value
-Get a specific configuration value.
-```bash
-/config get model
-```
-
----
+| Command | Purpose |
+|---------|---------|
+| `/help` | Show help and available commands |
+| `/exit` | Exit the CLI (Alias: `/quit`) |
+| `/clear` | Clear conversation history and free up context (Aliases: `/reset`, `/new`) |
 
 ## Session Management
 
-### `/save [name]` - Save Session
-Save the current conversation session.
-```bash
-/save my-feature-work
-```
+| Command | Purpose |
+|---------|---------|
+| `/resume [session]` | Resume conversation by ID/name, or open session picker (Alias: `/continue`) |
+| `/fork [name]` | Create a fork of the current conversation at this point |
+| `/rename [name]` | Rename current session and show name on prompt bar |
+| `/export [filename]` | Export current conversation as plain text |
+| `/compact [instructions]` | Compact conversation with optional focus instructions |
 
-### `/load <name>` - Load Session
-Load a previously saved session.
-```bash
-/load my-feature-work
-```
+## Model & Configuration
 
-### `/sessions` - List Sessions
-Show all saved sessions.
-```bash
-/sessions
-```
+| Command | Purpose |
+|---------|---------|
+| `/model [model]` | Select or change AI model (use arrows to adjust effort level) |
+| `/effort [low\|medium\|high\|max\|auto]` | Set model effort level |
+| `/config` | Open Settings interface (Alias: `/settings`) |
+| `/status` | Open Settings interface (Status tab) showing version, model, account |
+
+## Context & Memory
+
+| Command | Purpose |
+|---------|---------|
+| `/add-dir <path>` | Add a new working directory to current session |
+| `/context` | Visualize current context usage as colored grid |
+| `/btw <question>` | Ask quick side question without adding to conversation |
+| `/memory` | Edit CLAUDE.md memory files, enable/disable auto-memory |
+
+## Permissions & Safety
+
+| Command | Purpose |
+|---------|---------|
+| `/permissions` | View or update permissions (Alias: `/allowed-tools`) |
+| `/plan` | Enter plan mode directly from prompt |
+| `/sandbox` | Toggle sandbox mode (supported platforms only) |
+
+## Development Tools
+
+| Command | Purpose |
+|---------|---------|
+| `/diff` | Open interactive diff viewer (uncommitted changes + per-turn diffs) |
+| `/rewind` | Rewind conversation/code to previous point (Alias: `/checkpoint`) |
+| `/security-review` | Analyze pending changes for security vulnerabilities |
+| `/pr-comments [PR]` | Fetch and display GitHub PR comments |
+
+## Integrations & Extensions
+
+| Command | Purpose |
+|---------|---------|
+| `/agents` | Manage agent configurations |
+| `/mcp` | Manage MCP server connections and OAuth |
+| `/chrome` | Configure Claude in Chrome settings |
+| `/ide` | Manage IDE integrations and show status |
+| `/plugin` | Manage Claude Code plugins |
+| `/reload-plugins` | Reload all active plugins without restarting |
+| `/hooks` | View hook configurations for tool events |
+| `/skills` | List available skills |
+
+## Remote & Web Sessions
+
+| Command | Purpose |
+|---------|---------|
+| `/remote-control` | Make session available for remote control from claude.ai (Alias: `/rc`) |
+| `/remote-env` | Configure default remote environment for web sessions |
+| `/desktop` | Continue current session in Claude Code Desktop app (macOS/Windows) (Alias: `/app`) |
+| `/mobile` | Show QR code to download Claude mobile app (Aliases: `/ios`, `/android`) |
+
+## GitHub & CI/CD
+
+| Command | Purpose |
+|---------|---------|
+| `/install-github-app` | Set up Claude GitHub Actions app for repository |
+| `/install-slack-app` | Install Claude Slack app (OAuth flow) |
+
+## Utilities
+
+| Command | Purpose |
+|---------|---------|
+| `/copy` | Copy last assistant response to clipboard (picker for code blocks) |
+| `/color [color\|default]` | Set prompt bar color (red/blue/green/yellow/purple/orange/pink/cyan) |
+| `/init` | Initialize project with CLAUDE.md guide |
+| `/doctor` | Diagnose and verify installation and settings |
+
+## Display & UI
+
+| Command | Purpose |
+|---------|---------|
+| `/theme` | Change color theme (light/dark/colorblind/ANSI variants) |
+| `/terminal-setup` | Configure terminal keybindings (Shift+Enter, etc.) |
+| `/keybindings` | Open or create keybindings configuration file |
+| `/statusline` | Configure Claude Code's status line |
+
+## Usage & Analytics
+
+| Command | Purpose |
+|---------|---------|
+| `/cost` | Show token usage statistics |
+| `/usage` | Show plan usage limits and rate limit status |
+| `/insights` | Generate report analyzing your sessions |
+| `/stats` | Visualize daily usage, session history, streaks |
+| `/tasks` | List and manage background tasks |
+
+## Account & Plans
+
+| Command | Purpose |
+|---------|---------|
+| `/login` | Sign in to Anthropic account |
+| `/logout` | Sign out from Anthropic account |
+| `/upgrade` | Open upgrade page to switch plan tier |
+| `/passes` | Share free week of Claude Code (if eligible) |
+| `/extra-usage` | Configure extra usage for rate limits |
+| `/privacy-settings` | View and update privacy settings (Pro/Max plans only) |
+| `/stickers` | Order Claude Code stickers |
+
+## Advanced
+
+| Command | Purpose |
+|---------|---------|
+| `/fast [on\|off]` | Toggle fast mode |
+| `/feedback [report]` | Submit feedback about Claude Code (Alias: `/bug`) |
+| `/release-notes` | View full changelog |
+| `/vim` | Toggle between Vim and Normal editing modes |
+
+## MCP Prompts
+
+MCP servers can expose prompts as commands using format `/mcp__<server>__<prompt>`. These are dynamically discovered from connected servers.
+
+## Bundled Skills
+
+Claude Code includes bundled skills like `/simplify`, `/batch`, and `/debug` that appear alongside built-in commands.
+
+## Command Aliases
+
+- `/resume` = `/continue`
+- `/config` = `/settings`
+- `/clear` = `/reset` = `/new`
+- `/rewind` = `/checkpoint`
+- `/permissions` = `/allowed-tools`
+- `/remote-control` = `/rc`
+- `/desktop` = `/app`
+- `/mobile` = `/ios` = `/android`
+- `/feedback` = `/bug`
 
 ---
 
-## Utility Commands
+## Notes
 
-### `/undo` - Undo Last Change
-Undo the last file modification.
-```bash
-/undo
-```
-
-### `/redo` - Redo Last Undo
-Redo the last undone operation.
-```bash
-/redo
-```
-
-### `/history` - Show History
-Display command history.
-```bash
-/history
-```
-
-### `/cd <path>` - Change Directory
-Change the working directory.
-```bash
-/cd src/
-```
-
-### `/pwd` - Print Working Directory
-Show current working directory.
-```bash
-/pwd
-```
-
-### `/exit` or `/quit` - Exit Claude Code
-Exit the Claude Code CLI.
-```bash
-/exit
-```
+- Not all commands visible to every user - some depend on platform, plan, or environment
+- `/desktop` only appears on macOS and Windows
+- `/upgrade` and `/privacy-settings` only for Pro and Max plans
+- `/terminal-setup` hidden when terminal natively supports keybindings
+- Type `/` to filter available commands in real-time
 
 ---
 
-## Advanced Features
+## See Also
 
-### `/thinking` - Toggle Thinking Mode
-Enable/disable extended thinking for complex tasks.
-```bash
-/thinking on
-/thinking off
-```
-
-### `/model <name>` - Switch Model
-Switch to a different Claude model.
-```bash
-/model claude-3-5-sonnet-20241022
-/model claude-3-opus-20240229
-```
-
-### `/token-usage` - Show Token Usage
-Display token usage statistics for the session.
-```bash
-/token-usage
-```
-
-### `/verbose` - Toggle Verbose Mode
-Enable/disable verbose output.
-```bash
-/verbose on
-```
-
----
-
-## Keyboard Shortcuts (Non-slash)
-
-- **Ctrl+C**: Cancel current operation
-- **Ctrl+D**: Exit (same as /exit)
-- **↑/↓**: Navigate command history
-- **Tab**: Auto-complete (file paths, commands)
-
----
-
-## Tips & Best Practices
-
-1. **Start with `/add`**: Add relevant files to context before asking questions
-2. **Use `/context` frequently**: Check what's in context to avoid token bloat
-3. **Leverage `/task`**: For complex multi-step operations
-4. **Check `/diff` before committing**: Review changes Claude made
-5. **Save important sessions**: Use `/save` for work you want to resume later
-6. **Use wildcards**: `/add src/**/*.ts` adds all TypeScript files
-7. **Chain commands**: Describe complex workflows in natural language
-8. **Monitor tokens**: Use `/token-usage` to stay within limits
-
----
-
-## Command Syntax Notes
-
-- **`<arg>`**: Required argument
-- **`[arg]`**: Optional argument
-- **`path`**: File or directory path (supports wildcards: `*`, `**`, `?`)
-- **`pattern`**: Search pattern (supports regex)
-
----
-
-**Last Updated**: 2026-03-14  
-**Claude Code Version**: Latest  
-**Source**: Synced from official Anthropic documentation
+- [Skills](https://code.claude.com/docs/en/skills) - Create your own commands
+- [Interactive Mode](https://code.claude.com/docs/en/interactive-mode) - Keyboard shortcuts, Vim mode
+- [CLI Reference](https://code.claude.com/docs/en/cli-reference) - Launch-time flags

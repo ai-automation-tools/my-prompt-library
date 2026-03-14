@@ -5,327 +5,427 @@ category: "Agent_Guides"
 subcategory: "Gemini_CLI"
 ---
 
+<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->
+
 # Gemini CLI Flags Reference
 
-Comprehensive reference for all command-line flags available in Gemini CLI.
+Command-line options and features for Gemini CLI (Google's AI coding agent).
 
-## Most Popular Flags (Top 10)
+**Source**: [geminicli.com/docs](https://geminicli.com/docs/)
 
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--model <name>` / `-m` | Model selection | Specify which Gemini model to use |
-| `--thinking` | Complex reasoning tasks | Enable extended thinking mode (Gemini 2.0) |
-| `--image <path>` / `-i` | Visual analysis | Add image(s) to the prompt |
-| `--file <path>` / `-f` | Document context | Add file(s) to context |
-| `--web <url>` / `-w` | Web content | Fetch and include web page content |
-| `--grounding` | Factual queries | Enable Google Search grounding |
-| `--json` | Structured output | Return response in JSON format |
-| `--temperature <value>` / `-t` | Control randomness | Set response creativity (0.0-2.0) |
-| `--max-tokens <n>` | Response length | Limit output token count |
-| `--stream` / `-s` | Real-time output | Stream response as it generates |
+## Installation
+
+```bash
+# Install via npm
+npm install -g @google/gemini-cli
+
+# Verify installation
+gemini --version
+```
+
+## Core Features
+
+Gemini CLI is an open-source AI agent that brings Gemini models directly into your terminal using a "reason and act" (ReAct) loop with built-in tools and Model Context Protocol (MCP) servers.
+
+### Supported Capabilities
+
+- **File Management** - Read, write, and manipulate local files
+- **Shell Execution** - Execute system commands safely
+- **Session Management** - Resume conversations and rewind history
+- **Web Integration** - Search and fetch web content
+- **Agent Skills** - Specialized expertise for specific tasks
+- **MCP Servers** - Connect to remote agents and tools
+- **Checkpointing** - Automatic session snapshots
+- **IDE Integration** - Connect with your favorite editor
+- **Headless Mode** - Programmatic/scripting interface
+
+## Authentication
+
+**Personal Accounts:**
+```bash
+gemini auth login
+```
+
+**Enterprise/Google Cloud:**
+- Configure via Google Cloud project settings
+- See [Authentication documentation](https://geminicli.com/docs/get-started/authentication)
+
+## Model Selection
+
+Access Gemini models directly:
+
+```bash
+# Use /model command in interactive mode
+/model set <model-name>
+/model set <model-name> --persist
+```
+
+**Available Models:**
+- Gemini 3 - Latest with improved reasoning (1M token context)
+- Gemini 2.5 Flash - Fast with excellent quality
+- Gemini 2.0 - Previous generation
+- Gemini 1.5 Pro/Flash - Earlier versions
+
+**Documentation**: [Model Selection](https://geminicli.com/docs/cli/model)
+
+## Input Methods
+
+### @ Commands - File/Directory Content
+
+Include file or directory content in your prompt:
+
+```bash
+@path/to/file.txt Explain this text.
+@src/my_project/ Summarize the code.
+What is this file about? @README.md
+```
+
+**Features:**
+- Recursive directory reading
+- Git-aware filtering (excludes node_modules, .git, etc.)
+- Configurable via `context.fileFiltering` settings
+- Uses `read_many_files` tool internally
+
+**Note:** Escape spaces in paths with backslash (`@My\ Documents/file.txt`)
+
+### ! Commands - Shell Execution
+
+Execute shell commands directly:
+
+```bash
+!ls -la
+!git status
+```
+
+**Toggle Shell Mode:**
+```bash
+!
+# Enter shell mode (all input becomes shell commands)
+# Type ! again to exit
+```
+
+**Environment Variable:** `GEMINI_CLI=1` is set when running commands
+
+## Configuration
+
+### Settings File
+
+Location: `~/.gemini/settings.json`
+
+Manage via:
+```bash
+/settings
+# Opens settings editor
+```
+
+### Project Context
+
+**GEMINI.md File** - Hierarchical memory system
+
+```bash
+/init
+# Creates GEMINI.md in current directory
+```
+
+**Memory Commands:**
+```bash
+/memory list      # List GEMINI.md file paths
+/memory show      # Display full concatenated memory
+/memory refresh   # Reload from all GEMINI.md files
+/memory add <text> # Add text to memory
+```
+
+### Ignore Files
+
+**.geminiignore** - Exclusion patterns (like .gitignore)
+
+Respects git-ignore patterns by default.
+
+## Features & Modes
+
+### Plan Mode
+
+Read-only mode for planning changes:
+
+```bash
+/plan
+# Enter plan mode
+
+/plan copy
+# Copy approved plan to clipboard
+```
+
+**Configuration:** `experimental.plan` in settings (enabled by default)
+
+### Sandbox Mode
+
+Isolate tool execution for safety.
+
+**Documentation**: [Sandboxing](https://geminicli.com/docs/cli/sandbox)
+
+### Headless Mode
+
+Programmatic interface for automation:
+
+**Documentation**: [Headless Mode](https://geminicli.com/docs/cli/headless)
+
+### Token Caching
+
+Performance optimization for repeated context.
+
+**Documentation**: [Token Caching](https://geminicli.com/docs/cli/token-caching)
+
+### Model Routing
+
+Automatic fallback resilience for rate limits.
+
+**Documentation**: [Model Routing](https://geminicli.com/docs/cli/model-routing)
+
+## Agent Skills
+
+Specialized agents for specific tasks:
+
+```bash
+/skills list      # List all skills
+/skills enable <name>   # Enable skill
+/skills disable <name>  # Disable skill
+/skills reload    # Refresh skill list
+```
+
+**Documentation**: [Agent Skills](https://geminicli.com/docs/cli/skills)
+
+## Subagents (Experimental)
+
+Multi-agent collaboration:
+
+```bash
+/agents list      # List discovered agents
+/agents reload    # Rescan agent directories
+/agents enable <name>   # Enable subagent
+/agents disable <name>  # Disable subagent
+/agents config <name>   # Configure agent
+```
+
+**Requires:** `experimental.enableAgents: true` in settings
+
+**Documentation**: [Subagents](https://geminicli.com/docs/core/subagents)
+
+## MCP (Model Context Protocol)
+
+Connect to external tools and context:
+
+```bash
+/mcp list         # List MCP servers and tools
+/mcp desc         # Show descriptions
+/mcp schema       # Show schemas
+/mcp refresh      # Restart servers
+/mcp enable <name>   # Enable server
+/mcp disable <name>  # Disable server
+/mcp auth [server]   # OAuth authentication
+```
+
+**Configuration:** `~/.gemini/mcp/`
+
+**Documentation**: [MCP Servers](https://geminicli.com/docs/tools/mcp-server)
+
+## Extensions
+
+Extend Gemini CLI with new tools:
+
+```bash
+/extensions list      # List active extensions
+/extensions install <repo>  # Install from git/path
+/extensions link <path>     # Link local extension
+/extensions enable <name>   # Enable extension
+/extensions disable <name>  # Disable extension
+/extensions config <name>   # Configure extension
+/extensions update <name|--all> # Update extensions
+/extensions uninstall <name>    # Remove extension
+/extensions restart     # Restart all extensions
+/extensions explore     # Open extensions page
+```
+
+**Documentation**: [Extensions](https://geminicli.com/docs/extensions)
+
+## Hooks
+
+Customize behavior with lifecycle event scripts:
+
+```bash
+/hooks list       # Display all hooks
+/hooks enable <name>    # Enable hook
+/hooks disable <name>   # Disable hook
+/hooks enable-all # Enable all hooks
+/hooks disable-all # Disable all hooks
+```
+
+**Documentation**: [Hooks](https://geminicli.com/docs/hooks)
+
+## IDE Integration
+
+Connect with your IDE:
+
+```bash
+/ide status       # Check integration status
+/ide enable       # Enable integration
+/ide disable      # Disable integration
+/ide install      # Install companion
+```
+
+**Documentation**: [IDE Integration](https://geminicli.com/docs/ide-integration)
+
+## Trusted Folders
+
+Manage folder permissions:
+
+```bash
+/permissions trust [folder]
+```
+
+**Documentation**: [Trusted Folders](https://geminicli.com/docs/cli/trusted-folders)
+
+## Policy Engine
+
+Fine-grained execution control:
+
+```bash
+/policy list      # List active policies
+```
+
+**Documentation**: [Policy Engine](https://geminicli.com/docs/reference/policy-engine)
+
+## Session Management
+
+### Resume Sessions
+
+```bash
+/resume           # Open session browser (auto-saved)
+/resume list      # List tagged checkpoints
+/resume save <tag>    # Save current as checkpoint
+/resume resume <tag>  # Load tagged checkpoint
+/resume delete <tag>  # Delete checkpoint
+/resume share [file]  # Export to Markdown/JSON
+/resume debug     # Export API request JSON
+```
+
+**Aliases:** `/chat` = `/resume`
+
+**Auto Sessions:** All conversations auto-saved, no manual saving needed
+
+**Search:** Use `/` in session browser to search across all sessions
+
+**Documentation**: [Session Management](https://geminicli.com/docs/cli/tutorials/session-management)
+
+### Checkpointing
+
+Automatic snapshots before file modifications:
+
+```bash
+/restore [tool_call_id]  # Restore to checkpoint
+```
+
+**Documentation**: [Checkpointing](https://geminicli.com/docs/cli/checkpointing)
+
+### Rewind
+
+Navigate backward through history:
+
+```bash
+/rewind
+# Or press Esc twice
+```
+
+**Features:**
+- Preview user prompts and file changes
+- Rewind history only, code only, or both
+
+**Documentation**: [Rewind](https://geminicli.com/docs/cli/rewind)
+
+## Custom Commands
+
+Create personalized shortcuts from `.toml` files:
+
+```bash
+/commands reload  # Reload custom commands
+```
+
+**Documentation**: [Custom Commands](https://geminicli.com/docs/cli/custom-commands)
+
+## Themes & UI
+
+```bash
+/theme            # Open theme dialog
+/vim              # Toggle vim mode
+```
+
+**Vim Mode Features:**
+- NORMAL and INSERT modes
+- Count support (e.g., `3h`, `5w`, `10G`)
+- Standard vim commands (`dd`, `cc`, `dw`, etc.)
+- Persistent setting in `~/.gemini/settings.json`
+
+**Documentation**: [Themes](https://geminicli.com/docs/cli/themes)
+
+## GitHub Integration
+
+```bash
+/setup-github-actions
+# Set up GitHub Actions for issue triage and PR review
+```
+
+## Advanced Configuration
+
+### Enterprise Configuration
+
+**Documentation**: [Enterprise Configuration](https://geminicli.com/docs/cli/enterprise)
+
+### Generation Settings
+
+Fine-tune parameters like temperature and thinking budget:
+
+**Documentation**: [Model Configuration](https://geminicli.com/docs/cli/generation-settings)
+
+### System Prompt Override
+
+Replace default instructions:
+
+**Documentation**: [System Prompt](https://geminicli.com/docs/cli/system-prompt)
+
+### .geminiignore
+
+Exclusion pattern reference:
+
+**Documentation**: [Ignore Files](https://geminicli.com/docs/cli/gemini-ignore)
+
+## Telemetry
+
+Usage and performance metrics:
+
+**Documentation**: [Telemetry](https://geminicli.com/docs/cli/telemetry)
+
+## Platform Support
+
+- ✅ Linux
+- ✅ macOS
+- ✅ Windows
+
+## Resources
+
+- [FAQ](https://geminicli.com/docs/resources/faq)
+- [Quota and Pricing](https://geminicli.com/docs/resources/quota-and-pricing)
+- [Troubleshooting](https://geminicli.com/docs/resources/troubleshooting)
+- [Uninstall](https://geminicli.com/docs/resources/uninstall)
+
+## Contributing
+
+- [Contribution Guide](https://geminicli.com/docs/contributing)
+- [Local Development](https://geminicli.com/docs/local-development)
 
 ---
 
-## All Flags by Category
+## See Also
 
-### Model Selection
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--model <name>` / `-m` | Model override | Specify Gemini model to use |
-| `--model-list` | Available models | Show all available models |
-| `--flash` | Speed priority | Use Gemini 2.0 Flash (fastest) |
-| `--pro` | Quality priority | Use Gemini 1.5 Pro (most capable) |
-| `--experimental` | Latest features | Use experimental model version |
-| `--thinking` | Deep reasoning | Enable thinking mode (Gemini 2.0) |
-| `--thinking-budget <n>` | Thinking depth | Set token budget for thinking |
-
-**Available Models (2026):**
-- `gemini-2.5-flash` (latest flash model, fast with excellent quality)
-- `gemini-3-pro` (most capable with improved reasoning, 1M token context)
-- `gemini-3-flash` (balanced speed and quality, 1M token context)
-- `gemini-2.0-flash-exp` (experimental flash)
-- `gemini-1.5-pro-002` (previous generation, still capable)
-- `gemini-1.5-flash-002` (previous generation)
-- `gemini-1.5-flash-8b` (ultra-fast for simple tasks)
-
-### Input & Context
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--file <path>` / `-f` | File context | Add text file(s) to context |
-| `--image <path>` / `-i` | Image analysis | Add image(s) for visual understanding |
-| `--video <path>` / `-v` | Video analysis | Add video file(s) for analysis |
-| `--audio <path>` / `-a` | Audio processing | Add audio file(s) for transcription/analysis |
-| `--pdf <path>` | PDF documents | Add PDF document(s) to context |
-| `--doc <path>` | Office docs | Add DOCX, PPTX, XLSX files |
-| `--url <url>` | Web content | Fetch content from URL |
-| `--web <url>` / `-w` | Web scraping | Add web page content to context |
-| `--youtube <url>` / `--yt` | YouTube videos | Add YouTube video transcript |
-
-### Multimodal Options
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--image-quality <level>` | Image processing | Set image quality (low/medium/high) |
-| `--video-fps <n>` | Video sampling | Set frames per second to analyze |
-| `--video-start <time>` | Video segments | Start video analysis at timestamp |
-| `--video-end <time>` | Video segments | End video analysis at timestamp |
-| `--audio-format <fmt>` | Audio input | Specify audio format (mp3/wav/m4a) |
-| `--ocr` | Text extraction | Extract text from images/PDFs |
-| `--vision-mode <mode>` | Image understanding | Set vision mode (auto/detailed/fast) |
-
-### Search & Grounding
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--grounding` / `-g` | Factual queries | Enable Google Search grounding |
-| `--search <query>` | Web search | Perform Google Search and use results |
-| `--search-lang <lang>` | Regional search | Set search language (e.g., en, es, fr) |
-| `--search-region <code>` | Regional search | Set search region (e.g., US, GB, JP) |
-| `--citations` | Source tracking | Include citations in response |
-| `--no-grounding` | Disable search | Explicitly disable grounding |
-
-### Output Control
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--json` / `-j` | Structured data | Output in JSON format |
-| `--markdown` / `-md` | Formatted text | Output in Markdown format |
-| `--code-only` | Extract code | Return only code blocks |
-| `--stream` / `-s` | Real-time output | Stream response as it generates |
-| `--no-stream` | Wait for completion | Show complete response at once |
-| `--print` / `-p` | One-shot output | Print response and exit |
-| `--quiet` / `-q` | Minimal output | Suppress non-essential output |
-| `--verbose` | Detailed logs | Show detailed execution information |
-| `--no-color` | Plain text | Disable ANSI color codes |
-
-### Generation Parameters
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--temperature <0.0-2.0>` / `-t` | Response variation | Control creativity/randomness (default: 1.0) |
-| `--top-p <0.0-1.0>` | Nucleus sampling | Set probability threshold (default: 0.95) |
-| `--top-k <n>` | Token sampling | Set number of top tokens to consider |
-| `--max-tokens <n>` | Response length | Limit output token count |
-| `--presence-penalty <-2 to 2>` | Topic diversity | Penalize repeated topics |
-| `--frequency-penalty <-2 to 2>` | Word repetition | Penalize repeated words |
-| `--stop <sequence>` | Generation control | Stop at specified text |
-
-### Safety & Filtering
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--safety <level>` | Content filtering | Set safety level (off/low/medium/high) |
-| `--harm-block-threshold <level>` | Category threshold | Set harm blocking threshold per category |
-| `--allow-dangerous` | Bypass filters | Reduce safety restrictions (use carefully) |
-| `--block-none` | No filtering | Disable all content filtering |
-| `--strict-safety` | Maximum safety | Enable strictest safety settings |
-
-**Safety Categories:**
-- `harassment`
-- `hate-speech`
-- `sexually-explicit`
-- `dangerous-content`
-
-### Code Execution & Tools
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--code-execution` | Run code | Enable code interpreter |
-| `--tools` | Function calling | Enable tool use/function calling |
-| `--no-tools` | Disable tools | Explicitly disable tool use |
-| `--python` | Python env | Enable Python code execution |
-| `--bash` | Shell execution | Enable bash command execution |
-| `--sandbox` | Isolated execution | Run code in sandbox |
-
-### Session Management
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--continue` / `-c` | Resume work | Continue most recent conversation |
-| `--session <name>` | Named session | Use or create named session |
-| `--list-sessions` | View sessions | List all saved sessions |
-| `--delete-session <name>` | Cleanup | Delete specific session |
-| `--export-session <file>` | Backup | Export session to file |
-| `--import-session <file>` | Restore | Import session from file |
-| `--clear-history` | Fresh start | Clear conversation history |
-
-### System Prompts & Persona
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--system <text>` | Behavior control | Set custom system prompt |
-| `--system-file <path>` | Load prompt | Load system prompt from file |
-| `--persona <name>` | Predefined role | Load predefined persona |
-| `--character <name>` | Character mode | Use character/style preset |
-| `--no-system` | Remove system | Disable system prompt |
-
-### Configuration
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--config <file>` | Custom config | Use specific config file |
-| `--api-key <key>` | Auth override | Use specific Google AI API key |
-| `--project <id>` | GCP project | Specify Google Cloud project ID |
-| `--location <region>` | API region | Set API endpoint region |
-| `--timeout <seconds>` | Request timeout | Set request timeout duration |
-| `--retry <count>` | Network reliability | Set number of retry attempts |
-
-### Cache & Performance
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--cache` | Speed optimization | Enable context caching |
-| `--no-cache` | Fresh requests | Disable caching |
-| `--cache-ttl <seconds>` | Cache duration | Set cache time-to-live |
-| `--parallel <n>` | Batch requests | Process multiple requests in parallel |
-| `--batch` | Bulk processing | Enable batch mode |
-
-### Logging & Debug
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--debug` / `-d` | Troubleshooting | Enable debug logging |
-| `--log-file <path>` | Persistent logs | Write logs to file |
-| `--log-level <level>` | Log verbosity | Set logging level (debug/info/warn/error) |
-| `--trace` | API debugging | Show API request/response details |
-| `--benchmark` | Performance | Show timing and token usage |
-| `--cost` | Usage tracking | Estimate API cost |
-
-### Prompt Engineering
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--few-shot <file>` | Example learning | Provide few-shot examples |
-| `--cot` | Reasoning | Enable chain-of-thought prompting |
-| `--self-consistency <n>` | Multiple samples | Generate N responses and choose best |
-| `--retry-on-error <n>` | Error handling | Retry failed generations N times |
-
-### Output Processing
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--save <path>` | Save response | Save response to file |
-| `--append <path>` | Append output | Append response to existing file |
-| `--clipboard` | Quick copy | Copy response to clipboard |
-| `--browser` | View in browser | Open response in web browser |
-| `--diff` | Compare output | Show diff with previous response |
-
-### Specialized Modes
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--chat` | Conversation mode | Enter interactive chat mode |
-| `--repl` | Interactive shell | Start read-eval-print loop |
-| `--watch <path>` | Auto-reload | Watch file and regenerate on changes |
-| `--pipe` | Unix pipeline | Read from stdin, write to stdout |
-| `--daemon` | Background service | Run as background service |
-
-### Language & Localization
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--lang <code>` | Response language | Set response language (e.g., en, es, fr, ja) |
-| `--translate-to <lang>` | Auto-translate | Translate response to specified language |
-| `--detect-language` | Auto-detect | Detect and use input language |
-
-### Experimental Features
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--experimental-features` | Beta access | Enable all experimental features |
-| `--deep-research` | Research mode | Enable comprehensive research mode |
-| `--multimodal-chain` | Complex workflows | Chain multimodal operations |
-| `--agent-mode` | Autonomous agent | Enable autonomous agent capabilities |
-
-### Help & Information
-
-| Flag | When Activated | What It Does |
-|------|----------------|--------------|
-| `--help` / `-h` | Command help | Show help information |
-| `--version` / `-V` | Version info | Show Gemini CLI version |
-| `--models` | List models | Show all available models |
-| `--examples` | Usage examples | Show example commands |
-| `--docs` | Documentation | Open documentation in browser |
-
----
-
-## Flag Combinations (Common Patterns)
-
-### Image Analysis
-```bash
-gemini --image photo.jpg --vision-mode detailed "Describe this image"
-```
-
-### Research Mode
-```bash
-gemini --grounding --citations --thinking "Latest AI research trends"
-```
-
-### Document Processing
-```bash
-gemini --pdf report.pdf --ocr --markdown "Summarize this report"
-```
-
-### Video Understanding
-```bash
-gemini --video demo.mp4 --video-fps 1 "What happens in this video?"
-```
-
-### Code Generation
-```bash
-gemini --code-execution --json "Generate a Python function to sort a list"
-```
-
-### Web Research
-```bash
-gemini --web https://example.com --grounding --citations
-```
-
-### Multi-Image Comparison
-```bash
-gemini -i img1.jpg -i img2.jpg -i img3.jpg "Compare these images"
-```
-
-### Batch Processing
-```bash
-gemini --batch --file input.txt --save output.txt --parallel 5
-```
-
----
-
-## Environment Variables
-
-| Variable | Equivalent Flag | Default |
-|----------|----------------|---------|
-| `GOOGLE_AI_API_KEY` | `--api-key` | None (required) |
-| `GEMINI_MODEL` | `--model` | `gemini-2.0-flash-exp` |
-| `GEMINI_TEMPERATURE` | `--temperature` | `1.0` |
-| `GEMINI_MAX_TOKENS` | `--max-tokens` | `8192` |
-| `GEMINI_SAFETY_LEVEL` | `--safety` | `medium` |
-| `GEMINI_LOG_LEVEL` | `--log-level` | `info` |
-
----
-
-## Tips & Best Practices
-
-1. **Leverage multimodal**: Use `--image`, `--video`, `--pdf` together
-2. **Enable grounding**: Add `--grounding` for factual queries
-3. **Choose right model**: 
-   - `--flash` for speed
-   - `--pro` for complex reasoning
-   - `--thinking` for deep analysis
-4. **Optimize costs**: Use caching with `--cache` for repeated contexts
-5. **Structured output**: Use `--json` for programmatic processing
-6. **Safety first**: Set appropriate `--safety` level for your use case
-7. **Debug issues**: Add `--debug --trace` for troubleshooting
-8. **Save sessions**: Use `--session` to continue work later
-
----
-
-**Last Updated**: 2026-03-14  
-**Gemini CLI Version**: Latest  
-**Source**: Synced from official Google Gemini CLI documentation  
-**Models**: Gemini 2.5 Flash, Gemini 3.0 Pro/Flash (1M token context)  
-**Documentation**: [geminicli.com/docs](https://geminicli.com/docs/) | [GitHub](https://github.com/google-gemini/gemini-cli)
+- [CLI Commands](https://geminicli.com/docs/reference/commands) - Detailed slash command guide
+- [Configuration Reference](https://geminicli.com/docs/reference/configuration) - Settings and env vars
+- [Keyboard Shortcuts](https://geminicli.com/docs/reference/keyboard-shortcuts) - Productivity tips
+- [Tools Reference](https://geminicli.com/docs/reference/tools) - Tool definitions and usage
