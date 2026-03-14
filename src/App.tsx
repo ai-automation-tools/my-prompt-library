@@ -802,147 +802,6 @@ export default function App() {
               <span className="text-xs font-bold text-blue-400 group-hover:text-blue-300 transition-colors tracking-wide">Platform</span>
             </a>
 
-            {/* Filter Bar */}
-            {(favoritePrompts.length > 0 || recentlyViewedPrompts.length > 0 || allTags.length > 0) && (
-              <div className="flex flex-wrap gap-2 flex-1">
-                {/* Favorites */}
-                {favoritePrompts.length > 0 && (
-                  <div className="relative filter-dropdown">
-                    <button
-                      onClick={() => setFavoritesExpanded(!favoritesExpanded)}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
-                    >
-                      <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-                      <span className="font-semibold text-[var(--text-secondary)]">Favorites</span>
-                      <span className="font-bold text-[var(--accent)]">({favoritePrompts.length})</span>
-                      {favoritesExpanded ? (
-                        <ChevronDown className="w-3 h-3 text-[var(--text-tertiary)]" />
-                      ) : (
-                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)]" />
-                      )}
-                    </button>
-                    {favoritesExpanded && (
-                      <div className="absolute top-full left-0 mt-2 z-50 w-72 dropdown-solid rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]">
-                        <div className="space-y-1 max-h-80 overflow-y-auto custom-scrollbar">
-                          {favoritePrompts.map(prompt => (
-                            <button
-                              key={prompt.id}
-                              onClick={() => {
-                                handlePromptClick(prompt);
-                                setFavoritesExpanded(false);
-                              }}
-                              className="w-full text-left px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                            >
-                              <p className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
-                                {prompt.title}
-                              </p>
-                              <p className="text-xs text-[var(--text-tertiary)] truncate mt-0.5">
-                                {prompt.category?.replace(/_/g, ' ')}
-                              </p>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Recently Viewed */}
-                {recentlyViewedPrompts.length > 0 && (
-                  <div className="relative filter-dropdown">
-                    <button
-                      onClick={() => setRecentlyViewedExpanded(!recentlyViewedExpanded)}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
-                    >
-                      <Clock className="w-3 h-3 text-[var(--accent)]" />
-                      <span className="font-semibold text-[var(--text-secondary)]">Recent</span>
-                      <span className="font-bold text-[var(--accent)]">({recentlyViewedPrompts.length})</span>
-                      {recentlyViewedExpanded ? (
-                        <ChevronDown className="w-3 h-3 text-[var(--text-tertiary)]" />
-                      ) : (
-                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)]" />
-                      )}
-                    </button>
-                    {recentlyViewedExpanded && (
-                      <div className="absolute top-full left-0 mt-2 z-50 w-72 dropdown-solid rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]">
-                        <div className="space-y-1 max-h-80 overflow-y-auto custom-scrollbar">
-                          {recentlyViewedPrompts.map(prompt => (
-                            <button
-                              key={prompt.id}
-                              onClick={() => {
-                                handlePromptClick(prompt);
-                                setRecentlyViewedExpanded(false);
-                              }}
-                              className="w-full text-left px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                            >
-                              <p className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
-                                {prompt.title}
-                              </p>
-                              <p className="text-xs text-[var(--text-tertiary)] truncate mt-0.5">
-                                {prompt.category?.replace(/_/g, ' ')}
-                              </p>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Tag Filter */}
-                {allTags.length > 0 && (
-                  <div className="relative filter-dropdown">
-                    <button
-                      onClick={() => setTagsExpanded(!tagsExpanded)}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
-                    >
-                      <Tag className="w-3 h-3 text-[var(--text-tertiary)]" />
-                      <span className="font-semibold text-[var(--text-secondary)]">Tags</span>
-                      {selectedTags.length > 0 && (
-                        <span className="font-bold text-[var(--accent)]">({selectedTags.length})</span>
-                      )}
-                      {tagsExpanded ? (
-                        <ChevronDown className="w-3 h-3 text-[var(--text-tertiary)]" />
-                      ) : (
-                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)]" />
-                      )}
-                    </button>
-                    {tagsExpanded && (
-                      <div className="absolute top-full left-0 mt-2 z-50 w-96 dropdown-solid rounded-[var(--radius-md)] p-4 shadow-xl border border-[var(--glass-border)]">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-xs font-semibold text-[var(--text-secondary)] uppercase">Select Tags</span>
-                          {selectedTags.length > 0 && (
-                            <button
-                              onClick={() => setSelectedTags([])}
-                              className="text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
-                            >
-                              Clear All
-                            </button>
-                          )}
-                        </div>
-                        <div className="flex flex-wrap gap-2 max-h-80 overflow-y-auto custom-scrollbar">
-                          {allTags.map(tag => (
-                            <button
-                              key={tag}
-                              onClick={() => handleTagToggle(tag)}
-                              className={cn(
-                                "px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-colors",
-                                selectedTags.includes(tag)
-                                  ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                                  : "bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-tertiary)] hover:bg-[var(--glass-bg-hover)] hover:text-[var(--text-primary)]"
-                              )}
-                            >
-                              {tag}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            )}
-
             {/* External Resources Dropdowns */}
             <div className="hidden md:flex items-center gap-3 ml-auto">
               {/* aX Platform Standalone Link */}
@@ -1286,6 +1145,147 @@ export default function App() {
                         <span className="text-xs text-[var(--text-tertiary)] ml-1">Categories</span>
                       </div>
                     </div>
+
+                    {/* Filter Buttons - Moved from toolbar */}
+                    {(favoritePrompts.length > 0 || recentlyViewedPrompts.length > 0 || allTags.length > 0) && (
+                      <div className="flex flex-wrap gap-2">
+                        {/* Favorites */}
+                        {favoritePrompts.length > 0 && (
+                          <div className="relative filter-dropdown">
+                            <button
+                              onClick={() => setFavoritesExpanded(!favoritesExpanded)}
+                              className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+                            >
+                              <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                              <span className="font-semibold text-[var(--text-secondary)]">Favorites</span>
+                              <span className="font-bold text-[var(--accent)]">({favoritePrompts.length})</span>
+                              {favoritesExpanded ? (
+                                <ChevronDown className="w-3 h-3 text-[var(--text-tertiary)]" />
+                              ) : (
+                                <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)]" />
+                              )}
+                            </button>
+                            {favoritesExpanded && (
+                              <div className="absolute top-full left-0 mt-2 z-50 w-72 dropdown-solid rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]">
+                                <div className="space-y-1 max-h-80 overflow-y-auto custom-scrollbar">
+                                  {favoritePrompts.map(prompt => (
+                                    <button
+                                      key={prompt.id}
+                                      onClick={() => {
+                                        handlePromptClick(prompt);
+                                        setFavoritesExpanded(false);
+                                      }}
+                                      className="w-full text-left px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                                    >
+                                      <p className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
+                                        {prompt.title}
+                                      </p>
+                                      <p className="text-xs text-[var(--text-tertiary)] truncate mt-0.5">
+                                        {prompt.category?.replace(/_/g, ' ')}
+                                      </p>
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Recently Viewed */}
+                        {recentlyViewedPrompts.length > 0 && (
+                          <div className="relative filter-dropdown">
+                            <button
+                              onClick={() => setRecentlyViewedExpanded(!recentlyViewedExpanded)}
+                              className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+                            >
+                              <Clock className="w-3 h-3 text-[var(--accent)]" />
+                              <span className="font-semibold text-[var(--text-secondary)]">Recent</span>
+                              <span className="font-bold text-[var(--accent)]">({recentlyViewedPrompts.length})</span>
+                              {recentlyViewedExpanded ? (
+                                <ChevronDown className="w-3 h-3 text-[var(--text-tertiary)]" />
+                              ) : (
+                                <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)]" />
+                              )}
+                            </button>
+                            {recentlyViewedExpanded && (
+                              <div className="absolute top-full left-0 mt-2 z-50 w-72 dropdown-solid rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]">
+                                <div className="space-y-1 max-h-80 overflow-y-auto custom-scrollbar">
+                                  {recentlyViewedPrompts.map(prompt => (
+                                    <button
+                                      key={prompt.id}
+                                      onClick={() => {
+                                        handlePromptClick(prompt);
+                                        setRecentlyViewedExpanded(false);
+                                      }}
+                                      className="w-full text-left px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                                    >
+                                      <p className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
+                                        {prompt.title}
+                                      </p>
+                                      <p className="text-xs text-[var(--text-tertiary)] truncate mt-0.5">
+                                        {prompt.category?.replace(/_/g, ' ')}
+                                      </p>
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Tag Filter */}
+                        {allTags.length > 0 && (
+                          <div className="relative filter-dropdown">
+                            <button
+                              onClick={() => setTagsExpanded(!tagsExpanded)}
+                              className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+                            >
+                              <Tag className="w-3 h-3 text-[var(--text-tertiary)]" />
+                              <span className="font-semibold text-[var(--text-secondary)]">Tags</span>
+                              {selectedTags.length > 0 && (
+                                <span className="font-bold text-[var(--accent)]">({selectedTags.length})</span>
+                              )}
+                              {tagsExpanded ? (
+                                <ChevronDown className="w-3 h-3 text-[var(--text-tertiary)]" />
+                              ) : (
+                                <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)]" />
+                              )}
+                            </button>
+                            {tagsExpanded && (
+                              <div className="absolute top-full left-0 mt-2 z-50 w-96 dropdown-solid rounded-[var(--radius-md)] p-4 shadow-xl border border-[var(--glass-border)]">
+                                <div className="flex items-center justify-between mb-3">
+                                  <span className="text-xs font-semibold text-[var(--text-secondary)] uppercase">Select Tags</span>
+                                  {selectedTags.length > 0 && (
+                                    <button
+                                      onClick={() => setSelectedTags([])}
+                                      className="text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
+                                    >
+                                      Clear All
+                                    </button>
+                                  )}
+                                </div>
+                                <div className="flex flex-wrap gap-2 max-h-80 overflow-y-auto custom-scrollbar">
+                                  {allTags.map(tag => (
+                                    <button
+                                      key={tag}
+                                      onClick={() => handleTagToggle(tag)}
+                                      className={cn(
+                                        "px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-colors",
+                                        selectedTags.includes(tag)
+                                          ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
+                                          : "bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-tertiary)] hover:bg-[var(--glass-bg-hover)] hover:text-[var(--text-primary)]"
+                                      )}
+                                    >
+                                      {tag}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                   <div className="relative">
                     <select
