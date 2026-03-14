@@ -23,6 +23,7 @@ import {
   FolderOpen,
   Layers,
   Plus,
+  FolderPlus,
   Edit,
   Trash2,
   Star,
@@ -86,6 +87,7 @@ export default function App() {
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
+  const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'my-prompts' | 'collections' | 'system-prompts' | 'agent-guides'>('my-prompts');
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
@@ -361,6 +363,34 @@ export default function App() {
       .then(data => setPrompts(data))
       .catch(err => console.error('Failed to fetch prompts:', err));
   }, []);
+
+  const handleCopyToMyPrompts = useCallback(async (prompt: Prompt) => {
+    if (prompt.section === 'My_Prompts') {
+      showToast('info', 'This prompt is already in My Prompts');
+      return;
+    }
+
+    setCopyingToMyPromptsId(prompt.id);
+
+    try {
+      const response = await fetch(`/api/prompts/${encodeURIComponent(prompt.id)}/copy-to-my-prompts`, {
+        method: 'POST'
+      });
+
+      const payload = await response.json();
+
+      if (!response.ok) {
+        throw new Error(payload.error || 'Failed to copy prompt to My Prompts');
+      }
+
+      refreshPrompts();
+      showToast('success', payload.message || 'Copied to My Prompts');
+    } catch (error: any) {
+      showToast('error', error.message || 'Failed to copy prompt to My Prompts');
+    } finally {
+      setCopyingToMyPromptsId(null);
+    }
+  }, [refreshPrompts, showToast]);
 
   const handleSavePrompt = useCallback(async (prompt: Omit<Prompt, 'lastModified'>) => {
     const method = prompt.id ? 'PUT' : 'POST';
@@ -1101,7 +1131,26 @@ export default function App() {
                       </h2>
                       <p className="label mt-0.5 truncate">{selectedPrompt.id}</p>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap justify-end">
+                      <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleCopyToMyPrompts(selectedPrompt)}
+                        disabled={copyingToMyPromptsId === selectedPrompt.id || selectedPrompt.section === 'My_Prompts'}
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 disabled:cursor-not-allowed disabled:opacity-60",
+                          selectedPrompt.section === 'My_Prompts'
+                            ? "bg-blue-500/15 border-blue-500/35 text-blue-300"
+                            : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                        )}
+                        title={selectedPrompt.section === 'My_Prompts' ? 'Already in My Prompts' : 'Copy this prompt to My Prompts'}
+                      >
+                        <FolderPlus className="w-3.5 h-3.5" />
+                        {selectedPrompt.section === 'My_Prompts'
+                          ? 'In My Prompts'
+                          : copyingToMyPromptsId === selectedPrompt.id
+                            ? 'Saving...'
+                            : 'Save to My Prompts'}
+                      </motion.button>
                       <motion.button
                         whileTap={{ scale: 0.95 }}
                         onClick={() => {
