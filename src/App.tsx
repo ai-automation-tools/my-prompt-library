@@ -945,6 +945,154 @@ export default function App() {
                     className="w-full pl-12 pr-4 py-3.5 rounded-[var(--radius-lg)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all duration-300"
                   />
                 </div>
+
+                {/* External Resources Section */}
+                <div className="mt-12">
+                  <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6 flex items-center gap-3">
+                    <Sparkles className="w-6 h-6 text-[var(--accent)]" />
+                    External Resources
+                  </h2>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl">
+                    {/* CLI Repositories */}
+                    <div className="glass rounded-[var(--radius-lg)] p-6 border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all duration-300 hover:shadow-[0_8px_32px_var(--accent-glow-subtle)]">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Terminal className="w-5 h-5 text-[var(--accent)]" />
+                        <h3 className="text-lg font-bold text-[var(--text-primary)]">CLI Repositories</h3>
+                      </div>
+                      <div className="space-y-2">
+                        <a
+                          href="https://github.com/anthropics/claude-code"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">🤖</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Claude Code</span>
+                        </a>
+                        <a
+                          href="https://github.com/google-gemini/gemini-cli"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">💎</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Gemini CLI</span>
+                        </a>
+                        <a
+                          href="https://github.com/openai/codex"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">⚡</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Codex CLI</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Prompt Libraries */}
+                    <div className="glass rounded-[var(--radius-lg)] p-6 border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all duration-300 hover:shadow-[0_8px_32px_var(--accent-glow-subtle)]">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Library className="w-5 h-5 text-[var(--accent)]" />
+                        <h3 className="text-lg font-bold text-[var(--text-primary)]">Prompt Libraries</h3>
+                      </div>
+                      <div className="space-y-2">
+                        <a
+                          href="https://prompts.chat/prompts"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">💬</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Prompts.chat</span>
+                        </a>
+                        <a
+                          href="https://prompthero.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">🦸</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">PromptHero</span>
+                        </a>
+                        <a
+                          href="https://cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">☁️</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Vertex AI Gallery</span>
+                        </a>
+                        <a
+                          href="https://workmind.ai/ai-prompt-library/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">🧠</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">WorkMind</span>
+                        </a>
+                        <a
+                          href="https://www.promptingguide.ai/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">📚</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Prompting Guide</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Agent Templates */}
+                    <div className="glass rounded-[var(--radius-lg)] p-6 border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all duration-300 hover:shadow-[0_8px_32px_var(--accent-glow-subtle)]">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Layers className="w-5 h-5 text-[var(--accent)]" />
+                        <h3 className="text-lg font-bold text-[var(--text-primary)]">Agent Templates</h3>
+                      </div>
+                      <div className="space-y-2">
+                        <a
+                          href="https://www.aitmpl.com/agents"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">🎯</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">AI Template</span>
+                        </a>
+                        <a
+                          href="https://github.com/ashishpatel26/500-AI-Agents-Projects"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">🚀</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">500 AI Agents</span>
+                        </a>
+                        <a
+                          href="https://github.com/e2b-dev/awesome-ai-agents"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">⭐</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Awesome AI Agents</span>
+                        </a>
+                        <a
+                          href="https://huggingface.co/spaces?sort=trending&search=agent"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-md bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] hover:border-[var(--accent)] transition-all group"
+                        >
+                          <span className="text-2xl">🤗</span>
+                          <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">HuggingFace Agents</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
