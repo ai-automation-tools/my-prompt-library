@@ -480,5 +480,6 @@ Enable/disable verbose output.
 
 ---
 
-**Last Updated**: March 2026  
-**Claude Code Version**: Latest
+**Last Updated**: 2026-03-14  
+**Claude Code Version**: Latest  
+**Source**: Synced from official Anthropic documentation

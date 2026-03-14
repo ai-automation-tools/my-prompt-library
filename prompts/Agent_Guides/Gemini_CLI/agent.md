@@ -3,12 +3,12 @@
 Comprehensive reference for building and managing agents with Gemini CLI.
 
 **Key Features:**
-- 🎯 Free tier: 60 requests/min, 1,000 requests/day (OAuth) or 1,000/day (API key)
-- 🧠 Gemini 3 models with 1M token context window and improved reasoning
+- 🎯 Free tier: 60 requests/min and 1,000 requests/day with personal Google account (OAuth)
+- 🧠 Powerful Gemini 2.5/3.0 models with 1M token context window and improved reasoning
 - 🔧 Built-in tools: Google Search grounding, file operations, shell commands, web fetching
 - 🔌 Extensible via MCP (Model Context Protocol) for custom integrations
-- 💻 Terminal-first design for developers
-- 🤝 GitHub Actions integration for automated workflows
+- 💻 Terminal-first design for developers who live in the command line
+- 🤝 GitHub Actions integration for automated workflows (PR reviews, issue triage, on-demand assistance)
 - 🛡️ Apache 2.0 licensed, fully open source
 
 ---
@@ -543,5 +543,8 @@ gemini extensions update --all
 ```
 
 ---
+
+**Last Updated:** 2026-03-14  
+**Source:** Synced from official Google Gemini CLI documentation
 
 *Part of the [my_agents](../../) repository*

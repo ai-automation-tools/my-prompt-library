@@ -481,4 +481,7 @@ project-root/
 
 ---
 
+**Last Updated:** 2026-03-14  
+**Source:** Synced from official Anthropic documentation
+
 *Part of the [my_agents](../../) repository*
