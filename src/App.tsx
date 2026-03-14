@@ -773,6 +773,21 @@ export default function App() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Attribution */}
+            <div className="mt-3 pt-3 border-t border-[var(--glass-border)]">
+              <p className="text-[0.7rem] text-center text-[var(--text-tertiary)]">
+                Built on the{' '}
+                <a
+                  href="https://ax-platform.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  aX Platform
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </aside>
@@ -1042,12 +1057,26 @@ export default function App() {
           {!selectedPrompt && !selectedSubcategory && (
             <div className="py-8 md:py-12 mb-8">
               <div className="max-w-4xl">
-                <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-6">
+                <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-3">
                   {activeTab === 'my-prompts' ? 'My Prompts' : 
                    activeTab === 'collections' ? 'Collections' : 
                    activeTab === 'system-prompts' ? 'System Prompts' : 
                    'Agent Guides'}
                 </h1>
+                
+                {/* Attribution */}
+                <p className="text-sm text-[var(--text-tertiary)] mb-6">
+                  Built on the{' '}
+                  <a
+                    href="https://ax-platform.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center gap-1"
+                  >
+                    aX Platform
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </p>
                 
                 {/* Search Bar */}
                 <div className="relative max-w-2xl">
