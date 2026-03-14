@@ -1,3 +1,10 @@
+---
+title: "Codex Agent Guide"
+tags: ["codex", "flags", "cli", "reference", "openai", "options"]
+category: "Agent_Guides"
+subcategory: "Codex"
+---
+
 # OpenAI Codex Agent Guide
 
 Comprehensive reference for building and managing agents with OpenAI Codex CLI.

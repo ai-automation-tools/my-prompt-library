@@ -1,3 +1,10 @@
+---
+title: "Claude Code Agent Guide"
+tags: ["claude-code", "flags", "cli", "reference", "options"]
+category: "Agent_Guides"
+subcategory: "Claude_Code"
+---
+
 # Claude Code Agent Guide
 
 Comprehensive reference for building and managing agents with Claude Code CLI.
