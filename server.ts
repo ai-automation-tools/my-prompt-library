@@ -28,6 +28,24 @@ async function startServer() {
   const promptsRoot = path.join(process.cwd(), "prompts");
   const ALLOWED_SOURCE_SECTIONS = new Set(["Collections", "System_Prompts", "Agent_Guides"]);
 
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+  const GITHUB_OWNER = process.env.GITHUB_OWNER;
+  const GITHUB_REPO = process.env.GITHUB_REPO;
+  const GITHUB_BRANCH = process.env.GITHUB_BRANCH || "mike_desktop";
+
+  const isGitHubConfigured = () => !!(GITHUB_TOKEN && GITHUB_OWNER && GITHUB_REPO);
+
+  const githubApiUrlForPath = (repoPath: string) => {
+    const encodedPath = repoPath.split('/').map(encodeURIComponent).join('/');
+    return `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${encodedPath}`;
+  };
+
+  const githubHeaders = {
+    Authorization: `Bearer ${GITHUB_TOKEN}`,
+    Accept: 'application/vnd.github+json',
+    'Content-Type': 'application/json'
+  };
+
   const resolvePromptPath = (promptId: string) => {
     const normalizedId = promptId.replace(/\\/g, '/');
 
@@ -230,7 +248,7 @@ async function startServer() {
   });
 
   // API to copy a prompt into My_Prompts
-  app.post("/api/prompts/:id/copy-to-my-prompts", (req, res) => {
+  app.post("/api/prompts/:id/copy-to-my-prompts", async (req, res) => {
     try {
       const promptId = decodeURIComponent(req.params.id).replace(/\\/g, '/');
       const pathParts = promptId.split('/');
@@ -240,13 +258,74 @@ async function startServer() {
         return res.status(400).json({ error: "Only prompts from Collections, System_Prompts, and Agent_Guides can be copied to My Prompts" });
       }
 
+      const destinationRelativePath = path.posix.join('My_Prompts', ...pathParts.slice(1));
+
+      // Production path: commit to GitHub repository directly
+      if (isGitHubConfigured()) {
+        const sourceRepoPath = path.posix.join('prompts', promptId);
+        const destinationRepoPath = path.posix.join('prompts', destinationRelativePath);
+
+        const sourceResponse = await fetch(`${githubApiUrlForPath(sourceRepoPath)}?ref=${encodeURIComponent(GITHUB_BRANCH)}`, {
+          method: 'GET',
+          headers: githubHeaders
+        });
+
+        if (sourceResponse.status === 404) {
+          return res.status(404).json({ error: "Prompt not found" });
+        }
+
+        if (!sourceResponse.ok) {
+          const errorText = await sourceResponse.text();
+          console.error('GitHub source fetch failed:', errorText);
+          return res.status(502).json({ error: "Failed to fetch source prompt from GitHub" });
+        }
+
+        const sourceData = await sourceResponse.json();
+
+        const destinationCheckResponse = await fetch(`${githubApiUrlForPath(destinationRepoPath)}?ref=${encodeURIComponent(GITHUB_BRANCH)}`, {
+          method: 'GET',
+          headers: githubHeaders
+        });
+
+        if (destinationCheckResponse.ok) {
+          return res.status(409).json({ error: "A prompt with this name already exists in My Prompts" });
+        }
+
+        if (destinationCheckResponse.status !== 404) {
+          const errorText = await destinationCheckResponse.text();
+          console.error('GitHub destination check failed:', errorText);
+          return res.status(502).json({ error: "Failed to validate destination in GitHub" });
+        }
+
+        const createResponse = await fetch(githubApiUrlForPath(destinationRepoPath), {
+          method: 'PUT',
+          headers: githubHeaders,
+          body: JSON.stringify({
+            message: `feat(prompts): copy ${promptId} to ${destinationRelativePath}`,
+            content: sourceData.content,
+            branch: GITHUB_BRANCH
+          })
+        });
+
+        if (!createResponse.ok) {
+          const errorText = await createResponse.text();
+          console.error('GitHub destination create failed:', errorText);
+          return res.status(502).json({ error: "Failed to copy prompt to My Prompts in GitHub" });
+        }
+
+        return res.json({
+          id: destinationRelativePath,
+          message: "Prompt copied to My Prompts"
+        });
+      }
+
+      // Local/dev fallback: filesystem copy
       const sourceFilePath = resolvePromptPath(promptId);
 
       if (!fs.existsSync(sourceFilePath)) {
         return res.status(404).json({ error: "Prompt not found" });
       }
 
-      const destinationRelativePath = path.posix.join('My_Prompts', ...pathParts.slice(1));
       const destinationFilePath = resolvePromptPath(destinationRelativePath);
 
       if (fs.existsSync(destinationFilePath)) {
