@@ -68,6 +68,8 @@ async function startServer() {
     try {
       // Production path: read from GitHub repository
       if (isGitHubConfigured()) {
+        console.log(`[GitHub Mode] GITHUB_OWNER=${GITHUB_OWNER}, GITHUB_REPO=${GITHUB_REPO}, GITHUB_BRANCH=${GITHUB_BRANCH}`);
+        
         const branchResponse = await fetch(
           `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/ref/heads/${encodeURIComponent(GITHUB_BRANCH)}`,
           { headers: githubHeaders }
@@ -75,8 +77,8 @@ async function startServer() {
 
         if (!branchResponse.ok) {
           const errorText = await branchResponse.text();
-          console.error('GitHub branch fetch failed:', errorText);
-          return res.status(502).json({ error: "Failed to fetch branch from GitHub" });
+          console.error('GitHub branch fetch failed:', branchResponse.status, errorText);
+          return res.status(502).json({ error: `Failed to fetch branch from GitHub: ${branchResponse.status}` });
         }
 
         const branchData = await branchResponse.json();
@@ -182,9 +184,11 @@ async function startServer() {
       });
 
       res.json(prompts);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error reading prompts:", error);
-      res.status(500).json({ error: "Failed to read prompts" });
+      console.error("Error stack:", error?.stack);
+      // Return empty array instead of 500 so UI doesn't break
+      res.json([]);
     }
   });
 
