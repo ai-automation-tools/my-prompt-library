@@ -92,7 +92,7 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'my-prompts' | 'collections' | 'system-prompts' | 'agent-guides'>('my-prompts');
+  const [activeTab, setActiveTab] = useState<'my-prompts' | 'collections' | 'system-prompts' | 'agent-guides' | 'skills'>('my-prompts');
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -219,7 +219,8 @@ export default function App() {
     activeTab === 'my-prompts' ? 'My_Prompts' : 
     activeTab === 'collections' ? 'Collections' : 
     activeTab === 'system-prompts' ? 'System_Prompts' : 
-    'Agent_Guides';
+    activeTab === 'agent-guides' ? 'Agent_Guides' :
+    'Skills';
 
   const sectionPrompts = useMemo(() => {
     const filtered = prompts.filter(p => p.section === activeSection);
@@ -250,6 +251,7 @@ export default function App() {
       if (activeTab === 'collections' && !prompt.id.startsWith('Collections/')) return false;
       if (activeTab === 'system-prompts' && !prompt.id.startsWith('System_Prompts/')) return false;
       if (activeTab === 'agent-guides' && !prompt.id.startsWith('Agent_Guides/')) return false;
+      if (activeTab === 'skills' && !prompt.id.startsWith('Skills/')) return false;
       return true;
     });
     console.log(`🔍 DEBUG: activeTab="${activeTab}", after path filter=${currentPrompts.length}/${sectionPrompts.length}`);
@@ -636,6 +638,7 @@ export default function App() {
               <option value="collections">📚 Collections</option>
               <option value="system-prompts">⚙️ System Prompts</option>
               <option value="agent-guides">🤖 Agent Guides</option>
+              <option value="skills">🛠️ Skills</option>
             </select>
           </div>
 
@@ -1061,7 +1064,8 @@ export default function App() {
                   {activeTab === 'my-prompts' ? 'My Prompts' : 
                    activeTab === 'collections' ? 'Collections' : 
                    activeTab === 'system-prompts' ? 'System Prompts' : 
-                   'Agent Guides'}
+                   activeTab === 'agent-guides' ? 'Agent Guides' :
+                   'Skills'}
                 </h1>
                 
                 {/* Attribution */}
@@ -1103,7 +1107,7 @@ export default function App() {
                 className="flex items-center gap-1 hover:text-[var(--accent)] transition-colors"
               >
                 <Home className="w-3.5 h-3.5" />
-                <span>{activeTab === 'my-prompts' ? 'My Prompts' : activeTab === 'collections' ? 'Collections' : activeTab === 'system-prompts' ? 'System Prompts' : 'Agent Guides'}</span>
+                <span>{activeTab === 'my-prompts' ? 'My Prompts' : activeTab === 'collections' ? 'Collections' : activeTab === 'system-prompts' ? 'System Prompts' : activeTab === 'agent-guides' ? 'Agent Guides' : 'Skills'}</span>
               </button>
               {selectedSubcategory && (
                 <>
@@ -1158,7 +1162,8 @@ export default function App() {
                         {activeTab === 'my-prompts' ? 'My Prompts' : 
                          activeTab === 'collections' ? 'Collections' : 
                          activeTab === 'system-prompts' ? 'System Prompts' : 
-                         'Agent Guides'}
+                         activeTab === 'agent-guides' ? 'Agent Guides' :
+                         'Skills'}
                       </h2>
                       <p className="label mt-2">{sortedPrompts.length} prompts</p>
                     </div>

@@ -5,728 +5,235 @@ category: "Agent_Guides"
 subcategory: "Codex"
 ---
 
+<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->
+
 # Codex Slash Commands Reference
 
-Comprehensive reference for all slash commands available in Codex CLI (OpenAI coding assistant).
+Built-in slash commands available in Codex CLI interactive mode.
 
-## Most Useful Commands (Top 10)
+**Source**: [developers.openai.com/codex/cli/features](https://developers.openai.com/codex/cli/features)
 
-### 1. `/edit <file>` - Edit Files
-Request Codex to edit specific files.
-```bash
-/edit app.py
-/edit src/*.ts
-```
+## Core Slash Commands
 
-### 2. `/add <path>` - Add to Context
-Add files or directories to context.
-```bash
-/add src/components/
-/add package.json README.md
-```
+| Command | Description | Usage |
+|---------|-------------|-------|
+| `/model` | Switch between models or adjust reasoning levels | `/model` |
+| `/review` | Open code review presets | `/review` |
+| `/fork` | Fork conversation at current point | `/fork` |
+| `/copy` | Copy latest completed output to clipboard | `/copy` |
+| `/theme` | Preview and select color theme | `/theme` |
+| `/clear` | Wipe terminal and start fresh (preserves conversation) | `/clear` |
+| `/exit` | Close interactive session | `/exit` |
 
-### 3. `/run <command>` - Execute Command
-Run shell commands and capture output.
-```bash
-/run npm test
-/run python script.py
-```
+## Command Details
 
-### 4. `/ask` - Ask Questions
-Ask questions about the codebase without making changes.
-```bash
-/ask How does authentication work in this app?
-```
+### /model
 
-### 5. `/architect` - Architecture Planning
-Request architectural design and planning.
-```bash
-/architect Design a REST API for user management
-```
-
-### 6. `/review` - Code Review
-Request code review of recent changes.
-```bash
-/review
-/review src/auth.py
-```
-
-### 7. `/test <file>` - Generate Tests
-Generate test cases for code.
-```bash
-/test src/utils.js
-/test --coverage
-```
-
-### 8. `/debug` - Debug Assistance
-Get help debugging issues.
-```bash
-/debug Why is this function returning undefined?
-```
-
-### 9. `/refactor <file>` - Refactor Code
-Request code refactoring.
-```bash
-/refactor src/legacy-code.js
-```
-
-### 10. `/undo` - Undo Changes
-Undo the last Codex modification.
-```bash
-/undo
-```
-
----
-
-## Context Management
-
-### `/add <path>` - Add to Context
-Add files to conversation context.
-```bash
-/add src/
-/add *.py
-/add package.json tsconfig.json
-```
-
-### `/drop <path>` - Remove from Context
-Remove files from context.
-```bash
-/drop old-file.js
-/drop tests/
-```
-
-### `/context` - Show Context
-Display current context (files, tokens, etc.).
-```bash
-/context
-```
-
-### `/clear` - Clear Context
-Clear all files from context.
-```bash
-/clear
-```
-
-### `/ls [path]` - List Files
-List files in directory.
-```bash
-/ls
-/ls src/components/
-```
-
-### `/tree [path]` - Directory Tree
-Show directory structure.
-```bash
-/tree
-/tree src/
-```
-
----
-
-## Code Editing
-
-### `/edit <file>` - Edit Files
-Request edits to specific files.
-```bash
-/edit app.py
-/edit src/**/*.ts
-```
-
-### `/create <file>` - Create File
-Create a new file with content.
-```bash
-/create src/newModule.py
-```
-
-### `/delete <file>` - Delete File
-Delete a file.
-```bash
-/delete temp.js
-```
-
-### `/rename <old> <new>` - Rename File
-Rename or move a file.
-```bash
-/rename old-name.py new-name.py
-```
-
-### `/refactor <file>` - Refactor Code
-Request code refactoring.
-```bash
-/refactor messy-code.js
-/refactor --improve-performance
-```
-
----
-
-## Development Workflow
-
-### `/run <command>` - Execute Commands
-Run shell commands.
-```bash
-/run pip install requests
-/run npm run build
-/run git status
-```
-
-### `/test [pattern]` - Run Tests
-Execute tests.
-```bash
-/test
-/test auth
-/test --watch
-```
-
-### `/lint [path]` - Run Linter
-Run linting on code.
-```bash
-/lint
-/lint src/
-```
-
-### `/format [path]` - Format Code
-Format code using project formatter.
-```bash
-/format
-/format src/app.js
-```
-
-### `/build` - Build Project
-Run project build command.
-```bash
-/build
-/build --production
-```
-
----
-
-## Code Generation
-
-### `/scaffold <type>` - Generate Boilerplate
-Generate project scaffolding or boilerplate.
-```bash
-/scaffold component UserProfile
-/scaffold api users
-/scaffold test auth
-```
-
-### `/generate <type>` - Generate Code
-Generate specific code patterns.
-```bash
-/generate model User
-/generate controller api
-/generate migration add_users
-```
-
-### `/implement <spec>` - Implement Feature
-Implement a feature from specification.
-```bash
-/implement Add password reset functionality
-```
-
----
-
-## Testing & Quality
-
-### `/test <file>` - Generate Tests
-Create test cases for code.
-```bash
-/test src/auth.py
-/test --unit
-/test --integration
-```
-
-### `/coverage` - Test Coverage
-Show test coverage report.
-```bash
-/coverage
-```
-
-### `/review [file]` - Code Review
-Request code review.
-```bash
-/review
-/review src/critical-module.js
-```
-
-### `/security` - Security Review
-Perform security analysis.
-```bash
-/security
-/security src/api/
-```
-
-### `/performance` - Performance Analysis
-Analyze performance bottlenecks.
-```bash
-/performance
-```
-
----
-
-## Git Integration
-
-### `/diff` - Show Changes
-Display uncommitted changes.
-```bash
-/diff
-/diff --staged
-```
-
-### `/commit <message>` - Commit Changes
-Stage and commit changes.
-```bash
-/commit "feat: add user authentication"
-```
-
-### `/status` - Git Status
-Show git status.
-```bash
-/status
-```
-
-### `/log [n]` - Git Log
-Show recent commits.
-```bash
-/log
-/log 20
-```
-
-### `/branch` - Show Branch
-Display current branch.
-```bash
-/branch
-```
-
-### `/pr` - Create Pull Request
-Create a pull request.
-```bash
-/pr "Add authentication feature"
-```
-
----
-
-## Documentation
-
-### `/docs [file]` - Generate Documentation
-Generate documentation for code.
-```bash
-/docs src/api.py
-/docs --format markdown
-```
-
-### `/comment <file>` - Add Comments
-Add comments to code.
-```bash
-/comment src/complex-logic.js
-```
-
-### `/readme` - Generate README
-Generate or update README file.
-```bash
-/readme
-```
-
-### `/changelog` - Generate Changelog
-Create changelog from git history.
-```bash
-/changelog
-/changelog --since v1.0.0
-```
-
----
-
-## Architecture & Design
-
-### `/architect` - Architectural Design
-Get architectural guidance.
-```bash
-/architect Design a microservices architecture for e-commerce
-```
-
-### `/diagram` - Generate Diagrams
-Create architectural diagrams.
-```bash
-/diagram database-schema
-/diagram component-hierarchy
-```
-
-### `/plan` - Create Implementation Plan
-Generate step-by-step implementation plan.
-```bash
-/plan Migrate from MongoDB to PostgreSQL
-```
-
-### `/design <pattern>` - Apply Design Pattern
-Apply design patterns to code.
-```bash
-/design singleton DatabaseConnection
-/design factory PaymentProcessor
-```
-
----
-
-## Debugging & Analysis
-
-### `/debug` - Debug Assistance
-Get debugging help.
-```bash
-/debug Why is this function failing?
-```
-
-### `/trace <function>` - Trace Execution
-Analyze function execution flow.
-```bash
-/trace calculateTotal
-```
-
-### `/analyze [file]` - Static Analysis
-Perform code analysis.
-```bash
-/analyze
-/analyze src/problematic.py
-```
-
-### `/errors` - Explain Errors
-Get help with error messages.
-```bash
-/errors
-```
-
-### `/fix` - Auto-fix Issues
-Automatically fix common issues.
-```bash
-/fix
-/fix linting-errors
-```
-
----
-
-## AI & Model Control
-
-### `/model <name>` - Switch Model
-Change the active OpenAI model.
-```bash
-/model gpt-4-turbo
-/model gpt-4o
-/model o1-preview
-```
+Switch between available models or adjust reasoning levels mid-session.
 
 **Available Models:**
-- `o1-preview` - Advanced reasoning (best for complex problems)
-- `o1-mini` - Faster reasoning
-- `gpt-4o` - Latest multimodal model
-- `gpt-4-turbo` - Fast and capable
-- `gpt-3.5-turbo` - Fastest, economical
+- `gpt-5.4` (recommended - combines GPT-5.3-Codex with frontier reasoning)
+- `gpt-5.3-codex` (strong coding capabilities)
+- `gpt-5.3-codex-spark` (ChatGPT Pro only, research preview)
 
-### `/temperature <value>` - Set Temperature
-Adjust creativity/randomness (0.0-2.0).
+**Usage:**
 ```bash
-/temperature 0.3
-/temperature 1.0
+/model
+# Opens model selector
 ```
 
-### `/thinking` - Toggle Reasoning
-Enable extended thinking/reasoning mode.
+### /review
+
+Launch dedicated reviewer that reads diffs and reports findings without touching your working tree.
+
+**Review Options:**
+- **Review against base branch** - Pick local branch, diff against merge base
+- **Review uncommitted changes** - Inspect staged, unstaged, and untracked files
+- **Review a commit** - List recent commits and review specific SHA
+- **Custom review instructions** - Provide custom focus (e.g., "Focus on accessibility")
+
+**Configuration:**
+- Uses current session model by default
+- Override with `review_model` in `~/.codex/config.toml`
+
+**Usage:**
 ```bash
-/thinking on
-/thinking off
+/review
+# Opens review preset selector
 ```
 
----
+**Note:** Each review appears as its own turn in transcript, so you can rerun and compare feedback.
 
-## Session Management
+### /fork
 
-### `/save [name]` - Save Session
-Save current conversation.
+Create a fork of the conversation at the current point.
+
+**Usage:**
 ```bash
-/save feature-development
+/fork
+# Forks the conversation
 ```
 
-### `/load <name>` - Load Session
-Load a saved session.
+### /copy
+
+Copy the latest completed Codex output to clipboard. If a turn is still running, copies most recent finished output.
+
+**Requirements:**
+- **macOS**: `pbcopy` (pre-installed)
+- **Linux**: `xclip` or `xsel` (install via package manager)
+- **Windows**: `clip` (pre-installed)
+- **Remote (SSH/WSL)**: OSC 52 support in terminal
+
+**Usage:**
 ```bash
-/load feature-development
+/copy
+# Copies last output
 ```
 
-### `/sessions` - List Sessions
-Show all saved sessions.
+### /theme
+
+Open theme picker to preview and save color theme preferences.
+
+**Features:**
+- Live preview of themes
+- Syntax highlighting for code blocks and diffs
+- Saved to `tui.theme` in `~/.codex/config.toml`
+- Custom `.tmTheme` files under `$CODEX_HOME/themes`
+
+**Usage:**
 ```bash
-/sessions
+/theme
+# Opens theme selector
 ```
 
-### `/history` - Command History
-Show command history.
+### /clear
+
+Clear the terminal screen and start fresh chat. Conversation history is cleared visually but session state may be preserved depending on implementation.
+
+**Shortcut:** `Ctrl+L` also clears the screen without starting new conversation.
+
+**Usage:**
 ```bash
-/history
-/history 50
+/clear
+# Clears terminal
 ```
 
----
+### /exit
 
-## Questions & Learning
+Close the interactive session and return to shell.
 
-### `/ask` - Ask Questions
-Ask about the codebase.
-```bash
-/ask How does the authentication flow work?
-```
+**Shortcuts:**
+- `Ctrl+C` (when idle)
+- `/exit`
 
-### `/explain <file>` - Explain Code
-Get explanation of code.
-```bash
-/explain src/algorithm.py
-```
-
-### `/learn <topic>` - Learn About Topic
-Get tutorials or explanations.
-```bash
-/learn design patterns in Python
-```
-
-### `/compare <a> <b>` - Compare Approaches
-Compare different approaches.
-```bash
-/compare REST vs GraphQL
-```
-
----
-
-## Project Management
-
-### `/tasks` - List Tasks
-Show project tasks and TODOs.
-```bash
-/tasks
-```
-
-### `/todo` - Find TODOs
-Find TODO comments in code.
-```bash
-/todo
-/todo --priority
-```
-
-### `/roadmap` - Project Roadmap
-Generate or update project roadmap.
-```bash
-/roadmap
-```
-
-### `/estimate <task>` - Time Estimate
-Estimate time for a task.
-```bash
-/estimate Implement OAuth integration
-```
-
----
-
-## Configuration
-
-### `/config` - Show Configuration
-Display Codex configuration.
-```bash
-/config
-```
-
-### `/config set <key> <value>` - Set Config
-Update configuration.
-```bash
-/config set auto-test true
-/config set format-on-save true
-```
-
-### `/config get <key>` - Get Config
-Get configuration value.
-```bash
-/config get model
-```
-
----
-
-## Utility Commands
-
-### `/undo` - Undo Last Change
-Undo last file modification.
-```bash
-/undo
-```
-
-### `/redo` - Redo Last Undo
-Redo undone operation.
-```bash
-/redo
-```
-
-### `/pwd` - Working Directory
-Show current directory.
-```bash
-/pwd
-```
-
-### `/cd <path>` - Change Directory
-Change working directory.
-```bash
-/cd src/
-```
-
-### `/grep <pattern>` - Search Code
-Search for patterns in code.
-```bash
-/grep "import.*axios"
-```
-
-### `/find <pattern>` - Find Files
-Find files by pattern.
-```bash
-/find "*.test.js"
-```
-
----
-
-## Advanced Features
-
-### `/bench [file]` - Benchmark
-Run performance benchmarks.
-```bash
-/bench src/algorithm.py
-```
-
-### `/profile [file]` - Profile Code
-Profile code execution.
-```bash
-/profile src/slow-function.js
-```
-
-### `/optimize <file>` - Optimize Code
-Optimize for performance.
-```bash
-/optimize src/bottleneck.py
-```
-
-### `/migrate <from> <to>` - Code Migration
-Migrate code between frameworks/versions.
-```bash
-/migrate python2 python3
-/migrate react-class-components react-hooks
-```
-
----
-
-## Help & Documentation
-
-### `/help` - Show Help
-Display all commands.
-```bash
-/help
-```
-
-### `/docs` - View Documentation
-View Codex documentation.
-```bash
-/docs
-/docs commands
-```
-
-### `/examples` - Show Examples
-Display example workflows.
-```bash
-/examples
-```
-
-### `/version` - Show Version
-Display Codex version.
-```bash
-/version
-```
-
----
-
-## Exit & Cleanup
-
-### `/exit` or `/quit` - Exit Codex
-Exit the CLI.
+**Usage:**
 ```bash
 /exit
+# Exits Codex
 ```
 
-### `/reset` - Reset Session
-Clear conversation and start fresh.
-```bash
-/reset
+## Special Input Prefixes
+
+These aren't slash commands but special input modes:
+
+### @ - File Search
+
+Fuzzy file search over workspace root.
+
+**Usage:**
 ```
+@<start typing>
+# Opens fuzzy finder, press Tab/Enter to insert path
+```
+
+**Example:**
+```
+@src/app Show me this file
+```
+
+### ! - Shell Command
+
+Execute local shell command and include output in context.
+
+**Usage:**
+```
+!ls -la
+!git status
+```
+
+**Toggle Shell Mode:**
+```
+!
+# Toggles shell mode on/off
+# When active: all input interpreted as shell commands
+```
+
+**Environment Variable:** `GEMINI_CLI=1` is set when running commands via `!`
+
+## Keyboard Shortcuts (Not Commands)
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+L` | Clear screen (preserves conversation) |
+| `Ctrl+C` | Cancel current operation / Exit |
+| `Ctrl+G` | Open full editor (`$VISUAL` or `$EDITOR`) |
+| `Up/Down` | Navigate draft history |
+| `Enter` (while running) | Inject new instructions |
+| `Tab` (while running) | Queue follow-up for next turn |
+| `Esc Esc` | Edit previous user message / fork from point |
+
+## Interactive Features
+
+### Composer Features
+
+- **Draft history**: Navigate with Up/Down arrows
+- **Image placeholders**: Restored when navigating drafts
+- **Multiline input**: Natural multiline editing
+- **Editor integration**: Ctrl+G for full editor
+
+### Real-Time Feedback
+
+- Watch Codex explain plan before changes
+- Approve or reject steps inline
+- Syntax-highlighted code blocks and diffs
+- Colored markdown rendering
+
+### Session Management
+
+Resume previous sessions:
+
+```bash
+codex resume          # Interactive picker
+codex resume --last   # Most recent session
+codex resume <id>     # Specific session ID
+```
+
+## Configuration File
+
+Location: `~/.codex/config.toml`
+
+**Relevant Settings:**
+```toml
+[tui]
+theme = "monokai"
+
+review_model = "gpt-5.4"
+web_search = "cached"  # or "live" or "disabled"
+```
+
+## Notes
+
+- All slash commands are case-sensitive
+- Commands can be used mid-conversation
+- Some commands open interactive pickers
+- Review runs isolated (no working tree changes)
+- Model switches take effect immediately
 
 ---
 
-## Keyboard Shortcuts
+## See Also
 
-- **Ctrl+C**: Cancel current operation
-- **Ctrl+D**: Exit (same as /exit)
-- **↑/↓**: Navigate command history
-- **Tab**: Auto-complete (paths, commands)
-- **Ctrl+R**: Search command history
-
----
-
-## Tips & Best Practices
-
-1. **Add relevant files first**: Use `/add` to provide context before asking
-2. **Use `/ask` for questions**: Don't request edits if you just want information
-3. **Leverage `/architect`**: For design guidance before coding
-4. **Review before committing**: Use `/review` to catch issues
-5. **Generate tests early**: Use `/test` during development, not after
-6. **Save important sessions**: Use `/save` for complex work
-7. **Choose the right model**:
-   - `o1-preview` for complex algorithmic problems
-   - `gpt-4o` for general coding
-   - `gpt-3.5-turbo` for simple tasks
-8. **Use `/thinking on`**: For complex debugging or architectural decisions
-9. **Automate workflows**: Chain commands for common tasks
-10. **Keep context lean**: Drop unnecessary files with `/drop`
-
----
-
-## Common Workflows
-
-### Feature Development
-```bash
-/add src/
-/architect Add payment processing feature
-/implement payment processing
-/test src/payment.js
-/review
-/commit "feat: add payment processing"
-```
-
-### Bug Fixing
-```bash
-/add src/problematic-file.js
-/debug Why is X happening?
-/edit src/problematic-file.js
-/test
-/commit "fix: resolve issue with X"
-```
-
-### Refactoring
-```bash
-/add src/legacy/
-/review src/legacy/old-code.js
-/refactor src/legacy/old-code.js
-/test --all
-/commit "refactor: modernize legacy code"
-```
-
-### Test Generation
-```bash
-/add src/utils.js
-/test src/utils.js --unit
-/coverage
-/commit "test: add unit tests for utils"
-```
-
----
-
-**Last Updated**: 2026-03-14  
-**Codex Version**: Latest  
-**Source**: Synced from official OpenAI documentation  
-**Supported Models**: GPT-5.4, GPT-5.3-Codex, GPT-4o, o1-preview, GPT-4 Turbo
+- [Codex CLI Features](https://developers.openai.com/codex/cli/features) - Complete feature documentation
+- [Multi-Agent](https://developers.openai.com/codex/multi-agent) - Parallel workflows
+- [MCP Documentation](https://developers.openai.com/codex/mcp) - External tool integration
+- [Best Practices](https://developers.openai.com/codex/learn/best-practices) - Usage guidelines
