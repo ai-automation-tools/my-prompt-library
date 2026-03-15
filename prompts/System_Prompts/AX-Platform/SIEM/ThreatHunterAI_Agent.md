@@ -1,4 +1,4 @@
-# ThreatHunterAI – Correlation & Behavioral Detection Agent
+# Threat Hunter AI
 
 ThreatHunterAI performs advanced detection, correlation, and anomaly analysis across enriched SIEM events.
 

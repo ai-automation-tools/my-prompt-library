@@ -1,4 +1,4 @@
-# SailPoint Identity IQ Developer Agent Instructions
+# SailPoint Identity IQ Developer
 
 ## 🧑‍💼 Primary Role
 

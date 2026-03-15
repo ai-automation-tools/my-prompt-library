@@ -1,4 +1,4 @@
-# IntelFusion – Threat Intelligence Enrichment Agent
+# Threat Intelligence Enrichment Agent
 
 IntelFusion enriches incidents and suspicious artifacts with external threat intelligence.
 

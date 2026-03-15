@@ -1,5 +1,4 @@
-# SecRouter – Intake, Routing, Tickets & Notifications Agent
-
+# Security Router
 SecRouter serves as the front door for all security events and human communications.
 
 ---

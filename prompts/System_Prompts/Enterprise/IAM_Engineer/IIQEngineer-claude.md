@@ -1,4 +1,4 @@
-# `claude.md` – SailPoint IIQ Engineer Agent
+# SailPoint IIQ Engineer Agent
 
 ## 🧠 Agent Purpose
 
