@@ -549,7 +549,90 @@ prompts/Skills/
 
 ---
 
+---
+
+### 13. Cross-Platform Path Resolution Fix
+**Time:** 7:10 PM PST  
+**Commit:** `599d833`
+
+**Problem:** App only worked when run from repo root directory
+- Windows users cloning to `D:\path\to\repo` couldn't see prompts
+- `process.cwd()` depends on where command is executed, not where code lives
+- API was looking in wrong directory based on execution context
+
+**Solution:** Use `import.meta.url` to resolve paths relative to source files
+
+**Changes:**
+- Added `fileURLToPath` and `dirname` imports
+- Convert `import.meta.url` to `__filename`, then extract `__dirname`
+- All file operations now relative to source file location
+
+**Files Updated:**
+- `server.ts` - Use `__dirname` for `prompts/`, `dist/` paths
+- `api/index.ts` - Use `__dirname/../prompts` (since api/ is subdirectory)
+
+**Now Works Regardless Of:**
+- Where the repo is cloned (Windows `D:`, Linux `/home`, etc.)
+- What directory you run `npm run dev` from
+- Cross-platform path differences (Windows backslash vs Unix forward slash)
+
+**Fixed:** User on Windows in `D:\AI_Agents\AI_Tools\my-prompt-library` was seeing `'AX-Platform'` section instead of proper sections
+
+---
+
+### 14. UI Fixes - Prompt Cards and Dropdowns
+**Time:** 7:28 PM PST  
+**Commit:** `78133e8`
+
+**Three UI Issues Fixed:**
+
+#### A. Prompt Card Button Cutoff
+**Problem:** Edit and Delete buttons getting cut off at bottom of cards
+
+**Fix:**
+- Added `min-h-[220px]` to ensure card has enough height
+- Added `shrink-0` to button column to prevent compression
+- Buttons now always visible regardless of content length
+
+**Before:** Buttons would disappear on cards with less content  
+**After:** All three buttons (favorite, edit, delete) always visible
+
+#### B. Filter Dropdown Mutual Exclusion
+**Problem:** Clicking Recent then Tags caused menus to overlap
+
+**Fix:** Added mutual exclusion logic
+```typescript
+// Each button now closes the other two
+onClick={() => {
+  setFavoritesExpanded(!favoritesExpanded);
+  setRecentlyViewedExpanded(false);  // Close others
+  setTagsExpanded(false);
+}}
+```
+
+**Before:** Multiple dropdown menus could be open simultaneously  
+**After:** Only one dropdown open at a time
+
+#### C. Dropdown Background Transparency
+**Problem:** Filter dropdowns had transparent backgrounds, hard to read content behind them
+
+**Fix:**
+- Changed `dropdown-solid` from `--bg-secondary` (75% opacity) to `--bg-primary` (100% opacity)
+- Added stronger shadow: `0 20px 60px rgba(0,0,0,0.4)`
+- Removed backdrop-filter for cleaner appearance
+
+**Before:** Semi-transparent dropdowns with content showing through  
+**After:** Fully opaque backgrounds, easy to read in all themes
+
+**Applies To:**
+- Favorites dropdown
+- Recent dropdown
+- Tags dropdown
+- All themes (dark, light, retro-wave, emerald-glass, etc.)
+
+---
+
 **Documentation Date:** March 14, 2026  
-**Last Updated:** 6:42 PM PST  
-**Total Changes:** 13 commits (2 automation, 6 UI/UX morning, 5 Skills evening)  
-**Status:** ✅ Skills section deployed, UI debug in progress
+**Last Updated:** 7:30 PM PST  
+**Total Changes:** 15 commits (2 automation, 6 UI/UX morning, 5 Skills evening, 2 fixes)  
+**Status:** ✅ All issues resolved and deployed

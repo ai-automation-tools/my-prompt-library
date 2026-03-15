@@ -92,7 +92,7 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'my-prompts' | 'collections' | 'system-prompts' | 'agent-guides' | 'skills'>('my-prompts');
+  const [activeTab, setActiveTab] = useState<'agent-guides' | 'agent-instructions' | 'prompt-library' | 'skills' | 'system-prompts'>('prompt-library');
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -216,10 +216,10 @@ export default function App() {
   }, []);
 
   const activeSection = 
-    activeTab === 'my-prompts' ? 'My_Prompts' : 
-    activeTab === 'collections' ? 'Collections' : 
-    activeTab === 'system-prompts' ? 'System_Prompts' : 
-    activeTab === 'agent-guides' ? 'Agent_Guides' :
+    activeTab === 'agent-guides' ? 'Agent_Guides' : 
+    activeTab === 'agent-instructions' ? 'Agent_Instructions' : 
+    activeTab === 'prompt-library' ? 'Prompt_Library' : 
+    activeTab === 'system-prompts' ? 'System_Prompts' :
     'Skills';
 
   const sectionPrompts = useMemo(() => {
@@ -247,10 +247,10 @@ export default function App() {
 
   const filteredPrompts = useMemo(() => {
     let currentPrompts = sectionPrompts.filter(prompt => {
-      if (activeTab === 'my-prompts' && !prompt.id.startsWith('My_Prompts/')) return false;
-      if (activeTab === 'collections' && !prompt.id.startsWith('Collections/')) return false;
-      if (activeTab === 'system-prompts' && !prompt.id.startsWith('System_Prompts/')) return false;
       if (activeTab === 'agent-guides' && !prompt.id.startsWith('Agent_Guides/')) return false;
+      if (activeTab === 'agent-instructions' && !prompt.id.startsWith('Agent_Instructions/')) return false;
+      if (activeTab === 'prompt-library' && !prompt.id.startsWith('Prompt_Library/')) return false;
+      if (activeTab === 'system-prompts' && !prompt.id.startsWith('System_Prompts/')) return false;
       if (activeTab === 'skills' && !prompt.id.startsWith('Skills/')) return false;
       return true;
     });
@@ -488,7 +488,7 @@ export default function App() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.04, ease: [0.4, 0, 0.2, 1] }}
       key={prompt.id}
-      className="glass-card rounded-[var(--radius-lg)] relative group cursor-pointer overflow-hidden flex"
+      className="glass-card rounded-[var(--radius-lg)] relative group cursor-pointer overflow-hidden flex min-h-[220px]"
       onClick={() => handlePromptClick(prompt)}
     >
       {/* Hover glow accent */}
@@ -533,7 +533,7 @@ export default function App() {
       </div>
 
       {/* Button column with separator */}
-      <div className="flex flex-col gap-2 p-3 border-l border-[var(--glass-border)] relative z-10 justify-center">
+      <div className="flex flex-col gap-2 p-3 border-l border-[var(--glass-border)] relative z-10 justify-center shrink-0">
         <button
           onClick={(e) => toggleFavorite(prompt.id, e)}
           className={cn(
@@ -634,10 +634,10 @@ export default function App() {
               }}
               className="w-full py-3 px-4 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.75rem] font-semibold tracking-wider uppercase text-[var(--text-primary)] cursor-pointer transition-all duration-300 hover:bg-[var(--glass-bg-hover)] hover:border-[var(--accent)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)]"
             >
-              <option value="my-prompts">📝 My Prompts</option>
-              <option value="collections">📚 Collections</option>
+              <option value="prompt-library">📚 Prompt Library</option>
+              <option value="agent-instructions">👤 Agent Instructions</option>
+              <option value="agent-guides">📖 Agent Guides</option>
               <option value="system-prompts">⚙️ System Prompts</option>
-              <option value="agent-guides">🤖 Agent Guides</option>
               <option value="skills">🛠️ Skills</option>
             </select>
           </div>
@@ -1061,10 +1061,10 @@ export default function App() {
             <div className="py-8 md:py-12 mb-8">
               <div className="max-w-4xl">
                 <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-3">
-                  {activeTab === 'my-prompts' ? 'My Prompts' : 
-                   activeTab === 'collections' ? 'Collections' : 
-                   activeTab === 'system-prompts' ? 'System Prompts' : 
-                   activeTab === 'agent-guides' ? 'Agent Guides' :
+                  {activeTab === 'prompt-library' ? 'Prompt Library' : 
+                   activeTab === 'agent-instructions' ? 'Agent Instructions' : 
+                   activeTab === 'agent-guides' ? 'Agent Guides' : 
+                   activeTab === 'system-prompts' ? 'System Prompts' :
                    'Skills'}
                 </h1>
                 
@@ -1107,7 +1107,7 @@ export default function App() {
                 className="flex items-center gap-1 hover:text-[var(--accent)] transition-colors"
               >
                 <Home className="w-3.5 h-3.5" />
-                <span>{activeTab === 'my-prompts' ? 'My Prompts' : activeTab === 'collections' ? 'Collections' : activeTab === 'system-prompts' ? 'System Prompts' : activeTab === 'agent-guides' ? 'Agent Guides' : 'Skills'}</span>
+                <span>{activeTab === 'prompt-library' ? 'Prompt Library' : activeTab === 'agent-instructions' ? 'Agent Instructions' : activeTab === 'agent-guides' ? 'Agent Guides' : activeTab === 'system-prompts' ? 'System Prompts' : 'Skills'}</span>
               </button>
               {selectedSubcategory && (
                 <>
@@ -1159,10 +1159,10 @@ export default function App() {
                   <div className="flex items-center gap-3 flex-wrap">
                     <div>
                       <h2 className="heading-display text-xl font-bold tracking-tight text-[var(--text-primary)]">
-                        {activeTab === 'my-prompts' ? 'My Prompts' : 
-                         activeTab === 'collections' ? 'Collections' : 
-                         activeTab === 'system-prompts' ? 'System Prompts' : 
-                         activeTab === 'agent-guides' ? 'Agent Guides' :
+                        {activeTab === 'prompt-library' ? 'Prompt Library' : 
+                         activeTab === 'agent-instructions' ? 'Agent Instructions' : 
+                         activeTab === 'agent-guides' ? 'Agent Guides' : 
+                         activeTab === 'system-prompts' ? 'System Prompts' :
                          'Skills'}
                       </h2>
                       <p className="label mt-2">{sortedPrompts.length} prompts</p>
@@ -1187,7 +1187,11 @@ export default function App() {
                         {favoritePrompts.length > 0 && (
                           <div className="relative filter-dropdown">
                             <button
-                              onClick={() => setFavoritesExpanded(!favoritesExpanded)}
+                              onClick={() => {
+                                setFavoritesExpanded(!favoritesExpanded);
+                                setRecentlyViewedExpanded(false);
+                                setTagsExpanded(false);
+                              }}
                               className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                             >
                               <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
@@ -1229,7 +1233,11 @@ export default function App() {
                         {recentlyViewedPrompts.length > 0 && (
                           <div className="relative filter-dropdown">
                             <button
-                              onClick={() => setRecentlyViewedExpanded(!recentlyViewedExpanded)}
+                              onClick={() => {
+                                setRecentlyViewedExpanded(!recentlyViewedExpanded);
+                                setFavoritesExpanded(false);
+                                setTagsExpanded(false);
+                              }}
                               className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                             >
                               <Clock className="w-3 h-3 text-[var(--accent)]" />
@@ -1271,7 +1279,11 @@ export default function App() {
                         {allTags.length > 0 && (
                           <div className="relative filter-dropdown">
                             <button
-                              onClick={() => setTagsExpanded(!tagsExpanded)}
+                              onClick={() => {
+                                setTagsExpanded(!tagsExpanded);
+                                setFavoritesExpanded(false);
+                                setRecentlyViewedExpanded(false);
+                              }}
                               className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                             >
                               <Tag className="w-3 h-3 text-[var(--text-tertiary)]" />
