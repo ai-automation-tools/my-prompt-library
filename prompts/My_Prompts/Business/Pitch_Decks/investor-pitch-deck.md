@@ -1,4 +1,4 @@
-﻿# [Company/Product Name] - Investor Pitch Deck
+﻿# Investor Pitch Deck
 
 <!-- One-line elevator pitch -->
 

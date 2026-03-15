@@ -1,4 +1,4 @@
-﻿# [Product/Service Name] - Sales Pitch Deck
+﻿# Sales Pitch Deck
 
 <!-- Pitch to customers, not investors -->
 

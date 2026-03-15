@@ -1,4 +1,4 @@
-﻿# [Company Name] - Quick Pitch
+﻿# Quick Pitch
 
 <!-- 30-second to 5-minute pitch -->
 
