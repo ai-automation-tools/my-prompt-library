@@ -488,7 +488,7 @@ export default function App() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.04, ease: [0.4, 0, 0.2, 1] }}
       key={prompt.id}
-      className="glass-card rounded-[var(--radius-lg)] relative group cursor-pointer overflow-hidden flex"
+      className="glass-card rounded-[var(--radius-lg)] relative group cursor-pointer overflow-hidden flex min-h-[220px]"
       onClick={() => handlePromptClick(prompt)}
     >
       {/* Hover glow accent */}
@@ -533,7 +533,7 @@ export default function App() {
       </div>
 
       {/* Button column with separator */}
-      <div className="flex flex-col gap-2 p-3 border-l border-[var(--glass-border)] relative z-10 justify-center">
+      <div className="flex flex-col gap-2 p-3 border-l border-[var(--glass-border)] relative z-10 justify-center shrink-0">
         <button
           onClick={(e) => toggleFavorite(prompt.id, e)}
           className={cn(
@@ -1187,7 +1187,11 @@ export default function App() {
                         {favoritePrompts.length > 0 && (
                           <div className="relative filter-dropdown">
                             <button
-                              onClick={() => setFavoritesExpanded(!favoritesExpanded)}
+                              onClick={() => {
+                                setFavoritesExpanded(!favoritesExpanded);
+                                setRecentlyViewedExpanded(false);
+                                setTagsExpanded(false);
+                              }}
                               className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                             >
                               <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
@@ -1229,7 +1233,11 @@ export default function App() {
                         {recentlyViewedPrompts.length > 0 && (
                           <div className="relative filter-dropdown">
                             <button
-                              onClick={() => setRecentlyViewedExpanded(!recentlyViewedExpanded)}
+                              onClick={() => {
+                                setRecentlyViewedExpanded(!recentlyViewedExpanded);
+                                setFavoritesExpanded(false);
+                                setTagsExpanded(false);
+                              }}
                               className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                             >
                               <Clock className="w-3 h-3 text-[var(--accent)]" />
@@ -1271,7 +1279,11 @@ export default function App() {
                         {allTags.length > 0 && (
                           <div className="relative filter-dropdown">
                             <button
-                              onClick={() => setTagsExpanded(!tagsExpanded)}
+                              onClick={() => {
+                                setTagsExpanded(!tagsExpanded);
+                                setFavoritesExpanded(false);
+                                setRecentlyViewedExpanded(false);
+                              }}
                               className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                             >
                               <Tag className="w-3 h-3 text-[var(--text-tertiary)]" />
