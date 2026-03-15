@@ -309,7 +309,247 @@ All changes built successfully with no TypeScript errors.
 
 ---
 
+---
+
+## 🛠️ Skills Section Addition (Evening Session)
+
+### 9. Skills Section Implementation
+**Time:** 5:57 PM PST  
+**Commit:** `897955c`
+
+**Added New Section:**
+- Created "Skills" as 5th navigation tab
+- Icon: 🛠️ (tools emoji)
+- Folder path: `prompts/Skills/`
+- Same functionality as other sections (My Prompts, Collections, etc.)
+
+**New Skills Content Added (14 files):**
+
+**📊 Finance (1 skill, 5 templates):**
+- Financial Analysis skill
+- Templates: Earnings/Corporate, Global Market, Investment Strategy, Market Sentiment, Stock Market Analysis
+
+**📰 News (2 skills):**
+- Weekly AI News Digest
+- Daily News Collage Generator
+
+**🎙️ Podcasts (4 skills):**
+- Podcast Topic Picker
+- Dr. Vega Respond to Podcast Topic
+- Pastor Cole Respond to Topic
+- End Daily Podcast Topic
+
+**Technical Implementation:**
+- Updated `activeTab` type to include `'skills'`
+- Added Skills path filtering logic
+- Updated all UI text locations (hero, breadcrumbs, headings)
+- Added Skills option to navigation dropdown
+
+---
+
+### 10. Title Extraction from Markdown Headings
+**Time:** 6:08 PM PST  
+**Commit:** `9416561`
+
+**Problem:** Skills showing as "SKILL" instead of proper titles
+
+**Solution:** Extract titles from first `#` heading in markdown content
+
+**Added `extractFirstHeading()` Function:**
+- Scans markdown content for first `#` heading
+- Returns heading text (e.g., "Weekly AI News Digest")
+- Returns `null` if no heading found
+
+**Title Priority (Updated):**
+1. Frontmatter `title` field
+2. First `#` heading in content ← **NEW**
+3. Filename (fallback)
+
+**Applied to:**
+- ✅ `api/index.ts` (production/GitHub mode)
+- ✅ `server.ts` (development/local mode)
+
+**Example:**
+```markdown
+---
+name: ai-news-digest
+---
+
+# Weekly AI News Digest    ← This is now extracted as the title
+```
+
+**Cleanup:**
+- Removed unused financial analysis template files
+
+---
+
+### 11. CRLF Line Ending Fix
+**Time:** 6:28 PM PST  
+**Commit:** `bc8f046`
+
+**Problem:** Titles still showing as "SKILL" due to Windows line endings
+
+**Root Cause:** SKILL.md files had Windows-style line endings (`\r\n`), causing regex to fail
+
+**Fix:** Trim lines before regex matching
+
+**Updated Code:**
+```typescript
+// Before
+const match = line.match(/^#\s+(.+)$/);
+
+// After
+const trimmedLine = line.trim();  // Handles \r\n
+const match = trimmedLine.match(/^#\s+(.+)$/);
+```
+
+**Result:** Now correctly extracts titles from files with CRLF or LF line endings
+
+**Updated Files:**
+- `server.ts` (dev server)
+- `api/index.ts` (production server)
+
+**Verified Working:**
+- ✅ "Weekly AI News Digest"
+- ✅ "Podcast Topic Picker"
+- ✅ "Daily News Collage Generator"
+- ✅ "Respond to Podcast Topic"
+- ✅ "End Daily Podcast Topic"
+- ✅ "Pastor Cole: Respond to Podcast Topic"
+
+---
+
+### 12. Local Development Documentation
+**Time:** 6:38 PM PST  
+**Commits:** `999210d`, `7203320`
+
+**Created `docs/LOCAL_SETUP.md`:**
+
+**Contents:**
+- Quick start instructions (clone, install, run)
+- Folder structure explanation
+- Adding new prompts (UI vs filesystem)
+- Troubleshooting common issues
+- Available npm scripts
+- Debugging tips and API testing
+
+**Key Sections:**
+- ✅ Prerequisites (Node.js, npm, Git)
+- ✅ Clone and run instructions
+- ✅ What gets loaded (`prompts/` folder structure)
+- ✅ Troubleshooting (titles, port conflicts, caching)
+- ✅ Building for production
+- ✅ Environment variables (GitHub mode)
+
+**Created `DEBUG_UI.md`:**
+
+**Contents:**
+- Step-by-step UI debugging guide
+- Browser console checks
+- Network tab verification
+- API endpoint testing
+- React state inspection
+- Common issues and fixes
+
+**Debug Script Included:**
+```javascript
+fetch('/api/prompts')
+  .then(res => res.json())
+  .then(data => {
+    console.log('Total prompts:', data.length);
+    console.log('Skills prompts:', data.filter(p => p.section === 'Skills'));
+  });
+```
+
+---
+
+## 📊 Skills Section Summary
+
+### New Capabilities
+
+**Navigation:**
+- 🛠️ Skills tab in dropdown menu
+- Filter by skill category (Finance, News, Podcasts)
+- Browse skills like any other section
+
+**Content Structure:**
+```
+prompts/Skills/
+├── Finance/
+│   └── financial-analysis/
+│       └── SKILL.md
+├── News/
+│   ├── ai-news-digest/
+│   │   └── SKILL.md
+│   └── daily-news-collage/
+│       └── SKILL.md
+└── Podcasts/
+    ├── podcast-topic-picker/
+    │   └── SKILL.md
+    ├── dr-vega-respond-to-podcast-topic/
+    │   └── SKILL.md
+    ├── pastor-cole-respond-to-topic/
+    │   └── SKILL.md
+    └── end-daily-podcast-topic/
+        └── SKILL.md
+```
+
+**Title Extraction Logic:**
+1. Check frontmatter for `title` field
+2. Extract first `#` heading from content
+3. Fall back to filename if neither exists
+4. Handle both Unix (LF) and Windows (CRLF) line endings
+
+### Technical Details
+
+**Files Modified:**
+- `src/App.tsx` - Added Skills section UI
+- `api/index.ts` - Added title extraction (production)
+- `server.ts` - Added title extraction (development)
+
+**Total Commits (Skills Session):** 5
+- `897955c` - Add Skills section
+- `9416561` - Extract titles from headings
+- `7203320` - Fix dev server title extraction
+- `bc8f046` - Handle CRLF line endings
+- `999210d` - Add local setup documentation
+
+**Files Added:** 16
+- 14 SKILL.md files (Finance, News, Podcasts)
+- 1 LOCAL_SETUP.md documentation
+- 1 DEBUG_UI.md troubleshooting guide
+
+### Known Issues
+
+**UI Not Showing Prompts Locally:**
+- API endpoint works (returns JSON)
+- Frontend fetch appears successful
+- Prompts not rendering in UI
+- **Status:** Under investigation
+- **Workaround:** Documented in DEBUG_UI.md
+
+**Potential Causes:**
+- Browser caching
+- React state not updating
+- Filtering logic excluding all prompts
+- Port forwarding issues (if running remotely)
+
+---
+
+## 🔗 Updated Documentation Index
+
+- **Main README:** Project overview
+- **ARCHITECTURE.md:** Technical details
+- **SETUP.md:** Initial setup instructions
+- **LOCAL_SETUP.md:** ← **NEW** Local development guide
+- **DEBUG_UI.md:** ← **NEW** UI troubleshooting
+- **CHANGELOG-2026-03-14.md:** This file
+- **navigation-organization.md:** UI/UX patterns
+- **prompt-template-guide.md:** Prompt creation guide
+
+---
+
 **Documentation Date:** March 14, 2026  
-**Last Updated:** 11:28 AM PST  
-**Total Changes:** 8 commits (2 automation, 6 UI/UX)  
-**Status:** ✅ All changes deployed successfully
+**Last Updated:** 6:42 PM PST  
+**Total Changes:** 13 commits (2 automation, 6 UI/UX morning, 5 Skills evening)  
+**Status:** ✅ Skills section deployed, UI debug in progress
