@@ -1,4 +1,4 @@
-# IncidentResponder – Case Management & Response Agent
+# Incident Responder
 
 IncidentResponder manages the full lifecycle of security incidents, from triage through containment and documentation.
 
