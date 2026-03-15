@@ -28,6 +28,18 @@ async function startServer() {
   const promptsRoot = path.join(process.cwd(), "prompts");
   const ALLOWED_SOURCE_SECTIONS = new Set(["Collections", "System_Prompts", "Agent_Guides"]);
 
+  // Helper function to extract first heading from markdown content
+  const extractFirstHeading = (content: string): string | null => {
+    const lines = content.split('\n');
+    for (const line of lines) {
+      const match = line.match(/^#\s+(.+)$/);
+      if (match) {
+        return match[1].trim();
+      }
+    }
+    return null;
+  };
+
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   const GITHUB_OWNER = process.env.GITHUB_OWNER;
   const GITHUB_REPO = process.env.GITHUB_REPO;
@@ -123,9 +135,12 @@ async function startServer() {
           const inferredCategory = pathParts.length > 2 ? pathParts[1] : (pathParts.length > 1 ? pathParts[0] : "General");
           const inferredSubcategory = pathParts.length > 3 ? pathParts[2] : null;
 
+          // Try to get title from: 1) frontmatter, 2) first # heading, 3) filename
+          const title = data.title || extractFirstHeading(content) || path.basename(file.path, ".md");
+
           return {
             id: relativePath,
-            title: data.title || path.basename(file.path, ".md"),
+            title,
             section: inferredSection,
             category: inferredCategory,
             subcategory: inferredSubcategory,
@@ -171,9 +186,12 @@ async function startServer() {
         const inferredCategory = pathParts.length > 2 ? pathParts[1] : (pathParts.length > 1 ? pathParts[0] : "General");
         const inferredSubcategory = pathParts.length > 3 ? pathParts[2] : null;
 
+        // Try to get title from: 1) frontmatter, 2) first # heading, 3) filename
+        const title = data.title || extractFirstHeading(content) || path.basename(filePath, ".md");
+
         return {
           id: relativePath,
-          title: data.title || path.basename(filePath, ".md"),
+          title,
           section: inferredSection,
           category: inferredCategory,
           subcategory: inferredSubcategory,
