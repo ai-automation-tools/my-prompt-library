@@ -3,6 +3,12 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+// Get the directory of this file
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 app.use(express.json());
@@ -22,7 +28,9 @@ const ensureDir = (dirPath: string) => {
   }
 };
 
-const promptsRoot = path.join(process.cwd(), "prompts");
+// Use __dirname to find prompts relative to this file
+// In production (Vercel), this will be api/, so we go up one level
+const promptsRoot = path.join(__dirname, "..", "prompts");
 const ALLOWED_SOURCE_SECTIONS = new Set(["Collections", "System_Prompts", "Agent_Guides"]);
 
 // Helper function to extract first heading from markdown content
@@ -224,7 +232,7 @@ app.get("/api/prompts", async (req, res) => {
     }
 
     // Local/dev fallback: filesystem read
-    const promptsDir = path.join(process.cwd(), "prompts");
+    const promptsDir = path.join(__dirname, "..", "prompts");
     if (!fs.existsSync(promptsDir)) {
       return res.json([]);
     }
@@ -292,8 +300,8 @@ app.post("/api/prompts", (req, res) => {
 
     const filename = generateFilename(title);
     const dirPath = subcategory
-      ? path.join(process.cwd(), "prompts", section, category, subcategory)
-      : path.join(process.cwd(), "prompts", section, category);
+      ? path.join(__dirname, "..", "prompts", section, category, subcategory)
+      : path.join(__dirname, "..", "prompts", section, category);
 
     ensureDir(dirPath);
 
@@ -321,7 +329,7 @@ app.post("/api/prompts", (req, res) => {
 
     fs.writeFileSync(filePath, fileContent, 'utf8');
 
-    const relativePath = path.relative(path.join(process.cwd(), "prompts"), filePath);
+    const relativePath = path.relative(path.join(__dirname, "..", "prompts"), filePath);
 
     res.json({
       id: relativePath,
@@ -345,7 +353,7 @@ app.put("/api/prompts/:id", (req, res) => {
     const promptId = decodeURIComponent(req.params.id);
     const { title, tags, content } = req.body;
 
-    const filePath = path.join(process.cwd(), "prompts", promptId);
+    const filePath = path.join(__dirname, "..", "prompts", promptId);
 
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ error: "Prompt not found" });
@@ -385,7 +393,7 @@ app.put("/api/prompts/:id", (req, res) => {
 app.delete("/api/prompts/:id", (req, res) => {
   try {
     const promptId = decodeURIComponent(req.params.id);
-    const filePath = path.join(process.cwd(), "prompts", promptId);
+    const filePath = path.join(__dirname, "..", "prompts", promptId);
 
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ error: "Prompt not found" });
