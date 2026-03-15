@@ -28,9 +28,9 @@ const ensureDir = (dirPath: string) => {
   }
 };
 
-// Use __dirname to find prompts relative to this file
+// Use __dirname to find library relative to this file
 // In production (Vercel), this will be api/, so we go up one level
-const promptsRoot = path.join(__dirname, "..", "prompts");
+const promptsRoot = path.join(__dirname, "..", "library");
 const ALLOWED_SOURCE_SECTIONS = new Set(["Collections", "System_Prompts", "Agent_Guides"]);
 
 // Helper function to extract first heading from markdown content
@@ -179,7 +179,7 @@ app.get("/api/prompts", async (req, res) => {
       const treeData = await treeResponse.json();
       const promptFiles = treeData.tree.filter((item: any) => 
         item.type === 'blob' && 
-        item.path.startsWith('prompts/') && 
+        item.path.startsWith('library/') && 
         item.path.endsWith('.md')
       );
 
@@ -202,7 +202,7 @@ app.get("/api/prompts", async (req, res) => {
           const fileContent = Buffer.from(blobData.content, 'base64').toString('utf8');
           const { data, content } = matter(fileContent);
           
-          const relativePath = file.path.replace('prompts/', '');
+          const relativePath = file.path.replace('library/', '');
           const pathParts = relativePath.split('/');
           const inferredSection = pathParts.length > 1 ? pathParts[0] : "My_Prompts";
           const inferredCategory = pathParts.length > 2 ? pathParts[1] : (pathParts.length > 1 ? pathParts[0] : "General");
@@ -232,7 +232,7 @@ app.get("/api/prompts", async (req, res) => {
     }
 
     // Local/dev fallback: filesystem read
-    const promptsDir = path.join(__dirname, "..", "prompts");
+    const promptsDir = path.join(__dirname, "..", "library");
     if (!fs.existsSync(promptsDir)) {
       return res.json([]);
     }
@@ -300,8 +300,8 @@ app.post("/api/prompts", (req, res) => {
 
     const filename = generateFilename(title);
     const dirPath = subcategory
-      ? path.join(__dirname, "..", "prompts", section, category, subcategory)
-      : path.join(__dirname, "..", "prompts", section, category);
+      ? path.join(__dirname, "..", "library", section, category, subcategory)
+      : path.join(__dirname, "..", "library", section, category);
 
     ensureDir(dirPath);
 
@@ -329,7 +329,7 @@ app.post("/api/prompts", (req, res) => {
 
     fs.writeFileSync(filePath, fileContent, 'utf8');
 
-    const relativePath = path.relative(path.join(__dirname, "..", "prompts"), filePath);
+    const relativePath = path.relative(path.join(__dirname, "..", "library"), filePath);
 
     res.json({
       id: relativePath,
@@ -353,7 +353,7 @@ app.put("/api/prompts/:id", (req, res) => {
     const promptId = decodeURIComponent(req.params.id);
     const { title, tags, content } = req.body;
 
-    const filePath = path.join(__dirname, "..", "prompts", promptId);
+    const filePath = path.join(__dirname, "..", "library", promptId);
 
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ error: "Prompt not found" });
@@ -393,7 +393,7 @@ app.put("/api/prompts/:id", (req, res) => {
 app.delete("/api/prompts/:id", (req, res) => {
   try {
     const promptId = decodeURIComponent(req.params.id);
-    const filePath = path.join(__dirname, "..", "prompts", promptId);
+    const filePath = path.join(__dirname, "..", "library", promptId);
 
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ error: "Prompt not found" });
