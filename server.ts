@@ -3,6 +3,12 @@ import { createServer as createViteServer } from "vite";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+// Get the directory of this file (server.ts)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 async function startServer() {
   const app = express();
@@ -25,7 +31,8 @@ async function startServer() {
     }
   };
 
-  const promptsRoot = path.join(process.cwd(), "prompts");
+  // Use __dirname to find prompts relative to this file, not cwd
+  const promptsRoot = path.join(__dirname, "prompts");
   const ALLOWED_SOURCE_SECTIONS = new Set(["Collections", "System_Prompts", "Agent_Guides"]);
 
   // Helper function to extract first heading from markdown content
@@ -156,7 +163,7 @@ async function startServer() {
       }
 
       // Local/dev fallback: filesystem read
-      const promptsDir = path.join(process.cwd(), "prompts");
+      const promptsDir = path.join(__dirname, "prompts");
       if (!fs.existsSync(promptsDir)) {
         return res.json([]);
       }
@@ -223,8 +230,8 @@ async function startServer() {
 
       const filename = generateFilename(title);
       const dirPath = subcategory
-        ? path.join(process.cwd(), "prompts", section, category, subcategory)
-        : path.join(process.cwd(), "prompts", section, category);
+        ? path.join(__dirname, "prompts", section, category, subcategory)
+        : path.join(__dirname, "prompts", section, category);
 
       ensureDir(dirPath);
 
@@ -254,7 +261,7 @@ async function startServer() {
 
       fs.writeFileSync(filePath, fileContent, 'utf8');
 
-      const relativePath = path.relative(path.join(process.cwd(), "prompts"), filePath);
+      const relativePath = path.relative(path.join(__dirname, "prompts"), filePath);
 
       res.json({
         id: relativePath,
@@ -278,7 +285,7 @@ async function startServer() {
       const promptId = decodeURIComponent(req.params.id);
       const { title, tags, content } = req.body;
 
-      const filePath = path.join(process.cwd(), "prompts", promptId);
+      const filePath = path.join(__dirname, "prompts", promptId);
 
       if (!fs.existsSync(filePath)) {
         return res.status(404).json({ error: "Prompt not found" });
@@ -320,7 +327,7 @@ async function startServer() {
   app.delete("/api/prompts/:id", (req, res) => {
     try {
       const promptId = decodeURIComponent(req.params.id);
-      const filePath = path.join(process.cwd(), "prompts", promptId);
+      const filePath = path.join(__dirname, "prompts", promptId);
 
       if (!fs.existsSync(filePath)) {
         return res.status(404).json({ error: "Prompt not found" });
@@ -443,9 +450,9 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.join(process.cwd(), "dist")));
+    app.use(express.static(path.join(__dirname, "dist")));
     app.get("*", (req, res) => {
-      res.sendFile(path.join(process.cwd(), "dist", "index.html"));
+      res.sendFile(path.join(__dirname, "dist", "index.html"));
     });
   }
 
