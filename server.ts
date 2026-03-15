@@ -32,7 +32,9 @@ async function startServer() {
   const extractFirstHeading = (content: string): string | null => {
     const lines = content.split('\n');
     for (const line of lines) {
-      const match = line.match(/^#\s+(.+)$/);
+      // Trim to handle both \n and \r\n line endings
+      const trimmedLine = line.trim();
+      const match = trimmedLine.match(/^#\s+(.+)$/);
       if (match) {
         return match[1].trim();
       }
