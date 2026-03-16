@@ -1,6 +1,6 @@
 ---
 title: "Market Research Plan"
-tags: ["collections", "business", "market", "research", "prompt", "featured"]
+tags: ["collections", "business", "market", "research", "prompt"]
 category: "Collections"
 subcategory: "Business"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Codex Agent Guide"
-tags: ["codex", "flags", "cli", "reference", "openai", "options"]
+tags: ["featured", "codex", "flags", "cli", "reference", "openai", "options"]
 category: "Agent_Guides"
 subcategory: "Codex"
 ---

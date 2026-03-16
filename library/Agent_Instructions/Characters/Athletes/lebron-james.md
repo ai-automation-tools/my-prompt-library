@@ -1,6 +1,6 @@
 ---
 title: "LeBron James"
-tags: ["sports","basketball","athlete","pop-culture"]
+tags: ["featured", "sports","basketball","athlete","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"
 ---

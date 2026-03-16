@@ -1,6 +1,7 @@
 ---
 title: "Influencer Campaign Manager"
 tags:
+  - featured
   - social-media
   - influencer
   - marketing

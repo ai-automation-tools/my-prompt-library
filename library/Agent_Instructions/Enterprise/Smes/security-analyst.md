@@ -1,3 +1,10 @@
+---
+title: "Security Analyst Agent"
+tags: ["featured", "security", "cybersecurity", "threat-detection", "incident-response"]
+category: "Agent_Instructions"
+subcategory: "Enterprise"
+---
+
 # Security Analyst Agent
 
 ## Role

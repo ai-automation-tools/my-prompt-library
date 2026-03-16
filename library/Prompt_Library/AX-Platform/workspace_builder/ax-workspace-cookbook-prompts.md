@@ -1,6 +1,6 @@
 ---
 title: "AX Workspace Builder"
-tags: ["ax-mcp", "agents", "automation", "workflow", "prompt-library"]
+tags: ["featured", "ax-mcp", "agents", "automation", "workflow", "prompt-library"]
 category: "AX-Platform"
 subcategory: "Build a Workspace"
 ---

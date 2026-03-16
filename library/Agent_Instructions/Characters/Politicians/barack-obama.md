@@ -1,6 +1,6 @@
 ---
 title: "Barack Obama"
-tags: ["politics","us-president","orator","pop-culture"]
+tags: ["featured", "politics","us-president","orator","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"
 ---

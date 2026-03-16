@@ -1,6 +1,6 @@
 ---
 title: "🚀 Awesome Nano Banana Pro Prompts"
-tags: ["collections", "image-&-video", "nano", "banana"]
+tags: ["featured", "collections", "image-&-video", "nano", "banana"]
 category: "Collections"
 subcategory: "Image_&_Video"
 ---

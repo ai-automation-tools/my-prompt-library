@@ -1,6 +1,6 @@
 ---
 title: "Claude Cowork"
-tags: ["anthropic", "llm", "instructions", "claude", "cowork"]
+tags: ["featured", "anthropic", "llm", "instructions", "claude", "cowork"]
 category: "LLM Instructions"
 subcategory: "Anthropic"
 ---
