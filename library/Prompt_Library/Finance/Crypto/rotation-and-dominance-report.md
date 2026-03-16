@@ -1,6 +1,6 @@
 ---
 title: "Crypto Rotation & Dominance Report"
-tags: ["finance", "crypto", "rotation", "dominance"]
+tags: ["featured", "finance", "crypto", "rotation", "dominance"]
 category: "Finance"
 subcategory: "Crypto"
 ---

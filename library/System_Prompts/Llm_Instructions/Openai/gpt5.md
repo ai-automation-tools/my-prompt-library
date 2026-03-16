@@ -1,6 +1,6 @@
 ---
 title: "Gpt5"
-tags: ["openai", "llm", "instructions", "gpt5"]
+tags: ["featured", "openai", "llm", "instructions", "gpt5"]
 category: "LLM Instructions"
 subcategory: "OpenAI"
 ---
