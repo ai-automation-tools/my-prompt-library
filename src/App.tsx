@@ -250,13 +250,18 @@ export default function App() {
     'Skills';
 
   const sectionPrompts = useMemo(() => {
+    console.log(`🔍 DEBUG: BEFORE FILTER - prompts.length=${prompts.length}, activeSection="${activeSection}"`);
+    console.log(`🔍 DEBUG: All prompt sections:`, prompts.map(p => p.section));
+    
     let filtered = prompts.filter(p => p.section === activeSection);
     
-    // In My Library mode, prompts are already filtered by user on the backend
-    // so we don't need the isUserOwned check here
+    console.log(`🔍 DEBUG: AFTER FILTER - sectionPrompts=${filtered.length}/${prompts.length}`);
+    console.log(`🔍 DEBUG: activeSection="${activeSection}", libraryMode="${libraryMode}"`);
     
-    console.log(`🔍 DEBUG: activeSection="${activeSection}", libraryMode="${libraryMode}", sectionPrompts=${filtered.length}/${prompts.length}`);
-    console.log(`🔍 DEBUG: First 3 prompts:`, prompts.slice(0, 3).map(p => ({ title: p.title, section: p.section, isUserOwned: p.isUserOwned })));
+    if (prompts.length > 0) {
+      console.log(`🔍 DEBUG: First prompt:`, prompts[0]);
+    }
+    
     return filtered;
   }, [prompts, activeSection, libraryMode]);
 
@@ -279,6 +284,12 @@ export default function App() {
 
   const filteredPrompts = useMemo(() => {
     let currentPrompts = sectionPrompts.filter(prompt => {
+      // Skip path filter for user-owned prompts (they have database IDs, not file paths)
+      if (prompt.isUserOwned || libraryMode === 'my') {
+        return true;
+      }
+      
+      // Path filter only for public library file-based prompts
       if (activeTab === 'agent-guides' && !prompt.id.startsWith('Agent_Guides/')) return false;
       if (activeTab === 'agent-instructions' && !prompt.id.startsWith('Agent_Instructions/')) return false;
       if (activeTab === 'prompt-library' && !prompt.id.startsWith('Prompt_Library/')) return false;
