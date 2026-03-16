@@ -57,6 +57,7 @@ interface Prompt {
   content: string;
   lastModified: string;
   featured?: boolean;
+  isUserOwned?: boolean; // true if user created or copied this prompt
 }
 
 type Theme = 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro' | 'react-modern' | 'dark-pro' | 'nordic-night';
@@ -99,6 +100,15 @@ export default function App() {
   const [searchFocused, setSearchFocused] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editingPrompt, setEditingPrompt] = useState<Prompt | null>(null);
+  
+  // Library mode: 'public' or 'my'
+  const [libraryMode, setLibraryMode] = useState<'public' | 'my'>(() => {
+    const saved = localStorage.getItem('library-mode');
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlMode = urlParams.get('library');
+    if (urlMode === 'public' || urlMode === 'my') return urlMode;
+    return (saved === 'public' || saved === 'my') ? saved as 'public' | 'my' : 'public';
+  });
   
   // External Resources Dropdowns
   const [cliReposOpen, setCliReposOpen] = useState(false);
@@ -143,6 +153,14 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('prompt-recently-viewed', JSON.stringify(recentlyViewed));
   }, [recentlyViewed]);
+
+  // Persist library mode to localStorage and URL
+  useEffect(() => {
+    localStorage.setItem('library-mode', libraryMode);
+    const url = new URL(window.location.href);
+    url.searchParams.set('library', libraryMode);
+    window.history.replaceState({}, '', url.toString());
+  }, [libraryMode]);
 
   // Debounce search input for better performance
   useEffect(() => {
@@ -224,10 +242,17 @@ export default function App() {
     'Skills';
 
   const sectionPrompts = useMemo(() => {
-    const filtered = prompts.filter(p => p.section === activeSection);
-    console.log(`🔍 DEBUG: activeSection="${activeSection}", sectionPrompts=${filtered.length}/${prompts.length}`);
+    let filtered = prompts.filter(p => p.section === activeSection);
+    
+    // Filter by library mode
+    if (libraryMode === 'my') {
+      filtered = filtered.filter(p => p.isUserOwned === true);
+    }
+    // In 'public' mode, show all prompts (both public and user-owned)
+    
+    console.log(`🔍 DEBUG: activeSection="${activeSection}", libraryMode="${libraryMode}", sectionPrompts=${filtered.length}/${prompts.length}`);
     return filtered;
-  }, [prompts, activeSection]);
+  }, [prompts, activeSection, libraryMode]);
 
   const categories = useMemo(() => {
     const map: Record<string, Set<string>> = {};
@@ -565,26 +590,31 @@ export default function App() {
         >
           <Star className={cn("w-3.5 h-3.5", favorites.includes(prompt.id) && "fill-yellow-400")} />
         </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            handleEditPrompt(prompt);
-          }}
-          className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
-          title="Edit prompt"
-        >
-          <Edit className="w-3.5 h-3.5" />
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            handleDeletePrompt(prompt.id);
-          }}
-          className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-red-500 text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-red-500 backdrop-blur-sm"
-          title="Delete prompt"
-        >
-          <Trash2 className="w-3.5 h-3.5" />
-        </button>
+        {/* Edit and Delete buttons - only show in My Library or for user-owned prompts */}
+        {(libraryMode === 'my' || prompt.isUserOwned) && (
+          <>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleEditPrompt(prompt);
+              }}
+              className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
+              title="Edit prompt"
+            >
+              <Edit className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeletePrompt(prompt.id);
+              }}
+              className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-red-500 text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-red-500 backdrop-blur-sm"
+              title="Delete prompt"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          </>
+        )}
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -639,6 +669,40 @@ export default function App() {
               </button>
             </div>
 
+          </div>
+
+          {/* Library Mode Switcher */}
+          <div className="px-6 pb-4">
+            <div className="flex items-center gap-2 p-1 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)]">
+              <button
+                onClick={() => setLibraryMode('public')}
+                className={cn(
+                  "flex-1 py-2 px-3 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300",
+                  libraryMode === 'public'
+                    ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
+                    : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+                )}
+              >
+                <div className="flex items-center justify-center gap-1.5">
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>Public</span>
+                </div>
+              </button>
+              <button
+                onClick={() => setLibraryMode('my')}
+                className={cn(
+                  "flex-1 py-2 px-3 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300",
+                  libraryMode === 'my'
+                    ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
+                    : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+                )}
+              >
+                <div className="flex items-center justify-center gap-1.5">
+                  <Library className="w-3.5 h-3.5" />
+                  <span>My Library</span>
+                </div>
+              </button>
+            </div>
           </div>
 
           {/* Navigation dropdown */}
