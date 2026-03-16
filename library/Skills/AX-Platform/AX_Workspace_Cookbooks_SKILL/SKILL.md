@@ -1,7 +1,6 @@
 ---
 name: "ax-workspace-cookbook"
 description: "Generate complete workspace setup documentation (agents, tools, workflows, configuration) for AX Platform multi-agent collaboration scenarios"
----
 tags: ["featured"]
 ---
 
@@ -109,7 +108,6 @@ The workspace is powered by [N] primary agents:
 
 ```
 [ASCII diagram showing agent relationships and data flows]
-```
 ```
 
 **Diagram Guidelines:**
