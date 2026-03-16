@@ -1,179 +1,280 @@
-# Prompt Library Setup Guide
+# Setup Guide
 
-## Quick Start (Local Development)
+Complete setup instructions for local development and production deployment.
 
-**Current mode: LOCAL FILESYSTEM** ✅ (recommended for development)
+---
+
+## Prerequisites
+
+- **Node.js** 18+ ([download](https://nodejs.org/))
+- **npm** or **yarn**
+- **PostgreSQL database** (Neon recommended for free tier)
+- **Git** ([download](https://git-scm.com/))
+
+---
+
+## Local Development Setup
+
+### 1. Clone Repository
 
 ```bash
-# 1. Install dependencies
-npm install
-
-# 2. Start dev server
-vercel dev
-
-# 3. Open browser
-http://localhost:3000
+git clone https://github.com/michaelschecht/my-prompt-library.git
+cd my-prompt-library
 ```
 
-Your prompts are stored in the local `prompts/` directory.
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Create Neon Database
+
+1. Sign up at [neon.tech](https://neon.tech) (free)
+2. Create a new project: "my-prompt-library"
+3. Copy the connection string from Settings → Connection Details
+
+Example connection string:
+```
+postgresql://neondb_owner:npg_xxxxx@ep-xxxxx.neon.tech/neondb?sslmode=require
+```
+
+### 4. Configure Environment Variables
+
+Create `.env` file in the project root:
+
+```bash
+# Required: PostgreSQL Database
+DATABASE_URL=postgresql://neondb_owner:npg_xxxxx@ep-xxxxx.neon.tech/neondb?sslmode=require
+
+# Optional: GitHub Mode (for public library)
+USE_GITHUB_MODE=false
+GITHUB_TOKEN=
+GITHUB_OWNER=
+GITHUB_REPO=
+GITHUB_BRANCH=main
+```
+
+### 5. Start Development Server
+
+```bash
+npm run dev
+```
+
+Visit **http://localhost:3010**
+
+The database schema will initialize automatically on first run.
+
+---
+
+## Production Deployment (Vercel)
+
+### 1. Create Vercel Account
+
+Sign up at [vercel.com](https://vercel.com) (free tier available)
+
+### 2. Install Vercel CLI (Optional)
+
+```bash
+npm install -g vercel
+```
+
+### 3. Deploy
+
+**Option A: GitHub Integration (Recommended)**
+
+1. Push your code to GitHub
+2. Visit [vercel.com/new](https://vercel.com/new)
+3. Import your repository
+4. Add environment variables (see below)
+5. Deploy
+
+**Option B: Vercel CLI**
+
+```bash
+vercel login
+vercel link
+vercel env add DATABASE_URL
+# Paste your Neon connection string
+vercel --prod
+```
+
+### 4. Add Environment Variables in Vercel
+
+Go to Vercel Dashboard → Your Project → Settings → Environment Variables
+
+**Required:**
+```
+DATABASE_URL = postgresql://neondb_owner:npg_xxxxx@ep-xxxxx.neon.tech/neondb?sslmode=require
+```
+
+**Optional (GitHub Mode):**
+```
+USE_GITHUB_MODE = true
+GITHUB_TOKEN = ghp_xxxxxxxxxxxxxxxxxxxxx
+GITHUB_OWNER = your-username
+GITHUB_REPO = my-prompt-library
+GITHUB_BRANCH = main
+```
+
+### 5. Redeploy
+
+After adding environment variables, trigger a redeploy:
+- Vercel Dashboard → Deployments → Redeploy
+- Or push a new commit to trigger auto-deployment
 
 ---
 
 ## Storage Modes
 
-### 🏠 Local Mode (Default)
+### Local Filesystem Mode (Default)
 
-**When to use:**
-- Development and testing
-- Working on features
-- No internet connection needed
-- Instant loading (no API calls)
-
-**Configuration:**
-```bash
-# .env file
-USE_GITHUB_MODE=false
-```
+**Public Library:** Reads from `library/` directory (local files)  
+**User Data:** PostgreSQL (Neon)
 
 **Pros:**
-- ⚡ Fast (no network calls)
-- 🔒 No rate limits
-- 🛠️ Easy to test changes
-
----
-
-### ☁️ GitHub Mode (Production)
-
-**When to use:**
-- Deploying to Vercel
-- Sharing prompts across devices
-- Collaborative editing via Git
-
-**Configuration:**
-```bash
-# .env file
-USE_GITHUB_MODE=true
-GITHUB_TOKEN=ghp_your_token_here
-GITHUB_OWNER=michaelschecht
-GITHUB_REPO=my-prompt-library
-GITHUB_BRANCH=mike_desktop
-```
-
-**Features:**
-- Batched API calls (50 files at a time)
-- 5-minute cache to reduce API usage
-- Automatic rate limit handling
-
-**Pros:**
-- 🌐 Access from anywhere
-- 🔄 Git-based version control
-- 🚀 Deploy to Vercel easily
+- ✅ Fast (no external API calls for public library)
+- ✅ Works offline
+- ✅ No rate limits
 
 **Cons:**
-- ⏱️ Slower initial load
-- 📊 GitHub API rate limits (5000/hour authenticated)
-- 🔑 Requires GitHub Personal Access Token
+- ❌ Public library updates require git pull + redeploy
 
----
-
-## Switching Between Modes
-
-### Switch to Local Mode
-
+**Configuration:**
 ```bash
-# Edit .env file
 USE_GITHUB_MODE=false
 ```
 
-Restart `vercel dev` - that's it!
+---
 
-### Switch to GitHub Mode
+### GitHub API Mode (Optional)
 
+**Public Library:** Fetched from GitHub API  
+**User Data:** PostgreSQL (Neon)
+
+**Pros:**
+- ✅ Public library updates without redeployment
+- ✅ Collaborative editing via Git
+- ✅ Dynamic content
+
+**Cons:**
+- ❌ Slower (API calls required)
+- ❌ GitHub API rate limits (5000/hour authenticated)
+
+**Configuration:**
 ```bash
-# 1. Create GitHub Personal Access Token:
-#    https://github.com/settings/tokens
-#    Scopes needed: repo (Full control of private repositories)
-
-# 2. Edit .env file
 USE_GITHUB_MODE=true
-GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
-GITHUB_OWNER=michaelschecht
+GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxx  # Personal Access Token
+GITHUB_OWNER=your-username
 GITHUB_REPO=my-prompt-library
-GITHUB_BRANCH=mike_desktop
-
-# 3. Restart vercel dev
+GITHUB_BRANCH=main
 ```
+
+**How to create GitHub Personal Access Token:**
+1. GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
+2. Generate new token (classic)
+3. Scopes: `repo` (full control)
+4. Copy token and add to `.env`
 
 ---
 
-## Deployment (Vercel)
+## Database Schema
 
-### Environment Variables
+The database initializes automatically with these tables:
 
-Set these in your Vercel project dashboard:
+**`users`**
+- id, email, password_hash, name, avatar_url
+- created_at, updated_at
 
-```
-USE_GITHUB_MODE=true
-GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
-GITHUB_OWNER=michaelschecht
-GITHUB_REPO=my-prompt-library
-GITHUB_BRANCH=mike_desktop
-```
+**`user_prompts`**
+- id, user_id, title, section, category, subcategory
+- tags (JSON), content
+- created_at, updated_at
 
-**Important:** The `prompts/` directory won't be included in Vercel deployments by default, so GitHub mode is **required** for production.
+**`user_sessions`**
+- id, user_id, token, expires_at
+- created_at
+
+Schema file: `db/postgres.ts` (see `initializeSchema()`)
+
+---
+
+## Testing Your Setup
+
+### 1. Create an Account
+
+Visit your local or deployed URL:
+1. Click "Sign Up"
+2. Enter email, password, name
+3. Create account
+
+### 2. Browse Public Library
+
+- Switch to "Public Library" tab
+- Browse categories
+- Search for prompts
+
+### 3. Save Prompts
+
+- Click "+ Add to My Library" on any public prompt
+- Switch to "My Library" tab
+- Verify prompt was copied
+
+### 4. Create Custom Prompts
+
+- Click "+ New Prompt" in My Library
+- Fill in details
+- Save
 
 ---
 
 ## Troubleshooting
 
-### Rate Limit Exceeded (403 error)
+### Database Connection Errors
 
-**Symptom:**
-```
-API rate limit exceeded for user ID...
-```
+**Error:** `connect ECONNREFUSED` or `connection timeout`
 
 **Solution:**
-1. Switch to local mode temporarily:
-   ```bash
-   USE_GITHUB_MODE=false
-   ```
-2. Wait ~1 hour for rate limit reset
-3. Cache will reduce future API calls (5-minute TTL)
+- Verify `DATABASE_URL` is correct in `.env` (local) or Vercel env vars (production)
+- Check Neon dashboard for connection string
+- Ensure SSL is enabled (`sslmode=require`)
 
-### Prompts Not Loading
+### Build Failures
 
-**Local mode:**
-- Check that `prompts/` directory exists
-- Verify `.md` files are present
+**Error:** `Transform failed` or TypeScript errors
 
-**GitHub mode:**
-- Verify `GITHUB_TOKEN` is valid
-- Check that `GITHUB_BRANCH` exists
-- Ensure token has `repo` scope
+**Solution:**
+```bash
+npm run build  # Test build locally
+npm run dev    # Check console for errors
+```
+
+### Authentication Issues
+
+**Error:** `401 Unauthorized` or `Invalid token`
+
+**Solution:**
+- Clear browser cookies
+- Check browser console for CORS errors
+- Verify cookies are enabled in browser
+
+### GitHub API Rate Limit
+
+**Error:** `403 API rate limit exceeded`
+
+**Solution:**
+- Switch to local filesystem mode (`USE_GITHUB_MODE=false`)
+- Wait 1 hour for rate limit reset
+- Use authenticated token (higher rate limit: 5000/hour)
 
 ---
 
-## File Structure
+## Next Steps
 
-```
-my-prompt-library/
-├── api/
-│   └── index.ts          # API routes (handles both modes)
-├── prompts/              # Local prompt storage
-│   ├── My_Prompts/
-│   ├── Collections/
-│   ├── System_Prompts/
-│   └── Agent_Guides/
-├── .env                  # Local config (not committed)
-├── .env.example          # Example config
-└── SETUP.md             # This file
-```
+- [**API Reference**](API.md) - Learn about available endpoints
+- [**Architecture**](ARCHITECTURE.md) - Understand system design
+- [**Deployment Guide**](DEPLOYMENT.md) - Advanced deployment options
 
 ---
 
-## Need Help?
-
-- **GitHub mode issues:** Check [GitHub API docs](https://docs.github.com/en/rest)
-- **Vercel deployment:** Check [Vercel docs](https://vercel.com/docs)
-- **Local development:** Just use `USE_GITHUB_MODE=false` and work offline!
+**Need help?** Open an issue on [GitHub](https://github.com/michaelschecht/my-prompt-library/issues)
