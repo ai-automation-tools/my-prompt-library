@@ -56,6 +56,7 @@ interface Prompt {
   tags: string[];
   content: string;
   lastModified: string;
+  featured?: boolean;
 }
 
 type Theme = 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro' | 'react-modern' | 'dark-pro' | 'nordic-night';
@@ -306,6 +307,24 @@ export default function App() {
       p.subcategory === selectedSubcategory.subcategory
     );
   }, [selectedSubcategory, sortedPrompts]);
+
+  // Featured/Suggested prompts - shown only on default landing page
+  const featuredPrompts = useMemo(() => {
+    // For now, we'll feature prompts that have the "featured" tag or are favorited
+    // You can also manually curate this list by specific IDs
+    const featured = sectionPrompts
+      .filter(p => p.tags.includes('featured') || favorites.includes(p.id))
+      .slice(0, 4); // Limit to 4 featured prompts
+    
+    // If no featured prompts found, pick some recent/popular ones
+    if (featured.length === 0) {
+      return sectionPrompts
+        .sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())
+        .slice(0, 4);
+    }
+    
+    return featured;
+  }, [sectionPrompts, favorites]);
 
   // Get favorite prompts
   const favoritePrompts = useMemo(() => {
@@ -1347,6 +1366,81 @@ export default function App() {
                     <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)] pointer-events-none" />
                   </div>
                 </div>
+
+                {/* Featured/Suggested Section - Only shown on default landing page */}
+                {!debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="mb-10"
+                  >
+                    <div className="flex items-center gap-3 mb-5">
+                      <Sparkles className="w-5 h-5 text-[var(--accent)]" />
+                      <h3 className="heading-display text-lg font-bold tracking-tight text-[var(--text-primary)]">
+                        Featured Prompts
+                      </h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      {featuredPrompts.map((prompt, i) => (
+                        <motion.div
+                          key={prompt.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: i * 0.05 }}
+                          onClick={() => handlePromptClick(prompt)}
+                          className="glass-card rounded-[var(--radius-lg)] overflow-hidden cursor-pointer group hover:shadow-[0_8px_32px_var(--accent-glow)] transition-all duration-500 relative border-2 border-[var(--accent)]/30 hover:border-[var(--accent)]"
+                        >
+                          {/* Featured badge */}
+                          <div className="absolute top-3 right-3 z-20">
+                            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--accent)] text-white text-[0.65rem] font-bold tracking-wider uppercase shadow-lg">
+                              <Star className="w-2.5 h-2.5 fill-white" />
+                              Featured
+                            </div>
+                          </div>
+
+                          {/* Animated gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                          <div className="flex-1 p-5 space-y-3 relative z-[1]">
+                            <div className="flex items-start gap-3">
+                              <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--accent)]/50">
+                                <FileText className="w-3.5 h-3.5 text-[var(--accent)]" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="heading-display text-sm font-bold tracking-tight leading-snug mb-1 text-[var(--text-primary)] line-clamp-2">
+                                  {prompt.title}
+                                </h4>
+                                <p className="label truncate text-[0.65rem]">
+                                  {prompt.category}{prompt.subcategory ? ` / ${prompt.subcategory.replace(/_/g, ' ')}` : ''}
+                                </p>
+                              </div>
+                            </div>
+
+                            {prompt.tags.length > 0 && (
+                              <div className="flex flex-wrap gap-1">
+                                {prompt.tags.slice(0, 2).map(tag => (
+                                  <span key={tag} className="px-2 py-0.5 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.55rem] font-semibold tracking-wider uppercase text-[var(--text-tertiary)]">
+                                    {tag}
+                                  </span>
+                                ))}
+                                {prompt.tags.length > 2 && (
+                                  <span className="px-2 py-0.5 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.55rem] font-semibold tracking-wider uppercase text-[var(--text-tertiary)]">
+                                    +{prompt.tags.length - 2}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+
+                            <p className="text-[0.75rem] text-[var(--text-tertiary)] line-clamp-2 leading-relaxed">
+                              {prompt.content.substring(0, 120)}...
+                            </p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
 
                 {isLoading ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
