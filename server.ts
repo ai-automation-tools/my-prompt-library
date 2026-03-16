@@ -21,6 +21,14 @@ async function startServer() {
   app.use(express.json());
   app.use(cookieParser());
 
+  // Debug middleware
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      console.log(`[API] ${req.method} ${req.path}`);
+    }
+    next();
+  });
+
   // Mount auth routes
   app.use('/api/auth', authRoutes);
 
