@@ -21,6 +21,14 @@ async function startServer() {
   app.use(express.json());
   app.use(cookieParser());
 
+  // Debug middleware
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      console.log(`[API] ${req.method} ${req.path}`);
+    }
+    next();
+  });
+
   // Mount auth routes
   app.use('/api/auth', authRoutes);
 
@@ -99,10 +107,17 @@ async function startServer() {
     // If requesting user's library, return from database
     if (libraryMode === 'my') {
       if (!req.user) {
+        console.log('[My Library] No user authenticated');
         return res.status(401).json({ error: 'Authentication required for My Library' });
       }
       
+      console.log('[My Library] User:', req.user.id, req.user.email);
       const userPrompts = promptDb.findByUserId(req.user.id);
+      console.log('[My Library] Found prompts:', userPrompts.length);
+      if (userPrompts.length > 0) {
+        console.log('[My Library] First prompt:', userPrompts[0].title, userPrompts[0].section);
+      }
+      
       const formattedPrompts = userPrompts.map(p => ({
         id: p.id,
         title: p.title,
@@ -115,6 +130,7 @@ async function startServer() {
         isUserOwned: true,
       }));
       
+      console.log('[My Library] Returning prompts:', formattedPrompts.length);
       return res.json(formattedPrompts);
     }
     

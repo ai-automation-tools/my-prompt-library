@@ -42,6 +42,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import PromptEditorModal from './components/PromptEditorModal';
 import LoginModal from './components/LoginModal';
 import SignupModal from './components/SignupModal';
+import EmptyState from './components/EmptyState';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { useAuth } from './contexts/AuthContext';
 import Fuse from 'fuse.js';
@@ -249,15 +250,18 @@ export default function App() {
     'Skills';
 
   const sectionPrompts = useMemo(() => {
+    console.log(`🔍 DEBUG: BEFORE FILTER - prompts.length=${prompts.length}, activeSection="${activeSection}"`);
+    console.log(`🔍 DEBUG: All prompt sections:`, prompts.map(p => p.section));
+    
     let filtered = prompts.filter(p => p.section === activeSection);
     
-    // Filter by library mode
-    if (libraryMode === 'my') {
-      filtered = filtered.filter(p => p.isUserOwned === true);
-    }
-    // In 'public' mode, show all prompts (both public and user-owned)
+    console.log(`🔍 DEBUG: AFTER FILTER - sectionPrompts=${filtered.length}/${prompts.length}`);
+    console.log(`🔍 DEBUG: activeSection="${activeSection}", libraryMode="${libraryMode}"`);
     
-    console.log(`🔍 DEBUG: activeSection="${activeSection}", libraryMode="${libraryMode}", sectionPrompts=${filtered.length}/${prompts.length}`);
+    if (prompts.length > 0) {
+      console.log(`🔍 DEBUG: First prompt:`, prompts[0]);
+    }
+    
     return filtered;
   }, [prompts, activeSection, libraryMode]);
 
@@ -280,6 +284,12 @@ export default function App() {
 
   const filteredPrompts = useMemo(() => {
     let currentPrompts = sectionPrompts.filter(prompt => {
+      // Skip path filter for user-owned prompts (they have database IDs, not file paths)
+      if (prompt.isUserOwned || libraryMode === 'my') {
+        return true;
+      }
+      
+      // Path filter only for public library file-based prompts
       if (activeTab === 'agent-guides' && !prompt.id.startsWith('Agent_Guides/')) return false;
       if (activeTab === 'agent-instructions' && !prompt.id.startsWith('Agent_Instructions/')) return false;
       if (activeTab === 'prompt-library' && !prompt.id.startsWith('Prompt_Library/')) return false;
@@ -437,11 +447,12 @@ export default function App() {
   }, []);
 
   const refreshPrompts = useCallback(() => {
-    fetch('/api/prompts')
+    const url = `/api/prompts?library=${libraryMode}`;
+    fetch(url)
       .then(res => res.json())
       .then(data => setPrompts(data))
       .catch(err => console.error('Failed to fetch prompts:', err));
-  }, []);
+  }, [libraryMode]);
 
   const handleCopyToMyPrompts = useCallback(async (prompt: Prompt) => {
     if (prompt.section === 'My_Prompts') {
@@ -528,9 +539,14 @@ export default function App() {
   }, []);
 
   const handleNewPrompt = useCallback(() => {
+    if (!user) {
+      showToast('error', 'Please sign in to create prompts');
+      setIsLoginOpen(true);
+      return;
+    }
     setEditingPrompt(null);
     setIsEditorOpen(true);
-  }, []);
+  }, [user, showToast]);
 
   // Prompt card component for reuse (memoized for performance)
   const PromptCard = memo(({ prompt, index }: { prompt: Prompt; index: number }) => (
@@ -585,20 +601,42 @@ export default function App() {
 
       {/* Button column with separator */}
       <div className="flex flex-col gap-2 p-3 border-l border-[var(--glass-border)] relative z-10 justify-center shrink-0">
-        <button
-          onClick={(e) => toggleFavorite(prompt.id, e)}
-          className={cn(
-            "p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] transition-all duration-300 border backdrop-blur-sm",
-            favorites.includes(prompt.id)
-              ? "text-yellow-400 border-yellow-400/50 hover:bg-yellow-400/20"
-              : "text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
-          )}
-          title={favorites.includes(prompt.id) ? "Remove from favorites" : "Add to favorites"}
-        >
-          <Star className={cn("w-3.5 h-3.5", favorites.includes(prompt.id) && "fill-yellow-400")} />
-        </button>
-        {/* Edit and Delete buttons - only show in My Library or for user-owned prompts */}
-        {(libraryMode === 'my' || prompt.isUserOwned) && (
+        {/* Show different buttons based on library mode */}
+        {libraryMode === 'public' ? (
+          // Public Library: Show Add to My Library button
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCopyToMyPrompts(prompt);
+            }}
+            disabled={copyingToMyPromptsId === prompt.id}
+            className={cn(
+              "p-2 rounded-[var(--radius-sm)] transition-all duration-300 border backdrop-blur-sm",
+              copyingToMyPromptsId === prompt.id
+                ? "bg-[var(--accent)]/20 border-[var(--accent)]/50 text-[var(--accent)] cursor-wait"
+                : "bg-[var(--glass-bg)] text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)]"
+            )}
+            title="Add to My Library"
+          >
+            <FolderPlus className="w-3.5 h-3.5" />
+          </button>
+        ) : (
+          // My Library: Show favorite button
+          <button
+            onClick={(e) => toggleFavorite(prompt.id, e)}
+            className={cn(
+              "p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] transition-all duration-300 border backdrop-blur-sm",
+              favorites.includes(prompt.id)
+                ? "text-yellow-400 border-yellow-400/50 hover:bg-yellow-400/20"
+                : "text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
+            )}
+            title={favorites.includes(prompt.id) ? "Remove from favorites" : "Add to favorites"}
+          >
+            <Star className={cn("w-3.5 h-3.5", favorites.includes(prompt.id) && "fill-yellow-400")} />
+          </button>
+        )}
+        {/* Edit and Delete buttons - only show in My Library */}
+        {libraryMode === 'my' && (
           <>
             <button
               onClick={(e) => {
@@ -1470,8 +1508,8 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Featured/Suggested Section - Only shown on default landing page */}
-                {!debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
+                {/* Featured/Suggested Section - Only shown on Public Library landing page */}
+                {libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -1544,8 +1582,8 @@ export default function App() {
                   </motion.div>
                 )}
 
-                {/* All Prompts Section Header - Only show when featured section is visible */}
-                {!debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
+                {/* All Prompts Section Header - Only show when featured section is visible (Public Library only) */}
+                {libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
                   <div className="flex items-center gap-3 mb-5">
                     <LayoutGrid className="w-5 h-5 text-[var(--text-secondary)]" />
                     <h3 className="heading-display text-lg font-bold tracking-tight text-[var(--text-primary)]">
@@ -1569,21 +1607,40 @@ export default function App() {
                     ))}
                   </div>
                 ) : sortedPrompts.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center py-20 text-center">
-                    <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
-                    <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
-                    <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
-                      {searchQuery ? `No prompts match "${searchQuery}". Try a different search term.` : 'Get started by creating your first prompt!'}
-                    </p>
-                    {!searchQuery && (
-                      <button
-                        onClick={handleNewPrompt}
-                        className="px-6 py-3 bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white rounded-lg font-semibold transition-colors"
-                      >
-                        Create Your First Prompt
-                      </button>
-                    )}
-                  </div>
+                  // Empty state logic
+                  libraryMode === 'my' && !user ? (
+                    // User not authenticated in My Library mode
+                    <EmptyState
+                      type="not-authenticated"
+                      onLogin={() => setIsLoginOpen(true)}
+                      onSignup={() => setIsSignupOpen(true)}
+                      onBrowsePublic={() => setLibraryMode('public')}
+                    />
+                  ) : libraryMode === 'my' && user ? (
+                    // User authenticated but has no prompts
+                    <EmptyState
+                      type="no-prompts"
+                      onBrowsePublic={() => setLibraryMode('public')}
+                    />
+                  ) : searchQuery ? (
+                    // Search returned no results
+                    <div className="flex flex-col items-center justify-center py-20 text-center">
+                      <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
+                      <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
+                      <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
+                        No prompts match "{searchQuery}". Try a different search term.
+                      </p>
+                    </div>
+                  ) : (
+                    // Generic empty (shouldn't happen in public library)
+                    <div className="flex flex-col items-center justify-center py-20 text-center">
+                      <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
+                      <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
+                      <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
+                        Get started by creating your first prompt!
+                      </p>
+                    </div>
+                  )
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {sortedPrompts.map((prompt, i) => (
