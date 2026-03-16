@@ -1,94 +1,79 @@
-# My Prompt Library Documentation
+# Documentation Index
 
-Complete documentation for the Prompt Library application.
-
----
-
-## 📚 Documentation Index
-
-### Getting Started
-- **[Setup Guide](./SETUP.md)** - Complete setup instructions for local and GitHub modes
-- **[Quick Reference](./QUICK_REFERENCE.md)** - Fast toggle guide for switching modes
-
-### Technical Documentation
-- **[GitHub API Integration](./GITHUB_MODE.md)** - How the GitHub integration works
-- **[Architecture](./ARCHITECTURE.md)** - System architecture and design decisions
+Complete documentation for My Prompt Library.
 
 ---
 
-## 🚀 Quick Start
+## Getting Started
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/michaelschecht/my-prompt-library.git
-cd my-prompt-library
-git checkout mike_desktop
+**New to the project? Start here:**
 
-# 2. Install dependencies
-npm install
-
-# 3. Start development server
-vercel dev
-
-# 4. Open browser
-http://localhost:3000
-```
-
-**Default mode:** Local filesystem (no GitHub API)
+1. [**Local Setup**](LOCAL_SETUP.md) - Set up your development environment
+2. [**Deployment Guide**](DEPLOYMENT.md) - Deploy to Vercel + Neon
+3. [**Quick Reference**](QUICK_REFERENCE.md) - Common commands and tasks
 
 ---
 
-## 🔀 Two Operating Modes
+## Core Documentation
 
-### 🏠 Local Mode (Default)
-- Reads from local `prompts/` directory
-- Fast, no API calls
-- Perfect for development
-- **Current default**
+### Architecture & Design
+- [**Architecture**](ARCHITECTURE.md) - System design, tech stack, data flow
+- [**API Reference**](API.md) - REST API endpoints and authentication
 
-### ☁️ GitHub Mode
-- Fetches from GitHub repository
-- Batched API calls (50 at a time)
-- 5-minute cache
-- Required for production deployment
+### Features
+- [**Library Mode Implementation**](LIBRARY-MODE-IMPLEMENTATION.md) - Public vs My Library
+- [**Featured Prompts**](FEATURED-PROMPTS.md) - Featured section implementation
+- [**Featured Section Summary**](FEATURED-SECTION-SUMMARY.md) - Design decisions
 
-**Toggle:** Set `USE_GITHUB_MODE=true` in `.env`
+### Configuration
+- [**GitHub Mode**](GITHUB_MODE.md) - Use GitHub as remote storage for public library
+- [**Setup Guide**](SETUP.md) - Initial configuration steps
 
----
-
-## 📖 Documentation Files
-
-| File | Description |
-|------|-------------|
-| `SETUP.md` | Complete setup guide with troubleshooting |
-| `QUICK_REFERENCE.md` | One-page toggle guide |
-| `GITHUB_MODE.md` | GitHub integration details |
-| `ARCHITECTURE.md` | System architecture overview |
+### Development
+- [**PostgreSQL Migration**](POSTGRES-MIGRATION-SUMMARY.md) - SQLite → Postgres migration notes
+- [**Debug UI**](DEBUG_UI.md) - Debugging and troubleshooting
 
 ---
 
-## 🆘 Common Issues
+## Historical Documentation
 
-### Rate Limit Exceeded
-**Solution:** Use local mode (`USE_GITHUB_MODE=false`)
+Older documentation and implementation logs are in [`archive/`](archive/):
 
-### Prompts Not Loading
-**Local mode:** Check `prompts/` directory exists  
-**GitHub mode:** Verify `GITHUB_TOKEN` is valid
-
-### Slow Loading
-**Solution:** Enable local mode for development
-
-Full troubleshooting: See [SETUP.md](./SETUP.md)
+- `DATABASE.md` - Old SQLite documentation (superseded by Postgres)
+- `deployment-vercel.md` - Original Vercel deployment guide
+- `CHANGELOG-*.md` - Implementation logs from March 14-16, 2026
+- `navigation-organization.md` - UI/UX design notes
+- `prompt-editor-ui.md` - Editor implementation notes
+- `quick-wins-ux.md` - UX improvement notes
 
 ---
 
-## 🔗 Links
+## Quick Links
 
-- **GitHub Repository:** https://github.com/michaelschecht/my-prompt-library
-- **Vercel Deployment:** [Your Vercel URL]
-- **GitHub API Docs:** https://docs.github.com/en/rest
+**Common Tasks:**
+- Create account → See [API.md](API.md#post-apiauthsignup)
+- Deploy to production → See [DEPLOYMENT.md](DEPLOYMENT.md)
+- Add featured prompts → See [FEATURED-PROMPTS.md](FEATURED-PROMPTS.md)
+- Enable GitHub mode → See [GITHUB_MODE.md](GITHUB_MODE.md)
+
+**Troubleshooting:**
+- Authentication issues → [API.md](API.md#authentication)
+- Database connection → [DEPLOYMENT.md](DEPLOYMENT.md#database-configuration)
+- UI debugging → [DEBUG_UI.md](DEBUG_UI.md)
 
 ---
 
-**Last Updated:** March 14, 2026
+## Contributing to Docs
+
+When updating documentation:
+
+1. **Current docs** → Update in place (e.g., `API.md`, `ARCHITECTURE.md`)
+2. **Implementation logs** → Add to `archive/` with date prefix
+3. **Obsolete guides** → Move to `archive/` (don't delete)
+4. **New features** → Create new doc + link from this index
+
+Keep docs concise, accurate, and up-to-date with code changes.
+
+---
+
+**Last Updated:** March 16, 2026
