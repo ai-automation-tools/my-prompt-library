@@ -491,9 +491,13 @@ export default function App() {
 
   const handleBack = useCallback(() => {
     if (selectedPrompt) {
-      // Close prompt detail, stay in category view
+      // Close prompt detail, go to category ALL view
       setSelectedPrompt(null);
-      // Keep activeCategory and activeSubcategory so we stay in filtered view
+      
+      // If we have an activeCategory, select its ALL view
+      if (activeCategory) {
+        handleSubcategoryClick(activeCategory, 'ALL');
+      }
     } else if (selectedSubcategory) {
       // Go back from subcategory to category
       setSelectedSubcategory(null);
@@ -505,7 +509,7 @@ export default function App() {
     } else {
       handleShowAllPrompts();
     }
-  }, [selectedPrompt, selectedSubcategory, activeCategory, handleShowAllPrompts]);
+  }, [selectedPrompt, selectedSubcategory, activeCategory, handleShowAllPrompts, handleSubcategoryClick]);
 
   const handleCopy = useCallback((content: string, promptId: string) => {
     navigator.clipboard.writeText(content);
