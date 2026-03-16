@@ -85,7 +85,7 @@ const THEMES: { id: Theme; name: string; icon: string }[] = [
 ];
 
 export default function App() {
-  const { user, logout } = useAuth();
+  const { user, logout, isLoading: authLoading } = useAuth();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -178,6 +178,18 @@ export default function App() {
   }, [searchQuery]);
 
   useEffect(() => {
+    // Wait for auth to load before fetching
+    if (authLoading) {
+      return;
+    }
+
+    // If trying to access My Library without auth, don't fetch
+    if (libraryMode === 'my' && !user) {
+      setPrompts([]);
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(true);
     const url = `/api/prompts?library=${libraryMode}`;
     fetch(url)
@@ -194,7 +206,7 @@ export default function App() {
         showToast('error', 'Failed to load prompts');
         setIsLoading(false);
       });
-  }, [showToast, libraryMode]);
+  }, [showToast, libraryMode, authLoading, user]);
 
   // Close external resource dropdowns when clicking outside
   useEffect(() => {
