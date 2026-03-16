@@ -145,8 +145,8 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
           if (!contentResponse.ok) return null;
           
           const contentData: any = await contentResponse.json();
-          const content = Buffer.from(contentData.content, 'base64').toString('utf-8');
-          const { data } = matter(content);
+          const rawContent = Buffer.from(contentData.content, 'base64').toString('utf-8');
+          const { data, content } = matter(rawContent);
           
           const pathParts = file.path.replace('library/', '').replace('.md', '').split('/');
           const section = pathParts[0] || 'General';
@@ -160,7 +160,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
             category,
             subcategory,
             tags: data.tags || [],
-            content,
+            content,  // Use parsed content (without frontmatter)
             lastModified: contentData.sha,
             isUserOwned: false,
           };
@@ -183,8 +183,8 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
           if (stat.isDirectory()) {
             results = results.concat(walkDir(filePath, baseDir));
           } else if (file.endsWith('.md')) {
-            const content = fs.readFileSync(filePath, 'utf-8');
-            const { data } = matter(content);
+            const rawContent = fs.readFileSync(filePath, 'utf-8');
+            const { data, content } = matter(rawContent);
             const relativePath = path.relative(baseDir, filePath);
             const pathParts = relativePath.replace('.md', '').split(path.sep);
             
@@ -199,7 +199,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
               category,
               subcategory,
               tags: data.tags || [],
-              content,
+              content,  // Use parsed content (without frontmatter)
               lastModified: stat.mtime.toISOString(),
               isUserOwned: false,
             });
@@ -331,9 +331,10 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
       }
       
       const contentData: any = await contentResponse.json();
-      content = Buffer.from(contentData.content, 'base64').toString('utf-8');
-      const parsed = matter(content);
+      const rawContent = Buffer.from(contentData.content, 'base64').toString('utf-8');
+      const parsed = matter(rawContent);
       data = parsed.data;
+      content = parsed.content;  // Use parsed content (without frontmatter)
     } else {
       const promptPath = path.join(LIBRARY_PATH, promptId);
       
@@ -341,9 +342,10 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
         return res.status(404).json({ error: "Prompt not found in public library" });
       }
       
-      content = fs.readFileSync(promptPath, 'utf-8');
-      const parsed = matter(content);
+      const rawContent = fs.readFileSync(promptPath, 'utf-8');
+      const parsed = matter(rawContent);
       data = parsed.data;
+      content = parsed.content;  // Use parsed content (without frontmatter)
     }
 
     const pathParts = promptId.replace('.md', '').split('/');
