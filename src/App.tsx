@@ -101,7 +101,24 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'agent-guides' | 'agent-instructions' | 'prompt-library' | 'skills' | 'system-prompts'>('prompt-library');
+  const [activeTab, setActiveTab] = useState<'agent-guides' | 'agent-instructions' | 'prompt-library' | 'skills' | 'system-prompts'>(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section');
+    if (section === 'agent-guides') return 'agent-guides';
+    if (section === 'agent-instructions') return 'agent-instructions';
+    if (section === 'prompt-library') return 'prompt-library';
+    if (section === 'skills') return 'skills';
+    if (section === 'system-prompts') return 'system-prompts';
+    return 'prompt-library';
+  });
+  const [activeCategory, setActiveCategory] = useState<string | null>(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('category');
+  });
+  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('subcategory');
+  });
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -168,6 +185,36 @@ export default function App() {
     url.searchParams.set('library', libraryMode);
     window.history.replaceState({}, '', url.toString());
   }, [libraryMode]);
+
+  // Update URL when navigation state changes
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    
+    // Set section (tab)
+    const sectionParam = 
+      activeTab === 'agent-guides' ? 'agent-guides' :
+      activeTab === 'agent-instructions' ? 'agent-instructions' :
+      activeTab === 'prompt-library' ? 'prompt-library' :
+      activeTab === 'skills' ? 'skills' :
+      'system-prompts';
+    url.searchParams.set('section', sectionParam);
+    
+    // Set category if active
+    if (activeCategory) {
+      url.searchParams.set('category', activeCategory);
+    } else {
+      url.searchParams.delete('category');
+    }
+    
+    // Set subcategory if active
+    if (activeSubcategory) {
+      url.searchParams.set('subcategory', activeSubcategory);
+    } else {
+      url.searchParams.delete('subcategory');
+    }
+    
+    window.history.replaceState({}, '', url.toString());
+  }, [activeTab, activeCategory, activeSubcategory]);
 
   // Debounce search input for better performance
   useEffect(() => {
@@ -311,6 +358,14 @@ export default function App() {
     });
     console.log(`🔍 DEBUG: activeTab="${activeTab}", after path filter=${currentPrompts.length}/${sectionPrompts.length}`);
 
+    // Apply category/subcategory filters from URL
+    if (activeCategory && !selectedPrompt) {
+      currentPrompts = currentPrompts.filter(p => p.category === activeCategory);
+      if (activeSubcategory) {
+        currentPrompts = currentPrompts.filter(p => p.subcategory === activeSubcategory);
+      }
+    }
+
     // Apply tag filters
     if (selectedTags.length > 0) {
       currentPrompts = currentPrompts.filter(prompt =>
@@ -332,7 +387,7 @@ export default function App() {
     });
 
     return fuse.search(debouncedSearch).map(result => result.item);
-  }, [sectionPrompts, debouncedSearch, activeTab, selectedTags]);
+  }, [sectionPrompts, debouncedSearch, activeTab, selectedTags, activeCategory, activeSubcategory, selectedPrompt]);
 
   const sortedPrompts = useMemo(() => {
     const promptsToSort = [...filteredPrompts];
@@ -400,12 +455,20 @@ export default function App() {
     setSelectedSubcategory({ category, subcategory });
     setSelectedPrompt(null);
     setShowAllPrompts(false);
+    
+    // Update URL state
+    setActiveCategory(category);
+    setActiveSubcategory(subcategory === 'ALL' ? null : subcategory);
   }, []);
 
   const handlePromptClick = useCallback((prompt: Prompt) => {
     setSelectedPrompt(prompt);
     setSelectedSubcategory(null);
     setShowAllPrompts(false);
+    
+    // Set active category/subcategory for back navigation
+    setActiveCategory(prompt.category);
+    setActiveSubcategory(prompt.subcategory);
     
     // Track in recently viewed
     setRecentlyViewed(prev => {
@@ -421,12 +484,22 @@ export default function App() {
   }, []);
 
   const handleBack = useCallback(() => {
-    if (selectedPrompt && selectedSubcategory) {
+    if (selectedPrompt) {
+      // Close prompt detail, stay in category view
       setSelectedPrompt(null);
+      // Keep activeCategory and activeSubcategory so we stay in filtered view
+    } else if (selectedSubcategory) {
+      // Go back from subcategory to category
+      setSelectedSubcategory(null);
+      setActiveSubcategory(null);
+    } else if (activeCategory) {
+      // Go back from category to all prompts
+      setActiveCategory(null);
+      handleShowAllPrompts();
     } else {
       handleShowAllPrompts();
     }
-  }, [selectedPrompt, selectedSubcategory, handleShowAllPrompts]);
+  }, [selectedPrompt, selectedSubcategory, activeCategory, handleShowAllPrompts]);
 
   const handleCopy = useCallback((content: string, promptId: string) => {
     navigator.clipboard.writeText(content);
