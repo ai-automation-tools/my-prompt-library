@@ -1551,10 +1551,45 @@ export default function App() {
                             </div>
                           </div>
 
+                          {/* Action buttons */}
+                          <div className="absolute bottom-3 right-3 z-20 flex gap-2">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCopyToMyPrompts(prompt);
+                              }}
+                              disabled={copyingToMyPromptsId === prompt.id}
+                              className={cn(
+                                "p-2 rounded-[var(--radius-sm)] transition-all duration-300 border backdrop-blur-sm",
+                                copyingToMyPromptsId === prompt.id
+                                  ? "bg-[var(--accent)]/20 border-[var(--accent)]/50 text-[var(--accent)] cursor-wait"
+                                  : "bg-[var(--glass-bg)] text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)]"
+                              )}
+                              title="Add to My Library"
+                            >
+                              <FolderPlus className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCopy(prompt.content, prompt.id);
+                              }}
+                              className={cn(
+                                "p-2 rounded-[var(--radius-sm)] transition-all duration-300 border backdrop-blur-sm",
+                                copied === prompt.id
+                                  ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
+                                  : "bg-[var(--glass-bg)] text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
+                              )}
+                              title="Copy prompt content"
+                            >
+                              {copied === prompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                            </button>
+                          </div>
+
                           {/* Animated gradient overlay */}
                           <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                          <div className="flex-1 p-5 space-y-3 relative z-[1]">
+                          <div className="flex-1 p-5 pb-12 space-y-3 relative z-[1]">
                             <div className="flex items-start gap-3">
                               <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--accent)]/50">
                                 <FileText className="w-3.5 h-3.5 text-[var(--accent)]" />
@@ -1725,25 +1760,19 @@ export default function App() {
                       <p className="label mt-0.5 truncate">{selectedPrompt.id}</p>
                     </div>
                     <div className="flex gap-2 flex-wrap justify-end">
-                      <motion.button
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => handleCopyToMyPrompts(selectedPrompt)}
-                        disabled={copyingToMyPromptsId === selectedPrompt.id || selectedPrompt.section === 'My_Prompts'}
-                        className={cn(
-                          "flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 disabled:cursor-not-allowed disabled:opacity-60",
-                          selectedPrompt.section === 'My_Prompts'
-                            ? "bg-blue-500/15 border-blue-500/35 text-blue-300"
-                            : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
-                        )}
-                        title={selectedPrompt.section === 'My_Prompts' ? 'Already in My Prompts' : 'Copy this prompt to My Prompts'}
-                      >
-                        <FolderPlus className="w-3.5 h-3.5" />
-                        {selectedPrompt.section === 'My_Prompts'
-                          ? 'In My Prompts'
-                          : copyingToMyPromptsId === selectedPrompt.id
-                            ? 'Saving...'
-                            : 'Save to My Prompts'}
-                      </motion.button>
+                      {/* Only show "Save to My Prompts" button if in Public Library */}
+                      {libraryMode === 'public' && (
+                        <motion.button
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => handleCopyToMyPrompts(selectedPrompt)}
+                          disabled={copyingToMyPromptsId === selectedPrompt.id}
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                          title="Copy this prompt to My Library"
+                        >
+                          <FolderPlus className="w-3.5 h-3.5" />
+                          {copyingToMyPromptsId === selectedPrompt.id ? 'Saving...' : 'Save to My Library'}
+                        </motion.button>
+                      )}
                       <motion.button
                         whileTap={{ scale: 0.95 }}
                         onClick={() => {
