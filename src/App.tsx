@@ -172,10 +172,11 @@ export default function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('/api/prompts')
+    const url = `/api/prompts?library=${libraryMode}`;
+    fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log('🔍 DEBUG: Fetched prompts:', data.length);
+        console.log(`🔍 DEBUG: Fetched prompts (${libraryMode}):`, data.length);
         console.log('🔍 DEBUG: First prompt:', data[0]);
         console.log('🔍 DEBUG: Sections:', [...new Set(data.map((p: Prompt) => p.section))]);
         setPrompts(data);
@@ -186,7 +187,7 @@ export default function App() {
         showToast('error', 'Failed to load prompts');
         setIsLoading(false);
       });
-  }, [showToast]);
+  }, [showToast, libraryMode]);
 
   // Close external resource dropdowns when clicking outside
   useEffect(() => {
