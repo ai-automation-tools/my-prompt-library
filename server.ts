@@ -156,6 +156,7 @@ async function startServer() {
             tags: data.tags || [],
             content: content,
             lastModified: new Date().toISOString(),
+            isUserOwned: inferredSection === 'My_Prompts', // Mark user-owned prompts
           };
         }));
 
@@ -207,6 +208,7 @@ async function startServer() {
           tags: data.tags || [],
           content: content,
           lastModified: fs.statSync(filePath).mtime,
+          isUserOwned: inferredSection === 'My_Prompts', // Mark user-owned prompts
         };
       });
 
