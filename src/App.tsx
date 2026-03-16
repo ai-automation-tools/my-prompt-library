@@ -1393,9 +1393,8 @@ export default function App() {
                         >
                           {/* Featured badge */}
                           <div className="absolute top-3 right-3 z-20">
-                            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--accent)] text-white text-[0.65rem] font-bold tracking-wider uppercase shadow-lg">
-                              <Star className="w-2.5 h-2.5 fill-white" />
-                              Featured
+                            <div className="flex items-center justify-center w-7 h-7 rounded-full bg-[var(--accent)] text-white shadow-lg">
+                              <Star className="w-3.5 h-3.5 fill-white" />
                             </div>
                           </div>
 
@@ -1440,6 +1439,16 @@ export default function App() {
                       ))}
                     </div>
                   </motion.div>
+                )}
+
+                {/* All Prompts Section Header - Only show when featured section is visible */}
+                {!debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
+                  <div className="flex items-center gap-3 mb-5">
+                    <LayoutGrid className="w-5 h-5 text-[var(--text-secondary)]" />
+                    <h3 className="heading-display text-lg font-bold tracking-tight text-[var(--text-primary)]">
+                      All
+                    </h3>
+                  </div>
                 )}
 
                 {isLoading ? (
