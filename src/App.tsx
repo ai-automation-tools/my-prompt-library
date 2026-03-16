@@ -466,9 +466,9 @@ export default function App() {
     setSelectedSubcategory(null);
     setShowAllPrompts(false);
     
-    // Set active category/subcategory for back navigation
+    // Set active category for back navigation (go back to category view, not subcategory)
     setActiveCategory(prompt.category);
-    setActiveSubcategory(prompt.subcategory);
+    setActiveSubcategory(null);  // Back button should show category ALL view
     
     // Track in recently viewed
     setRecentlyViewed(prev => {
@@ -786,12 +786,22 @@ export default function App() {
           {/* Sidebar header */}
           <div className="p-6 pb-4">
             <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2.5">
+              <button
+                onClick={() => {
+                  setActiveTab('prompt-library');
+                  setActiveCategory(null);
+                  setActiveSubcategory(null);
+                  setSelectedPrompt(null);
+                  setSelectedSubcategory(null);
+                  setShowAllPrompts(true);
+                }}
+                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer"
+              >
                 <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] border border-[var(--glass-border)] flex items-center justify-center">
                   <Sparkles className="w-4 h-4 text-[var(--accent)]" />
                 </div>
                 <span className="heading-display text-sm font-bold text-[var(--text-primary)]">Prompt Library</span>
-              </div>
+              </button>
               <button
                 onClick={() => setIsSidebarOpen(false)}
                 className="p-1.5 rounded-lg hover:bg-[var(--glass-bg-hover)] transition-colors md:hidden"
@@ -845,6 +855,9 @@ export default function App() {
                 setShowAllPrompts(true);
                 setSelectedPrompt(null);
                 setSelectedSubcategory(null);
+                // Clear category filters when switching sections
+                setActiveCategory(null);
+                setActiveSubcategory(null);
               }}
               className="w-full py-3 px-4 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.75rem] font-semibold tracking-wider uppercase text-[var(--text-primary)] cursor-pointer transition-all duration-300 hover:bg-[var(--glass-bg-hover)] hover:border-[var(--accent)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)]"
             >
