@@ -1,6 +1,6 @@
 ---
 title: "Brand Positioning Brief"
-tags: ["collections", "business", "brand", "positioning", "prompt"]
+tags: ["collections", "business", "brand", "positioning", "prompt", "featured"]
 category: "Collections"
 subcategory: "Business"
 ---
