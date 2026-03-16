@@ -252,13 +252,11 @@ export default function App() {
   const sectionPrompts = useMemo(() => {
     let filtered = prompts.filter(p => p.section === activeSection);
     
-    // Filter by library mode
-    if (libraryMode === 'my') {
-      filtered = filtered.filter(p => p.isUserOwned === true);
-    }
-    // In 'public' mode, show all prompts (both public and user-owned)
+    // In My Library mode, prompts are already filtered by user on the backend
+    // so we don't need the isUserOwned check here
     
     console.log(`🔍 DEBUG: activeSection="${activeSection}", libraryMode="${libraryMode}", sectionPrompts=${filtered.length}/${prompts.length}`);
+    console.log(`🔍 DEBUG: First 3 prompts:`, prompts.slice(0, 3).map(p => ({ title: p.title, section: p.section, isUserOwned: p.isUserOwned })));
     return filtered;
   }, [prompts, activeSection, libraryMode]);
 
