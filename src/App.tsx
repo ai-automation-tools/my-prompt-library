@@ -438,11 +438,12 @@ export default function App() {
   }, []);
 
   const refreshPrompts = useCallback(() => {
-    fetch('/api/prompts')
+    const url = `/api/prompts?library=${libraryMode}`;
+    fetch(url)
       .then(res => res.json())
       .then(data => setPrompts(data))
       .catch(err => console.error('Failed to fetch prompts:', err));
-  }, []);
+  }, [libraryMode]);
 
   const handleCopyToMyPrompts = useCallback(async (prompt: Prompt) => {
     if (prompt.section === 'My_Prompts') {
@@ -591,20 +592,42 @@ export default function App() {
 
       {/* Button column with separator */}
       <div className="flex flex-col gap-2 p-3 border-l border-[var(--glass-border)] relative z-10 justify-center shrink-0">
-        <button
-          onClick={(e) => toggleFavorite(prompt.id, e)}
-          className={cn(
-            "p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] transition-all duration-300 border backdrop-blur-sm",
-            favorites.includes(prompt.id)
-              ? "text-yellow-400 border-yellow-400/50 hover:bg-yellow-400/20"
-              : "text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
-          )}
-          title={favorites.includes(prompt.id) ? "Remove from favorites" : "Add to favorites"}
-        >
-          <Star className={cn("w-3.5 h-3.5", favorites.includes(prompt.id) && "fill-yellow-400")} />
-        </button>
-        {/* Edit and Delete buttons - only show in My Library or for user-owned prompts */}
-        {(libraryMode === 'my' || prompt.isUserOwned) && (
+        {/* Show different buttons based on library mode */}
+        {libraryMode === 'public' ? (
+          // Public Library: Show Add to My Library button
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCopyToMyPrompts(prompt);
+            }}
+            disabled={copyingToMyPromptsId === prompt.id}
+            className={cn(
+              "p-2 rounded-[var(--radius-sm)] transition-all duration-300 border backdrop-blur-sm",
+              copyingToMyPromptsId === prompt.id
+                ? "bg-[var(--accent)]/20 border-[var(--accent)]/50 text-[var(--accent)] cursor-wait"
+                : "bg-[var(--glass-bg)] text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)]"
+            )}
+            title="Add to My Library"
+          >
+            <FolderPlus className="w-3.5 h-3.5" />
+          </button>
+        ) : (
+          // My Library: Show favorite button
+          <button
+            onClick={(e) => toggleFavorite(prompt.id, e)}
+            className={cn(
+              "p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] transition-all duration-300 border backdrop-blur-sm",
+              favorites.includes(prompt.id)
+                ? "text-yellow-400 border-yellow-400/50 hover:bg-yellow-400/20"
+                : "text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
+            )}
+            title={favorites.includes(prompt.id) ? "Remove from favorites" : "Add to favorites"}
+          >
+            <Star className={cn("w-3.5 h-3.5", favorites.includes(prompt.id) && "fill-yellow-400")} />
+          </button>
+        )}
+        {/* Edit and Delete buttons - only show in My Library */}
+        {libraryMode === 'my' && (
           <>
             <button
               onClick={(e) => {
@@ -1476,8 +1499,8 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Featured/Suggested Section - Only shown on default landing page */}
-                {!debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
+                {/* Featured/Suggested Section - Only shown on Public Library landing page */}
+                {libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -1550,8 +1573,8 @@ export default function App() {
                   </motion.div>
                 )}
 
-                {/* All Prompts Section Header - Only show when featured section is visible */}
-                {!debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
+                {/* All Prompts Section Header - Only show when featured section is visible (Public Library only) */}
+                {libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
                   <div className="flex items-center gap-3 mb-5">
                     <LayoutGrid className="w-5 h-5 text-[var(--text-secondary)]" />
                     <h3 className="heading-display text-lg font-bold tracking-tight text-[var(--text-primary)]">
