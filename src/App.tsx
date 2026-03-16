@@ -42,6 +42,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import PromptEditorModal from './components/PromptEditorModal';
 import LoginModal from './components/LoginModal';
 import SignupModal from './components/SignupModal';
+import EmptyState from './components/EmptyState';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { useAuth } from './contexts/AuthContext';
 import Fuse from 'fuse.js';
@@ -528,9 +529,14 @@ export default function App() {
   }, []);
 
   const handleNewPrompt = useCallback(() => {
+    if (!user) {
+      showToast('error', 'Please sign in to create prompts');
+      setIsLoginOpen(true);
+      return;
+    }
     setEditingPrompt(null);
     setIsEditorOpen(true);
-  }, []);
+  }, [user, showToast]);
 
   // Prompt card component for reuse (memoized for performance)
   const PromptCard = memo(({ prompt, index }: { prompt: Prompt; index: number }) => (
@@ -1569,21 +1575,40 @@ export default function App() {
                     ))}
                   </div>
                 ) : sortedPrompts.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center py-20 text-center">
-                    <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
-                    <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
-                    <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
-                      {searchQuery ? `No prompts match "${searchQuery}". Try a different search term.` : 'Get started by creating your first prompt!'}
-                    </p>
-                    {!searchQuery && (
-                      <button
-                        onClick={handleNewPrompt}
-                        className="px-6 py-3 bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white rounded-lg font-semibold transition-colors"
-                      >
-                        Create Your First Prompt
-                      </button>
-                    )}
-                  </div>
+                  // Empty state logic
+                  libraryMode === 'my' && !user ? (
+                    // User not authenticated in My Library mode
+                    <EmptyState
+                      type="not-authenticated"
+                      onLogin={() => setIsLoginOpen(true)}
+                      onSignup={() => setIsSignupOpen(true)}
+                      onBrowsePublic={() => setLibraryMode('public')}
+                    />
+                  ) : libraryMode === 'my' && user ? (
+                    // User authenticated but has no prompts
+                    <EmptyState
+                      type="no-prompts"
+                      onBrowsePublic={() => setLibraryMode('public')}
+                    />
+                  ) : searchQuery ? (
+                    // Search returned no results
+                    <div className="flex flex-col items-center justify-center py-20 text-center">
+                      <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
+                      <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
+                      <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
+                        No prompts match "{searchQuery}". Try a different search term.
+                      </p>
+                    </div>
+                  ) : (
+                    // Generic empty (shouldn't happen in public library)
+                    <div className="flex flex-col items-center justify-center py-20 text-center">
+                      <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
+                      <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
+                      <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
+                        Get started by creating your first prompt!
+                      </p>
+                    </div>
+                  )
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {sortedPrompts.map((prompt, i) => (
