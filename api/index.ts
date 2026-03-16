@@ -155,7 +155,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
           
           return {
             id: file.path,
-            title: data.title || path.basename(file.path, '.md'),
+            title: data.title || extractFirstHeading(content) || path.basename(file.path, '.md'),
             section,
             category,
             subcategory,
@@ -194,7 +194,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
             
             results.push({
               id: relativePath,
-              title: data.title || path.basename(file, '.md'),
+              title: data.title || extractFirstHeading(content) || path.basename(file, '.md'),
               section,
               category,
               subcategory,
