@@ -499,9 +499,13 @@ export default function App() {
         handleSubcategoryClick(activeCategory, 'ALL');
       }
     } else if (selectedSubcategory) {
-      // Go back from subcategory to category
+      // Go back from subcategory to category ALL view
+      const category = selectedSubcategory.category;
       setSelectedSubcategory(null);
       setActiveSubcategory(null);
+      
+      // Select the ALL button for this category
+      handleSubcategoryClick(category, 'ALL');
     } else if (activeCategory) {
       // Go back from category to all prompts
       setActiveCategory(null);
