@@ -447,10 +447,6 @@ export default function App() {
       .filter((p): p is Prompt => p !== undefined);
   }, [prompts, recentlyViewed]);
 
-  const toggleCategory = useCallback((cat: string) => {
-    setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
-  }, []);
-
   const handleSubcategoryClick = useCallback((category: string, subcategory: string | 'ALL') => {
     setSelectedSubcategory({ category, subcategory });
     setSelectedPrompt(null);
@@ -460,6 +456,16 @@ export default function App() {
     setActiveCategory(category);
     setActiveSubcategory(subcategory === 'ALL' ? null : subcategory);
   }, []);
+
+  const toggleCategory = useCallback((cat: string) => {
+    const isExpanded = expandedCategories[cat];
+    setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
+    
+    // When expanding a category, automatically select "ALL" to show all prompts
+    if (!isExpanded) {
+      handleSubcategoryClick(cat, 'ALL');
+    }
+  }, [expandedCategories, handleSubcategoryClick]);
 
   const handlePromptClick = useCallback((prompt: Prompt) => {
     setSelectedPrompt(prompt);
