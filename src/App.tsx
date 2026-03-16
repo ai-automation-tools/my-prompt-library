@@ -40,7 +40,10 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { motion, AnimatePresence } from 'motion/react';
 import PromptEditorModal from './components/PromptEditorModal';
+import LoginModal from './components/LoginModal';
+import SignupModal from './components/SignupModal';
 import { ToastContainer, type ToastProps } from './components/Toast';
+import { useAuth } from './contexts/AuthContext';
 import Fuse from 'fuse.js';
 
 function cn(...inputs: ClassValue[]) {
@@ -81,8 +84,11 @@ const THEMES: { id: Theme; name: string; icon: string }[] = [
 ];
 
 export default function App() {
+  const { user, logout } = useAuth();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
   const [theme, setTheme] = useState<Theme>('github-dark-pro');
@@ -1133,6 +1139,38 @@ export default function App() {
                   )}
                 </AnimatePresence>
               </div>
+
+              {/* Auth Buttons */}
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <div className="px-3 py-1.5 rounded-lg glass-subtle border border-[var(--glass-border)]">
+                    <p className="text-sm font-medium text-[var(--text-primary)]">
+                      {user.name || user.email}
+                    </p>
+                  </div>
+                  <button
+                    onClick={logout}
+                    className="px-4 py-1.5 rounded-lg glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setIsLoginOpen(true)}
+                    className="px-4 py-1.5 rounded-lg glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => setIsSignupOpen(true)}
+                    className="px-4 py-1.5 rounded-lg bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white text-sm font-semibold transition-colors shadow-[0_2px_12px_var(--accent-glow)]"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              )}
             </div>
 
           </div>
@@ -1795,6 +1833,25 @@ ${selectedPrompt.content}`;
 
       {/* Toast Notifications */}
       <ToastContainer toasts={toasts} onClose={closeToast} />
+
+      {/* Auth Modals */}
+      <LoginModal
+        isOpen={isLoginOpen}
+        onClose={() => setIsLoginOpen(false)}
+        onSwitchToSignup={() => {
+          setIsLoginOpen(false);
+          setIsSignupOpen(true);
+        }}
+      />
+
+      <SignupModal
+        isOpen={isSignupOpen}
+        onClose={() => setIsSignupOpen(false)}
+        onSwitchToLogin={() => {
+          setIsSignupOpen(false);
+          setIsLoginOpen(true);
+        }}
+      />
     </div>
   );
 }
