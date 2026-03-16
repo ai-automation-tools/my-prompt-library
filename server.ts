@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import { createServer as createViteServer } from "vite";
 import cookieParser from "cookie-parser";
@@ -8,7 +9,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import authRoutes from "./routes/auth.js";
 import { optionalAuth, authenticate } from "./middleware/auth.js";
-import { promptDb } from "./db/index.js";
+import { userDb, promptDb, sessionDb, initializeSchema } from "./db/postgres.js";
 
 // Get the directory of this file (server.ts)
 const __filename = fileURLToPath(import.meta.url);
@@ -112,7 +113,7 @@ async function startServer() {
       }
       
       console.log('[My Library] User:', req.user.id, req.user.email);
-      const userPrompts = promptDb.findByUserId(req.user.id);
+      const userPrompts = await promptDb.findByUserId(req.user.id);
       console.log('[My Library] Found prompts:', userPrompts.length);
       if (userPrompts.length > 0) {
         console.log('[My Library] First prompt:', userPrompts[0].title, userPrompts[0].section);
@@ -272,7 +273,7 @@ async function startServer() {
   });
 
   // API to create a new prompt
-  app.post("/api/prompts", authenticate, (req, res) => {
+  app.post("/api/prompts", authenticate, async (req, res) => {
     try {
       const { title, section, category, subcategory, tags, content } = req.body;
 
@@ -281,7 +282,7 @@ async function startServer() {
       }
 
       // Save to database for authenticated users
-      const prompt = promptDb.create(req.user!.id, {
+      const prompt = await promptDb.create(req.user!.id, {
         title,
         section,
         category,
@@ -309,13 +310,13 @@ async function startServer() {
   });
 
   // API to update an existing prompt
-  app.put("/api/prompts/:id", authenticate, (req, res) => {
+  app.put("/api/prompts/:id", authenticate, async (req, res) => {
     try {
       const promptId = decodeURIComponent(req.params.id);
       const { title, tags, content, category, subcategory, section } = req.body;
 
       // Update in database for authenticated users
-      const prompt = promptDb.update(promptId, req.user!.id, {
+      const prompt = await promptDb.update(promptId, req.user!.id, {
         title,
         tags,
         content,
@@ -347,12 +348,12 @@ async function startServer() {
   });
 
   // API to delete a prompt
-  app.delete("/api/prompts/:id", authenticate, (req, res) => {
+  app.delete("/api/prompts/:id", authenticate, async (req, res) => {
     try {
       const promptId = decodeURIComponent(req.params.id);
 
       // Delete from database for authenticated users
-      const deleted = promptDb.delete(promptId, req.user!.id);
+      const deleted = await promptDb.delete(promptId, req.user!.id);
 
       if (!deleted) {
         return res.status(404).json({ error: "Prompt not found or unauthorized" });
@@ -390,7 +391,7 @@ async function startServer() {
       const title = data.title || extractFirstHeading(content) || path.basename(promptId, ".md");
 
       // Copy to user's database
-      const copiedPrompt = promptDb.copyFromPublic(req.user!.id, {
+      const copiedPrompt = await promptDb.copyFromPublic(req.user!.id, {
         title,
         section,
         category,
@@ -430,6 +431,9 @@ async function startServer() {
       res.sendFile(path.join(__dirname, "dist", "index.html"));
     });
   }
+
+  // Initialize database schema
+  await initializeSchema();
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on http://localhost:${PORT}`);

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { sessionDb, userDb } from '../db/index.js';
+import { sessionDb, userDb } from '../db/postgres.js';
 
 // Extend Express Request to include user
 declare global {
@@ -18,7 +18,7 @@ declare global {
  * Authentication middleware
  * Checks for auth token in cookies or Authorization header
  */
-export function authenticate(req: Request, res: Response, next: NextFunction) {
+export async function authenticate(req: Request, res: Response, next: NextFunction) {
   // Check for token in Authorization header or cookie
   const authHeader = req.headers.authorization;
   const cookieToken = req.cookies?.auth_token;
@@ -30,14 +30,14 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
   }
 
   // Verify token
-  const session = sessionDb.findByToken(token);
+  const session = await sessionDb.findByToken(token);
   
   if (!session) {
     return res.status(401).json({ error: 'Invalid or expired token' });
   }
 
   // Get user
-  const user = userDb.findById(session.user_id);
+  const user = await userDb.findById(session.user_id);
   
   if (!user) {
     return res.status(401).json({ error: 'User not found' });
@@ -57,7 +57,7 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
  * Optional authentication middleware
  * Attaches user to request if token is present, but doesn't require it
  */
-export function optionalAuth(req: Request, res: Response, next: NextFunction) {
+export async function optionalAuth(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
   const cookieToken = req.cookies?.auth_token;
   
@@ -67,10 +67,10 @@ export function optionalAuth(req: Request, res: Response, next: NextFunction) {
     return next();
   }
 
-  const session = sessionDb.findByToken(token);
+  const session = await sessionDb.findByToken(token);
   
   if (session) {
-    const user = userDb.findById(session.user_id);
+    const user = await userDb.findById(session.user_id);
     
     if (user) {
       req.user = {

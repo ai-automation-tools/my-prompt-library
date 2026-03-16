@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { userDb, sessionDb } from '../db/index.js';
+import { userDb, sessionDb } from '../db/postgres.js';
 import { authenticate } from '../middleware/auth.js';
 
 const router = Router();
@@ -22,16 +22,16 @@ router.post('/signup', async (req: Request, res: Response) => {
     }
 
     // Check if user already exists
-    const existing = userDb.findByEmail(email);
+    const existing = await userDb.findByEmail(email);
     if (existing) {
       return res.status(409).json({ error: 'User with this email already exists' });
     }
 
     // Create user
-    const user = userDb.create(email, password, name);
+    const user = await userDb.create(email, password, name);
 
     // Create session
-    const session = sessionDb.create(user.id);
+    const session = await sessionDb.create(user.id);
 
     // Set cookie
     res.cookie('auth_token', session.token, {
@@ -65,14 +65,14 @@ router.post('/login', async (req: Request, res: Response) => {
     }
 
     // Verify credentials
-    const user = userDb.verifyPassword(email, password);
+    const user = await userDb.verifyPassword(email, password);
     
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
     // Create session
-    const session = sessionDb.create(user.id);
+    const session = await sessionDb.create(user.id);
 
     // Set cookie
     res.cookie('auth_token', session.token, {
@@ -101,7 +101,7 @@ router.post('/logout', authenticate, async (req: Request, res: Response) => {
     const token = req.cookies?.auth_token || req.headers.authorization?.replace('Bearer ', '');
     
     if (token) {
-      sessionDb.delete(token);
+      await sessionDb.delete(token);
     }
 
     res.clearCookie('auth_token');
@@ -118,7 +118,7 @@ router.post('/logout', authenticate, async (req: Request, res: Response) => {
  */
 router.get('/me', authenticate, async (req: Request, res: Response) => {
   try {
-    const user = userDb.findByIdPublic(req.user!.id);
+    const user = await userDb.findByIdPublic(req.user!.id);
     
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -139,7 +139,7 @@ router.put('/me', authenticate, async (req: Request, res: Response) => {
   try {
     const { name, avatar_url } = req.body;
     
-    const user = userDb.update(req.user!.id, { name, avatar_url });
+    const user = await userDb.update(req.user!.id, { name, avatar_url });
     
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
