@@ -34,7 +34,9 @@ import {
   BookOpen,
   Bot,
   Wrench,
-  Zap
+  Zap,
+  Download,
+  Share2
 } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -534,6 +536,31 @@ export default function App() {
     showToast('success', 'Copied to clipboard');
   }, [showToast]);
 
+  const handleDownloadMarkdown = useCallback((prompt: Prompt) => {
+    const frontmatter = `---
+title: ${prompt.title}
+section: ${prompt.section}
+category: ${prompt.category}
+subcategory: ${prompt.subcategory || 'None'}
+tags: ${prompt.tags.join(', ')}
+created: ${prompt.lastModified}
+source: My Prompt Library
+---
+
+`;
+    const content = frontmatter + prompt.content;
+    const blob = new Blob([content], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${prompt.title.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('success', 'Prompt downloaded!');
+  }, [showToast]);
+
   const toggleFavorite = useCallback((promptId: string, e?: React.MouseEvent) => {
     if (e) {
       e.stopPropagation();
@@ -731,6 +758,16 @@ export default function App() {
             </button>
           </>
         )}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDownloadMarkdown(prompt);
+          }}
+          className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
+          title="Download as Markdown"
+        >
+          <Download className="w-3.5 h-3.5" />
+        </button>
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -1947,6 +1984,16 @@ export default function App() {
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
+                                handleDownloadMarkdown(prompt);
+                              }}
+                              className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] backdrop-blur-sm"
+                              title="Download as Markdown"
+                            >
+                              <Download className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
                                 handleCopy(prompt.content, prompt.id);
                               }}
                               className={cn(
@@ -2135,6 +2182,32 @@ export default function App() {
                       <p className="label mt-0.5 truncate">{selectedPrompt.id}</p>
                     </div>
                     <div className="flex gap-2 flex-wrap justify-end">
+                      {/* Download Button */}
+                      <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleDownloadMarkdown(selectedPrompt)}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                        title="Download as Markdown"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        Download
+                      </motion.button>
+
+                      {/* Share Button (Email) */}
+                      <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => {
+                          const subject = encodeURIComponent(`Prompt: ${selectedPrompt.title}`);
+                          const body = encodeURIComponent(`---\ntitle: ${selectedPrompt.title}\ncategory: ${selectedPrompt.category}\ntags: ${selectedPrompt.tags.join(', ')}\n---\n\n${selectedPrompt.content}`);
+                          window.location.href = `mailto:?subject=${subject}&body=${body}`;
+                        }}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                        title="Share via Email"
+                      >
+                        <Share2 className="w-3.5 h-3.5" />
+                        Share
+                      </motion.button>
+
                       {/* Only show "Save to My Prompts" button if in Public Library */}
                       {libraryMode === 'public' && (
                         <motion.button
@@ -2150,30 +2223,6 @@ export default function App() {
                       )}
                       <motion.button
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => {
-                          const fullContent = `---
-title: "${selectedPrompt.title}"
-tags: [${selectedPrompt.tags.map(t => `"${t}"`).join(', ')}]
-category: "${selectedPrompt.category}"
-subcategory: "${selectedPrompt.subcategory || selectedPrompt.category}"
----
-
-${selectedPrompt.content}`;
-                          handleCopy(fullContent, `${selectedPrompt.id}-full`);
-                        }}
-                        className={cn(
-                          "flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0",
-                          copied === `${selectedPrompt.id}-full`
-                            ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
-                            : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
-                        )}
-                        title="Copy with frontmatter"
-                      >
-                        {copied === `${selectedPrompt.id}-full` ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                        Copy All
-                      </motion.button>
-                      <motion.button
-                        whileTap={{ scale: 0.95 }}
                         onClick={() => handleCopy(selectedPrompt.content, selectedPrompt.id)}
                         className={cn(
                           "flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0",
@@ -2181,7 +2230,7 @@ ${selectedPrompt.content}`;
                             ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
                             : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
                         )}
-                        title="Copy content only"
+                        title="Copy prompt content"
                       >
                         {copied === selectedPrompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                         Copy
