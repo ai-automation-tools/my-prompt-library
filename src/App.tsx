@@ -271,16 +271,18 @@ export default function App() {
       const target = event.target as HTMLElement;
       if (!target.closest('.external-resource-dropdown')) {
         setCliReposOpen(false);
-        setPromptLibsOpen(false);
+        setPromptsOpen(false);
         setAgentTemplatesOpen(false);
+        setSkillsOpen(false);
+        setToolsOpen(false);
       }
     };
 
-    if (cliReposOpen || promptLibsOpen || agentTemplatesOpen) {
+    if (cliReposOpen || promptsOpen || agentTemplatesOpen || skillsOpen || toolsOpen) {
       document.addEventListener('mousedown', handleClickOutside);
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
-  }, [cliReposOpen, promptLibsOpen, agentTemplatesOpen]);
+  }, [cliReposOpen, promptsOpen, agentTemplatesOpen, skillsOpen, toolsOpen]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -1091,8 +1093,10 @@ export default function App() {
                   onClick={(e) => {
                     e.stopPropagation();
                     setCliReposOpen(!cliReposOpen);
-                    setPromptLibsOpen(false);
+                    setPromptsOpen(false);
                     setAgentTemplatesOpen(false);
+                    setSkillsOpen(false);
+                    setToolsOpen(false);
                   }}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                 >
@@ -1110,7 +1114,7 @@ export default function App() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute top-full right-0 mt-2 z-[100] w-56 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-[100] w-56 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
                     >
                     <a
                       href="https://github.com/anthropics/claude-code"
@@ -1147,74 +1151,318 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              {/* Prompt Libraries */}
+              {/* Prompts (with sub-menus) */}
               <div className="relative external-resource-dropdown">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    setPromptLibsOpen(!promptLibsOpen);
+                    setPromptsOpen(!promptsOpen);
                     setCliReposOpen(false);
                     setAgentTemplatesOpen(false);
+                    setSkillsOpen(false);
+                    setToolsOpen(false);
                   }}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                 >
-                  <BookOpen className="w-3.5 h-3.5 text-[var(--accent)]" />
-                  <span className="font-semibold text-[var(--text-secondary)]">Libraries</span>
+                  <Sparkles className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  <span className="font-semibold text-[var(--text-secondary)]">Prompts</span>
                   <ChevronDown className={cn(
                     "w-3 h-3 text-[var(--text-tertiary)] transition-transform",
-                    promptLibsOpen && "rotate-180"
+                    promptsOpen && "rotate-180"
                   )} />
                 </button>
                 <AnimatePresence>
-                  {promptLibsOpen && (
+                  {promptsOpen && (
                     <motion.div
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute top-full right-0 mt-2 z-[100] w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-[100] w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
                     >
-                    <a
-                      href="https://prompts.chat/prompts"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                    >
-                      <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
-                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompts.chat</span>
-                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                    <a
-                      href="https://prompthero.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                    >
-                      <Sparkles className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
-                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">PromptHero</span>
-                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                    <a
-                      href="https://cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                    >
-                      <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
-                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Vertex AI Gallery</span>
-                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                    <a
-                      href="https://workmind.ai/ai-prompt-library/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                    >
-                      <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
-                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">WorkMind</span>
-                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
+                    {/* System Prompts - with submenu */}
+                    <div className="relative">
+                      <button
+                        onClick={() => setSystemPromptsOpen(!systemPromptsOpen)}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      >
+                        <FileText className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">System Prompts</span>
+                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)] ml-auto" />
+                      </button>
+                      <AnimatePresence>
+                        {systemPromptsOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -8 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-full top-0 ml-1 w-72 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                          >
+                            <a href="https://learnprompting.org/docs/basics/system_prompts" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Learn Prompting</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://www.promptingguide.ai/techniques" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guide</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://cookbook.openai.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">OpenAI Cookbook</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Anthropic Docs</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://ai.google.dev/gemini-api/docs/system-instructions" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Gemini Docs</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
 
+                    {/* Prompt Libraries - with submenu */}
+                    <div className="relative">
+                      <button
+                        onClick={() => setPromptLibrariesOpen(!promptLibrariesOpen)}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      >
+                        <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompt Libraries</span>
+                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)] ml-auto" />
+                      </button>
+                      <AnimatePresence>
+                        {promptLibrariesOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -8 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-full top-0 ml-1 w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                          >
+                            <a href="https://prompts.chat/prompts" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompts.chat</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://prompthero.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Sparkles className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">PromptHero</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Vertex AI Gallery</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://workmind.ai/ai-prompt-library/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">WorkMind</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Agent Instructions - with submenu */}
+                    <div className="relative">
+                      <button
+                        onClick={() => setAgentInstructionsOpen(!agentInstructionsOpen)}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      >
+                        <Bot className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Agent Instructions</span>
+                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)] ml-auto" />
+                      </button>
+                      <AnimatePresence>
+                        {agentInstructionsOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -8 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-full top-0 ml-1 w-72 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                          >
+                            <a href="https://docs.anthropic.com/en/docs/agents-and-tools/overview" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Bot className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Anthropic Agents</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://platform.openai.com/docs/guides/agents" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Bot className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">OpenAI Agents</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://ai.google.dev/gemini-api/docs/function-calling" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Zap className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Gemini Function Call</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://modelcontextprotocol.io/introduction" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">MCP Introduction</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://docs.openclaw.ai/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">OpenClaw Docs</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Prompting Guides - with submenu */}
+                    <div className="relative">
+                      <button
+                        onClick={() => setPromptingGuidesOpen(!promptingGuidesOpen)}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      >
+                        <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guides</span>
+                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)] ml-auto" />
+                      </button>
+                      <AnimatePresence>
+                        {promptingGuidesOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -8 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-full top-0 ml-1 w-72 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                          >
+                            <a href="https://www.promptingguide.ai/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guide AI</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Claude Prompt Eng</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Skills */}
+              <div className="relative external-resource-dropdown">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSkillsOpen(!skillsOpen);
+                    setCliReposOpen(false);
+                    setPromptsOpen(false);
+                    setAgentTemplatesOpen(false);
+                    setToolsOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+                >
+                  <Zap className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  <span className="font-semibold text-[var(--text-secondary)]">Skills</span>
+                  <ChevronDown className={cn(
+                    "w-3 h-3 text-[var(--text-tertiary)] transition-transform",
+                    skillsOpen && "rotate-180"
+                  )} />
+                </button>
+                <AnimatePresence>
+                  {skillsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-[100] w-72 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                    >
+                      <a href="https://github.com/openclaw/openclaw/tree/main/skills" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">OpenClaw Skills</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://clawhub.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">ClawHub</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://github.com/microsoft/semantic-kernel" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Semantic Kernel</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://python.langchain.com/docs/modules/agents/tools/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">LangChain Tools</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://modelcontextprotocol.io/docs" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">MCP Docs</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Tools */}
+              <div className="relative external-resource-dropdown">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setToolsOpen(!toolsOpen);
+                    setCliReposOpen(false);
+                    setPromptsOpen(false);
+                    setAgentTemplatesOpen(false);
+                    setSkillsOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+                >
+                  <Wrench className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  <span className="font-semibold text-[var(--text-secondary)]">Tools</span>
+                  <ChevronDown className={cn(
+                    "w-3 h-3 text-[var(--text-tertiary)] transition-transform",
+                    toolsOpen && "rotate-180"
+                  )} />
+                </button>
+                <AnimatePresence>
+                  {toolsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-[100] w-72 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                    >
+                      <a href="https://github.com/bigscience-workshop/promptsource" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">PromptSource</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://www.promptingguide.ai/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guide</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://digitalmaker.ai/tools" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Wrench className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Digital Maker Tools</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -1227,7 +1475,9 @@ export default function App() {
                     e.stopPropagation();
                     setAgentTemplatesOpen(!agentTemplatesOpen);
                     setCliReposOpen(false);
-                    setPromptLibsOpen(false);
+                    setPromptsOpen(false);
+                    setSkillsOpen(false);
+                    setToolsOpen(false);
                   }}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                 >
@@ -1245,7 +1495,7 @@ export default function App() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute top-full right-0 mt-2 z-[100] w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-[100] w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
                     >
                     <a
                       href="https://www.aitmpl.com/agents"
@@ -1290,9 +1540,9 @@ export default function App() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
-
             </div>
+
+              </div>
 
             {/* RIGHT: Auth Buttons */}
             <div className="hidden md:flex items-center gap-3">
