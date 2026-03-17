@@ -1041,7 +1041,7 @@ export default function App() {
         {/* Top Bar with Mobile Menu and Filters */}
         <div className="shrink-0 px-4 md:px-6 py-3 border-b border-[var(--glass-border)]">
           <div className="flex items-center gap-4">
-            {/* Mobile menu */}
+            {/* LEFT: Mobile menu */}
             <button
               onClick={() => setIsSidebarOpen(true)}
               className="p-2 rounded-[var(--radius-sm)] hover:bg-[var(--glass-bg-hover)] transition-colors md:hidden"
@@ -1061,8 +1061,8 @@ export default function App() {
               <span className="text-xs font-bold text-blue-400 group-hover:text-blue-300 transition-colors tracking-wide">Platform</span>
             </a>
 
-            {/* External Resources Dropdowns */}
-            <div className="hidden md:flex items-center gap-3 ml-auto">
+            {/* CENTER: Navigation Dropdowns (Desktop Only) */}
+            <div className="hidden md:flex items-center justify-center gap-3 flex-1">
               {/* aX Platform Standalone Link */}
               <a
                 href="https://ax-platform.com/"
@@ -1282,17 +1282,20 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              {/* Auth Buttons */}
+            </div>
+
+            {/* RIGHT: Auth Buttons */}
+            <div className="hidden md:flex items-center gap-3">
               {user ? (
-                <div className="flex items-center gap-3">
-                  <div className="px-3 py-1.5 rounded-lg glass-subtle border border-[var(--glass-border)]">
+                <div className="flex items-center rounded-lg glass-subtle border border-[var(--glass-border)] overflow-hidden">
+                  <div className="px-4 py-1.5 border-r border-[var(--glass-border)]">
                     <p className="text-sm font-medium text-[var(--text-primary)]">
                       {user.name || user.email}
                     </p>
                   </div>
                   <button
                     onClick={logout}
-                    className="px-4 py-1.5 rounded-lg glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all"
+                    className="px-4 py-1.5 hover:bg-[var(--glass-bg-hover)] text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all"
                   >
                     Logout
                   </button>
