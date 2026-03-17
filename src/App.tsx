@@ -2223,30 +2223,6 @@ source: My Prompt Library
                       )}
                       <motion.button
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => {
-                          const fullContent = `---
-title: "${selectedPrompt.title}"
-tags: [${selectedPrompt.tags.map(t => `"${t}"`).join(', ')}]
-category: "${selectedPrompt.category}"
-subcategory: "${selectedPrompt.subcategory || selectedPrompt.category}"
----
-
-${selectedPrompt.content}`;
-                          handleCopy(fullContent, `${selectedPrompt.id}-full`);
-                        }}
-                        className={cn(
-                          "flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0",
-                          copied === `${selectedPrompt.id}-full`
-                            ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
-                            : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
-                        )}
-                        title="Copy with frontmatter"
-                      >
-                        {copied === `${selectedPrompt.id}-full` ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                        Copy All
-                      </motion.button>
-                      <motion.button
-                        whileTap={{ scale: 0.95 }}
                         onClick={() => handleCopy(selectedPrompt.content, selectedPrompt.id)}
                         className={cn(
                           "flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0",
@@ -2254,7 +2230,7 @@ ${selectedPrompt.content}`;
                             ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
                             : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
                         )}
-                        title="Copy content only"
+                        title="Copy prompt content"
                       >
                         {copied === selectedPrompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                         Copy
