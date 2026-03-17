@@ -1183,7 +1183,12 @@ export default function App() {
                     {/* System Prompts - with submenu */}
                     <div className="relative">
                       <button
-                        onClick={() => setSystemPromptsOpen(!systemPromptsOpen)}
+                        onClick={() => {
+                          setSystemPromptsOpen(!systemPromptsOpen);
+                          setPromptLibrariesOpen(false);
+                          setAgentInstructionsOpen(false);
+                          setPromptingGuidesOpen(false);
+                        }}
                         className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
                       >
                         <FileText className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
@@ -1232,7 +1237,12 @@ export default function App() {
                     {/* Prompt Libraries - with submenu */}
                     <div className="relative">
                       <button
-                        onClick={() => setPromptLibrariesOpen(!promptLibrariesOpen)}
+                        onClick={() => {
+                          setPromptLibrariesOpen(!promptLibrariesOpen);
+                          setSystemPromptsOpen(false);
+                          setAgentInstructionsOpen(false);
+                          setPromptingGuidesOpen(false);
+                        }}
                         className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
                       >
                         <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
@@ -1276,7 +1286,12 @@ export default function App() {
                     {/* Agent Instructions - with submenu */}
                     <div className="relative">
                       <button
-                        onClick={() => setAgentInstructionsOpen(!agentInstructionsOpen)}
+                        onClick={() => {
+                          setAgentInstructionsOpen(!agentInstructionsOpen);
+                          setSystemPromptsOpen(false);
+                          setPromptLibrariesOpen(false);
+                          setPromptingGuidesOpen(false);
+                        }}
                         className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
                       >
                         <Bot className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
@@ -1325,7 +1340,12 @@ export default function App() {
                     {/* Prompting Guides - with submenu */}
                     <div className="relative">
                       <button
-                        onClick={() => setPromptingGuidesOpen(!promptingGuidesOpen)}
+                        onClick={() => {
+                          setPromptingGuidesOpen(!promptingGuidesOpen);
+                          setSystemPromptsOpen(false);
+                          setPromptLibrariesOpen(false);
+                          setAgentInstructionsOpen(false);
+                        }}
                         className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
                       >
                         <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
