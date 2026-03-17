@@ -32,7 +32,9 @@ import {
   Github,
   ExternalLink,
   BookOpen,
-  Bot
+  Bot,
+  Wrench,
+  Zap
 } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -136,8 +138,16 @@ export default function App() {
   
   // External Resources Dropdowns
   const [cliReposOpen, setCliReposOpen] = useState(false);
-  const [promptLibsOpen, setPromptLibsOpen] = useState(false);
+  const [promptsOpen, setPromptsOpen] = useState(false);
   const [agentTemplatesOpen, setAgentTemplatesOpen] = useState(false);
+  const [skillsOpen, setSkillsOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  
+  // Sub-menu states for Prompts dropdown
+  const [systemPromptsOpen, setSystemPromptsOpen] = useState(false);
+  const [promptLibrariesOpen, setPromptLibrariesOpen] = useState(false);
+  const [agentInstructionsOpen, setAgentInstructionsOpen] = useState(false);
+  const [promptingGuidesOpen, setPromptingGuidesOpen] = useState(false);
   
   // Navigation & Organization
   const [favorites, setFavorites] = useState<string[]>(() => {
@@ -1295,7 +1305,7 @@ export default function App() {
                   </div>
                   <button
                     onClick={logout}
-                    className="px-4 py-1.5 hover:bg-[var(--glass-bg-hover)] text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all"
+                    className="px-4 py-1.5 bg-red-900/20 hover:bg-red-800/30 text-sm font-medium text-red-300 hover:text-red-200 transition-all"
                   >
                     Logout
                   </button>
