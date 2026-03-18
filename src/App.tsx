@@ -105,11 +105,11 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'agent-guides' | 'agent-instructions' | 'prompt-library' | 'skills' | 'system-prompts'>(() => {
+  const [activeTab, setActiveTab] = useState<'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts'>(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const section = urlParams.get('section');
     if (section === 'agent-guides') return 'agent-guides';
-    if (section === 'agent-instructions') return 'agent-instructions';
+    if (section === 'agents') return 'agents';
     if (section === 'prompt-library') return 'prompt-library';
     if (section === 'skills') return 'skills';
     if (section === 'system-prompts') return 'system-prompts';
@@ -205,7 +205,7 @@ export default function App() {
     // Set section (tab)
     const sectionParam = 
       activeTab === 'agent-guides' ? 'agent-guides' :
-      activeTab === 'agent-instructions' ? 'agent-instructions' :
+      activeTab === 'agents' ? 'agents' :
       activeTab === 'prompt-library' ? 'prompt-library' :
       activeTab === 'skills' ? 'skills' :
       'system-prompts';
@@ -317,7 +317,7 @@ export default function App() {
 
   const activeSection = 
     activeTab === 'agent-guides' ? 'Agent_Guides' : 
-    activeTab === 'agent-instructions' ? 'Agent_Instructions' : 
+    activeTab === 'agents' ? 'Agents' : 
     activeTab === 'prompt-library' ? 'Prompt_Library' : 
     activeTab === 'system-prompts' ? 'System_Prompts' :
     'Skills';
@@ -364,7 +364,7 @@ export default function App() {
       
       // Path filter only for public library file-based prompts
       if (activeTab === 'agent-guides' && !prompt.id.startsWith('Agent_Guides/')) return false;
-      if (activeTab === 'agent-instructions' && !prompt.id.startsWith('Agent_Instructions/')) return false;
+      if (activeTab === 'agents' && !prompt.id.startsWith('Agents/')) return false;
       if (activeTab === 'prompt-library' && !prompt.id.startsWith('Prompt_Library/')) return false;
       if (activeTab === 'system-prompts' && !prompt.id.startsWith('System_Prompts/')) return false;
       if (activeTab === 'skills' && !prompt.id.startsWith('Skills/')) return false;
@@ -932,7 +932,7 @@ source: My Prompt Library
               className="w-full py-3 px-4 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.75rem] font-semibold tracking-wider uppercase text-[var(--text-primary)] cursor-pointer transition-all duration-300 hover:bg-[var(--glass-bg-hover)] hover:border-[var(--accent)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)]"
             >
               <option value="prompt-library">📚 Prompt Library</option>
-              <option value="agent-instructions">👤 Agent Instructions</option>
+              <option value="agents">👤 Agents</option>
               <option value="agent-guides">📖 Agent Guides</option>
               <option value="system-prompts">⚙️ System Prompts</option>
               <option value="skills">🛠️ Skills</option>
@@ -1327,7 +1327,7 @@ source: My Prompt Library
                       </AnimatePresence>
                     </div>
 
-                    {/* Agent Instructions - with submenu */}
+                    {/* Agents - with submenu */}
                     <div className="relative">
                       <button
                         onClick={() => {
@@ -1339,7 +1339,7 @@ source: My Prompt Library
                         className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
                       >
                         <Bot className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
-                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Agent Instructions</span>
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Agents</span>
                         <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)] ml-auto" />
                       </button>
                       <AnimatePresence>
@@ -1658,7 +1658,7 @@ source: My Prompt Library
               <div className="max-w-4xl">
                 <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-3">
                   {activeTab === 'prompt-library' ? 'Prompt Library' : 
-                   activeTab === 'agent-instructions' ? 'Agent Instructions' : 
+                   activeTab === 'agents' ? 'Agents' : 
                    activeTab === 'agent-guides' ? 'Agent Guides' : 
                    activeTab === 'system-prompts' ? 'System Prompts' :
                    'Skills'}
@@ -1703,7 +1703,7 @@ source: My Prompt Library
                 className="flex items-center gap-1 hover:text-[var(--accent)] transition-colors"
               >
                 <Home className="w-3.5 h-3.5" />
-                <span>{activeTab === 'prompt-library' ? 'Prompt Library' : activeTab === 'agent-instructions' ? 'Agent Instructions' : activeTab === 'agent-guides' ? 'Agent Guides' : activeTab === 'system-prompts' ? 'System Prompts' : 'Skills'}</span>
+                <span>{activeTab === 'prompt-library' ? 'Prompt Library' : activeTab === 'agents' ? 'Agents' : activeTab === 'agent-guides' ? 'Agent Guides' : activeTab === 'system-prompts' ? 'System Prompts' : 'Skills'}</span>
               </button>
               {selectedSubcategory && (
                 <>
@@ -1756,7 +1756,7 @@ source: My Prompt Library
                     <div>
                       <h2 className="heading-display text-xl font-bold tracking-tight text-[var(--text-primary)]">
                         {activeTab === 'prompt-library' ? 'Prompt Library' : 
-                         activeTab === 'agent-instructions' ? 'Agent Instructions' : 
+                         activeTab === 'agents' ? 'Agents' : 
                          activeTab === 'agent-guides' ? 'Agent Guides' : 
                          activeTab === 'system-prompts' ? 'System Prompts' :
                          'Skills'}
