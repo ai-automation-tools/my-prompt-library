@@ -1478,6 +1478,11 @@ source: My Prompt Library
                         <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">MCP Docs</span>
                         <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                       </a>
+                      <a href="https://skillsmp.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Zap className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">SkillsMP</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
                     </motion.div>
                   )}
                 </AnimatePresence>
