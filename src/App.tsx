@@ -501,6 +501,13 @@ export default function App() {
     setShowAllPrompts(true);
     setSelectedPrompt(null);
     setSelectedSubcategory(null);
+    setActiveCategory(null);
+    setActiveSubcategory(null);
+    // Clear URL params
+    const url = new URL(window.location.href);
+    url.searchParams.delete('category');
+    url.searchParams.delete('subcategory');
+    window.history.pushState({}, '', url.toString());
   }, []);
 
   const handleBack = useCallback(() => {
