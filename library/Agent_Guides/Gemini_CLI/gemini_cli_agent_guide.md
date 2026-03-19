@@ -1,6 +1,6 @@
 ---
 title: "Gemini CLI Agent Guide"
-tags: ["gemini-cli", "flags", "cli", "reference", "google", "options"]
+tags: ["featured", "gemini-cli", "flags", "cli", "reference", "google", "options"]
 category: "Agent_Guides"
 subcategory: "Gemini_CLI"
 ---

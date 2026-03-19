@@ -1,10 +1,15 @@
+import "dotenv/config";
 import express from "express";
 import { createServer as createViteServer } from "vite";
+import cookieParser from "cookie-parser";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import authRoutes from "./routes/auth.js";
+import { optionalAuth, authenticate } from "./middleware/auth.js";
+import { userDb, promptDb, sessionDb, initializeSchema } from "./db/postgres.js";
 
 // Get the directory of this file (server.ts)
 const __filename = fileURLToPath(import.meta.url);
@@ -15,6 +20,18 @@ async function startServer() {
   const PORT = 3010;
 
   app.use(express.json());
+  app.use(cookieParser());
+
+  // Debug middleware
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      console.log(`[API] ${req.method} ${req.path}`);
+    }
+    next();
+  });
+
+  // Mount auth routes
+  app.use('/api/auth', authRoutes);
 
   // Helper function to generate safe filename
   const generateFilename = (title: string) => {
@@ -85,7 +102,41 @@ async function startServer() {
   };
 
   // API to list all prompts and their metadata
-  app.get("/api/prompts", async (req, res) => {
+  app.get("/api/prompts", optionalAuth, async (req, res) => {
+    const libraryMode = req.query.library as string; // 'public' or 'my'
+    
+    // If requesting user's library, return from database
+    if (libraryMode === 'my') {
+      if (!req.user) {
+        console.log('[My Library] No user authenticated');
+        return res.status(401).json({ error: 'Authentication required for My Library' });
+      }
+      
+      console.log('[My Library] User:', req.user.id, req.user.email);
+      const userPrompts = await promptDb.findByUserId(req.user.id);
+      console.log('[My Library] Found prompts:', userPrompts.length);
+      if (userPrompts.length > 0) {
+        console.log('[My Library] First prompt:', userPrompts[0].title, userPrompts[0].section);
+      }
+      
+      const formattedPrompts = userPrompts.map(p => ({
+        id: p.id,
+        title: p.title,
+        section: p.section,
+        category: p.category,
+        subcategory: p.subcategory,
+        tags: p.tags,
+        content: p.content,
+        lastModified: p.updated_at,
+        isUserOwned: true,
+      }));
+      
+      console.log('[My Library] Returning prompts:', formattedPrompts.length);
+      return res.json(formattedPrompts);
+    }
+    
+    // Otherwise, return public library from files (existing logic)
+  
     try {
       // Production path: read from GitHub repository
       if (isGitHubConfigured()) {
@@ -156,6 +207,7 @@ async function startServer() {
             tags: data.tags || [],
             content: content,
             lastModified: new Date().toISOString(),
+            isUserOwned: inferredSection === 'My_Prompts', // Mark user-owned prompts
           };
         }));
 
@@ -207,6 +259,7 @@ async function startServer() {
           tags: data.tags || [],
           content: content,
           lastModified: fs.statSync(filePath).mtime,
+          isUserOwned: inferredSection === 'My_Prompts', // Mark user-owned prompts
         };
       });
 
@@ -220,7 +273,7 @@ async function startServer() {
   });
 
   // API to create a new prompt
-  app.post("/api/prompts", (req, res) => {
+  app.post("/api/prompts", authenticate, async (req, res) => {
     try {
       const { title, section, category, subcategory, tags, content } = req.body;
 
@@ -228,49 +281,26 @@ async function startServer() {
         return res.status(400).json({ error: "Missing required fields: title, section, category, content" });
       }
 
-      const filename = generateFilename(title);
-      const dirPath = subcategory
-        ? path.join(__dirname, "library", section, category, subcategory)
-        : path.join(__dirname, "library", section, category);
-
-      ensureDir(dirPath);
-
-      const filePath = path.join(dirPath, filename);
-
-      // Check if file already exists
-      if (fs.existsSync(filePath)) {
-        return res.status(409).json({ error: "A prompt with this title already exists" });
-      }
-
-      // Create frontmatter
-      const frontmatter = {
-        title,
-        tags: tags || [],
-        category,
-        subcategory: subcategory || category
-      };
-
-      const fileContent = `---\n${Object.entries(frontmatter)
-        .map(([key, value]) => {
-          if (Array.isArray(value)) {
-            return `${key}: [${value.map(v => `"${v}"`).join(', ')}]`;
-          }
-          return `${key}: "${value}"`;
-        })
-        .join('\n')}\n---\n\n${content}`;
-
-      fs.writeFileSync(filePath, fileContent, 'utf8');
-
-      const relativePath = path.relative(path.join(__dirname, "library"), filePath);
-
-      res.json({
-        id: relativePath,
+      // Save to database for authenticated users
+      const prompt = await promptDb.create(req.user!.id, {
         title,
         section,
         category,
-        subcategory,
-        tags,
+        subcategory: subcategory || null,
+        tags: tags || [],
         content,
+      });
+
+      res.json({
+        id: prompt.id,
+        title: prompt.title,
+        section: prompt.section,
+        category: prompt.category,
+        subcategory: prompt.subcategory,
+        tags: prompt.tags,
+        content: prompt.content,
+        lastModified: prompt.updated_at,
+        isUserOwned: true,
         message: "Prompt created successfully"
       });
     } catch (error) {
@@ -280,41 +310,35 @@ async function startServer() {
   });
 
   // API to update an existing prompt
-  app.put("/api/prompts/:id", (req, res) => {
+  app.put("/api/prompts/:id", authenticate, async (req, res) => {
     try {
       const promptId = decodeURIComponent(req.params.id);
-      const { title, tags, content } = req.body;
+      const { title, tags, content, category, subcategory, section } = req.body;
 
-      const filePath = path.join(__dirname, "library", promptId);
+      // Update in database for authenticated users
+      const prompt = await promptDb.update(promptId, req.user!.id, {
+        title,
+        tags,
+        content,
+        category,
+        subcategory,
+        section,
+      });
 
-      if (!fs.existsSync(filePath)) {
-        return res.status(404).json({ error: "Prompt not found" });
+      if (!prompt) {
+        return res.status(404).json({ error: "Prompt not found or unauthorized" });
       }
 
-      // Read existing frontmatter
-      const existingContent = fs.readFileSync(filePath, "utf8");
-      const { data } = matter(existingContent);
-
-      // Update frontmatter
-      const updatedFrontmatter = {
-        ...data,
-        title: title || data.title,
-        tags: tags || data.tags || []
-      };
-
-      const fileContent = `---\n${Object.entries(updatedFrontmatter)
-        .map(([key, value]) => {
-          if (Array.isArray(value)) {
-            return `${key}: [${value.map(v => `"${v}"`).join(', ')}]`;
-          }
-          return `${key}: "${value}"`;
-        })
-        .join('\n')}\n---\n\n${content || ''}`;
-
-      fs.writeFileSync(filePath, fileContent, 'utf8');
-
       res.json({
-        id: promptId,
+        id: prompt.id,
+        title: prompt.title,
+        section: prompt.section,
+        category: prompt.category,
+        subcategory: prompt.subcategory,
+        tags: prompt.tags,
+        content: prompt.content,
+        lastModified: prompt.updated_at,
+        isUserOwned: true,
         message: "Prompt updated successfully"
       });
     } catch (error) {
@@ -324,16 +348,16 @@ async function startServer() {
   });
 
   // API to delete a prompt
-  app.delete("/api/prompts/:id", (req, res) => {
+  app.delete("/api/prompts/:id", authenticate, async (req, res) => {
     try {
       const promptId = decodeURIComponent(req.params.id);
-      const filePath = path.join(__dirname, "library", promptId);
 
-      if (!fs.existsSync(filePath)) {
-        return res.status(404).json({ error: "Prompt not found" });
+      // Delete from database for authenticated users
+      const deleted = await promptDb.delete(promptId, req.user!.id);
+
+      if (!deleted) {
+        return res.status(404).json({ error: "Prompt not found or unauthorized" });
       }
-
-      fs.unlinkSync(filePath);
 
       res.json({
         message: "Prompt deleted successfully"
@@ -344,101 +368,53 @@ async function startServer() {
     }
   });
 
-  // API to copy a prompt into My_Prompts
-  app.post("/api/prompts/:id/copy-to-my-prompts", async (req, res) => {
+  // API to copy a prompt into My Library (saves to database)
+  app.post("/api/prompts/:id/copy-to-my-prompts", authenticate, async (req, res) => {
     try {
       const promptId = decodeURIComponent(req.params.id).replace(/\\/g, '/');
-      const pathParts = promptId.split('/');
-      const sourceSection = pathParts[0];
-
-      if (!ALLOWED_SOURCE_SECTIONS.has(sourceSection)) {
-        return res.status(400).json({ error: "Only prompts from Collections, System_Prompts, and Agent_Guides can be copied to My Prompts" });
-      }
-
-      const destinationRelativePath = path.posix.join('My_Prompts', ...pathParts.slice(1));
-
-      // Production path: commit to GitHub repository directly
-      if (isGitHubConfigured()) {
-        const sourceRepoPath = path.posix.join('prompts', promptId);
-        const destinationRepoPath = path.posix.join('prompts', destinationRelativePath);
-
-        const sourceResponse = await fetch(`${githubApiUrlForPath(sourceRepoPath)}?ref=${encodeURIComponent(GITHUB_BRANCH)}`, {
-          method: 'GET',
-          headers: githubHeaders
-        });
-
-        if (sourceResponse.status === 404) {
-          return res.status(404).json({ error: "Prompt not found" });
-        }
-
-        if (!sourceResponse.ok) {
-          const errorText = await sourceResponse.text();
-          console.error('GitHub source fetch failed:', errorText);
-          return res.status(502).json({ error: "Failed to fetch source prompt from GitHub" });
-        }
-
-        const sourceData = await sourceResponse.json();
-
-        const destinationCheckResponse = await fetch(`${githubApiUrlForPath(destinationRepoPath)}?ref=${encodeURIComponent(GITHUB_BRANCH)}`, {
-          method: 'GET',
-          headers: githubHeaders
-        });
-
-        if (destinationCheckResponse.ok) {
-          return res.status(409).json({ error: "A prompt with this name already exists in My Prompts" });
-        }
-
-        if (destinationCheckResponse.status !== 404) {
-          const errorText = await destinationCheckResponse.text();
-          console.error('GitHub destination check failed:', errorText);
-          return res.status(502).json({ error: "Failed to validate destination in GitHub" });
-        }
-
-        const createResponse = await fetch(githubApiUrlForPath(destinationRepoPath), {
-          method: 'PUT',
-          headers: githubHeaders,
-          body: JSON.stringify({
-            message: `feat(prompts): copy ${promptId} to ${destinationRelativePath}`,
-            content: sourceData.content,
-            branch: GITHUB_BRANCH
-          })
-        });
-
-        if (!createResponse.ok) {
-          const errorText = await createResponse.text();
-          console.error('GitHub destination create failed:', errorText);
-          return res.status(502).json({ error: "Failed to copy prompt to My Prompts in GitHub" });
-        }
-
-        return res.json({
-          id: destinationRelativePath,
-          message: "Prompt copied to My Prompts"
-        });
-      }
-
-      // Local/dev fallback: filesystem copy
-      const sourceFilePath = resolvePromptPath(promptId);
-
+      
+      // Find the source prompt from public library
+      const sourceFilePath = path.join(__dirname, "library", promptId);
+      
       if (!fs.existsSync(sourceFilePath)) {
         return res.status(404).json({ error: "Prompt not found" });
       }
 
-      const destinationFilePath = resolvePromptPath(destinationRelativePath);
+      // Read source prompt
+      const fileContent = fs.readFileSync(sourceFilePath, "utf8");
+      const { data, content } = matter(fileContent);
+      
+      const pathParts = promptId.split(path.sep);
+      const section = pathParts[0];
+      const category = pathParts.length > 1 ? pathParts[1] : "General";
+      const subcategory = pathParts.length > 2 ? pathParts[2] : null;
+      const title = data.title || extractFirstHeading(content) || path.basename(promptId, ".md");
 
-      if (fs.existsSync(destinationFilePath)) {
-        return res.status(409).json({ error: "A prompt with this name already exists in My Prompts" });
-      }
-
-      ensureDir(path.dirname(destinationFilePath));
-      fs.copyFileSync(sourceFilePath, destinationFilePath, fs.constants.COPYFILE_EXCL);
+      // Copy to user's database
+      const copiedPrompt = await promptDb.copyFromPublic(req.user!.id, {
+        title,
+        section,
+        category,
+        subcategory,
+        tags: data.tags || [],
+        content,
+      });
 
       return res.json({
-        id: destinationRelativePath,
-        message: "Prompt copied to My Prompts"
+        id: copiedPrompt.id,
+        title: copiedPrompt.title,
+        section: copiedPrompt.section,
+        category: copiedPrompt.category,
+        subcategory: copiedPrompt.subcategory,
+        tags: copiedPrompt.tags,
+        content: copiedPrompt.content,
+        lastModified: copiedPrompt.updated_at,
+        isUserOwned: true,
+        message: "Prompt copied to My Library"
       });
     } catch (error: any) {
-      console.error("Error copying prompt to My_Prompts:", error);
-      return res.status(500).json({ error: error.message || "Failed to copy prompt to My Prompts" });
+      console.error("Error copying prompt to My Library:", error);
+      return res.status(500).json({ error: error.message || "Failed to copy prompt to My Library" });
     }
   });
 
@@ -455,6 +431,9 @@ async function startServer() {
       res.sendFile(path.join(__dirname, "dist", "index.html"));
     });
   }
+
+  // Initialize database schema
+  await initializeSchema();
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on http://localhost:${PORT}`);

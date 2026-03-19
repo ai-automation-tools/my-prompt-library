@@ -6,10 +6,11 @@ Technical architecture and design decisions for the Prompt Library application.
 
 ## Overview
 
-The Prompt Library is a full-stack web application for managing and organizing prompt templates. It supports two storage modes:
+The Prompt Library is a full-stack web application for managing and organizing prompt templates. It uses a **hybrid storage model**:
 
-1. **Local Mode** - Filesystem-based storage (development)
-2. **GitHub Mode** - API-based storage (production)
+1. **Public Library** - Filesystem-based (Git version control)
+2. **User Data** - PostgreSQL database (Neon)
+3. **GitHub Mode** (optional) - API-based public library access
 
 ---
 
@@ -26,11 +27,13 @@ The Prompt Library is a full-stack web application for managing and organizing p
 
 ### Backend
 - **Express** - API server
-- **Vercel Functions** - Serverless deployment
+- **Vercel Serverless Functions** - Production deployment
 - **Node.js** - Runtime
 - **TypeScript** - Type safety
+- **PostgreSQL (Neon)** - User data and authentication
 
 ### External Services
+- **Neon** - Serverless PostgreSQL database
 - **GitHub API** - Remote storage (optional)
 - **Vercel** - Hosting and deployment
 

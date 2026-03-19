@@ -1,6 +1,6 @@
 ---
 title: "Claude Code Agent Guide"
-tags: ["claude-code", "flags", "cli", "reference", "options"]
+tags: ["featured", "claude-code", "flags", "cli", "reference", "options"]
 category: "Agent_Guides"
 subcategory: "Claude_Code"
 ---

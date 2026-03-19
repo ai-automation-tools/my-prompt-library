@@ -32,7 +32,11 @@ import {
   Github,
   ExternalLink,
   BookOpen,
-  Bot
+  Bot,
+  Wrench,
+  Zap,
+  Download,
+  Share2
 } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -40,7 +44,11 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { motion, AnimatePresence } from 'motion/react';
 import PromptEditorModal from './components/PromptEditorModal';
+import LoginModal from './components/LoginModal';
+import SignupModal from './components/SignupModal';
+import EmptyState from './components/EmptyState';
 import { ToastContainer, type ToastProps } from './components/Toast';
+import { useAuth } from './contexts/AuthContext';
 import Fuse from 'fuse.js';
 
 function cn(...inputs: ClassValue[]) {
@@ -56,6 +64,8 @@ interface Prompt {
   tags: string[];
   content: string;
   lastModified: string;
+  featured?: boolean;
+  isUserOwned?: boolean; // true if user created or copied this prompt
 }
 
 type Theme = 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro' | 'react-modern' | 'dark-pro' | 'nordic-night';
@@ -79,8 +89,11 @@ const THEMES: { id: Theme; name: string; icon: string }[] = [
 ];
 
 export default function App() {
+  const { user, logout, isLoading: authLoading } = useAuth();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
   const [theme, setTheme] = useState<Theme>('github-dark-pro');
@@ -92,17 +105,51 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'agent-guides' | 'agent-instructions' | 'prompt-library' | 'skills' | 'system-prompts'>('prompt-library');
+  const [activeTab, setActiveTab] = useState<'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts'>(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section');
+    if (section === 'agent-guides') return 'agent-guides';
+    if (section === 'agents') return 'agents';
+    if (section === 'prompt-library') return 'prompt-library';
+    if (section === 'skills') return 'skills';
+    if (section === 'system-prompts') return 'system-prompts';
+    return 'prompt-library';
+  });
+  const [activeCategory, setActiveCategory] = useState<string | null>(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('category');
+  });
+  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('subcategory');
+  });
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
   const [searchFocused, setSearchFocused] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editingPrompt, setEditingPrompt] = useState<Prompt | null>(null);
   
+  // Library mode: 'public' or 'my'
+  const [libraryMode, setLibraryMode] = useState<'public' | 'my'>(() => {
+    const saved = localStorage.getItem('library-mode');
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlMode = urlParams.get('library');
+    if (urlMode === 'public' || urlMode === 'my') return urlMode;
+    return (saved === 'public' || saved === 'my') ? saved as 'public' | 'my' : 'public';
+  });
+  
   // External Resources Dropdowns
   const [cliReposOpen, setCliReposOpen] = useState(false);
-  const [promptLibsOpen, setPromptLibsOpen] = useState(false);
+  const [promptsOpen, setPromptsOpen] = useState(false);
   const [agentTemplatesOpen, setAgentTemplatesOpen] = useState(false);
+  const [skillsOpen, setSkillsOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  
+  // Sub-menu states for Prompts dropdown
+  const [systemPromptsOpen, setSystemPromptsOpen] = useState(false);
+  const [promptLibrariesOpen, setPromptLibrariesOpen] = useState(false);
+  const [agentInstructionsOpen, setAgentInstructionsOpen] = useState(false);
+  const [promptingGuidesOpen, setPromptingGuidesOpen] = useState(false);
   
   // Navigation & Organization
   const [favorites, setFavorites] = useState<string[]>(() => {
@@ -143,6 +190,44 @@ export default function App() {
     localStorage.setItem('prompt-recently-viewed', JSON.stringify(recentlyViewed));
   }, [recentlyViewed]);
 
+  // Persist library mode to localStorage and URL
+  useEffect(() => {
+    localStorage.setItem('library-mode', libraryMode);
+    const url = new URL(window.location.href);
+    url.searchParams.set('library', libraryMode);
+    window.history.replaceState({}, '', url.toString());
+  }, [libraryMode]);
+
+  // Update URL when navigation state changes
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    
+    // Set section (tab)
+    const sectionParam = 
+      activeTab === 'agent-guides' ? 'agent-guides' :
+      activeTab === 'agents' ? 'agents' :
+      activeTab === 'prompt-library' ? 'prompt-library' :
+      activeTab === 'skills' ? 'skills' :
+      'system-prompts';
+    url.searchParams.set('section', sectionParam);
+    
+    // Set category if active
+    if (activeCategory) {
+      url.searchParams.set('category', activeCategory);
+    } else {
+      url.searchParams.delete('category');
+    }
+    
+    // Set subcategory if active
+    if (activeSubcategory) {
+      url.searchParams.set('subcategory', activeSubcategory);
+    } else {
+      url.searchParams.delete('subcategory');
+    }
+    
+    window.history.replaceState({}, '', url.toString());
+  }, [activeTab, activeCategory, activeSubcategory]);
+
   // Debounce search input for better performance
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -152,11 +237,24 @@ export default function App() {
   }, [searchQuery]);
 
   useEffect(() => {
+    // Wait for auth to load before fetching
+    if (authLoading) {
+      return;
+    }
+
+    // If trying to access My Library without auth, don't fetch
+    if (libraryMode === 'my' && !user) {
+      setPrompts([]);
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(true);
-    fetch('/api/prompts')
+    const url = `/api/prompts?library=${libraryMode}`;
+    fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log('🔍 DEBUG: Fetched prompts:', data.length);
+        console.log(`🔍 DEBUG: Fetched prompts (${libraryMode}):`, data.length);
         console.log('🔍 DEBUG: First prompt:', data[0]);
         console.log('🔍 DEBUG: Sections:', [...new Set(data.map((p: Prompt) => p.section))]);
         setPrompts(data);
@@ -167,7 +265,7 @@ export default function App() {
         showToast('error', 'Failed to load prompts');
         setIsLoading(false);
       });
-  }, [showToast]);
+  }, [showToast, libraryMode, authLoading, user]);
 
   // Close external resource dropdowns when clicking outside
   useEffect(() => {
@@ -175,16 +273,18 @@ export default function App() {
       const target = event.target as HTMLElement;
       if (!target.closest('.external-resource-dropdown')) {
         setCliReposOpen(false);
-        setPromptLibsOpen(false);
+        setPromptsOpen(false);
         setAgentTemplatesOpen(false);
+        setSkillsOpen(false);
+        setToolsOpen(false);
       }
     };
 
-    if (cliReposOpen || promptLibsOpen || agentTemplatesOpen) {
+    if (cliReposOpen || promptsOpen || agentTemplatesOpen || skillsOpen || toolsOpen) {
       document.addEventListener('mousedown', handleClickOutside);
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
-  }, [cliReposOpen, promptLibsOpen, agentTemplatesOpen]);
+  }, [cliReposOpen, promptsOpen, agentTemplatesOpen, skillsOpen, toolsOpen]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -217,16 +317,26 @@ export default function App() {
 
   const activeSection = 
     activeTab === 'agent-guides' ? 'Agent_Guides' : 
-    activeTab === 'agent-instructions' ? 'Agent_Instructions' : 
+    activeTab === 'agents' ? 'Agents' : 
     activeTab === 'prompt-library' ? 'Prompt_Library' : 
     activeTab === 'system-prompts' ? 'System_Prompts' :
     'Skills';
 
   const sectionPrompts = useMemo(() => {
-    const filtered = prompts.filter(p => p.section === activeSection);
-    console.log(`🔍 DEBUG: activeSection="${activeSection}", sectionPrompts=${filtered.length}/${prompts.length}`);
+    console.log(`🔍 DEBUG: BEFORE FILTER - prompts.length=${prompts.length}, activeSection="${activeSection}"`);
+    console.log(`🔍 DEBUG: All prompt sections:`, prompts.map(p => p.section));
+    
+    let filtered = prompts.filter(p => p.section === activeSection);
+    
+    console.log(`🔍 DEBUG: AFTER FILTER - sectionPrompts=${filtered.length}/${prompts.length}`);
+    console.log(`🔍 DEBUG: activeSection="${activeSection}", libraryMode="${libraryMode}"`);
+    
+    if (prompts.length > 0) {
+      console.log(`🔍 DEBUG: First prompt:`, prompts[0]);
+    }
+    
     return filtered;
-  }, [prompts, activeSection]);
+  }, [prompts, activeSection, libraryMode]);
 
   const categories = useMemo(() => {
     const map: Record<string, Set<string>> = {};
@@ -247,14 +357,28 @@ export default function App() {
 
   const filteredPrompts = useMemo(() => {
     let currentPrompts = sectionPrompts.filter(prompt => {
+      // Skip path filter for user-owned prompts (they have database IDs, not file paths)
+      if (prompt.isUserOwned || libraryMode === 'my') {
+        return true;
+      }
+      
+      // Path filter only for public library file-based prompts
       if (activeTab === 'agent-guides' && !prompt.id.startsWith('Agent_Guides/')) return false;
-      if (activeTab === 'agent-instructions' && !prompt.id.startsWith('Agent_Instructions/')) return false;
+      if (activeTab === 'agents' && !prompt.id.startsWith('Agents/')) return false;
       if (activeTab === 'prompt-library' && !prompt.id.startsWith('Prompt_Library/')) return false;
       if (activeTab === 'system-prompts' && !prompt.id.startsWith('System_Prompts/')) return false;
       if (activeTab === 'skills' && !prompt.id.startsWith('Skills/')) return false;
       return true;
     });
     console.log(`🔍 DEBUG: activeTab="${activeTab}", after path filter=${currentPrompts.length}/${sectionPrompts.length}`);
+
+    // Apply category/subcategory filters from URL
+    if (activeCategory && !selectedPrompt) {
+      currentPrompts = currentPrompts.filter(p => p.category === activeCategory);
+      if (activeSubcategory) {
+        currentPrompts = currentPrompts.filter(p => p.subcategory === activeSubcategory);
+      }
+    }
 
     // Apply tag filters
     if (selectedTags.length > 0) {
@@ -277,7 +401,7 @@ export default function App() {
     });
 
     return fuse.search(debouncedSearch).map(result => result.item);
-  }, [sectionPrompts, debouncedSearch, activeTab, selectedTags]);
+  }, [sectionPrompts, debouncedSearch, activeTab, selectedTags, activeCategory, activeSubcategory, selectedPrompt]);
 
   const sortedPrompts = useMemo(() => {
     const promptsToSort = [...filteredPrompts];
@@ -307,6 +431,24 @@ export default function App() {
     );
   }, [selectedSubcategory, sortedPrompts]);
 
+  // Featured/Suggested prompts - shown only on default landing page
+  const featuredPrompts = useMemo(() => {
+    // For now, we'll feature prompts that have the "featured" tag or are favorited
+    // You can also manually curate this list by specific IDs
+    const featured = sectionPrompts
+      .filter(p => p.tags.includes('featured') || favorites.includes(p.id))
+      .slice(0, 4); // Limit to 4 featured prompts
+    
+    // If no featured prompts found, pick some recent/popular ones
+    if (featured.length === 0) {
+      return sectionPrompts
+        .sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())
+        .slice(0, 4);
+    }
+    
+    return featured;
+  }, [sectionPrompts, favorites]);
+
   // Get favorite prompts
   const favoritePrompts = useMemo(() => {
     return prompts.filter(p => favorites.includes(p.id));
@@ -319,20 +461,34 @@ export default function App() {
       .filter((p): p is Prompt => p !== undefined);
   }, [prompts, recentlyViewed]);
 
-  const toggleCategory = useCallback((cat: string) => {
-    setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
-  }, []);
-
   const handleSubcategoryClick = useCallback((category: string, subcategory: string | 'ALL') => {
     setSelectedSubcategory({ category, subcategory });
     setSelectedPrompt(null);
     setShowAllPrompts(false);
+    
+    // Update URL state
+    setActiveCategory(category);
+    setActiveSubcategory(subcategory === 'ALL' ? null : subcategory);
   }, []);
+
+  const toggleCategory = useCallback((cat: string) => {
+    const isExpanded = expandedCategories[cat];
+    setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
+    
+    // When expanding a category, automatically select "ALL" to show all prompts
+    if (!isExpanded) {
+      handleSubcategoryClick(cat, 'ALL');
+    }
+  }, [expandedCategories, handleSubcategoryClick]);
 
   const handlePromptClick = useCallback((prompt: Prompt) => {
     setSelectedPrompt(prompt);
     setSelectedSubcategory(null);
     setShowAllPrompts(false);
+    
+    // Set active category for back navigation (go back to category view, not subcategory)
+    setActiveCategory(prompt.category);
+    setActiveSubcategory(null);  // Back button should show category ALL view
     
     // Track in recently viewed
     setRecentlyViewed(prev => {
@@ -345,21 +501,71 @@ export default function App() {
     setShowAllPrompts(true);
     setSelectedPrompt(null);
     setSelectedSubcategory(null);
+    setActiveCategory(null);
+    setActiveSubcategory(null);
+    // Clear URL params
+    const url = new URL(window.location.href);
+    url.searchParams.delete('category');
+    url.searchParams.delete('subcategory');
+    window.history.pushState({}, '', url.toString());
   }, []);
 
   const handleBack = useCallback(() => {
-    if (selectedPrompt && selectedSubcategory) {
+    if (selectedPrompt) {
+      // Close prompt detail, go to category ALL view
       setSelectedPrompt(null);
+      
+      // If we have an activeCategory, select its ALL view
+      if (activeCategory) {
+        handleSubcategoryClick(activeCategory, 'ALL');
+      }
+    } else if (selectedSubcategory) {
+      // Go back from subcategory to category ALL view
+      const category = selectedSubcategory.category;
+      setSelectedSubcategory(null);
+      setActiveSubcategory(null);
+      
+      // Select the ALL button for this category
+      handleSubcategoryClick(category, 'ALL');
+    } else if (activeCategory) {
+      // Go back from category to all prompts
+      setActiveCategory(null);
+      handleShowAllPrompts();
     } else {
       handleShowAllPrompts();
     }
-  }, [selectedPrompt, selectedSubcategory, handleShowAllPrompts]);
+  }, [selectedPrompt, selectedSubcategory, activeCategory, handleShowAllPrompts, handleSubcategoryClick]);
 
   const handleCopy = useCallback((content: string, promptId: string) => {
     navigator.clipboard.writeText(content);
     setCopied(promptId);
     setTimeout(() => setCopied(null), 2000);
     showToast('success', 'Copied to clipboard');
+  }, [showToast]);
+
+  const handleDownloadMarkdown = useCallback((prompt: Prompt) => {
+    const frontmatter = `---
+title: ${prompt.title}
+section: ${prompt.section}
+category: ${prompt.category}
+subcategory: ${prompt.subcategory || 'None'}
+tags: ${prompt.tags.join(', ')}
+created: ${prompt.lastModified}
+source: My Prompt Library
+---
+
+`;
+    const content = frontmatter + prompt.content;
+    const blob = new Blob([content], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${prompt.title.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('success', 'Prompt downloaded!');
   }, [showToast]);
 
   const toggleFavorite = useCallback((promptId: string, e?: React.MouseEvent) => {
@@ -386,11 +592,12 @@ export default function App() {
   }, []);
 
   const refreshPrompts = useCallback(() => {
-    fetch('/api/prompts')
+    const url = `/api/prompts?library=${libraryMode}`;
+    fetch(url)
       .then(res => res.json())
       .then(data => setPrompts(data))
       .catch(err => console.error('Failed to fetch prompts:', err));
-  }, []);
+  }, [libraryMode]);
 
   const handleCopyToMyPrompts = useCallback(async (prompt: Prompt) => {
     if (prompt.section === 'My_Prompts') {
@@ -477,9 +684,14 @@ export default function App() {
   }, []);
 
   const handleNewPrompt = useCallback(() => {
+    if (!user) {
+      showToast('error', 'Please sign in to create prompts');
+      setIsLoginOpen(true);
+      return;
+    }
     setEditingPrompt(null);
     setIsEditorOpen(true);
-  }, []);
+  }, [user, showToast]);
 
   // Prompt card component for reuse (memoized for performance)
   const PromptCard = memo(({ prompt, index }: { prompt: Prompt; index: number }) => (
@@ -488,7 +700,7 @@ export default function App() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.04, ease: [0.4, 0, 0.2, 1] }}
       key={prompt.id}
-      className="glass-card rounded-[var(--radius-lg)] relative group cursor-pointer overflow-hidden flex min-h-[220px]"
+      className="glass-card rounded-[var(--radius-lg)] relative group cursor-pointer overflow-hidden"
       onClick={() => handlePromptClick(prompt)}
     >
       {/* Hover glow accent */}
@@ -496,8 +708,92 @@ export default function App() {
         <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-[var(--accent-glow-subtle)] blur-[60px]" />
       </div>
 
+      {/* Action buttons at bottom-right */}
+      <div className="absolute bottom-3 right-3 z-20 flex gap-2">
+        {libraryMode === 'public' ? (
+          // Public Library: Show Add to My Library button
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCopyToMyPrompts(prompt);
+            }}
+            disabled={copyingToMyPromptsId === prompt.id}
+            className={cn(
+              "p-2 rounded-[var(--radius-sm)] transition-all duration-300 border backdrop-blur-sm",
+              copyingToMyPromptsId === prompt.id
+                ? "bg-[var(--accent)]/20 border-[var(--accent)]/50 text-[var(--accent)] cursor-wait"
+                : "bg-[var(--glass-bg)] text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)]"
+            )}
+            title="Add to My Library"
+          >
+            <FolderPlus className="w-3.5 h-3.5" />
+          </button>
+        ) : (
+          // My Library: Show favorite, edit, and delete buttons
+          <>
+            <button
+              onClick={(e) => toggleFavorite(prompt.id, e)}
+              className={cn(
+                "p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] transition-all duration-300 border backdrop-blur-sm",
+                favorites.includes(prompt.id)
+                  ? "text-yellow-400 border-yellow-400/50 hover:bg-yellow-400/20"
+                  : "text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
+              )}
+              title={favorites.includes(prompt.id) ? "Remove from favorites" : "Add to favorites"}
+            >
+              <Star className={cn("w-3.5 h-3.5", favorites.includes(prompt.id) && "fill-yellow-400")} />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleEditPrompt(prompt);
+              }}
+              className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
+              title="Edit prompt"
+            >
+              <Edit className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeletePrompt(prompt.id);
+              }}
+              className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-red-500 text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-red-500 backdrop-blur-sm"
+              title="Delete prompt"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          </>
+        )}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDownloadMarkdown(prompt);
+          }}
+          className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
+          title="Download as Markdown"
+        >
+          <Download className="w-3.5 h-3.5" />
+        </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleCopy(prompt.content, prompt.id);
+          }}
+          className={cn(
+            "p-2 rounded-[var(--radius-sm)] transition-all duration-300 border backdrop-blur-sm",
+            copied === prompt.id
+              ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
+              : "bg-[var(--glass-bg)] text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
+          )}
+          title="Copy content"
+        >
+          {copied === prompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+        </button>
+      </div>
+
       {/* Main content area */}
-      <div className="flex-1 p-6 space-y-4 relative z-[1]">
+      <div className="p-6 pb-14 space-y-4 relative z-[1]">
         <div className="flex items-start gap-3.5">
           <div className="w-9 h-9 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--glass-border)]">
             <FileText className="w-4 h-4 text-[var(--accent)]" />
@@ -531,52 +827,6 @@ export default function App() {
           {prompt.content.substring(0, 160)}...
         </p>
       </div>
-
-      {/* Button column with separator */}
-      <div className="flex flex-col gap-2 p-3 border-l border-[var(--glass-border)] relative z-10 justify-center shrink-0">
-        <button
-          onClick={(e) => toggleFavorite(prompt.id, e)}
-          className={cn(
-            "p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] transition-all duration-300 border backdrop-blur-sm",
-            favorites.includes(prompt.id)
-              ? "text-yellow-400 border-yellow-400/50 hover:bg-yellow-400/20"
-              : "text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
-          )}
-          title={favorites.includes(prompt.id) ? "Remove from favorites" : "Add to favorites"}
-        >
-          <Star className={cn("w-3.5 h-3.5", favorites.includes(prompt.id) && "fill-yellow-400")} />
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            handleEditPrompt(prompt);
-          }}
-          className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
-          title="Edit prompt"
-        >
-          <Edit className="w-3.5 h-3.5" />
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            handleDeletePrompt(prompt.id);
-          }}
-          className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-red-500 text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-red-500 backdrop-blur-sm"
-          title="Delete prompt"
-        >
-          <Trash2 className="w-3.5 h-3.5" />
-        </button>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            handleCopy(prompt.content, prompt.id);
-          }}
-          className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)] backdrop-blur-sm"
-          title="Copy content"
-        >
-          {copied === prompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-        </button>
-      </div>
     </motion.div>
   ));
 
@@ -606,12 +856,22 @@ export default function App() {
           {/* Sidebar header */}
           <div className="p-6 pb-4">
             <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2.5">
+              <button
+                onClick={() => {
+                  setActiveTab('prompt-library');
+                  setActiveCategory(null);
+                  setActiveSubcategory(null);
+                  setSelectedPrompt(null);
+                  setSelectedSubcategory(null);
+                  setShowAllPrompts(true);
+                }}
+                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer"
+              >
                 <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] border border-[var(--glass-border)] flex items-center justify-center">
                   <Sparkles className="w-4 h-4 text-[var(--accent)]" />
                 </div>
                 <span className="heading-display text-sm font-bold text-[var(--text-primary)]">Prompt Library</span>
-              </div>
+              </button>
               <button
                 onClick={() => setIsSidebarOpen(false)}
                 className="p-1.5 rounded-lg hover:bg-[var(--glass-bg-hover)] transition-colors md:hidden"
@@ -620,6 +880,40 @@ export default function App() {
               </button>
             </div>
 
+          </div>
+
+          {/* Library Mode Switcher */}
+          <div className="px-6 pb-4">
+            <div className="flex items-center gap-2 p-1 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)]">
+              <button
+                onClick={() => setLibraryMode('public')}
+                className={cn(
+                  "flex-1 py-2 px-3 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300",
+                  libraryMode === 'public'
+                    ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
+                    : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+                )}
+              >
+                <div className="flex items-center justify-center gap-1.5">
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>Public</span>
+                </div>
+              </button>
+              <button
+                onClick={() => setLibraryMode('my')}
+                className={cn(
+                  "flex-1 py-2 px-3 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300",
+                  libraryMode === 'my'
+                    ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
+                    : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+                )}
+              >
+                <div className="flex items-center justify-center gap-1.5">
+                  <Library className="w-3.5 h-3.5" />
+                  <span>My Library</span>
+                </div>
+              </button>
+            </div>
           </div>
 
           {/* Navigation dropdown */}
@@ -631,11 +925,14 @@ export default function App() {
                 setShowAllPrompts(true);
                 setSelectedPrompt(null);
                 setSelectedSubcategory(null);
+                // Clear category filters when switching sections
+                setActiveCategory(null);
+                setActiveSubcategory(null);
               }}
               className="w-full py-3 px-4 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.75rem] font-semibold tracking-wider uppercase text-[var(--text-primary)] cursor-pointer transition-all duration-300 hover:bg-[var(--glass-bg-hover)] hover:border-[var(--accent)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)]"
             >
               <option value="prompt-library">📚 Prompt Library</option>
-              <option value="agent-instructions">👤 Agent Instructions</option>
+              <option value="agents">👤 Agents</option>
               <option value="agent-guides">📖 Agent Guides</option>
               <option value="system-prompts">⚙️ System Prompts</option>
               <option value="skills">🛠️ Skills</option>
@@ -800,7 +1097,7 @@ export default function App() {
         {/* Top Bar with Mobile Menu and Filters */}
         <div className="shrink-0 px-4 md:px-6 py-3 border-b border-[var(--glass-border)]">
           <div className="flex items-center gap-4">
-            {/* Mobile menu */}
+            {/* LEFT: Mobile menu */}
             <button
               onClick={() => setIsSidebarOpen(true)}
               className="p-2 rounded-[var(--radius-sm)] hover:bg-[var(--glass-bg-hover)] transition-colors md:hidden"
@@ -820,8 +1117,8 @@ export default function App() {
               <span className="text-xs font-bold text-blue-400 group-hover:text-blue-300 transition-colors tracking-wide">Platform</span>
             </a>
 
-            {/* External Resources Dropdowns */}
-            <div className="hidden md:flex items-center gap-3 ml-auto">
+            {/* CENTER: Navigation Dropdowns (Desktop Only) */}
+            <div className="hidden md:flex items-center justify-center gap-3 flex-1">
               {/* aX Platform Standalone Link */}
               <a
                 href="https://ax-platform.com/"
@@ -840,8 +1137,10 @@ export default function App() {
                   onClick={(e) => {
                     e.stopPropagation();
                     setCliReposOpen(!cliReposOpen);
-                    setPromptLibsOpen(false);
+                    setPromptsOpen(false);
                     setAgentTemplatesOpen(false);
+                    setSkillsOpen(false);
+                    setToolsOpen(false);
                   }}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                 >
@@ -859,7 +1158,7 @@ export default function App() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute top-full right-0 mt-2 z-[100] w-56 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-[100] w-56 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
                     >
                     <a
                       href="https://github.com/anthropics/claude-code"
@@ -896,83 +1195,343 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              {/* Prompt Libraries */}
+              {/* Prompts (with sub-menus) */}
               <div className="relative external-resource-dropdown">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    setPromptLibsOpen(!promptLibsOpen);
+                    setPromptsOpen(!promptsOpen);
                     setCliReposOpen(false);
                     setAgentTemplatesOpen(false);
+                    setSkillsOpen(false);
+                    setToolsOpen(false);
                   }}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                 >
-                  <BookOpen className="w-3.5 h-3.5 text-[var(--accent)]" />
-                  <span className="font-semibold text-[var(--text-secondary)]">Libraries</span>
+                  <Sparkles className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  <span className="font-semibold text-[var(--text-secondary)]">Prompts</span>
                   <ChevronDown className={cn(
                     "w-3 h-3 text-[var(--text-tertiary)] transition-transform",
-                    promptLibsOpen && "rotate-180"
+                    promptsOpen && "rotate-180"
                   )} />
                 </button>
                 <AnimatePresence>
-                  {promptLibsOpen && (
+                  {promptsOpen && (
                     <motion.div
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute top-full right-0 mt-2 z-[100] w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-[100] w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
                     >
-                    <a
-                      href="https://prompts.chat/prompts"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                    {/* System Prompts - with submenu */}
+                    <div className="relative">
+                      <button
+                        onClick={() => {
+                          setSystemPromptsOpen(!systemPromptsOpen);
+                          setPromptLibrariesOpen(false);
+                          setAgentInstructionsOpen(false);
+                          setPromptingGuidesOpen(false);
+                        }}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      >
+                        <FileText className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">System Prompts</span>
+                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)] ml-auto" />
+                      </button>
+                      <AnimatePresence>
+                        {systemPromptsOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -8 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-full top-0 ml-1 w-72 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                          >
+                            <a href="https://learnprompting.org/docs/basics/system_prompts" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Learn Prompting</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://www.promptingguide.ai/techniques" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guide</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://cookbook.openai.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">OpenAI Cookbook</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Anthropic Docs</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://ai.google.dev/gemini-api/docs/system-instructions" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Gemini Docs</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Prompt Libraries - with submenu */}
+                    <div className="relative">
+                      <button
+                        onClick={() => {
+                          setPromptLibrariesOpen(!promptLibrariesOpen);
+                          setSystemPromptsOpen(false);
+                          setAgentInstructionsOpen(false);
+                          setPromptingGuidesOpen(false);
+                        }}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      >
+                        <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompt Libraries</span>
+                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)] ml-auto" />
+                      </button>
+                      <AnimatePresence>
+                        {promptLibrariesOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -8 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-full top-0 ml-1 w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                          >
+                            <a href="https://prompts.chat/prompts" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompts.chat</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://prompthero.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Sparkles className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">PromptHero</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Vertex AI Gallery</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://workmind.ai/ai-prompt-library/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">WorkMind</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Agents - with submenu */}
+                    <div className="relative">
+                      <button
+                        onClick={() => {
+                          setAgentInstructionsOpen(!agentInstructionsOpen);
+                          setSystemPromptsOpen(false);
+                          setPromptLibrariesOpen(false);
+                          setPromptingGuidesOpen(false);
+                        }}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      >
+                        <Bot className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Agents</span>
+                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)] ml-auto" />
+                      </button>
+                      <AnimatePresence>
+                        {agentInstructionsOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -8 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-full top-0 ml-1 w-72 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                          >
+                            <a href="https://docs.anthropic.com/en/docs/agents-and-tools/overview" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Bot className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Anthropic Agents</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://platform.openai.com/docs/guides/agents" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Bot className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">OpenAI Agents</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://ai.google.dev/gemini-api/docs/function-calling" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Zap className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Gemini Function Call</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://modelcontextprotocol.io/introduction" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">MCP Introduction</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://docs.openclaw.ai/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">OpenClaw Docs</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Prompting Guides - with submenu */}
+                    <div className="relative">
+                      <button
+                        onClick={() => {
+                          setPromptingGuidesOpen(!promptingGuidesOpen);
+                          setSystemPromptsOpen(false);
+                          setPromptLibrariesOpen(false);
+                          setAgentInstructionsOpen(false);
+                        }}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      >
+                        <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guides</span>
+                        <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)] ml-auto" />
+                      </button>
+                      <AnimatePresence>
+                        {promptingGuidesOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -8 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-full top-0 ml-1 w-72 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                          >
+                            <a href="https://www.promptingguide.ai/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guide AI</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                              <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                              <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Claude Prompt Eng</span>
+                              <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Skills */}
+              <div className="relative external-resource-dropdown">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSkillsOpen(!skillsOpen);
+                    setCliReposOpen(false);
+                    setPromptsOpen(false);
+                    setAgentTemplatesOpen(false);
+                    setToolsOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+                >
+                  <Zap className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  <span className="font-semibold text-[var(--text-secondary)]">Skills</span>
+                  <ChevronDown className={cn(
+                    "w-3 h-3 text-[var(--text-tertiary)] transition-transform",
+                    skillsOpen && "rotate-180"
+                  )} />
+                </button>
+                <AnimatePresence>
+                  {skillsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-[100] w-72 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
                     >
-                      <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
-                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompts.chat</span>
-                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                    <a
-                      href="https://prompthero.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
+                      <a href="https://github.com/openclaw/openclaw/tree/main/skills" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">OpenClaw Skills</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://clawhub.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">ClawHub</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://github.com/microsoft/semantic-kernel" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Semantic Kernel</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://python.langchain.com/docs/modules/agents/tools/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">LangChain Tools</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://modelcontextprotocol.io/docs" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">MCP Docs</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://skillsmp.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Zap className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">SkillsMP</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Tools */}
+              <div className="relative external-resource-dropdown">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setToolsOpen(!toolsOpen);
+                    setCliReposOpen(false);
+                    setPromptsOpen(false);
+                    setAgentTemplatesOpen(false);
+                    setSkillsOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+                >
+                  <Wrench className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  <span className="font-semibold text-[var(--text-secondary)]">Tools</span>
+                  <ChevronDown className={cn(
+                    "w-3 h-3 text-[var(--text-tertiary)] transition-transform",
+                    toolsOpen && "rotate-180"
+                  )} />
+                </button>
+                <AnimatePresence>
+                  {toolsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-[100] w-72 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
                     >
-                      <Sparkles className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
-                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">PromptHero</span>
-                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                    <a
-                      href="https://cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                    >
-                      <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
-                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Vertex AI Gallery</span>
-                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                    <a
-                      href="https://workmind.ai/ai-prompt-library/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                    >
-                      <Library className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
-                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">WorkMind</span>
-                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                    <a
-                      href="https://www.promptingguide.ai/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                    >
-                      <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
-                      <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guide</span>
-                      <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
+                      <a href="https://github.com/bigscience-workshop/promptsource" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Github className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">PromptSource</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://www.promptingguide.ai/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <BookOpen className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Prompting Guide</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
+                      <a href="https://digitalmaker.ai/tools" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group">
+                        <Wrench className="w-4 h-4 text-[var(--text-tertiary)] group-hover:text-[var(--accent)]" />
+                        <span className="text-sm font-medium text-[var(--text-secondary)] group-hover:text-[var(--accent)]">Digital Maker Tools</span>
+                        <ExternalLink className="w-3 h-3 text-[var(--text-tertiary)] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </a>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -985,7 +1544,9 @@ export default function App() {
                     e.stopPropagation();
                     setAgentTemplatesOpen(!agentTemplatesOpen);
                     setCliReposOpen(false);
-                    setPromptLibsOpen(false);
+                    setPromptsOpen(false);
+                    setSkillsOpen(false);
+                    setToolsOpen(false);
                   }}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
                 >
@@ -1003,7 +1564,7 @@ export default function App() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute top-full right-0 mt-2 z-[100] w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-[100] w-64 dropdown-solid rounded-[var(--radius-md)] p-2 shadow-xl border border-[var(--glass-border)]"
                     >
                     <a
                       href="https://www.aitmpl.com/agents"
@@ -1048,7 +1609,42 @@ export default function App() {
                     </motion.div>
                   )}
                 </AnimatePresence>
+            </div>
+
               </div>
+
+            {/* RIGHT: Auth Buttons */}
+            <div className="hidden md:flex items-center gap-3">
+              {user ? (
+                <div className="flex items-center rounded-lg glass-subtle border border-[var(--glass-border)] overflow-hidden">
+                  <div className="px-4 py-1.5 border-r border-[var(--glass-border)]">
+                    <p className="text-sm font-medium text-[var(--text-primary)]">
+                      {user.name || user.email}
+                    </p>
+                  </div>
+                  <button
+                    onClick={logout}
+                    className="px-4 py-1.5 bg-red-900/20 hover:bg-red-800/30 text-sm font-medium text-red-300 hover:text-red-200 transition-all"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setIsLoginOpen(true)}
+                    className="px-4 py-1.5 rounded-lg glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => setIsSignupOpen(true)}
+                    className="px-4 py-1.5 rounded-lg bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white text-sm font-semibold transition-colors shadow-[0_2px_12px_var(--accent-glow)]"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              )}
             </div>
 
           </div>
@@ -1062,7 +1658,7 @@ export default function App() {
               <div className="max-w-4xl">
                 <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-3">
                   {activeTab === 'prompt-library' ? 'Prompt Library' : 
-                   activeTab === 'agent-instructions' ? 'Agent Instructions' : 
+                   activeTab === 'agents' ? 'Agents' : 
                    activeTab === 'agent-guides' ? 'Agent Guides' : 
                    activeTab === 'system-prompts' ? 'System Prompts' :
                    'Skills'}
@@ -1107,7 +1703,7 @@ export default function App() {
                 className="flex items-center gap-1 hover:text-[var(--accent)] transition-colors"
               >
                 <Home className="w-3.5 h-3.5" />
-                <span>{activeTab === 'prompt-library' ? 'Prompt Library' : activeTab === 'agent-instructions' ? 'Agent Instructions' : activeTab === 'agent-guides' ? 'Agent Guides' : activeTab === 'system-prompts' ? 'System Prompts' : 'Skills'}</span>
+                <span>{activeTab === 'prompt-library' ? 'Prompt Library' : activeTab === 'agents' ? 'Agents' : activeTab === 'agent-guides' ? 'Agent Guides' : activeTab === 'system-prompts' ? 'System Prompts' : 'Skills'}</span>
               </button>
               {selectedSubcategory && (
                 <>
@@ -1160,7 +1756,7 @@ export default function App() {
                     <div>
                       <h2 className="heading-display text-xl font-bold tracking-tight text-[var(--text-primary)]">
                         {activeTab === 'prompt-library' ? 'Prompt Library' : 
-                         activeTab === 'agent-instructions' ? 'Agent Instructions' : 
+                         activeTab === 'agents' ? 'Agents' : 
                          activeTab === 'agent-guides' ? 'Agent Guides' : 
                          activeTab === 'system-prompts' ? 'System Prompts' :
                          'Skills'}
@@ -1348,6 +1944,135 @@ export default function App() {
                   </div>
                 </div>
 
+                {/* Featured/Suggested Section - Only shown on Public Library landing page */}
+                {libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="mb-10"
+                  >
+                    <div className="flex items-center gap-3 mb-5">
+                      <Sparkles className="w-5 h-5 text-[var(--accent)]" />
+                      <h3 className="heading-display text-lg font-bold tracking-tight text-[var(--text-primary)]">
+                        Featured Prompts
+                      </h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      {featuredPrompts.map((prompt, i) => (
+                        <motion.div
+                          key={prompt.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: i * 0.05 }}
+                          onClick={() => handlePromptClick(prompt)}
+                          className="glass-card rounded-[var(--radius-lg)] overflow-hidden cursor-pointer group hover:shadow-[0_8px_32px_var(--accent-glow)] transition-all duration-500 relative border-2 border-[var(--accent)]/30 hover:border-[var(--accent)]"
+                        >
+                          {/* Featured badge */}
+                          <div className="absolute top-3 right-3 z-20">
+                            <div className="flex items-center justify-center w-7 h-7 rounded-full bg-[var(--accent)] text-white shadow-lg">
+                              <Star className="w-3.5 h-3.5 fill-white" />
+                            </div>
+                          </div>
+
+                          {/* Action buttons */}
+                          <div className="absolute bottom-3 right-3 z-20 flex gap-2">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCopyToMyPrompts(prompt);
+                              }}
+                              disabled={copyingToMyPromptsId === prompt.id}
+                              className={cn(
+                                "p-2 rounded-[var(--radius-sm)] transition-all duration-300 border backdrop-blur-sm",
+                                copyingToMyPromptsId === prompt.id
+                                  ? "bg-[var(--accent)]/20 border-[var(--accent)]/50 text-[var(--accent)] cursor-wait"
+                                  : "bg-[var(--glass-bg)] text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow)]"
+                              )}
+                              title="Add to My Library"
+                            >
+                              <FolderPlus className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDownloadMarkdown(prompt);
+                              }}
+                              className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-[var(--accent)] text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-[var(--accent)] backdrop-blur-sm"
+                              title="Download as Markdown"
+                            >
+                              <Download className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCopy(prompt.content, prompt.id);
+                              }}
+                              className={cn(
+                                "p-2 rounded-[var(--radius-sm)] transition-all duration-300 border backdrop-blur-sm",
+                                copied === prompt.id
+                                  ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
+                                  : "bg-[var(--glass-bg)] text-[var(--text-tertiary)] border-[var(--glass-border)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)]"
+                              )}
+                              title="Copy prompt content"
+                            >
+                              {copied === prompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                            </button>
+                          </div>
+
+                          {/* Animated gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                          <div className="flex-1 p-5 pb-12 space-y-3 relative z-[1]">
+                            <div className="flex items-start gap-3">
+                              <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--accent)]/50">
+                                <FileText className="w-3.5 h-3.5 text-[var(--accent)]" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="heading-display text-sm font-bold tracking-tight leading-snug mb-1 text-[var(--text-primary)] line-clamp-2">
+                                  {prompt.title}
+                                </h4>
+                                <p className="label truncate text-[0.65rem]">
+                                  {prompt.category}{prompt.subcategory ? ` / ${prompt.subcategory.replace(/_/g, ' ')}` : ''}
+                                </p>
+                              </div>
+                            </div>
+
+                            {prompt.tags.length > 0 && (
+                              <div className="flex flex-wrap gap-1">
+                                {prompt.tags.slice(0, 2).map(tag => (
+                                  <span key={tag} className="px-2 py-0.5 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.55rem] font-semibold tracking-wider uppercase text-[var(--text-tertiary)]">
+                                    {tag}
+                                  </span>
+                                ))}
+                                {prompt.tags.length > 2 && (
+                                  <span className="px-2 py-0.5 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.55rem] font-semibold tracking-wider uppercase text-[var(--text-tertiary)]">
+                                    +{prompt.tags.length - 2}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+
+                            <p className="text-[0.75rem] text-[var(--text-tertiary)] line-clamp-2 leading-relaxed">
+                              {prompt.content.substring(0, 120)}...
+                            </p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* All Prompts Section Header - Only show when featured section is visible (Public Library only) */}
+                {libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
+                  <div className="flex items-center gap-3 mb-5">
+                    <LayoutGrid className="w-5 h-5 text-[var(--text-secondary)]" />
+                    <h3 className="heading-display text-lg font-bold tracking-tight text-[var(--text-primary)]">
+                      All
+                    </h3>
+                  </div>
+                )}
+
                 {isLoading ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {[...Array(6)].map((_, i) => (
@@ -1363,21 +2088,40 @@ export default function App() {
                     ))}
                   </div>
                 ) : sortedPrompts.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center py-20 text-center">
-                    <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
-                    <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
-                    <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
-                      {searchQuery ? `No prompts match "${searchQuery}". Try a different search term.` : 'Get started by creating your first prompt!'}
-                    </p>
-                    {!searchQuery && (
-                      <button
-                        onClick={handleNewPrompt}
-                        className="px-6 py-3 bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white rounded-lg font-semibold transition-colors"
-                      >
-                        Create Your First Prompt
-                      </button>
-                    )}
-                  </div>
+                  // Empty state logic
+                  libraryMode === 'my' && !user ? (
+                    // User not authenticated in My Library mode
+                    <EmptyState
+                      type="not-authenticated"
+                      onLogin={() => setIsLoginOpen(true)}
+                      onSignup={() => setIsSignupOpen(true)}
+                      onBrowsePublic={() => setLibraryMode('public')}
+                    />
+                  ) : libraryMode === 'my' && user ? (
+                    // User authenticated but has no prompts
+                    <EmptyState
+                      type="no-prompts"
+                      onBrowsePublic={() => setLibraryMode('public')}
+                    />
+                  ) : searchQuery ? (
+                    // Search returned no results
+                    <div className="flex flex-col items-center justify-center py-20 text-center">
+                      <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
+                      <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
+                      <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
+                        No prompts match "{searchQuery}". Try a different search term.
+                      </p>
+                    </div>
+                  ) : (
+                    // Generic empty (shouldn't happen in public library)
+                    <div className="flex flex-col items-center justify-center py-20 text-center">
+                      <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
+                      <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
+                      <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
+                        Get started by creating your first prompt!
+                      </p>
+                    </div>
+                  )
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {sortedPrompts.map((prompt, i) => (
@@ -1450,49 +2194,45 @@ export default function App() {
                       <p className="label mt-0.5 truncate">{selectedPrompt.id}</p>
                     </div>
                     <div className="flex gap-2 flex-wrap justify-end">
+                      {/* Download Button */}
                       <motion.button
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => handleCopyToMyPrompts(selectedPrompt)}
-                        disabled={copyingToMyPromptsId === selectedPrompt.id || selectedPrompt.section === 'My_Prompts'}
-                        className={cn(
-                          "flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 disabled:cursor-not-allowed disabled:opacity-60",
-                          selectedPrompt.section === 'My_Prompts'
-                            ? "bg-blue-500/15 border-blue-500/35 text-blue-300"
-                            : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
-                        )}
-                        title={selectedPrompt.section === 'My_Prompts' ? 'Already in My Prompts' : 'Copy this prompt to My Prompts'}
+                        onClick={() => handleDownloadMarkdown(selectedPrompt)}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                        title="Download as Markdown"
                       >
-                        <FolderPlus className="w-3.5 h-3.5" />
-                        {selectedPrompt.section === 'My_Prompts'
-                          ? 'In My Prompts'
-                          : copyingToMyPromptsId === selectedPrompt.id
-                            ? 'Saving...'
-                            : 'Save to My Prompts'}
+                        <Download className="w-3.5 h-3.5" />
+                        Download
                       </motion.button>
+
+                      {/* Share Button (Email) */}
                       <motion.button
                         whileTap={{ scale: 0.95 }}
                         onClick={() => {
-                          const fullContent = `---
-title: "${selectedPrompt.title}"
-tags: [${selectedPrompt.tags.map(t => `"${t}"`).join(', ')}]
-category: "${selectedPrompt.category}"
-subcategory: "${selectedPrompt.subcategory || selectedPrompt.category}"
----
-
-${selectedPrompt.content}`;
-                          handleCopy(fullContent, `${selectedPrompt.id}-full`);
+                          const subject = encodeURIComponent(`Prompt: ${selectedPrompt.title}`);
+                          const body = encodeURIComponent(`---\ntitle: ${selectedPrompt.title}\ncategory: ${selectedPrompt.category}\ntags: ${selectedPrompt.tags.join(', ')}\n---\n\n${selectedPrompt.content}`);
+                          window.location.href = `mailto:?subject=${subject}&body=${body}`;
                         }}
-                        className={cn(
-                          "flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0",
-                          copied === `${selectedPrompt.id}-full`
-                            ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
-                            : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
-                        )}
-                        title="Copy with frontmatter"
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                        title="Share via Email"
                       >
-                        {copied === `${selectedPrompt.id}-full` ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                        Copy All
+                        <Share2 className="w-3.5 h-3.5" />
+                        Share
                       </motion.button>
+
+                      {/* Only show "Save to My Prompts" button if in Public Library */}
+                      {libraryMode === 'public' && (
+                        <motion.button
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => handleCopyToMyPrompts(selectedPrompt)}
+                          disabled={copyingToMyPromptsId === selectedPrompt.id}
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                          title="Copy this prompt to My Library"
+                        >
+                          <FolderPlus className="w-3.5 h-3.5" />
+                          {copyingToMyPromptsId === selectedPrompt.id ? 'Saving...' : 'Save to My Library'}
+                        </motion.button>
+                      )}
                       <motion.button
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleCopy(selectedPrompt.content, selectedPrompt.id)}
@@ -1502,7 +2242,7 @@ ${selectedPrompt.content}`;
                             ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
                             : "glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
                         )}
-                        title="Copy content only"
+                        title="Copy prompt content"
                       >
                         {copied === selectedPrompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                         Copy
@@ -1627,6 +2367,25 @@ ${selectedPrompt.content}`;
 
       {/* Toast Notifications */}
       <ToastContainer toasts={toasts} onClose={closeToast} />
+
+      {/* Auth Modals */}
+      <LoginModal
+        isOpen={isLoginOpen}
+        onClose={() => setIsLoginOpen(false)}
+        onSwitchToSignup={() => {
+          setIsLoginOpen(false);
+          setIsSignupOpen(true);
+        }}
+      />
+
+      <SignupModal
+        isOpen={isSignupOpen}
+        onClose={() => setIsSignupOpen(false)}
+        onSwitchToLogin={() => {
+          setIsSignupOpen(false);
+          setIsLoginOpen(true);
+        }}
+      />
     </div>
   );
 }

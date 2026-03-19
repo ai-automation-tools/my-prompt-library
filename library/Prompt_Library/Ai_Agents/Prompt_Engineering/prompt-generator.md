@@ -5,6 +5,7 @@ tags:
 - other
 - prompt
 - generator
+- featured
 category: Collections
 subcategory: Other
 ---
