@@ -5,7 +5,7 @@ category: "Agent_Guides"
 subcategory: "Claude_Code"
 ---
 
-<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->
+<!-- Last Updated: 2026-03-21 - Synced with upstream documentation -->
 
 # Claude Code CLI Flags Reference
 
@@ -131,6 +131,8 @@ Official command-line flags available in Claude Code CLI.
 | Flag | Description | Example |
 |------|-------------|---------|
 | `--betas` | Beta headers for API requests | `claude --betas interleaved-thinking` |
+| `--channels` | (Research preview) MCP servers whose channel notifications Claude should listen for | `claude --channels plugin:my-notifier@my-marketplace` |
+| `--dangerously-load-development-channels` | Enable channels not on approved allowlist for local development | `claude --dangerously-load-development-channels server:webhook` |
 | `--debug` | Enable debug mode with filtering | `claude --debug "api,mcp"` |
 | `--ide` | Auto-connect to IDE on startup | `claude --ide` |
 | `--init` | Run initialization hooks | `claude --init` |
