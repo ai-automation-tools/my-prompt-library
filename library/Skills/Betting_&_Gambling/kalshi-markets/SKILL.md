@@ -19,7 +19,7 @@ allowed-tools: Bash
 
 # Kalshi Prediction Markets
 
-**Source:** [Kalshi Prediction Markets - MCP Market](https://mcpmarket.com/zh/tools/skills/kalshi-prediction-markets)
+🔗 **Source Link:** [Kalshi Prediction Markets - MCP Market](https://mcpmarket.com/zh/tools/skills/kalshi-prediction-markets)
 
 ## 🎯 Triggers
 **USE:** prediction markets, Kalshi, betting odds, forecast markets, election betting, market probabilities

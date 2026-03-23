@@ -6,7 +6,7 @@ source: https://mcpmarket.com/tools/skills/market-mechanics-betting
 
 # Market Mechanics & Betting
 
-**Source:** [Market Mechanics - MCP Market](https://mcpmarket.com/tools/skills/market-mechanics-betting)
+🔗 **Source Link:** [Market Mechanics - MCP Market](https://mcpmarket.com/tools/skills/market-mechanics-betting)
 
 ## Table of Contents
 - [What is Market Mechanics?](#what-is-market-mechanics)
@@ -452,9 +452,9 @@ View portfolio holistically. Reduce correlated bets, maintain independence where
 ## Resource Files
 
 📁 **resources/**
-- [betting-theory.md](resources/betting-theory.md) - Fundamentals and framework
-- [kelly-criterion.md](resources/kelly-criterion.md) - Optimal bet sizing
-- [scoring-rules.md](resources/scoring-rules.md) - Calibration and accuracy measurement
+- 🔗 [betting-theory.md](resources/betting-theory.md) - Fundamentals and framework
+- 🔗 [kelly-criterion.md](resources/kelly-criterion.md) - Optimal bet sizing
+- 🔗 [scoring-rules.md](resources/scoring-rules.md) - Calibration and accuracy measurement
 
 ---
 
