@@ -543,8 +543,44 @@ export default function App() {
     showToast('success', 'Copied to clipboard');
   }, [showToast]);
 
-  const handleDownloadMarkdown = useCallback((prompt: Prompt) => {
-    const frontmatter = `---
+  const handleDownloadMarkdown = useCallback(async (prompt: Prompt) => {
+    // Check if this is a Skill - download as zip
+    if (prompt.section === 'Skills') {
+      try {
+        // Extract the skill directory path (remove /SKILL.md from the end)
+        const skillDirPath = prompt.id.replace(/\/SKILL\.md$/, '');
+        const response = await fetch(`/api/skills/download/${encodeURIComponent(skillDirPath)}`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to download skill');
+        }
+
+        // Get the filename from Content-Disposition header or construct it
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let filename = `${prompt.category}.zip`;
+        if (contentDisposition) {
+          const match = contentDisposition.match(/filename="(.+)"/);
+          if (match) filename = match[1];
+        }
+
+        // Download the zip file
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('success', 'Skill downloaded as zip!');
+      } catch (error) {
+        console.error('Download error:', error);
+        showToast('error', 'Failed to download skill');
+      }
+    } else {
+      // Regular prompt - download as markdown
+      const frontmatter = `---
 title: ${prompt.title}
 section: ${prompt.section}
 category: ${prompt.category}
@@ -555,17 +591,18 @@ source: My Prompt Library
 ---
 
 `;
-    const content = frontmatter + prompt.content;
-    const blob = new Blob([content], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${prompt.title.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.md`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showToast('success', 'Prompt downloaded!');
+      const content = frontmatter + prompt.content;
+      const blob = new Blob([content], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${prompt.title.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('success', 'Prompt downloaded!');
+    }
   }, [showToast]);
 
   const toggleFavorite = useCallback((promptId: string, e?: React.MouseEvent) => {
