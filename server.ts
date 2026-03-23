@@ -7,6 +7,7 @@ import path from "path";
 import matter from "gray-matter";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import archiver from "archiver";
 import authRoutes from "./routes/auth.js";
 import { optionalAuth, authenticate } from "./middleware/auth.js";
 import { userDb, promptDb, sessionDb, initializeSchema } from "./db/postgres.js";
@@ -415,6 +416,63 @@ async function startServer() {
     } catch (error: any) {
       console.error("Error copying prompt to My Library:", error);
       return res.status(500).json({ error: error.message || "Failed to copy prompt to My Library" });
+    }
+  });
+
+  // API to download a skill directory as a zip file
+  app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
+    try {
+      const skillPath = decodeURIComponent(req.params.skillPath).replace(/\\/g, '/');
+      
+      // Validate that this is a Skills directory
+      if (!skillPath.startsWith('Skills/')) {
+        return res.status(400).json({ error: "Invalid skill path. Must be under Skills/ directory." });
+      }
+
+      const fullPath = path.join(__dirname, "library", skillPath);
+      
+      if (!fs.existsSync(fullPath)) {
+        return res.status(404).json({ error: "Skill directory not found" });
+      }
+
+      const stats = fs.statSync(fullPath);
+      if (!stats.isDirectory()) {
+        return res.status(400).json({ error: "Path must be a directory" });
+      }
+
+      // Get the skill directory name for the zip filename
+      const skillDirName = path.basename(fullPath);
+      const zipFilename = `${skillDirName}.zip`;
+
+      // Set headers for download
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader('Content-Disposition', `attachment; filename="${zipFilename}"`);
+
+      // Create archive
+      const archive = archiver('zip', {
+        zlib: { level: 9 } // Maximum compression
+      });
+
+      // Handle archive errors
+      archive.on('error', (err) => {
+        console.error('Archive error:', err);
+        res.status(500).json({ error: 'Failed to create archive' });
+      });
+
+      // Pipe archive to response
+      archive.pipe(res);
+
+      // Add all files from the skill directory
+      archive.directory(fullPath, false);
+
+      // Finalize the archive
+      await archive.finalize();
+
+    } catch (error: any) {
+      console.error("Error creating skill download:", error);
+      if (!res.headersSent) {
+        return res.status(500).json({ error: error.message || "Failed to create download" });
+      }
     }
   });
 
