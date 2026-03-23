@@ -6,6 +6,7 @@ import path from "path";
 import matter from "gray-matter";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import archiver from "archiver";
 import authRoutes from "../routes/auth.js";
 import { optionalAuth, authenticate } from "../middleware/auth.js";
 import { promptDb, initializeSchema } from "../db/postgres.js";
@@ -378,6 +379,124 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
   } catch (error: any) {
     console.error("Error copying prompt to My Library:", error);
     return res.status(500).json({ error: error.message || "Failed to copy prompt to My Library" });
+  }
+});
+
+// Download skill as zip
+app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
+  try {
+    const skillPath = decodeURIComponent(req.params.skillPath).replace(/\\/g, '/');
+    
+    // Validate that this is a Skills directory
+    if (!skillPath.startsWith('Skills/')) {
+      return res.status(400).json({ error: "Invalid skill path. Must be under Skills/ directory." });
+    }
+
+    // Check if using GitHub or filesystem
+    if (isGitHubConfigured()) {
+      // For GitHub mode, we need to fetch all files in the directory
+      const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/library/${skillPath}?ref=${GITHUB_BRANCH}`;
+      const response = await fetch(apiUrl, { headers: githubHeaders });
+      
+      if (!response.ok) {
+        return res.status(404).json({ error: "Skill directory not found" });
+      }
+
+      const files: any[] = await response.json();
+      
+      if (!Array.isArray(files)) {
+        return res.status(400).json({ error: "Path must be a directory" });
+      }
+
+      // Get the skill directory name for the zip filename
+      const skillDirName = path.basename(skillPath);
+      const zipFilename = `${skillDirName}.zip`;
+
+      // Set headers for download
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader('Content-Disposition', `attachment; filename="${zipFilename}"`);
+
+      // Create archive
+      const archive = archiver('zip', {
+        zlib: { level: 9 }
+      });
+
+      archive.on('error', (err) => {
+        console.error('Archive error:', err);
+        if (!res.headersSent) {
+          res.status(500).json({ error: 'Failed to create archive' });
+        }
+      });
+
+      archive.pipe(res);
+
+      // Recursively fetch and add files from GitHub
+      async function addFilesFromGitHub(dirPath: string, archivePath: string = '') {
+        const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/library/${dirPath}?ref=${GITHUB_BRANCH}`;
+        const resp = await fetch(url, { headers: githubHeaders });
+        
+        if (!resp.ok) return;
+        
+        const items: any[] = await resp.json();
+        
+        for (const item of items) {
+          if (item.type === 'file') {
+            // Fetch file content
+            const fileResp = await fetch(item.download_url);
+            const fileContent = await fileResp.text();
+            const fileName = archivePath ? `${archivePath}/${item.name}` : item.name;
+            archive.append(fileContent, { name: fileName });
+          } else if (item.type === 'dir') {
+            const subPath = item.path.replace('library/', '');
+            const newArchivePath = archivePath ? `${archivePath}/${item.name}` : item.name;
+            await addFilesFromGitHub(subPath, newArchivePath);
+          }
+        }
+      }
+
+      await addFilesFromGitHub(skillPath);
+      await archive.finalize();
+
+    } else {
+      // Filesystem mode (local development)
+      const fullPath = path.join(LIBRARY_PATH, skillPath);
+      
+      if (!fs.existsSync(fullPath)) {
+        return res.status(404).json({ error: "Skill directory not found" });
+      }
+
+      const stats = fs.statSync(fullPath);
+      if (!stats.isDirectory()) {
+        return res.status(400).json({ error: "Path must be a directory" });
+      }
+
+      const skillDirName = path.basename(fullPath);
+      const zipFilename = `${skillDirName}.zip`;
+
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader('Content-Disposition', `attachment; filename="${zipFilename}"`);
+
+      const archive = archiver('zip', {
+        zlib: { level: 9 }
+      });
+
+      archive.on('error', (err) => {
+        console.error('Archive error:', err);
+        if (!res.headersSent) {
+          res.status(500).json({ error: 'Failed to create archive' });
+        }
+      });
+
+      archive.pipe(res);
+      archive.directory(fullPath, false);
+      await archive.finalize();
+    }
+
+  } catch (error: any) {
+    console.error("Error creating skill download:", error);
+    if (!res.headersSent) {
+      return res.status(500).json({ error: error.message || "Failed to create download" });
+    }
   }
 });
 
