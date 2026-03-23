@@ -130,11 +130,18 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
       }
 
       const treeData: any = await treeResponse.json();
-      const mdFiles = treeData.tree.filter((item: any) => 
-        item.type === 'blob' && 
-        item.path.startsWith('library/') && 
-        item.path.endsWith('.md')
-      );
+      const mdFiles = treeData.tree.filter((item: any) => {
+        if (item.type !== 'blob' || !item.path.startsWith('library/') || !item.path.endsWith('.md')) {
+          return false;
+        }
+        
+        // For Skills section, only include SKILL.md files
+        if (item.path.startsWith('library/Skills/')) {
+          return item.path.endsWith('/SKILL.md');
+        }
+        
+        return true;
+      });
 
       const prompts = await Promise.all(
         mdFiles.map(async (file: any) => {
@@ -184,9 +191,17 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
           if (stat.isDirectory()) {
             results = results.concat(walkDir(filePath, baseDir));
           } else if (file.endsWith('.md')) {
+            const relativePath = path.relative(baseDir, filePath);
+            
+            // For Skills section, only include SKILL.md files
+            if (relativePath.startsWith('Skills' + path.sep)) {
+              if (!file.endsWith('SKILL.md')) {
+                return; // Skip non-SKILL.md files in Skills section
+              }
+            }
+            
             const rawContent = fs.readFileSync(filePath, 'utf-8');
             const { data, content } = matter(rawContent);
-            const relativePath = path.relative(baseDir, filePath);
             const pathParts = relativePath.replace('.md', '').split(path.sep);
             
             const section = pathParts[0] || 'General';

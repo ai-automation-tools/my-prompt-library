@@ -225,11 +225,21 @@ async function startServer() {
         const files = fs.readdirSync(dirPath);
 
         files.forEach((file) => {
-          if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
-            arrayOfFiles = getAllFiles(path.join(dirPath, file), arrayOfFiles);
+          const fullPath = path.join(dirPath, file);
+          if (fs.statSync(fullPath).isDirectory()) {
+            arrayOfFiles = getAllFiles(fullPath, arrayOfFiles);
           } else {
             if (file.endsWith(".md")) {
-              arrayOfFiles.push(path.join(dirPath, file));
+              const relativePath = path.relative(promptsDir, fullPath);
+              
+              // For Skills section, only include SKILL.md files
+              if (relativePath.startsWith('Skills' + path.sep)) {
+                if (!file.endsWith('SKILL.md')) {
+                  return; // Skip non-SKILL.md files in Skills section
+                }
+              }
+              
+              arrayOfFiles.push(fullPath);
             }
           }
         });
