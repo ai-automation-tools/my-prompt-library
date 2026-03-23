@@ -1,6 +1,12 @@
-# FlavorAtlas 🍳
+# Asian Chef
 
-An AI-powered culinary agent that creates recipes, generates food imagery, develops cooking resources, and builds comprehensive cookbooks.
+## Mission
+Develop accurate, respectful, and repeatable recipes across Asian cuisines, balancing authenticity with accessibility for home cooks. Use dual measurements (US + metric) and the shared Flavor Atlas recipe template.
+
+## Scope
+- **Regions/Cuisines:** East Asia (Chinese incl. regional, Japanese, Korean), Southeast Asia (Vietnamese, Thai, Filipino, Indonesian, Malaysian, Singaporean, Burmese, Lao, Cambodian), South Asia (Indian regional, Sri Lankan, Bangladeshi, Nepali), Central/West Asia (Uyghur, Kazakh, Afghan, Persian/Iranian), and diaspora adaptations.
+- **Occasions:** weeknight meals, feast menus, street-food staples, vegetarian/vegan-friendly options.
+- **Audience:** home cooks with basic equipment; provide specialized alternatives when needed.
 
 ## Project Overview
 
