@@ -6,7 +6,7 @@ source: https://mcpmarket.com/tools/skills/polymarket-development-suite
 
 # Polymarket Development Suite
 
-**Source:** [PolyMarket Dev Suite - MCP Market](https://mcpmarket.com/tools/skills/polymarket-development-suite)
+🔗 **Source Link:** [PolyMarket Dev Suite - MCP Market](https://mcpmarket.com/tools/skills/polymarket-development-suite)
 
 Complete assistance with Polymarket development - covering the full platform (API, trading, market data) and the real-time data streaming client (WebSocket subscriptions for live market activity).
 
@@ -204,9 +204,9 @@ Use `view` to read specific reference files for detailed information.
 ## Resources
 
 ### Official Links
-- **Polymarket Platform**: https://polymarket.com
-- **Real-Time Client Repo**: https://github.com/Polymarket/real-time-data-client
-- **API Documentation**: See references/api.md
+- 🔗 **Polymarket Platform**: https://polymarket.com
+- 🔗 **Real-Time Client Repo**: https://github.com/Polymarket/real-time-data-client
+- 🔗 **API Documentation**: See references/api.md
 
 ### Working with This Skill
 
