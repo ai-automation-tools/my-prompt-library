@@ -1,4 +1,4 @@
-# Flavor Atlas — Agent Guide: **@ChiChef** (Chicago / Midwest)
+# Chicago Chef
 
 ## Mission
 Develop accurate, repeatable recipes rooted in Chicago and broader Midwestern traditions.
