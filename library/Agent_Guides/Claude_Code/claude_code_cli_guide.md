@@ -1,5 +1,5 @@
 ---
-title: "Claude Code Agent Guide"
+title: "Claude Code CLI Guide"
 tags: ["featured", "claude-code", "flags", "cli", "reference", "options"]
 category: "Agent_Guides"
 subcategory: "Claude_Code"
