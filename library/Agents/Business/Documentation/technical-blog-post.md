@@ -1,6 +1,6 @@
 ﻿---
 title: "Technical Blog Post Architect"
-tags: ["writing", "technical", "blog", "post"]
+tags: ["featured", "writing", "technical", "blog", "post"]
 category: "Writing"
 subcategory: "Technical"
 ---

@@ -1,3 +1,10 @@
+---
+title: "Data Engineer"
+tags: ["featured", "data-engineering", "etl", "data-pipelines", "analytics"]
+category: "Developer"
+subcategory: "General"
+---
+
 # Data Engineer Agent
 
 ## Role

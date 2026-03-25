@@ -1,3 +1,10 @@
+---
+title: "DevOps Engineer"
+tags: ["featured", "devops", "infrastructure", "automation", "ci-cd", "cloud"]
+category: "Developer"
+subcategory: "General"
+---
+
 # DevOps Engineer Agent
 
 ## Role
