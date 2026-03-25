@@ -256,6 +256,96 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
   }
 });
 
+// Get single prompt with full content
+app.get("/api/prompts/:id", optionalAuth, async (req, res) => {
+  try {
+    const promptId = decodeURIComponent(req.params.id);
+    
+    // Check if it's a user-owned prompt (database ID)
+    if (req.user && !promptId.includes('/')) {
+      const prompt = await promptDb.findById(promptId, req.user.id);
+      if (prompt) {
+        return res.json({
+          id: prompt.id,
+          title: prompt.title,
+          section: prompt.section,
+          category: prompt.category,
+          subcategory: prompt.subcategory,
+          tags: prompt.tags,
+          content: prompt.content,
+          lastModified: prompt.updated_at,
+          isUserOwned: true,
+        });
+      }
+    }
+    
+    // Otherwise, it's a file path in the library
+    if (isGitHubConfigured()) {
+      // GitHub mode
+      const response = await fetch(
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${promptId}?ref=${GITHUB_BRANCH}`,
+        { headers: githubHeaders }
+      );
+      
+      if (!response.ok) {
+        return res.status(404).json({ error: 'Prompt not found' });
+      }
+      
+      const data: any = await response.json();
+      const rawContent = Buffer.from(data.content, 'base64').toString('utf-8');
+      const { data: frontmatter, content } = matter(rawContent);
+      
+      const pathParts = promptId.replace('library/', '').replace('.md', '').split('/');
+      const section = pathParts[0] || 'General';
+      const category = pathParts[1] || 'Uncategorized';
+      const subcategory = pathParts.length > 2 ? pathParts[2] : null;
+      
+      return res.json({
+        id: promptId,
+        title: frontmatter.title || extractFirstHeading(content) || path.basename(promptId, '.md'),
+        section,
+        category,
+        subcategory,
+        tags: frontmatter.tags || [],
+        content,
+        lastModified: data.sha,
+        isUserOwned: false,
+      });
+    } else {
+      // Local filesystem mode
+      const filePath = path.join(LIBRARY_PATH, promptId);
+      
+      if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ error: 'Prompt not found' });
+      }
+      
+      const rawContent = fs.readFileSync(filePath, 'utf-8');
+      const { data: frontmatter, content } = matter(rawContent);
+      const stat = fs.statSync(filePath);
+      
+      const pathParts = promptId.replace('.md', '').split(path.sep);
+      const section = pathParts[0] || 'General';
+      const category = pathParts[1] || 'Uncategorized';
+      const subcategory = pathParts.length > 2 ? pathParts[2] : null;
+      
+      return res.json({
+        id: promptId,
+        title: frontmatter.title || extractFirstHeading(content) || path.basename(promptId, '.md'),
+        section,
+        category,
+        subcategory,
+        tags: frontmatter.tags || [],
+        content,
+        lastModified: stat.mtime.toISOString(),
+        isUserOwned: false,
+      });
+    }
+  } catch (error: any) {
+    console.error("Error fetching prompt:", error);
+    res.status(500).json({ error: "Failed to fetch prompt" });
+  }
+});
+
 // Create prompt
 app.post("/api/prompts", authenticate, async (req, res) => {
   try {
