@@ -30,6 +30,14 @@ app.use((req, res, next) => {
 // Mount auth routes
 app.use('/api/auth', authRoutes);
 
+// Simple in-memory cache for prompt listings
+let promptsCache: { data: any[], timestamp: number } | null = null;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+const isCacheValid = () => {
+  return promptsCache && (Date.now() - promptsCache.timestamp < CACHE_TTL);
+};
+
 // Helper function to generate safe filename
 const generateFilename = (title: string) => {
   return title
@@ -79,9 +87,10 @@ const extractFirstHeading = (content: string): string | null => {
   return match ? match[1] : null;
 };
 
-// API to list all prompts
+// API to list all prompts (with optional lightweight mode)
 app.get("/api/prompts", optionalAuth, async (req, res) => {
   const libraryMode = req.query.library as string;
+  const lightweight = req.query.lightweight === 'true'; // Only return metadata, not full content
   
   if (libraryMode === 'my') {
     if (!req.user) {
@@ -97,12 +106,18 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
       category: p.category,
       subcategory: p.subcategory,
       tags: p.tags,
-      content: p.content,
+      content: lightweight ? p.content.substring(0, 200) : p.content, // Truncate in lightweight mode
       lastModified: p.updated_at,
       isUserOwned: true,
     }));
     
     return res.json(formattedPrompts);
+  }
+
+  // Check cache for public library lightweight requests
+  if (libraryMode === 'public' && lightweight && isCacheValid()) {
+    console.log('[CACHE HIT] Returning cached prompts');
+    return res.json(promptsCache!.data);
   }
 
   try {
@@ -168,7 +183,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
             category,
             subcategory,
             tags: data.tags || [],
-            content,  // Use parsed content (without frontmatter)
+            content: lightweight ? content.substring(0, 200) : content,  // Truncate in lightweight mode
             lastModified: contentData.sha,
             isUserOwned: false,
           };
@@ -215,7 +230,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
               category,
               subcategory,
               tags: data.tags || [],
-              content,  // Use parsed content (without frontmatter)
+              content: lightweight ? content.substring(0, 200) : content,  // Truncate in lightweight mode
               lastModified: stat.mtime.toISOString(),
               isUserOwned: false,
             });
@@ -226,6 +241,13 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
       };
 
       const prompts = walkDir(LIBRARY_PATH);
+      
+      // Cache lightweight public library requests
+      if (libraryMode === 'public' && lightweight) {
+        promptsCache = { data: prompts, timestamp: Date.now() };
+        console.log('[CACHE SET] Cached', prompts.length, 'prompts');
+      }
+      
       res.json(prompts);
     }
   } catch (error: any) {
