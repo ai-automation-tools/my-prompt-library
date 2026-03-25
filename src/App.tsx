@@ -103,6 +103,8 @@ export default function App() {
   const [sortOption, setSortOption] = useState<'title-asc' | 'title-desc' | 'modified-desc' | 'modified-asc'>('title-asc');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 100; // Show 100 prompts per page
   const [copied, setCopied] = useState<string | null>(null);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts'>(() => {
@@ -235,6 +237,11 @@ export default function App() {
     }, 300);
     return () => clearTimeout(timer);
   }, [searchQuery]);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab, debouncedSearch, selectedTags, sortOption, activeCategory, activeSubcategory]);
 
   useEffect(() => {
     // Wait for auth to load before fetching
@@ -424,6 +431,17 @@ export default function App() {
         return promptsToSort;
     }
   }, [filteredPrompts, sortOption]);
+
+  // Paginate sorted prompts
+  const paginatedPrompts = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    return sortedPrompts.slice(startIndex, endIndex);
+  }, [sortedPrompts, currentPage, ITEMS_PER_PAGE]);
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(sortedPrompts.length / ITEMS_PER_PAGE);
+  }, [sortedPrompts.length, ITEMS_PER_PAGE]);
 
   const subcategoryPrompts = useMemo(() => {
     if (!selectedSubcategory) return [];
@@ -2179,11 +2197,36 @@ source: My Prompt Library
                     </div>
                   )
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {sortedPrompts.map((prompt, i) => (
-                      <PromptCard key={prompt.id} prompt={prompt} index={i} />
-                    ))}
-                  </div>
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                      {paginatedPrompts.map((prompt, i) => (
+                        <PromptCard key={prompt.id} prompt={prompt} index={i} />
+                      ))}
+                    </div>
+                    
+                    {/* Pagination Controls */}
+                    {totalPages > 1 && (
+                      <div className="flex items-center justify-center gap-4 mt-8">
+                        <button
+                          onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                          disabled={currentPage === 1}
+                          className="px-4 py-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-secondary)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] transition-all"
+                        >
+                          ← Previous
+                        </button>
+                        <span className="text-sm text-[var(--text-secondary)]">
+                          Page {currentPage} of {totalPages} ({sortedPrompts.length} total)
+                        </span>
+                        <button
+                          onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                          disabled={currentPage === totalPages}
+                          className="px-4 py-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-secondary)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] transition-all"
+                        >
+                          Next →
+                        </button>
+                      </div>
+                    )}
+                  </>
                 )}
               </motion.div>
 
