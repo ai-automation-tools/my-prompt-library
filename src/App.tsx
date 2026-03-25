@@ -487,17 +487,18 @@ export default function App() {
   }, [expandedCategories, handleSubcategoryClick]);
 
   const handlePromptClick = useCallback(async (prompt: Prompt) => {
-    // If content is truncated (lightweight mode), fetch full content
+    // Always fetch full content since we're using lightweight mode
     let fullPrompt = prompt;
-    if (prompt.content && prompt.content.length <= 201) {
-      try {
-        const response = await fetch(`/api/prompts/${encodeURIComponent(prompt.id)}`);
-        if (response.ok) {
-          fullPrompt = await response.json();
-        }
-      } catch (err) {
-        console.error('Failed to fetch full prompt content:', err);
+    try {
+      const response = await fetch(`/api/prompts/${encodeURIComponent(prompt.id)}`);
+      if (response.ok) {
+        fullPrompt = await response.json();
+      } else {
+        console.warn('Failed to fetch full content, using cached version');
       }
+    } catch (err) {
+      console.error('Failed to fetch full prompt content:', err);
+      // Fall back to the truncated version if fetch fails
     }
     
     setSelectedPrompt(fullPrompt);
