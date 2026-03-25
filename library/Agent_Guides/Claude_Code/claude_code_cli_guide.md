@@ -5,6 +5,8 @@ category: "Agent_Guides"
 subcategory: "Claude_Code"
 ---
 
+<!-- Last Updated: 2026-03-25 - Synced with upstream v2.1.63 -->
+
 # Claude Code Agent Guide
 
 Comprehensive reference for building and managing agents with Claude Code CLI.

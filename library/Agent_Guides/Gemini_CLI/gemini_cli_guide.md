@@ -1,4 +1,6 @@
 
+<!-- Last Updated: 2026-03-25 - Synced with upstream (March 2026 release) -->
+
 # Gemini CLI Agent Guide
 
 Comprehensive reference for building and managing agents with Gemini CLI.
