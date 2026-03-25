@@ -7,7 +7,7 @@ subcategory: "Other"
 
 ## CLI Sync Notes (March 2026)
 
-This guide remains in `Other/Mistral/` and now tracks **Mistral CLI (Vibe)** changes explicitly.
+Tracks **Mistral CLI (Vibe)** changes explicitly.
 
 ### Notable March 2026 CLI updates
 - New/expanded agent workflows (including theorem-proving agent setup).

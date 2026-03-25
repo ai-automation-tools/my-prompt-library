@@ -7,7 +7,7 @@ subcategory: "Other"
 
 ## CLI Sync Notes (March 2026)
 
-This guide remains in `Other/Qwen/` and now tracks **Qwen Code CLI** updates explicitly.
+Tracks **Qwen Code CLI** updates explicitly.
 
 ### Notable March 2026 CLI updates
 - Recent Qwen Code releases include auth command additions, hooks/event improvements, and session/tooling UX changes.

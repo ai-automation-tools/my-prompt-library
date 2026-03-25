@@ -7,7 +7,7 @@ subcategory: "Other"
 
 ## CLI Sync Notes (March 2026)
 
-This guide remains in `Other/Kimi/` and now includes current **Kimi Code CLI** direction.
+Includes current **Kimi Code CLI** direction.
 
 ### Notable March 2026 CLI updates
 - Plugin system support (`plugin.json`) and multi-plugin repo install flows.

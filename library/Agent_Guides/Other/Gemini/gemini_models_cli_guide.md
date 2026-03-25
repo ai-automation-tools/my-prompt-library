@@ -7,7 +7,7 @@ subcategory: "Other"
 
 ## CLI Sync Notes (March 2026)
 
-This guide remains in `Other/Gemini/` and is maintained as a **Gemini tooling overview**.
+Maintained as a **Gemini tooling overview**.
 
 ### Current status
 - Local content is strong for Gemini API/SDK capabilities.

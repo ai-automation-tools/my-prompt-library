@@ -7,7 +7,7 @@ subcategory: "Other"
 
 ## CLI Sync Notes (March 2026)
 
-This guide is kept in `Other/Deepseek/` and tracks **CLI-relevant** updates separately from API basics.
+Focuses on **CLI-relevant** updates alongside API basics.
 
 ### What changed upstream
 - DeepSeek CLI ecosystem reported recent updates around conversational workflows, stdin/file input, settings persistence, and context-handling improvements.

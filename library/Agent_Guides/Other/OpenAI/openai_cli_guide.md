@@ -7,7 +7,7 @@ subcategory: "Other"
 
 ## CLI Sync Notes (March 2026)
 
-This guide remains in `Other/OpenAI/` and distinguishes legacy API tooling from modern **Codex CLI** workflows.
+Distinguishes legacy API tooling from modern **Codex CLI** workflows.
 
 ### Notable March 2026 CLI updates
 - Codex CLI 0.116.0 updates include device-code sign-in, plugin/setup improvements, and hook/runtime refinements.
