@@ -393,9 +393,15 @@ export default function App() {
     }
 
     const fuse = new Fuse(currentPrompts, {
-      keys: ['title', 'content', 'tags', 'category', 'subcategory'],
+      keys: [
+        { name: 'title', weight: 10 },       // Highest priority - exact title matches
+        { name: 'tags', weight: 3 },         // High priority - tags
+        { name: 'category', weight: 2 },     // Medium priority - category
+        { name: 'subcategory', weight: 2 },  // Medium priority - subcategory
+        { name: 'content', weight: 1 }       // Lowest priority - content
+      ],
       includeScore: true,
-      threshold: 0.3, // Fuzziness (0 = exact match, 1 = any match)
+      threshold: 0.4, // Slightly higher threshold for better relevance
       ignoreLocation: true,
       minMatchCharLength: 2,
     });
