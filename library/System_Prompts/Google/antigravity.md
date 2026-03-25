@@ -1,5 +1,5 @@
 ---
-title: "Antigravity"
+title: "🚀 Antigravity"
 tags: ["featured", "google", "llm", "instructions", "antigravity"]
 category: "LLM Instructions"
 subcategory: "Google"

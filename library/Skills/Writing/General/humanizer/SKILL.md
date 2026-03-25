@@ -1,5 +1,5 @@
 ---
-title: "Humanizer: Remove AI Writing Patterns"
+title: "🤖 Humanizer: Remove AI Writing Patterns"
 tags: ["featured", "claude-code", "writing", "human", "convert", "options"]
 category: "skills"
 subcategory: "writing"

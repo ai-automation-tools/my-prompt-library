@@ -1,5 +1,5 @@
 ---
-title: "AX MCP Server Prompts"
+title: "🎯 AX MCP Server Prompts"
 tags: ["featured", "ax-mcp", "agents", "automation", "workflow", "prompt-library"]
 category: "AX-Platform"
 subcategory: "AX_MCP_Server"

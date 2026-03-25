@@ -1,5 +1,5 @@
 ﻿---
-title: "Technical Blog Post Architect"
+title: "✍️ Technical Blog Post Architect"
 tags: ["featured", "writing", "technical", "blog", "post"]
 category: "Writing"
 subcategory: "Technical"

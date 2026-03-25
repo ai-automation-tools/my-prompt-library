@@ -1,5 +1,5 @@
 ---
-title: "Frontend Specialist"
+title: "🎨 Frontend Specialist"
 tags: ["featured", "frontend", "web-development", "react", "ui-ux"]
 category: "Developer"
 subcategory: "General"
