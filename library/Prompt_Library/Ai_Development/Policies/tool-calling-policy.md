@@ -4,7 +4,7 @@ tags: ["collections", "ai", "tool", "calling", "policy"]
 category: "Collections"
 subcategory: "AI"
 ---
-# AX Agent Tool-Calling Policy
+# Agent Tool-Calling Policy
 
 ## Guiding Principles
 
