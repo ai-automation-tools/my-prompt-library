@@ -3,6 +3,23 @@ title: "OpenAI GPT-4 CLI Guide"
 tags: ["openai", "gpt-4", "cli", "reference", "api"]
 category: "Agent_Guides"
 subcategory: "Other"
+<!-- Last Updated: 2026-03-25 - Synced with OpenAI Codex CLI changelog (Mar 2026) -->
+
+## CLI Sync Notes (March 2026)
+
+Distinguishes legacy API tooling from modern **Codex CLI** workflows.
+
+### Notable March 2026 CLI updates
+- Codex CLI 0.116.0 updates include device-code sign-in, plugin/setup improvements, and hook/runtime refinements.
+- Ongoing app/CLI parity improvements (settings sync, thread search, quality/perf fixes).
+
+### Official references
+- https://developers.openai.com/codex/changelog
+- https://developers.openai.com/codex/cli/
+
+### Maintainer note
+- Keep OpenAI API examples, but treat Codex CLI docs/changelog as source of truth for terminal-agent behavior.
+
 ---
 
 # OpenAI GPT-4 Agent Guide

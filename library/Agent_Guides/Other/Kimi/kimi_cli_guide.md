@@ -3,6 +3,25 @@ title: "Kimi CLI Guide"
 tags: ["kimi", "moonshot", "cli", "reference", "api", "chinese-ai"]
 category: "Agent_Guides"
 subcategory: "Other"
+<!-- Last Updated: 2026-03-25 - Synced with Kimi CLI changelog (Mar 2026) -->
+
+## CLI Sync Notes (March 2026)
+
+Includes current **Kimi Code CLI** direction.
+
+### Notable March 2026 CLI updates
+- Plugin system support (`plugin.json`) and multi-plugin repo install flows.
+- Subagent delegation tooling and unified approval runtime.
+- Plan-mode/interaction improvements and visualization/reporting enhancements.
+- Ongoing reliability fixes in print/non-interactive and shell/task handling.
+
+### Official references
+- https://moonshotai.github.io/kimi-cli/en/release-notes/changelog.html
+- https://github.com/MoonshotAI/kimi-cli
+
+### Maintainer note
+- Preserve Moonshot API examples, but weekly sync should anchor to the CLI changelog first.
+
 ---
 
 # Kimi (Moonshot AI) Agent Guide

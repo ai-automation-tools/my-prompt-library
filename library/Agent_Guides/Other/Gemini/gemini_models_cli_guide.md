@@ -3,6 +3,23 @@ title: "Google Gemini CLI Guide"
 tags: ["gemini", "google", "cli", "reference", "api", "multimodal"]
 category: "Agent_Guides"
 subcategory: "Other"
+<!-- Last Updated: 2026-03-25 - CLI sync check (Gemini tooling ecosystem) -->
+
+## CLI Sync Notes (March 2026)
+
+Maintained as a **Gemini tooling overview**.
+
+### Current status
+- Local content is strong for Gemini API/SDK capabilities.
+- CLI-specific details should be validated against official Gemini CLI/tool docs before claiming exact command support.
+
+### Official references
+- https://ai.google.dev/gemini-api/docs
+- https://github.com/google-gemini
+
+### Maintainer note
+- Weekly sync should separate API model updates from CLI command-surface updates.
+
 ---
 
 # Google Gemini Agent Guide

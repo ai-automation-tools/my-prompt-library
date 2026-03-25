@@ -3,6 +3,24 @@ title: "Qwen CLI Guide"
 tags: ["qwen", "alibaba", "cli", "reference", "api", "chinese-ai"]
 category: "Agent_Guides"
 subcategory: "Other"
+<!-- Last Updated: 2026-03-25 - Synced with Qwen Code releases/docs (Mar 2026) -->
+
+## CLI Sync Notes (March 2026)
+
+Tracks **Qwen Code CLI** updates explicitly.
+
+### Notable March 2026 CLI updates
+- Recent Qwen Code releases include auth command additions, hooks/event improvements, and session/tooling UX changes.
+- Rapid release cadence means command/flag behavior should be validated directly from release notes.
+
+### Official references
+- https://github.com/QwenLM/qwen-code/releases
+- https://qwenlm.github.io/qwen-code-docs/en/
+- https://github.com/QwenLM/qwen-code
+
+### Maintainer note
+- Keep DashScope/API sections for integration context, but prioritize qwen-code CLI release deltas in weekly sync.
+
 ---
 
 # Qwen (Alibaba) Agent Guide
