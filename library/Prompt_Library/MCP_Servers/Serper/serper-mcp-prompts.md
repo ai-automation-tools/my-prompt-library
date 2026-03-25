@@ -3,7 +3,7 @@ title: 🔍 Serper API MCP Server Prompts
 section: Prompt_Library
 category: Mcp_Servers
 subcategory: Serper
-tags: featured, collections, serper, search, google, api
+tags: ["featured", "collections", "serper", "search", "google", "api"]
 created: 2026-03-25T21:32:00.000Z
 source: My Prompt Library
 ---

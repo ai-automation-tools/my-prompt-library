@@ -3,7 +3,7 @@ title: 🔄 n8n Workflow Automation MCP Server Prompts
 section: Prompt_Library
 category: Mcp_Servers
 subcategory: N8n
-tags: featured, collections, n8n, workflow, automation, integration
+tags: ["featured", "collections", "n8n", "workflow", "automation", "integration"]
 created: 2026-03-25T21:32:00.000Z
 source: My Prompt Library
 ---

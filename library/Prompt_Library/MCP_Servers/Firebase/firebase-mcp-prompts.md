@@ -3,7 +3,7 @@ title: 🔥 Firebase MCP Server Prompts
 section: Prompt_Library
 category: Mcp_Servers
 subcategory: Firebase
-tags: featured, collections, firebase, firestore, auth, cloud-functions, storage
+tags: ["featured", "collections", "firebase", "firestore", "auth", "cloud-functions", "storage"]
 created: 2026-03-25T21:32:00.000Z
 source: My Prompt Library
 ---

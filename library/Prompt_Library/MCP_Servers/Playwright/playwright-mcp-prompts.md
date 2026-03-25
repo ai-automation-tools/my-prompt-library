@@ -3,7 +3,7 @@ title: 🎭 Playwright MCP Server Prompts
 section: Prompt_Library
 category: Mcp_Servers
 subcategory: Playwright
-tags: featured, collections, playwright, testing, automation, web-scraping
+tags: ["featured", "collections", "playwright", "testing", "automation", "web-scraping"]
 created: 2026-03-25T21:32:00.000Z
 source: My Prompt Library
 ---

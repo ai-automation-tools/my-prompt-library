@@ -3,7 +3,7 @@ title: 📧 Google Workspace MCP Server Prompts
 section: Prompt_Library
 category: Mcp_Servers
 subcategory: Google_Workspace
-tags: featured, collections, google, gmail, drive, calendar, docs, sheets
+tags: ["featured", "collections", "google", "gmail", "drive", "calendar", "docs", "sheets"]
 created: 2026-03-25T21:32:00.000Z
 source: My Prompt Library
 ---

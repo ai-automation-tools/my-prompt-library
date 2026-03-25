@@ -3,7 +3,7 @@ title: 🗄️ Supabase MCP Server Prompts
 section: Prompt_Library
 category: Mcp_Servers
 subcategory: Supabase
-tags: featured, collections, supabase, database, postgres, auth, storage
+tags: ["featured", "collections", "supabase", "database", "postgres", "auth", "storage"]
 created: 2026-03-25T21:32:00.000Z
 source: My Prompt Library
 ---

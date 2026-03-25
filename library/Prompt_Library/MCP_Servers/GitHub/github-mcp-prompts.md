@@ -3,7 +3,7 @@ title: 🚀 GitHub MCP Server Prompts
 section: Prompt_Library
 category: Mcp_Servers
 subcategory: GitHub
-tags: featured, collections, github, version-control, collaboration
+tags: ["featured", "collections", "github", "version-control", "collaboration"]
 created: 2026-03-25T21:32:00.000Z
 source: My Prompt Library
 ---
