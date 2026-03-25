@@ -215,6 +215,12 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
               }
             }
             
+            // Skip files larger than 500KB (likely bulk collections, not individual prompts)
+            if (stat.size > 500 * 1024) {
+              console.log(`[SKIP] Large file: ${relativePath} (${(stat.size / 1024).toFixed(0)}KB)`);
+              return;
+            }
+            
             const rawContent = fs.readFileSync(filePath, 'utf-8');
             const { data, content } = matter(rawContent);
             const pathParts = relativePath.replace('.md', '').split(path.sep);
