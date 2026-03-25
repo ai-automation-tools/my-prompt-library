@@ -3,6 +3,25 @@ title: "DeepSeek CLI Guide"
 tags: ["deepseek", "cli", "reference", "api", "chinese-ai"]
 category: "Agent_Guides"
 subcategory: "Other"
+<!-- Last Updated: 2026-03-25 - CLI sync check (DeepSeek CLI ecosystem) -->
+
+## CLI Sync Notes (March 2026)
+
+This guide is kept in `Other/Deepseek/` and tracks **CLI-relevant** updates separately from API basics.
+
+### What changed upstream
+- DeepSeek CLI ecosystem reported recent updates around conversational workflows, stdin/file input, settings persistence, and context-handling improvements.
+- Validate exact command/flag behavior against the official package/docs before automation scripts depend on specific flags.
+
+### Official references to check first
+- https://pypi.org/project/deepseek-cli/
+- https://github.com/deepseek-ai
+- https://platform.deepseek.com/api-docs/
+
+### Maintainer note
+- Treat this guide as a combined **API + CLI field reference**.
+- For weekly sync: prefer official CLI release notes/changelog when available; otherwise mark changes as provisional and cite source.
+
 ---
 
 # DeepSeek Agent Guide

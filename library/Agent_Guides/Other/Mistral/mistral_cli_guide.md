@@ -3,6 +3,26 @@ title: "Mistral AI CLI Guide"
 tags: ["mistral", "cli", "reference", "api", "european-ai"]
 category: "Agent_Guides"
 subcategory: "Other"
+<!-- Last Updated: 2026-03-25 - Synced with Mistral Vibe releases (Mar 2026) -->
+
+## CLI Sync Notes (March 2026)
+
+This guide remains in `Other/Mistral/` and now tracks **Mistral CLI (Vibe)** changes explicitly.
+
+### Notable March 2026 CLI updates
+- New/expanded agent workflows (including theorem-proving agent setup).
+- Improved `AGENTS.md` handling across user folder and nested directories.
+- Voice mode and parallel tool execution improvements.
+- Ongoing UX, approval/runtime, and telemetry updates across March releases.
+
+### Official references
+- https://github.com/mistralai/mistral-vibe/releases
+- https://github.com/mistralai/mistral-vibe/blob/main/CHANGELOG.md
+- https://docs.mistral.ai/
+
+### Maintainer note
+- Keep API model/pricing sections, but prioritize **actual CLI behavior** and release-note deltas in weekly sync.
+
 ---
 
 # Mistral AI Agent Guide
