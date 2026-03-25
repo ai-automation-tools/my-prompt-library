@@ -38,6 +38,18 @@ const isCacheValid = () => {
   return promptsCache && (Date.now() - promptsCache.timestamp < CACHE_TTL);
 };
 
+// Load prebuilt index if available (for faster cold starts)
+let prebuiltIndex: any = null;
+try {
+  const indexPath = path.join(__dirname, 'prompt-index.json');
+  if (fs.existsSync(indexPath)) {
+    prebuiltIndex = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
+    console.log(`[INDEX] Loaded prebuilt index with ${prebuiltIndex.promptCount} prompts (built: ${prebuiltIndex.buildTime})`);
+  }
+} catch (err) {
+  console.warn('[INDEX] Failed to load prebuilt index:', err);
+}
+
 // Helper function to generate safe filename
 const generateFilename = (title: string) => {
   return title
@@ -118,6 +130,20 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
   if (libraryMode === 'public' && lightweight && isCacheValid()) {
     console.log('[CACHE HIT] Returning cached prompts');
     return res.json(promptsCache!.data);
+  }
+
+  // Use prebuilt index for lightweight public library requests
+  if (libraryMode === 'public' && lightweight && prebuiltIndex) {
+    console.log('[INDEX] Using prebuilt index for lightweight request');
+    const indexedPrompts = prebuiltIndex.prompts.map((p: any) => ({
+      ...p,
+      content: p.contentPreview, // Use preview for lightweight mode
+    }));
+    
+    // Cache it for subsequent requests
+    promptsCache = { data: indexedPrompts, timestamp: Date.now() };
+    
+    return res.json(indexedPrompts);
   }
 
   try {
