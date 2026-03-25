@@ -250,13 +250,12 @@ export default function App() {
     }
 
     setIsLoading(true);
-    const url = `/api/prompts?library=${libraryMode}`;
+    // Use lightweight mode - only fetch metadata, not full content
+    const url = `/api/prompts?library=${libraryMode}&lightweight=true`;
     fetch(url)
       .then(res => res.json())
       .then(data => {
         console.log(`🔍 DEBUG: Fetched prompts (${libraryMode}):`, data.length);
-        console.log('🔍 DEBUG: First prompt:', data[0]);
-        console.log('🔍 DEBUG: Sections:', [...new Set(data.map((p: Prompt) => p.section))]);
         setPrompts(data);
         setIsLoading(false);
       })
@@ -487,19 +486,32 @@ export default function App() {
     }
   }, [expandedCategories, handleSubcategoryClick]);
 
-  const handlePromptClick = useCallback((prompt: Prompt) => {
-    setSelectedPrompt(prompt);
+  const handlePromptClick = useCallback(async (prompt: Prompt) => {
+    // If content is truncated (lightweight mode), fetch full content
+    let fullPrompt = prompt;
+    if (prompt.content && prompt.content.length <= 201) {
+      try {
+        const response = await fetch(`/api/prompts/${encodeURIComponent(prompt.id)}`);
+        if (response.ok) {
+          fullPrompt = await response.json();
+        }
+      } catch (err) {
+        console.error('Failed to fetch full prompt content:', err);
+      }
+    }
+    
+    setSelectedPrompt(fullPrompt);
     setSelectedSubcategory(null);
     setShowAllPrompts(false);
     
     // Set active category for back navigation (go back to category view, not subcategory)
-    setActiveCategory(prompt.category);
+    setActiveCategory(fullPrompt.category);
     setActiveSubcategory(null);  // Back button should show category ALL view
     
     // Track in recently viewed
     setRecentlyViewed(prev => {
-      const filtered = prev.filter(id => id !== prompt.id);
-      return [prompt.id, ...filtered].slice(0, 10); // Keep last 10
+      const filtered = prev.filter(id => id !== fullPrompt.id);
+      return [fullPrompt.id, ...filtered].slice(0, 10); // Keep last 10
     });
   }, []);
 
@@ -739,9 +751,9 @@ source: My Prompt Library
   // Prompt card component for reuse (memoized for performance)
   const PromptCard = memo(({ prompt, index }: { prompt: Prompt; index: number }) => (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.04, ease: [0.4, 0, 0.2, 1] }}
+      transition={{ duration: 0.2, delay: Math.min(index * 0.01, 0.3), ease: [0.4, 0, 0.2, 1] }}
       key={prompt.id}
       className="glass-card rounded-[var(--radius-lg)] relative group cursor-pointer overflow-hidden"
       onClick={() => handlePromptClick(prompt)}
