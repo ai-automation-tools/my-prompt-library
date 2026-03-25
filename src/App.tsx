@@ -104,7 +104,7 @@ export default function App() {
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const ITEMS_PER_PAGE = 100; // Show 100 prompts per page
+  const ITEMS_PER_PAGE = 50; // Show 50 prompts per page
   const [copied, setCopied] = useState<string | null>(null);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts'>(() => {
@@ -2206,21 +2206,21 @@ source: My Prompt Library
                     
                     {/* Pagination Controls */}
                     {totalPages > 1 && (
-                      <div className="flex items-center justify-center gap-4 mt-8">
+                      <div className="flex items-center justify-center gap-6 mt-8">
                         <button
                           onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                           disabled={currentPage === 1}
-                          className="px-4 py-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-secondary)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] transition-all"
+                          className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--accent)] border-2 border-[var(--accent)] text-white font-bold shadow-lg hover:shadow-[0_0_24px_var(--accent-glow)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:scale-105 transition-all duration-200"
                         >
                           ← Previous
                         </button>
-                        <span className="text-sm text-[var(--text-secondary)]">
-                          Page {currentPage} of {totalPages} ({sortedPrompts.length} total)
+                        <span className="text-sm font-medium text-[var(--text-secondary)] px-4">
+                          Page {currentPage} of {totalPages} <span className="text-[var(--text-tertiary)]">({sortedPrompts.length} total)</span>
                         </span>
                         <button
                           onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                           disabled={currentPage === totalPages}
-                          className="px-4 py-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-secondary)] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] transition-all"
+                          className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--accent)] border-2 border-[var(--accent)] text-white font-bold shadow-lg hover:shadow-[0_0_24px_var(--accent-glow)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:scale-105 transition-all duration-200"
                         >
                           Next →
                         </button>
