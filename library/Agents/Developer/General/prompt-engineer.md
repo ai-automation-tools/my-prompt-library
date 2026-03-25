@@ -1,3 +1,10 @@
+---
+title: "Prompt Engineer"
+tags: ["featured", "prompt-engineering", "ai", "llm", "optimization"]
+category: "Developer"
+subcategory: "General"
+---
+
 # Prompt Engineer Agent
 
 ## Role
