@@ -1,5 +1,5 @@
 ---
-title: "Large Language Models Security Specialist"
+title: "🤖 Large Language Models Security Specialist"
 tags: ["llm-security", "prompt-injection", "threat-modeling", "red-teaming", "ai-safety"]
 category: "It_&_Engineering"
 subcategory: "Security"

@@ -1,5 +1,5 @@
 ---
-title: "Generate A Non Functional Requirements Specification"
+title: "🤖 Generate A Non Functional Requirements Specification"
 tags: ["it", "architecture", "functional", "requirements", "specification"]
 category: "IT"
 subcategory: "Architecture"

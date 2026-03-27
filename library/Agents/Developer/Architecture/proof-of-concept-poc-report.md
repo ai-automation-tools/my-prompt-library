@@ -1,5 +1,5 @@
 ---
-title: "Generate A Proof Of Concept POC Report"
+title: "🤖 Generate A Proof Of Concept POC Report"
 tags: ["it", "architecture", "proof", "concept", "report"]
 category: "IT"
 subcategory: "Architecture"

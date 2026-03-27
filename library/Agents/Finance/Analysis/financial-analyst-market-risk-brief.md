@@ -1,5 +1,5 @@
 ---
-title: "Financial Analyst Market Risk Brief"
+title: "🤖 Financial Analyst Market Risk Brief"
 tags: ["financial-analysis", "risk-assessment", "macroeconomics", "scenario-planning", "portfolio"]
 category: "Finance"
 subcategory: "Analysis"

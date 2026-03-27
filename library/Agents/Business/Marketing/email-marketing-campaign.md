@@ -1,5 +1,5 @@
 ---
-title: "Email Marketing Campaign Planning"
+title: "🤖 Email Marketing Campaign Planning"
 tags: ["email", "marketing", "campaign", "planning"]
 category: "Business"
 subcategory: "Marketing"

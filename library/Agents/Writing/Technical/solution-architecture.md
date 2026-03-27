@@ -1,5 +1,5 @@
 ---
-title: "AI Prompt: Solution Architecture Design"
+title: "🤖 AI Prompt: Solution Architecture Design"
 tags: ["writing", "technical", "solution", "architecture"]
 category: "Writing"
 subcategory: "Technical"

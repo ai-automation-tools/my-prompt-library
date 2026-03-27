@@ -1,5 +1,5 @@
 ---
-title: "Devsecops Release Readiness Auditor"
+title: "🤖 Devsecops Release Readiness Auditor"
 tags: ["devsecops", "release", "security-testing", "ci-cd", "engineering"]
 category: "IT"
 subcategory: "Development/DevSecOps"

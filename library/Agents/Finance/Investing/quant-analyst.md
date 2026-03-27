@@ -1,5 +1,5 @@
 ---
-title: "Quantitative Analyst"
+title: "🤖 Quantitative Analyst"
 tags: ["finance", "investing", "data-science", "algorithms"]
 category: "Finance"
 subcategory: "Investing"

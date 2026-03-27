@@ -1,5 +1,5 @@
 ---
-title: "Dwayne 'The Rock' Johnson"
+title: "🤖 Dwayne"The Rock' Johnson"
 tags: ["actor", "wrestling", "pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

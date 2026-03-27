@@ -1,5 +1,5 @@
 ---
-title: "SEO Specialist Agent"
+title: "🤖 SEO Specialist Agent"
 tags: ["seo", "marketing", "content-strategy", "optimization"]
 category: "Business"
 subcategory: "Marketing"

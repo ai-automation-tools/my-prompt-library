@@ -1,5 +1,5 @@
 ---
-title: "Portfolio Stress Test"
+title: "🤖 Portfolio Stress Test"
 tags: ["finance", "risk-management", "portfolio", "stress", "test"]
 category: "Finance"
 subcategory: "Risk_Management"

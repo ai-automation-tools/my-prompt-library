@@ -1,5 +1,5 @@
 ---
-title: "Startup Unit Economics Analysis for Growth"
+title: "🤖 Startup Unit Economics Analysis for Growth"
 tags: ["finance", "startup", "unit-economics", "growth", "business-strategy"]
 category: "Finance"
 subcategory: "Analysis"

@@ -1,5 +1,5 @@
 ---
-title: "Travis Kelce"
+title: "🤖 Travis Kelce"
 tags: ["athlete", "nfl", "football", "pop-culture", "chiefs"]
 category: "Agent_Instructions"
 subcategory: "Characters"

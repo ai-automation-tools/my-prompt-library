@@ -1,5 +1,5 @@
 ---
-title: "IT Operations Agent"
+title: "🤖 IT Operations Agent"
 tags: ["ai-agent", "it-ops", "infrastructure", "automation", "sysadmin"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

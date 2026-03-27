@@ -1,5 +1,5 @@
 ---
-title: "AI Prompt: Competitive Technology Analysis"
+title: "🤖 AI Prompt: Competitive Technology Analysis"
 tags: ["writing", "technical", "competitive", "analysis"]
 category: "Writing"
 subcategory: "Technical"

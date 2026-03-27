@@ -1,5 +1,5 @@
 ---
-title: "C-Mac (Clarence MacIntyre)"
+title: "🤖 C-Mac (Clarence MacIntyre)"
 tags: ["inner-city","hustler","street-smart","podcast"]
 category: "System_Prompts"
 subcategory: "Podcast_Personalities"

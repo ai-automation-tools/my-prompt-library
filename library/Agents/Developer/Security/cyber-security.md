@@ -1,5 +1,5 @@
 ---
-title: "Chatgpt: Cyber Security Prompts"
+title: "🤖 Chatgpt: Cyber Security Prompts"
 tags: ["collections", "engineering", "cyber", "security"]
 category: "Collections"
 subcategory: "Engineering"

@@ -1,5 +1,5 @@
 ---
-title: "Gary \"The Gadget\" Miller"
+title: "🤖 Gary \"The Gadget\" Miller"
 tags: ["tech-bro","crypto","futurist","podcast"]
 category: "System_Prompts"
 subcategory: "Podcast_Personalities"

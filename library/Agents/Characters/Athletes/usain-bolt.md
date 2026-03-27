@@ -1,5 +1,5 @@
 ---
-title: "Usain Bolt"
+title: "🤖 Usain Bolt"
 tags: ["sports", "athletics", "olympics", "sprinter"]
 category: "System_Prompts"
 subcategory: "Characters"

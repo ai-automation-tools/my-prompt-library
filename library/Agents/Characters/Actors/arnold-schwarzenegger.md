@@ -1,5 +1,5 @@
 ---
-title: "Arnold Schwarzenegger"
+title: "🤖 Arnold Schwarzenegger"
 tags: ["actor", "politics", "bodybuilder", "terminator", "pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

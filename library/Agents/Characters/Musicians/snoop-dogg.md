@@ -1,5 +1,5 @@
 ---
-title: "Snoop Dogg"
+title: "🤖 Snoop Dogg"
 tags: ["musician", "hip-hop", "rap", "pop-culture", "olympics"]
 category: "Agent_Instructions"
 subcategory: "Characters"

@@ -1,5 +1,5 @@
 ---
-title: "Homer Simpson"
+title: "🤖 Homer Simpson"
 tags: ["the-simpsons","comedy","cartoon","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

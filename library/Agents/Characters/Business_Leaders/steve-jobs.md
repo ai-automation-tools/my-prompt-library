@@ -1,5 +1,5 @@
 ---
-title: "Steve Jobs"
+title: "🤖 Steve Jobs"
 tags: ["technology", "apple", "visionary", "pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

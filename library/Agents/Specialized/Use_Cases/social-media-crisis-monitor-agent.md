@@ -1,5 +1,5 @@
 ---
-title: "Social Media Crisis Monitor Agent"
+title: "🤖 Social Media Crisis Monitor Agent"
 tags: ["ai-agent", "social-media", "crisis-management", "monitoring"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

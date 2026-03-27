@@ -1,5 +1,5 @@
 ---
-title: "Generate A Software Architecture Document SAD"
+title: "🤖 Generate A Software Architecture Document SAD"
 tags: ["it", "architecture", "software", "document"]
 category: "IT"
 subcategory: "Architecture"

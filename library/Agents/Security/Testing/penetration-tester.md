@@ -1,5 +1,5 @@
 ---
-title: "Penetration Tester"
+title: "🤖 Penetration Tester"
 tags: ["security", "testing", "pentesting", "cybersecurity", "vulnerability"]
 category: "Security"
 subcategory: "Testing"

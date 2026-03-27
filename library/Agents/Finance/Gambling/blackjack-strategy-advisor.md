@@ -1,5 +1,5 @@
 ---
-title: "Blackjack Strategy Advisor"
+title: "🤖 Blackjack Strategy Advisor"
 tags: ["blackjack", "gambling", "strategy", "casino", "probability"]
 category: "Finance"
 subcategory: "Gambling"

@@ -1,5 +1,5 @@
 ---
-title: "Generate A Microservices Architecture"
+title: "🤖 Generate A Microservices Architecture"
 tags: ["it", "architecture", "microservices"]
 category: "IT"
 subcategory: "Architecture"

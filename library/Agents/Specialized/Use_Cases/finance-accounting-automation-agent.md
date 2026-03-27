@@ -1,5 +1,5 @@
 ---
-title: "Finance and Accounting Automation Agent"
+title: "🤖 Finance and Accounting Automation Agent"
 tags: ["finance", "accounting", "automation", "compliance"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

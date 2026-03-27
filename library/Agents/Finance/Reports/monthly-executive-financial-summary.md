@@ -1,5 +1,5 @@
 ---
-title: "Monthly Executive Financial Summary"
+title: "🤖 Monthly Executive Financial Summary"
 tags: ["finance", "reports", "monthly", "executive", "financial"]
 category: "Finance"
 subcategory: "Reports"

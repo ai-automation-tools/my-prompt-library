@@ -1,5 +1,5 @@
 ---
-title: "Tokenomics Evaluation"
+title: "🤖 Tokenomics Evaluation"
 tags: ["finance", "crypto", "tokenomics", "evaluation"]
 category: "Finance"
 subcategory: "Crypto"

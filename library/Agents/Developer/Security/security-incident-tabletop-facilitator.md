@@ -1,5 +1,5 @@
 ---
-title: "Security Incident Tabletop Facilitator"
+title: "🤖 Security Incident Tabletop Facilitator"
 tags: ["security", "incident-response", "tabletop", "risk", "it"]
 category: "IT"
 subcategory: "Security"

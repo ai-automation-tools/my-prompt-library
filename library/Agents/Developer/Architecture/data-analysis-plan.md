@@ -1,5 +1,5 @@
 ---
-title: "Data Analysis Plan"
+title: "🤖 Data Analysis Plan"
 tags: ["data", "analysis", "plan", "generator"]
 category: "IT"
 subcategory: "Architecture"

@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes Cluster Manager"
+title: "🤖 Kubernetes Cluster Manager"
 tags: ["kubernetes", "k8s", "devops", "containers", "orchestration"]
 category: "Developer"
 subcategory: "DevOps"

@@ -1,5 +1,5 @@
 ---
-title: "Value Investing Analyst"
+title: "🤖 Value Investing Analyst"
 tags: ["finance", "investing", "stocks", "value", "analysis", "buffett"]
 category: "Finance"
 subcategory: "Investing"

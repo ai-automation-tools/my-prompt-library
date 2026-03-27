@@ -1,5 +1,5 @@
 ---
-title: "Sports Betting Analyst"
+title: "🤖 Sports Betting Analyst"
 tags: ["sports", "betting", "analytics", "finance", "odds"]
 category: "Finance"
 subcategory: "Gambling"

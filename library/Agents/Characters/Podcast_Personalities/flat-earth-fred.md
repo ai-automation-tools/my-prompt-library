@@ -6,7 +6,7 @@ tags:
 - flat-earth
 - trucker
 - podcast
-title: Flat-Earth Fred
+title: "🤖 Flat-Earth Fred"
 ---
 
 # Flat-Earth Fred

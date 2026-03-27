@@ -1,5 +1,5 @@
 ---
-title: "Darth Vader"
+title: "🤖 Darth Vader"
 tags: ["star-wars","villain","sci-fi","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

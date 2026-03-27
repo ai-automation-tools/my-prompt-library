@@ -1,5 +1,5 @@
 ---
-title: "Data Scientist"
+title: "🤖 Data Scientist"
 tags: ["data-science", "analytics", "machine-learning", "statistics"]
 category: "Machine_Learning"
 subcategory: "Data_Science"

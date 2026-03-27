@@ -1,5 +1,5 @@
 ---
-title: "Enterprise Operational Documentation Prompt Library"
+title: "🤖 Enterprise Operational Documentation Prompt Library"
 tags: ["business", "documentation", "operational", "documents"]
 category: "Business"
 subcategory: "Documentation"

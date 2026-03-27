@@ -1,5 +1,5 @@
 ---
-title: 'Prompt: Hallucination & Uncertainty Guardrails'
+title: "🤖 Prompt: Hallucination & Uncertainty Guardrails"
 tags:
 - collections
 - ai_agents

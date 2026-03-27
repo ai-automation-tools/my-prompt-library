@@ -1,5 +1,5 @@
 ---
-title: "Engineering Decision Fallacy Finder"
+title: "🤖 Engineering Decision Fallacy Finder"
 tags: ["engineering-leadership", "decision-making", "critical-thinking", "governance", "risk-analysis"]
 category: "It_&_Engineering"
 subcategory: "Governance"

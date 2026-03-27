@@ -1,5 +1,5 @@
 ---
-title: "Academic Research Assistant"
+title: "🤖 Academic Research Assistant"
 tags: ["research", "academic", "literature", "scholar", "writing"]
 category: "Research"
 subcategory: "Academic"

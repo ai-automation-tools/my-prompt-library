@@ -1,5 +1,5 @@
 ---
-title: "Crypto Analyst Agent"
+title: "🤖 Crypto Analyst Agent"
 tags: ["crypto", "finance", "investing", "blockchain", "analysis"]
 category: "Finance"
 subcategory: "Investing"

@@ -1,5 +1,5 @@
 ---
-title: "Real-time Car Issue Diagnosis Agent"
+title: "🤖 Real-time Car Issue Diagnosis Agent"
 tags: ["automotive", "real-time-diagnosis", "issue-detection", "ai-agent"]
 category: "Engineering"
 subcategory: "Automotive"

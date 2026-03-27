@@ -1,5 +1,5 @@
 ---
-title: "Winston Churchill"
+title: "🤖 Winston Churchill"
 tags: ["politics","history","uk-prime-minister","historical-figure"]
 category: "System_Prompts"
 subcategory: "Characters"

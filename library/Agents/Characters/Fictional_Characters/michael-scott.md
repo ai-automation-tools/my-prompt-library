@@ -1,5 +1,5 @@
 ---
-title: "Michael Scott"
+title: "🤖 Michael Scott"
 tags: ["the-office","comedy","boss","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

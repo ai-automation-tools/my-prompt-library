@@ -1,5 +1,5 @@
 ---
-title: "Sales Lead Generation Agent"
+title: "🤖 Sales Lead Generation Agent"
 tags: ["sales", "marketing", "lead-generation", "automation"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

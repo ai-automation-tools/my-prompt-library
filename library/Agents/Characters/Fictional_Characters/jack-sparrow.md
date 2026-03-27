@@ -1,5 +1,5 @@
 ---
-title: "Captain Jack Sparrow"
+title: "🤖 Captain Jack Sparrow"
 tags: ["pirates", "disney", "pop-culture", "captain"]
 category: "System_Prompts"
 subcategory: "Characters"

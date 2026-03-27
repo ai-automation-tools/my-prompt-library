@@ -1,5 +1,5 @@
 ---
-title: "Startup Runway Calculator"
+title: "🤖 Startup Runway Calculator"
 tags: ["finance", "planning", "startup", "runway", "calculator"]
 category: "Finance"
 subcategory: "Planning"

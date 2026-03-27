@@ -1,5 +1,5 @@
 ---
-title: "Generating An Architecture Decision Record ADR"
+title: "🤖 Generating An Architecture Decision Record ADR"
 tags: ["collections", "engineering", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

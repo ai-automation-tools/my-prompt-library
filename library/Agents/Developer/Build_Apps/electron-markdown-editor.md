@@ -1,5 +1,5 @@
 ---
-title: "Electron Markdown Editor"
+title: "🤖 Electron Markdown Editor"
 tags: ["it", "build-apps", "electron", "markdown", "editor"]
 category: "IT"
 subcategory: "Build_Apps"

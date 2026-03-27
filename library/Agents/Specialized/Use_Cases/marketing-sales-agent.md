@@ -1,5 +1,5 @@
 ---
-title: "Marketing and Sales Agent Prompt"
+title: "🤖 Marketing and Sales Agent Prompt"
 tags: ["ai-agent", "marketing", "sales"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

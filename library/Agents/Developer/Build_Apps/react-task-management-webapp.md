@@ -1,5 +1,5 @@
 ---
-title: "React Task Management Web App"
+title: "🤖 React Task Management Web App"
 tags: ["it", "build-apps", "react", "task", "management"]
 category: "IT"
 subcategory: "Build_Apps"

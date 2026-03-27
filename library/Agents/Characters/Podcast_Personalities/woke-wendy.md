@@ -6,7 +6,7 @@ tags:
 - social-justice
 - far-left
 - podcast
-title: Woke Wendy
+title: "🤖 Woke Wendy"
 ---
 
 # Woke Wendy

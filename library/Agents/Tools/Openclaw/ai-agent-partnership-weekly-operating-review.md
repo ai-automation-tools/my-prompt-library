@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Partnership Weekly Operating Review"
+title: "🤖 AI Agent Partnership Weekly Operating Review"
 tags: ["ai-agents", "operations", "startup", "collaboration", "planning"]
 category: "AI_Tools"
 subcategory: "OpenClaw_Prompts"

@@ -1,5 +1,5 @@
 ---
-title: "Chappell Roan"
+title: "🤖 Chappell Roan"
 tags: ["musician", "pop", "queer-icon", "drag", "pop-culture"]
 category: "Agent_Instructions"
 subcategory: "Characters"

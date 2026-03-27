@@ -1,5 +1,5 @@
 ---
-title: "Real Estate Investment Analyst"
+title: "🤖 Real Estate Investment Analyst"
 tags: ["real-estate", "investing", "roi", "cap-rate", "property-analysis"]
 category: "Finance"
 subcategory: "Investing"

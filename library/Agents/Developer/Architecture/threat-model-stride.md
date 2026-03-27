@@ -1,5 +1,5 @@
 ---
-title: "Generate A Threat Model (stride)"
+title: "🤖 Generate A Threat Model (stride)"
 tags: ["it", "architecture", "threat", "model", "stride"]
 category: "IT"
 subcategory: "Architecture"

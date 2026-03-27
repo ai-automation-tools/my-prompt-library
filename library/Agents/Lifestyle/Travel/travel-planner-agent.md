@@ -1,5 +1,5 @@
 ---
-title: "Travel Planner Agent"
+title: "🤖 Travel Planner Agent"
 tags: ["travel", "planning", "itinerary", "vacation"]
 category: "Lifestyle"
 subcategory: "Travel"

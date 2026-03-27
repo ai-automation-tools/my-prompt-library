@@ -1,5 +1,5 @@
 ---
-title: "Generate A SAAS Architecture"
+title: "🤖 Generate A SAAS Architecture"
 tags: ["it", "architecture", "saas"]
 category: "IT"
 subcategory: "Architecture"

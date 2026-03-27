@@ -1,5 +1,5 @@
 ---
-title: "Security Strategy Architect for Startup Teams"
+title: "🤖 Security Strategy Architect for Startup Teams"
 tags: ["cybersecurity", "startup", "risk-management", "security-strategy", "it-operations"]
 category: "It_&_Engineering"
 subcategory: "Security"

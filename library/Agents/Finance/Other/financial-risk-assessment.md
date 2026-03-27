@@ -1,5 +1,5 @@
 ---
-title: "Financial Risk Assessment"
+title: "🤖 Financial Risk Assessment"
 tags: ["collections", "finance", "financial", "risk", "assessment"]
 category: "Collections"
 subcategory: "Finance"

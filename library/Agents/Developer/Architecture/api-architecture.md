@@ -1,5 +1,5 @@
 ---
-title: "Generate A API Architecture"
+title: "🤖 Generate A API Architecture"
 tags: ["it", "architecture"]
 category: "IT"
 subcategory: "Architecture"

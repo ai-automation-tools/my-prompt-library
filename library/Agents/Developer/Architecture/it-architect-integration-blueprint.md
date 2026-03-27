@@ -1,5 +1,5 @@
 ---
-title: "IT Architect Integration Blueprint"
+title: "🤖 IT Architect Integration Blueprint"
 tags: ["it-architecture", "system-integration", "enterprise-architecture", "gap-analysis", "deployment"]
 category: "It_&_Engineering"
 subcategory: "Architecture"

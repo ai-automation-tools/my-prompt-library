@@ -1,5 +1,5 @@
 ---
-title: "Cloud Security Architect"
+title: "🤖 Cloud Security Architect"
 tags: ["cloud-security", "aws", "azure", "gcp", "iam", "zero-trust"]
 category: "Security"
 subcategory: "Architecture"

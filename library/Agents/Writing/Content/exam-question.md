@@ -1,5 +1,5 @@
 ---
-title: "Exam Question"
+title: "🤖 Exam Question"
 tags: ["exam", "question", "generator"]
 category: "Writing"
 subcategory: "Content"

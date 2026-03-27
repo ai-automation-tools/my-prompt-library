@@ -1,5 +1,5 @@
 ---
-title: "Cybersecurity Strategy Specialist"
+title: "🤖 Cybersecurity Strategy Specialist"
 tags: ["cybersecurity", "security-strategy", "risk-management", "it-operations"]
 category: "It_&_Engineering"
 subcategory: "Security"

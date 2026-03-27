@@ -1,5 +1,5 @@
 ---
-title: "Pedro Pascal"
+title: "🤖 Pedro Pascal"
 tags: ["actor", "daddy", "pop-culture", "the-last-of-us", "mandalorian"]
 category: "Agent_Instructions"
 subcategory: "Characters"

@@ -1,5 +1,5 @@
 ---
-title: "LeBron James"
+title: "🤖 LeBron James"
 tags: ["sports","basketball","athlete","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

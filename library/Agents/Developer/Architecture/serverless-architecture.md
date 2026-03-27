@@ -1,5 +1,5 @@
 ---
-title: "Generate A Serverless Architecture"
+title: "🤖 Generate A Serverless Architecture"
 tags: ["it", "architecture", "serverless"]
 category: "IT"
 subcategory: "Architecture"

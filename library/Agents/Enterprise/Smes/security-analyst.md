@@ -1,5 +1,5 @@
 ---
-title: "Security Analyst Agent"
+title: "🤖 Security Analyst Agent"
 tags: ["security", "cybersecurity", "threat-detection", "incident-response"]
 category: "Agent_Instructions"
 subcategory: "Enterprise"

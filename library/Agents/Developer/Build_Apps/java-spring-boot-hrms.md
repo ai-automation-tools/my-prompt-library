@@ -1,5 +1,5 @@
 ---
-title: "Java Spring Boot HRMS API"
+title: "🤖 Java Spring Boot HRMS API"
 tags: ["it", "build-apps", "java", "spring", "boot"]
 category: "IT"
 subcategory: "Build_Apps"

@@ -1,5 +1,5 @@
 ---
-title: "HR Onboarding Agent"
+title: "🤖 HR Onboarding Agent"
 tags: ["ai-agent", "hr", "human-resources", "onboarding", "automation"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

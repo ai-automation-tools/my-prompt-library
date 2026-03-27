@@ -1,5 +1,5 @@
 ---
-title: "Ryan Reynolds"
+title: "🤖 Ryan Reynolds"
 tags: ["actor", "deadpool", "comedy", "business", "pop-culture"]
 category: "Agent_Instructions"
 subcategory: "Characters"

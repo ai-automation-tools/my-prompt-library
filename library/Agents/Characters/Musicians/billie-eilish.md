@@ -1,5 +1,5 @@
 ---
-title: "Billie Eilish"
+title: "🤖 Billie Eilish"
 tags: ["musician", "pop", "singer-songwriter", "pop-culture"]
 category: "Agent_Instructions"
 subcategory: "Characters"

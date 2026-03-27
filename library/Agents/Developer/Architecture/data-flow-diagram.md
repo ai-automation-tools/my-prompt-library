@@ -1,5 +1,5 @@
 ---
-title: "Generate A Data Flow Diagram"
+title: "🤖 Generate A Data Flow Diagram"
 tags: ["it", "architecture", "data", "flow", "diagram"]
 category: "IT"
 subcategory: "Architecture"

@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Prompts For Freelance Gig Automation V"
+title: "🤖 AI Agent Prompts For Freelance Gig Automation V"
 tags: ["collections", "business", "freelance", "automation", "prompts"]
 category: "Collections"
 subcategory: "Business"

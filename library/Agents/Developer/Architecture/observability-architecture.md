@@ -1,5 +1,5 @@
 ---
-title: "Generate A Observability Architecture"
+title: "🤖 Generate A Observability Architecture"
 tags: ["it", "architecture", "observability"]
 category: "IT"
 subcategory: "Architecture"

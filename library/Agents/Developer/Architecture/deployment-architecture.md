@@ -1,5 +1,5 @@
 ---
-title: "Generate A Cloud Deployment Architecture"
+title: "🤖 Generate A Cloud Deployment Architecture"
 tags: ["it", "architecture", "cloud", "deployment"]
 category: "IT"
 subcategory: "Architecture"

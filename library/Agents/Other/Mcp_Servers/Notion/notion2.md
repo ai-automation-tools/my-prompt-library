@@ -1,5 +1,5 @@
 ---
-title: "Notion Prompt Library"
+title: "🤖 Notion Prompt Library"
 tags: ["my-prompts", "ai-tools", "notion", "prompts"]
 category: "My_Prompts"
 subcategory: "AI_Tools"

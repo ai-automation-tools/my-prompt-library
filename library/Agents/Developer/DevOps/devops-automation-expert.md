@@ -1,5 +1,5 @@
 ---
-title: "DevOps Automation Expert"
+title: "🤖 DevOps Automation Expert"
 tags: ["devops", "automation", "infrastructure", "ci-cd"]
 category: "Developer"
 subcategory: "DevOps"

@@ -1,5 +1,5 @@
 ---
-title: "Flutter Fitness Tracker Mobile App"
+title: "🤖 Flutter Fitness Tracker Mobile App"
 tags: ["it", "build-apps", "flutter", "fitness", "tracker"]
 category: "IT"
 subcategory: "Build_Apps"

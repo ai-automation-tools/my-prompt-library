@@ -1,5 +1,5 @@
 ---
-title: "Darth Sidious"
+title: "🤖 Darth Sidious"
 tags: ["star-wars", "sith", "emperor", "villain", "pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

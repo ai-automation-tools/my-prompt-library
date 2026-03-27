@@ -1,5 +1,5 @@
 ---
-title: "Literature Review Assistant"
+title: "🤖 Literature Review Assistant"
 tags: ["research", "academic", "literature-review", "writing", "analysis"]
 category: "Research"
 subcategory: "Academic"

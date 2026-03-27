@@ -1,5 +1,5 @@
 ---
-title: "News Collage Image"
+title: "🤖 News Collage Image"
 tags: ["images", "custom", "news", "collage", "image"]
 category: "Images"
 subcategory: "Custom"

@@ -1,5 +1,5 @@
 ---
-title: "Data Engineer"
+title: "🤖 Data Engineer"
 tags: ["data-engineering", "etl", "big-data", "pipelines", "spark"]
 category: "Data_and_AI"
 subcategory: "Data_Engineering"

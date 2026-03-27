@@ -1,5 +1,5 @@
 ---
-title: "Smart Contract Auditor"
+title: "🤖 Smart Contract Auditor"
 tags: ["smart-contracts", "blockchain", "security", "web3", "solidity"]
 category: "Security"
 subcategory: "Testing"

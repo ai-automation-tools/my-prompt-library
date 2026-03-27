@@ -1,5 +1,5 @@
 ---
-title: "Generate A Architecture Definition Document (add)"
+title: "🤖 Generate A Architecture Definition Document (add)"
 tags: ["it", "architecture", "definition", "document"]
 category: "IT"
 subcategory: "Architecture"

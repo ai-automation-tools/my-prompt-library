@@ -1,5 +1,5 @@
 ---
-title: "Generate Agent Evaluation Harness"
+title: "🤖 Generate Agent Evaluation Harness"
 tags: ["collections", "ai", "agent", "evaluation", "harness"]
 category: "Collections"
 subcategory: "AI"

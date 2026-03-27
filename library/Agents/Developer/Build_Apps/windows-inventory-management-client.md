@@ -1,5 +1,5 @@
 ---
-title: "Windows Inventory Management Client"
+title: "🤖 Windows Inventory Management Client"
 tags: ["it", "build-apps", "windows", "inventory", "management"]
 category: "IT"
 subcategory: "Build_Apps"

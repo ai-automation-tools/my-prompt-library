@@ -1,5 +1,5 @@
 ---
-title: "Generate A C Container Diagram"
+title: "🤖 Generate A C Container Diagram"
 tags: ["it", "architecture", "container", "diagram"]
 category: "IT"
 subcategory: "Architecture"

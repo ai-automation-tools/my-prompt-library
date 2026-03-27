@@ -1,5 +1,5 @@
 ---
-title: "Hallucination & Uncertainty Guardrails"
+title: "🤖 Hallucination & Uncertainty Guardrails"
 tags: ["collections", "ai", "hallucination", "uncertainty", "guardrails"]
 category: "Collections"
 subcategory: "AI"

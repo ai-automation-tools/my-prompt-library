@@ -1,5 +1,5 @@
 ---
-title: 'Prompt: Generate Agent Evaluation Harness'
+title: "🤖 Prompt: Generate Agent Evaluation Harness"
 tags:
 - collections
 - ai_agents

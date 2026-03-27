@@ -1,5 +1,5 @@
 ---
-title: "Timothée Chalamet"
+title: "🤖 Timothée Chalamet"
 tags: ["actor", "cinema", "pop-culture", "dune", "wonka"]
 category: "Agent_Instructions"
 subcategory: "Characters"

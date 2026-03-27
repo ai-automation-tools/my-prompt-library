@@ -1,5 +1,5 @@
 ---
-title: "Ethereum Smart Contract Messenger"
+title: "🤖 Ethereum Smart Contract Messenger"
 tags: ["ethereum", "solidity", "smart-contract", "blockchain", "engineering"]
 category: "It_&_Engineering"
 subcategory: "Code_Generation"
