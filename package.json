@@ -5,21 +5,24 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "tsc && vite build",
+    "build": "npm run build:index && tsc && vite build",
+    "build:index": "node scripts/build-prompt-index.js",
     "start": "node dist/server.js",
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
-    "vercel-build": "vite build"
+    "vercel-build": "npm run build:index && vite build"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",
     "@tailwindcss/vite": "^4.1.14",
+    "@types/archiver": "^7.0.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/better-sqlite3": "^7.6.13",
     "@types/cookie-parser": "^1.4.10",
     "@types/pg": "^8.18.0",
     "@vitejs/plugin-react": "^5.0.4",
+    "archiver": "^7.0.1",
     "bcryptjs": "^3.0.3",
     "better-sqlite3": "^12.8.0",
     "clsx": "^2.1.1",

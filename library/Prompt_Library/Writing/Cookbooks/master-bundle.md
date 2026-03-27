@@ -1,5 +1,5 @@
 ---
-title: "Master Cookbook Mode"
+title: "🍳 Master Cookbook Mode"
 tags: ["writing", "cookbooks", "master", "bundle"]
 category: "Writing"
 subcategory: "Cookbooks"

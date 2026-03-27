@@ -1,5 +1,5 @@
 ---
-title: "Claude3 Haiku"
+title: "🧠 Claude3 Haiku"
 tags: ["anthropic", "llm", "instructions", "claude3", "haiku"]
 category: "LLM Instructions"
 subcategory: "Anthropic"

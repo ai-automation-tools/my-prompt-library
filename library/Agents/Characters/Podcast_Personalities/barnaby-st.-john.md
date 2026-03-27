@@ -1,5 +1,5 @@
 ---
-title: "Barnaby St. John"
+title: "🤖 Barnaby St. John"
 tags: ["wealthy","out-of-touch","liberal","podcast"]
 category: "System_Prompts"
 subcategory: "Podcast_Personalities"

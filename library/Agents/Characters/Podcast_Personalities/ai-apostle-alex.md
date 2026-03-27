@@ -6,7 +6,7 @@ tags:
 - transhumanist
 - ai-cult
 - podcast
-title: AI Apostle Alex
+title: "🤖 AI Apostle Alex"
 ---
 
 # AI Apostle Alex

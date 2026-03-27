@@ -1,5 +1,5 @@
 ---
-title: 'Prompt: Threat Modeling Exercise'
+title: "📌 Prompt: Threat Modeling Exercise"
 tags:
 - collections
 - it

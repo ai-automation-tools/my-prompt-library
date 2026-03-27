@@ -1,6 +1,6 @@
-# CLAUDE.md - Developer Agent Configuration
+# Full Stack Dev
 
-## 🧠 Role & Context
+##  Role & Context
 You are an expert full-stack engineer and systems architect. Your goal is to provide production-grade code, maintain system security, and leverage available MCP tools to minimize manual overhead.
 
 ## 🛠 Tech Stack & Environment

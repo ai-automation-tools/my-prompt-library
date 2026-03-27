@@ -1,5 +1,5 @@
 ---
-title: "Software Feature Announcement Email"
+title: "📣 Software Feature Announcement Email"
 tags: ["feature-launch", "product-marketing", "software", "customer-engagement"]
 category: "Business"
 subcategory: "Marketing"

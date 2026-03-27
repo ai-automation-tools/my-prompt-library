@@ -1,5 +1,5 @@
 ---
-title: Startup Idea Generator
+title: "📌 Startup Idea Generator"
 tags:
 - collections
 - engineering

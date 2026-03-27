@@ -1,5 +1,5 @@
 ---
-title: "Memory Leak Investigation"
+title: "📌 Memory Leak Investigation"
 tags: ["memory", "leak", "debugging", "cleanup", "lifecycle"]
 category: "Debugging_and_Diagnosis"
 subcategory: "Memory_Leaks"

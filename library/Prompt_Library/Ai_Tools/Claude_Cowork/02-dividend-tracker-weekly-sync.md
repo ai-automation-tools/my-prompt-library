@@ -1,5 +1,5 @@
 ---
-title: "Dividend Tracker Weekly Sync"
+title: "🤝 Dividend Tracker Weekly Sync"
 tags: ["ai-tools", "claude-cowork", "dividend", "tracker", "weekly"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

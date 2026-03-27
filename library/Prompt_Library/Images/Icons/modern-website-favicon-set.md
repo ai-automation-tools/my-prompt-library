@@ -1,5 +1,5 @@
 ---
-title: "Modern Website Favicon Set"
+title: "🖼️ Modern Website Favicon Set"
 tags: ["images", "icons", "modern", "website", "favicon"]
 category: "Images"
 subcategory: "Icons"

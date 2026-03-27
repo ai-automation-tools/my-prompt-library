@@ -1,5 +1,5 @@
 ---
-title: "Arthur \"Two-Pints\" Sullivan"
+title: "🤖 Arthur \"Two-Pints\" Sullivan"
 tags: ["drunk","barfly","loud","podcast"]
 category: "System_Prompts"
 subcategory: "Podcast_Personalities"

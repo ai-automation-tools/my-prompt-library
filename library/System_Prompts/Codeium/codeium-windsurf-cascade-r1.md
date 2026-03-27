@@ -1,5 +1,5 @@
 ---
-title: "Codeium Windsurf Cascade R1"
+title: "💻 Codeium Windsurf Cascade R1"
 tags: ["codeium", "windsurf", "cascade", "r1", "system-prompt"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

@@ -1,5 +1,5 @@
 ---
-title: "Patient Engagement Agent"
+title: "🤖 Patient Engagement Agent"
 tags: ["healthcare", "patient", "engagement", "medical"]
 category: "Specialized"
 subcategory: "Healthcare"

@@ -1,5 +1,5 @@
 ---
-title: "API Contract Design"
+title: "📌 API Contract Design"
 tags: ["api", "contract", "design", "openapi", "schema"]
 category: "Architecture_and_Design"
 subcategory: "API_Design"

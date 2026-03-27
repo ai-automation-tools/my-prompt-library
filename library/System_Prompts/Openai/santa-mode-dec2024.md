@@ -1,5 +1,5 @@
 ---
-title: "Santa Mode Dec2024"
+title: "🧠 Santa Mode Dec2024"
 tags: ["openai", "llm", "instructions", "santa", "mode", "dec2024"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

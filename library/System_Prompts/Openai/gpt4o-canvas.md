@@ -1,5 +1,5 @@
 ---
-title: "Gpt4o Canvas 10032024"
+title: "🧠 Gpt4o Canvas 10032024"
 tags: ["openai", "llm", "instructions", "gpt4o", "canvas", "10032024"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

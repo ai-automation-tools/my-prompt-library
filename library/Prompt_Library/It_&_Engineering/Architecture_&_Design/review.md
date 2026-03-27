@@ -1,5 +1,5 @@
 ---
-title: "Architecture Review"
+title: "📌 Architecture Review"
 tags: ["collections", "engineering", "architecture", "review", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

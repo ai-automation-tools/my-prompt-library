@@ -1,5 +1,5 @@
 ---
-title: "Freelance Marketplace Growth Campaign"
+title: "📢 Freelance Marketplace Growth Campaign"
 tags: ["marketplace", "freelance", "growth", "twitter", "campaign"]
 category: "Social_Media"
 subcategory: "Campaigns"

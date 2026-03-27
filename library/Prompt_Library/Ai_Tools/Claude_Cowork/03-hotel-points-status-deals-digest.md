@@ -1,5 +1,5 @@
 ---
-title: "Hotel Points & Status Deals Digest"
+title: "🤝 Hotel Points & Status Deals Digest"
 tags: ["ai-tools", "claude-cowork", "hotel", "points", "status"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

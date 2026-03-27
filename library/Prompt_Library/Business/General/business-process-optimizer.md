@@ -1,5 +1,5 @@
 ---
-title: "Business Process Optimizer"
+title: "📌 Business Process Optimizer"
 tags:
   - business
   - efficiency

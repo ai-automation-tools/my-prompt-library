@@ -1,5 +1,5 @@
 ---
-title: "System Migration Plan"
+title: "📌 System Migration Plan"
 tags: ["collections", "engineering", "migration", "plan", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

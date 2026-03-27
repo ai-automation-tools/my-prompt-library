@@ -1,5 +1,5 @@
 ---
-title: "Dr. Evelyn Vance"
+title: "🤖 Dr. Evelyn Vance"
 tags: ["academic","pedantic","snob","podcast"]
 category: "System_Prompts"
 subcategory: "Podcast_Personalities"

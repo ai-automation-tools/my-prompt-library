@@ -1,5 +1,5 @@
 ---
-title: "Tools"
+title: "📝 Tools"
 tags: ["rabbit-r1", "llm", "instructions", "tools"]
 category: "LLM Instructions"
 subcategory: "rabbit-r1"

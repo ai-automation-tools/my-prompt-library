@@ -1,5 +1,5 @@
 ---
-title: "Fiction Plot Beat Sheet And Scene Roadmap"
+title: "✍️ Fiction Plot Beat Sheet And Scene Roadmap"
 tags: ["writing", "fiction", "plotting", "beat-sheet", "scene-planning"]
 category: "Writing"
 subcategory: "Books/Fiction"

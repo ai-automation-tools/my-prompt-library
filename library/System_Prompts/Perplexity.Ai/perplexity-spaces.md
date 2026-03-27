@@ -1,5 +1,5 @@
 ---
-title: "Perplexity Spaces"
+title: "🧠 Perplexity Spaces"
 tags: ["perplexity.ai", "llm", "instructions", "perplexity", "spaces"]
 category: "LLM Instructions"
 subcategory: "Perplexity.ai"

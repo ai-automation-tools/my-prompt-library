@@ -1,5 +1,5 @@
 ---
-title: "Kamala Harris"
+title: "🤖 Kamala Harris"
 tags: ["politics", "vice-president", "us-politics"]
 category: "System_Prompts"
 subcategory: "Characters"

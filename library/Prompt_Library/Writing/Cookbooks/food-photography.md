@@ -1,5 +1,5 @@
 ---
-title: "Phase : Visual Identity & Image Generation"
+title: "🍳 Phase : Visual Identity & Image Generation"
 tags: ["writing", "cookbooks", "food", "photography"]
 category: "Writing"
 subcategory: "Cookbooks"

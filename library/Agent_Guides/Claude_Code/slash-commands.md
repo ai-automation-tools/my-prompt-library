@@ -5,7 +5,7 @@ category: "Agent_Guides"
 subcategory: "Claude_Code"
 ---
 
-<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->
+<!-- Last Updated: 2026-03-21 - Synced with upstream documentation -->
 
 # Claude Code Slash Commands Reference
 
@@ -28,7 +28,8 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 | Command | Purpose |
 |---------|---------|
 | `/resume [session]` | Resume conversation by ID/name, or open session picker (Alias: `/continue`) |
-| `/fork [name]` | Create a fork of the current conversation at this point |
+| `/fork [name]` | Create a fork of the current conversation at this point (Alias: `/branch`) |
+| `/branch [name]` | Create a branch of the current conversation at this point (Alias: `/fork`) |
 | `/rename [name]` | Rename current session and show name on prompt bar |
 | `/export [filename]` | Export current conversation as plain text |
 | `/compact [instructions]` | Compact conversation with optional focus instructions |
@@ -101,7 +102,7 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 
 | Command | Purpose |
 |---------|---------|
-| `/copy` | Copy last assistant response to clipboard (picker for code blocks) |
+| `/copy [N]` | Copy the last assistant response to clipboard. Pass `N` to copy Nth-latest: `/copy 2` for second-to-last. Shows picker for code blocks |
 | `/color [color\|default]` | Set prompt bar color (red/blue/green/yellow/purple/orange/pink/cyan) |
 | `/init` | Initialize project with CLAUDE.md guide |
 | `/doctor` | Diagnose and verify installation and settings |
@@ -145,6 +146,7 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 | `/feedback [report]` | Submit feedback about Claude Code (Alias: `/bug`) |
 | `/release-notes` | View full changelog |
 | `/vim` | Toggle between Vim and Normal editing modes |
+| `/voice` | Toggle push-to-talk voice dictation (requires Claude.ai account) |
 
 ## MCP Prompts
 
@@ -165,6 +167,7 @@ Claude Code includes bundled skills like `/simplify`, `/batch`, and `/debug` tha
 - `/desktop` = `/app`
 - `/mobile` = `/ios` = `/android`
 - `/feedback` = `/bug`
+- `/fork` = `/branch`
 
 ---
 

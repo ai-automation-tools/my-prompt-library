@@ -1,5 +1,5 @@
 ---
-title: "LLM Prompts For E Commerce Business Plan Generation V"
+title: "📌 LLM Prompts For E Commerce Business Plan Generation V"
 tags: ["collections", "business", "ecommerce", "plan"]
 category: "Collections"
 subcategory: "Business"

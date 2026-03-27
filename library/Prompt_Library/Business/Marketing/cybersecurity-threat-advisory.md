@@ -1,5 +1,5 @@
 ---
-title: "Cybersecurity Threat Advisory Email"
+title: "📣 Cybersecurity Threat Advisory Email"
 tags: ["cybersecurity", "threat-advisory", "b2b", "urgent", "customer-communication"]
 category: "Business"
 subcategory: "Marketing"

@@ -1,5 +1,5 @@
 ---
-title: "Gpt4 Dalle Browsing Analysis 20231110"
+title: "🧠 Gpt4 Dalle Browsing Analysis 20231110"
 tags: ["openai", "llm", "instructions", "gpt4", "dalle", "browsing", "analysis", "20231110"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

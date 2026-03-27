@@ -1,5 +1,5 @@
 ---
-title: "Notion Weekly Hygiene"
+title: "🤝 Notion Weekly Hygiene"
 tags: ["ai-tools", "claude-cowork", "notion", "weekly", "hygiene"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

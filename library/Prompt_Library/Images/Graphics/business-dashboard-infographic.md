@@ -1,5 +1,5 @@
 ---
-title: "Business Dashboard Infographic"
+title: "🎨 Business Dashboard Infographic"
 tags: ["business", "dashboard", "infographic", "analytics", "ui"]
 category: "Images"
 subcategory: "Graphics"

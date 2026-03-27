@@ -1,5 +1,5 @@
 ---
-title: "Walter White"
+title: "🤖 Walter White"
 tags: ["breaking-bad","drama","chemistry","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

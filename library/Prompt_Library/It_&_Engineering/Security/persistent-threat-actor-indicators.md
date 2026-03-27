@@ -1,5 +1,5 @@
 ---
-title: "Persistent Threat Actor Indicators"
+title: "📌 Persistent Threat Actor Indicators"
 tags: ["cybersecurity", "threat-detection", "incident-response", "red-teaming", "it"]
 category: "IT"
 subcategory: "Security"

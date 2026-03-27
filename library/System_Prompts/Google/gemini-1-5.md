@@ -1,5 +1,5 @@
 ---
-title: "Gemini 1.5 04112024"
+title: "📝 Gemini 1.5 04112024"
 tags: ["google", "llm", "instructions", "gemini", "1_5", "04112024"]
 category: "LLM Instructions"
 subcategory: "Google"

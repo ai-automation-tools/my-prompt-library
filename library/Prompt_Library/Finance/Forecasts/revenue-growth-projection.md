@@ -1,5 +1,5 @@
 ---
-title: "Revenue Growth Projection"
+title: "🔮 Revenue Growth Projection"
 tags: ["finance", "forecasts", "revenue", "growth", "projection"]
 category: "Finance"
 subcategory: "Forecasts"

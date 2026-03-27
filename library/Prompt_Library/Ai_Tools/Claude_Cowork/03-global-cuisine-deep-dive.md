@@ -1,5 +1,5 @@
 ---
-title: "Global Cuisine Deep Dive"
+title: "🤝 Global Cuisine Deep Dive"
 tags: ["ai-tools", "claude-cowork", "global", "cuisine", "deep"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

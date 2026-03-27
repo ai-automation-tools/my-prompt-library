@@ -1,5 +1,5 @@
 ---
-title: "OpenAI Deep Research"
+title: "🧠 OpenAI Deep Research"
 tags: ["ai", "openai", "deep-research", "chatgpt"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

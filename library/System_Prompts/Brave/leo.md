@@ -1,5 +1,5 @@
 ---
-title: "Leo"
+title: "📝 Leo"
 tags: ["brave", "llm", "instructions", "leo"]
 category: "LLM Instructions"
 subcategory: "Brave"

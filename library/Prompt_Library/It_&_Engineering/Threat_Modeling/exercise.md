@@ -1,5 +1,5 @@
 ---
-title: "Threat Modeling Exercise"
+title: "📌 Threat Modeling Exercise"
 tags: ["collections", "engineering", "threat", "modeling", "exercise"]
 category: "Collections"
 subcategory: "Engineering"

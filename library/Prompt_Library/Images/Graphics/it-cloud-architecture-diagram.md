@@ -1,5 +1,5 @@
 ---
-title: "IT Cloud Architecture Diagram"
+title: "🎨 IT Cloud Architecture Diagram"
 tags: ["it", "cloud", "architecture", "diagram", "infrastructure"]
 category: "Images"
 subcategory: "Graphics"

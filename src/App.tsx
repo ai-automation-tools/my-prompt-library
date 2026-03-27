@@ -55,6 +55,25 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Extract emoji from the beginning of a string
+function extractEmoji(text: string): { emoji: string | null; title: string } {
+  // Match emoji at the start of the string (Unicode emoji range)
+  const emojiRegex = /^([\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}])/u;
+  const match = text.match(emojiRegex);
+  
+  if (match) {
+    return {
+      emoji: match[1],
+      title: text.slice(match[1].length).trim()
+    };
+  }
+  
+  return {
+    emoji: null,
+    title: text
+  };
+}
+
 interface Prompt {
   id: string;
   title: string;
@@ -103,6 +122,8 @@ export default function App() {
   const [sortOption, setSortOption] = useState<'title-asc' | 'title-desc' | 'modified-desc' | 'modified-asc'>('title-asc');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 50; // Show 50 prompts per page
   const [copied, setCopied] = useState<string | null>(null);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts'>(() => {
@@ -236,6 +257,11 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab, debouncedSearch, selectedTags, sortOption, activeCategory, activeSubcategory]);
+
   useEffect(() => {
     // Wait for auth to load before fetching
     if (authLoading) {
@@ -250,13 +276,12 @@ export default function App() {
     }
 
     setIsLoading(true);
-    const url = `/api/prompts?library=${libraryMode}`;
+    // Use lightweight mode - only fetch metadata, not full content
+    const url = `/api/prompts?library=${libraryMode}&lightweight=true`;
     fetch(url)
       .then(res => res.json())
       .then(data => {
         console.log(`🔍 DEBUG: Fetched prompts (${libraryMode}):`, data.length);
-        console.log('🔍 DEBUG: First prompt:', data[0]);
-        console.log('🔍 DEBUG: Sections:', [...new Set(data.map((p: Prompt) => p.section))]);
         setPrompts(data);
         setIsLoading(false);
       })
@@ -393,9 +418,15 @@ export default function App() {
     }
 
     const fuse = new Fuse(currentPrompts, {
-      keys: ['title', 'content', 'tags', 'category', 'subcategory'],
+      keys: [
+        { name: 'title', weight: 10 },       // Highest priority - exact title matches
+        { name: 'tags', weight: 3 },         // High priority - tags
+        { name: 'category', weight: 2 },     // Medium priority - category
+        { name: 'subcategory', weight: 2 },  // Medium priority - subcategory
+        { name: 'content', weight: 1 }       // Lowest priority - content
+      ],
       includeScore: true,
-      threshold: 0.3, // Fuzziness (0 = exact match, 1 = any match)
+      threshold: 0.4, // Slightly higher threshold for better relevance
       ignoreLocation: true,
       minMatchCharLength: 2,
     });
@@ -419,6 +450,17 @@ export default function App() {
         return promptsToSort;
     }
   }, [filteredPrompts, sortOption]);
+
+  // Paginate sorted prompts
+  const paginatedPrompts = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    return sortedPrompts.slice(startIndex, endIndex);
+  }, [sortedPrompts, currentPage, ITEMS_PER_PAGE]);
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(sortedPrompts.length / ITEMS_PER_PAGE);
+  }, [sortedPrompts.length, ITEMS_PER_PAGE]);
 
   const subcategoryPrompts = useMemo(() => {
     if (!selectedSubcategory) return [];
@@ -481,19 +523,33 @@ export default function App() {
     }
   }, [expandedCategories, handleSubcategoryClick]);
 
-  const handlePromptClick = useCallback((prompt: Prompt) => {
-    setSelectedPrompt(prompt);
+  const handlePromptClick = useCallback(async (prompt: Prompt) => {
+    // Always fetch full content since we're using lightweight mode
+    let fullPrompt = prompt;
+    try {
+      const response = await fetch(`/api/prompts/${encodeURIComponent(prompt.id)}`);
+      if (response.ok) {
+        fullPrompt = await response.json();
+      } else {
+        console.warn('Failed to fetch full content, using cached version');
+      }
+    } catch (err) {
+      console.error('Failed to fetch full prompt content:', err);
+      // Fall back to the truncated version if fetch fails
+    }
+    
+    setSelectedPrompt(fullPrompt);
     setSelectedSubcategory(null);
     setShowAllPrompts(false);
     
     // Set active category for back navigation (go back to category view, not subcategory)
-    setActiveCategory(prompt.category);
+    setActiveCategory(fullPrompt.category);
     setActiveSubcategory(null);  // Back button should show category ALL view
     
     // Track in recently viewed
     setRecentlyViewed(prev => {
-      const filtered = prev.filter(id => id !== prompt.id);
-      return [prompt.id, ...filtered].slice(0, 10); // Keep last 10
+      const filtered = prev.filter(id => id !== fullPrompt.id);
+      return [fullPrompt.id, ...filtered].slice(0, 10); // Keep last 10
     });
   }, []);
 
@@ -543,8 +599,44 @@ export default function App() {
     showToast('success', 'Copied to clipboard');
   }, [showToast]);
 
-  const handleDownloadMarkdown = useCallback((prompt: Prompt) => {
-    const frontmatter = `---
+  const handleDownloadMarkdown = useCallback(async (prompt: Prompt) => {
+    // Check if this is a Skill - download as zip
+    if (prompt.section === 'Skills') {
+      try {
+        // Extract the skill directory path (remove /SKILL.md from the end)
+        const skillDirPath = prompt.id.replace(/\/SKILL\.md$/, '');
+        const response = await fetch(`/api/skills/download/${encodeURIComponent(skillDirPath)}`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to download skill');
+        }
+
+        // Get the filename from Content-Disposition header or construct it
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let filename = `${prompt.category}.zip`;
+        if (contentDisposition) {
+          const match = contentDisposition.match(/filename="(.+)"/);
+          if (match) filename = match[1];
+        }
+
+        // Download the zip file
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('success', 'Skill downloaded as zip!');
+      } catch (error) {
+        console.error('Download error:', error);
+        showToast('error', 'Failed to download skill');
+      }
+    } else {
+      // Regular prompt - download as markdown
+      const frontmatter = `---
 title: ${prompt.title}
 section: ${prompt.section}
 category: ${prompt.category}
@@ -555,17 +647,18 @@ source: My Prompt Library
 ---
 
 `;
-    const content = frontmatter + prompt.content;
-    const blob = new Blob([content], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${prompt.title.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.md`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showToast('success', 'Prompt downloaded!');
+      const content = frontmatter + prompt.content;
+      const blob = new Blob([content], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${prompt.title.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('success', 'Prompt downloaded!');
+    }
   }, [showToast]);
 
   const toggleFavorite = useCallback((promptId: string, e?: React.MouseEvent) => {
@@ -696,9 +789,9 @@ source: My Prompt Library
   // Prompt card component for reuse (memoized for performance)
   const PromptCard = memo(({ prompt, index }: { prompt: Prompt; index: number }) => (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.04, ease: [0.4, 0, 0.2, 1] }}
+      transition={{ duration: 0.2, delay: Math.min(index * 0.01, 0.3), ease: [0.4, 0, 0.2, 1] }}
       key={prompt.id}
       className="glass-card rounded-[var(--radius-lg)] relative group cursor-pointer overflow-hidden"
       onClick={() => handlePromptClick(prompt)}
@@ -795,17 +888,28 @@ source: My Prompt Library
       {/* Main content area */}
       <div className="p-6 pb-14 space-y-4 relative z-[1]">
         <div className="flex items-start gap-3.5">
-          <div className="w-9 h-9 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--glass-border)]">
-            <FileText className="w-4 h-4 text-[var(--accent)]" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="heading-display text-base font-bold tracking-tight leading-snug mb-1.5 text-[var(--text-primary)]">
-              {prompt.title}
-            </h3>
-            <p className="label truncate">
-              {prompt.category}{prompt.subcategory ? ` / ${prompt.subcategory.replace(/_/g, ' ')}` : ''}
-            </p>
-          </div>
+          {(() => {
+            const { emoji, title } = extractEmoji(prompt.title);
+            return (
+              <>
+                <div className="w-9 h-9 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--glass-border)]">
+                  {emoji ? (
+                    <span className="text-lg">{emoji}</span>
+                  ) : (
+                    <FileText className="w-4 h-4 text-[var(--accent)]" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="heading-display text-base font-bold tracking-tight leading-snug mb-1.5 text-[var(--text-primary)]">
+                    {title}
+                  </h3>
+                  <p className="label truncate">
+                    {prompt.category}{prompt.subcategory ? ` / ${prompt.subcategory.replace(/_/g, ' ')}` : ''}
+                  </p>
+                </div>
+              </>
+            );
+          })()}
         </div>
 
         {prompt.tags.length > 0 && (
@@ -2025,17 +2129,28 @@ source: My Prompt Library
 
                           <div className="flex-1 p-5 pb-12 space-y-3 relative z-[1]">
                             <div className="flex items-start gap-3">
-                              <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--accent)]/50">
-                                <FileText className="w-3.5 h-3.5 text-[var(--accent)]" />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h4 className="heading-display text-sm font-bold tracking-tight leading-snug mb-1 text-[var(--text-primary)] line-clamp-2">
-                                  {prompt.title}
-                                </h4>
-                                <p className="label truncate text-[0.65rem]">
-                                  {prompt.category}{prompt.subcategory ? ` / ${prompt.subcategory.replace(/_/g, ' ')}` : ''}
-                                </p>
-                              </div>
+                              {(() => {
+                                const { emoji, title } = extractEmoji(prompt.title);
+                                return (
+                                  <>
+                                    <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--accent)]/50">
+                                      {emoji ? (
+                                        <span className="text-base">{emoji}</span>
+                                      ) : (
+                                        <FileText className="w-3.5 h-3.5 text-[var(--accent)]" />
+                                      )}
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <h4 className="heading-display text-sm font-bold tracking-tight leading-snug mb-1 text-[var(--text-primary)] line-clamp-2">
+                                        {title}
+                                      </h4>
+                                      <p className="label truncate text-[0.65rem]">
+                                        {prompt.category}{prompt.subcategory ? ` / ${prompt.subcategory.replace(/_/g, ' ')}` : ''}
+                                      </p>
+                                    </div>
+                                  </>
+                                );
+                              })()}
                             </div>
 
                             {prompt.tags.length > 0 && (
@@ -2123,11 +2238,36 @@ source: My Prompt Library
                     </div>
                   )
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {sortedPrompts.map((prompt, i) => (
-                      <PromptCard key={prompt.id} prompt={prompt} index={i} />
-                    ))}
-                  </div>
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                      {paginatedPrompts.map((prompt, i) => (
+                        <PromptCard key={prompt.id} prompt={prompt} index={i} />
+                      ))}
+                    </div>
+                    
+                    {/* Pagination Controls */}
+                    {totalPages > 1 && (
+                      <div className="flex items-center justify-center gap-6 mt-8">
+                        <button
+                          onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                          disabled={currentPage === 1}
+                          className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--accent)] border-2 border-[var(--accent)] text-white font-bold shadow-lg hover:shadow-[0_0_24px_var(--accent-glow)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:scale-105 transition-all duration-200"
+                        >
+                          ← Previous
+                        </button>
+                        <span className="text-sm font-medium text-[var(--text-secondary)] px-4">
+                          Page {currentPage} of {totalPages} <span className="text-[var(--text-tertiary)]">({sortedPrompts.length} total)</span>
+                        </span>
+                        <button
+                          onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                          disabled={currentPage === totalPages}
+                          className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--accent)] border-2 border-[var(--accent)] text-white font-bold shadow-lg hover:shadow-[0_0_24px_var(--accent-glow)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:scale-105 transition-all duration-200"
+                        >
+                          Next →
+                        </button>
+                      </div>
+                    )}
+                  </>
                 )}
               </motion.div>
 

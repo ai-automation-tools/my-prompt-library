@@ -1,5 +1,5 @@
 ---
-title: "Historian"
+title: "📌 Historian"
 tags: ["collections", "writing", "historian"]
 category: "Collections"
 subcategory: "Writing"

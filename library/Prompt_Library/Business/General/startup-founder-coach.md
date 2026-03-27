@@ -1,5 +1,5 @@
 ---
-title: "Startup Founder Coach"
+title: "📌 Startup Founder Coach"
 tags:
   - business
   - startup

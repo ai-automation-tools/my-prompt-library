@@ -1,5 +1,5 @@
 ---
-title: "Top Recipe Harvest — Weekly Picks"
+title: "🤝 Top Recipe Harvest — Weekly Picks"
 tags: ["ai-tools", "claude-cowork", "recipe", "harvest", "weekly"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

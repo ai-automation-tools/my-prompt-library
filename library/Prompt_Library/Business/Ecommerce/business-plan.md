@@ -1,5 +1,5 @@
 ---
-title: "LLM Prompt Set For E Commerce Business Plan Generation"
+title: "📌 LLM Prompt Set For E Commerce Business Plan Generation"
 tags: ["collections", "business", "ecommerce", "plan"]
 category: "Collections"
 subcategory: "Business"

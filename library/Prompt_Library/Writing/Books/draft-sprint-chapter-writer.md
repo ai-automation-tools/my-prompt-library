@@ -1,5 +1,5 @@
 ---
-title: "Fiction Draft Sprint Chapter Writer"
+title: "✍️ Fiction Draft Sprint Chapter Writer"
 tags: ["writing", "fiction", "drafting", "chapter-writing", "productivity"]
 category: "Writing"
 subcategory: "Books/Fiction"

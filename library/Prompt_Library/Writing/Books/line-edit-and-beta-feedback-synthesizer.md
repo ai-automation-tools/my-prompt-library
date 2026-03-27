@@ -1,5 +1,5 @@
 ---
-title: "Fiction Line Edit And Beta Feedback Synthesizer"
+title: "✍️ Fiction Line Edit And Beta Feedback Synthesizer"
 tags: ["writing", "fiction", "editing", "beta-readers", "revision"]
 category: "Writing"
 subcategory: "Books/Fiction"

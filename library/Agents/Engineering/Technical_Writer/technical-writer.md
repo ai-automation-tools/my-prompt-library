@@ -1,5 +1,5 @@
 ---
-title: "Technical Documentation Writer"
+title: "🤖 Technical Documentation Writer"
 tags: ["documentation", "technical-writing", "developer-experience", "api"]
 category: "Developer"
 subcategory: "Documentation"

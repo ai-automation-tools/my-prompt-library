@@ -1,5 +1,5 @@
 ---
-title: "Sabrina Carpenter"
+title: "🤖 Sabrina Carpenter"
 tags: ["musician", "pop", "singer", "pop-culture", "espresso"]
 category: "Agent_Instructions"
 subcategory: "Characters"

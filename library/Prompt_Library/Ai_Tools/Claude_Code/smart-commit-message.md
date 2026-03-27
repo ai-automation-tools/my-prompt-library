@@ -1,5 +1,5 @@
 ---
-title: "Smart Commit Message"
+title: "📌 Smart Commit Message"
 tags: ["git", "commit", "conventional-commits", "message", "changelog"]
 category: "Git_and_Version_Control"
 subcategory: "Commit_Messages"

@@ -1,5 +1,5 @@
 ---
-title: "Perplexity"
+title: "🧠 Perplexity"
 tags: ["perplexity.ai", "llm", "instructions", "perplexity"]
 category: "LLM Instructions"
 subcategory: "Perplexity.ai"

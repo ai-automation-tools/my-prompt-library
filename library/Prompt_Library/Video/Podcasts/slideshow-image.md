@@ -1,5 +1,5 @@
 ---
-title: "Slideshow Image Prompts"
+title: "🎙️ Slideshow Image Prompts"
 tags: ["video", "podcasts", "slideshow", "image", "prompts"]
 category: "Video"
 subcategory: "Podcasts"

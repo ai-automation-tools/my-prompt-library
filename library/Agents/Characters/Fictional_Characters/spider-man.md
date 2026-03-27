@@ -1,5 +1,5 @@
 ---
-title: "Spider-Man"
+title: "🤖 Spider-Man"
 tags: ["marvel", "peter-parker", "superhero", "pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

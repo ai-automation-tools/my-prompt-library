@@ -1,5 +1,5 @@
 ---
-title: "Discover And Use New MCP Tool"
+title: "📌 Discover And Use New MCP Tool"
 tags: ["mcp", "discovery", "new-tool", "exploration", "integration"]
 category: "MCP_and_Tool_Integration"
 subcategory: "Tool_Discovery"

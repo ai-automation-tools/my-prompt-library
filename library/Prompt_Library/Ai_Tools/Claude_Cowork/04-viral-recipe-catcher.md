@@ -1,5 +1,5 @@
 ---
-title: "Viral Recipe Catcher"
+title: "🤝 Viral Recipe Catcher"
 tags: ["ai-tools", "claude-cowork", "viral", "recipe", "catcher"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

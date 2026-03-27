@@ -1,5 +1,5 @@
 ---
-title: Full Stack Developer
+title: "📌 Full Stack Developer"
 tags:
 - collections
 - engineering

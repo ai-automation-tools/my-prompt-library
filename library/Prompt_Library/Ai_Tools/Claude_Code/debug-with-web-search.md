@@ -1,5 +1,5 @@
 ---
-title: "Debug With Web Search"
+title: "📌 Debug With Web Search"
 tags: ["debug", "error", "web-search", "diagnosis", "stack-overflow"]
 category: "Web_Search_and_Research"
 subcategory: "Error_Diagnosis"

@@ -1,5 +1,5 @@
 ---
-title: "Portfolio Morning Briefing"
+title: "🤝 Portfolio Morning Briefing"
 tags: ["ai-tools", "claude-cowork", "portfolio", "morning", "briefing"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

@@ -1,5 +1,5 @@
 ---
-title: "Batch File Processor"
+title: "📌 Batch File Processor"
 tags: ["files", "batch", "transformation", "automation", "read", "write"]
 category: "File_and_Code_Operations"
 subcategory: "Batch_Processing"

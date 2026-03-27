@@ -1,5 +1,5 @@
 ---
-title: "Manus"
+title: "📝 Manus"
 tags: ["misc", "llm", "instructions", "manus"]
 category: "LLM Instructions"
 subcategory: "Misc"

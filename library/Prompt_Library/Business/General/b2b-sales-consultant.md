@@ -1,5 +1,5 @@
 ---
-title: "B2B Sales Consultant"
+title: "📌 B2B Sales Consultant"
 tags:
   - business
   - sales

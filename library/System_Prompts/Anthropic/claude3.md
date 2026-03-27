@@ -1,5 +1,5 @@
 ---
-title: "Claude3"
+title: "📝 Claude3"
 tags: ["anthropic", "llm", "instructions", "claude3"]
 category: "LLM Instructions"
 subcategory: "Anthropic"

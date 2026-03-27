@@ -1,5 +1,5 @@
 ---
-title: "Business Proposal Writer"
+title: "📌 Business Proposal Writer"
 tags:
   - writing
   - proposal

@@ -1,5 +1,5 @@
 ---
-title: "Find Latest API Docs Before Coding"
+title: "📌 Find Latest API Docs Before Coding"
 tags: ["api", "documentation", "web-search", "library", "version"]
 category: "Web_Search_and_Research"
 subcategory: "Documentation_Lookup"

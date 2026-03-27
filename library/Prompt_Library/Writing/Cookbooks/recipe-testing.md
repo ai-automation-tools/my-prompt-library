@@ -1,5 +1,5 @@
 ---
-title: "Recipe Testing Simulation"
+title: "🍳 Recipe Testing Simulation"
 tags: ["writing", "cookbooks", "recipe", "testing"]
 category: "Writing"
 subcategory: "Cookbooks"

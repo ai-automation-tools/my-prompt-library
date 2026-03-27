@@ -1,5 +1,5 @@
 ---
-title: "Gemini 3 Flash Android App Contributed 20260221"
+title: "📝 Gemini 3 Flash Android App Contributed 20260221"
 tags: ["google", "llm", "instructions", "gemini", "3", "flash", "android", "app", "contributed", "20260221"]
 category: "LLM Instructions"
 subcategory: "Google"

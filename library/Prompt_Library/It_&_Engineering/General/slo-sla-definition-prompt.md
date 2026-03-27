@@ -1,5 +1,5 @@
 ---
-title: 'Prompt: Service Level Objective (SLO) and Service Level Agreement (SLA) Definition'
+title: "📌 Prompt: Service Level Objective (SLO) and Service Level Agreement (SLA) Definition"
 tags:
 - collections
 - engineering

@@ -1,5 +1,5 @@
 ---
-title: "Profit Machine"
+title: "📌 Profit Machine"
 tags: ["collections", "engineering", "profit", "machine"]
 category: "Collections"
 subcategory: "Engineering"

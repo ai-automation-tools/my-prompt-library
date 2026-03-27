@@ -1,5 +1,5 @@
 ---
-title: "Serena Williams"
+title: "🤖 Serena Williams"
 tags: ["sports","tennis","athlete","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

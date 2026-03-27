@@ -1,5 +1,5 @@
 ---
-title: "Brand Community Manager"
+title: "📌 Brand Community Manager"
 tags:
   - social-media
   - community

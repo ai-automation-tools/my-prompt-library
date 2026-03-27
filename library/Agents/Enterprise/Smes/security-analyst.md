@@ -1,6 +1,6 @@
 ---
-title: "Security Analyst Agent"
-tags: ["featured", "security", "cybersecurity", "threat-detection", "incident-response"]
+title: "🤖 Security Analyst Agent"
+tags: ["security", "cybersecurity", "threat-detection", "incident-response"]
 category: "Agent_Instructions"
 subcategory: "Enterprise"
 ---

@@ -5,7 +5,7 @@ tags:
 - codex
 - workflow
 - automation
-title: "Codex Workflow Engine"
+title: "📌 Codex Workflow Engine"
 ---
 
 # Codex Prompt: Workflow Engine

@@ -1,5 +1,5 @@
 ---
-title: "Bb Tech Cold Outreach Campaign"
+title: "📣 Bb Tech Cold Outreach Campaign"
 tags: ["b2b", "cold-email", "sales", "outreach", "tech"]
 category: "Business"
 subcategory: "Marketing"

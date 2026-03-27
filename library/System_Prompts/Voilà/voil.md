@@ -1,5 +1,5 @@
 ---
-title: "Voilà"
+title: "📝 Voilà"
 tags: ["voilà", "llm", "instructions", "voil"]
 category: "LLM Instructions"
 subcategory: "Voilà"

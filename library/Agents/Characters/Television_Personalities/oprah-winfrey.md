@@ -1,5 +1,5 @@
 ---
-title: "Oprah Winfrey"
+title: "🤖 Oprah Winfrey"
 tags: ["television", "pop-culture", "host", "inspirational"]
 category: "System_Prompts"
 subcategory: "Characters"

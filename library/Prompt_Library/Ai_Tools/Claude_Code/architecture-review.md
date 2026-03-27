@@ -1,5 +1,5 @@
 ---
-title: "Architecture Review"
+title: "📌 Architecture Review"
 tags: ["architecture", "review", "design", "analysis", "recommendations"]
 category: "Architecture_and_Design"
 subcategory: "Architecture_Review"

@@ -1,5 +1,5 @@
 ---
-title: "N8n Workflow Design"
+title: "📌 N8n Workflow Design"
 tags: ["n8n", "automation", "workflow", "nodes", "integration"]
 category: "Automation_and_Workflows"
 subcategory: "n8n_Workflows"

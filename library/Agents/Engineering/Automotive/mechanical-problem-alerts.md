@@ -1,5 +1,5 @@
 ---
-title: "Mechanical Problem Alerts Agent"
+title: "🤖 Mechanical Problem Alerts Agent"
 tags: ["automotive", "mechanical-alerts", "predictive-maintenance", "ai-agent"]
 category: "Engineering"
 subcategory: "Automotive"

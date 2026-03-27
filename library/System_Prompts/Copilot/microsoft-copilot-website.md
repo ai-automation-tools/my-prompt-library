@@ -1,5 +1,5 @@
 ---
-title: "Microsoft Copilot Website 02252025"
+title: "📝 Microsoft Copilot Website 02252025"
 tags: ["copilot", "llm", "instructions", "microsoft", "website", "02252025"]
 category: "LLM Instructions"
 subcategory: "Copilot"

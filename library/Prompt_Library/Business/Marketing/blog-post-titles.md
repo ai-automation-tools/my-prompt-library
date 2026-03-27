@@ -1,5 +1,5 @@
 ---
-title: "Blog Post Title Generation Prompts"
+title: "📌 Blog Post Title Generation Prompts"
 tags: ["collections", "business", "blog", "post", "titles"]
 category: "Collections"
 subcategory: "Business"

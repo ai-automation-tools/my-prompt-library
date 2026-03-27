@@ -32,6 +32,12 @@ Complete documentation for My Prompt Library.
 ### Development
 - [**PostgreSQL Migration**](POSTGRES-MIGRATION-SUMMARY.md) - SQLite → Postgres migration notes
 - [**Debug UI**](DEBUG_UI.md) - Debugging and troubleshooting
+- [**Performance Analysis**](PERFORMANCE-ANALYSIS.md) - Performance optimization guide (March 2026)
+
+### Changelogs
+- [**March 25, 2026**](CHANGELOG-2026-03-25.md) - Performance optimizations & MCP server prompts
+- [**March 16, 2026**](archive/CHANGELOG-2026-03-14.md) - Initial restructure (archived)
+- [**March 14, 2026**](archive/CHANGELOG-2026-03-14-RESTRUCTURE.md) - Postgres migration (archived)
 
 ---
 
@@ -76,4 +82,18 @@ Keep docs concise, accurate, and up-to-date with code changes.
 
 ---
 
-**Last Updated:** March 16, 2026
+---
+
+## Recent Updates
+
+### March 25, 2026 - Performance & Content Update
+- 🚀 **Performance:** 50x faster cold starts with prebuilt index
+- 📚 **Content:** Added 7 MCP server prompt libraries (135 prompts)
+- 🎨 **UX:** Pagination, emojis, better navigation
+- 📖 **Docs:** Updated API.md, FEATURED-PROMPTS.md, new CHANGELOG-2026-03-25.md
+
+[Read full changelog →](CHANGELOG-2026-03-25.md)
+
+---
+
+**Last Updated:** March 25, 2026

@@ -1,5 +1,5 @@
 ---
-title: "Codeium Windsurf Cascade System Prompt"
+title: "💻 Codeium Windsurf Cascade System Prompt"
 tags: ["codeium", "windsurf", "cascade", "system-prompt", "ai-assistant", "coding"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

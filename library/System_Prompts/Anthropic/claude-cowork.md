@@ -1,5 +1,5 @@
 ---
-title: "Claude Cowork"
+title: "🧠 Claude Cowork"
 tags: ["featured", "anthropic", "llm", "instructions", "claude", "cowork"]
 category: "LLM Instructions"
 subcategory: "Anthropic"

@@ -1,5 +1,5 @@
 ---
-title: "Bernie Sanders"
+title: "🤖 Bernie Sanders"
 tags: ["politics", "senator", "us-politics"]
 category: "System_Prompts"
 subcategory: "Characters"

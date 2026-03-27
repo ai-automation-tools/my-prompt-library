@@ -5,7 +5,7 @@ tags:
 - codex
 - mcp
 - integration
-title: "Connect Codex To MCP Server"
+title: "📌 Connect Codex To MCP Server"
 ---
 
 # Codex Prompt: Connect to an MCP Server

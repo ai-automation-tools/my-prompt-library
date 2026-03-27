@@ -1,5 +1,5 @@
 ---
-title: "Muhammad Ali"
+title: "🤖 Muhammad Ali"
 tags: ["sports","boxing","athlete","historical-figure"]
 category: "System_Prompts"
 subcategory: "Characters"

@@ -1,5 +1,5 @@
 ---
-title: "Ideal Gig Profile: React Developer"
+title: "📌 Ideal Gig Profile: React Developer"
 tags: ["collections", "business", "ideal", "profile", "react"]
 category: "Collections"
 subcategory: "Business"

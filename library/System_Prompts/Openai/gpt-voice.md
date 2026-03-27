@@ -1,5 +1,5 @@
 ---
-title: "Gpt Voice"
+title: "🧠 Gpt Voice"
 tags: ["openai", "llm", "instructions", "gpt", "voice"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

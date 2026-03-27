@@ -2,243 +2,272 @@
 
 This document tracks which prompts are marked as "featured" and displayed in the Featured Prompts section on the landing page.
 
-**Last Updated:** 2026-03-17
+**Last Updated:** 2026-03-25
 
 ---
 
-## Current Featured Prompts
+## Current Featured Prompts (March 2026)
 
-### Prompt Library (5 prompts)
+### Agents Section (5 prompts)
 
-1. **AX MCP Server Prompts**
-   - Section: `prompt-library`
-   - Category: TBD
+1. **✍️ Technical Blog Post Architect**
+   - Category: `Business/Documentation`
+   - Tags: writing, technical, blog, post
    - Status: ✅ Featured
 
-2. **AX Workspace Builder**
-   - Section: `prompt-library`
-   - Category: TBD
+2. **⚙️ DevOps Engineer**
+   - Category: `Developer/General`
+   - Tags: devops, infrastructure, automation, ci-cd, cloud
    - Status: ✅ Featured
 
-3. **Crypto Rotation & Dominance Report**
-   - Section: `prompt-library`
-   - Category: Finance/Crypto
+3. **👨‍💻 Prompt Engineer**
+   - Category: `Developer/General`
+   - Tags: prompt-engineering, ai, llm, optimization
    - Status: ✅ Featured
 
-4. **Awesome Nano Banana Pro Prompts**
-   - Section: `prompt-library`
-   - Category: Images/Generation
+4. **🎨 Frontend Specialist**
+   - Category: `Developer/General`
+   - Tags: frontend, web-development, react, ui-ux
    - Status: ✅ Featured
 
-5. **Investor Pitch Deck**
-   - Section: `prompt-library`
-   - Category: Business
+5. **👨‍💻 Data Engineer**
+   - Category: `Developer/General`
+   - Tags: data-engineering, etl, data-pipelines, analytics
    - Status: ✅ Featured
 
-### Agent Instructions (4 prompts)
+### Prompt Library (7 MCP Server Collections + 2 Others)
 
-6. **Influencer Campaign Manager**
-   - Section: `agent-instructions`
-   - Category: Marketing/Social Media
+6. **🚀 GitHub MCP Server Prompts** (15 prompts)
+   - Category: `MCP_Servers/GitHub`
+   - Contains: Repository operations, PR workflows, complex automation
    - Status: ✅ Featured
 
-7. **LeBron James**
-   - Section: `agent-instructions`
-   - Category: Characters/Personalities
+7. **🎭 Playwright MCP Server Prompts** (20 prompts)
+   - Category: `MCP_Servers/Playwright`
+   - Contains: Browser automation, testing, web scraping
    - Status: ✅ Featured
 
-8. **Barack Obama**
-   - Section: `agent-instructions`
-   - Category: Characters/Personalities
+8. **🔍 Serper API MCP Server Prompts** (20 prompts)
+   - Category: `MCP_Servers/Serper`
+   - Contains: Search, SEO research, competitive analysis
    - Status: ✅ Featured
 
-9. **Security Analyst Agent**
-   - Section: `agent-instructions`
-   - Category: Security/Analysis
+9. **📧 Google Workspace MCP Server Prompts** (20 prompts)
+   - Category: `MCP_Servers/Google_Workspace`
+   - Contains: Gmail, Drive, Calendar, Docs automation
    - Status: ✅ Featured
 
-### Agent Guides (3 prompts)
-
-10. **Claude Code Agent Guide**
-    - Section: `agent-guides`
-    - Category: Development/CLI
+10. **🔄 n8n Workflow Automation MCP Server Prompts** (20 prompts)
+    - Category: `MCP_Servers/N8n`
+    - Contains: Workflow automation, data pipelines
     - Status: ✅ Featured
 
-11. **Gemini CLI Agent Guide**
-    - Section: `agent-guides`
-    - Category: Development/CLI
+11. **🗄️ Supabase MCP Server Prompts** (20 prompts)
+    - Category: `MCP_Servers/Supabase`
+    - Contains: Database operations, auth, real-time features
     - Status: ✅ Featured
 
-12. **OpenAI Codex Agent Guide**
-    - Section: `agent-guides`
-    - Category: Development/CLI
+12. **🔥 Firebase MCP Server Prompts** (20 prompts)
+    - Category: `MCP_Servers/Firebase`
+    - Contains: Firestore, Cloud Functions, serverless
+    - Status: ✅ Featured
+
+13. **💼 Investor Pitch Deck**
+    - Category: `Business/Documentation`
+    - Status: ✅ Featured
+
+14. **₿ Crypto Rotation & Dominance Report**
+    - Category: `Finance/Crypto`
     - Status: ✅ Featured
 
 ### System Prompts (4 prompts)
 
-13. **GPT-5**
-    - Section: `system-prompts`
-    - Category: AI Models
+15. **🧠 Claude Sonnet 4.5**
+    - Category: `Anthropic`
     - Status: ✅ Featured
 
-14. **Claude Cowork**
-    - Section: `system-prompts`
-    - Category: AI Models/Collaboration
+16. **🧠 Claude Cowork**
+    - Category: `Anthropic`
     - Status: ✅ Featured
 
-15. **Claude Sonnet 4.5**
-    - Section: `system-prompts`
-    - Category: AI Models
+17. **🤖 GPT5**
+    - Category: `OpenAI`
     - Status: ✅ Featured
 
-16. **Antigravity**
-    - Section: `system-prompts`
-    - Category: Experimental
+18. **🚀 Antigravity**
+    - Category: `Google`
     - Status: ✅ Featured
 
-### Skills (2 prompts)
+### Skills (1 prompt)
 
-17. **Workspace Cookbook**
-    - Section: `skills`
-    - Category: Documentation/Guides
+19. **🤖 Humanizer: Remove AI Writing Patterns**
+    - Category: `Writing/General`
     - Status: ✅ Featured
 
-18. **Weekly AI News Digest**
-    - Section: `skills`
-    - Category: Automation/News
+### Agent Guides (2 prompts)
+
+20. **💻 Claude Code CLI Guide**
+    - Category: `Claude_Code`
+    - Status: ✅ Featured
+
+21. **💻 Codex CLI Guide**
+    - Category: `Codex`
     - Status: ✅ Featured
 
 ---
 
 ## Total Count
 
-**18 Featured Prompts** across 5 sections:
-- Prompt Library: 5
-- Agent Instructions: 4
-- Agent Guides: 3
-- System Prompts: 4
-- Skills: 2
+**21 Featured Prompts** across 5 sections:
+- **Agents:** 5 prompts
+- **Prompt Library:** 9 collections (7 MCP servers + 2 others)
+- **System Prompts:** 4 prompts
+- **Skills:** 1 prompt
+- **Agent Guides:** 2 prompts
+
+**Total individual prompts in MCP collections:** 135 prompts
+- GitHub: 15
+- Playwright: 20
+- Serper: 20
+- Google Workspace: 20
+- n8n: 20
+- Supabase: 20
+- Firebase: 20
+
+---
+
+## Recent Changes (March 25, 2026)
+
+### Added
+- 7 comprehensive MCP server prompt libraries (135 total prompts)
+- Emojis to all featured prompt titles for better visual identification
+- Performance optimizations (pagination, prebuilt index)
+
+### Updated
+- Featured Agents section: Now focused on developer/technical roles
+  - Technical Blog Post Architect
+  - DevOps Engineer
+  - Prompt Engineer
+  - Frontend Specialist
+  - Data Engineer
+
+### Removed from Featured
+- LeBron James (Characters/Athletes)
+- Barack Obama (Characters/Politicians)
+- Security Analyst (Enterprise/SMEs)
 
 ---
 
 ## How to Feature a Prompt
 
-### Method 1: Database Flag (Recommended)
-```sql
--- Mark prompt as featured in database
-UPDATE prompts 
-SET featured = true 
-WHERE title = 'Prompt Title';
-```
-
-### Method 2: Tag-Based (Current Implementation)
+### Method: Tag-Based (Current Implementation)
 Add `"featured"` to the tags array in prompt frontmatter:
 
 ```yaml
 ---
-title: "Your Prompt Title"
-tags: ["featured", "other-tag"]
+title: "🎯 Your Prompt Title"
+tags: ["featured", "other-tag", "category"]
 category: "Category"
+subcategory: "Subcategory"
 ---
 ```
 
-### Method 3: Favorites Fallback
-The app currently uses favorites as a fallback if no prompts have the "featured" tag.
+### Emoji Guidelines
+All featured prompts should have an emoji in the title for better visual identification:
+
+**Common Emojis by Category:**
+- Business/Finance: 💼 📊 💰 ₿ 📈
+- Developer/Tech: 👨‍💻 💻 ⚙️ 🎨 📊 🔧
+- Writing/Content: ✍️ 📝 📄 📚
+- AI/Models: 🧠 🤖 ✨ 🚀
+- MCP Servers: 🚀 🎭 🔍 📧 🔄 🗄️ 🔥
+- Guides/Skills: 📖 🛠️ 💻 ⌨️
 
 ---
 
 ## Featured Prompts Display Logic
 
-**Code Location:** `src/App.tsx` (around line 430-450)
+**Code Location:** `src/App.tsx`
 
-```typescript
-const featuredPrompts = useMemo(() => {
-  // Priority 1: Prompts with "featured" tag
-  const tagged = sectionPrompts
-    .filter(p => p.tags?.includes('featured'))
-    .slice(0, 4);
-  
-  // Priority 2: Fallback to favorites if no tagged prompts
-  if (tagged.length === 0) {
-    return favoritePrompts.slice(0, 4);
-  }
-  
-  return tagged;
-}, [sectionPrompts, favoritePrompts]);
-```
-
-**Display Rules:**
-- Shows on landing page only (not in search/filter views)
-- Maximum 4 prompts displayed
-- Grid layout: 4 columns on desktop, responsive on mobile
+**Display on Landing Page:**
+- Shows 4 featured prompts per section when no search/filter is active
+- Grid layout: responsive (1 col mobile → 4 cols desktop)
 - Special styling: Star badge, accent border, hover glow
 
----
+**Filtering:**
+```typescript
+const featuredPrompts = useMemo(() => {
+  return sortedPrompts
+    .filter(p => p.tags?.includes('featured'))
+    .slice(0, 4);
+}, [sortedPrompts]);
+```
 
-## Adding New Featured Prompts
-
-1. **Choose the prompt** you want to feature
-2. **Add "featured" tag** to its frontmatter:
-   ```yaml
-   tags: ["featured", "existing-tag"]
-   ```
-3. **Or update database** (if using PostgreSQL):
-   ```sql
-   UPDATE prompts SET featured = true WHERE id = 'prompt-id';
-   ```
-4. **Verify on landing page** - Should appear in Featured Prompts section
-5. **Update this document** with the new entry
-
----
-
-## Removing Featured Status
-
-1. **Remove "featured" tag** from frontmatter:
-   ```yaml
-   tags: ["other-tag"]  # Remove "featured"
-   ```
-2. **Or update database**:
-   ```sql
-   UPDATE prompts SET featured = false WHERE id = 'prompt-id';
-   ```
-3. **Update this document** to reflect the change
+**Pagination:**
+- Featured prompts appear on page 1 by default
+- Total results are paginated at 50 prompts per page
+- Navigation controls: Previous/Next with page indicators
 
 ---
 
 ## Best Practices
 
 ### Selection Criteria
-- ✅ **High Quality**: Well-written, clear, useful
-- ✅ **Representative**: Shows variety across sections
-- ✅ **Popular**: Frequently used or copied
-- ✅ **Up-to-Date**: Recently reviewed and maintained
+- ✅ **High Quality**: Well-written, comprehensive, useful
+- ✅ **Representative**: Shows variety across categories
+- ✅ **Includes Emoji**: Title has appropriate emoji
+- ✅ **Up-to-Date**: Recently created or reviewed
 - ✅ **Diverse**: Mix of categories and use cases
+- ✅ **Collections**: MCP server collections should include 10+ examples
 
-### Rotation Strategy
-- Review featured prompts monthly
-- Replace stale or outdated prompts
-- Promote newly added high-quality prompts
-- Maintain balance across sections (3-5 per section)
-- Consider user favorites and copy statistics
+### Emoji Selection
+- Choose emojis that represent the content/category
+- Keep consistent within categories
+- Use common, recognizable emojis
+- Avoid complex or obscure emojis
 
 ### Display Balance
-- Aim for 4-6 featured prompts per major section
-- Rotate featured prompts seasonally
-- Feature new prompts to drive discovery
+- Maintain 4-6 featured prompts per major section
+- Rotate seasonally or when new high-quality content added
 - Keep at least 2-3 "evergreen" featured prompts
+- Feature new collections to drive discovery
+
+---
+
+## Performance Considerations
+
+**Index Pre-building:**
+- Featured prompts are included in the prebuilt prompt index
+- Index regenerates on each deployment
+- Reduces cold start time from 2-5s to <100ms
+
+**Pagination Impact:**
+- Featured prompts load with first page (50 items)
+- No performance penalty for featured status
+- Index includes 200-char content preview
 
 ---
 
 ## Notes
 
-- Featured prompts appear on the **landing page only** (when no search/filter is active)
-- The app limits display to **4 featured prompts** per view (can be adjusted in code)
-- If no prompts have the "featured" tag, the app falls back to showing **favorited prompts**
+- Featured prompts appear on **landing page only** (not in search/filtered views)
+- The app limits display to **4 featured prompts** per view
 - Featured status does NOT affect search or filtering functionality
+- All featured prompts should include emojis in titles
+- Large prompt collections (10+ prompts) are preferred for MCP servers
 
 ---
 
 ## Changelog
+
+### 2026-03-25
+- **Major Update**: Complete refresh of featured prompts
+- Added 7 MCP server prompt collections (135 prompts total)
+- Added emojis to all featured prompt titles
+- Updated Agents section with technical/developer focus
+- Removed character-based prompts from featured
+- Updated documentation with current state
+- Added performance optimization notes
 
 ### 2026-03-17
 - Initial documentation created

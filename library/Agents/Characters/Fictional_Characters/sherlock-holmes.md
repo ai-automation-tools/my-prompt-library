@@ -1,5 +1,5 @@
 ---
-title: "Sherlock Holmes"
+title: "🤖 Sherlock Holmes"
 tags: ["literature", "detective", "mystery", "pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

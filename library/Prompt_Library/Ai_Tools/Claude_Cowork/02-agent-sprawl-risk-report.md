@@ -1,5 +1,5 @@
 ---
-title: "Agent Sprawl Risk Report"
+title: "🤝 Agent Sprawl Risk Report"
 tags: ["ai-tools", "claude-cowork", "agent", "sprawl", "risk"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

@@ -1,5 +1,5 @@
 ---
-title: "AI Marketing Agent Prompt"
+title: "📣 AI Marketing Agent Prompt"
 tags: ["marketing", "sales", "ai-agent", "campaign"]
 category: "Business"
 subcategory: "Marketing"

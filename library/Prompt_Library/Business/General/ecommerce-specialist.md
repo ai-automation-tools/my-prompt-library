@@ -1,5 +1,5 @@
 ---
-title: "E-commerce Specialist"
+title: "📌 E-commerce Specialist"
 tags:
   - business
   - ecommerce

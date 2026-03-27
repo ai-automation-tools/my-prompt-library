@@ -1,5 +1,5 @@
 ---
-title: "Bb SAAS Abstract Logo"
+title: "🏢 Bb SAAS Abstract Logo"
 tags: ["b2b", "saas", "software", "logo", "abstract"]
 category: "Images"
 subcategory: "Logos"

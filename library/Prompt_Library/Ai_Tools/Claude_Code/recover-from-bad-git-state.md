@@ -1,5 +1,5 @@
 ---
-title: "Recover From Bad Git State"
+title: "📌 Recover From Bad Git State"
 tags: ["git", "recovery", "detached-head", "conflict", "repair"]
 category: "Git_and_Version_Control"
 subcategory: "Recovery"

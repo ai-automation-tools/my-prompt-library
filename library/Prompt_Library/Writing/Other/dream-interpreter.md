@@ -1,5 +1,5 @@
 ---
-title: "Dream Interpreter"
+title: "📌 Dream Interpreter"
 tags: ["collections", "writing", "dream", "interpreter"]
 category: "Collections"
 subcategory: "Writing"

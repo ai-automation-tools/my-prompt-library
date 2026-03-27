@@ -1,5 +1,5 @@
 ---
-title: "Anthropic Claude Sonnet 3.7"
+title: "⚙️ Anthropic Claude Sonnet 3.7"
 tags: ["ai", "anthropic", "claude", "sonnet", "3.7"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

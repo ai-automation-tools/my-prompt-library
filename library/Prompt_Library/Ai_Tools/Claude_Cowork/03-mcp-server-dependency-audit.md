@@ -1,5 +1,5 @@
 ---
-title: "MCP Server Dependency Audit"
+title: "🤝 MCP Server Dependency Audit"
 tags: ["ai-tools", "claude-cowork", "server", "dependency", "audit"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

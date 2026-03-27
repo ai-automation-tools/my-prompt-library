@@ -1,5 +1,5 @@
 ---
-title: "Load Testing Plan Generation"
+title: "📌 Load Testing Plan Generation"
 tags: ["collections", "engineering", "load", "testing", "plan"]
 category: "Collections"
 subcategory: "Engineering"

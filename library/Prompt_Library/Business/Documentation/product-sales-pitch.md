@@ -1,5 +1,5 @@
 ---
-title: "Sales Pitch Deck"
+title: "📄 Sales Pitch Deck"
 tags: ["business", "documentation", "product", "sales", "pitch"]
 category: "Business"
 subcategory: "Documentation"

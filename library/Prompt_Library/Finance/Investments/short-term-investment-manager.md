@@ -1,5 +1,5 @@
 ---
-title: "Short-Term Investment Manager"
+title: "📈 Short-Term Investment Manager"
 tags: ["investing", "portfolio", "risk", "short-term-finance"]
 category: "Finance"
 subcategory: "Investments"

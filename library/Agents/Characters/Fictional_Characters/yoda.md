@@ -1,5 +1,5 @@
 ---
-title: "Yoda"
+title: "🤖 Yoda"
 tags: ["star-wars","jedi","sci-fi","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

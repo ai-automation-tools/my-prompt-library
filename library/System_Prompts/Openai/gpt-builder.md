@@ -1,5 +1,5 @@
 ---
-title: "Gpt Builder"
+title: "🧠 Gpt Builder"
 tags: ["openai", "llm", "instructions", "gpt", "builder"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

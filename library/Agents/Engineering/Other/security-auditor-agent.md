@@ -1,5 +1,5 @@
 ---
-title: "Security Auditor Agent"
+title: "🤖 Security Auditor Agent"
 tags: ["cybersecurity", "auditing", "compliance", "infosec"]
 category: "It_&_Engineering"
 subcategory: "Security"

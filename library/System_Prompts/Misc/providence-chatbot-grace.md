@@ -1,5 +1,5 @@
 ---
-title: "Providence Chatbot Grace"
+title: "💬 Providence Chatbot Grace"
 tags: ["misc", "llm", "instructions", "providence", "chatbot", "grace"]
 category: "LLM Instructions"
 subcategory: "Misc"

@@ -1,5 +1,5 @@
 ---
-title: "IT Architect"
+title: "📌 IT Architect"
 tags: ["collections", "engineering", "architect"]
 category: "Collections"
 subcategory: "Engineering"

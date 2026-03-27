@@ -1,5 +1,5 @@
 ---
-title: "Slo/sla Definition"
+title: "📌 Slo/sla Definition"
 tags: ["collections", "engineering", "definition", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

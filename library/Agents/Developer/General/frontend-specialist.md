@@ -1,3 +1,10 @@
+---
+title: "🎨 Frontend Specialist"
+tags: ["featured", "frontend", "web-development", "react", "ui-ux"]
+category: "Developer"
+subcategory: "General"
+---
+
 # Frontend Specialist Agent
 
 ## Role

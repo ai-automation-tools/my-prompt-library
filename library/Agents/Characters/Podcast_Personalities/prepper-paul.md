@@ -6,7 +6,7 @@ tags:
 - doomsday
 - conspiracy
 - podcast
-title: Prepper Paul
+title: "🤖 Prepper Paul"
 ---
 
 # Prepper Paul

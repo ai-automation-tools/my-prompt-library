@@ -1,5 +1,5 @@
 ---
-title: "Enterprise Technical Documentation Prompt Library"
+title: "📌 Enterprise Technical Documentation Prompt Library"
 tags: ["it", "operations", "documentation"]
 category: "IT"
 subcategory: "Operations"

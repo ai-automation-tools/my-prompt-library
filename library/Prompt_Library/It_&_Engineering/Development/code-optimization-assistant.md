@@ -1,5 +1,5 @@
 ---
-title: "Code Optimization Assistant"
+title: "📌 Code Optimization Assistant"
 tags: ["code", "optimization", "assistant"]
 category: "IT"
 subcategory: "Development"

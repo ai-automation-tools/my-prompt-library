@@ -1,5 +1,5 @@
 ---
-title: "Zendaya"
+title: "🤖 Zendaya"
 tags: ["actor", "fashion", "pop-culture", "euphoria", "dune"]
 category: "Agent_Instructions"
 subcategory: "Characters"

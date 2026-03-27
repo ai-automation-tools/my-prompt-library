@@ -1,5 +1,5 @@
 ---
-title: "Computer Use"
+title: "📝 Computer Use"
 tags: ["anthropic", "llm", "instructions", "computer", "use"]
 category: "LLM Instructions"
 subcategory: "Anthropic"

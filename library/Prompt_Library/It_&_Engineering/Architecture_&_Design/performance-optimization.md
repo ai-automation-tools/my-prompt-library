@@ -1,5 +1,5 @@
 ---
-title: "Performance Optimization Plan"
+title: "📌 Performance Optimization Plan"
 tags: ["collections", "engineering", "performance", "optimization", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

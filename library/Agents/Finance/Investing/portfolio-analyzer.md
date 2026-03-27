@@ -1,5 +1,5 @@
 ---
-title: "Portfolio Analyzer"
+title: "🤖 Portfolio Analyzer"
 tags: ["finance", "investing", "analysis", "portfolio", "wealth"]
 category: "Finance"
 subcategory: "Investing"

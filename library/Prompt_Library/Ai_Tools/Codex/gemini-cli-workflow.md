@@ -5,7 +5,7 @@ tags:
 - gemini
 - cli
 - workflow
-title: "Gemini Cli Workflow"
+title: "📌 Gemini Cli Workflow"
 ---
 
 # Prompt: Gemini CLI Workflow

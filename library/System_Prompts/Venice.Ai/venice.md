@@ -1,5 +1,5 @@
 ---
-title: "Venice"
+title: "🧠 Venice"
 tags: ["venice.ai", "llm", "instructions", "venice"]
 category: "LLM Instructions"
 subcategory: "Venice.ai"

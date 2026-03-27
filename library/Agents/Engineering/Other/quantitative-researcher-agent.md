@@ -1,5 +1,5 @@
 ---
-title: "Quantitative Researcher Agent"
+title: "🤖 Quantitative Researcher Agent"
 tags: ["finance", "quant", "trading", "investing", "algorithmic"]
 category: "Finance"
 subcategory: "Planning"

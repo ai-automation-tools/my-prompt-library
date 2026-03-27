@@ -1,5 +1,5 @@
 ---
-title: Cyber Security Specialist
+title: "📌 Cyber Security Specialist"
 tags:
 - collections
 - engineering

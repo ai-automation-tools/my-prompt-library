@@ -1,5 +1,5 @@
 ---
-title: "Claude Opus4.5 Soul Document"
+title: "📝 Claude Opus4.5 Soul Document"
 tags: ["anthropic", "llm", "instructions", "claude", "opus4_5", "soul", "document"]
 category: "LLM Instructions"
 subcategory: "Anthropic"

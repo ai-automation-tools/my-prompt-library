@@ -1,5 +1,5 @@
 ---
-title: "Financial Model And Funding Plan"
+title: "📄 Financial Model And Funding Plan"
 tags: ["business", "documentation", "financial", "model", "funding"]
 category: "Business"
 subcategory: "Documentation"

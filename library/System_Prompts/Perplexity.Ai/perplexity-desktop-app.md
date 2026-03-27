@@ -1,5 +1,5 @@
 ---
-title: "Perplexity Desktop App"
+title: "🧠 Perplexity Desktop App"
 tags: ["perplexity.ai", "llm", "instructions", "perplexity", "desktop", "app"]
 category: "LLM Instructions"
 subcategory: "Perplexity.ai"

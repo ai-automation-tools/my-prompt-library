@@ -1,5 +1,5 @@
 ---
-title: "Customer Support Ticket Resolver"
+title: "🤖 Customer Support Ticket Resolver"
 tags: ["ai-agent", "customer-support", "automation", "tickets"]
 category: "Business"
 subcategory: "Customer_Support"

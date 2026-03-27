@@ -1,5 +1,5 @@
 ---
-title: "Vacation Deals & Travel Package Scout"
+title: "🤝 Vacation Deals & Travel Package Scout"
 tags: ["ai-tools", "claude-cowork", "vacation", "deals", "travel"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

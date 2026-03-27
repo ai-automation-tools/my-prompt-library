@@ -1,5 +1,5 @@
 ---
-title: "Stephen Curry"
+title: "🤖 Stephen Curry"
 tags: ["sports", "basketball", "nba", "athlete"]
 category: "System_Prompts"
 subcategory: "Characters"

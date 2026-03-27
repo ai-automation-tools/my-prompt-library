@@ -1,5 +1,5 @@
 ---
-title: "Deadpool"
+title: "🤖 Deadpool"
 tags: ["marvel", "antihero", "pop-culture", "comedy"]
 category: "System_Prompts"
 subcategory: "Characters"

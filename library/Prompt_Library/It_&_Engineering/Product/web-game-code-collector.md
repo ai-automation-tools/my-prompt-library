@@ -1,5 +1,5 @@
 ---
-title: "Web Game Code Collector"
+title: "📌 Web Game Code Collector"
 tags: ["collections", "engineering", "game", "code", "collector"]
 category: "Collections"
 subcategory: "Engineering"

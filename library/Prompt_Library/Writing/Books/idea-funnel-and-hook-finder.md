@@ -1,5 +1,5 @@
 ---
-title: "Fiction Idea Funnel And Hook Finder"
+title: "✍️ Fiction Idea Funnel And Hook Finder"
 tags: ["writing", "fiction", "brainstorming", "book-idea", "story-hook"]
 category: "Writing"
 subcategory: "Books/Fiction"

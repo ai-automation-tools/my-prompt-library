@@ -6,7 +6,7 @@ tags:
 - militant-vegan
 - animal-rights
 - podcast
-title: Vegan Vanessa
+title: "🤖 Vegan Vanessa"
 ---
 
 # Vegan Vanessa

@@ -1,5 +1,5 @@
 ---
-title: "Airline Miles Transfer & Sweet Spot Alert"
+title: "🤝 Airline Miles Transfer & Sweet Spot Alert"
 tags: ["ai-tools", "claude-cowork", "airline", "miles", "transfer"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

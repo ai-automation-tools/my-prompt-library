@@ -1,5 +1,5 @@
 ---
-title: "Codebase Explorer"
+title: "📌 Codebase Explorer"
 tags: ["codebase", "exploration", "architecture", "overview", "patterns"]
 category: "File_and_Code_Operations"
 subcategory: "Exploration"

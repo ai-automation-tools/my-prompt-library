@@ -1,5 +1,5 @@
 ---
-title: "Gpt 4 Gizmo 20231116"
+title: "🧠 Gpt 4 Gizmo 20231116"
 tags: ["openai", "llm", "instructions", "gpt", "4", "gizmo", "20231116"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

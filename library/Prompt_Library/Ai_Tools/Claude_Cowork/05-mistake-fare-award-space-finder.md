@@ -1,5 +1,5 @@
 ---
-title: "Mistake Fare & Award Space Finder"
+title: "🤝 Mistake Fare & Award Space Finder"
 tags: ["ai-tools", "claude-cowork", "mistake", "fare", "award"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

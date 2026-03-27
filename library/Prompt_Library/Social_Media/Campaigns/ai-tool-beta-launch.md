@@ -1,5 +1,5 @@
 ---
-title: "AI Tool Beta Launch Twitter Campaign"
+title: "📢 AI Tool Beta Launch Twitter Campaign"
 tags: ["ai", "beta-launch", "twitter", "saas", "campaign"]
 category: "Social_Media"
 subcategory: "Campaigns"

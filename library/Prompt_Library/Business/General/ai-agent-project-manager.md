@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Project Management Assistant"
+title: "💼 AI Agent Project Management Assistant"
 tags: ["ai-agent", "project-management", "productivity", "task-planning"]
 category: "Business"
 subcategory: "General"

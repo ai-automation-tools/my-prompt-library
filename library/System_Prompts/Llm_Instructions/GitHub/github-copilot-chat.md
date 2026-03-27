@@ -1,5 +1,5 @@
 ---
-title: "GitHub Copilot Chat System Prompt"
+title: "💬 GitHub Copilot Chat System Prompt"
 tags: ["github", "copilot", "chat", "system-prompt", "ai-assistant", "coding"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

@@ -1,5 +1,5 @@
 ---
-title: "IT Infrastructure Prompt Library"
+title: "📌 IT Infrastructure Prompt Library"
 tags: ["it", "operations", "infrastructure", "prompt", "library"]
 category: "IT"
 subcategory: "Operations"

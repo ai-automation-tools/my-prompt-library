@@ -1,5 +1,5 @@
 ---
-title: "Customer Support Triage Agent"
+title: "🤖 Customer Support Triage Agent"
 tags: ["customer-support", "triage", "ai-agent", "business"]
 category: "Business"
 subcategory: "Customer_Support"

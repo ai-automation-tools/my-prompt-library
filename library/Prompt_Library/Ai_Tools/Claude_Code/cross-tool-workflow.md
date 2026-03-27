@@ -1,5 +1,5 @@
 ---
-title: "Cross Tool Workflow"
+title: "📌 Cross Tool Workflow"
 tags: ["mcp", "workflow", "orchestration", "tools", "multi-step"]
 category: "MCP_and_Tool_Integration"
 subcategory: "Workflow_Orchestration"

@@ -1,5 +1,5 @@
 ---
-title: "Chatgpt 5 08072025"
+title: "🧠 Chatgpt 5 08072025"
 tags: ["openai", "llm", "instructions", "chatgpt", "5", "08072025"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

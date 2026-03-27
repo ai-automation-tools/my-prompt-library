@@ -1,5 +1,5 @@
 ---
-title: "Tech Writer"
+title: "📌 Tech Writer"
 tags: ["collections", "engineering", "tech", "writer"]
 category: "Collections"
 subcategory: "Engineering"

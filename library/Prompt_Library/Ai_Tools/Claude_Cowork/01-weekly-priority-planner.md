@@ -1,5 +1,5 @@
 ---
-title: "Weekly Priority Planner"
+title: "🤝 Weekly Priority Planner"
 tags: ["ai-tools", "claude-cowork", "weekly", "priority", "planner"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

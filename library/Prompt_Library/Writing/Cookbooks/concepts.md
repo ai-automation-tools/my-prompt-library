@@ -1,5 +1,5 @@
 ---
-title: "Cookbook Concepts"
+title: "🍳 Cookbook Concepts"
 tags: ["writing", "cookbooks", "concepts"]
 category: "Writing"
 subcategory: "Cookbooks"
