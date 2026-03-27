@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "buildTime": "2026-03-27T18:10:50.960Z",
-  "promptCount": 1218,
+  "buildTime": "2026-03-27T22:21:19.790Z",
+  "promptCount": 1263,
   "prompts": [
     {
       "id": "Agent_Guides/Claude_Code/claude_code_cli_guide.md",
@@ -128,13 +128,21 @@
     },
     {
       "id": "Agent_Guides/Gemini_CLI/gemini_cli_guide.md",
-      "title": "Gemini CLI Agent Guide",
+      "title": "💻 Gemini CLI Guide",
       "section": "Agent_Guides",
       "category": "Gemini_CLI",
       "subcategory": "gemini_cli_guide",
-      "tags": [],
+      "tags": [
+        "featured",
+        "gemini",
+        "flags",
+        "cli",
+        "reference",
+        "google",
+        "options"
+      ],
       "contentPreview": "\n<!-- Last Updated: 2026-03-25 - Synced with upstream (March 2026 release) -->\n\n# Gemini CLI Agent Guide\n\nComprehensive reference for building and managing agents with Gemini CLI.\n\n**Key Features:**\n-",
-      "lastModified": "2026-03-25T18:55:31.051Z",
+      "lastModified": "2026-03-27T21:44:35.901Z",
       "isUserOwned": false
     },
     {
@@ -4282,21 +4290,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Agents/Developer/General/adr.md",
-      "title": "🤖 Generating An Architecture Decision Record ADR",
-      "section": "Agents",
-      "category": "Developer",
-      "subcategory": "General",
-      "tags": [
-        "collections",
-        "engineering",
-        "prompt"
-      ],
-      "contentPreview": "# Prompt for Generating an Architecture Decision Record (ADR)\n\n## Objective\n\nTo generate a comprehensive Architecture Decision Record (ADR) that documents a significant architectural decision, ensurin",
-      "lastModified": "2026-03-27T17:47:13.091Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Agents/Developer/General/ai-agent-architect.md",
       "title": "AI Agent Architect",
       "section": "Agents",
@@ -4331,18 +4324,18 @@
     },
     {
       "id": "Agents/Developer/General/claude-fullstack-dev.md",
-      "title": "CLAUDE.md - Developer Agent Configuration",
+      "title": "Full Stack Dev",
       "section": "Agents",
       "category": "Developer",
       "subcategory": "General",
       "tags": [],
-      "contentPreview": "# CLAUDE.md - Developer Agent Configuration\r\n\r\n## 🧠 Role & Context\r\nYou are an expert full-stack engineer and systems architect. Your goal is to provide production-grade code, maintain system securit",
-      "lastModified": "2026-03-25T18:55:18.374Z",
+      "contentPreview": "# Full Stack Dev\r\n\r\n##  Role & Context\r\nYou are an expert full-stack engineer and systems architect. Your goal is to provide production-grade code, maintain system security, and leverage available MCP",
+      "lastModified": "2026-03-27T20:56:04.471Z",
       "isUserOwned": false
     },
     {
       "id": "Agents/Developer/General/data-engineer.md",
-      "title": "👨‍💻 Data Engineer",
+      "title": "Data Engineer",
       "section": "Agents",
       "category": "Developer",
       "subcategory": "General",
@@ -4354,7 +4347,7 @@
         "analytics"
       ],
       "contentPreview": "\n# Data Engineer Agent\n\n## Role\nYou are a data engineering expert specializing in building scalable data pipelines, ETL processes, data warehouses, and analytics infrastructure. You transform raw data",
-      "lastModified": "2026-03-25T22:02:24.224Z",
+      "lastModified": "2026-03-27T21:00:55.440Z",
       "isUserOwned": false
     },
     {
@@ -4405,7 +4398,7 @@
     },
     {
       "id": "Agents/Developer/General/iam-rbac-design.md",
-      "title": "🤖 Design A Comprehensive Iam/rbac And Abac System For A Multi Tenant SAAS Platform",
+      "title": "🤖 Principal Security Architect",
       "section": "Agents",
       "category": "Developer",
       "subcategory": "General",
@@ -4416,7 +4409,7 @@
         "design"
       ],
       "contentPreview": "# Prompt: Design a Comprehensive IAM/RBAC and ABAC System for a Multi-Tenant SaaS Platform\n\n## Persona\n\nYou are a principal security architect and engineer with deep expertise in Identity and Access M",
-      "lastModified": "2026-03-27T17:47:13.091Z",
+      "lastModified": "2026-03-27T20:58:19.327Z",
       "isUserOwned": false
     },
     {
@@ -4439,23 +4432,6 @@
       "tags": [],
       "contentPreview": "# Mobile Developer Agent\r\n\r\n## Role\r\nYou are a mobile development expert specializing in iOS, Android, and cross-platform mobile applications. You build native and hybrid apps with excellent user expe",
       "lastModified": "2026-03-25T18:55:18.382Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Agents/Developer/General/prompt-engineer.md",
-      "title": "👨‍💻 Prompt Engineer",
-      "section": "Agents",
-      "category": "Developer",
-      "subcategory": "General",
-      "tags": [
-        "featured",
-        "prompt-engineering",
-        "ai",
-        "llm",
-        "optimization"
-      ],
-      "contentPreview": "\n# Prompt Engineer Agent\n\n## Role\nYou are a prompt engineering expert specializing in crafting effective prompts for large language models, optimizing AI interactions, and teaching prompt design princ",
-      "lastModified": "2026-03-25T22:02:24.224Z",
       "isUserOwned": false
     },
     {
@@ -5381,6 +5357,74 @@
       "tags": [],
       "contentPreview": "You are a senior Git workflow manager with expertise in designing and implementing efficient version control workflows. Your focus spans branching strategies, automation, merge conflict resolution, an",
       "lastModified": "2026-03-25T18:55:18.458Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Agents/Healthcare/Clinical/medical-diagnostic-assistant.md",
+      "title": "🏥 Medical Diagnostic Assistant",
+      "section": "Agents",
+      "category": "Healthcare",
+      "subcategory": "Clinical",
+      "tags": [
+        "healthcare",
+        "medical",
+        "diagnosis",
+        "clinical",
+        "featured"
+      ],
+      "contentPreview": "\n# Medical Diagnostic Assistant\n\n## Role\nYou are an experienced medical diagnostic assistant with comprehensive knowledge of clinical medicine, pathophysiology, and evidence-based diagnostic protocols",
+      "lastModified": "2026-03-27T22:16:43.963Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Agents/Healthcare/Clinical/patient-education-specialist.md",
+      "title": "👨‍⚕️ Patient Education Specialist",
+      "section": "Agents",
+      "category": "Healthcare",
+      "subcategory": "Clinical",
+      "tags": [
+        "healthcare",
+        "patient-education",
+        "health-literacy",
+        "clinical"
+      ],
+      "contentPreview": "\n# Patient Education Specialist\n\n## Role\nYou create clear, accessible health education materials for patients with varying health literacy levels. You translate complex medical information into patien",
+      "lastModified": "2026-03-27T22:20:50.666Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Agents/Healthcare/Compliance/hipaa-compliance-advisor.md",
+      "title": "🔒 HIPAA Compliance Advisor",
+      "section": "Agents",
+      "category": "Healthcare",
+      "subcategory": "Compliance",
+      "tags": [
+        "healthcare",
+        "HIPAA",
+        "compliance",
+        "privacy",
+        "security",
+        "PHI",
+        "featured"
+      ],
+      "contentPreview": "\n# HIPAA Compliance Advisor\n\n## Role\nYou are an expert HIPAA (Health Insurance Portability and Accountability Act) compliance advisor with comprehensive knowledge of healthcare privacy and security re",
+      "lastModified": "2026-03-27T22:17:51.132Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Agents/Healthcare/Research/clinical-trial-coordinator.md",
+      "title": "🔬 Clinical Trial Coordinator",
+      "section": "Agents",
+      "category": "Healthcare",
+      "subcategory": "Research",
+      "tags": [
+        "healthcare",
+        "clinical-trials",
+        "research",
+        "IRB"
+      ],
+      "contentPreview": "\n# Clinical Trial Coordinator\n\n## Role\nYou assist with clinical trial management, protocol development, informed consent processes, and regulatory compliance for medical research studies.\n\n## Core Com",
+      "lastModified": "2026-03-27T22:20:50.666Z",
       "isUserOwned": false
     },
     {
@@ -10365,6 +10409,75 @@
       "isUserOwned": false
     },
     {
+      "id": "Prompt_Library/Education/Curriculum/assessment-design-tool.md",
+      "title": "📝 Assessment & Rubric Designer",
+      "section": "Prompt_Library",
+      "category": "Education",
+      "subcategory": "Curriculum",
+      "tags": [
+        "education",
+        "assessment",
+        "rubrics",
+        "evaluation",
+        "featured"
+      ],
+      "contentPreview": "\n# Assessment & Rubric Designer\n\nGenerate formative and summative assessments with clear rubrics.\n\n## Prompt\n\n```\nCreate a comprehensive assessment for:\n\n**Subject:** [Subject]\n**Grade Level:** [Grade",
+      "lastModified": "2026-03-27T22:20:50.666Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Prompt_Library/Education/Higher_Ed/syllabus-generator.md",
+      "title": "📋 College Syllabus Generator",
+      "section": "Prompt_Library",
+      "category": "Education",
+      "subcategory": "Higher_Ed",
+      "tags": [
+        "education",
+        "higher-ed",
+        "syllabus",
+        "college",
+        "university"
+      ],
+      "contentPreview": "\n# College Course Syllabus Generator\n\nGenerate comprehensive syllabi for college/university courses.\n\n## Prompt\n\n```\nCreate a detailed college course syllabus for:\n\n**Course Information:**\n- Course Ti",
+      "lastModified": "2026-03-27T22:20:50.666Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Prompt_Library/Education/K12/differentiated-instruction-planner.md",
+      "title": "📚 Differentiated Instruction Planner",
+      "section": "Prompt_Library",
+      "category": "Education",
+      "subcategory": "K12",
+      "tags": [
+        "education",
+        "differentiation",
+        "K-12",
+        "special-education",
+        "featured"
+      ],
+      "contentPreview": "\n# Differentiated Instruction Planner\n\nCreate tiered activities and differentiated lessons for diverse learners.\n\n## Prompt\n\n```\nYou are an expert in differentiated instruction and Universal Design fo",
+      "lastModified": "2026-03-27T22:20:50.666Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Prompt_Library/Education/K12/lesson-plan-generator.md",
+      "title": "🎓 K-12 Lesson Plan Generator",
+      "section": "Prompt_Library",
+      "category": "Education",
+      "subcategory": "K12",
+      "tags": [
+        "education",
+        "lesson-plan",
+        "K-12",
+        "curriculum",
+        "teaching",
+        "featured"
+      ],
+      "contentPreview": "\n# K-12 Lesson Plan Generator\n\nGenerate comprehensive, standards-aligned lesson plans for K-12 classrooms with differentiated instruction and assessment strategies.\n\n## Prompt\n\n```\nYou are an experien",
+      "lastModified": "2026-03-27T22:18:39.184Z",
+      "isUserOwned": false
+    },
+    {
       "id": "Prompt_Library/Finance/Advisory/wealth-management-advisory-agent.md",
       "title": "💰 Wealth Management Advisory Agent",
       "section": "Prompt_Library",
@@ -12601,6 +12714,41 @@
       "isUserOwned": false
     },
     {
+      "id": "Prompt_Library/Legal_Compliance/Contracts/nda-template-generator.md",
+      "title": "📜 NDA (Non-Disclosure Agreement) Generator",
+      "section": "Prompt_Library",
+      "category": "Legal_Compliance",
+      "subcategory": "Contracts",
+      "tags": [
+        "legal",
+        "contracts",
+        "NDA",
+        "confidentiality",
+        "featured"
+      ],
+      "contentPreview": "\n# NDA (Non-Disclosure Agreement) Template Generator\n\nGenerate customized non-disclosure agreements for various business scenarios.\n\n## Prompt\n\n```\nCreate a Non-Disclosure Agreement (NDA) for:\n\n**Type",
+      "lastModified": "2026-03-27T22:20:50.666Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Prompt_Library/Legal_Compliance/Privacy/gdpr-compliance-checklist.md",
+      "title": "🔐 GDPR Compliance Checklist Generator",
+      "section": "Prompt_Library",
+      "category": "Legal_Compliance",
+      "subcategory": "Privacy",
+      "tags": [
+        "legal",
+        "GDPR",
+        "privacy",
+        "compliance",
+        "EU",
+        "featured"
+      ],
+      "contentPreview": "\n# GDPR Compliance Checklist Generator\n\nCreate comprehensive GDPR compliance checklists for your organization.\n\n## Prompt\n\n```\nGenerate a GDPR compliance checklist for:\n\n**Organization Type:** [e.g., ",
+      "lastModified": "2026-03-27T22:20:50.666Z",
+      "isUserOwned": false
+    },
+    {
       "id": "Prompt_Library/MCP_Servers/AX-Platform/ax_prompt_library.md",
       "title": "🎯 AX MCP Server Prompts",
       "section": "Prompt_Library",
@@ -14189,6 +14337,17 @@
       "isUserOwned": false
     },
     {
+      "id": "Skills/AI_Engineering/Agent_Development/skill-creator/SKILL.md",
+      "title": "🛠️ skill-creator",
+      "section": "Skills",
+      "category": "AI_Engineering",
+      "subcategory": "Agent_Development",
+      "tags": [],
+      "contentPreview": "\n# Skill Creator\n\nA skill for creating new skills and iteratively improving them.\n\nAt a high level, the process of creating a skill goes like this:\n\n- Decide what you want the skill to do and roughly ",
+      "lastModified": "2026-03-27T18:03:37.605Z",
+      "isUserOwned": false
+    },
+    {
       "id": "Skills/AI_Engineering/MCP/mcp-builder/SKILL.md",
       "title": "📱 mcp-builder",
       "section": "Skills",
@@ -14222,6 +14381,17 @@
       "isUserOwned": false
     },
     {
+      "id": "Skills/AI_Engineering/Product_Engineer/ai-product/SKILL.md",
+      "title": "💻 ai-product",
+      "section": "Skills",
+      "category": "AI_Engineering",
+      "subcategory": "Product_Engineer",
+      "tags": [],
+      "contentPreview": "\n# AI Product Development\n\nYou are an AI product engineer who has shipped LLM features to millions of\nusers. You've debugged hallucinations at 3am, optimized prompts to reduce\ncosts by 80%, and built ",
+      "lastModified": "2026-03-27T18:03:37.597Z",
+      "isUserOwned": false
+    },
+    {
       "id": "Skills/AX-Platform/AX_Workspace_Cookbooks_SKILL/SKILL.md",
       "title": "🛠️ \"ax-workspace-cookbook\"",
       "section": "Skills",
@@ -14235,36 +14405,69 @@
       "isUserOwned": false
     },
     {
-      "id": "Skills/Business/Enterprise/applying-brand-guidelines/SKILL.md",
-      "title": "🛠️ applying-brand-guidelines",
+      "id": "Skills/Business/Marketing/content-creator/SKILL.md",
+      "title": "✨ content-creator",
       "section": "Skills",
       "category": "Business",
-      "subcategory": "Enterprise",
+      "subcategory": "Marketing",
       "tags": [],
-      "contentPreview": "\n# Corporate Brand Guidelines Skill\n\nThis skill ensures all generated documents adhere to corporate brand standards for consistent, professional communication.\n\n## Brand Identity\n\n### Company: Acme Co",
+      "contentPreview": "\n# Content Creator\n\nProfessional-grade brand voice analysis, SEO optimization, and platform-specific content frameworks.\n\n## Keywords\ncontent creation, blog posts, SEO, brand voice, social media, cont",
       "lastModified": "2026-03-27T18:03:37.597Z",
       "isUserOwned": false
     },
     {
-      "id": "Skills/Business/Enterprise/internal-comms/SKILL.md",
-      "title": "🛠️ internal-comms",
+      "id": "Skills/Business/Marketing/content-research-writer/SKILL.md",
+      "title": "🛠️ content-research-writer",
       "section": "Skills",
       "category": "Business",
-      "subcategory": "Enterprise",
+      "subcategory": "Marketing",
       "tags": [],
-      "contentPreview": "\n## When to use this skill\nTo write internal communications, use this skill for:\n- 3P updates (Progress, Plans, Problems)\n- Company newsletters\n- FAQ responses\n- Status reports\n- Leadership updates\n- ",
+      "contentPreview": "\n# Content Research Writer\n\nThis skill acts as your writing partner, helping you research, outline, draft, and refine content while maintaining your unique voice and style.\n\n## When to Use This Skill\n",
       "lastModified": "2026-03-27T18:03:37.597Z",
       "isUserOwned": false
     },
     {
-      "id": "Skills/Business/ai-product/SKILL.md",
-      "title": "💻 ai-product",
+      "id": "Skills/Business/Marketing/launch-strategy/SKILL.md",
+      "title": "🛠️ launch-strategy",
       "section": "Skills",
       "category": "Business",
-      "subcategory": "ai-product",
+      "subcategory": "Marketing",
       "tags": [],
-      "contentPreview": "\n# AI Product Development\n\nYou are an AI product engineer who has shipped LLM features to millions of\nusers. You've debugged hallucinations at 3am, optimized prompts to reduce\ncosts by 80%, and built ",
-      "lastModified": "2026-03-27T18:03:37.597Z",
+      "contentPreview": "\n# Launch Strategy\n\nYou are an expert in SaaS product launches and feature announcements. Your goal is to help users plan launches that build momentum, capture attention, and convert interest into use",
+      "lastModified": "2026-03-27T18:03:37.601Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Business/Marketing/marketing-demand-acquisition/SKILL.md",
+      "title": "🧠 marketing-demand-acquisition",
+      "section": "Skills",
+      "category": "Business",
+      "subcategory": "Marketing",
+      "tags": [],
+      "contentPreview": "\n# Marketing Demand & Acquisition\n\nExpert acquisition playbook for Series A+ startups scaling internationally (EU/US/Canada) with hybrid PLG/Sales-Led motion.\n\n## Keywords\ndemand generation, paid medi",
+      "lastModified": "2026-03-27T18:03:37.601Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Business/Marketing/seo-fundamentals/SKILL.md",
+      "title": "🌐 seo-fundamentals",
+      "section": "Skills",
+      "category": "Business",
+      "subcategory": "Marketing",
+      "tags": [],
+      "contentPreview": "\n# SEO Fundamentals\n\n> Principles for search engine visibility.\n\n---\n\n## 1. E-E-A-T Framework\n\n| Principle | Signals |\n|-----------|---------|\n| **Experience** | First-hand knowledge, real examples |\n",
+      "lastModified": "2026-03-27T18:03:37.601Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Business/Marketing/x-twitter-scraper/SKILL.md",
+      "title": "x-twitter-scraper",
+      "section": "Skills",
+      "category": "Business",
+      "subcategory": "Marketing",
+      "tags": [],
+      "contentPreview": "\r\n# Xquik API Integration\r\n\r\nXquik is an X (Twitter) real-time data platform providing a REST API, HMAC webhooks, and an MCP server for AI agents. It covers account monitoring, bulk data extraction (1",
+      "lastModified": "2026-03-27T21:31:36.176Z",
       "isUserOwned": false
     },
     {
@@ -14312,28 +14515,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Skills/Business/content-creator/SKILL.md",
-      "title": "✨ content-creator",
-      "section": "Skills",
-      "category": "Business",
-      "subcategory": "content-creator",
-      "tags": [],
-      "contentPreview": "\n# Content Creator\n\nProfessional-grade brand voice analysis, SEO optimization, and platform-specific content frameworks.\n\n## Keywords\ncontent creation, blog posts, SEO, brand voice, social media, cont",
-      "lastModified": "2026-03-27T18:03:37.597Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Skills/Business/content-research-writer/SKILL.md",
-      "title": "🛠️ content-research-writer",
-      "section": "Skills",
-      "category": "Business",
-      "subcategory": "content-research-writer",
-      "tags": [],
-      "contentPreview": "\n# Content Research Writer\n\nThis skill acts as your writing partner, helping you research, outline, draft, and refine content while maintaining your unique voice and style.\n\n## When to Use This Skill\n",
-      "lastModified": "2026-03-27T18:03:37.597Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Skills/Business/copy-editing/SKILL.md",
       "title": "🛠️ copy-editing",
       "section": "Skills",
@@ -14356,28 +14537,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Skills/Business/launch-strategy/SKILL.md",
-      "title": "🛠️ launch-strategy",
-      "section": "Skills",
-      "category": "Business",
-      "subcategory": "launch-strategy",
-      "tags": [],
-      "contentPreview": "\n# Launch Strategy\n\nYou are an expert in SaaS product launches and feature announcements. Your goal is to help users plan launches that build momentum, capture attention, and convert interest into use",
-      "lastModified": "2026-03-27T18:03:37.601Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Skills/Business/marketing-demand-acquisition/SKILL.md",
-      "title": "🧠 marketing-demand-acquisition",
-      "section": "Skills",
-      "category": "Business",
-      "subcategory": "marketing-demand-acquisition",
-      "tags": [],
-      "contentPreview": "\n# Marketing Demand & Acquisition\n\nExpert acquisition playbook for Series A+ startups scaling internationally (EU/US/Canada) with hybrid PLG/Sales-Led motion.\n\n## Keywords\ndemand generation, paid medi",
-      "lastModified": "2026-03-27T18:03:37.601Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Skills/Business/product-strategist/SKILL.md",
       "title": "🛠️ product-strategist",
       "section": "Skills",
@@ -14389,14 +14548,146 @@
       "isUserOwned": false
     },
     {
-      "id": "Skills/Business/seo-fundamentals/SKILL.md",
-      "title": "🌐 seo-fundamentals",
+      "id": "Skills/Cloud_Computing/AWS/aws-infrastructure-setup/SKILL.md",
+      "title": "☁️ AWS Infrastructure Setup",
       "section": "Skills",
-      "category": "Business",
-      "subcategory": "seo-fundamentals",
+      "category": "Cloud_Computing",
+      "subcategory": "AWS",
       "tags": [],
-      "contentPreview": "\n# SEO Fundamentals\n\n> Principles for search engine visibility.\n\n---\n\n## 1. E-E-A-T Framework\n\n| Principle | Signals |\n|-----------|---------|\n| **Experience** | First-hand knowledge, real examples |\n",
+      "contentPreview": "\n# AWS Infrastructure Setup\n\n## Overview\n\nDeploy production-ready AWS infrastructure with Infrastructure as Code (IaC), following AWS Well-Architected Framework principles.\n\n## Usage\n\n```\nSet up AWS i",
+      "lastModified": "2026-03-27T22:20:50.670Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Cloud_Computing/Azure/azure-devops-pipeline/SKILL.md",
+      "title": "🔵 Azure DevOps CI/CD Pipeline",
+      "section": "Skills",
+      "category": "Cloud_Computing",
+      "subcategory": "Azure",
+      "tags": [],
+      "contentPreview": "\n# Azure DevOps CI/CD Pipeline\n\n## Overview\n\nBuild comprehensive CI/CD pipelines using Azure DevOps for deploying applications to Azure App Service, AKS, or Azure Functions.\n\n## Usage\n\n```\nCreate an A",
+      "lastModified": "2026-03-27T22:20:50.670Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Cloud_Computing/GCP/gcp-kubernetes-deployment/SKILL.md",
+      "title": "🚀 GCP Kubernetes (GKE) Deployment",
+      "section": "Skills",
+      "category": "Cloud_Computing",
+      "subcategory": "GCP",
+      "tags": [],
+      "contentPreview": "\n# GCP Kubernetes (GKE) Deployment\n\n## Overview\n\nDeploy and manage containerized applications on Google Kubernetes Engine following best practices for production workloads.\n\n## Usage\n\n```\nDeploy [appl",
+      "lastModified": "2026-03-27T22:20:50.670Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Development/API/backend-api-design/SKILL.md",
+      "title": "🛠️ backend-api-design",
+      "section": "Skills",
+      "category": "Development",
+      "subcategory": "API",
+      "tags": [],
+      "contentPreview": "\n# Backend API Designer\n\nThis skill is designed to guide the architecture and design of backend APIs, focusing on best practices for RESTful principles, security, and scalability.\n\n## Guidelines for A",
       "lastModified": "2026-03-27T18:03:37.601Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Development/API/claude-api/SKILL.md",
+      "title": "💻 claude-api",
+      "section": "Skills",
+      "category": "Development",
+      "subcategory": "API",
+      "tags": [],
+      "contentPreview": "\n# Building LLM-Powered Applications with Claude\n\nThis skill helps you build LLM-powered applications with Claude. Choose the right surface based on your needs, detect the project language, then read ",
+      "lastModified": "2026-03-27T18:03:37.601Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Development/NextJS/nextjs-best-practices/SKILL.md",
+      "title": "nextjs-best-practices",
+      "section": "Skills",
+      "category": "Development",
+      "subcategory": "NextJS",
+      "tags": [],
+      "contentPreview": "\r\n# Next.js Best Practices\r\n\r\n> Principles for Next.js App Router development.\r\n\r\n---\r\n\r\n## 1. Server vs Client Components\r\n\r\n### Decision Tree\r\n\r\n```\r\nDoes it need...?\r\n│\r\n├── useState, useEffect, ev",
+      "lastModified": "2026-03-27T21:26:55.220Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Development/NextJS/nextjs-supabase-auth/SKILL.md",
+      "title": "nextjs-supabase-auth",
+      "section": "Skills",
+      "category": "Development",
+      "subcategory": "NextJS",
+      "tags": [],
+      "contentPreview": "\r\n# Next.js + Supabase Auth\r\n\r\nYou are an expert in integrating Supabase Auth with Next.js App Router.\r\nYou understand the server/client boundary, how to handle auth in middleware,\r\nServer Components,",
+      "lastModified": "2026-03-27T21:26:55.350Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Development/NodeJS/nodejs-best-practices/SKILL.md",
+      "title": "nodejs-best-practices",
+      "section": "Skills",
+      "category": "Development",
+      "subcategory": "NodeJS",
+      "tags": [],
+      "contentPreview": "\r\n# Node.js Best Practices\r\n\r\n> Principles and decision-making for Node.js development in 2025.\r\n> **Learn to THINK, not memorize code patterns.**\r\n\r\n---\r\n\r\n## ⚠️ How to Use This Skill\r\n\r\nThis skill t",
+      "lastModified": "2026-03-27T21:27:03.696Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Development/Web_Development/canvas-design/SKILL.md",
+      "title": "🛠️ canvas-design",
+      "section": "Skills",
+      "category": "Development",
+      "subcategory": "Web_Development",
+      "tags": [],
+      "contentPreview": "\n# canvas-design\n\nThese are instructions for creating design philosophies - aesthetic movements that are then EXPRESSED VISUALLY. Output only .md files, .pdf files, and .png files.\n\nComplete this in t",
+      "lastModified": "2026-03-27T18:03:37.601Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Development/Web_Development/frontend-design/SKILL.md",
+      "title": "💻 frontend-design",
+      "section": "Skills",
+      "category": "Development",
+      "subcategory": "Web_Development",
+      "tags": [],
+      "contentPreview": "\n# frontend-design\n\nThis skill guides creation of distinctive, production-grade frontend interfaces that avoid generic \"AI slop\" aesthetics. Implement real working code with exceptional attention to a",
+      "lastModified": "2026-03-27T18:03:37.605Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Development/Web_Development/react-component-generator/SKILL.md",
+      "title": "🛠️ react-component-generator",
+      "section": "Skills",
+      "category": "Development",
+      "subcategory": "Web_Development",
+      "tags": [],
+      "contentPreview": "\n# React Component Generator\n\nThis skill guides the creation of high-quality React components following modern best practices.\n\n## Guidelines\n\nWhen generating a React component, follow these rules:\n\n1",
+      "lastModified": "2026-03-27T18:03:37.605Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Development/Web_Development/web-artifacts-builder/SKILL.md",
+      "title": "🌐 web-artifacts-builder",
+      "section": "Skills",
+      "category": "Development",
+      "subcategory": "Web_Development",
+      "tags": [],
+      "contentPreview": "\n# Web Artifacts Builder\n\nTo build powerful frontend claude.ai artifacts, follow these steps:\n1. Initialize the frontend repo using `scripts/init-artifact.sh`\n2. Develop your artifact by editing the g",
+      "lastModified": "2026-03-27T18:03:37.605Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Development/Web_Development/webapp-testing/SKILL.md",
+      "title": "🐛 webapp-testing",
+      "section": "Skills",
+      "category": "Development",
+      "subcategory": "Web_Development",
+      "tags": [],
+      "contentPreview": "\n# Web Application Testing\n\nTo test local web applications, write native Python Playwright scripts.\n\n**Helper Scripts Available**:\n- `scripts/with_server.py` - Manages server lifecycle (supports multi",
+      "lastModified": "2026-03-27T18:03:37.605Z",
       "isUserOwned": false
     },
     {
@@ -14407,39 +14698,6 @@
       "subcategory": "algorithmic-art",
       "tags": [],
       "contentPreview": "\n# algorithmic-art\n\nAlgorithmic philosophies are computational aesthetic movements that are then expressed through code. Output .md files (philosophy), .html files (interactive viewer), and .js files ",
-      "lastModified": "2026-03-27T18:03:37.601Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Skills/Development/backend-api-design/SKILL.md",
-      "title": "🛠️ backend-api-design",
-      "section": "Skills",
-      "category": "Development",
-      "subcategory": "backend-api-design",
-      "tags": [],
-      "contentPreview": "\n# Backend API Designer\n\nThis skill is designed to guide the architecture and design of backend APIs, focusing on best practices for RESTful principles, security, and scalability.\n\n## Guidelines for A",
-      "lastModified": "2026-03-27T18:03:37.601Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Skills/Development/canvas-design/SKILL.md",
-      "title": "🛠️ canvas-design",
-      "section": "Skills",
-      "category": "Development",
-      "subcategory": "canvas-design",
-      "tags": [],
-      "contentPreview": "\n# canvas-design\n\nThese are instructions for creating design philosophies - aesthetic movements that are then EXPRESSED VISUALLY. Output only .md files, .pdf files, and .png files.\n\nComplete this in t",
-      "lastModified": "2026-03-27T18:03:37.601Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Skills/Development/claude-api/SKILL.md",
-      "title": "💻 claude-api",
-      "section": "Skills",
-      "category": "Development",
-      "subcategory": "claude-api",
-      "tags": [],
-      "contentPreview": "\n# Building LLM-Powered Applications with Claude\n\nThis skill helps you build LLM-powered applications with Claude. Choose the right surface based on your needs, detect the project language, then read ",
       "lastModified": "2026-03-27T18:03:37.601Z",
       "isUserOwned": false
     },
@@ -14455,17 +14713,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Skills/Development/frontend-design/SKILL.md",
-      "title": "💻 frontend-design",
-      "section": "Skills",
-      "category": "Development",
-      "subcategory": "frontend-design",
-      "tags": [],
-      "contentPreview": "\n# frontend-design\n\nThis skill guides creation of distinctive, production-grade frontend interfaces that avoid generic \"AI slop\" aesthetics. Implement real working code with exceptional attention to a",
-      "lastModified": "2026-03-27T18:03:37.605Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Skills/Development/mcp-builder/SKILL.md",
       "title": "📱 mcp-builder",
       "section": "Skills",
@@ -14473,28 +14720,6 @@
       "subcategory": "mcp-builder",
       "tags": [],
       "contentPreview": "\n# MCP Server Development Guide\n\n## Overview\n\nCreate MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. The quality of an MCP server ",
-      "lastModified": "2026-03-27T18:03:37.605Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Skills/Development/react-component-generator/SKILL.md",
-      "title": "🛠️ react-component-generator",
-      "section": "Skills",
-      "category": "Development",
-      "subcategory": "react-component-generator",
-      "tags": [],
-      "contentPreview": "\n# React Component Generator\n\nThis skill guides the creation of high-quality React components following modern best practices.\n\n## Guidelines\n\nWhen generating a React component, follow these rules:\n\n1",
-      "lastModified": "2026-03-27T18:03:37.605Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Skills/Development/skill-creator/SKILL.md",
-      "title": "🛠️ skill-creator",
-      "section": "Skills",
-      "category": "Development",
-      "subcategory": "skill-creator",
-      "tags": [],
-      "contentPreview": "\n# Skill Creator\n\nA skill for creating new skills and iteratively improving them.\n\nAt a high level, the process of creating a skill goes like this:\n\n- Decide what you want the skill to do and roughly ",
       "lastModified": "2026-03-27T18:03:37.605Z",
       "isUserOwned": false
     },
@@ -14528,28 +14753,6 @@
       "subcategory": "theme-factory",
       "tags": [],
       "contentPreview": "\n\n# Theme Factory Skill\n\nThis skill provides a curated collection of professional font and color themes themes, each with carefully selected color palettes and font pairings. Once a theme is chosen, i",
-      "lastModified": "2026-03-27T18:03:37.605Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Skills/Development/web-artifacts-builder/SKILL.md",
-      "title": "🌐 web-artifacts-builder",
-      "section": "Skills",
-      "category": "Development",
-      "subcategory": "web-artifacts-builder",
-      "tags": [],
-      "contentPreview": "\n# Web Artifacts Builder\n\nTo build powerful frontend claude.ai artifacts, follow these steps:\n1. Initialize the frontend repo using `scripts/init-artifact.sh`\n2. Develop your artifact by editing the g",
-      "lastModified": "2026-03-27T18:03:37.605Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Skills/Development/webapp-testing/SKILL.md",
-      "title": "🐛 webapp-testing",
-      "section": "Skills",
-      "category": "Development",
-      "subcategory": "webapp-testing",
-      "tags": [],
-      "contentPreview": "\n# Web Application Testing\n\nTo test local web applications, write native Python Playwright scripts.\n\n**Helper Scripts Available**:\n- `scripts/with_server.py` - Manages server lifecycle (supports multi",
       "lastModified": "2026-03-27T18:03:37.605Z",
       "isUserOwned": false
     },
@@ -14705,6 +14908,17 @@
       "tags": [],
       "contentPreview": "\n# API Patterns\n\n> API design principles and decision-making for 2025.\n> **Learn to THINK, not copy fixed patterns.**\n\n## 🎯 Selective Reading Rule\n\n**Read ONLY files relevant to the request!** Check ",
       "lastModified": "2026-03-27T18:03:37.609Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Engineering/Analytics/google-analytics/SKILL.md",
+      "title": "google-analytics",
+      "section": "Skills",
+      "category": "Engineering",
+      "subcategory": "Analytics",
+      "tags": [],
+      "contentPreview": "\r\n# Google Analytics Analysis\r\n\r\nAnalyze website performance using Google Analytics data to provide actionable insights and improvement recommendations.\r\n\r\n## Quick Start\r\n\r\n### 1. Setup Authenticatio",
+      "lastModified": "2026-03-27T21:25:04.681Z",
       "isUserOwned": false
     },
     {
@@ -14903,6 +15117,138 @@
       "tags": [],
       "contentPreview": "\n# Senior Security\n\nComplete toolkit for senior security with modern tools and best practices.\n\n## Quick Start\n\n### Main Capabilities\n\nThis skill provides three core capabilities through automated scr",
       "lastModified": "2026-03-27T18:03:37.613Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Brand/applying-brand-guidelines/SKILL.md",
+      "title": "🛠️ applying-brand-guidelines",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Brand",
+      "tags": [],
+      "contentPreview": "\n# Corporate Brand Guidelines Skill\n\nThis skill ensures all generated documents adhere to corporate brand standards for consistent, professional communication.\n\n## Brand Identity\n\n### Company: Acme Co",
+      "lastModified": "2026-03-27T18:03:37.597Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/data-privacy-compliance/SKILL.md",
+      "title": "Data Privacy Compliance",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\r\n# Data Privacy Compliance\r\n\r\nComprehensive guidance for implementing data privacy compliance across GDPR, CCPA, HIPAA, and other global data protection regulations.\r\n\r\n## When to Use This Skill\r\n\r\nU",
+      "lastModified": "2026-03-27T21:29:53.736Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/feedback-mastery/SKILL.md",
+      "title": "feedback-mastery",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\r\n# Feedback Conversations\r\n\r\n## Overview\r\n\r\nThis skill provides frameworks for navigating difficult workplace conversations and delivering effective feedback. Whether you're addressing performance is",
+      "lastModified": "2026-03-27T21:29:53.820Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/internal-comms/SKILL.md",
+      "title": "🛠️ internal-comms",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\n## When to use this skill\nTo write internal communications, use this skill for:\n- 3P updates (Progress, Plans, Problems)\n- Company newsletters\n- FAQ responses\n- Status reports\n- Leadership updates\n- ",
+      "lastModified": "2026-03-27T18:03:37.597Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/internal-comms-anthropic/SKILL.md",
+      "title": "internal-comms",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\r\n## When to use this skill\r\nTo write internal communications, use this skill for:\r\n- 3P updates (Progress, Plans, Problems)\r\n- Company newsletters\r\n- FAQ responses\r\n- Status reports\r\n- Leadership upd",
+      "lastModified": "2026-03-27T21:29:53.952Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/internal-comms-community/SKILL.md",
+      "title": "internal-comms",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\r\n## When to use this skill\r\nTo write internal communications, use this skill for:\r\n- 3P updates (Progress, Plans, Problems)\r\n- Company newsletters\r\n- FAQ responses\r\n- Status reports\r\n- Leadership upd",
+      "lastModified": "2026-03-27T21:29:54.099Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/slack-bot-builder/SKILL.md",
+      "title": "slack-bot-builder",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\r\n# Slack Bot Builder\r\n\r\n## Patterns\r\n\r\n### Bolt App Foundation Pattern\r\n\r\nThe Bolt framework is Slack's recommended approach for building apps.\r\nIt handles authentication, event routing, request veri",
+      "lastModified": "2026-03-27T21:29:54.251Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/slack-gif-creator/SKILL.md",
+      "title": "slack-gif-creator",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\r\n# Slack GIF Creator\r\n\r\nA toolkit providing utilities and knowledge for creating animated GIFs optimized for Slack.\r\n\r\n## Slack Requirements\r\n\r\n**Dimensions:**\r\n- Emoji GIFs: 128x128 (recommended)\r\n-",
+      "lastModified": "2026-03-27T21:29:54.387Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/telegram-bot-builder/SKILL.md",
+      "title": "telegram-bot-builder",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\r\n# Telegram Bot Builder\r\n\r\n**Role**: Telegram Bot Architect\r\n\r\nYou build bots that people actually use daily. You understand that bots\r\nshould feel like helpful assistants, not clunky interfaces. You",
+      "lastModified": "2026-03-27T21:29:54.628Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/telegram-mini-app/SKILL.md",
+      "title": "telegram-mini-app",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\r\n# Telegram Mini App\r\n\r\n**Role**: Telegram Mini App Architect\r\n\r\nYou build apps where 800M+ Telegram users already are. You understand\r\nthe Mini App ecosystem is exploding - games, DeFi, utilities, s",
+      "lastModified": "2026-03-27T21:29:54.751Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/twilio-communications/SKILL.md",
+      "title": "twilio-communications",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\r\n# Twilio Communications\r\n\r\n## Patterns\r\n\r\n### SMS Sending Pattern\r\n\r\nBasic pattern for sending SMS messages with Twilio.\r\nHandles the fundamentals: phone number formatting, message delivery,\r\nand de",
+      "lastModified": "2026-03-27T21:29:54.874Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Enterprise/Communications/writing-clearly-and-concisely/SKILL.md",
+      "title": "writing-clearly-and-concisely",
+      "section": "Skills",
+      "category": "Enterprise",
+      "subcategory": "Communications",
+      "tags": [],
+      "contentPreview": "\r\n# Writing Clearly and Concisely\r\n\r\n## Overview\r\n\r\nWrite with clarity and force. This skill covers what to do (Strunk) and what not to do (AI patterns).\r\n\r\n## When to Use This Skill\r\n\r\nUse this skill",
+      "lastModified": "2026-03-27T21:29:54.977Z",
       "isUserOwned": false
     },
     {
@@ -15555,11 +15901,55 @@
       "isUserOwned": false
     },
     {
-      "id": "Skills/News/ai-news-digest/SKILL.md",
+      "id": "Skills/Mobile_Development/Android/jetpack-compose-screen-builder/SKILL.md",
+      "title": "🤖 Jetpack Compose Screen Builder",
+      "section": "Skills",
+      "category": "Mobile_Development",
+      "subcategory": "Android",
+      "tags": [],
+      "contentPreview": "\n# Jetpack Compose Screen Builder\n\n## Overview\n\nGenerate Android screens with Jetpack Compose following modern Android architecture (MVVM), Material Design 3, and Kotlin coroutines.\n\n## Usage\n\n```\nCre",
+      "lastModified": "2026-03-27T22:20:50.670Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Mobile_Development/Flutter/flutter-widget-builder/SKILL.md",
+      "title": "🎨 Flutter Widget Builder",
+      "section": "Skills",
+      "category": "Mobile_Development",
+      "subcategory": "Flutter",
+      "tags": [],
+      "contentPreview": "\n# Flutter Widget Builder\n\n## Overview\n\nGenerate Flutter widgets following clean architecture, BLoC state management, and Material Design guidelines.\n\n## Usage\n\n```\nCreate a Flutter widget for [purpos",
+      "lastModified": "2026-03-27T22:20:50.670Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Mobile_Development/React_Native/react-native-component-generator/SKILL.md",
+      "title": "⚛️ React Native Component Generator",
+      "section": "Skills",
+      "category": "Mobile_Development",
+      "subcategory": "React_Native",
+      "tags": [],
+      "contentPreview": "\n# React Native Component Generator\n\n## Overview\n\nThis skill helps you generate production-ready React Native components following best practices, including proper TypeScript types, hooks, and styling",
+      "lastModified": "2026-03-27T22:20:50.666Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Mobile_Development/iOS/swiftui-view-generator/SKILL.md",
+      "title": "🍎 SwiftUI View Generator",
+      "section": "Skills",
+      "category": "Mobile_Development",
+      "subcategory": "iOS",
+      "tags": [],
+      "contentPreview": "\n# SwiftUI View Generator\n\n## Overview\n\nCreate SwiftUI views following MVVM architecture, using Combine for reactive programming and adhering to Apple's Human Interface Guidelines.\n\n## Usage\n\n```\nGene",
+      "lastModified": "2026-03-27T22:20:50.670Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Other/News/ai-news-digest/SKILL.md",
       "title": "✨ ai-news-digest",
       "section": "Skills",
-      "category": "News",
-      "subcategory": "ai-news-digest",
+      "category": "Other",
+      "subcategory": "News",
       "tags": [
         "featured"
       ],
@@ -15568,25 +15958,157 @@
       "isUserOwned": false
     },
     {
-      "id": "Skills/News/daily-news-collage/SKILL.md",
+      "id": "Skills/Other/News/daily-news-collage/SKILL.md",
       "title": "🖼️ daily-news-collage",
       "section": "Skills",
-      "category": "News",
-      "subcategory": "daily-news-collage",
+      "category": "Other",
+      "subcategory": "News",
       "tags": [],
       "contentPreview": "\n# Daily News Collage Generator\n\nGenerate a cartoon-style illustrated news collage showing the biggest daily news stories using the nanobanana MCP tool.\n\n## When to use this Skill\n\nUse this Skill when",
       "lastModified": "2026-03-27T18:03:37.633Z",
       "isUserOwned": false
     },
     {
-      "id": "Skills/SIEM/siem-cve-workflow/SKILL.md",
-      "title": "🛠️ siem_cve_workflow",
+      "id": "Skills/Productivity/brainstorming/SKILL.md",
+      "title": "brainstorming",
       "section": "Skills",
-      "category": "SIEM",
-      "subcategory": "siem-cve-workflow",
+      "category": "Productivity",
+      "subcategory": "brainstorming",
       "tags": [],
-      "contentPreview": "\n# SIEM CVE Workflow\n\nRun the full SIEM CVE pipeline: fetch critical vulnerabilities, normalize an alert, and coordinate all agents through detection, enrichment, correlation, and incident response.\n\n",
-      "lastModified": "2026-03-27T18:03:37.637Z",
+      "contentPreview": "\r\n# Brainstorming Ideas Into Designs\r\n\r\n## Overview\r\n\r\nHelp turn ideas into fully formed designs and specs through natural collaborative dialogue.\r\n\r\nStart by understanding the current project context",
+      "lastModified": "2026-03-27T21:19:40.849Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Productivity/concise-planning/SKILL.md",
+      "title": "concise-planning",
+      "section": "Skills",
+      "category": "Productivity",
+      "subcategory": "concise-planning",
+      "tags": [],
+      "contentPreview": "\r\n# Concise Planning\r\n\r\n## Goal\r\n\r\nTurn a user request into a **single, actionable plan** with atomic steps.\r\n\r\n## Workflow\r\n\r\n### 1. Scan Context\r\n\r\n- Read `README.md`, docs, and relevant code files.",
+      "lastModified": "2026-03-27T21:19:40.925Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Productivity/executing-plans/SKILL.md",
+      "title": "executing-plans",
+      "section": "Skills",
+      "category": "Productivity",
+      "subcategory": "executing-plans",
+      "tags": [],
+      "contentPreview": "\r\n# Executing Plans\r\n\r\n## Overview\r\n\r\nLoad plan, review critically, execute tasks in batches, report for review between batches.\r\n\r\n**Core principle:** Batch execution with checkpoints for architect r",
+      "lastModified": "2026-03-27T21:19:39.655Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Productivity/file-organizer/SKILL.md",
+      "title": "file-organizer",
+      "section": "Skills",
+      "category": "Productivity",
+      "subcategory": "file-organizer",
+      "tags": [],
+      "contentPreview": "\r\n# File Organizer\r\n\r\n## When to Use This Skill\r\n\r\n- Your Downloads folder is a chaotic mess\r\n- You can't find files because they're scattered everywhere\r\n- You have duplicate files taking up space\r\n-",
+      "lastModified": "2026-03-27T21:19:39.782Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Productivity/invoice-organizer/SKILL.md",
+      "title": "invoice-organizer",
+      "section": "Skills",
+      "category": "Productivity",
+      "subcategory": "invoice-organizer",
+      "tags": [],
+      "contentPreview": "\r\n# Invoice Organizer\r\n\r\nThis skill transforms chaotic folders of invoices, receipts, and financial documents into a clean, tax-ready filing system without manual effort.\r\n\r\n## When to Use This Skill\r",
+      "lastModified": "2026-03-27T21:19:39.905Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Productivity/notebooklm/SKILL.md",
+      "title": "notebooklm",
+      "section": "Skills",
+      "category": "Productivity",
+      "subcategory": "notebooklm",
+      "tags": [],
+      "contentPreview": "\r\n# NotebookLM Research Assistant Skill\r\n\r\nInteract with Google NotebookLM to query documentation with Gemini's source-grounded answers. Each question opens a fresh browser session, retrieves the answ",
+      "lastModified": "2026-03-27T21:19:40.057Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Productivity/plan-writing/SKILL.md",
+      "title": "plan-writing",
+      "section": "Skills",
+      "category": "Productivity",
+      "subcategory": "plan-writing",
+      "tags": [],
+      "contentPreview": "\r\n# Plan Writing\r\n\r\n> Source: obra/superpowers\r\n\r\n## Overview\r\nThis skill provides a framework for breaking down work into clear, actionable tasks with verification criteria.\r\n\r\n## Task Breakdown Prin",
+      "lastModified": "2026-03-27T21:19:40.344Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Productivity/skill-creator/SKILL.md",
+      "title": "skill-creator",
+      "section": "Skills",
+      "category": "Productivity",
+      "subcategory": "skill-creator",
+      "tags": [],
+      "contentPreview": "\r\n# Skill Creator\r\n\r\nThis skill provides guidance for creating effective skills.\r\n\r\n## About Skills\r\n\r\nSkills are modular, self-contained packages that extend Claude's capabilities by providing\r\nspeci",
+      "lastModified": "2026-03-27T21:19:40.459Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Productivity/skill-developer/SKILL.md",
+      "title": "skill-developer",
+      "section": "Skills",
+      "category": "Productivity",
+      "subcategory": "skill-developer",
+      "tags": [],
+      "contentPreview": "\r\n# Skill Developer Guide\r\n\r\n## Purpose\r\n\r\nComprehensive guide for creating and managing skills in Claude Code with auto-activation system, following Anthropic's official best practices including the ",
+      "lastModified": "2026-03-27T21:19:40.622Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Productivity/think-tank/SKILL.md",
+      "title": "think-tank",
+      "section": "Skills",
+      "category": "Productivity",
+      "subcategory": "think-tank",
+      "tags": [],
+      "contentPreview": "\r\n# Virtual Think Tank\r\n\r\nA pre-planning skill that simulates a moderated expert debate to surface trade-offs, blind spots, and perspectives before committing to a plan. Inspired by real think tanks: ",
+      "lastModified": "2026-03-27T21:19:40.734Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Science/histolab/SKILL.md",
+      "title": "histolab",
+      "section": "Skills",
+      "category": "Science",
+      "subcategory": "histolab",
+      "tags": [],
+      "contentPreview": "\n# Histolab\n\n## Overview\n\nHistolab is a Python library for processing whole slide images (WSI) in digital pathology. It automates tissue detection, extracts informative tiles from gigapixel images, an",
+      "lastModified": "2026-03-27T21:23:33.006Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Science/matlab/SKILL.md",
+      "title": "matlab",
+      "section": "Skills",
+      "category": "Science",
+      "subcategory": "matlab",
+      "tags": [],
+      "contentPreview": "\n# MATLAB/Octave Scientific Computing\n\nMATLAB is a numerical computing environment optimized for matrix operations and scientific computing. GNU Octave is a free, open-source alternative with high MAT",
+      "lastModified": "2026-03-27T21:23:33.134Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Science/scanpy/SKILL.md",
+      "title": "scanpy",
+      "section": "Skills",
+      "category": "Science",
+      "subcategory": "scanpy",
+      "tags": [],
+      "contentPreview": "\n# Scanpy: Single-Cell Analysis\n\n## Overview\n\nScanpy is a scalable Python toolkit for analyzing single-cell RNA-seq data, built on AnnData. Apply this skill for complete single-cell workflows includin",
+      "lastModified": "2026-03-27T21:23:33.290Z",
       "isUserOwned": false
     },
     {
@@ -15663,6 +16185,39 @@
       "subcategory": "scientific-writing",
       "tags": [],
       "contentPreview": "\n# Scientific Writing\n\n## Overview\n\n**This is the core skill for the deep research and writing tool**—combining AI-driven deep research with well-formatted written outputs. Every document produced is ",
+      "lastModified": "2026-03-27T18:03:37.637Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Science/statistical-analysis/SKILL.md",
+      "title": "statistical-analysis",
+      "section": "Skills",
+      "category": "Science",
+      "subcategory": "statistical-analysis",
+      "tags": [],
+      "contentPreview": "\n# Statistical Analysis\n\n## Overview\n\nStatistical analysis is a systematic process for testing hypotheses and quantifying relationships. Conduct hypothesis tests (t-test, ANOVA, chi-square), regressio",
+      "lastModified": "2026-03-27T21:23:32.486Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Science/timesfm-forecasting/SKILL.md",
+      "title": "timesfm-forecasting",
+      "section": "Skills",
+      "category": "Science",
+      "subcategory": "timesfm-forecasting",
+      "tags": [],
+      "contentPreview": "\n# TimesFM Forecasting\n\n## Overview\n\nTimesFM (Time Series Foundation Model) is a pretrained decoder-only foundation model\ndeveloped by Google Research for time-series forecasting. It works **zero-shot",
+      "lastModified": "2026-03-27T21:23:32.710Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Skills/Security/SIEM/siem-cve-workflow/SKILL.md",
+      "title": "🛠️ siem_cve_workflow",
+      "section": "Skills",
+      "category": "Security",
+      "subcategory": "SIEM",
+      "tags": [],
+      "contentPreview": "\n# SIEM CVE Workflow\n\nRun the full SIEM CVE pipeline: fetch critical vulnerabilities, normalize an alert, and coordinate all agents through detection, enrichment, correlation, and incident response.\n\n",
       "lastModified": "2026-03-27T18:03:37.637Z",
       "isUserOwned": false
     },
