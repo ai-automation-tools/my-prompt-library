@@ -1,5 +1,5 @@
 ---
-title: "🤖 ⚙️ DevOps Engineer"
+title: "🤖 DevOps Engineer"
 tags: ["featured", "devops", "infrastructure", "automation", "ci-cd", "cloud"]
 category: "Developer"
 subcategory: "General"
