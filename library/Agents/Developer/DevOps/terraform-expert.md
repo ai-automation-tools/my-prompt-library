@@ -1,5 +1,5 @@
 ---
-title: "Terraform Expert"
+title: "🤖 Terraform Expert"
 tags: ["terraform", "iac", "infrastructure", "devops", "cloud"]
 category: "DevOps"
 subcategory: "Infrastructure"

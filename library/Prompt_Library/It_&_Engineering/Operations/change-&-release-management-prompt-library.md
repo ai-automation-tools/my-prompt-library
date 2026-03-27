@@ -1,5 +1,5 @@
 ---
-title: "Change & Release Management Prompt Library"
+title: "📌 Change & Release Management Prompt Library"
 tags: ["it", "operations", "change", "release", "management"]
 category: "IT"
 subcategory: "Operations"

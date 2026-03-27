@@ -1,5 +1,5 @@
 ---
-title: "Python Data Analysis Dashboard"
+title: "🤖 Python Data Analysis Dashboard"
 tags: ["it", "build-apps", "python", "data", "analysis"]
 category: "IT"
 subcategory: "Build_Apps"

@@ -1,5 +1,5 @@
 ---
-title: "Market Research And Customer Validation"
+title: "📄 Market Research And Customer Validation"
 tags: ["business", "documentation", "market", "research", "customer"]
 category: "Business"
 subcategory: "Documentation"

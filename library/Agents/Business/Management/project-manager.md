@@ -1,5 +1,5 @@
 ---
-title: "Project Manager"
+title: "🤖 Project Manager"
 tags: ["management", "business", "project", "planning"]
 category: "Business"
 subcategory: "Management"

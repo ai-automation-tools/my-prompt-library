@@ -2,7 +2,7 @@
 category: Programming
 description: Analyze existing code and provide detailed refactoring recommendations
   to improve code structure, readability, and maintainability.
-title: Code Refactoring Guide
+title: "📌 Code Refactoring Guide"
 ---
 
 # Code refactoring guide

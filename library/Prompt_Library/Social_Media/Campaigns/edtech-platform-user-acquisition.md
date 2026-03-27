@@ -1,5 +1,5 @@
 ---
-title: "Edtech Platform User Acquisition Campaign"
+title: "📢 Edtech Platform User Acquisition Campaign"
 tags: ["edtech", "education", "user-acquisition", "growth", "campaign"]
 category: "Social_Media"
 subcategory: "Campaigns"

@@ -1,5 +1,5 @@
 ---
-title: "Gpt4 Advanced Data Analysis 20231018"
+title: "🧠 Gpt4 Advanced Data Analysis 20231018"
 tags: ["openai", "llm", "instructions", "gpt4", "advanced", "data", "analysis", "20231018"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

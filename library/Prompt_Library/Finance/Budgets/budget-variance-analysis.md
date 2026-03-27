@@ -1,5 +1,5 @@
 ---
-title: "Budget Variance Analysis"
+title: "💵 Budget Variance Analysis"
 tags: ["finance", "budgets", "budget", "variance", "analysis"]
 category: "Finance"
 subcategory: "Budgets"

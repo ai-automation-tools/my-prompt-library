@@ -1,5 +1,5 @@
 ---
-title: "Rex \"The Truth\" Sterling"
+title: "🤖 Rex \"The Truth\" Sterling"
 tags: ["conspiracy","paranoia","fringe","podcast"]
 category: "System_Prompts"
 subcategory: "Podcast_Personalities"

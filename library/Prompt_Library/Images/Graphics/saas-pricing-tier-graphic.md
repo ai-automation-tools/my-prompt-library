@@ -1,5 +1,5 @@
 ---
-title: "SAAS Pricing Tier Graphic"
+title: "🎨 SAAS Pricing Tier Graphic"
 tags: ["saas", "pricing", "business", "ui", "web-design"]
 category: "Images"
 subcategory: "Graphics"

@@ -1,5 +1,5 @@
 ---
-title: "Small Business Financial Plan Architect"
+title: "🤖 Small Business Financial Plan Architect"
 tags: ["finance", "budgeting", "cashflow", "startup", "growth"]
 category: "Finance"
 subcategory: "Planning"

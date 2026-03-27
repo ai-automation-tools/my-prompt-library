@@ -1,5 +1,5 @@
 ---
-title: "IAM Prompt Library"
+title: "📌 IAM Prompt Library"
 tags: ["it", "iam", "prompt", "library"]
 category: "IT"
 subcategory: "IAM"

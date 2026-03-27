@@ -1,5 +1,5 @@
 ---
-title: "Influencer Campaign Manager"
+title: "📌 Influencer Campaign Manager"
 tags:
   - featured
   - social-media

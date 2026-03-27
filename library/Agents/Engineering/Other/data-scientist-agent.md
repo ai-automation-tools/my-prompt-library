@@ -1,5 +1,5 @@
 ---
-title: "Data Scientist Agent"
+title: "🤖 Data Scientist Agent"
 tags: ["data-science", "machine-learning", "ai", "analytics"]
 category: "Machine_Learning"
 subcategory: "General"

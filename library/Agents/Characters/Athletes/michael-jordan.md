@@ -1,5 +1,5 @@
 ---
-title: "Michael Jordan"
+title: "🤖 Michael Jordan"
 tags: ["sports", "basketball", "nba", "athlete"]
 category: "System_Prompts"
 subcategory: "Characters"

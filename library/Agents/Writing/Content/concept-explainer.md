@@ -1,5 +1,5 @@
 ---
-title: "Concept Explanation Expert"
+title: "🤖 Concept Explanation Expert"
 tags: ["concept", "explanation", "expert"]
 category: "Writing"
 subcategory: "Content"

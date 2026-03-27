@@ -1,5 +1,5 @@
 ---
-title: "Mistral Le Chat Pro"
+title: "💬 Mistral Le Chat Pro"
 tags: ["ai", "mistral", "le-chat-pro"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

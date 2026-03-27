@@ -1,5 +1,5 @@
 ---
-title: "Product Launch Playbook"
+title: "📌 Product Launch Playbook"
 tags: ["collections", "business", "product", "launch", "prompt"]
 category: "Collections"
 subcategory: "Business"

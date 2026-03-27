@@ -1,5 +1,5 @@
 ---
-title: "Tony Stark"
+title: "🤖 Tony Stark"
 tags: ["marvel","iron-man","superhero","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

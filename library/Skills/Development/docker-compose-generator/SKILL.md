@@ -1,5 +1,5 @@
 ---
-name: docker-compose-generator
+name: 🛠️ docker-compose-generator
 description: Generate robust Docker Compose and Dockerfile configurations for full-stack applications. Use this skill when asked to containerize an application, set up a development environment, or prepare for production deployment using Docker.
 ---
 

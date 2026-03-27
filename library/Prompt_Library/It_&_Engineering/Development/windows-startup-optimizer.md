@@ -1,5 +1,5 @@
 ---
-title: "Windows Startup Optimizer"
+title: "📌 Windows Startup Optimizer"
 tags: ["powershell", "windows", "startup", "boot-time", "optimization"]
 category: "IT"
 subcategory: "Scripts"

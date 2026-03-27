@@ -1,5 +1,5 @@
 ---
-title: "Knowledge Base Setup"
+title: "📝 Knowledge Base Setup"
 tags: ["writing", "create-documentation", "knowledge", "base", "setup"]
 category: "Writing"
 subcategory: "Create_Documentation"

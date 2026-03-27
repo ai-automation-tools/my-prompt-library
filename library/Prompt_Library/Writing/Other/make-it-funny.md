@@ -1,5 +1,5 @@
 ---
-title: "Make IT Funny"
+title: "📌 Make IT Funny"
 tags: ["collections", "writing", "make", "funny"]
 category: "Collections"
 subcategory: "Writing"

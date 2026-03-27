@@ -1,5 +1,5 @@
 ---
-title: CI/CD Pipeline Design Prompt
+title: "📌 CI/CD Pipeline Design Prompt"
 tags:
 - collections
 - engineering

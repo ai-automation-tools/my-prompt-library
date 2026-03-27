@@ -1,10 +1,9 @@
 ---
-title: "Google Gemini CLI Guide"
+title: " Gemini Models CLI Guide"
 tags: ["gemini", "google", "cli", "reference", "api", "multimodal"]
 category: "Agent_Guides"
 subcategory: "Other"
-<!-- Last Updated: 2026-03-25 - CLI sync check (Gemini tooling ecosystem) -->
-
+---
 ## CLI Sync Notes (March 2026)
 
 Maintained as a **Gemini tooling overview**.
@@ -21,7 +20,6 @@ Maintained as a **Gemini tooling overview**.
 - Weekly sync should separate API model updates from CLI command-surface updates.
 
 ---
-
 # Google Gemini Agent Guide
 
 Comprehensive reference for building and managing agents with Google Gemini models via CLI and API.
@@ -35,7 +33,6 @@ Comprehensive reference for building and managing agents with Google Gemini mode
 - ⚡ Fast inference with Flash models
 
 ---
-
 ## 1. Links & Resources
 
 | Resource | Link |
@@ -50,7 +47,6 @@ Comprehensive reference for building and managing agents with Google Gemini mode
 | **Vertex AI** | [cloud.google.com/vertex-ai](https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini) |
 
 ---
-
 ## 2. Installation & Setup
 
 ### Install Official SDK
@@ -90,7 +86,6 @@ curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:g
 ```
 
 ---
-
 ## 3. Available Models
 
 ### Production Models
@@ -121,7 +116,6 @@ curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:g
 - Good for: most everyday tasks
 
 ---
-
 ## 4. Python SDK Examples
 
 ### Basic Chat
@@ -241,7 +235,6 @@ response = model.generate_content([
 ```
 
 ---
-
 ## 5. Function Calling
 
 ### Define Tools
@@ -294,7 +287,6 @@ for part in response.parts:
 ```
 
 ---
-
 ## 6. JSON Mode
 
 ### Structured Output
@@ -326,7 +318,6 @@ print(data)
 ```
 
 ---
-
 ## 7. Code Execution
 
 ### Built-in Python Execution
@@ -346,7 +337,6 @@ print(response.text)
 ```
 
 ---
-
 ## 8. Grounding with Google Search
 
 ### Search Grounding
@@ -371,7 +361,6 @@ if response.candidates[0].grounding_metadata:
 ```
 
 ---
-
 ## 9. API Parameters
 
 ### Generation Config
@@ -412,7 +401,6 @@ response = model.generate_content(
 ```
 
 ---
-
 ## 10. File Management
 
 ### Upload Files
@@ -451,7 +439,6 @@ genai.delete_file(file.name)
 ```
 
 ---
-
 ## 11. Rate Limits & Pricing
 
 ### Free Tier Limits
@@ -475,7 +462,6 @@ genai.delete_file(file.name)
 **Paid tier limits:** 1,000 RPM, unlimited daily requests
 
 ---
-
 ## 12. Context Caching
 
 ### Cache Large Documents
@@ -501,7 +487,6 @@ response2 = model.generate_content("What happens in chapter 5?")
 ```
 
 ---
-
 ## 13. Best Practices
 
 ### Temperature Guide
@@ -544,7 +529,6 @@ if tokens.total_tokens > 1000000:
 ```
 
 ---
-
 ## 14. CLI Alternatives
 
 ### Using gcloud CLI (Vertex AI)
@@ -578,7 +562,6 @@ litellm --model gemini/gemini-1.5-flash
 ```
 
 ---
-
 ## 15. Advanced Features
 
 ### Thinking Mode (Gemini 2.0)
@@ -613,7 +596,6 @@ response = model.generate_content("Solve this complex math problem: ...")
 ```
 
 ---
-
 ## 16. Migration from Other Providers
 
 ### From OpenAI
@@ -651,7 +633,6 @@ response = model.generate_content("Hello")
 ```
 
 ---
-
 ## 17. Troubleshooting
 
 ### Common Issues
@@ -699,7 +680,6 @@ except ResourceExhausted:
 ```
 
 ---
-
 ## 18. Comparison
 
 ### vs GPT-4
@@ -719,7 +699,6 @@ except ResourceExhausted:
 - ⚠️ **Less nuanced** writing style
 
 ---
-
 **Last Updated:** 2026-03-24  
 **API Version:** v1beta
 

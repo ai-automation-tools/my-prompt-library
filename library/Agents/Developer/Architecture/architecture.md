@@ -1,5 +1,5 @@
 ---
-title: "Generate A Security Architecture"
+title: "🤖 Generate A Security Architecture"
 tags: ["it", "architecture", "security"]
 category: "IT"
 subcategory: "Architecture"

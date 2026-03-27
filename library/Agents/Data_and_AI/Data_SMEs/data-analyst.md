@@ -1,5 +1,5 @@
 ---
-title: "Data Analyst Assistant"
+title: "🤖 Data Analyst Assistant"
 tags: ["data", "analytics", "sql", "python", "visualization"]
 category: "Data_and_AI"
 subcategory: "Data_Analyst"

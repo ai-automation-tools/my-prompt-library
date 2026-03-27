@@ -1,5 +1,5 @@
 ---
-title: "Secure API Gateway Design"
+title: "🤖 Secure API Gateway Design"
 tags: ["api-gateway", "security", "architecture", "devops", "it-operations"]
 category: "It_&_Engineering"
 subcategory: "Security"

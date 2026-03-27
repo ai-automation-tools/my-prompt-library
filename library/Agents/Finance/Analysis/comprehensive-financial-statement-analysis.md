@@ -1,5 +1,5 @@
 ---
-title: "Comprehensive Financial Statement Analysis"
+title: "🤖 Comprehensive Financial Statement Analysis"
 tags: ["finance", "analysis", "comprehensive", "financial", "statement"]
 category: "Finance"
 subcategory: "Analysis"

@@ -1,5 +1,5 @@
 ---
-title: "Competitive Analysis"
+title: "📌 Competitive Analysis"
 tags: ["research", "comparison", "decision", "options", "web-search"]
 category: "Web_Search_and_Research"
 subcategory: "Comparative_Analysis"

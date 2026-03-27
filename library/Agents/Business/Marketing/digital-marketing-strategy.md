@@ -1,5 +1,5 @@
 ---
-title: "Digital Marketing Strategy Planning"
+title: "🤖 Digital Marketing Strategy Planning"
 tags: ["digital", "marketing", "strategy", "planning"]
 category: "Business"
 subcategory: "Marketing"

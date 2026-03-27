@@ -1,5 +1,5 @@
 ---
-title: "Social Media Content Calendar"
+title: "🤖 Social Media Content Calendar"
 tags: ["social", "media", "content", "calendar"]
 category: "Social_Media"
 subcategory: "Content"

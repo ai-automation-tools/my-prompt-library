@@ -1,5 +1,5 @@
 ---
-title: "AI Prompt: Software User"
+title: "🤖 AI Prompt: Software User"
 tags: ["writing", "technical", "user", "guide"]
 category: "Writing"
 subcategory: "Technical"

@@ -1,5 +1,5 @@
 ---
-title: "Weekly Rewards Deals Roundup"
+title: "🤝 Weekly Rewards Deals Roundup"
 tags: ["ai-tools", "claude-cowork", "weekly", "rewards", "deals"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

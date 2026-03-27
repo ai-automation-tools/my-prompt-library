@@ -1,5 +1,5 @@
 ---
-title: SEO Audit Plan (Based on Google Search Essentials)
+title: "📌 SEO Audit Plan (Based on Google Search Essentials)"
 tags:
 - collections
 - business

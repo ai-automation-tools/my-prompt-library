@@ -1,5 +1,5 @@
 ---
-title: "Data Visualization"
+title: "🤖 Data Visualization"
 tags: ["data", "visualization", "guide"]
 category: "IT"
 subcategory: "Architecture"

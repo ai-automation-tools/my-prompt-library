@@ -1,5 +1,5 @@
 ---
-title: "AI Startup Logo Design"
+title: "🏢 AI Startup Logo Design"
 tags: ["ai", "startup", "logo", "branding", "innovation"]
 category: "Images"
 subcategory: "Logos"

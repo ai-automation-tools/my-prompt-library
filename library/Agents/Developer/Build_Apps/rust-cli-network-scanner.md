@@ -1,5 +1,5 @@
 ---
-title: "Rust Cli Network Scanner"
+title: "🤖 Rust Cli Network Scanner"
 tags: ["it", "build-apps", "rust", "network", "scanner"]
 category: "IT"
 subcategory: "Build_Apps"

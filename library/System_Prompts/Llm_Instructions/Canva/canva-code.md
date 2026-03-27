@@ -1,5 +1,5 @@
 ---
-title: "Canva Code System Prompt"
+title: "💻 Canva Code System Prompt"
 tags: ["canva", "canva-code", "system-prompt", "web-developer", "html-generation"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

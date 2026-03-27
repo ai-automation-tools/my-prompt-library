@@ -1,5 +1,5 @@
 ---
-title: "Chad \"Alpha\" Chadson"
+title: "🤖 Chad \"Alpha\" Chadson"
 tags: ["fitness","gym-bro","macho","podcast"]
 category: "System_Prompts"
 subcategory: "Podcast_Personalities"

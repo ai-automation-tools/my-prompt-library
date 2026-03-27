@@ -1,5 +1,5 @@
 ---
-title: "Fintech App Minimalist Logo"
+title: "🏢 Fintech App Minimalist Logo"
 tags: ["fintech", "finance", "app", "logo", "minimalist"]
 category: "Images"
 subcategory: "Logos"

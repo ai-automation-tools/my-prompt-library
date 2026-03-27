@@ -1,5 +1,5 @@
 ---
-title: "Publishing Scripts"
+title: "🍳 Publishing Scripts"
 tags: ["writing", "cookbooks", "publishing", "scripts"]
 category: "Writing"
 subcategory: "Cookbooks"

@@ -1,5 +1,5 @@
 ---
-title: Web Design Consultant
+title: "📌 Web Design Consultant"
 tags:
 - collections
 - engineering

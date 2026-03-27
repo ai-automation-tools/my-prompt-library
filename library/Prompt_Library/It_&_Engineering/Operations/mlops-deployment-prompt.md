@@ -1,5 +1,5 @@
 ---
-title: MLOps Deployment Plan (Based on Google MLOps)
+title: "📌 MLOps Deployment Plan (Based on Google MLOps)"
 tags:
 - collections
 - engineering

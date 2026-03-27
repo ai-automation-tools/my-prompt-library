@@ -1,5 +1,5 @@
 ---
-title: "Revenue Growth Strategist"
+title: "📌 Revenue Growth Strategist"
 tags:
   - business
   - revenue

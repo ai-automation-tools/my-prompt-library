@@ -1,5 +1,5 @@
 ---
-title: "RAG System Design"
+title: "📌 RAG System Design"
 tags: ["collections", "ai", "retrieval", "augmented", "generation"]
 category: "Collections"
 subcategory: "AI"

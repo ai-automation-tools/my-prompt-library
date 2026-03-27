@@ -1,5 +1,5 @@
 ---
-title: "Sound Effects Map"
+title: "🎙️ Sound Effects Map"
 tags: ["video", "podcasts", "sound", "effects"]
 category: "Video"
 subcategory: "Podcasts"

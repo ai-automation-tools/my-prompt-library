@@ -2,7 +2,7 @@
 category: Content Creation
 description: Generate a comprehensive blog content plan, including title ideas, keyword
   suggestions, and topic outlines.
-title: Blog Content Planner
+title: "🤖 Blog Content Planner"
 ---
 
 #Blog Content Planner

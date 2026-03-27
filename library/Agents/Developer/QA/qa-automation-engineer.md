@@ -1,5 +1,5 @@
 ---
-title: "QA Automation Engineer"
+title: "🤖 QA Automation Engineer"
 tags: ["testing", "qa", "automation", "quality-assurance", "test-driven-development"]
 category: "Developer"
 subcategory: "Testing"

@@ -1,5 +1,5 @@
 ---
-title: RAG System Design (Based on Microsoft/Meta RAG guidance)
+title: "📌 RAG System Design (Based on Microsoft/Meta RAG guidance)"
 tags:
 - collections
 - ai_agents

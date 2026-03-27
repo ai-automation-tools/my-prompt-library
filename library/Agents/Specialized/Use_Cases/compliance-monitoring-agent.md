@@ -1,5 +1,5 @@
 ---
-title: "Compliance Monitoring Agent"
+title: "🤖 Compliance Monitoring Agent"
 tags: ["ai-agent", "compliance", "regulatory", "monitoring"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

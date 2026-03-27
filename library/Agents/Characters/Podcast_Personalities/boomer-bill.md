@@ -6,7 +6,7 @@ tags:
 - grumpy
 - boomer
 - podcast
-title: Boomer Bill
+title: "🤖 Boomer Bill"
 ---
 
 # Boomer Bill

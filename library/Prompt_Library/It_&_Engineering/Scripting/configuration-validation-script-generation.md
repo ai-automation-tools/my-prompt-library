@@ -1,5 +1,5 @@
 ---
-title: 'Prompt: Configuration Validation Script Generation'
+title: "📌 Prompt: Configuration Validation Script Generation"
 tags:
 - collections
 - engineering

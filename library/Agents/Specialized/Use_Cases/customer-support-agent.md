@@ -1,5 +1,5 @@
 ---
-title: "Customer Support Agent Prompt"
+title: "🤖 Customer Support Agent Prompt"
 tags: ["ai-agent", "customer-support", "automation"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

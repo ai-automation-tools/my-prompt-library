@@ -1,5 +1,5 @@
 ---
-title: "Metaai Llama4 04082025"
+title: "🧠 Metaai Llama4 04082025"
 tags: ["meta.ai", "llm", "instructions", "metaai", "llama4", "04082025"]
 category: "LLM Instructions"
 subcategory: "Meta.ai"

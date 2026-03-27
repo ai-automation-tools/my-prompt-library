@@ -1,5 +1,5 @@
 ---
-title: "Background Music Score Planner"
+title: "🎙️ Background Music Score Planner"
 tags: ["video", "podcasts", "background", "music", "score"]
 category: "Video"
 subcategory: "Podcasts"

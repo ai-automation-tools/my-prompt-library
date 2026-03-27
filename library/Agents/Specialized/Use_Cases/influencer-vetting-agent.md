@@ -1,5 +1,5 @@
 ---
-title: "Influencer Vetting Agent"
+title: "🤖 Influencer Vetting Agent"
 tags: ["ai-agent", "influencer-marketing", "vetting", "brand-safety"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

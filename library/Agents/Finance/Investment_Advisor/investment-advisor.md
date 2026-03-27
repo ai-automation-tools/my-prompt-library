@@ -1,5 +1,5 @@
 ---
-title: "Investment Advisor Assistant"
+title: "🤖 Investment Advisor Assistant"
 tags: ["finance", "investing", "stocks", "crypto", "portfolio"]
 category: "Finance"
 subcategory: "Investment_Advisor"

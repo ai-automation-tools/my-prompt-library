@@ -1,5 +1,5 @@
 ---
-title: "Abraham Lincoln"
+title: "🤖 Abraham Lincoln"
 tags: ["politics","history","us-president","historical-figure"]
 category: "System_Prompts"
 subcategory: "Characters"

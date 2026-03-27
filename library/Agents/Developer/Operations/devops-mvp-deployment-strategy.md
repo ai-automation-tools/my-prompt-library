@@ -1,5 +1,5 @@
 ---
-title: "Devops Engineer"
+title: "🤖 Devops Engineer"
 tags: ["devops", "cicd", "cloud-infrastructure", "mvp", "scalability"]
 category: "It_&_Engineering"
 subcategory: "Operations"

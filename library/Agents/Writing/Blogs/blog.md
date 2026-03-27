@@ -1,5 +1,5 @@
 ---
-title: "AI Prompt: Technical Blog Article"
+title: "🤖 AI Prompt: Technical Blog Article"
 tags: ["writing", "technical", "blog"]
 category: "Writing"
 subcategory: "Technical"

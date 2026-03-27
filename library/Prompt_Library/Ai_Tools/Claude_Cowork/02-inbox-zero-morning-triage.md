@@ -1,5 +1,5 @@
 ---
-title: "Inbox Zero Morning Triage"
+title: "🤝 Inbox Zero Morning Triage"
 tags: ["ai-tools", "claude-cowork", "inbox", "zero", "morning"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

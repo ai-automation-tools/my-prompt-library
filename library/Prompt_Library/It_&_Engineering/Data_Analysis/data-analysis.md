@@ -1,5 +1,5 @@
 ---
-title: Data Analysis
+title: "📌 Data Analysis"
 tags:
 - collections
 - engineering

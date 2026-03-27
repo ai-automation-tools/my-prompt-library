@@ -1,5 +1,5 @@
 ---
-title: Trivia Generator
+title: "📌 Trivia Generator"
 tags:
 - collections
 - writing

@@ -1,5 +1,5 @@
 ---
-title: "CLI Operations Assistant"
+title: "🤖 CLI Operations Assistant"
 tags: ["cli", "terminal", "bash", "linux", "tools"]
 category: "Tools"
 subcategory: "CLI_Assistant"

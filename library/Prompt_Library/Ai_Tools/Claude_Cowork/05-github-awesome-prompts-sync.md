@@ -1,5 +1,5 @@
 ---
-title: "Github Awesome Prompts Sync"
+title: "🤝 Github Awesome Prompts Sync"
 tags: ["ai-tools", "claude-cowork", "github", "awesome", "prompts"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

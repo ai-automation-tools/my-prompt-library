@@ -1,5 +1,5 @@
 ---
-title: "Content Strategy"
+title: "📌 Content Strategy"
 tags: ["collections", "business", "content", "strategy", "prompt"]
 category: "Collections"
 subcategory: "Business"

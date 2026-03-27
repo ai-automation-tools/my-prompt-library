@@ -1,5 +1,5 @@
 ---
-title: "Generate A Architecture Roadmap"
+title: "🤖 Generate A Architecture Roadmap"
 tags: ["it", "architecture", "roadmap"]
 category: "IT"
 subcategory: "Architecture"

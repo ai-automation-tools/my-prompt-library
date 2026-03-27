@@ -5,7 +5,7 @@ tags:
 - codex
 - skills
 - automation
-title: "Create A Codex Skill"
+title: "📌 Create A Codex Skill"
 ---
 
 # Codex Prompt: Create a Skill

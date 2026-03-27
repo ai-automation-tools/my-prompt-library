@@ -1,5 +1,5 @@
 ---
-title: "Food Delivery App Local Promo Campaign"
+title: "📢 Food Delivery App Local Promo Campaign"
 tags: ["food-delivery", "local-marketing", "instagram", "promotional", "campaign"]
 category: "Social_Media"
 subcategory: "Campaigns"

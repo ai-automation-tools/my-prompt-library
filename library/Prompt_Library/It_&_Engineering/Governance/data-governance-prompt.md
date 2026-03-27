@@ -1,5 +1,5 @@
 ---
-title: Data Governance Plan (Based on DAMA-DMBOK)
+title: "📌 Data Governance Plan (Based on DAMA-DMBOK)"
 tags:
 - collections
 - engineering

@@ -1,5 +1,5 @@
 ---
-title: "Startup Finance Planner and Risk Manager"
+title: "🤖 Startup Finance Planner and Risk Manager"
 tags: ["startup-finance", "budgeting", "cash-flow", "runway", "risk-management"]
 category: "Finance"
 subcategory: "Planning"

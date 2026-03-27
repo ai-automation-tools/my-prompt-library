@@ -1,5 +1,5 @@
 ---
-title: "Technical White Paper"
+title: "🤖 Technical White Paper"
 tags: ["writing", "technical", "white", "paper"]
 category: "Writing"
 subcategory: "Technical"

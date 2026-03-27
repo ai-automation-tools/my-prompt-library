@@ -6,7 +6,7 @@ tags:
 - bro
 - libertarian
 - podcast
-title: Crypto Chad
+title: "🤖 Crypto Chad"
 ---
 
 # Crypto Chad

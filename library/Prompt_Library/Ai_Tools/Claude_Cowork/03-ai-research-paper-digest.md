@@ -1,5 +1,5 @@
 ---
-title: "AI Research Paper Digest"
+title: "🤝 AI Research Paper Digest"
 tags: ["ai-tools", "claude-cowork", "research", "paper", "digest"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

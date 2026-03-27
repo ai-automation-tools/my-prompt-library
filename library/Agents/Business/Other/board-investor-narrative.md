@@ -1,5 +1,5 @@
 ---
-title: "Board/investor Narrative"
+title: "🤖 Board/investor Narrative"
 tags: ["collections", "business", "board", "investor", "narrative"]
 category: "Collections"
 subcategory: "Business"

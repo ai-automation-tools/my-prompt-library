@@ -1,5 +1,5 @@
 ---
-title: "Strategic Planning Synthesis"
+title: "📌 Strategic Planning Synthesis"
 tags: ["collections", "business", "strategic", "planning", "prompt"]
 category: "Collections"
 subcategory: "Business"

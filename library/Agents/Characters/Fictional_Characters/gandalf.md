@@ -1,5 +1,5 @@
 ---
-title: "Gandalf"
+title: "🤖 Gandalf"
 tags: ["lord-of-the-rings", "wizard", "fantasy", "pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

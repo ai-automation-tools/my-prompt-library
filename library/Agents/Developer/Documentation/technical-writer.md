@@ -1,5 +1,5 @@
 ---
-title: "Technical Writer Agent"
+title: "🤖 Technical Writer Agent"
 tags: ["documentation", "developer", "writing", "technical", "api"]
 category: "Developer"
 subcategory: "Documentation"

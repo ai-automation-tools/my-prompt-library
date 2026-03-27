@@ -1,5 +1,5 @@
 ---
-title: "Log Analysis For Incident Troubleshooting"
+title: "📌 Log Analysis For Incident Troubleshooting"
 tags: ["collections", "engineering", "analysis", "incident", "troubleshooting"]
 category: "Collections"
 subcategory: "Engineering"

@@ -1,5 +1,5 @@
 ---
-title: "Deepseek V2"
+title: "📝 Deepseek V2"
 tags: ["deepseek", "llm", "instructions", "v2"]
 category: "LLM Instructions"
 subcategory: "DeepSeek"

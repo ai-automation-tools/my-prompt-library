@@ -1,5 +1,5 @@
 ---
-title: "Joe Biden"
+title: "🤖 Joe Biden"
 tags: ["politics", "president", "us-politics"]
 category: "System_Prompts"
 subcategory: "Characters"

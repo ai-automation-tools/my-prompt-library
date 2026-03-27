@@ -1,5 +1,5 @@
 ---
-title: "Story Creation Assistant"
+title: "🤖 Story Creation Assistant"
 tags: ["story", "creation", "assistant"]
 category: "Writing"
 subcategory: "Books"

@@ -1,5 +1,5 @@
 ---
-title: AI Ethics Assessment (Based on OECD AI Principles)
+title: "📌 AI Ethics Assessment (Based on OECD AI Principles)"
 tags:
 - collections
 - ai_agents

@@ -1,5 +1,5 @@
 ---
-title: "Lumo"
+title: "📝 Lumo"
 tags: ["proton", "llm", "instructions", "lumo"]
 category: "LLM Instructions"
 subcategory: "Proton"

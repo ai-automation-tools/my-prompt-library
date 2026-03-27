@@ -1,5 +1,5 @@
 ---
-title: "Augmentcode"
+title: "💻 Augmentcode"
 tags: ["augment code", "llm", "instructions", "augmentcode"]
 category: "LLM Instructions"
 subcategory: "Augment Code"

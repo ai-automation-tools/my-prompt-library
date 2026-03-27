@@ -1,5 +1,5 @@
 ---
-title: "AI Neural Network Illustration"
+title: "🎨 AI Neural Network Illustration"
 tags: ["ai", "machine-learning", "neural-network", "illustration", "graphics"]
 category: "Images"
 subcategory: "Graphics"

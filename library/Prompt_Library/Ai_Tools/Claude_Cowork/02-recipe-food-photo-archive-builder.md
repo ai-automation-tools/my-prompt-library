@@ -1,5 +1,5 @@
 ---
-title: "Recipe + Food Photo Archive Builder"
+title: "🤝 Recipe + Food Photo Archive Builder"
 tags: ["ai-tools", "claude-cowork", "recipe", "food", "photo"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

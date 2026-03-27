@@ -1,5 +1,5 @@
 ---
-title: "AI Travel Planning Agent"
+title: "🤖 AI Travel Planning Agent"
 tags: ["travel", "planning", "customer-service", "ai-agent", "hospitality"]
 category: "Business"
 subcategory: "General"

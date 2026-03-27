@@ -1,5 +1,5 @@
 ---
-title: "LLM Prompt Sequence For Social Media Content Automation"
+title: "📌 LLM Prompt Sequence For Social Media Content Automation"
 tags: ["collections", "business", "social", "media", "automation"]
 category: "Collections"
 subcategory: "Business"

@@ -1,5 +1,5 @@
 ---
-title: "SAAS Free Trial Onboarding Email Sequence"
+title: "📣 SAAS Free Trial Onboarding Email Sequence"
 tags: ["saas", "email-marketing", "onboarding", "trial-conversion", "retention"]
 category: "Business"
 subcategory: "Marketing"

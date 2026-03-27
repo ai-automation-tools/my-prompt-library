@@ -1,5 +1,5 @@
 ---
-title: "Changelog"
+title: "📌 Changelog"
 tags: ["changelog", "git", "release", "history", "user-facing"]
 category: "Documentation"
 subcategory: "Changelog_Generation"

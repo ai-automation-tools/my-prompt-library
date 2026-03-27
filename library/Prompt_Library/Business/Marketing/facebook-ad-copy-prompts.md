@@ -1,5 +1,5 @@
 ---
-title: "LLM Prompt Series For Facebook AD Copy Generation"
+title: "📌 LLM Prompt Series For Facebook AD Copy Generation"
 tags: ["collections", "business", "facebook", "copy", "prompts"]
 category: "Collections"
 subcategory: "Business"

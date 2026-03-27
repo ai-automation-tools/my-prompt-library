@@ -1,5 +1,5 @@
 ---
-title: "Generating An Agent Specification"
+title: "🤖 Generating An Agent Specification"
 tags: ["collections", "ai", "agent", "spec", "generator"]
 category: "Collections"
 subcategory: "AI"

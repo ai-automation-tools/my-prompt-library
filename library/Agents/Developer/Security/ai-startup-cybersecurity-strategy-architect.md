@@ -1,5 +1,5 @@
 ---
-title: "AI Startup Cybersecurity Strategy Architect"
+title: "🤖 AI Startup Cybersecurity Strategy Architect"
 tags: ["cybersecurity", "security-strategy", "risk-management", "startup", "ai-agents"]
 category: "IT"
 subcategory: "Security"

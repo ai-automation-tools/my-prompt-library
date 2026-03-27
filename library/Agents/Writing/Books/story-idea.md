@@ -1,5 +1,5 @@
 ---
-title: "Story Idea"
+title: "🤖 Story Idea"
 tags: ["story", "idea", "generator"]
 category: "Writing"
 subcategory: "Books"

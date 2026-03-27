@@ -1,5 +1,5 @@
 ---
-title: "Supply Chain Optimization Agent"
+title: "🤖 Supply Chain Optimization Agent"
 tags: ["supply-chain", "logistics", "optimization", "business"]
 category: "Business"
 subcategory: "Supply_Chain"

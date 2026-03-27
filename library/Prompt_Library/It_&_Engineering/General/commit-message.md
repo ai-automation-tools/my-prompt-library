@@ -1,5 +1,5 @@
 ---
-title: "Goal"
+title: "📌 Goal"
 tags: ["collections", "engineering", "commit", "message", "generator"]
 category: "Collections"
 subcategory: "Engineering"

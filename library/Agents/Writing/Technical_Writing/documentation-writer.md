@@ -1,5 +1,5 @@
 ---
-title: "Technical Documentation Writer"
+title: "🤖 Technical Documentation Writer"
 tags: ["collections", "writing", "technical", "documentation", "writer"]
 category: "Collections"
 subcategory: "Writing"

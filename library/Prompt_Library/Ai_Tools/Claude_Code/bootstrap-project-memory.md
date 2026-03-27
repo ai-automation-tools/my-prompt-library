@@ -1,5 +1,5 @@
 ---
-title: "Bootstrap Project Memory"
+title: "📌 Bootstrap Project Memory"
 tags: ["CLAUDE.md", "memory", "project", "setup", "conventions"]
 category: "CLAUDE_md_and_Memory"
 subcategory: "Project_Setup"

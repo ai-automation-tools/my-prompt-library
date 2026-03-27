@@ -1,5 +1,5 @@
 ---
-title: "Enterprise Software Webinar Invite Sequence"
+title: "📣 Enterprise Software Webinar Invite Sequence"
 tags: ["enterprise", "webinar", "b2b", "lead-generation", "event-marketing"]
 category: "Business"
 subcategory: "Marketing"

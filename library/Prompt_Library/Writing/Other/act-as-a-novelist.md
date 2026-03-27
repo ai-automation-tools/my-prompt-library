@@ -1,5 +1,5 @@
 ---
-title: "Act As A Novelist"
+title: "📌 Act As A Novelist"
 tags: ["collections", "writing", "novelist"]
 category: "Collections"
 subcategory: "Writing"

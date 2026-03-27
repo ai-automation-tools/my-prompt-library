@@ -1,5 +1,5 @@
 ---
-title: "Engineering Execution Copilot For Full Stack Builds"
+title: "🤖 Engineering Execution Copilot For Full Stack Builds"
 tags: ["engineering", "full-stack", "project-planning", "implementation", "ai-copilot"]
 category: "AI_Tools"
 subcategory: "Other"

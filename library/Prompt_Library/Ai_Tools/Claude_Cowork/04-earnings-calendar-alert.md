@@ -1,5 +1,5 @@
 ---
-title: "Earnings Calendar Alert"
+title: "🤝 Earnings Calendar Alert"
 tags: ["ai-tools", "claude-cowork", "earnings", "calendar", "alert"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

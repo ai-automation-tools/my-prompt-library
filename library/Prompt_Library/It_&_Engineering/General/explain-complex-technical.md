@@ -1,5 +1,5 @@
 ---
-title: "Explain Complex Technical Concept (non Technical Audience)"
+title: "📌 Explain Complex Technical Concept (non Technical Audience)"
 tags: ["collections", "engineering", "explain", "complex", "technical"]
 category: "Collections"
 subcategory: "Engineering"

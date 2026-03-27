@@ -1,5 +1,5 @@
 ---
-name: new-recipe
+name: 🐙 new-recipe
 description: Process recipe tasks from the Flavor Atlas workspace on ax-gcp MCP server. Pick one recipe task, build it using the FlavorAtlas template, store locally in Artifacts, upload to GitHub AX-CommunityWorkspaces repo, and update tasks/messages. Use when asked to work on recipes, create new recipes, process Flavor Atlas tasks, or build recipe content.
 ---
 

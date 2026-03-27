@@ -1,5 +1,5 @@
 ---
-title: "Grok4 Fast Beta"
+title: "🧠 Grok4 Fast Beta"
 tags: ["xai", "llm", "instructions", "grok4", "fast", "beta"]
 category: "LLM Instructions"
 subcategory: "xAI"

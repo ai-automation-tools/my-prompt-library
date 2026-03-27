@@ -1,5 +1,5 @@
 ---
-title: "Systematic Bug Hunt"
+title: "📌 Systematic Bug Hunt"
 tags: ["debugging", "bug", "diagnosis", "hypothesis", "root-cause"]
 category: "Debugging_and_Diagnosis"
 subcategory: "Bug_Hunting"

@@ -1,10 +1,9 @@
 ---
 title: "Kimi CLI Guide"
-tags: ["kimi", "moonshot", "cli", "reference", "api", "chinese-ai"]
+tags: ["kimi", "moonshot", "cli", "reference", "api", "chinese-ai","featured"]
 category: "Agent_Guides"
 subcategory: "Other"
-<!-- Last Updated: 2026-03-25 - Synced with Kimi CLI changelog (Mar 2026) -->
-
+---
 ## CLI Sync Notes (March 2026)
 
 Includes current **Kimi Code CLI** direction.
@@ -23,7 +22,6 @@ Includes current **Kimi Code CLI** direction.
 - Preserve Moonshot API examples, but weekly sync should anchor to the CLI changelog first.
 
 ---
-
 # Kimi (Moonshot AI) Agent Guide
 
 Comprehensive reference for building and managing agents with Kimi/Moonshot AI models via CLI and API.
@@ -37,7 +35,6 @@ Comprehensive reference for building and managing agents with Kimi/Moonshot AI m
 - 🚀 Fast inference with competitive pricing
 
 ---
-
 ## 1. Links & Resources
 
 | Resource | Link |
@@ -51,7 +48,6 @@ Comprehensive reference for building and managing agents with Kimi/Moonshot AI m
 | **Chat Interface** | [kimi.moonshot.cn](https://kimi.moonshot.cn/) |
 
 ---
-
 ## 2. Installation & Setup
 
 ### API Key Setup
@@ -108,7 +104,6 @@ print(response.choices[0].message.content)
 ```
 
 ---
-
 ## 3. Available Models
 
 ### Production Models
@@ -145,7 +140,6 @@ print(response.choices[0].message.content)
 - Multi-document synthesis
 
 ---
-
 ## 4. API Parameters
 
 ### Chat Completion Parameters
@@ -179,7 +173,6 @@ print(response.choices[0].message.content)
 | `frequency_penalty` | float | 0.0 | Reduce repetition (-2.0 to 2.0) |
 
 ---
-
 ## 5. File Upload & Document Analysis
 
 ### Upload File
@@ -244,7 +237,6 @@ response = client.chat.completions.create(
 ```
 
 ---
-
 ## 6. Function Calling (Tools)
 
 ### Define Tools
@@ -313,7 +305,6 @@ if response.choices[0].message.tool_calls:
 ```
 
 ---
-
 ## 7. Streaming Responses
 
 ### Python Example
@@ -345,7 +336,6 @@ curl https://api.moonshot.cn/v1/chat/completions \
 ```
 
 ---
-
 ## 8. CLI Integration Examples
 
 ### Using with LiteLLM
@@ -387,7 +377,6 @@ done
 ```
 
 ---
-
 ## 9. Best Practices
 
 ### System Prompt
@@ -436,7 +425,6 @@ def trim_context(messages, max_tokens=6000):
 ```
 
 ---
-
 ## 10. Rate Limits & Pricing
 
 ### Rate Limits
@@ -460,7 +448,6 @@ def trim_context(messages, max_tokens=6000):
 **Note:** Pricing is in Chinese Yuan (CNY). As of 2025, $1 USD ≈ ¥7.2 CNY.
 
 ---
-
 ## 11. Comparison with Other Models
 
 ### vs GPT-4
@@ -489,7 +476,6 @@ def trim_context(messages, max_tokens=6000):
 - Good at information extraction
 
 ---
-
 ## 12. Advanced Features
 
 ### Batch Processing
@@ -539,7 +525,6 @@ class KimiChat:
 ```
 
 ---
-
 ## 13. Troubleshooting
 
 ### Common Issues
@@ -606,7 +591,6 @@ def call_with_retry(func, max_retries=3):
 ```
 
 ---
-
 ## 14. Use Cases
 
 ### Long Document Analysis
@@ -656,7 +640,6 @@ response = client.chat.completions.create(
 ```
 
 ---
-
 **Last Updated:** 2026-03-24  
 **API Version:** v1
 

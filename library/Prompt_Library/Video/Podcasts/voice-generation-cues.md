@@ -1,5 +1,5 @@
 ---
-title: "AI Voice Generation Cues"
+title: "🎙️ AI Voice Generation Cues"
 tags: ["video", "podcasts", "voice", "generation", "cues"]
 category: "Video"
 subcategory: "Podcasts"

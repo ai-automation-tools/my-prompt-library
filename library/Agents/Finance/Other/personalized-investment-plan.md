@@ -1,5 +1,5 @@
 ---
-title: "LLM Prompt Sequence For Personalized Investment Plans"
+title: "🤖 LLM Prompt Sequence For Personalized Investment Plans"
 tags: ["collections", "finance", "personalized", "investment", "plan"]
 category: "Collections"
 subcategory: "Finance"

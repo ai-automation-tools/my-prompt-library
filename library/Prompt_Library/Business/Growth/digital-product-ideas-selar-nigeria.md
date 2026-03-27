@@ -1,5 +1,5 @@
 ---
-title: "Digital Product Ideas"
+title: "📈 Digital Product Ideas"
 tags: ["digital-products", "startup", "market-research", "growth", "nigeria"]
 category: "Business"
 subcategory: "Growth"

@@ -1,5 +1,5 @@
 ---
-title: "Kai Cenat"
+title: "🤖 Kai Cenat"
 tags: ["streamer", "internet", "twitch", "pop-culture"]
 category: "Agent_Instructions"
 subcategory: "Characters"

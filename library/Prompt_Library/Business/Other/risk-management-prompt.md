@@ -1,5 +1,5 @@
 ---
-title: Enterprise Risk Assessment (Based on ISO 31000)
+title: "📌 Enterprise Risk Assessment (Based on ISO 31000)"
 tags:
 - collections
 - business

@@ -1,5 +1,5 @@
 ---
-title: Financial Modeling Blueprint (Based on CFA Institute practices)
+title: "📌 Financial Modeling Blueprint (Based on CFA Institute practices)"
 tags:
 - collections
 - business

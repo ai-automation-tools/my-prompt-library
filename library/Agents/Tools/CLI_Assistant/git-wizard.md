@@ -1,5 +1,5 @@
 ---
-title: "Git Wizard"
+title: "🤖 Git Wizard"
 tags: ["git", "cli", "version-control", "tools", "developer"]
 category: "Tools"
 subcategory: "CLI_Assistant"

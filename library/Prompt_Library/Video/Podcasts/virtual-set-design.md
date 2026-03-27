@@ -1,5 +1,5 @@
 ---
-title: "Virtual Set Design Prompts"
+title: "🎙️ Virtual Set Design Prompts"
 tags: ["video", "podcasts", "virtual", "design"]
 category: "Video"
 subcategory: "Podcasts"

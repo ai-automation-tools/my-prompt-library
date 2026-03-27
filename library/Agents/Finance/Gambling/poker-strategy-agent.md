@@ -1,5 +1,5 @@
 ---
-title: "Poker Strategy Analyst"
+title: "🤖 Poker Strategy Analyst"
 tags: ["poker", "strategy", "gambling", "finance", "analysis"]
 category: "Finance"
 subcategory: "Gambling"

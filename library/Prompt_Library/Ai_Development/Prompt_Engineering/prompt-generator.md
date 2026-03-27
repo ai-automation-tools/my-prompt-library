@@ -1,5 +1,5 @@
 ---
-title: Prompt Generator
+title: "📌 Prompt Generator"
 tags:
 - collections
 - other

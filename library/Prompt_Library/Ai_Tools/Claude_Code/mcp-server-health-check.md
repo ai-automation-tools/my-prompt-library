@@ -1,5 +1,5 @@
 ---
-title: "MCP Server Health Check"
+title: "📌 MCP Server Health Check"
 tags: ["mcp", "tools", "health", "connectivity", "verification"]
 category: "MCP_and_Tool_Integration"
 subcategory: "Health_Checks"

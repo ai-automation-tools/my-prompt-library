@@ -1,5 +1,5 @@
 ---
-title: "Investment Manager"
+title: "📌 Investment Manager"
 tags: ["collections", "finance", "investment", "manager"]
 category: "Collections"
 subcategory: "Finance"

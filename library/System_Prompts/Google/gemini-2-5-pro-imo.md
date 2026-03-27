@@ -1,5 +1,5 @@
 ---
-title: "Gemini 2.5 Pro Imo"
+title: "📝 Gemini 2.5 Pro Imo"
 tags: ["google", "llm", "instructions", "gemini", "2_5", "pro", "imo"]
 category: "LLM Instructions"
 subcategory: "Google"

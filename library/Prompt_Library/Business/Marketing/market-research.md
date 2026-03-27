@@ -1,5 +1,5 @@
 ---
-title: "Market Research Plan"
+title: "📌 Market Research Plan"
 tags: ["collections", "business", "market", "research", "prompt"]
 category: "Collections"
 subcategory: "Business"

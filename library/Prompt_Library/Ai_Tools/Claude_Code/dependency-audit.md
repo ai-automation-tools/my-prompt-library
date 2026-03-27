@@ -1,5 +1,5 @@
 ---
-title: "Dependency Audit"
+title: "📌 Dependency Audit"
 tags: ["dependencies", "audit", "security", "maintenance", "versions"]
 category: "Architecture_and_Design"
 subcategory: "Dependency_Management"

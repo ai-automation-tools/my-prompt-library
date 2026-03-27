@@ -1,5 +1,5 @@
 ---
-title: "Cloud Hosting Company Logo"
+title: "🏢 Cloud Hosting Company Logo"
 tags: ["cloud", "hosting", "it", "logo", "server"]
 category: "Images"
 subcategory: "Logos"

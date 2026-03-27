@@ -64,9 +64,15 @@ function walkDir(dir, baseDir = LIBRARY_PATH) {
       const category = pathParts[1] || 'Uncategorized';
       const subcategory = pathParts.length > 2 ? pathParts[2] : null;
       
+      // For Skills, use 'name' field instead of 'title'
+      const isSkill = section === 'Skills';
+      const title = isSkill 
+        ? (data.name || extractFirstHeading(content) || path.basename(file, '.md'))
+        : (data.title || extractFirstHeading(content) || path.basename(file, '.md'));
+      
       results.push({
         id: relativePath,
-        title: data.title || extractFirstHeading(content) || path.basename(file, '.md'),
+        title: title,
         section,
         category,
         subcategory,

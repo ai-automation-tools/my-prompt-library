@@ -1,5 +1,5 @@
 ---
-title: "Pricing Strategy Framework"
+title: "📌 Pricing Strategy Framework"
 tags: ["collections", "business", "pricing", "strategy", "prompt"]
 category: "Collections"
 subcategory: "Business"

@@ -1,5 +1,5 @@
 ---
-title: "Gpt4o Web 10312024"
+title: "🧠 Gpt4o Web 10312024"
 tags: ["openai", "llm", "instructions", "gpt4o", "web", "10312024"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

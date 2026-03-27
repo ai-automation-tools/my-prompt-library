@@ -1,5 +1,5 @@
 ---
-title: "Financial Advisor"
+title: "📌 Financial Advisor"
 tags: ["collections", "finance", "financial", "advisor"]
 category: "Collections"
 subcategory: "Finance"

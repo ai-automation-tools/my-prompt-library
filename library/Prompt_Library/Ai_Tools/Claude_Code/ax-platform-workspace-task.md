@@ -1,5 +1,5 @@
 ---
-title: "AX Platform Workspace Task"
+title: "📌 AX Platform Workspace Task"
 tags: ["ax-platform", "mcp", "workspace", "messages", "tasks"]
 category: "MCP_and_Tool_Integration"
 subcategory: "AX_Platform"

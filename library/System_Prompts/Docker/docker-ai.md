@@ -1,5 +1,5 @@
 ---
-title: "Docker AI 20250731"
+title: "🧠 Docker AI 20250731"
 tags: ["docker", "llm", "instructions", "ai", "20250731"]
 category: "LLM Instructions"
 subcategory: "Docker"

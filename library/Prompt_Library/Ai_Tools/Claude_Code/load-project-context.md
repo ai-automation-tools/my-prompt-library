@@ -1,5 +1,5 @@
 ---
-title: "Load Project Context"
+title: "📌 Load Project Context"
 tags: ["CLAUDE.md", "context", "onboarding", "orientation", "project"]
 category: "CLAUDE_md_and_Memory"
 subcategory: "Context_Loading"

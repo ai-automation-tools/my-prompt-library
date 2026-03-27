@@ -1,5 +1,5 @@
 ---
-title: "Wealth Management Advisory Agent"
+title: "💰 Wealth Management Advisory Agent"
 tags: ["finance", "wealth-management", "investing", "advisory", "ai-agent"]
 category: "Finance"
 subcategory: "Advisory"

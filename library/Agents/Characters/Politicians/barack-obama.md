@@ -1,5 +1,5 @@
 ---
-title: "Barack Obama"
+title: "🤖 Barack Obama"
 tags: ["politics","us-president","orator","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

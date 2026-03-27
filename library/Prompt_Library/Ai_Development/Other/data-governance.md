@@ -1,5 +1,5 @@
 ---
-title: "Data Governance Plan"
+title: "📌 Data Governance Plan"
 tags: ["collections", "ai", "data", "governance", "prompt"]
 category: "Collections"
 subcategory: "AI"

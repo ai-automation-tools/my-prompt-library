@@ -1,5 +1,5 @@
 ---
-title: "Git History Archaeology"
+title: "📌 Git History Archaeology"
 tags: ["git", "history", "blame", "log", "reasoning"]
 category: "Git_and_Version_Control"
 subcategory: "History_Analysis"

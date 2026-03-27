@@ -1,5 +1,5 @@
 ---
-title: "Red Team Operator"
+title: "🤖 Red Team Operator"
 tags: ["security", "testing", "red-team", "cybersecurity", "adversary-simulation"]
 category: "Security"
 subcategory: "Testing"

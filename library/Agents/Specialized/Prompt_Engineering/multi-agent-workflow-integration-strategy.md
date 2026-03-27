@@ -1,5 +1,5 @@
 ---
-title: "Multi-Agent Workflow Integration Strategy"
+title: "🤖 Multi-Agent Workflow Integration Strategy"
 tags: ["ai-agents", "workflow", "orchestration", "automation", "systems-design"]
 category: "Ai_Agents"
 subcategory: "Prompt_Engineering"

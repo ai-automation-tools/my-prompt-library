@@ -1,5 +1,5 @@
 ---
-title: "Gemini Advanced Pro 1.5 12122024"
+title: "📝 Gemini Advanced Pro 1.5 12122024"
 tags: ["google", "llm", "instructions", "gemini", "advanced", "pro", "1_5", "12122024"]
 category: "LLM Instructions"
 subcategory: "Google"

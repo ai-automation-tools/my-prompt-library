@@ -1,5 +1,5 @@
 ---
-title: "Gpt4 Voice Ios 05132024"
+title: "🧠 Gpt4 Voice Ios 05132024"
 tags: ["openai", "llm", "instructions", "gpt4", "voice", "ios", "05132024"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

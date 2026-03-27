@@ -1,5 +1,5 @@
 ---
-title: "Gpt45 System Prompt 03052025"
+title: "🧠 Gpt45 System Prompt 03052025"
 tags: ["openai", "llm", "instructions", "gpt45", "system", "prompt", "03052025"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

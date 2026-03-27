@@ -1,5 +1,5 @@
 ---
-name: github-readme
+name: 🐙 github-readme
 description: Create professional, visually polished GitHub README files with badges, diagrams, structured sections, and modern markdown design patterns. Use when creating or redesigning a repo's README for maximum GitHub impact.
 ---
 

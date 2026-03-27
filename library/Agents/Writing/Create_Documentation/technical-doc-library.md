@@ -1,5 +1,5 @@
 ---
-title: "IT Technical Documentation Library"
+title: "🤖 IT Technical Documentation Library"
 tags: ["writing", "create-documentation", "create", "technical", "library"]
 category: "Writing"
 subcategory: "Create_Documentation"

@@ -1,5 +1,5 @@
 ---
-title: "Content Marketing Strategist"
+title: "🤖 Content Marketing Strategist"
 tags: ["collections", "business", "content", "marketing", "strategist"]
 category: "Collections"
 subcategory: "Business"

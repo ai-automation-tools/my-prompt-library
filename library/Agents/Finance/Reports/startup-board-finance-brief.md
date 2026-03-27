@@ -1,5 +1,5 @@
 ---
-title: "Startup Board Finance Brief"
+title: "🤖 Startup Board Finance Brief"
 tags: ["finance", "board-reporting", "startup", "runway", "growth-strategy"]
 category: "Finance"
 subcategory: "Reports"

@@ -1,5 +1,5 @@
 ---
-title: "Codium Windsurf Editor"
+title: "📝 Codium Windsurf Editor"
 tags: ["misc", "llm", "instructions", "codium", "windsurf", "editor"]
 category: "LLM Instructions"
 subcategory: "Misc"

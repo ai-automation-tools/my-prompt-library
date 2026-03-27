@@ -1,5 +1,5 @@
 ---
-title: "Unique & Unconventional Prompt Finder"
+title: "🤝 Unique & Unconventional Prompt Finder"
 tags: ["ai-tools", "claude-cowork", "unique", "unconventional", "prompt"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

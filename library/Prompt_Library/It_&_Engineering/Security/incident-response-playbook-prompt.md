@@ -1,5 +1,5 @@
 ---
-title: Incident Response Playbook Generator
+title: "📌 Incident Response Playbook Generator"
 tags:
 - collections
 - it

@@ -1,5 +1,5 @@
 ---
-title: "Repair Information Validation Agent"
+title: "🤖 Repair Information Validation Agent"
 tags: ["automotive", "repair-validation", "service-accuracy", "ai-agent"]
 category: "Engineering"
 subcategory: "Automotive"

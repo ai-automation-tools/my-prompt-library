@@ -1,5 +1,5 @@
 ---
-title: "Lechat 02122025"
+title: "💬 Lechat 02122025"
 tags: ["mistral", "llm", "instructions", "lechat", "02122025"]
 category: "LLM Instructions"
 subcategory: "Mistral"

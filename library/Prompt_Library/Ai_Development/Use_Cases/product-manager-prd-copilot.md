@@ -1,5 +1,5 @@
 ---
-title: "Product Manager PRD Copilot"
+title: "📌 Product Manager PRD Copilot"
 tags: ["product-management", "prd", "ai-agent", "startup"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

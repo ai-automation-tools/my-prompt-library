@@ -1,5 +1,5 @@
 ---
-title: "Go To Market Launch Plan"
+title: "📄 Go To Market Launch Plan"
 tags: ["business", "documentation", "market", "launch", "plan"]
 category: "Business"
 subcategory: "Documentation"

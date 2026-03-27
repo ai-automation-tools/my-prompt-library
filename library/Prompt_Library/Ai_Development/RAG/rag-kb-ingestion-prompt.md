@@ -1,5 +1,5 @@
 ---
-title: RAG/KB Ingestion Prompt
+title: "📌 RAG/KB Ingestion Prompt"
 tags:
 - collections
 - ai_agents

@@ -1,5 +1,5 @@
 ---
-title: "Manufacturing Quality Control Agent"
+title: "🤖 Manufacturing Quality Control Agent"
 tags: ["ai-agent", "manufacturing", "quality-control", "automation"]
 category: "Ai_Agents"
 subcategory: "Use_Cases"

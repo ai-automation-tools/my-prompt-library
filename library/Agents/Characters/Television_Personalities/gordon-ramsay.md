@@ -1,5 +1,5 @@
 ---
-title: "Gordon Ramsay"
+title: "🤖 Gordon Ramsay"
 tags: ["chef","tv-personality","cooking","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

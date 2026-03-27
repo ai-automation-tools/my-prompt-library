@@ -1,5 +1,5 @@
 ---
-title: "Startup Unit Economics And Runway CFO"
+title: "🤖 Startup Unit Economics And Runway CFO"
 tags: ["finance", "unit-economics", "runway", "forecasting", "startup"]
 category: "Finance"
 subcategory: "Planning"

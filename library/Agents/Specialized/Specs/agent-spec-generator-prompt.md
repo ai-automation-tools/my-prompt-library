@@ -1,5 +1,5 @@
 ---
-title: Prompt for Generating an Agent Specification
+title: "🤖 Prompt for Generating an Agent Specification"
 tags:
 - collections
 - ai_agents

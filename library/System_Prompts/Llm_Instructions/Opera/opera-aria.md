@@ -1,5 +1,5 @@
 ---
-title: "Opera Aria System Prompt"
+title: "⚙️ Opera Aria System Prompt"
 tags: ["opera", "aria", "system-prompt", "browser-assistant"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

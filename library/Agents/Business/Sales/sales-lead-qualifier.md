@@ -1,5 +1,5 @@
 ---
-title: "Sales Lead Qualifier"
+title: "🤖 Sales Lead Qualifier"
 tags: ["sales", "leads", "qualification", "ai-agent"]
 category: "Business"
 subcategory: "Sales"

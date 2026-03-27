@@ -1,5 +1,5 @@
 ---
-title: "Gemini 2.0 Flash 03072025"
+title: "📝 Gemini 2.0 Flash 03072025"
 tags: ["google", "llm", "instructions", "gemini", "2_0", "flash", "03072025"]
 category: "LLM Instructions"
 subcategory: "Google"

@@ -3,8 +3,7 @@ title: "Qwen CLI Guide"
 tags: ["qwen", "alibaba", "cli", "reference", "api", "chinese-ai"]
 category: "Agent_Guides"
 subcategory: "Other"
-<!-- Last Updated: 2026-03-25 - Synced with Qwen Code releases/docs (Mar 2026) -->
-
+---
 ## CLI Sync Notes (March 2026)
 
 Tracks **Qwen Code CLI** updates explicitly.
@@ -22,7 +21,6 @@ Tracks **Qwen Code CLI** updates explicitly.
 - Keep DashScope/API sections for integration context, but prioritize qwen-code CLI release deltas in weekly sync.
 
 ---
-
 # Qwen (Alibaba) Agent Guide
 
 Comprehensive reference for building and managing agents with Qwen/Tongyi Qianwen models via CLI and API.
@@ -36,7 +34,6 @@ Comprehensive reference for building and managing agents with Qwen/Tongyi Qianwe
 - 🔓 Open-source models available
 
 ---
-
 ## 1. Links & Resources
 
 | Resource | Link |
@@ -50,7 +47,6 @@ Comprehensive reference for building and managing agents with Qwen/Tongyi Qianwe
 | **Qwen2.5 Release** | [qwenlm.github.io/blog/qwen2.5](https://qwenlm.github.io/blog/qwen2.5/) |
 
 ---
-
 ## 2. Installation & Setup
 
 ### Install Official SDK
@@ -91,7 +87,6 @@ curl -X POST https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation
 ```
 
 ---
-
 ## 3. Available Models
 
 ### Production Models (DashScope API)
@@ -123,7 +118,6 @@ curl -X POST https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation
 - **Open weights** (Apache 2.0)
 
 ---
-
 ## 4. Python SDK Examples
 
 ### Basic Chat (DashScope)
@@ -193,7 +187,6 @@ for chunk in stream:
 ```
 
 ---
-
 ## 5. Vision Models
 
 ### Image Understanding
@@ -244,7 +237,6 @@ response = MultiModalConversation.call(
 ```
 
 ---
-
 ## 6. Function Calling
 
 ### Define Tools
@@ -326,7 +318,6 @@ if response.output.choices[0].message.get('tool_calls'):
 ```
 
 ---
-
 ## 7. Audio Processing
 
 ### Speech Recognition (ASR)
@@ -364,7 +355,6 @@ with open('output.wav', 'wb') as f:
 ```
 
 ---
-
 ## 8. API Parameters
 
 ### Generation Parameters
@@ -406,7 +396,6 @@ response = Generation.call(
 | `stream` | bool | false | Enable streaming |
 
 ---
-
 ## 9. Web Search (RAG)
 
 ### Enable Search Grounding
@@ -430,7 +419,6 @@ if hasattr(response.output, 'search_info'):
 ```
 
 ---
-
 ## 10. Rate Limits & Pricing
 
 ### Rate Limits (DashScope)
@@ -456,7 +444,6 @@ if hasattr(response.output, 'search_info'):
 **Open models:** Free to use (self-hosted)
 
 ---
-
 ## 11. Self-Hosting Open Models
 
 ### Using ModelScope
@@ -537,7 +524,6 @@ huggingface-cli download Qwen/Qwen2.5-7B-Instruct-GGUF \
 ```
 
 ---
-
 ## 12. Best Practices
 
 ### Temperature Guide
@@ -606,7 +592,6 @@ def call_with_retry(messages, max_retries=3):
 ```
 
 ---
-
 ## 13. Advanced Features
 
 ### Long Context (QwenLong)
@@ -646,7 +631,6 @@ if status.status == 'SUCCEEDED':
 ```
 
 ---
-
 ## 14. Comparison
 
 ### vs GPT-4
@@ -683,7 +667,6 @@ if status.status == 'SUCCEEDED':
 - Alibaba Cloud integration
 
 ---
-
 ## 15. CLI Tools
 
 ### Using with LiteLLM
@@ -725,7 +708,6 @@ chmod +x qwen-chat.sh
 ```
 
 ---
-
 ## 16. Troubleshooting
 
 ### Common Issues
@@ -772,7 +754,6 @@ else:
 ```
 
 ---
-
 ## 17. Migration Path
 
 ### From OpenAI
@@ -814,7 +795,6 @@ response = Generation.call(model='qwen-plus', messages=messages)
 ```
 
 ---
-
 **Last Updated:** 2026-03-24  
 **API Version:** DashScope v1
 

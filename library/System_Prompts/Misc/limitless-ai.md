@@ -1,5 +1,5 @@
 ---
-title: "Limitless AI"
+title: "🧠 Limitless AI"
 tags: ["misc", "llm", "instructions", "limitless", "ai"]
 category: "LLM Instructions"
 subcategory: "Misc"

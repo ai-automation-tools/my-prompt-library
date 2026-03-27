@@ -1,5 +1,5 @@
 ---
-title: "Personalized Investment Plan Prompt Sequence"
+title: "📌 Personalized Investment Plan Prompt Sequence"
 tags: ["collections", "finance", "personalized", "investment", "plan"]
 category: "Collections"
 subcategory: "Finance"

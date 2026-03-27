@@ -1,5 +1,5 @@
 ---
-title: "DuckDuckGo AI (GPT-4o Mini)"
+title: "🧠 DuckDuckGo AI (GPT-4o Mini)"
 tags: ["duckduckgo", "ai", "gpt4o-mini", "system-prompt"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

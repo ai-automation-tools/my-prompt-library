@@ -1,5 +1,5 @@
 ---
-title: AI Virtual Assistant Prompts
+title: "📌 AI Virtual Assistant Prompts"
 tags:
 - collections
 - business

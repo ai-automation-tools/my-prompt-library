@@ -1,5 +1,5 @@
 ---
-title: "Customer Onboarding & Activation Strategy"
+title: "🤖 Customer Onboarding & Activation Strategy"
 tags: ["collections", "business", "customer", "onboarding", "activation"]
 category: "Collections"
 subcategory: "Business"

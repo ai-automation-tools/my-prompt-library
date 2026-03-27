@@ -1,5 +1,5 @@
 ---
-title: "Enterprise Workflow Automation Agent"
+title: "⚙️ Enterprise Workflow Automation Agent"
 tags: ["business", "operations", "automation", "ai-agent", "workflow"]
 category: "Business"
 subcategory: "Operations"

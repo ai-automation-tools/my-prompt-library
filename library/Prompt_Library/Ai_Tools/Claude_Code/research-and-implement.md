@@ -1,5 +1,5 @@
 ---
-title: "Research And Implement"
+title: "📌 Research And Implement"
 tags: ["research", "web-search", "implementation", "sources", "apply"]
 category: "Web_Search_and_Research"
 subcategory: "Research_Driven_Development"

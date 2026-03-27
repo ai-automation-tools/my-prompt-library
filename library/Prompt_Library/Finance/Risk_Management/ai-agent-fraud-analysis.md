@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Real-Time Fraud Analysis"
+title: "⚠️ AI Agent Real-Time Fraud Analysis"
 tags: ["ai-agent", "fraud-detection", "risk-management", "finance"]
 category: "Finance"
 subcategory: "Risk_Management"

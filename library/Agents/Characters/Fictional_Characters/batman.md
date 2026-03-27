@@ -1,5 +1,5 @@
 ---
-title: "Batman"
+title: "🤖 Batman"
 tags: ["dc","bruce-wayne","superhero","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

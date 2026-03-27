@@ -1,5 +1,5 @@
 ---
-title: "Cloud Service Upsell Campaign"
+title: "📣 Cloud Service Upsell Campaign"
 tags: ["upsell", "cloud-services", "retention", "email-marketing", "b2b"]
 category: "Business"
 subcategory: "Marketing"

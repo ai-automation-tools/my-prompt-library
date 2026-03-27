@@ -1,5 +1,5 @@
 ---
-title: Stakeholder Communication Plan (Based on PMI PMBOK)
+title: "📌 Stakeholder Communication Plan (Based on PMI PMBOK)"
 tags:
 - collections
 - business

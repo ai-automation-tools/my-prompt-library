@@ -1,5 +1,5 @@
 ---
-title: "Chatgpt Study Mode 07292025"
+title: "🧠 Chatgpt Study Mode 07292025"
 tags: ["openai", "llm", "instructions", "chatgpt", "study", "mode", "07292025"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

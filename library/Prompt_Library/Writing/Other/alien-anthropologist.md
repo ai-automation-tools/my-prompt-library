@@ -1,5 +1,5 @@
 ---
-title: "Alien Anthropologist"
+title: "📌 Alien Anthropologist"
 tags: ["collections", "writing", "alien", "anthropologist"]
 category: "Collections"
 subcategory: "Writing"

@@ -1,5 +1,5 @@
 ---
-title: "Zero Trust Architecture Review"
+title: "📌 Zero Trust Architecture Review"
 tags: ["zero-trust", "security", "architecture", "iam", "least-privilege"]
 category: "Security_and_IAM"
 subcategory: "Zero_Trust"

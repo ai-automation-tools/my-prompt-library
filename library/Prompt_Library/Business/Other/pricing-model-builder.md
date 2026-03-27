@@ -1,5 +1,5 @@
 ---
-title: "Pricing Model Builder For AX Platform"
+title: "📌 Pricing Model Builder For AX Platform"
 tags: ["collections", "business", "pricing", "model", "builder"]
 category: "Collections"
 subcategory: "Business"

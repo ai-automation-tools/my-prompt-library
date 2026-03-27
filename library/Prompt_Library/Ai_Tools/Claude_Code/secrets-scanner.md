@@ -1,5 +1,5 @@
 ---
-title: "Secrets Scanner"
+title: "📌 Secrets Scanner"
 tags: ["security", "secrets", "credentials", "api-keys", "hardcoded"]
 category: "Security_and_IAM"
 subcategory: "Secrets_Management"

@@ -1,5 +1,5 @@
 ---
-title: "Generate A Architecture Review Assessment"
+title: "🤖 Generate A Architecture Review Assessment"
 tags: ["it", "architecture", "review", "assessment"]
 category: "IT"
 subcategory: "Architecture"

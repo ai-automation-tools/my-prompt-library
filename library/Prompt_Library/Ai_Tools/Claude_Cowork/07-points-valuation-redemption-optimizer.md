@@ -1,5 +1,5 @@
 ---
-title: "Points Valuation & Redemption Optimizer"
+title: "🤝 Points Valuation & Redemption Optimizer"
 tags: ["ai-tools", "claude-cowork", "points", "valuation", "redemption"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

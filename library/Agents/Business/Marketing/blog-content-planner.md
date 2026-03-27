@@ -1,5 +1,5 @@
 ---
-title: "Blog Content Planner"
+title: "🤖 Blog Content Planner"
 tags: ["blog", "content", "planner"]
 category: "Business"
 subcategory: "Marketing"

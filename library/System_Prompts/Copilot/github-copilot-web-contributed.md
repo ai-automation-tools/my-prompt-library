@@ -1,5 +1,5 @@
 ---
-title: "Github Copilot Web Contributed 20260221"
+title: "📝 Github Copilot Web Contributed 20260221"
 tags: ["copilot", "llm", "instructions", "github", "web", "contributed", "20260221"]
 category: "LLM Instructions"
 subcategory: "Copilot"

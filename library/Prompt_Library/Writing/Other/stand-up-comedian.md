@@ -1,5 +1,5 @@
 ---
-title: "Stand Up Comedian"
+title: "📌 Stand Up Comedian"
 tags: ["collections", "writing", "stand", "comedian"]
 category: "Collections"
 subcategory: "Writing"

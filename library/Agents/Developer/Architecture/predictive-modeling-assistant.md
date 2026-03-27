@@ -1,5 +1,5 @@
 ---
-title: "Predictive Modeling Assistant"
+title: "🤖 Predictive Modeling Assistant"
 tags: ["predictive", "modeling", "assistant"]
 category: "IT"
 subcategory: "Architecture"

@@ -1,5 +1,5 @@
 ---
-title: Architecture Review (Based on SEI ATAM and IEEE 42010)
+title: "📌 Architecture Review (Based on SEI ATAM and IEEE 42010)"
 tags:
 - collections
 - engineering

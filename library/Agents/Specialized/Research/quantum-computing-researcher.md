@@ -1,5 +1,5 @@
 ---
-title: "Quantum Computing Researcher"
+title: "🤖 Quantum Computing Researcher"
 tags: ["quantum-computing", "physics", "research", "qubits", "science"]
 category: "Specialized"
 subcategory: "Research"

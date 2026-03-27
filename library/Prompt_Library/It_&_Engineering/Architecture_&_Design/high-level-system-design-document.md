@@ -1,5 +1,5 @@
 ---
-title: "High Level System Design Document"
+title: "📌 High Level System Design Document"
 tags: ["collections", "engineering", "high", "level", "system"]
 category: "Collections"
 subcategory: "Engineering"

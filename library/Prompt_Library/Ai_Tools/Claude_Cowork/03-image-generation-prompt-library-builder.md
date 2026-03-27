@@ -1,5 +1,5 @@
 ---
-title: "Image Generation Prompt Library Builder"
+title: "🤝 Image Generation Prompt Library Builder"
 tags: ["ai-tools", "claude-cowork", "image", "generation", "prompt"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

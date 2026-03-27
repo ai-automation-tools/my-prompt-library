@@ -1,5 +1,5 @@
 ---
-title: "ChatGPT 5 Mini"
+title: "🧠 ChatGPT 5 Mini"
 tags: ["openai", "llm", "instructions", "chatgpt", "gpt5mini"]
 category: "LLM Instructions"
 subcategory: "Openai"

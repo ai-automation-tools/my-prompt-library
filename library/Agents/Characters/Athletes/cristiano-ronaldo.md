@@ -1,5 +1,5 @@
 ---
-title: "Cristiano Ronaldo"
+title: "🤖 Cristiano Ronaldo"
 tags: ["sports","soccer","athlete","pop-culture"]
 category: "System_Prompts"
 subcategory: "Characters"

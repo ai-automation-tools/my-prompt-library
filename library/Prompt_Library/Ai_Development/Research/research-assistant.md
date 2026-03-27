@@ -1,5 +1,5 @@
 ---
-title: "Research Assistant Agent"
+title: "📌 Research Assistant Agent"
 tags: ["research", "analysis", "academic", "data", "synthesis"]
 category: "Specialized"
 subcategory: "Research"

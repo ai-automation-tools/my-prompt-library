@@ -1,5 +1,5 @@
 ---
-title: "Metaai Llama4 Whatsapp 07292025"
+title: "🧠 Metaai Llama4 Whatsapp 07292025"
 tags: ["meta.ai", "llm", "instructions", "metaai", "llama4", "whatsapp", "07292025"]
 category: "LLM Instructions"
 subcategory: "Meta.ai"

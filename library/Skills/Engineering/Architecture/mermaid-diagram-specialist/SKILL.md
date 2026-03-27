@@ -1,5 +1,5 @@
 ---
-name: mermaid-diagram-specialist
+name: 🧠 mermaid-diagram-specialist
 category: tech
 description:
   Mermaid diagram specialist for creating flowcharts, sequence diagrams, ERDs,

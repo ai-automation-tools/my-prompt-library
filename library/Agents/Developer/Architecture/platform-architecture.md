@@ -1,5 +1,5 @@
 ---
-title: "Generate A Data Platform Architecture"
+title: "🤖 Generate A Data Platform Architecture"
 tags: ["it", "architecture", "data", "platform"]
 category: "IT"
 subcategory: "Architecture"

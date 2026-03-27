@@ -1,5 +1,5 @@
 ---
-title: "Pr Description"
+title: "📌 Pr Description"
 tags: ["git", "pull-request", "pr", "description", "review"]
 category: "Git_and_Version_Control"
 subcategory: "Pull_Requests"

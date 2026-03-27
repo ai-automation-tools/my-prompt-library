@@ -1,5 +1,5 @@
 ---
-title: "Gpt Dalle"
+title: "🧠 Gpt Dalle"
 tags: ["openai", "llm", "instructions", "gpt", "dalle"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

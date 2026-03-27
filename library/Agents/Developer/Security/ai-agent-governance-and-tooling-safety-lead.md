@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Governance And Tooling Safety Lead"
+title: "🤖 AI Agent Governance And Tooling Safety Lead"
 tags: ["ai-agents", "security", "governance", "tooling", "risk-management"]
 category: "IT"
 subcategory: "Security/Governance"

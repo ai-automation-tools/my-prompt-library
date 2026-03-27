@@ -1,5 +1,5 @@
 ---
-title: API Design Specification (Based on IETF RFC 9110 and OpenAPI)
+title: "📌 API Design Specification (Based on IETF RFC 9110 and OpenAPI)"
 tags:
 - collections
 - engineering

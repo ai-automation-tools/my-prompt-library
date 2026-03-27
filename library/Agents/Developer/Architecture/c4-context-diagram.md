@@ -1,5 +1,5 @@
 ---
-title: "Generate A C Context Diagram"
+title: "🤖 Generate A C Context Diagram"
 tags: ["it", "architecture", "context", "diagram"]
 category: "IT"
 subcategory: "Architecture"

@@ -1,5 +1,5 @@
 ---
-title: "Incident Response Prompt Library"
+title: "📌 Incident Response Prompt Library"
 tags: ["it", "security", "incident", "response", "prompt"]
 category: "IT"
 subcategory: "Security"

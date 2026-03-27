@@ -1,5 +1,5 @@
 ---
-title: "Gpt4 Plugins"
+title: "🧠 Gpt4 Plugins"
 tags: ["openai", "llm", "instructions", "gpt4", "plugins"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

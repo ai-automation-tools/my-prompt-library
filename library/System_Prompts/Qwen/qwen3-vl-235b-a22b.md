@@ -1,5 +1,5 @@
 ---
-title: "Qwen3 Vl 235b A22b"
+title: "📝 Qwen3 Vl 235b A22b"
 tags: ["qwen", "llm", "instructions", "qwen3", "vl", "235b", "a22b"]
 category: "LLM Instructions"
 subcategory: "QWEN"

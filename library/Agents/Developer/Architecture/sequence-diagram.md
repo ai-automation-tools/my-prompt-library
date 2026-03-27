@@ -1,5 +1,5 @@
 ---
-title: "Generate A Sequence Diagram"
+title: "🤖 Generate A Sequence Diagram"
 tags: ["it", "architecture", "sequence", "diagram"]
 category: "IT"
 subcategory: "Architecture"

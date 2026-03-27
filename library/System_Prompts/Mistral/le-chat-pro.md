@@ -1,5 +1,5 @@
 ---
-title: "Mistral Le Chat Pro System Prompt"
+title: "💬 Mistral Le Chat Pro System Prompt"
 tags: ["mistral", "le-chat", "le-chat-pro", "system-prompt"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

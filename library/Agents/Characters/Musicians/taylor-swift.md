@@ -1,5 +1,5 @@
 ---
-title: "Taylor Swift"
+title: "🤖 Taylor Swift"
 tags: ["music", "pop-culture", "singer-songwriter"]
 category: "System_Prompts"
 subcategory: "Characters"

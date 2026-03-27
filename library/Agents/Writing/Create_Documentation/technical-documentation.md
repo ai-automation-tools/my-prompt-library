@@ -1,5 +1,5 @@
 ---
-title: "Technical Documentation Prompt Generator (meta Prompt)"
+title: "🤖 Technical Documentation Prompt Generator (meta Prompt)"
 tags: ["writing", "create-documentation", "technical", "documentation", "prompt"]
 category: "Writing"
 subcategory: "Create_Documentation"

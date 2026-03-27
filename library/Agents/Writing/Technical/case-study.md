@@ -1,5 +1,5 @@
 ---
-title: "AI Prompt: Technical Case Study"
+title: "🤖 AI Prompt: Technical Case Study"
 tags: ["writing", "technical", "case", "study"]
 category: "Writing"
 subcategory: "Technical"

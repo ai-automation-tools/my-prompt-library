@@ -1,5 +1,5 @@
 ---
-name: alternatives
+name: 🔌 alternatives
 description: "Analyze alternative investments including hedge funds, private equity, and venture capital. Use when the user asks about hedge fund strategies (long/short, macro, event-driven), PE or VC performance metrics (IRR, TVPI, DPI), fee structures ('2-and-20', carry, hurdle rates), the J-curve effect, illiquidity premiums, lock-up periods, or hedge fund replication. Also trigger when users mention 'managed futures', 'CTA', 'fund of funds', 'vintage year', 'capital calls', 'distributions', 'carried interest', or ask how to evaluate an alternative investment manager."
 ---
 

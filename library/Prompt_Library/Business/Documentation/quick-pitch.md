@@ -1,5 +1,5 @@
 ---
-title: "Quick Pitch"
+title: "📄 Quick Pitch"
 tags: ["business", "documentation", "quick", "pitch", "template"]
 category: "Business"
 subcategory: "Documentation"

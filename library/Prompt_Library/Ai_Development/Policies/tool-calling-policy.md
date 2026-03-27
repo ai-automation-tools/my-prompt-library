@@ -1,5 +1,5 @@
 ---
-title: "AX Agent Tool Calling Policy"
+title: "📌 AX Agent Tool Calling Policy"
 tags: ["collections", "ai", "tool", "calling", "policy"]
 category: "Collections"
 subcategory: "AI"

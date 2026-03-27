@@ -1,5 +1,5 @@
 ---
-title: "Discord Automation System"
+title: "📌 Discord Automation System"
 tags: ["it", "build-apps", "discord", "automation", "system"]
 category: "IT"
 subcategory: "Build_Apps"

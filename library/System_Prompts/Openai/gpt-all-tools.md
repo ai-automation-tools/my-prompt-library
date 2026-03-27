@@ -1,5 +1,5 @@
 ---
-title: "Gpt All Tools"
+title: "🧠 Gpt All Tools"
 tags: ["openai", "llm", "instructions", "gpt", "all", "tools"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

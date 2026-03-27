@@ -1,5 +1,5 @@
 ---
-title: "Code Review Agent"
+title: "🤖 Code Review Agent"
 tags: ["collections", "ai", "code", "review", "agent"]
 category: "Collections"
 subcategory: "AI"

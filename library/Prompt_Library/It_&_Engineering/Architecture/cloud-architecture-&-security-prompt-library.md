@@ -1,5 +1,5 @@
 ---
-title: "Cloud Architecture & Security Prompt Library"
+title: "📌 Cloud Architecture & Security Prompt Library"
 tags: ["it", "architecture", "cloud", "security"]
 category: "IT"
 subcategory: "Architecture"

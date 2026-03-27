@@ -1,5 +1,5 @@
 ---
-title: "Phind Programming Expert"
+title: "⭐ ⭐ ⭐ ⭐ ⭐ ⭐ Phind Programming Expert"
 tags: ["phind", "programming", "expert", "system-prompt"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

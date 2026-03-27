@@ -1,5 +1,5 @@
 ---
-title: "Meta Prompt Creator"
+title: "🤖 Meta Prompt Creator"
 tags: ["collections", "ai", "meta", "prompt", "creator"]
 category: "Collections"
 subcategory: "AI"

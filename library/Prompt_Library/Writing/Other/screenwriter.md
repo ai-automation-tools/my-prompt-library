@@ -1,5 +1,5 @@
 ---
-title: "Screenwriter"
+title: "📌 Screenwriter"
 tags: ["collections", "writing", "screenwriter"]
 category: "Collections"
 subcategory: "Writing"

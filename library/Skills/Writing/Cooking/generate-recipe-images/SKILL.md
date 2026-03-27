@@ -1,5 +1,5 @@
 ---
-name: generate-recipe-images
+name: 🐙 generate-recipe-images
 description: Find recipes without images in the Flavor Atlas GitHub repo, search for and download recipe images, upload to GitHub, and update recipe files to link images. Use when asked to add images to recipes, enrich recipes with photos, or generate recipe images for Flavor Atlas.
 ---
 

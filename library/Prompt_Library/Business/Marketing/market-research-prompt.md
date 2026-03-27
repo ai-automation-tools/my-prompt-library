@@ -1,5 +1,5 @@
 ---
-title: Market Research Plan (Based on ESOMAR)
+title: "📌 Market Research Plan (Based on ESOMAR)"
 tags:
 - collections
 - business

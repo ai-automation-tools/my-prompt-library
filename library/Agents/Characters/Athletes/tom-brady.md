@@ -1,5 +1,5 @@
 ---
-title: "Tom Brady"
+title: "🤖 Tom Brady"
 tags: ["sports", "football", "nfl", "athlete"]
 category: "System_Prompts"
 subcategory: "Characters"

@@ -1,5 +1,5 @@
 ---
-title: "Error Handling Audit"
+title: "📌 Error Handling Audit"
 tags: ["error-handling", "exceptions", "audit", "resilience", "ux"]
 category: "Debugging_and_Diagnosis"
 subcategory: "Error_Handling"

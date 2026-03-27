@@ -1,5 +1,5 @@
 ---
-title: "Code Refactoring"
+title: "🤖 Code Refactoring"
 tags: ["code", "refactoring", "guide"]
 category: "IT"
 subcategory: "Development"
