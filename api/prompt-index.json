@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "buildTime": "2026-03-27T22:21:19.790Z",
-  "promptCount": 1263,
+  "buildTime": "2026-03-27T22:32:03.486Z",
+  "promptCount": 1269,
   "prompts": [
     {
       "id": "Agent_Guides/Claude_Code/claude_code_cli_guide.md",
@@ -160,6 +160,113 @@
       ],
       "contentPreview": "\n<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->\n\n# Gemini CLI Slash Commands Reference\n\nComplete reference for built-in commands in Gemini CLI.\n\n**Source**: [geminicli.com/docs",
       "lastModified": "2026-03-27T17:55:33.783Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Agent_Guides/Other/Deepseek/deepseek_cli_guide.md",
+      "title": "DeepSeek CLI Guide",
+      "section": "Agent_Guides",
+      "category": "Other",
+      "subcategory": "Deepseek",
+      "tags": [
+        "deepseek",
+        "cli",
+        "reference",
+        "api",
+        "chinese-ai",
+        "featured"
+      ],
+      "contentPreview": "## CLI Sync Notes (March 2026)\n\nFocuses on **CLI-relevant** updates alongside API basics.\n\n### What changed upstream\n- DeepSeek CLI ecosystem reported recent updates around conversational workflows, s",
+      "lastModified": "2026-03-27T22:31:51.568Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Agent_Guides/Other/Gemini/gemini_models_cli_guide.md",
+      "title": " Gemini Models CLI Guide",
+      "section": "Agent_Guides",
+      "category": "Other",
+      "subcategory": "Gemini",
+      "tags": [
+        "gemini",
+        "google",
+        "cli",
+        "reference",
+        "api",
+        "multimodal"
+      ],
+      "contentPreview": "## CLI Sync Notes (March 2026)\n\nMaintained as a **Gemini tooling overview**.\n\n### Current status\n- Local content is strong for Gemini API/SDK capabilities.\n- CLI-specific details should be validated a",
+      "lastModified": "2026-03-27T22:31:51.608Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Agent_Guides/Other/Kimi/kimi_cli_guide.md",
+      "title": "Kimi CLI Guide",
+      "section": "Agent_Guides",
+      "category": "Other",
+      "subcategory": "Kimi",
+      "tags": [
+        "kimi",
+        "moonshot",
+        "cli",
+        "reference",
+        "api",
+        "chinese-ai",
+        "featured"
+      ],
+      "contentPreview": "## CLI Sync Notes (March 2026)\n\nIncludes current **Kimi Code CLI** direction.\n\n### Notable March 2026 CLI updates\n- Plugin system support (`plugin.json`) and multi-plugin repo install flows.\n- Subagen",
+      "lastModified": "2026-03-27T22:31:51.588Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Agent_Guides/Other/Mistral/mistral_cli_guide.md",
+      "title": "Mistral AI CLI Guide",
+      "section": "Agent_Guides",
+      "category": "Other",
+      "subcategory": "Mistral",
+      "tags": [
+        "mistral",
+        "cli",
+        "reference",
+        "api",
+        "european-ai"
+      ],
+      "contentPreview": "## CLI Sync Notes (March 2026)\n\nTracks **Mistral CLI (Vibe)** changes explicitly.\n\n### Notable March 2026 CLI updates\n- New/expanded agent workflows (including theorem-proving agent setup).\n- Improved",
+      "lastModified": "2026-03-27T22:31:51.576Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Agent_Guides/Other/OpenAI/openai_cli_guide.md",
+      "title": "OpenAI GPT-4 CLI Guide",
+      "section": "Agent_Guides",
+      "category": "Other",
+      "subcategory": "OpenAI",
+      "tags": [
+        "openai",
+        "gpt-4",
+        "cli",
+        "reference",
+        "api"
+      ],
+      "contentPreview": "## CLI Sync Notes (March 2026)\n\nDistinguishes legacy API tooling from modern **Codex CLI** workflows.\n\n### Notable March 2026 CLI updates\n- Codex CLI 0.116.0 updates include device-code sign-in, plugi",
+      "lastModified": "2026-03-27T22:31:51.600Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "Agent_Guides/Other/Qwen/qwen_cli_guide.md",
+      "title": "Qwen CLI Guide",
+      "section": "Agent_Guides",
+      "category": "Other",
+      "subcategory": "Qwen",
+      "tags": [
+        "qwen",
+        "alibaba",
+        "cli",
+        "reference",
+        "api",
+        "chinese-ai"
+      ],
+      "contentPreview": "## CLI Sync Notes (March 2026)\n\nTracks **Qwen Code CLI** updates explicitly.\n\n### Notable March 2026 CLI updates\n- Recent Qwen Code releases include auth command additions, hooks/event improvements, a",
+      "lastModified": "2026-03-27T22:31:51.620Z",
       "isUserOwned": false
     },
     {

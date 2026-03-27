@@ -3,8 +3,7 @@ title: "DeepSeek CLI Guide"
 tags: ["deepseek", "cli", "reference", "api", "chinese-ai","featured"]
 category: "Agent_Guides"
 subcategory: "Other"
-<!-- Last Updated: 2026-03-25 - CLI sync check (DeepSeek CLI ecosystem) -->
-
+---
 ## CLI Sync Notes (March 2026)
 
 Focuses on **CLI-relevant** updates alongside API basics.
@@ -23,7 +22,6 @@ Focuses on **CLI-relevant** updates alongside API basics.
 - For weekly sync: prefer official CLI release notes/changelog when available; otherwise mark changes as provisional and cite source.
 
 ---
-
 # DeepSeek Agent Guide
 
 Comprehensive reference for building and managing agents with DeepSeek AI models via CLI and API.
@@ -37,7 +35,6 @@ Comprehensive reference for building and managing agents with DeepSeek AI models
 - 🎯 Specialized models: coding, reasoning, and chat
 
 ---
-
 ## 1. Links & Resources
 
 | Resource | Link |
@@ -51,7 +48,6 @@ Comprehensive reference for building and managing agents with DeepSeek AI models
 | **Chat Interface** | [chat.deepseek.com](https://chat.deepseek.com/) |
 
 ---
-
 ## 2. Installation & Setup
 
 ### API Key Setup
@@ -108,7 +104,6 @@ print(response.choices[0].message.content)
 ```
 
 ---
-
 ## 3. Available Models
 
 ### Production Models
@@ -135,7 +130,6 @@ print(response.choices[0].message.content)
 - Competitive with o1-mini
 
 ---
-
 ## 4. API Parameters
 
 ### Chat Completion Parameters
@@ -170,7 +164,6 @@ print(response.choices[0].message.content)
 | `response_format` | object | text | Output format (text/json_object) |
 
 ---
-
 ## 5. Function Calling
 
 ### Define Tools
@@ -228,7 +221,6 @@ if response.choices[0].message.tool_calls:
 ```
 
 ---
-
 ## 6. Streaming Responses
 
 ### Python Example
@@ -260,7 +252,6 @@ curl https://api.deepseek.com/v1/chat/completions \
 ```
 
 ---
-
 ## 7. JSON Mode
 
 ### Structured Output
@@ -282,7 +273,6 @@ print(response.choices[0].message.content)
 **Note:** When using JSON mode, include "JSON" in the system prompt to ensure valid output.
 
 ---
-
 ## 8. CLI Integration Examples
 
 ### Using with LiteLLM
@@ -312,7 +302,6 @@ curl https://openrouter.ai/api/v1/chat/completions \
 ```
 
 ---
-
 ## 9. Best Practices
 
 ### Temperature Settings
@@ -353,7 +342,6 @@ except OpenAIError as e:
 ```
 
 ---
-
 ## 10. Rate Limits & Pricing
 
 ### Rate Limits (as of 2025)
@@ -373,7 +361,6 @@ except OpenAIError as e:
 **Cache pricing:** 90% discount on cached tokens (128K cache)
 
 ---
-
 ## 11. Comparison with Other Models
 
 ### vs GPT-4
@@ -399,7 +386,6 @@ except OpenAIError as e:
 - OpenAI-compatible API
 
 ---
-
 ## 12. Troubleshooting
 
 ### Common Issues
@@ -441,7 +427,6 @@ model = "deepseek-v3"    # ❌ Wrong
 ```
 
 ---
-
 **Last Updated:** 2026-03-24  
 **API Version:** v1
 

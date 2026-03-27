@@ -3,8 +3,7 @@ title: "OpenAI GPT-4 CLI Guide"
 tags: ["openai", "gpt-4", "cli", "reference", "api"]
 category: "Agent_Guides"
 subcategory: "Other"
-<!-- Last Updated: 2026-03-25 - Synced with OpenAI Codex CLI changelog (Mar 2026) -->
-
+---
 ## CLI Sync Notes (March 2026)
 
 Distinguishes legacy API tooling from modern **Codex CLI** workflows.
@@ -21,7 +20,6 @@ Distinguishes legacy API tooling from modern **Codex CLI** workflows.
 - Keep OpenAI API examples, but treat Codex CLI docs/changelog as source of truth for terminal-agent behavior.
 
 ---
-
 # OpenAI GPT-4 Agent Guide
 
 Comprehensive reference for building and managing agents with OpenAI GPT-4 models via CLI and API.
@@ -35,7 +33,6 @@ Comprehensive reference for building and managing agents with OpenAI GPT-4 model
 - 🚀 Fast inference with GPT-4o mini
 
 ---
-
 ## 1. Links & Resources
 
 | Resource | Link |
@@ -50,7 +47,6 @@ Comprehensive reference for building and managing agents with OpenAI GPT-4 model
 | **Status Page** | [status.openai.com](https://status.openai.com/) |
 
 ---
-
 ## 2. Installation & Setup
 
 ### Install Official SDK
@@ -106,7 +102,6 @@ curl https://api.openai.com/v1/chat/completions \
 ```
 
 ---
-
 ## 3. Available Models
 
 ### GPT-4 Family
@@ -142,7 +137,6 @@ curl https://api.openai.com/v1/chat/completions \
 - $15.00/$60.00 per 1M tokens
 
 ---
-
 ## 4. CLI Commands
 
 ### Chat Completion
@@ -283,7 +277,6 @@ openai api moderations.create \
 ```
 
 ---
-
 ## 5. Python SDK Examples
 
 ### Basic Chat
@@ -403,7 +396,6 @@ response = client.chat.completions.create(
 ```
 
 ---
-
 ## 6. API Parameters
 
 ### Chat Completion Parameters
@@ -426,7 +418,6 @@ response = client.chat.completions.create(
 | `logit_bias` | object | null | Token probability adjustments |
 
 ---
-
 ## 7. Best Practices
 
 ### Temperature Guide
@@ -495,7 +486,6 @@ def chat_with_retry(messages, max_retries=3):
 ```
 
 ---
-
 ## 8. Rate Limits & Pricing
 
 ### Rate Limits (Tier 3 example)
@@ -520,7 +510,6 @@ def chat_with_retry(messages, max_retries=3):
 **Batch API:** 50% discount for async processing
 
 ---
-
 ## 9. Advanced Features
 
 ### Structured Outputs
@@ -589,7 +578,6 @@ openai api threads.runs.create \
 ```
 
 ---
-
 ## 10. Troubleshooting
 
 ### Common Errors
@@ -633,7 +621,6 @@ for model in models.data:
 ```
 
 ---
-
 ## 11. Security & Compliance
 
 ### API Key Management
@@ -677,7 +664,6 @@ user_input = sanitize(user_message)
 ```
 
 ---
-
 ## 12. Migration Guide
 
 ### From GPT-3.5 to GPT-4o
@@ -713,7 +699,6 @@ response = client.chat.completions.create(
 ```
 
 ---
-
 **Last Updated:** 2026-03-24  
 **API Version:** v1
 

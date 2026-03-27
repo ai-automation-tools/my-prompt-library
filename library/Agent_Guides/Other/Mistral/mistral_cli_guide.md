@@ -3,8 +3,7 @@ title: "Mistral AI CLI Guide"
 tags: ["mistral", "cli", "reference", "api", "european-ai"]
 category: "Agent_Guides"
 subcategory: "Other"
-<!-- Last Updated: 2026-03-25 - Synced with Mistral Vibe releases (Mar 2026) -->
-
+---
 ## CLI Sync Notes (March 2026)
 
 Tracks **Mistral CLI (Vibe)** changes explicitly.
@@ -24,7 +23,6 @@ Tracks **Mistral CLI (Vibe)** changes explicitly.
 - Keep API model/pricing sections, but prioritize **actual CLI behavior** and release-note deltas in weekly sync.
 
 ---
-
 # Mistral AI Agent Guide
 
 Comprehensive reference for building and managing agents with Mistral AI models via CLI and API.
@@ -38,7 +36,6 @@ Comprehensive reference for building and managing agents with Mistral AI models 
 - 📊 128K context window (select models)
 
 ---
-
 ## 1. Links & Resources
 
 | Resource | Link |
@@ -53,7 +50,6 @@ Comprehensive reference for building and managing agents with Mistral AI models 
 | **Chat** | [chat.mistral.ai](https://chat.mistral.ai/) |
 
 ---
-
 ## 2. Installation & Setup
 
 ### Install Official SDK
@@ -95,7 +91,6 @@ curl https://api.mistral.ai/v1/chat/completions \
 ```
 
 ---
-
 ## 3. Available Models
 
 ### Production Models
@@ -131,7 +126,6 @@ curl https://api.mistral.ai/v1/chat/completions \
 - Free for research/testing
 
 ---
-
 ## 4. Python SDK Examples
 
 ### Basic Chat (Mistral SDK)
@@ -217,7 +211,6 @@ result = asyncio.run(chat())
 ```
 
 ---
-
 ## 5. Function Calling
 
 ### Define Tools
@@ -299,7 +292,6 @@ if response.choices[0].message.tool_calls:
 ```
 
 ---
-
 ## 6. JSON Mode
 
 ### Structured Output
@@ -325,7 +317,6 @@ print(data)
 **Note:** When using JSON mode, include "JSON" in your prompt to ensure valid output.
 
 ---
-
 ## 7. Codestral (Code Completion)
 
 ### Code Generation
@@ -368,7 +359,6 @@ response = client.completion(
 ```
 
 ---
-
 ## 8. Embeddings
 
 ### Generate Embeddings
@@ -428,7 +418,6 @@ print(f"Best match: {best_match}")
 ```
 
 ---
-
 ## 9. API Parameters
 
 ### Chat Completion Parameters
@@ -462,7 +451,6 @@ response = client.chat(
 | `response_format` | object | null | {"type": "json_object"} |
 
 ---
-
 ## 10. CLI Integration
 
 ### Using Mistral CLI (Unofficial)
@@ -522,7 +510,6 @@ curl https://api.mistral.ai/v1/models \
 ```
 
 ---
-
 ## 11. Rate Limits & Pricing
 
 ### Rate Limits
@@ -548,7 +535,6 @@ curl https://api.mistral.ai/v1/models \
 **Free research tier:** Codestral is free for research and testing
 
 ---
-
 ## 12. Best Practices
 
 ### Temperature Settings
@@ -605,7 +591,6 @@ def chat_with_retry(messages, max_retries=3):
 ```
 
 ---
-
 ## 13. Self-Hosting (Open Models)
 
 ### Using vLLM
@@ -652,7 +637,6 @@ huggingface-cli download TheBloke/Mistral-7B-Instruct-v0.2-GGUF \
 ```
 
 ---
-
 ## 14. Advanced Features
 
 ### Prompt Caching (La Plateforme)
@@ -685,7 +669,6 @@ response = client.chat(
 ```
 
 ---
-
 ## 15. Comparison
 
 ### vs GPT-4
@@ -713,7 +696,6 @@ response = client.chat(
 - Code specialist (Codestral)
 
 ---
-
 ## 16. Troubleshooting
 
 ### Common Issues
@@ -756,7 +738,6 @@ response = client.chat(
 ```
 
 ---
-
 **Last Updated:** 2026-03-24  
 **API Version:** v1
 
