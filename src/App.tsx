@@ -1156,7 +1156,8 @@ source: My Prompt Library
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute bottom-full left-0 right-0 mb-2 rounded-[var(--radius-md)] glass border border-[var(--glass-border)] p-1.5 z-50 max-h-[320px] overflow-y-auto shadow-xl"
+                    className="absolute bottom-full left-0 right-0 mb-2 rounded-[var(--radius-md)] bg-[var(--sidebar-bg)] backdrop-blur-xl border border-[var(--glass-border)] p-1.5 z-[9999] max-h-[320px] overflow-y-auto shadow-2xl"
+                    style={{ backgroundColor: 'var(--sidebar-bg)' }}
                   >
                     {THEMES.map(t => (
                       <button
