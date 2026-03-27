@@ -1,5 +1,5 @@
 ---
-title: "Gpt4 Bio 04262024"
+title: "🧠 Gpt4 Bio 04262024"
 tags: ["openai", "llm", "instructions", "gpt4", "bio", "04262024"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

@@ -1,5 +1,5 @@
 ---
-name: api-documentation-generator
+name: 💻 api-documentation-generator
 description: "Generate comprehensive, developer-friendly API documentation from code, including endpoints, parameters, examples, and best practices"
 ---
 

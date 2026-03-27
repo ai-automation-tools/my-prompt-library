@@ -1,5 +1,5 @@
 ---
-title: "Rawdata"
+title: "📊 Rawdata"
 tags: ["rabbit-r1", "llm", "instructions", "rawdata"]
 category: "LLM Instructions"
 subcategory: "rabbit-r1"

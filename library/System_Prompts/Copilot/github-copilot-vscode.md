@@ -1,5 +1,5 @@
 ---
-title: "Github Copilot Vscode 02292024"
+title: "💻 Github Copilot Vscode 02292024"
 tags: ["copilot", "llm", "instructions", "github", "vscode", "02292024"]
 category: "LLM Instructions"
 subcategory: "Copilot"

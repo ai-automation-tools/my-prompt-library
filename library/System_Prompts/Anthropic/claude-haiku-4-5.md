@@ -1,5 +1,5 @@
 ---
-title: "Claude Haiku 4.5"
+title: "🧠 Claude Haiku 4.5"
 tags: ["anthropic", "llm", "instructions", "claude", "haiku"]
 category: "LLM Instructions"
 subcategory: "Anthropic"

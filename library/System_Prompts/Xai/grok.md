@@ -1,5 +1,5 @@
 ---
-title: "Grok"
+title: "🧠 Grok"
 tags: ["xai", "llm", "instructions", "grok"]
 category: "LLM Instructions"
 subcategory: "xAI"

@@ -1,5 +1,5 @@
 ---
-name: "ax-workspace-cookbook"
+name: 🛠️ "ax-workspace-cookbook"
 description: "Generate complete workspace setup documentation (agents, tools, workflows, configuration) for AX Platform multi-agent collaboration scenarios"
 tags: ["featured"]
 ---

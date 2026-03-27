@@ -1,5 +1,5 @@
 ---
-title: "OpenAI ChatGPT-4o System Prompt"
+title: "🧠 OpenAI ChatGPT-4o System Prompt"
 tags: ["system-prompt", "llm", "openai", "chatgpt"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

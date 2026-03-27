@@ -1,5 +1,5 @@
 ---
-title: "Notebooklm"
+title: "📝 Notebooklm"
 tags: ["google", "llm", "instructions", "notebooklm"]
 category: "LLM Instructions"
 subcategory: "Google"

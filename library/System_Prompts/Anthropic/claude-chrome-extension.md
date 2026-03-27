@@ -1,5 +1,5 @@
 ---
-title: "Claude Chrome Extension"
+title: "📝 Claude Chrome Extension"
 tags: ["anthropic", "llm", "instructions", "claude", "chrome", "extension"]
 category: "LLM Instructions"
 subcategory: "Anthropic"

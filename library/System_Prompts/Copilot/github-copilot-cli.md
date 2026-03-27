@@ -1,5 +1,5 @@
 ---
-title: "Github Copilot Cli 20260121"
+title: "📝 Github Copilot Cli 20260121"
 tags: ["copilot", "llm", "instructions", "github", "cli", "20260121"]
 category: "LLM Instructions"
 subcategory: "Copilot"

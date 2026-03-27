@@ -1,5 +1,5 @@
 ---
-title: "Gpt4v Default"
+title: "🧠 Gpt4v Default"
 tags: ["openai", "llm", "instructions", "gpt4v", "default"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

@@ -1,5 +1,5 @@
 ---
-title: "Perplexity System Prompt"
+title: "⚙️ Perplexity System Prompt"
 tags: ["system-prompt", "llm", "perplexity"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

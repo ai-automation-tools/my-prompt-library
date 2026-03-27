@@ -1,5 +1,5 @@
 ---
-title: "System Prompt"
+title: "🧠 System Prompt"
 tags: ["hume.ai", "llm", "instructions", "system", "prompt"]
 category: "LLM Instructions"
 subcategory: "Hume.ai"

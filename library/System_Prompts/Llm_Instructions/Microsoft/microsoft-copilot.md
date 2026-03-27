@@ -1,5 +1,5 @@
 ---
-title: "Microsoft Copilot"
+title: "⚙️ Microsoft Copilot"
 tags: ["microsoft", "copilot", "llm", "system-prompt"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

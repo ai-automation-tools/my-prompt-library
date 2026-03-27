@@ -1,5 +1,5 @@
 ---
-title: "Darth Assistant"
+title: "🤝 Darth Assistant"
 tags: ["sleephq", "llm", "instructions", "darth", "assistant"]
 category: "LLM Instructions"
 subcategory: "SleepHQ"

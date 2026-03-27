@@ -1,5 +1,5 @@
 ---
-title: "Cursor"
+title: "📝 Cursor"
 tags: ["cursor.com", "llm", "instructions", "cursor"]
 category: "LLM Instructions"
 subcategory: "Cursor.com"

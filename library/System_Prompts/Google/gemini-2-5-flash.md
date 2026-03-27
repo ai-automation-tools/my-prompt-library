@@ -1,5 +1,5 @@
 ---
-title: "Gemini 2.5 Flash"
+title: "📝 Gemini 2.5 Flash"
 tags: ["google", "llm", "instructions", "gemini", "2_5", "flash"]
 category: "LLM Instructions"
 subcategory: "Google"

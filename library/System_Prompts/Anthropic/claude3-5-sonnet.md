@@ -1,5 +1,5 @@
 ---
-title: "Claude3.5 Sonnet"
+title: "📝 Claude3.5 Sonnet"
 tags: ["anthropic", "llm", "instructions", "claude3_5", "sonnet"]
 category: "LLM Instructions"
 subcategory: "Anthropic"

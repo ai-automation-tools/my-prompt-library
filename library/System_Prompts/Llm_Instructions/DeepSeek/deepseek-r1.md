@@ -1,5 +1,5 @@
 ---
-title: "DeepSeek R1"
+title: "⚙️ DeepSeek R1"
 tags: ["deepseek", "r1", "system-prompt"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

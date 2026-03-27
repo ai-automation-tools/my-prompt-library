@@ -1,5 +1,5 @@
 ---
-title: "Gpt4o Tasks And Automation 01142025"
+title: "🧠 Gpt4o Tasks And Automation 01142025"
 tags: ["openai", "llm", "instructions", "gpt4o", "tasks", "and", "automation", "01142025"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

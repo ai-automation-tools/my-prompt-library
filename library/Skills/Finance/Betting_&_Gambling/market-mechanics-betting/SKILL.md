@@ -1,5 +1,5 @@
 ---
-name: market-mechanics-betting
+name: 🛠️ market-mechanics-betting
 description: Use to convert probabilities into decisions (bet/pass/hedge) and optimize scoring. Invoke when need to calculate edge, size bets optimally (Kelly Criterion), extremize aggregated forecasts, or improve Brier scores. Use when user mentions betting strategy, Kelly, edge calculation, Brier score, extremizing, or translating belief into action.
 source: https://mcpmarket.com/tools/skills/market-mechanics-betting
 ---

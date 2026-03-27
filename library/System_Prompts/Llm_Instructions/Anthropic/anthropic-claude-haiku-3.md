@@ -1,5 +1,5 @@
 ---
-title: "Anthropic Claude Haiku 3 System Prompt"
+title: "🧠 Anthropic Claude Haiku 3 System Prompt"
 tags: ["anthropic", "claude", "haiku", "system-prompt", "llm-instruction"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

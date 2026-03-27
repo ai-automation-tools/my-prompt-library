@@ -1,5 +1,5 @@
 ---
-title: "Microsoft Copilot Desktop 11132024"
+title: "📝 Microsoft Copilot Desktop 11132024"
 tags: ["copilot", "llm", "instructions", "microsoft", "desktop", "11132024"]
 category: "LLM Instructions"
 subcategory: "Copilot"

@@ -1,5 +1,5 @@
 ---
-title: "Meta AI WhatsApp"
+title: "🧠 Meta AI WhatsApp"
 tags: ["meta", "whatsapp", "ai"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

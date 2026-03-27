@@ -1,5 +1,5 @@
 ---
-title: "Claude Opus4.1"
+title: "📝 Claude Opus4.1"
 tags: ["anthropic", "llm", "instructions", "claude", "opus4_1"]
 category: "LLM Instructions"
 subcategory: "Anthropic"

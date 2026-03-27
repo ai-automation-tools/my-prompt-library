@@ -1,5 +1,5 @@
 ---
-title: "Cursor IDE Sonnet System Prompt"
+title: "⚙️ Cursor IDE Sonnet System Prompt"
 tags: ["system-prompt", "llm", "cursor", "sonnet"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

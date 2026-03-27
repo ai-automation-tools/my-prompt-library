@@ -1,5 +1,5 @@
 ---
-title: "Gpt35"
+title: "🧠 Gpt35"
 tags: ["openai", "llm", "instructions", "gpt35"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

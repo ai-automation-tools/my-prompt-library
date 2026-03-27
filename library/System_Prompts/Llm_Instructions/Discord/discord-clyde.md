@@ -1,5 +1,5 @@
 ---
-title: "Discord Clyde"
+title: "⚙️ Discord Clyde"
 tags: ["discord", "clyde", "chatbot"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

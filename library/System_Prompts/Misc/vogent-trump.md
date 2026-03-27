@@ -1,5 +1,5 @@
 ---
-title: "Vogent Trump"
+title: "📝 Vogent Trump"
 tags: ["misc", "llm", "instructions", "vogent", "trump"]
 category: "LLM Instructions"
 subcategory: "Misc"

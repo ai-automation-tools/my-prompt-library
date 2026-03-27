@@ -1,5 +1,5 @@
 ---
-title: "Google Gemini 1.5 System Prompt"
+title: "⚙️ Google Gemini 1.5 System Prompt"
 tags: ["system-prompt", "llm", "google", "gemini"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

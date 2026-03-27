@@ -1,5 +1,5 @@
 ---
-title: "Cluely"
+title: "📝 Cluely"
 tags: ["misc", "llm", "instructions", "cluely"]
 category: "LLM Instructions"
 subcategory: "Misc"

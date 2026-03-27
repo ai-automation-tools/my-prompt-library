@@ -1,5 +1,5 @@
 ---
-title: "Manus AI Agent System Prompt"
+title: "🤖 Manus AI Agent System Prompt"
 tags: ["manus", "ai-agent", "system-prompt", "automation"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

@@ -1,5 +1,5 @@
 ---
-title: "Chatgpt With Projects 12152024"
+title: "🧠 Chatgpt With Projects 12152024"
 tags: ["openai", "llm", "instructions", "chatgpt", "with", "projects", "12152024"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

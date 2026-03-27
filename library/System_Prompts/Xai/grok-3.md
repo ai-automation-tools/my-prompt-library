@@ -1,5 +1,5 @@
 ---
-title: "xAI Grok 3 System Prompt"
+title: "🧠 xAI Grok 3 System Prompt"
 tags: ["xai", "grok", "grok-3", "system-prompt"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

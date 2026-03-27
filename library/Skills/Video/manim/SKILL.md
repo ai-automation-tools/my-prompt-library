@@ -1,5 +1,5 @@
 ---
-name: manim
+name: 🎬 manim
 description: Comprehensive guide for Manim Community - Python framework for creating mathematical animations and educational videos with programmatic control
 version: 1.0.0
 author: manim-community

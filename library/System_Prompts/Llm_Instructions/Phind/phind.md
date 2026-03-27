@@ -1,5 +1,5 @@
 ---
-title: "Phind System Prompt"
+title: "⚙️ Phind System Prompt"
 tags: ["system-prompt", "llm", "phind"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

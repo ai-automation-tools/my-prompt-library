@@ -1,5 +1,5 @@
 ---
-title: "Dbrx Instruct 03272024"
+title: "📊 Dbrx Instruct 03272024"
 tags: ["databricks", "llm", "instructions", "dbrx", "instruct", "03272024"]
 category: "LLM Instructions"
 subcategory: "Databricks"

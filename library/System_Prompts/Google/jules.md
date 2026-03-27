@@ -1,5 +1,5 @@
 ---
-title: "Jules"
+title: "📝 Jules"
 tags: ["google", "llm", "instructions", "jules"]
 category: "LLM Instructions"
 subcategory: "Google"

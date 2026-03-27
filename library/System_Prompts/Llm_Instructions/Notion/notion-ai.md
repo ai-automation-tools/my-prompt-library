@@ -1,5 +1,5 @@
 ---
-title: "Notion AI"
+title: "🧠 Notion AI"
 tags: ["notion", "ai", "assistant"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

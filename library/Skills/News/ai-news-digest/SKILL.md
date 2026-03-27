@@ -1,5 +1,5 @@
 ---
-name: ai-news-digest
+name: ✨ ai-news-digest
 description: Generate and send a weekly AI news digest email by searching multiple tech blogs for the past week and compiling results into a formatted HTML email. Use when the user asks to create a news digest, send AI news summary, compile tech news, or run the weekly news workflow.
 tags: ["featured"]
 ---

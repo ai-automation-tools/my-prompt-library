@@ -1,5 +1,5 @@
 ---
-title: "Anthropic Claude Opus 3"
+title: "⚙️ Anthropic Claude Opus 3"
 tags: ["anthropic", "claude", "opus", "llm", "system-prompt"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"

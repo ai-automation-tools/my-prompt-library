@@ -1,5 +1,5 @@
 ---
-name: financial-analysis
+name: 🐙 financial-analysis
 description: Conduct comprehensive financial market analysis including stock market analysis, investment strategy insights, global market developments, earnings reports, and market sentiment scoring. Use when analyzing markets, researching investments, tracking earnings, or assessing market sentiment. Outputs are saved to GitHub and posted to AX MCP message board.
 ---
 

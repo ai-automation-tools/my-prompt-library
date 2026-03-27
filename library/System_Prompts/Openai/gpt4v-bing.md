@@ -1,5 +1,5 @@
 ---
-title: "Gpt4v Bing"
+title: "🧠 Gpt4v Bing"
 tags: ["openai", "llm", "instructions", "gpt4v", "bing"]
 category: "LLM Instructions"
 subcategory: "OpenAI"

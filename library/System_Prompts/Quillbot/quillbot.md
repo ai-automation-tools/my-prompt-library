@@ -1,5 +1,5 @@
 ---
-title: "Quillbot"
+title: "📝 Quillbot"
 tags: ["quillbot", "llm", "instructions"]
 category: "LLM Instructions"
 subcategory: "Quillbot"
