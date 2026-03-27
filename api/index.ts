@@ -202,9 +202,15 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
           const category = pathParts[1] || 'Uncategorized';
           const subcategory = pathParts.length > 2 ? pathParts[2] : null;
           
+          // For Skills, use 'name' field instead of 'title'
+          const isSkill = section === 'Skills';
+          const title = isSkill
+            ? (data.name || extractFirstHeading(content) || path.basename(file.path, '.md'))
+            : (data.title || extractFirstHeading(content) || path.basename(file.path, '.md'));
+          
           return {
             id: file.path,
-            title: data.title || extractFirstHeading(content) || path.basename(file.path, '.md'),
+            title: title,
             section,
             category,
             subcategory,
@@ -255,9 +261,15 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
             const category = pathParts[1] || 'Uncategorized';
             const subcategory = pathParts.length > 2 ? pathParts[2] : null;
             
+            // For Skills, use 'name' field instead of 'title'
+            const isSkill = section === 'Skills';
+            const title = isSkill
+              ? (data.name || extractFirstHeading(content) || path.basename(file, '.md'))
+              : (data.title || extractFirstHeading(content) || path.basename(file, '.md'));
+            
             results.push({
               id: relativePath,
-              title: data.title || extractFirstHeading(content) || path.basename(file, '.md'),
+              title: title,
               section,
               category,
               subcategory,
@@ -512,7 +524,12 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
     const section = pathParts[0] || 'General';
     const category = pathParts[1] || 'Uncategorized';
     const subcategory = pathParts.length > 2 ? pathParts[2] : null;
-    const title = data.title || extractFirstHeading(content) || path.basename(promptId, ".md");
+    
+    // For Skills, use 'name' field instead of 'title'
+    const isSkill = section === 'Skills';
+    const title = isSkill
+      ? (data.name || extractFirstHeading(content) || path.basename(promptId, ".md"))
+      : (data.title || extractFirstHeading(content) || path.basename(promptId, ".md"));
 
     const copiedPrompt = await promptDb.copyFromPublic(req.user!.id, {
       title,
