@@ -55,6 +55,25 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Extract emoji from the beginning of a string
+function extractEmoji(text: string): { emoji: string | null; title: string } {
+  // Match emoji at the start of the string (Unicode emoji range)
+  const emojiRegex = /^([\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}])/u;
+  const match = text.match(emojiRegex);
+  
+  if (match) {
+    return {
+      emoji: match[1],
+      title: text.slice(match[1].length).trim()
+    };
+  }
+  
+  return {
+    emoji: null,
+    title: text
+  };
+}
+
 interface Prompt {
   id: string;
   title: string;
@@ -869,17 +888,28 @@ source: My Prompt Library
       {/* Main content area */}
       <div className="p-6 pb-14 space-y-4 relative z-[1]">
         <div className="flex items-start gap-3.5">
-          <div className="w-9 h-9 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--glass-border)]">
-            <FileText className="w-4 h-4 text-[var(--accent)]" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="heading-display text-base font-bold tracking-tight leading-snug mb-1.5 text-[var(--text-primary)]">
-              {prompt.title}
-            </h3>
-            <p className="label truncate">
-              {prompt.category}{prompt.subcategory ? ` / ${prompt.subcategory.replace(/_/g, ' ')}` : ''}
-            </p>
-          </div>
+          {(() => {
+            const { emoji, title } = extractEmoji(prompt.title);
+            return (
+              <>
+                <div className="w-9 h-9 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--glass-border)]">
+                  {emoji ? (
+                    <span className="text-lg">{emoji}</span>
+                  ) : (
+                    <FileText className="w-4 h-4 text-[var(--accent)]" />
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="heading-display text-base font-bold tracking-tight leading-snug mb-1.5 text-[var(--text-primary)]">
+                    {title}
+                  </h3>
+                  <p className="label truncate">
+                    {prompt.category}{prompt.subcategory ? ` / ${prompt.subcategory.replace(/_/g, ' ')}` : ''}
+                  </p>
+                </div>
+              </>
+            );
+          })()}
         </div>
 
         {prompt.tags.length > 0 && (
@@ -2099,17 +2129,28 @@ source: My Prompt Library
 
                           <div className="flex-1 p-5 pb-12 space-y-3 relative z-[1]">
                             <div className="flex items-start gap-3">
-                              <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--accent)]/50">
-                                <FileText className="w-3.5 h-3.5 text-[var(--accent)]" />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h4 className="heading-display text-sm font-bold tracking-tight leading-snug mb-1 text-[var(--text-primary)] line-clamp-2">
-                                  {prompt.title}
-                                </h4>
-                                <p className="label truncate text-[0.65rem]">
-                                  {prompt.category}{prompt.subcategory ? ` / ${prompt.subcategory.replace(/_/g, ' ')}` : ''}
-                                </p>
-                              </div>
+                              {(() => {
+                                const { emoji, title } = extractEmoji(prompt.title);
+                                return (
+                                  <>
+                                    <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] flex items-center justify-center shrink-0 border border-[var(--accent)]/50">
+                                      {emoji ? (
+                                        <span className="text-base">{emoji}</span>
+                                      ) : (
+                                        <FileText className="w-3.5 h-3.5 text-[var(--accent)]" />
+                                      )}
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <h4 className="heading-display text-sm font-bold tracking-tight leading-snug mb-1 text-[var(--text-primary)] line-clamp-2">
+                                        {title}
+                                      </h4>
+                                      <p className="label truncate text-[0.65rem]">
+                                        {prompt.category}{prompt.subcategory ? ` / ${prompt.subcategory.replace(/_/g, ' ')}` : ''}
+                                      </p>
+                                    </div>
+                                  </>
+                                );
+                              })()}
                             </div>
 
                             {prompt.tags.length > 0 && (
