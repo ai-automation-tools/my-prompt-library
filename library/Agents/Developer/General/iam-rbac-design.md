@@ -1,5 +1,5 @@
 ---
-title: "🤖 Design A Comprehensive Iam/rbac And Abac System For A Multi Tenant SAAS Platform"
+title: "🤖 Principal Security Architect"
 tags: ["collections", "engineering", "rbac", "design"]
 category: "Collections"
 subcategory: "Engineering"
