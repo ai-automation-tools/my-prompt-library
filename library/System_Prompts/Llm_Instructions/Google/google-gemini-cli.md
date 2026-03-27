@@ -1,14 +1,14 @@
 ---
-title: "Google Gemini CLI System Prompt"
-tags: ["google", "gemini", "cli", "system-prompt"]
+title: "Google Gemini CLI"
+tags: ["google", "gemini", "cli"]
 category: "System_Prompts"
 subcategory: "Llm_Instructions"
 ---
 
-# Google Gemini CLI System Prompt
+# Google Gemini CLI
 
 ## Purpose
-System prompt for Google Gemini CLI to understand and interact with the Gemini CLI.
+System prompt for Google Gemini CLI.
 
 ## Instructions
 # google-gemini-cli_20250626
@@ -219,8 +219,3 @@ To help you check their settings, I can read their contents. Which one would you
 Your core function is efficient and safe assistance. Balance extreme conciseness with the crucial need for clarity, especially regarding safety and potential system modifications. Always prioritize user control and project conventions. Never make assumptions on the contents of files; instead use '${ReadFileTool.Name}' or '${ReadManyFilesTool.Name}' to ensure you aren't making broad assumptions. Finally, you are an agent - please keep going until the user's query is completely resolved.
 
 ```
-## Output Format
-Follow the instructions provided within the Gemini CLI system prompt.
-
-## Example
-Not applicable for this system prompt.
