@@ -1,6 +1,6 @@
 ---
 title: "Kimi CLI Guide"
-tags: ["kimi", "moonshot", "cli", "reference", "api", "chinese-ai"]
+tags: ["kimi", "moonshot", "cli", "reference", "api", "chinese-ai","featured"]
 category: "Agent_Guides"
 subcategory: "Other"
 <!-- Last Updated: 2026-03-25 - Synced with Kimi CLI changelog (Mar 2026) -->

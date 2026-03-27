@@ -1,6 +1,6 @@
 ---
 title: "DeepSeek CLI Guide"
-tags: ["deepseek", "cli", "reference", "api", "chinese-ai"]
+tags: ["deepseek", "cli", "reference", "api", "chinese-ai","featured"]
 category: "Agent_Guides"
 subcategory: "Other"
 <!-- Last Updated: 2026-03-25 - CLI sync check (DeepSeek CLI ecosystem) -->

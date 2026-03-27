@@ -1,5 +1,5 @@
 ---
-title: "Google Gemini CLI Guide"
+title: " Gemini Models CLI Guide"
 tags: ["gemini", "google", "cli", "reference", "api", "multimodal"]
 category: "Agent_Guides"
 subcategory: "Other"

@@ -1,3 +1,9 @@
+---
+title: "💻 Gemini CLI Guide"
+tags: ["featured", "gemini", "flags", "cli", "reference", "google", "options"]
+category: "Agent_Guides"
+subcategory: "Gemini_CLI"
+---
 
 <!-- Last Updated: 2026-03-25 - Synced with upstream (March 2026 release) -->
 
