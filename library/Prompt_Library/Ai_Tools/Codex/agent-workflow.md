@@ -5,7 +5,7 @@ tags:
 - codex
 - agents
 - workflow
-title: "Create A Multi Agent Workflow"
+title: "📌 Create A Multi Agent Workflow"
 ---
 
 # Codex Prompt: Multi-Agent Workflow

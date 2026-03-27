@@ -1,5 +1,5 @@
 ---
-title: "Security Audit"
+title: "📌 Security Audit"
 tags: ["security", "audit", "vulnerabilities", "injection", "owasp"]
 category: "Security_and_IAM"
 subcategory: "Security_Audits"

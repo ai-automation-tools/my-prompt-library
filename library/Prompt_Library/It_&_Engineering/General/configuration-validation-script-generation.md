@@ -1,5 +1,5 @@
 ---
-title: "Configuration Validation Script Generation"
+title: "📌 Configuration Validation Script Generation"
 tags: ["collections", "engineering", "configuration", "validation", "script"]
 category: "Collections"
 subcategory: "Engineering"

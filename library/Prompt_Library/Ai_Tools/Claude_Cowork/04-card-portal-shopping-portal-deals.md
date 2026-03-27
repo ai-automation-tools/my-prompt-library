@@ -1,5 +1,5 @@
 ---
-title: "Card Portal & Shopping Portal Deals"
+title: "🤝 Card Portal & Shopping Portal Deals"
 tags: ["ai-tools", "claude-cowork", "card", "portal", "shopping"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

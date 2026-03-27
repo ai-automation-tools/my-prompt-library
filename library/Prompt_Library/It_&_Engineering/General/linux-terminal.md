@@ -1,5 +1,5 @@
 ---
-title: "Linux Terminal"
+title: "⚙️ Linux Terminal"
 tags: ["linux", "terminal", "bash", "commands"]
 category: "It_&_Engineering"
 subcategory: "General"

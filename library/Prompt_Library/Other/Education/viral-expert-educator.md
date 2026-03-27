@@ -1,5 +1,5 @@
 ---
-title: "Viral Expert Educator"
+title: "🎓 Viral Expert Educator"
 tags: ["chatgpt", "learning", "education", "toms-guide"]
 category: "Other"
 subcategory: "Education"

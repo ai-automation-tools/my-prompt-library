@@ -1,5 +1,5 @@
 ---
-title: "SEO Blog Writer"
+title: "📌 SEO Blog Writer"
 tags:
   - writing
   - seo

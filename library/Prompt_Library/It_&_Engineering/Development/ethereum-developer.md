@@ -1,5 +1,5 @@
 ---
-title: "Ethereum Developer"
+title: "👨‍💻 Ethereum Developer"
 tags: ["ethereum", "developer", "blockchain", "solidity"]
 category: "It_&_Engineering"
 subcategory: "Development"

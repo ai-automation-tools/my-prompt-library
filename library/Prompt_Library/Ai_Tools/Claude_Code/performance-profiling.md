@@ -1,5 +1,5 @@
 ---
-title: "Performance Profiling"
+title: "📌 Performance Profiling"
 tags: ["performance", "profiling", "bottleneck", "optimization", "latency"]
 category: "Debugging_and_Diagnosis"
 subcategory: "Performance"

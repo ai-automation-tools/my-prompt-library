@@ -1,5 +1,5 @@
 ---
-title: "IV Crush Opportunity Finder"
+title: "📈 IV Crush Opportunity Finder"
 tags: ["finance", "investments", "crush", "opportunity", "finder"]
 category: "Finance"
 subcategory: "Investments"

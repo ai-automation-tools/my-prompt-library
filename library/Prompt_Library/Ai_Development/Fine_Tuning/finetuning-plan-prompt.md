@@ -1,5 +1,5 @@
 ---
-title: Fine-Tuning Plan (Based on OpenAI/DeepMind papers)
+title: "📌 Fine-Tuning Plan (Based on OpenAI/DeepMind papers)"
 tags:
 - collections
 - ai_agents

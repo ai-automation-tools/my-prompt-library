@@ -1,5 +1,5 @@
 ---
-title: "Viral Content Strategist"
+title: "📌 Viral Content Strategist"
 tags:
   - social-media
   - viral

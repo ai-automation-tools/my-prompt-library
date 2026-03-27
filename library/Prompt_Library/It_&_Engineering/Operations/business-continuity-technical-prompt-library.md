@@ -1,5 +1,5 @@
 ---
-title: "Business Continuity (technical Aspects) Prompt Library"
+title: "📌 Business Continuity (technical Aspects) Prompt Library"
 tags: ["it", "operations", "business", "continuity", "technical"]
 category: "IT"
 subcategory: "Operations"

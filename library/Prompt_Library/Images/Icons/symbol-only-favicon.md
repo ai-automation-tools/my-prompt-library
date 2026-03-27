@@ -1,5 +1,5 @@
 ---
-title: "Symbol Only Favicon"
+title: "🖼️ Symbol Only Favicon"
 tags: ["images", "icons", "symbol", "only", "favicon"]
 category: "Images"
 subcategory: "Icons"

@@ -1,5 +1,5 @@
 ---
-title: "Create Operational Runbook"
+title: "📌 Create Operational Runbook"
 tags: ["runbook", "operations", "incident", "troubleshooting", "sre"]
 category: "Documentation"
 subcategory: "Operational_Runbooks"

@@ -1,5 +1,5 @@
 ---
-title: "Podcast Script Converter"
+title: "✍️ Podcast Script Converter"
 tags: ["writing", "content", "podcast", "script", "converter"]
 category: "Writing"
 subcategory: "Content"

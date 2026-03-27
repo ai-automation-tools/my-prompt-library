@@ -1,5 +1,5 @@
 ---
-title: "Nutritional Analysis & Index"
+title: "🍳 Nutritional Analysis & Index"
 tags: ["writing", "cookbooks", "nutritional", "analysis"]
 category: "Writing"
 subcategory: "Cookbooks"

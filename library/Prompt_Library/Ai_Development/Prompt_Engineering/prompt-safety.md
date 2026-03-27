@@ -1,5 +1,5 @@
 ---
-title: "Safety Review"
+title: "📌 Safety Review"
 tags: ["collections", "ai", "prompt", "safety"]
 category: "Collections"
 subcategory: "AI"

@@ -1,5 +1,5 @@
 ---
-title: "Supply Chain Optimization Agent Prompt"
+title: "🚚 Supply Chain Optimization Agent Prompt"
 tags: ["supply-chain", "logistics", "ai-agent", "optimization"]
 category: "Business"
 subcategory: "Supply_Chain"

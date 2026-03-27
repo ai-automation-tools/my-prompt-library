@@ -1,5 +1,5 @@
 ---
-title: "AX MCP Updates Newsletter Draft"
+title: "🤝 AX MCP Updates Newsletter Draft"
 tags: ["ai-tools", "claude-cowork", "updates", "newsletter", "draft"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

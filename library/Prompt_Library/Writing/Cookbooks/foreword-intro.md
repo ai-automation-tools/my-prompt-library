@@ -1,5 +1,5 @@
 ---
-title: "Foreword & Bonus Sections"
+title: "🍳 Foreword & Bonus Sections"
 tags: ["writing", "cookbooks", "foreword", "intro"]
 category: "Writing"
 subcategory: "Cookbooks"

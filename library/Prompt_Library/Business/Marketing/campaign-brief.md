@@ -1,5 +1,5 @@
 ---
-title: "Integrated Campaign Brief"
+title: "📌 Integrated Campaign Brief"
 tags: ["collections", "business", "campaign", "brief", "prompt"]
 category: "Collections"
 subcategory: "Business"

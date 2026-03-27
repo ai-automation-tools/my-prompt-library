@@ -1,5 +1,5 @@
 ---
-title: "Cyber Security Prompt Library"
+title: "📌 Cyber Security Prompt Library"
 tags: ["it", "security", "cyber", "prompt"]
 category: "IT"
 subcategory: "Security"

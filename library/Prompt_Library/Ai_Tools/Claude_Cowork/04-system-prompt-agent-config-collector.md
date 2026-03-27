@@ -1,5 +1,5 @@
 ---
-title: "System Prompt & Agent Config Collector"
+title: "🤝 System Prompt & Agent Config Collector"
 tags: ["ai-tools", "claude-cowork", "system", "prompt", "agent"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

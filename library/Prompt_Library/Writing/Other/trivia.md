@@ -1,5 +1,5 @@
 ---
-title: "Trivia"
+title: "📌 Trivia"
 tags: ["collections", "writing", "trivia", "generator"]
 category: "Collections"
 subcategory: "Writing"

@@ -1,5 +1,5 @@
 ---
-title: 'Prompt: Pricing Model Builder for AX-Platform'
+title: "📌 Prompt: Pricing Model Builder for AX-Platform"
 tags:
 - collections
 - business

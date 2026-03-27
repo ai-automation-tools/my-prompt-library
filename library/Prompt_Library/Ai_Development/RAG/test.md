@@ -1,5 +1,5 @@
 ---
-title: Test
+title: "📌 Test"
 tags:
 - collections
 - ai_agents

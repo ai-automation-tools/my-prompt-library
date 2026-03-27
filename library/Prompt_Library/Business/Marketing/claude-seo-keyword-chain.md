@@ -1,5 +1,5 @@
 ---
-title: "Claude SEO Keyword Research Chain"
+title: "📣 Claude SEO Keyword Research Chain"
 tags: ["claude", "seo", "marketing", "chain-prompt"]
 category: "Business"
 subcategory: "Marketing"

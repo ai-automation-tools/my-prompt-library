@@ -1,5 +1,5 @@
 ---
-title: "IT Expert"
+title: "📌 IT Expert"
 tags: ["collections", "engineering", "expert"]
 category: "Collections"
 subcategory: "Engineering"

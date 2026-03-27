@@ -1,5 +1,5 @@
 ---
-title: "Market Entry Strategy"
+title: "📌 Market Entry Strategy"
 tags: ["collections", "business", "market", "entry", "prompt"]
 category: "Collections"
 subcategory: "Business"

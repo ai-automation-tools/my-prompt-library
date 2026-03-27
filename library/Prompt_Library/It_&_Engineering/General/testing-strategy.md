@@ -1,5 +1,5 @@
 ---
-title: "Testing Strategy"
+title: "📌 Testing Strategy"
 tags: ["collections", "engineering", "testing", "strategy", "prompt"]
 category: "Collections"
 subcategory: "Engineering"

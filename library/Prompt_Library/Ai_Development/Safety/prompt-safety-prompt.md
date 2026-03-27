@@ -1,5 +1,5 @@
 ---
-title: Prompt Safety Review (Based on OWASP LLM Top 10)
+title: "📌 Prompt Safety Review (Based on OWASP LLM Top 10)"
 tags:
 - collections
 - ai_agents

@@ -1,5 +1,5 @@
 ---
-title: "Financial Planning Report Builder"
+title: "📝 Financial Planning Report Builder"
 tags: ["finance", "planning", "financial", "planner"]
 category: "Finance"
 subcategory: "Planning"

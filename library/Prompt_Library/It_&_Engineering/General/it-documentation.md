@@ -1,5 +1,5 @@
 ---
-title: "IT Team Technical Documentation Prompt Library"
+title: "📌 IT Team Technical Documentation Prompt Library"
 tags: ["collections", "engineering", "documentation"]
 category: "Collections"
 subcategory: "Engineering"

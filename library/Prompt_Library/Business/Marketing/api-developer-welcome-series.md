@@ -1,5 +1,5 @@
 ---
-title: "API Developer Welcome Series"
+title: "📣 API Developer Welcome Series"
 tags: ["api", "developer-marketing", "welcome-series", "onboarding", "b2b"]
 category: "Business"
 subcategory: "Marketing"

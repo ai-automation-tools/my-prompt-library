@@ -1,5 +1,5 @@
 ---
-title: "Weekly Trade Committee Report"
+title: "📝 Weekly Trade Committee Report"
 tags: ["finance", "planning", "weekly", "trade", "committee"]
 category: "Finance"
 subcategory: "Planning"

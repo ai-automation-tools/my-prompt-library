@@ -1,5 +1,5 @@
 ---
-title: "AI Security Governance Auditor"
+title: "🔒 AI Security Governance Auditor"
 tags: ["ai-governance", "security", "nist-standards", "compliance", "audit"]
 category: "Security"
 subcategory: "Governance"

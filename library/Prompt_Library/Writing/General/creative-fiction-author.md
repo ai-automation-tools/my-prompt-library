@@ -1,5 +1,5 @@
 ---
-title: "Creative Fiction Author"
+title: "📌 Creative Fiction Author"
 tags:
   - writing
   - fiction

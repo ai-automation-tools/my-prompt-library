@@ -1,5 +1,5 @@
 ---
-title: "Windows Performance Optimizer"
+title: "📌 Windows Performance Optimizer"
 tags: ["powershell", "windows", "optimization", "performance", "system-tuning"]
 category: "IT"
 subcategory: "Scripts"

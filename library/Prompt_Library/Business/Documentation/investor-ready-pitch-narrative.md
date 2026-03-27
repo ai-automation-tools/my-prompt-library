@@ -1,5 +1,5 @@
 ---
-title: "Investor Ready Pitch Narrative"
+title: "📄 Investor Ready Pitch Narrative"
 tags: ["business", "documentation", "investor", "ready", "pitch"]
 category: "Business"
 subcategory: "Documentation"

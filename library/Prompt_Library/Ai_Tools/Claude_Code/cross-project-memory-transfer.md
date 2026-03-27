@@ -1,5 +1,5 @@
 ---
-title: "Cross Project Memory Transfer"
+title: "📌 Cross Project Memory Transfer"
 tags: ["CLAUDE.md", "memory", "transfer", "patterns", "conventions"]
 category: "CLAUDE_md_and_Memory"
 subcategory: "Memory_Transfer"

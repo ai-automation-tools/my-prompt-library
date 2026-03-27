@@ -1,5 +1,5 @@
 ---
-title: "Mutation Testing Mindset"
+title: "📌 Mutation Testing Mindset"
 tags: ["testing", "mutation", "weak-tests", "coverage", "robustness"]
 category: "Testing_and_Quality"
 subcategory: "Test_Hardening"

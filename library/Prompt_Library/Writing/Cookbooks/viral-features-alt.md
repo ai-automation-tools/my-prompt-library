@@ -1,5 +1,5 @@
 ---
-title: "Phase : Unique Viral Features"
+title: "🍳 Phase : Unique Viral Features"
 tags: ["writing", "cookbooks", "viral", "features"]
 category: "Writing"
 subcategory: "Cookbooks"

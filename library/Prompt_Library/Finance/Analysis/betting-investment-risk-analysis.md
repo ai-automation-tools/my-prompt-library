@@ -1,5 +1,5 @@
 ---
-title: "Betting & Investment Risk Analysis Dataset"
+title: "📊 Betting & Investment Risk Analysis Dataset"
 tags: ["finance", "analysis", "risk", "betting", "gambling", "investment", "expected-value", "featured"]
 category: "Finance"
 subcategory: "Analysis"

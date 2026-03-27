@@ -1,5 +1,5 @@
 ---
-title: Integrated Campaign Brief (Based on ANA and IPA)
+title: "📌 Integrated Campaign Brief (Based on ANA and IPA)"
 tags:
 - collections
 - business

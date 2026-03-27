@@ -1,5 +1,5 @@
 ---
-title: "Fitness Tracking App Community Challenge"
+title: "📢 Fitness Tracking App Community Challenge"
 tags: ["fitness", "community", "challenge", "app-engagement", "campaign"]
 category: "Social_Media"
 subcategory: "Campaigns"

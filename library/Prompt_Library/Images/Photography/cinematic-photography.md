@@ -1,5 +1,5 @@
 ---
-title: "Cinematic Photography"
+title: "📷 Cinematic Photography"
 tags: ["cinematic", "photography", "midjourney", "image-generation"]
 category: "Images"
 subcategory: "Photography"

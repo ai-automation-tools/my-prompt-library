@@ -1,5 +1,5 @@
 ---
-title: "Model Evaluation Framework"
+title: "📌 Model Evaluation Framework"
 tags: ["collections", "ai", "model", "evaluation", "prompt"]
 category: "Collections"
 subcategory: "AI"

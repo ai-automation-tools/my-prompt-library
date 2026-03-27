@@ -1,5 +1,5 @@
 ---
-title: Threat Modeling (Based on Microsoft STRIDE)
+title: "📌 Threat Modeling (Based on Microsoft STRIDE)"
 tags:
 - collections
 - engineering

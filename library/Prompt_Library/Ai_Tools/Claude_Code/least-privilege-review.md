@@ -1,5 +1,5 @@
 ---
-title: "Least Privilege Review"
+title: "📌 Least Privilege Review"
 tags: ["iam", "permissions", "least-privilege", "access-control", "zero-trust"]
 category: "Security_and_IAM"
 subcategory: "IAM_and_Permissions"

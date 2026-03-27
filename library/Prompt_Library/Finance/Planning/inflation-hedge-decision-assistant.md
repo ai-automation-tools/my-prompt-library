@@ -1,5 +1,5 @@
 ---
-title: "Inflation Hedge Decision Assistant"
+title: "📝 Inflation Hedge Decision Assistant"
 tags: ["finance", "planning", "inflation", "hedge", "decision"]
 category: "Finance"
 subcategory: "Planning"

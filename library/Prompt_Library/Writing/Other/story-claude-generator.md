@@ -5,7 +5,7 @@ createdAt: '2025-03-20'
 description: Collaborate with users to create compelling stories, providing plot twists
   and character development suggestions.
 tags: []
-title: Story Creation Assistant
+title: "📌 Story Creation Assistant"
 updatedAt: '2025-03-20T08:21:09.743Z'
 ---
 

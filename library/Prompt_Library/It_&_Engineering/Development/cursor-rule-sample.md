@@ -1,5 +1,5 @@
 ---
-title: "Cursor Rule Prompt Word Example"
+title: "📌 Cursor Rule Prompt Word Example"
 tags: ["cursor", "rule", "prompt", "word"]
 category: "IT"
 subcategory: "Development"

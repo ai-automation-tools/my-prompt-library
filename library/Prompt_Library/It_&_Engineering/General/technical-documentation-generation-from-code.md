@@ -1,5 +1,5 @@
 ---
-title: "Technical Documentation Generation From Code"
+title: "📌 Technical Documentation Generation From Code"
 tags: ["collections", "engineering", "technical", "documentation", "generation"]
 category: "Collections"
 subcategory: "Engineering"

@@ -1,5 +1,5 @@
 ---
-title: "Linux Terminal Simulator"
+title: "⚙️ Linux Terminal Simulator"
 tags: ["linux", "terminal", "dev-tools", "engineering", "workflow"]
 category: "It_&_Engineering"
 subcategory: "General"

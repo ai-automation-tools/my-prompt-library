@@ -1,5 +1,5 @@
 ---
-title: "Network Security Audit Checklist"
+title: "📌 Network Security Audit Checklist"
 category: "IT"
 subcategory: "Security"
 tags: ["it", "security", "audit", "network"]

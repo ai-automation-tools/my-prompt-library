@@ -1,5 +1,5 @@
 ---
-title: "ChatGPT Senior Code Coach"
+title: "👨‍💻 ChatGPT Senior Code Coach"
 tags: ["chatgpt", "coding", "code-review", "mentoring"]
 category: "It_&_Engineering"
 subcategory: "Development"

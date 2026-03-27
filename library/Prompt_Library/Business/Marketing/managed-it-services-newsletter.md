@@ -1,5 +1,5 @@
 ---
-title: "Managed IT Services Newsletter"
+title: "📣 Managed IT Services Newsletter"
 tags: ["msp", "it-services", "newsletter", "customer-education", "email-marketing"]
 category: "Business"
 subcategory: "Marketing"

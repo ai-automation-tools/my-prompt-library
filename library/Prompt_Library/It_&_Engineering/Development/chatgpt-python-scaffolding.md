@@ -1,5 +1,5 @@
 ---
-title: "ChatGPT Python Project Scaffolding"
+title: "👨‍💻 ChatGPT Python Project Scaffolding"
 tags: ["chatgpt", "coding", "python", "scaffolding"]
 category: "It_&_Engineering"
 subcategory: "Development"

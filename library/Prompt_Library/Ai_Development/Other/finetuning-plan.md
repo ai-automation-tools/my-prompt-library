@@ -1,5 +1,5 @@
 ---
-title: "Fine Tuning Plan"
+title: "📌 Fine Tuning Plan"
 tags: ["collections", "ai", "finetuning", "plan", "prompt"]
 category: "Collections"
 subcategory: "AI"

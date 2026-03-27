@@ -1,5 +1,5 @@
 ---
-title: "Update Memory After Session"
+title: "📌 Update Memory After Session"
 tags: ["CLAUDE.md", "memory", "update", "session", "learnings"]
 category: "CLAUDE_md_and_Memory"
 subcategory: "Memory_Updates"

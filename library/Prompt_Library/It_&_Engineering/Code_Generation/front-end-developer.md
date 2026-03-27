@@ -1,5 +1,5 @@
 ---
-title: Front End Developer
+title: "📌 Front End Developer"
 tags:
 - collections
 - engineering

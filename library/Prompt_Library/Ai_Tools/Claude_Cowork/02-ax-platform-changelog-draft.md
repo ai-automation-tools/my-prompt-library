@@ -1,5 +1,5 @@
 ---
-title: "AX Platform Changelog Draft"
+title: "🤝 AX Platform Changelog Draft"
 tags: ["ai-tools", "claude-cowork", "platform", "changelog", "draft"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

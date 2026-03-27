@@ -1,5 +1,5 @@
 ---
-title: "End To End Scenario Test"
+title: "📌 End To End Scenario Test"
 tags: ["e2e", "testing", "playwright", "user-flow", "scenario"]
 category: "Testing_and_Quality"
 subcategory: "End_to_End_Testing"

@@ -1,5 +1,5 @@
 ---
-title: "Data Analytics Chart Graphic"
+title: "🎨 Data Analytics Chart Graphic"
 tags: ["data", "analytics", "chart", "business", "growth"]
 category: "Images"
 subcategory: "Graphics"

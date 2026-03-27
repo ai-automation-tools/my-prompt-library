@@ -1,5 +1,5 @@
 ---
-title: "Viral Social Strategist"
+title: "🎯 Viral Social Strategist"
 tags: ["chatgpt", "social-media", "marketing", "toms-guide"]
 category: "Social_Media"
 subcategory: "Strategy"

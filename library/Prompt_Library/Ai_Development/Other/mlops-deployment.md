@@ -1,5 +1,5 @@
 ---
-title: "MLOPS Deployment Plan"
+title: "📌 MLOPS Deployment Plan"
 tags: ["collections", "ai", "mlops", "deployment", "prompt"]
 category: "Collections"
 subcategory: "AI"

@@ -3,7 +3,7 @@ category: Programming
 description: Generate professional and complete API documentation based on API code
   or specifications, including endpoint descriptions, detailed parameter explanations,
   and usage examples.
-title: API documentation generator
+title: "📌 API documentation generator"
 ---
 
 #API documentation generator

@@ -1,5 +1,5 @@
 ---
-title: "Midjourney Prompt Generator"
+title: "🎯 Midjourney Prompt Generator"
 tags: ["midjourney", "image-generation", "ai-art", "prompt-generator"]
 category: "Images"
 subcategory: "Prompt_Generation"

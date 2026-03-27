@@ -1,5 +1,5 @@
 ---
-title: "Influencer Outreach Plan"
+title: "📌 Influencer Outreach Plan"
 tags: ["collections", "business", "influencer", "outreach", "prompt"]
 category: "Collections"
 subcategory: "Business"

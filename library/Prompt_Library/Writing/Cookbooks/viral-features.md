@@ -1,5 +1,5 @@
 ---
-title: "Viral Unique Features"
+title: "🍳 Viral Unique Features"
 tags: ["writing", "cookbooks", "viral", "features"]
 category: "Writing"
 subcategory: "Cookbooks"

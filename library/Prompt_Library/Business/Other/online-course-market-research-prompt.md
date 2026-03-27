@@ -1,5 +1,5 @@
 ---
-title: Market Research Prompt for an Online Course
+title: "📌 Market Research Prompt for an Online Course"
 tags:
 - collections
 - business

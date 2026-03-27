@@ -1,5 +1,5 @@
 ---
-title: "Claude Advanced Strawberry Reasoning"
+title: "🦞 Claude Advanced Strawberry Reasoning"
 tags: ["claude", "reasoning", "problem-solving"]
 category: "Ai_Tools"
 subcategory: "Claude_Code"

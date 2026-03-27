@@ -1,5 +1,5 @@
 ---
-title: "Monochrome Enterprise Favicon"
+title: "🖼️ Monochrome Enterprise Favicon"
 tags: ["images", "icons", "monochrome", "enterprise", "favicon"]
 category: "Images"
 subcategory: "Icons"

@@ -1,5 +1,5 @@
 ---
-title: "Cybersecurity Bb Webinar Campaign"
+title: "📢 Cybersecurity Bb Webinar Campaign"
 tags: ["cybersecurity", "b2b", "webinar", "linkedin", "campaign"]
 category: "Social_Media"
 subcategory: "Campaigns"

@@ -1,5 +1,5 @@
 ---
-title: "Bash Script"
+title: "📌 Bash Script"
 tags: ["it", "development", "bash", "script", "generator"]
 category: "IT"
 subcategory: "Development"

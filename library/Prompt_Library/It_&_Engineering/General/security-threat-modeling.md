@@ -1,5 +1,5 @@
 ---
-title: "Threat Modeling"
+title: "📌 Threat Modeling"
 tags: ["collections", "engineering", "security", "threat", "modeling"]
 category: "Collections"
 subcategory: "Engineering"

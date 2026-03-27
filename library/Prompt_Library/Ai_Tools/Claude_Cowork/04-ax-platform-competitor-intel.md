@@ -1,5 +1,5 @@
 ---
-title: "AX Platform Competitor Intel"
+title: "🤝 AX Platform Competitor Intel"
 tags: ["ai-tools", "claude-cowork", "platform", "competitor", "intel"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

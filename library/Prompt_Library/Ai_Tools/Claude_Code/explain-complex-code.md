@@ -1,5 +1,5 @@
 ---
-title: "Explain Complex Code"
+title: "📌 Explain Complex Code"
 tags: ["documentation", "explanation", "onboarding", "complexity", "narrative"]
 category: "Documentation"
 subcategory: "Code_Explanations"

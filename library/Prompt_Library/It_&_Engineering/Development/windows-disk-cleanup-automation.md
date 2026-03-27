@@ -1,5 +1,5 @@
 ---
-title: "Windows Disk Cleanup Automation"
+title: "📌 Windows Disk Cleanup Automation"
 tags: ["powershell", "windows", "disk-cleanup", "storage", "maintenance"]
 category: "IT"
 subcategory: "Scripts"

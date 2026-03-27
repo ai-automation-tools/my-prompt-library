@@ -1,5 +1,5 @@
 ---
-title: "AI & Tech Stock Deep Dive"
+title: "🤝 AI & Tech Stock Deep Dive"
 tags: ["ai-tools", "claude-cowork", "tech", "stock", "deep"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

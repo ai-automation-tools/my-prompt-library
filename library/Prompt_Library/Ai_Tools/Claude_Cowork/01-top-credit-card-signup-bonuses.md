@@ -1,5 +1,5 @@
 ---
-title: "Top Credit Card Signup Bonuses"
+title: "🤝 Top Credit Card Signup Bonuses"
 tags: ["ai-tools", "claude-cowork", "credit", "card", "signup"]
 category: "AI_Tools"
 subcategory: "Claude_Cowork"

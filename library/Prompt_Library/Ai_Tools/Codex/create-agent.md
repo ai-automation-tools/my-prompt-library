@@ -5,7 +5,7 @@ tags:
 - codex
 - agent
 - automation
-title: "Create A Task Specific Codex Agent"
+title: "📌 Create A Task Specific Codex Agent"
 ---
 
 # Codex Prompt: Create a New Agent

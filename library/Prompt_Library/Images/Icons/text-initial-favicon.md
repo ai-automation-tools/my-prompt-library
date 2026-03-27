@@ -1,5 +1,5 @@
 ---
-title: "Text Initial Favicon"
+title: "🖼️ Text Initial Favicon"
 tags: ["images", "icons", "text", "initial", "favicon"]
 category: "Images"
 subcategory: "Icons"

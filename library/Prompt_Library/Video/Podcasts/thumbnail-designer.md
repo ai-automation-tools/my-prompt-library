@@ -1,5 +1,5 @@
 ---
-title: "Thumbnail Designer Concepts"
+title: "🎙️ Thumbnail Designer Concepts"
 tags: ["video", "podcasts", "thumbnail", "designer"]
 category: "Video"
 subcategory: "Podcasts"

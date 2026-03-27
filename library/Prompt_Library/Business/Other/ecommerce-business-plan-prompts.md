@@ -1,5 +1,5 @@
 ---
-title: LLM Prompt Set for E-commerce Business Plan Generation
+title: "📌 LLM Prompt Set for E-commerce Business Plan Generation"
 tags:
 - collections
 - business

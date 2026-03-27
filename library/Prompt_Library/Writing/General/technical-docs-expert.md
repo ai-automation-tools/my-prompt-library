@@ -1,5 +1,5 @@
 ---
-title: "Technical Documentation Expert"
+title: "📌 Technical Documentation Expert"
 tags:
   - writing
   - technical

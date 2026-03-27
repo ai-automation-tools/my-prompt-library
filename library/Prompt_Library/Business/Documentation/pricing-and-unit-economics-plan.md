@@ -1,5 +1,5 @@
 ---
-title: "Pricing And Unit Economics Plan"
+title: "📄 Pricing And Unit Economics Plan"
 tags: ["business", "documentation", "pricing", "unit", "economics"]
 category: "Business"
 subcategory: "Documentation"

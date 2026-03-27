@@ -1,5 +1,5 @@
 ---
-title: "SOC Analyst Brute-Force Detection"
+title: "📌 SOC Analyst Brute-Force Detection"
 tags: ["soc-analyst", "cybersecurity", "incident-response", "log-analysis", "it"]
 category: "IT"
 subcategory: "Security"

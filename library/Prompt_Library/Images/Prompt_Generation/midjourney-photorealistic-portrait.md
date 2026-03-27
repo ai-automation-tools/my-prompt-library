@@ -1,5 +1,5 @@
 ---
-title: "Midjourney Photorealistic Portrait"
+title: "🎯 Midjourney Photorealistic Portrait"
 tags: ["midjourney", "image-generation", "photorealism"]
 category: "Images"
 subcategory: "Prompt_Generation"

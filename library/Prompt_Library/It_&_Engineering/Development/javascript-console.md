@@ -1,5 +1,5 @@
 ---
-title: "JavaScript Console"
+title: "👨‍💻 JavaScript Console"
 tags: ["javascript", "console", "js", "coding"]
 category: "It_&_Engineering"
 subcategory: "Development"

@@ -1,5 +1,5 @@
 ---
-title: "Cybersecurity Firm Emblem Logo"
+title: "🏢 Cybersecurity Firm Emblem Logo"
 tags: ["cybersecurity", "security", "logo", "emblem", "it"]
 category: "Images"
 subcategory: "Logos"

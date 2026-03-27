@@ -1,5 +1,5 @@
 ---
-title: Statistician
+title: "📌 Statistician"
 tags:
 - collections
 - engineering

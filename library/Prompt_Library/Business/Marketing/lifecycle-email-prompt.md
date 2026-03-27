@@ -1,5 +1,5 @@
 ---
-title: Lifecycle Email Program (Based on Klaviyo/HubSpot best practices)
+title: "📌 Lifecycle Email Program (Based on Klaviyo/HubSpot best practices)"
 tags:
 - collections
 - business

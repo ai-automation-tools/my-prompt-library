@@ -1,5 +1,5 @@
 ---
-title: "English Translator and Improver"
+title: "🎓 English Translator and Improver"
 tags: ["english", "translator", "language", "education"]
 category: "Other"
 subcategory: "Education"
