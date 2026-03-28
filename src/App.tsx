@@ -87,9 +87,10 @@ interface Prompt {
   isUserOwned?: boolean; // true if user created or copied this prompt
 }
 
-type Theme = 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro' | 'react-modern' | 'dark-pro' | 'nordic-night';
+type Theme = 'ax-platform' | 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro' | 'react-modern' | 'dark-pro' | 'nordic-night';
 
 const THEMES: { id: Theme; name: string; icon: string }[] = [
+  { id: 'ax-platform', name: 'aX Platform', icon: '🚀' },
   { id: 'retro-wave', name: 'Retro Wave', icon: '⚡' },
   { id: 'obsidian-cyan', name: 'Obsidian Cyan', icon: '💎' },
   { id: 'carbon-ember', name: 'Carbon Ember', icon: '🔥' },
@@ -115,7 +116,7 @@ export default function App() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
-  const [theme, setTheme] = useState<Theme>('github-dark-pro');
+  const [theme, setTheme] = useState<Theme>('ax-platform');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);

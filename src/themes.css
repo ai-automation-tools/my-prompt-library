@@ -1,5 +1,26 @@
 /* ===== Extended Theme Definitions ===== */
 
+/* AX PLATFORM — Professional dark navy with bright blue accents, matching ax-platform.com */
+[data-theme='ax-platform'] {
+  --bg-primary: #0a1628;
+  --bg-secondary: rgba(12, 22, 40, 0.9);
+  --bg-tertiary: rgba(16, 30, 52, 0.7);
+  --text-primary: #e5eef8;
+  --text-secondary: #94a9c9;
+  --text-tertiary: #5a7091;
+  --accent: #3b82f6;
+  --accent-secondary: #2563eb;
+  --accent-glow: rgba(59, 130, 246, 0.4);
+  --accent-glow-subtle: rgba(59, 130, 246, 0.15);
+  --border: rgba(59, 130, 246, 0.2);
+  --border-hover: rgba(59, 130, 246, 0.35);
+  --glass-bg: rgba(59, 130, 246, 0.08);
+  --glass-bg-hover: rgba(59, 130, 246, 0.15);
+  --glass-border: rgba(59, 130, 246, 0.12);
+  --glass-border-hover: rgba(59, 130, 246, 0.25);
+  --sidebar-bg: #0c1628;
+}
+
 /* OBSIDIAN CYAN — Deep arctic ocean: rich navy bg, electric cyan, frosted blue glass */
 [data-theme='obsidian-cyan'] {
   --bg-primary: #05162a;
