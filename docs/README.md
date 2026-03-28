@@ -14,6 +14,7 @@ Complete documentation for the my-prompt-library project.
 ### Creating Content
 - **[Contributing Guide](CONTRIBUTING.md)** - How to add content (all types)
 - **[Templates](templates/)** - Starter templates for all 5 content types
+- **[Skill Packs](skill-packs/)** - Create and manage skill pack collections
 - **[Quick Reference](QUICK_REFERENCE.md)** - Common tasks and CLI commands
 
 ### Features
@@ -52,6 +53,11 @@ docs/
 │   ├── agents-template.md
 │   ├── system-prompts-template.md
 │   └── skills-template.md
+│
+├── skill-packs/                  # Skill pack documentation
+│   ├── README.md                 # Complete guide
+│   ├── QUICK-START.md            # Fast creation guide
+│   └── PACK-TEMPLATE.json        # Template file
 │
 ├── features/                     # Feature documentation
 │   ├── API.md                    # API endpoints

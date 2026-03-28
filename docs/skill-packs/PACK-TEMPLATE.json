@@ -1,0 +1,51 @@
+{
+  "name": "Pack Name Here",
+  "id": "pack-name-lowercase",
+  "description": "Brief description of what this pack provides and who it's for. Should be 1-2 sentences explaining the value proposition.",
+  "icon": "🚀",
+  "version": "1.0.0",
+  "author": "my-prompt-library",
+  "tags": [
+    "tag1",
+    "tag2",
+    "tag3",
+    "tag4"
+  ],
+  "category": "Category_Name",
+  "skills": [
+    {
+      "path": "library/Skills/Category/skill-name/SKILL.md",
+      "name": "Skill Display Name",
+      "description": "Brief description of what this skill does"
+    },
+    {
+      "path": "library/Skills/Category/another-skill/SKILL.md",
+      "name": "Another Skill Name",
+      "description": "Another skill description"
+    }
+  ],
+  "prerequisites": {
+    "required_tools": [
+      "tool1",
+      "tool2"
+    ],
+    "optional_tools": [
+      "optional-tool1"
+    ],
+    "recommended_knowledge": [
+      "Knowledge area 1",
+      "Knowledge area 2"
+    ]
+  },
+  "installation_notes": "Any important setup instructions, configuration steps, or warnings users should know before using these skills.",
+  "use_cases": [
+    "Use case 1: Specific scenario where this pack is useful",
+    "Use case 2: Another practical application",
+    "Use case 3: Additional use case"
+  ],
+  "related_packs": [
+    "other-pack-id"
+  ],
+  "created_at": "2026-03-28",
+  "updated_at": "2026-03-28"
+}
