@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Package, Download, ArrowLeft, Tag, Wrench, Info } from 'lucide-react';
+import { Package, Download, ArrowLeft, Tag, Wrench, Info, Plus } from 'lucide-react';
 
 interface SkillPackSummary {
   id: string;
@@ -87,6 +87,42 @@ export default function SkillPacksView() {
     setSelectedPack(null);
   };
 
+  const handleAddToLibrary = async (packId: string) => {
+    // TODO: Implement add to library functionality
+    // This will require backend endpoint to copy skills to user's library
+    console.log('Add to library:', packId);
+    alert('Add to Library functionality coming soon!');
+  };
+
+  const handleDownloadPack = async (packId: string) => {
+    try {
+      // Request download from backend
+      const response = await fetch(`/api/skill-packs/${packId}/download`, {
+        method: 'GET',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to download pack');
+      }
+
+      // Get the blob
+      const blob = await response.blob();
+      
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${packId}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('Download error:', err);
+      alert('Failed to download pack. Please try again.');
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -158,21 +194,33 @@ export default function SkillPacksView() {
           )}
         </div>
 
-        {/* Installation Button */}
+        {/* Action Buttons */}
         <div className="mb-8 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                Ready to install?
+                Get this pack
               </h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
-                This will add all {selectedPack.skillCount} skills to your library
+                Add all {selectedPack.skillCount} skills to your library or download them
               </p>
             </div>
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium">
-              <Download className="w-5 h-5" />
-              Install Pack
-            </button>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => handleAddToLibrary(selectedPack.id)}
+                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2 font-medium"
+              >
+                <Plus className="w-5 h-5" />
+                Add to My Library
+              </button>
+              <button 
+                onClick={() => handleDownloadPack(selectedPack.id)}
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium"
+              >
+                <Download className="w-5 h-5" />
+                Download ZIP
+              </button>
+            </div>
           </div>
         </div>
 

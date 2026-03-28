@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import matter from 'gray-matter';
+import archiver from 'archiver';
 
 const router = express.Router();
 
@@ -139,6 +140,68 @@ router.get('/:packId/stats', async (req, res) => {
   } catch (error) {
     console.error('Error fetching pack stats:', error);
     res.status(500).json({ error: 'Failed to fetch pack statistics' });
+  }
+});
+
+// GET /api/skill-packs/:packId/download - Download pack as ZIP
+router.get('/:packId/download', async (req, res) => {
+  try {
+    const { packId } = req.params;
+    const packs = await getAllPacks();
+    
+    const pack = packs.find(p => p.id === packId);
+    
+    if (!pack) {
+      return res.status(404).json({ error: 'Pack not found' });
+    }
+    
+    // Set response headers for ZIP download
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', `attachment; filename="${packId}.zip"`);
+    
+    // Create ZIP archive
+    const archive = archiver('zip', {
+      zlib: { level: 9 } // Maximum compression
+    });
+    
+    // Pipe archive to response
+    archive.pipe(res);
+    
+    // Add each skill's entire directory to the ZIP
+    for (const skill of pack.skills) {
+      const skillPath = path.join(__dirname, '..', skill.path);
+      const skillDir = path.dirname(skillPath);
+      const skillDirName = path.basename(skillDir);
+      
+      try {
+        // Check if it's a directory (should be for skills)
+        const stats = await fs.stat(skillDir);
+        
+        if (stats.isDirectory()) {
+          // Add entire skill directory with all files
+          archive.directory(skillDir, skillDirName);
+        } else {
+          // If it's just a file, add the file
+          archive.file(skillPath, { name: path.basename(skillPath) });
+        }
+      } catch (err) {
+        console.error(`Error adding skill ${skill.path}:`, err);
+        // Continue with other skills even if one fails
+      }
+    }
+    
+    // Add pack manifest JSON
+    const packManifestPath = path.join(packsDir, `${packId}.json`);
+    archive.file(packManifestPath, { name: `${packId}.json` });
+    
+    // Finalize archive
+    await archive.finalize();
+    
+  } catch (error) {
+    console.error('Error creating pack download:', error);
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Failed to create pack download' });
+    }
   }
 });
 
