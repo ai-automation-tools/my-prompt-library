@@ -307,8 +307,8 @@ app.get("/api/prompts/:id", optionalAuth, async (req, res) => {
     
     // Check if it's a user-owned prompt (database ID)
     if (req.user && !promptId.includes('/')) {
-      const prompt = await promptDb.findById(promptId, req.user.id);
-      if (prompt) {
+      const prompt = await promptDb.findById(promptId);
+      if (prompt && prompt.user_id === req.user.id) {
         return res.json({
           id: prompt.id,
           title: prompt.title,
