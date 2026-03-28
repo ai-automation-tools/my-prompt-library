@@ -49,6 +49,7 @@ import SignupModal from './components/SignupModal';
 import EmptyState from './components/EmptyState';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { useAuth } from './contexts/AuthContext';
+import SkillPacksView from './components/SkillPacksView';
 import Fuse from 'fuse.js';
 
 function cn(...inputs: ClassValue[]) {
@@ -127,7 +128,7 @@ export default function App() {
   const ITEMS_PER_PAGE = 50; // Show 50 prompts per page
   const [copied, setCopied] = useState<string | null>(null);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts'>(() => {
+  const [activeTab, setActiveTab] = useState<'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts' | 'skill-packs'>(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const section = urlParams.get('section');
     if (section === 'agent-guides') return 'agent-guides';
@@ -1041,6 +1042,7 @@ source: My Prompt Library
               <option value="agent-guides">📖 Agent Guides</option>
               <option value="system-prompts">⚙️ System Prompts</option>
               <option value="skills">🛠️ Skills</option>
+              <option value="skill-packs">📦 Skill Packs</option>
             </select>
           </div>
 
@@ -2180,8 +2182,13 @@ source: My Prompt Library
                   </motion.div>
                 )}
 
+                {/* Skill Packs View */}
+                {activeTab === 'skill-packs' && (
+                  <SkillPacksView />
+                )}
+
                 {/* All Prompts Section Header - Only show when featured section is visible (Public Library only) */}
-                {libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
+                {activeTab !== 'skill-packs' && libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
                   <div className="flex items-center gap-3 mb-5">
                     <LayoutGrid className="w-5 h-5 text-[var(--text-secondary)]" />
                     <h3 className="heading-display text-lg font-bold tracking-tight text-[var(--text-primary)]">
@@ -2190,7 +2197,7 @@ source: My Prompt Library
                   </div>
                 )}
 
-                {isLoading ? (
+                {activeTab !== 'skill-packs' && isLoading ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {[...Array(6)].map((_, i) => (
                       <div key={i} className="glass-card rounded-[var(--radius-lg)] p-6 animate-pulse">
@@ -2204,7 +2211,7 @@ source: My Prompt Library
                       </div>
                     ))}
                   </div>
-                ) : sortedPrompts.length === 0 ? (
+                ) : activeTab !== 'skill-packs' && sortedPrompts.length === 0 ? (
                   // Empty state logic
                   libraryMode === 'my' && !user ? (
                     // User not authenticated in My Library mode
@@ -2239,7 +2246,7 @@ source: My Prompt Library
                       </p>
                     </div>
                   )
-                ) : (
+                ) : activeTab !== 'skill-packs' && (
                   <>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                       {paginatedPrompts.map((prompt, i) => (
