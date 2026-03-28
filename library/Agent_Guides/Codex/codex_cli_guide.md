@@ -5,7 +5,7 @@ category: "Agent_Guides"
 subcategory: "Codex"
 ---
 
-<!-- Last Updated: 2026-03-25 - Synced with upstream v0.116.0 -->
+<!-- Last Updated: 2026-03-28 - Synced with upstream v0.116.0 -->
 
 # OpenAI Codex Agent Guide
 
