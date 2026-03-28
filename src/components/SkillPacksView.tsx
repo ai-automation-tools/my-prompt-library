@@ -54,11 +54,15 @@ export default function SkillPacksView() {
   const fetchPacks = async () => {
     try {
       setLoading(true);
+      console.log('Fetching skill packs from:', '/api/skill-packs');
       const response = await fetch('/api/skill-packs');
-      if (!response.ok) throw new Error('Failed to fetch skill packs');
+      console.log('Response status:', response.status);
+      if (!response.ok) throw new Error(`Failed to fetch skill packs (${response.status})`);
       const data = await response.json();
+      console.log('Fetched packs:', data.length);
       setPacks(data);
     } catch (err) {
+      console.error('Fetch error:', err);
       setError(err instanceof Error ? err.message : 'Failed to load packs');
     } finally {
       setLoading(false);
