@@ -5,7 +5,7 @@ category: "Agent_Guides"
 subcategory: "Gemini_CLI"
 ---
 
-<!-- Last Updated: 2026-03-25 - Synced with upstream (March 2026 release) -->
+<!-- Last Updated: 2026-03-28 - Synced with upstream v0.35.0 -->
 
 # Gemini CLI Agent Guide
 
