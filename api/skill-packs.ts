@@ -4,6 +4,24 @@ import path from 'path';
 import matter from 'gray-matter';
 import archiver from 'archiver';
 
+// Recursively get all files in a directory
+async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): Promise<string[]> {
+  const files = await fs.readdir(dirPath);
+
+  for (const file of files) {
+    const filePath = path.join(dirPath, file);
+    const stat = await fs.stat(filePath);
+    
+    if (stat.isDirectory()) {
+      arrayOfFiles = await getAllFiles(filePath, arrayOfFiles);
+    } else {
+      arrayOfFiles.push(filePath);
+    }
+  }
+
+  return arrayOfFiles;
+}
+
 const packsDir = path.join(process.cwd(), 'library/Skills/packs');
 
 // Helper to read all pack files
@@ -150,41 +168,59 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // Pipe archive to response
       archive.pipe(res);
       
+      // Track total files added
+      let totalFilesAdded = 0;
+      
       // Add each skill's entire directory to the ZIP
       for (const skill of pack.skills) {
         const skillPath = path.join(process.cwd(), skill.path);
         const skillDir = path.dirname(skillPath);
         const skillDirName = path.basename(skillDir);
         
-        console.log(`Adding skill: ${skillDirName} from ${skillDir}`);
+        console.log(`Processing skill: ${skillDirName} (${skill.path})`);
+        console.log(`  Skill directory: ${skillDir}`);
         
         try {
+          // Check if directory exists
+          try {
+            await fs.access(skillDir);
+          } catch (accessErr) {
+            console.error(`  Cannot access ${skillDir}:`, accessErr);
+            continue;
+          }
+          
           // Check if it's a directory (should be for skills)
           const stats = await fs.stat(skillDir);
           
           if (stats.isDirectory()) {
-            // Read all files in the skill directory
-            const files = await fs.readdir(skillDir, { recursive: true, withFileTypes: true });
+            // Read all files in the skill directory recursively
+            const allFiles = await getAllFiles(skillDir);
             
-            for (const file of files) {
-              const fullPath = path.join(file.path, file.name);
-              
-              if (file.isFile()) {
-                const relativePath = path.relative(skillDir, fullPath);
-                const archivePath = path.join(skillDirName, relativePath);
-                console.log(`  Adding file: ${archivePath}`);
-                archive.file(fullPath, { name: archivePath });
-              }
+            console.log(`  Found ${allFiles.length} files in ${skillDirName}`);
+            
+            if (allFiles.length === 0) {
+              console.warn(`  Warning: No files found in ${skillDir}`);
+            }
+            
+            for (const filePath of allFiles) {
+              const relativePath = path.relative(skillDir, filePath);
+              const archivePath = path.join(skillDirName, relativePath);
+              archive.file(filePath, { name: archivePath });
+              totalFilesAdded++;
             }
           } else {
             // If it's just a file, add the file
-            archive.file(skillPath, { name: path.join(skillDirName, path.basename(skillPath)) });
+            const archivePath = path.join(skillDirName, path.basename(skillPath));
+            archive.file(skillPath, { name: archivePath });
+            totalFilesAdded++;
           }
         } catch (err) {
-          console.error(`Error adding skill ${skill.path}:`, err);
+          console.error(`Error processing skill ${skill.path}:`, err);
           // Continue with other skills even if one fails
         }
       }
+      
+      console.log(`Total files added to archive: ${totalFilesAdded}`);
       
       // Add pack manifest JSON
       const packManifestPath = path.join(packsDir, `${packId}.json`);
