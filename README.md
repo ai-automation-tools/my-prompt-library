@@ -79,7 +79,7 @@ See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete deployment instructions.
 - [Architecture](docs/ARCHITECTURE.md) - System design
 
 **Creating Content**
-- [Prompt Template Guide](docs/prompt-template-guide.md) - How to write prompts
+- [Contributing Guide](docs/CONTRIBUTING.md) - How to add content
 - [Templates](docs/templates/) - Starter templates for all content types
 - [Quick Reference](docs/QUICK_REFERENCE.md) - Common commands
 

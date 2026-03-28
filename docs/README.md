@@ -12,7 +12,7 @@ Complete documentation for the my-prompt-library project.
 - **[Architecture](ARCHITECTURE.md)** - System design and technology stack
 
 ### Creating Content
-- **[Prompt Template Guide](prompt-template-guide.md)** - How to write and format prompts
+- **[Contributing Guide](CONTRIBUTING.md)** - How to add content (all types)
 - **[Templates](templates/)** - Starter templates for all 5 content types
 - **[Quick Reference](QUICK_REFERENCE.md)** - Common tasks and CLI commands
 
@@ -88,8 +88,8 @@ docs/
 1. [Deployment Guide](setup/DEPLOYMENT.md)
 2. [Architecture](ARCHITECTURE.md)
 
-**...add new prompts**
-1. [Prompt Template Guide](prompt-template-guide.md)
+**...add new content**
+1. [Contributing Guide](CONTRIBUTING.md)
 2. [Templates](templates/)
 
 **...understand the codebase**
@@ -97,8 +97,8 @@ docs/
 2. [API Reference](features/API.md)
 
 **...contribute content**
-1. [Templates README](templates/README.md)
-2. [Prompt Template Guide](prompt-template-guide.md)
+1. [Contributing Guide](CONTRIBUTING.md)
+2. [Templates README](templates/README.md)
 
 **...troubleshoot issues**
 1. [Debug Guide](development/DEBUG_UI.md)
