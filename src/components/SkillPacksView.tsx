@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Package, Download, ArrowLeft, Tag, Wrench, Info, Plus } from 'lucide-react';
+import { Package, Download, ArrowLeft, Tag, Wrench, Info } from 'lucide-react';
 
 interface SkillPackSummary {
   id: string;
@@ -85,13 +85,6 @@ export default function SkillPacksView() {
 
   const handleBack = () => {
     setSelectedPack(null);
-  };
-
-  const handleAddToLibrary = async (packId: string) => {
-    // TODO: Implement add to library functionality
-    // This will require backend endpoint to copy skills to user's library
-    console.log('Add to library:', packId);
-    alert('Add to Library functionality coming soon!');
   };
 
   const handleDownloadPack = async (packId: string) => {
@@ -194,33 +187,24 @@ export default function SkillPacksView() {
           )}
         </div>
 
-        {/* Action Buttons */}
+        {/* Download Button */}
         <div className="mb-8 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                Get this pack
+                Download this pack
               </h3>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Add all {selectedPack.skillCount} skills to your library or download them
+                Get all {selectedPack.skillCount} skills as a ZIP file with complete documentation
               </p>
             </div>
-            <div className="flex gap-3">
-              <button 
-                onClick={() => handleAddToLibrary(selectedPack.id)}
-                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2 font-medium"
-              >
-                <Plus className="w-5 h-5" />
-                Add to My Library
-              </button>
-              <button 
-                onClick={() => handleDownloadPack(selectedPack.id)}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium"
-              >
-                <Download className="w-5 h-5" />
-                Download ZIP
-              </button>
-            </div>
+            <button 
+              onClick={() => handleDownloadPack(selectedPack.id)}
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium"
+            >
+              <Download className="w-5 h-5" />
+              Download ZIP
+            </button>
           </div>
         </div>
 
