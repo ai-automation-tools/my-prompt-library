@@ -1,4 +1,8 @@
 ---
+title: "🤖 LLMs.txt Maintainer"
+tags: ["agent", "llms-txt", "aeo", "ai-crawlers"]
+category: "Agents"
+subcategory: "AI_Engineering_SMEs"
 name: llms-maintainer
 description: LLMs.txt roadmap file generator and maintainer. Use PROACTIVELY after build completion, content changes, or when implementing AEO (AI Engine Optimization). Scans site structure and updates AI crawler navigation.
 tools: Read, Write, Bash, Grep, Glob

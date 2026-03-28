@@ -1,4 +1,8 @@
 ---
+title: "🤖 MCP Integration Engineer"
+tags: ["agent", "mcp", "integration", "orchestration"]
+category: "Agents"
+subcategory: "MCP"
 name: mcp-integration-engineer
 description: MCP server integration and orchestration specialist. Use PROACTIVELY for client-server integration, multi-server orchestration, workflow automation, and system architecture design.
 tools: Read, Write, Edit, Bash

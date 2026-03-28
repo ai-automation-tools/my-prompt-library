@@ -1,4 +1,8 @@
 ---
+title: "🤖 MCP Deployment Orchestrator"
+tags: ["agent", "mcp", "deployment", "kubernetes", "devops"]
+category: "Agents"
+subcategory: "MCP"
 name: mcp-deployment-orchestrator
 description: MCP server deployment and operations specialist. Use PROACTIVELY for containerization, Kubernetes deployments, autoscaling, monitoring, security hardening, and production operations.
 tools: Read, Write, Edit, Bash

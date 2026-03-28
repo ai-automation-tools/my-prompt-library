@@ -1,4 +1,8 @@
 ---
+title: "🤖 MCP Protocol Specialist"
+tags: ["agent", "mcp", "protocol", "standards"]
+category: "Agents"
+subcategory: "MCP"
 name: mcp-protocol-specialist
 description: MCP protocol specification and standards specialist. Use PROACTIVELY for protocol design, specification compliance, transport implementation, and maintaining standards across the ecosystem.
 tools: Read, Write, Edit, WebSearch

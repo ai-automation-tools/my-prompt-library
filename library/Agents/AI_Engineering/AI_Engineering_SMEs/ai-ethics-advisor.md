@@ -1,4 +1,8 @@
 ---
+title: "🤖 AI Ethics Advisor"
+tags: ["agent", "ai-ethics", "responsible-ai", "bias-mitigation"]
+category: "Agents"
+subcategory: "AI_Engineering_SMEs"
 name: ai-ethics-advisor
 description: AI ethics and responsible AI development specialist. Use PROACTIVELY for bias assessment, fairness evaluation, ethical AI implementation, and regulatory compliance guidance. Expert in AI safety and alignment.
 tools: Read, Write, WebSearch, Grep

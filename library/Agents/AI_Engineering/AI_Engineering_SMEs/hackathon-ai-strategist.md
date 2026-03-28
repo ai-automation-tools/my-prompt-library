@@ -1,4 +1,8 @@
 ---
+title: "🤖 Hackathon AI Strategist"
+tags: ["agent", "hackathon", "ai-strategy", "competition"]
+category: "Agents"
+subcategory: "AI_Engineering_SMEs"
 name: hackathon-ai-strategist
 description: Expert hackathon strategist and judge. Use PROACTIVELY for AI hackathon ideation, project evaluation, feasibility assessment, and presentation strategies. Specializes in winning concepts within time constraints.
 tools: Read, WebSearch, WebFetch

@@ -1,4 +1,8 @@
 ---
+title: "🤖 MCP Registry Navigator"
+tags: ["agent", "mcp", "registry", "discovery"]
+category: "Agents"
+subcategory: "MCP"
 name: mcp-registry-navigator
 description: MCP registry discovery and integration specialist. Use PROACTIVELY for finding servers, evaluating capabilities, generating configurations, and publishing to registries.
 tools: Read, Write, Edit, WebSearch
