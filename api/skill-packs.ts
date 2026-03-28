@@ -1,0 +1,185 @@
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+import fs from 'fs/promises';
+import path from 'path';
+import matter from 'gray-matter';
+import archiver from 'archiver';
+
+const packsDir = path.join(process.cwd(), 'library/Skills/packs');
+
+// Helper to read all pack files
+async function getAllPacks() {
+  try {
+    const files = await fs.readdir(packsDir);
+    const packFiles = files.filter(f => f.endsWith('.json') && f !== 'package.json');
+    
+    const packs = await Promise.all(
+      packFiles.map(async (file) => {
+        const content = await fs.readFile(path.join(packsDir, file), 'utf-8');
+        return JSON.parse(content);
+      })
+    );
+    
+    return packs;
+  } catch (error) {
+    console.error('Error reading packs:', error);
+    return [];
+  }
+}
+
+// Helper to resolve skill paths and read skill metadata
+async function resolveSkillData(skillPath: string) {
+  try {
+    const fullPath = path.join(process.cwd(), skillPath);
+    const content = await fs.readFile(fullPath, 'utf-8');
+    const { data } = matter(content);
+    
+    return {
+      path: skillPath,
+      name: data.name || data.title || 'Unnamed Skill',
+      description: data.description || '',
+      tags: data.tags || [],
+      category: data.category || '',
+      subcategory: data.subcategory || ''
+    };
+  } catch (error) {
+    console.error(`Error reading skill at ${skillPath}:`, error);
+    return null;
+  }
+}
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  const { method, url } = req;
+  const urlPath = new URL(url!, `http://${req.headers.host}`).pathname;
+  
+  // GET /api/skill-packs - List all packs
+  if (method === 'GET' && urlPath === '/api/skill-packs') {
+    try {
+      const packs = await getAllPacks();
+      
+      // Return summary info (without full skill details)
+      const summary = packs.map(pack => ({
+        id: pack.id,
+        name: pack.name,
+        description: pack.description,
+        icon: pack.icon,
+        version: pack.version,
+        tags: pack.tags,
+        category: pack.category,
+        skillCount: pack.skills.length,
+        author: pack.author,
+        created_at: pack.created_at,
+        updated_at: pack.updated_at
+      }));
+      
+      return res.status(200).json(summary);
+    } catch (error) {
+      console.error('Error fetching packs:', error);
+      return res.status(500).json({ error: 'Failed to fetch skill packs' });
+    }
+  }
+  
+  // GET /api/skill-packs/:packId - Get specific pack
+  const packIdMatch = urlPath.match(/^\/api\/skill-packs\/([^\/]+)$/);
+  if (method === 'GET' && packIdMatch) {
+    try {
+      const packId = packIdMatch[1];
+      
+      // Check if it's the download endpoint
+      if (packId.endsWith('/download')) {
+        return res.status(404).json({ error: 'Invalid endpoint format' });
+      }
+      
+      const packs = await getAllPacks();
+      const pack = packs.find(p => p.id === packId);
+      
+      if (!pack) {
+        return res.status(404).json({ error: 'Pack not found' });
+      }
+      
+      // Resolve skill metadata for each skill in the pack
+      const skillsWithData = await Promise.all(
+        pack.skills.map(async (skill: any) => {
+          const skillData = await resolveSkillData(skill.path);
+          return {
+            ...skill,
+            metadata: skillData
+          };
+        })
+      );
+      
+      // Return full pack with resolved skill data
+      return res.status(200).json({
+        ...pack,
+        skills: skillsWithData.filter(s => s.metadata !== null)
+      });
+    } catch (error) {
+      console.error('Error fetching pack:', error);
+      return res.status(500).json({ error: 'Failed to fetch pack details' });
+    }
+  }
+  
+  // GET /api/skill-packs/:packId/download - Download pack as ZIP
+  const downloadMatch = urlPath.match(/^\/api\/skill-packs\/([^\/]+)\/download$/);
+  if (method === 'GET' && downloadMatch) {
+    try {
+      const packId = downloadMatch[1];
+      const packs = await getAllPacks();
+      const pack = packs.find(p => p.id === packId);
+      
+      if (!pack) {
+        return res.status(404).json({ error: 'Pack not found' });
+      }
+      
+      // Set response headers for ZIP download
+      res.setHeader('Content-Type', 'application/zip');
+      res.setHeader('Content-Disposition', `attachment; filename="${packId}.zip"`);
+      
+      // Create ZIP archive
+      const archive = archiver('zip', {
+        zlib: { level: 9 } // Maximum compression
+      });
+      
+      // Pipe archive to response
+      archive.pipe(res);
+      
+      // Add each skill's entire directory to the ZIP
+      for (const skill of pack.skills) {
+        const skillPath = path.join(process.cwd(), skill.path);
+        const skillDir = path.dirname(skillPath);
+        const skillDirName = path.basename(skillDir);
+        
+        try {
+          // Check if it's a directory (should be for skills)
+          const stats = await fs.stat(skillDir);
+          
+          if (stats.isDirectory()) {
+            // Add entire skill directory with all files
+            archive.directory(skillDir, skillDirName);
+          } else {
+            // If it's just a file, add the file
+            archive.file(skillPath, { name: path.basename(skillPath) });
+          }
+        } catch (err) {
+          console.error(`Error adding skill ${skill.path}:`, err);
+          // Continue with other skills even if one fails
+        }
+      }
+      
+      // Add pack manifest JSON
+      const packManifestPath = path.join(packsDir, `${packId}.json`);
+      archive.file(packManifestPath, { name: `${packId}.json` });
+      
+      // Finalize archive
+      await archive.finalize();
+      
+      return;
+    } catch (error) {
+      console.error('Error creating pack download:', error);
+      if (!res.headersSent) {
+        return res.status(500).json({ error: 'Failed to create pack download' });
+      }
+    }
+  }
+  
+  return res.status(404).json({ error: 'Not found' });
+}
