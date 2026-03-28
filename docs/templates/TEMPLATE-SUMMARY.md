@@ -48,8 +48,8 @@ Created **5 comprehensive templates** for the my-prompt-library project to guide
 
 ### Consistent Structure
 All templates include:
-- ✅ Proper YAML frontmatter with required fields
-- ✅ Icon/emoji at the start of titles
+- ✅ 4 required YAML frontmatter fields: title, tags, category, subcategory
+- ✅ Icon/emoji at the start of titles (📌 📋 🤖 📝 🔧)
 - ✅ Clear section organization
 - ✅ Placeholder text in `[brackets]` for easy replacement
 - ✅ Concrete examples and use cases
@@ -86,19 +86,23 @@ docs/templates/
 
 ## Template Metadata
 
-Each template includes proper frontmatter structure:
+**Required fields for ALL templates:**
+1. `title` - With icon emoji (📌 📋 🤖 📝 🔧)
+2. `tags` - Array of 3-6 keywords
+3. `category` - Top-level category
+4. `subcategory` - Second-level category
 
 **Prompt Library:**
 ```yaml
 title: "📌 [Your Prompt Title]"
-tags: [tag1, tag2, tag3]
-category: Category_Name
-subcategory: Subcategory_Name
+tags: ["tag1", "tag2", "tag3"]
+category: "[Category_Name]"
+subcategory: "[Subcategory_Name]"
 ```
 
 **Agent Guides:**
 ```yaml
-title: "[Guide Title]"
+title: "💻 [Guide Title]"
 tags: ["agent-guides", "platform-name", "domain"]
 category: "Agent_Guides"
 subcategory: "[Agent_Platform]"
@@ -106,6 +110,10 @@ subcategory: "[Agent_Platform]"
 
 **Agents:**
 ```yaml
+title: "🤖 [Agent Name]"
+tags: ["agent", "role", "domain"]
+category: "Agents"
+subcategory: "[Category_Name]"
 name: agent-name-lowercase
 description: "Use this agent when..."
 tools: [Tool1, Tool2, Tool3]
@@ -116,18 +124,18 @@ model: model-name
 ```yaml
 title: "📝 [System Name]"
 tags: ["system-prompt", "llm", "instructions", "platform-name"]
-category: "LLM Instructions"
+category: "System_Prompts"
 subcategory: "[Platform_Name]"
 ```
 
 **Skills:**
 ```yaml
-name: 🔧 skill-name-lowercase
+title: "🔧 [Skill Name]"
+tags: ["skill", "skill-type", "domain"]
+category: "Skills"
+subcategory: "[Category_Name]"
+name: skill-name-lowercase
 description: "[One-sentence description]"
-metadata:
-  short-description: [Brief 5-10 word description]
-hooks:
-  PostToolUse: [...]
 ```
 
 ## Usage Instructions
@@ -169,8 +177,8 @@ Each template references real examples from the library:
 All templates enforce:
 
 1. **File Naming:** Lowercase with hyphens (`example-prompt-name.md`)
-2. **Frontmatter:** Valid YAML with required fields
-3. **Icons:** Emoji at start of titles for visual identity
+2. **Required Metadata:** 4 fields - title (with icon), tags, category, subcategory
+3. **Icons:** Emoji in title for visual identity (📌 📋 🤖 📝 🔧)
 4. **Structure:** Logical section organization
 5. **Examples:** Concrete, actionable content
 6. **Documentation:** Clear explanations and use cases

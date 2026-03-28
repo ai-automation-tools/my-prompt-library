@@ -11,8 +11,7 @@ This directory contains standardized templates for each type of content in the m
 This template is for traditional prompt engineering - creating reusable prompts that users can copy and paste into AI tools like ChatGPT, Claude, Gemini, etc.
 
 **Key Features:**
-- Standard frontmatter with tags, category, subcategory
-- Title with emoji icon (📌)
+- Required frontmatter: title (with 📌 icon), tags, category, subcategory
 - Purpose, instructions, output format sections
 - Optional examples and tips
 - Support for "featured" tag
@@ -31,12 +30,12 @@ This template is for traditional prompt engineering - creating reusable prompts 
 This template documents how to configure and use AI coding assistants and agents (Claude Code, Codex, Cursor, etc.).
 
 **Key Features:**
+- Required frontmatter: title (with 💻 icon), tags, category, subcategory
 - Agent configuration settings (model, temperature, tools)
 - Complete system prompt
 - Workflow and procedures
 - Example interactions
 - Troubleshooting section
-- Integration with other agents
 
 **Example Subcategories:**
 - Agent_Guides/Claude_Code/
@@ -52,9 +51,9 @@ This template documents how to configure and use AI coding assistants and agents
 This template defines complete autonomous agents with their capabilities, workflows, and communication protocols. These are full agent personas that can be instantiated.
 
 **Key Features:**
-- Agent name and description in frontmatter
+- Required frontmatter: title (with 🤖 icon), tags, category, subcategory
+- Additional metadata: name, description, tools, model
 - Multiple example use cases with context/user/assistant/commentary
-- Tools and model specification
 - Communication protocols (JSON examples)
 - Phase-based workflows
 - Progress tracking formats
@@ -74,13 +73,13 @@ This template defines complete autonomous agents with their capabilities, workfl
 This template documents the full system prompts used by AI platforms like v0.dev, Claude, ChatGPT, etc. These are comprehensive instruction sets that define how an AI system behaves.
 
 **Key Features:**
+- Required frontmatter: title (with 📝 icon), tags, category, subcategory
 - XML-style structured tags (`<system_info>`, `<capability>`, etc.)
 - System identity and capabilities
 - Response formatting rules
 - Domain knowledge sections
 - Citation and refusal guidelines
 - Multiple interaction examples
-- Constraints and limitations
 
 **Example Subcategories:**
 - System_Prompts/V0.Dev/
@@ -96,19 +95,55 @@ This template documents the full system prompts used by AI platforms like v0.dev
 This template defines specific skills that agents can use - usually involving external tools, CLIs, APIs, or specific workflows. Similar to OpenClaw skills or Claude Code slash commands.
 
 **Key Features:**
-- Skill name and description in frontmatter
+- Required frontmatter: title (with 🔧 icon), tags, category, subcategory
+- Additional metadata: name, description
 - Prerequisites and setup instructions
 - Usage examples with actual commands
 - Configuration options
 - Common workflows
 - Troubleshooting section
-- Integration with other skills
 - Hooks configuration (if applicable)
 
 **Example Categories:**
 - Skills/Git/
 - Skills/Docker/
 - Skills/Cloud/
+
+---
+
+## Required Metadata Fields
+
+**All templates MUST include these 4 frontmatter fields:**
+
+1. **`title`** - Human-readable name with emoji icon (quoted string)
+   - Example: `"📌 Email Marketing Campaign"`
+   - Icon is required and should match content type
+
+2. **`tags`** - Array of keywords for filtering and search
+   - Example: `["email", "marketing", "campaign"]`
+   - 3-6 tags recommended
+
+3. **`category`** - Top-level category (quoted string)
+   - Example: `"Prompt_Library"`, `"Agents"`, `"Skills"`
+   - Must match folder structure
+
+4. **`subcategory`** - Second-level category (quoted string)
+   - Example: `"Marketing"`, `"Git"`, `"Claude_Code"`
+   - Must match subfolder structure
+
+**Additional optional metadata:**
+- **Agents:** `name`, `description`, `tools`, `model`
+- **Skills:** `name`, `description`, `metadata`, `hooks`
+
+**Example:**
+```yaml
+---
+title: "📌 Email Marketing Campaign"
+tags: ["email", "marketing", "campaign"]
+category: "Prompt_Library"
+subcategory: "Business"
+---
+```
 
 ---
 

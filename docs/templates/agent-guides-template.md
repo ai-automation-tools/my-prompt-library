@@ -1,11 +1,11 @@
 ---
-title: "[Guide Title]"
+title: "💻 [Guide Title]"
 tags: ["agent-guides", "platform-name", "domain"]
 category: "Agent_Guides"
 subcategory: "[Agent_Platform]"  # e.g., Claude_Code, Codex, Cursor, etc.
 ---
 
-# [Guide Title]
+# 💻 [Guide Title]
 
 ## Overview
 [Brief description of what this guide covers - could be agent configuration, platform documentation, CLI reference, or usage instructions. Explain what users will learn.]

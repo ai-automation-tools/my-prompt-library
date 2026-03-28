@@ -1,12 +1,8 @@
 ---
 title: "📌 [Your Prompt Title]"
-tags:
-  - tag1
-  - tag2
-  - tag3
-  - featured  # Optional: Add this tag if you want this prompt to appear in the Featured section
-category: [Category_Name]
-subcategory: [Subcategory_Name]
+tags: ["tag1", "tag2", "tag3", "featured"]  # Optional: Add "featured" tag for Featured section
+category: "[Category_Name]"
+subcategory: "[Subcategory_Name]"
 ---
 
 # 📌 [Your Prompt Title]

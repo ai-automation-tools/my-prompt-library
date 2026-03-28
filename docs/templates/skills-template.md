@@ -1,17 +1,13 @@
 ---
-name: 🔧 [skill-name-lowercase]
+title: "🔧 [Skill Name]"
+tags: ["skill", "skill-type", "domain"]
+category: "Skills"
+subcategory: "[Category_Name]"  # e.g., Git, Docker, Cloud
+name: [skill-name-lowercase]
 description: "[One-sentence description of what this skill does and when to use it]. Use when: (1) [use case 1], (2) [use case 2], (3) [use case 3]. NOT for: [anti-patterns or when not to use]."
-metadata:
-  short-description: [Brief 5-10 word description]
-hooks:
-  PostToolUse:
-    - matcher: "[ToolName]"
-      hooks:
-        - type: command
-          command: "echo \"[$(date)] [Skill Name]: [Log message]\" >> ~/.openclaw/[skill-name].log"
 ---
 
-# [Skill Name/Title]
+# 🔧 [Skill Name/Title]
 
 [Opening paragraph describing what this skill does, its purpose, and core capabilities. Be specific about the problem it solves.]
 
