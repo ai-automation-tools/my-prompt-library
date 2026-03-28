@@ -9,6 +9,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import archiver from "archiver";
 import authRoutes from "./routes/auth.js";
+import skillPacksRoutes from "./routes/skill-packs.js";
 import { optionalAuth, authenticate } from "./middleware/auth.js";
 import { userDb, promptDb, sessionDb, initializeSchema } from "./db/postgres.js";
 
@@ -33,6 +34,9 @@ async function startServer() {
 
   // Mount auth routes
   app.use('/api/auth', authRoutes);
+  
+  // Mount skill packs routes
+  app.use('/api/skill-packs', skillPacksRoutes);
 
   // Helper function to generate safe filename
   const generateFilename = (title: string) => {
