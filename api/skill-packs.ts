@@ -139,6 +139,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         zlib: { level: 9 } // Maximum compression
       });
       
+      // Handle errors
+      archive.on('error', (err) => {
+        console.error('Archive error:', err);
+        if (!res.headersSent) {
+          res.status(500).json({ error: 'Failed to create archive' });
+        }
+      });
+      
       // Pipe archive to response
       archive.pipe(res);
       
@@ -148,16 +156,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const skillDir = path.dirname(skillPath);
         const skillDirName = path.basename(skillDir);
         
+        console.log(`Adding skill: ${skillDirName} from ${skillDir}`);
+        
         try {
           // Check if it's a directory (should be for skills)
           const stats = await fs.stat(skillDir);
           
           if (stats.isDirectory()) {
-            // Add entire skill directory with all files
-            archive.directory(skillDir, skillDirName);
+            // Read all files in the skill directory
+            const files = await fs.readdir(skillDir, { recursive: true, withFileTypes: true });
+            
+            for (const file of files) {
+              const fullPath = path.join(file.path, file.name);
+              
+              if (file.isFile()) {
+                const relativePath = path.relative(skillDir, fullPath);
+                const archivePath = path.join(skillDirName, relativePath);
+                console.log(`  Adding file: ${archivePath}`);
+                archive.file(fullPath, { name: archivePath });
+              }
+            }
           } else {
             // If it's just a file, add the file
-            archive.file(skillPath, { name: path.basename(skillPath) });
+            archive.file(skillPath, { name: path.join(skillDirName, path.basename(skillPath)) });
           }
         } catch (err) {
           console.error(`Error adding skill ${skill.path}:`, err);
@@ -167,10 +188,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       
       // Add pack manifest JSON
       const packManifestPath = path.join(packsDir, `${packId}.json`);
+      console.log(`Adding manifest: ${packManifestPath}`);
       archive.file(packManifestPath, { name: `${packId}.json` });
       
-      // Finalize archive
+      // Finalize archive (must be called after all files are added)
+      console.log('Finalizing archive...');
       await archive.finalize();
+      console.log(`Archive finalized. Total bytes: ${archive.pointer()}`);
       
       return;
     } catch (error) {
