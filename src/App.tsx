@@ -2053,7 +2053,7 @@ source: My Prompt Library
                 </div>
 
                 {/* Featured/Suggested Section - Only shown on Public Library landing page */}
-                {libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
+                {activeTab !== 'skill-packs' && libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
