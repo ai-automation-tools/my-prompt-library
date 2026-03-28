@@ -5,7 +5,7 @@ category: "[Category_Name]"
 subcategory: "[Subcategory_Name]"
 ---
 
-# 📌 [Your Prompt Title]
+# [Your Prompt Title]
 
 ## Purpose
 [Brief description of what this prompt does and when to use it. Explain the problem it solves or the task it helps accomplish.]

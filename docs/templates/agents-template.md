@@ -3,13 +3,9 @@ title: "🤖 [Agent Name]"
 tags: ["agent", "role", "domain"]
 category: "Agents"
 subcategory: "[Category_Name]"  # e.g., Git, DevOps, Security
-name: [agent-name-lowercase]
-description: "Use this agent when you need to [primary purpose]. Specifically:\\n\\n<example>\\nContext: [Situation where agent applies]\\nuser: [Sample user request]\\nassistant: [How the agent would respond]\\n<commentary>\\n[When and why to invoke this agent]\\n</commentary>\\n</example>\\n\\n<example>\\nContext: [Another use case scenario]\\nuser: [Sample user request]\\nassistant: [How the agent would respond]\\n<commentary>\\n[Additional invocation guidance]\\n</commentary>\\n</example>"
-tools: [Tool1, Tool2, Tool3]  # e.g., Read, Write, Edit, Bash, Glob, Grep, Browser
-model: [model-name]  # e.g., haiku, sonnet, opus, gpt-4
 ---
 
-# 🤖 [Agent Name/Title]
+# [Agent Name/Title]
 
 [Opening paragraph describing the agent's core role and expertise. Be specific about the domain and capabilities.]
 

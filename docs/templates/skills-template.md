@@ -7,7 +7,7 @@ name: [skill-name-lowercase]
 description: "[One-sentence description of what this skill does and when to use it]. Use when: (1) [use case 1], (2) [use case 2], (3) [use case 3]. NOT for: [anti-patterns or when not to use]."
 ---
 
-# 🔧 [Skill Name/Title]
+# [Skill Name/Title]
 
 [Opening paragraph describing what this skill does, its purpose, and core capabilities. Be specific about the problem it solves.]
 

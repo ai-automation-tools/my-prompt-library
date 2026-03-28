@@ -5,7 +5,7 @@ category: "LLM Instructions"
 subcategory: "[Platform_Name]"  # e.g., V0.dev, Claude, ChatGPT, Cursor, Gemini
 ---
 
-# 📝 [System Name]
+# [System Name]
 
 [Opening description of what this system does and its primary purpose. Explain the AI's role, capabilities, and design philosophy.]
 
