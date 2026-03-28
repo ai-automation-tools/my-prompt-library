@@ -1,5 +1,10 @@
 {
   "version": 2,
+  "functions": {
+    "api/skill-packs.ts": {
+      "includeFiles": "library/Skills/**"
+    }
+  },
   "rewrites": [
     { "source": "/api/skill-packs/:path*", "destination": "/api/skill-packs" },
     { "source": "/api/(.*)", "destination": "/api" },
