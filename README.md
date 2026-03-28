@@ -69,26 +69,28 @@ See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete deployment instructions.
 
 ## Documentation
 
-### Getting Started
-- [**Local Setup**](docs/LOCAL_SETUP.md) - Development environment setup
-- [**Deployment Guide**](docs/DEPLOYMENT.md) - Deploy to Vercel with Neon database
-- [**Architecture**](docs/ARCHITECTURE.md) - System design and tech stack
+📚 **[Complete Documentation](docs/)** - Full documentation index
 
-### Features
-- [**Library Mode Implementation**](docs/LIBRARY-MODE-IMPLEMENTATION.md) - Public vs My Library
-- [**Featured Prompts**](docs/FEATURED-PROMPTS.md) - Highlighting top templates
-- [**API Reference**](docs/API.md) - REST API endpoints
+### Quick Links
 
-### Configuration
-- [**GitHub Mode**](docs/GITHUB_MODE.md) - Use GitHub as public library storage
-- [**Quick Reference**](docs/QUICK_REFERENCE.md) - Common tasks and commands
+**Getting Started**
+- [Setup Guide](docs/setup/SETUP.md) - Local development setup
+- [Deployment Guide](docs/setup/DEPLOYMENT.md) - Deploy to Vercel
+- [Architecture](docs/ARCHITECTURE.md) - System design
 
-### Development
-- [**PostgreSQL Migration**](docs/POSTGRES-MIGRATION-SUMMARY.md) - SQLite → Postgres migration notes
-- [**Debug UI**](docs/DEBUG_UI.md) - Troubleshooting and debugging
+**Creating Content**
+- [Prompt Template Guide](docs/prompt-template-guide.md) - How to write prompts
+- [Templates](docs/templates/) - Starter templates for all content types
+- [Quick Reference](docs/QUICK_REFERENCE.md) - Common commands
 
-### Historical
-- [**Archive**](docs/archive/) - Legacy documentation and changelogs
+**Features**
+- [API Reference](docs/features/API.md) - REST API endpoints
+- [Library Modes](docs/features/LIBRARY-MODE-IMPLEMENTATION.md) - Public vs My Library
+- [Featured Prompts](docs/features/FEATURED-PROMPTS.md) - Highlighting top prompts
+
+**Development**
+- [Debug Guide](docs/development/DEBUG_UI.md) - Troubleshooting
+- [Project Status](docs/planning/PROJECT-STATUS.md) - Current state and roadmap
 
 ---
 

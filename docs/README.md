@@ -1,99 +1,209 @@
-# Documentation Index
+# Documentation
 
-Complete documentation for My Prompt Library.
-
----
-
-## Getting Started
-
-**New to the project? Start here:**
-
-1. [**Local Setup**](LOCAL_SETUP.md) - Set up your development environment
-2. [**Deployment Guide**](DEPLOYMENT.md) - Deploy to Vercel + Neon
-3. [**Quick Reference**](QUICK_REFERENCE.md) - Common commands and tasks
+Complete documentation for the my-prompt-library project.
 
 ---
 
-## Core Documentation
+## 📚 Quick Links
 
-### Architecture & Design
-- [**Architecture**](ARCHITECTURE.md) - System design, tech stack, data flow
-- [**API Reference**](API.md) - REST API endpoints and authentication
+### Getting Started
+- **[Setup Guide](setup/SETUP.md)** - Local development and production setup
+- **[Deployment Guide](setup/DEPLOYMENT.md)** - Deploy to Vercel with Neon PostgreSQL
+- **[Architecture](ARCHITECTURE.md)** - System design and technology stack
+
+### Creating Content
+- **[Prompt Template Guide](prompt-template-guide.md)** - How to write and format prompts
+- **[Templates](templates/)** - Starter templates for all 5 content types
+- **[Quick Reference](QUICK_REFERENCE.md)** - Common tasks and CLI commands
 
 ### Features
-- [**Library Mode Implementation**](LIBRARY-MODE-IMPLEMENTATION.md) - Public vs My Library
-- [**Featured Prompts**](FEATURED-PROMPTS.md) - Featured section implementation
-- [**Featured Section Summary**](FEATURED-SECTION-SUMMARY.md) - Design decisions
-
-### Configuration
-- [**GitHub Mode**](GITHUB_MODE.md) - Use GitHub as remote storage for public library
-- [**Setup Guide**](SETUP.md) - Initial configuration steps
+- **[API Reference](features/API.md)** - REST API endpoints
+- **[Library Modes](features/LIBRARY-MODE-IMPLEMENTATION.md)** - Public vs My Library
+- **[Featured Prompts](features/FEATURED-PROMPTS.md)** - Highlighting top prompts
+- **[GitHub Mode](features/GITHUB_MODE.md)** - Use GitHub as storage backend
 
 ### Development
-- [**PostgreSQL Migration**](POSTGRES-MIGRATION-SUMMARY.md) - SQLite → Postgres migration notes
-- [**Debug UI**](DEBUG_UI.md) - Debugging and troubleshooting
-- [**Performance Analysis**](PERFORMANCE-ANALYSIS.md) - Performance optimization guide (March 2026)
+- **[Debug Guide](development/DEBUG_UI.md)** - Troubleshooting and debugging
+- **[PostgreSQL Migration](development/POSTGRES-MIGRATION-SUMMARY.md)** - SQLite → Postgres notes
 
-### Changelogs
-- [**March 25, 2026**](CHANGELOG-2026-03-25.md) - Performance optimizations & MCP server prompts
-- [**March 16, 2026**](archive/CHANGELOG-2026-03-14.md) - Initial restructure (archived)
-- [**March 14, 2026**](archive/CHANGELOG-2026-03-14-RESTRUCTURE.md) - Postgres migration (archived)
+### Planning & Status
+- **[Project Status](planning/PROJECT-STATUS.md)** - Current state and roadmap
+- **[Changelog](planning/CHANGELOG-2026-03-25.md)** - Recent updates and changes
 
 ---
 
-## Historical Documentation
+## 📂 Directory Structure
 
-Older documentation and implementation logs are in [`archive/`](archive/):
-
-- `DATABASE.md` - Old SQLite documentation (superseded by Postgres)
-- `deployment-vercel.md` - Original Vercel deployment guide
-- `CHANGELOG-*.md` - Implementation logs from March 14-16, 2026
-- `navigation-organization.md` - UI/UX design notes
-- `prompt-editor-ui.md` - Editor implementation notes
-- `quick-wins-ux.md` - UX improvement notes
-
----
-
-## Quick Links
-
-**Common Tasks:**
-- Create account → See [API.md](API.md#post-apiauthsignup)
-- Deploy to production → See [DEPLOYMENT.md](DEPLOYMENT.md)
-- Add featured prompts → See [FEATURED-PROMPTS.md](FEATURED-PROMPTS.md)
-- Enable GitHub mode → See [GITHUB_MODE.md](GITHUB_MODE.md)
-
-**Troubleshooting:**
-- Authentication issues → [API.md](API.md#authentication)
-- Database connection → [DEPLOYMENT.md](DEPLOYMENT.md#database-configuration)
-- UI debugging → [DEBUG_UI.md](DEBUG_UI.md)
-
----
-
-## Contributing to Docs
-
-When updating documentation:
-
-1. **Current docs** → Update in place (e.g., `API.md`, `ARCHITECTURE.md`)
-2. **Implementation logs** → Add to `archive/` with date prefix
-3. **Obsolete guides** → Move to `archive/` (don't delete)
-4. **New features** → Create new doc + link from this index
-
-Keep docs concise, accurate, and up-to-date with code changes.
-
----
-
----
-
-## Recent Updates
-
-### March 25, 2026 - Performance & Content Update
-- 🚀 **Performance:** 50x faster cold starts with prebuilt index
-- 📚 **Content:** Added 7 MCP server prompt libraries (135 prompts)
-- 🎨 **UX:** Pagination, emojis, better navigation
-- 📖 **Docs:** Updated API.md, FEATURED-PROMPTS.md, new CHANGELOG-2026-03-25.md
-
-[Read full changelog →](CHANGELOG-2026-03-25.md)
+```
+docs/
+├── README.md                     # This file
+├── ARCHITECTURE.md               # System design
+├── QUICK_REFERENCE.md            # Quick commands
+├── prompt-template-guide.md      # Prompt formatting guide
+│
+├── setup/                        # Setup & deployment
+│   ├── SETUP.md                  # Local dev setup
+│   └── DEPLOYMENT.md             # Production deployment
+│
+├── templates/                    # Content templates
+│   ├── README.md                 # Template guide
+│   ├── prompt-library-template.md
+│   ├── agent-guides-template.md
+│   ├── agents-template.md
+│   ├── system-prompts-template.md
+│   └── skills-template.md
+│
+├── features/                     # Feature documentation
+│   ├── API.md                    # API endpoints
+│   ├── LIBRARY-MODE-IMPLEMENTATION.md
+│   ├── FEATURED-PROMPTS.md
+│   └── GITHUB_MODE.md
+│
+├── development/                  # Developer guides
+│   ├── DEBUG_UI.md
+│   └── POSTGRES-MIGRATION-SUMMARY.md
+│
+├── planning/                     # Project planning
+│   ├── PROJECT-STATUS.md
+│   └── CHANGELOG-2026-03-25.md
+│
+└── archive/                      # Archived docs
+    ├── GAP-FILLING-SUMMARY.md
+    ├── LIBRARY-GAP-ANALYSIS.md
+    ├── feature-list.md
+    └── major-updates-plan.md
+```
 
 ---
 
-**Last Updated:** March 25, 2026
+## 🚀 Quick Start Paths
+
+### I want to...
+
+**...run the app locally**
+1. [Setup Guide](setup/SETUP.md)
+2. [Quick Reference](QUICK_REFERENCE.md)
+
+**...deploy to production**
+1. [Deployment Guide](setup/DEPLOYMENT.md)
+2. [Architecture](ARCHITECTURE.md)
+
+**...add new prompts**
+1. [Prompt Template Guide](prompt-template-guide.md)
+2. [Templates](templates/)
+
+**...understand the codebase**
+1. [Architecture](ARCHITECTURE.md)
+2. [API Reference](features/API.md)
+
+**...contribute content**
+1. [Templates README](templates/README.md)
+2. [Prompt Template Guide](prompt-template-guide.md)
+
+**...troubleshoot issues**
+1. [Debug Guide](development/DEBUG_UI.md)
+2. [Project Status](planning/PROJECT-STATUS.md)
+
+---
+
+## 📝 Content Templates
+
+Use these templates when adding new content:
+
+| Template | Use For | Location |
+|----------|---------|----------|
+| 📌 **Prompt Library** | General AI prompts | [template](templates/prompt-library-template.md) |
+| 💻 **Agent Guides** | Platform documentation | [template](templates/agent-guides-template.md) |
+| 🤖 **Agents** | Agent definitions | [template](templates/agents-template.md) |
+| 📝 **System Prompts** | LLM instructions | [template](templates/system-prompts-template.md) |
+| 🔧 **Skills** | Tool integrations | [template](templates/skills-template.md) |
+
+See [Templates README](templates/README.md) for detailed usage guide.
+
+---
+
+## 🏗️ Architecture Overview
+
+**Frontend:**
+- React + TypeScript + Vite
+- Tailwind CSS
+- Fuzzy search (Fuse.js)
+
+**Backend:**
+- Node.js + Express + TypeScript
+- PostgreSQL (Neon)
+- Session-based auth
+
+**Deployment:**
+- Vercel (serverless)
+- Neon (database)
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
+
+---
+
+## 🔧 Development
+
+### Prerequisites
+- Node.js 18+
+- PostgreSQL (local or Neon)
+- Git
+
+### Quick Commands
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Run type checking
+npm run type-check
+```
+
+See [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for more commands.
+
+---
+
+## 📊 Project Status
+
+**Current State:** Production-ready  
+**Latest Updates:** March 25, 2026
+
+See [PROJECT-STATUS.md](planning/PROJECT-STATUS.md) for roadmap and recent changes.
+
+---
+
+## 🤝 Contributing
+
+### Adding Content
+
+1. Choose appropriate template from [templates/](templates/)
+2. Follow [Prompt Template Guide](prompt-template-guide.md)
+3. Ensure all 4 required metadata fields (title, tags, category, subcategory)
+4. Submit PR with content in correct directory
+
+### Code Contributions
+
+1. Fork the repository
+2. Create feature branch
+3. Follow existing code style
+4. Test locally
+5. Submit PR with clear description
+
+---
+
+## 📖 Additional Resources
+
+- **Main README:** [../README.md](../README.md)
+- **GitHub Repository:** [github.com/michaelschecht/my-prompt-library](https://github.com/michaelschecht/my-prompt-library)
+- **Live Demo:** [my-prompt-library.vercel.app](https://my-prompt-library.vercel.app)
+
+---
+
+**Last Updated:** March 28, 2026  
+**Documentation Version:** 2.0
