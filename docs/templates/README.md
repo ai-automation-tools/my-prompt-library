@@ -24,9 +24,9 @@ This template is for traditional prompt engineering - creating reusable prompts 
 
 ---
 
-### 2. 📋 Agent Instructions Template
-**File:** `agent-instructions-template.md`  
-**Use for:** Configuration guides and instructions for AI agents
+### 2. 📋 Agent Guides Template
+**File:** `agent-guides-template.md`  
+**Use for:** Documentation and guides for AI agent platforms and tools
 
 This template documents how to configure and use AI coding assistants and agents (Claude Code, Codex, Cursor, etc.).
 
@@ -119,7 +119,7 @@ This template defines specific skills that agents can use - usually involving ex
 | If you're creating... | Use this template |
 |----------------------|-------------------|
 | A reusable prompt for ChatGPT/Claude | Prompt Library Template |
-| Configuration docs for Claude Code | Agent Instructions Template |
+| Configuration docs for Claude Code | Agent Guides Template |
 | A complete autonomous agent persona | Agents Template |
 | Full system instructions for an AI platform | System Prompts Template |
 | A tool skill or CLI integration | Skills Template |
@@ -153,6 +153,18 @@ This template defines specific skills that agents can use - usually involving ex
    - Check YAML frontmatter is valid
    - Verify file is in correct directory
    - Test the prompt with an AI assistant
+
+### For Adding a New Guide
+
+1. **Copy the agent guides template:**
+   ```bash
+   cp docs/templates/agent-guides-template.md library/Agent_Guides/[Platform]/guide-name.md
+   ```
+
+2. **Update the content:**
+   - Set title and tags
+   - Document the platform/tool
+   - Add examples and references
 
 ### For Adding a New Agent
 
@@ -200,7 +212,7 @@ This template defines specific skills that agents can use - usually involving ex
 Use these emojis at the start of titles based on content type:
 
 - 📌 **Prompt Library** - General prompts
-- 📋 **Agent Instructions** - Configuration guides
+- 📋 **Agent Guides** - Documentation and guides
 - 🤖 **Agents** - Full agent definitions
 - 📝 **System Prompts** - LLM system instructions
 - 🔧 **Skills** - Tool skills and integrations
@@ -268,7 +280,7 @@ Browse these existing prompts to see templates in action:
 **Prompt Library:**
 - `library/Prompt_Library/Ai_Development/Prompt_Engineering/prompt-generator.md`
 
-**Agent Instructions:**
+**Agent Guides:**
 - `library/Agent_Guides/Claude_Code/flags-reference.md`
 
 **Agents:**

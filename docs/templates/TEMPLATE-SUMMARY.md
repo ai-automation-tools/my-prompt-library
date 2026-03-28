@@ -11,12 +11,12 @@ Created **5 comprehensive templates** for the my-prompt-library project to guide
 - **Icon:** 📌
 - **Use Case:** Traditional prompt engineering content
 
-### 2. 📋 Agent Instructions Template
-- **Purpose:** Configuration guides for AI agents (Claude Code, Codex, etc.)
+### 2. 📋 Agent Guides Template
+- **Purpose:** Documentation and guides for AI agent platforms and tools
 - **Size:** 4.3 KB
-- **Key Sections:** Agent config, System prompt, Workflow, Examples, Troubleshooting, Integration
-- **Icon:** Various (depending on agent type)
-- **Use Case:** Agent setup and configuration documentation
+- **Key Sections:** Overview, Configuration, System prompt, Workflow, Examples, Troubleshooting, Integration
+- **Icon:** Various (depending on platform)
+- **Use Case:** Platform documentation, CLI references, usage guides
 
 ### 3. 🤖 Agents Template
 - **Purpose:** Complete autonomous agent definitions
@@ -59,7 +59,7 @@ All templates include:
 ### Comprehensive Coverage
 Templates cover all 5 main content categories:
 1. **Prompt Library** - Traditional prompts for AI assistants
-2. **Agent Instructions** - Configuration and setup guides
+2. **Agent Guides** - Documentation and usage guides
 3. **Agents** - Full agent definitions and behaviors
 4. **System Prompts** - Complete LLM system instructions
 5. **Skills** - Reusable tool skills and integrations
@@ -78,7 +78,7 @@ docs/templates/
 ├── README.md                              # Main guide (8.7 KB)
 ├── TEMPLATE-SUMMARY.md                    # This file
 ├── prompt-library-template.md             # 📌 Prompts (2.1 KB)
-├── agent-instructions-template.md         # 📋 Agent guides (4.3 KB)
+├── agent-guides-template.md               # 📋 Agent guides (4.3 KB)
 ├── agents-template.md                     # 🤖 Agent definitions (5.2 KB)
 ├── system-prompts-template.md             # 📝 System prompts (6.8 KB)
 └── skills-template.md                     # 🔧 Skills (7.6 KB)
@@ -96,10 +96,10 @@ category: Category_Name
 subcategory: Subcategory_Name
 ```
 
-**Agent Instructions:**
+**Agent Guides:**
 ```yaml
-title: "[Agent Name] Instructions"
-tags: ["agent-instructions", "agent-name", "domain"]
+title: "[Guide Title]"
+tags: ["agent-guides", "platform-name", "domain"]
 category: "Agent_Guides"
 subcategory: "[Agent_Platform]"
 ```
@@ -149,7 +149,7 @@ hooks:
 | Creating... | Use Template |
 |------------|--------------|
 | Reusable prompt | `prompt-library-template.md` |
-| Agent config guide | `agent-instructions-template.md` |
+| Agent config guide | `agent-guides-template.md` |
 | Complete agent | `agents-template.md` |
 | LLM system instructions | `system-prompts-template.md` |
 | Tool/CLI skill | `skills-template.md` |
@@ -159,7 +159,7 @@ hooks:
 Each template references real examples from the library:
 
 - **Prompt Library:** `library/Prompt_Library/Ai_Development/Prompt_Engineering/prompt-generator.md`
-- **Agent Instructions:** `library/Agent_Guides/Claude_Code/flags-reference.md`
+- **Agent Guides:** `library/Agent_Guides/Claude_Code/flags-reference.md`
 - **Agents:** `library/Agents/Git/git-workflow-manager.md`
 - **System Prompts:** `library/System_Prompts/V0.Dev/v0.md`
 - **Skills:** `library/Skills/Git/gh-address-comments/SKILL.md`

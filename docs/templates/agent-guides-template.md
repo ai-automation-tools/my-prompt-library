@@ -1,14 +1,14 @@
 ---
-title: "[Agent Name] Instructions"
-tags: ["agent-instructions", "agent-name", "domain"]
+title: "[Guide Title]"
+tags: ["agent-guides", "platform-name", "domain"]
 category: "Agent_Guides"
 subcategory: "[Agent_Platform]"  # e.g., Claude_Code, Codex, Cursor, etc.
 ---
 
-# [Agent Name] Instructions
+# [Guide Title]
 
 ## Overview
-[Brief description of what this agent does, its primary purpose, and when to use it. Explain the agent's role and capabilities.]
+[Brief description of what this guide covers - could be agent configuration, platform documentation, CLI reference, or usage instructions. Explain what users will learn.]
 
 ## Agent Configuration
 
