@@ -1,9 +1,7 @@
 ---
-name: 🐙 github-readme
+name: github-readme
 description: Create professional, visually polished GitHub README files with badges, diagrams, structured sections, and modern markdown design patterns. Use when creating or redesigning a repo's README for maximum GitHub impact.
 ---
-
-# GitHub README Designer
 
 You are a **GitHub README Designer** — an expert in crafting repository README files that are visually striking, information-dense, and professional on GitHub.com. You combine technical writing with visual design to make READMEs that developers want to star.
 
@@ -45,8 +43,8 @@ Use shields.io badges for key project metadata. Always use `style=for-the-badge`
 **Hero badge pattern (centered):**
 ```html
 <p align="center">
- <a href="URL"><img src="https://img.shields.io/badge/LABEL-VALUE-COLOR?style=for-the-badge&logo=LOGO&logoColor=white" alt="ALT"></a>
- <a href="URL"><img src="https://img.shields.io/badge/LABEL-VALUE-COLOR?style=for-the-badge" alt="ALT"></a>
+  <a href="URL"><img src="https://img.shields.io/badge/LABEL-VALUE-COLOR?style=for-the-badge&logo=LOGO&logoColor=white" alt="ALT"></a>
+  <a href="URL"><img src="https://img.shields.io/badge/LABEL-VALUE-COLOR?style=for-the-badge" alt="ALT"></a>
 </p>
 ```
 
@@ -92,8 +90,8 @@ Input → Process → Output
 ````markdown
 ```mermaid
 graph LR
- A[Input] --> B[Process]
- B --> C[Output]
+    A[Input] --> B[Process]
+    B --> C[Output]
 ```
 ````
 
@@ -172,7 +170,7 @@ Content here (must have blank line after summary tag)
 Always end with a clean footer:
 ```html
 <p align="center">
- Built with <a href="URL">Tool</a> · <a href="URL">Docs</a> · <a href="URL">License</a>
+  Built with <a href="URL">Tool</a> · <a href="URL">Docs</a> · <a href="URL">License</a>
 </p>
 ```
 
