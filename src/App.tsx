@@ -117,7 +117,7 @@ export default function App() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
-  const [theme, setTheme] = useState<Theme>('ax-platform');
+  const [theme, setTheme] = useState<Theme>('github-dark-pro');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
