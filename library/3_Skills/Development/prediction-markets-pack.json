@@ -1,0 +1,79 @@
+{
+  "name": "Prediction Markets Pack",
+  "id": "prediction-markets-pack",
+  "description": "Comprehensive toolkit for prediction markets, sports betting, and trading analysis including arbitrage detection, odds modeling, bankroll management, and market sentiment analysis.",
+  "icon": "📊",
+  "version": "1.0.0",
+  "author": "my-prompt-library",
+  "tags": ["prediction-markets", "betting", "trading", "analytics", "finance", "arbitrage"],
+  "category": "Finance",
+  "skills": [
+    {
+      "path": "library/Skills/Prediction_Markets/arbitrage-scanner/SKILL.md",
+      "name": "Arbitrage Scanner",
+      "description": "Detect arbitrage opportunities across prediction markets"
+    },
+    {
+      "path": "library/Skills/Prediction_Markets/bankroll-management/SKILL.md",
+      "name": "Bankroll Management",
+      "description": "Manage betting capital and risk allocation"
+    },
+    {
+      "path": "library/Skills/Prediction_Markets/futures-trading/SKILL.md",
+      "name": "Futures Trading",
+      "description": "Trade futures contracts and derivatives"
+    },
+    {
+      "path": "library/Skills/Prediction_Markets/kalshi-markets/SKILL.md",
+      "name": "Kalshi Markets",
+      "description": "Trade on Kalshi prediction markets"
+    },
+    {
+      "path": "library/Skills/Prediction_Markets/live-betting-strategy/SKILL.md",
+      "name": "Live Betting Strategy",
+      "description": "Develop strategies for in-play betting"
+    },
+    {
+      "path": "library/Skills/Prediction_Markets/market-mechanics-betting/SKILL.md",
+      "name": "Market Mechanics Betting",
+      "description": "Understand betting market dynamics"
+    },
+    {
+      "path": "library/Skills/Prediction_Markets/market-sentiment/SKILL.md",
+      "name": "Market Sentiment",
+      "description": "Analyze market sentiment and crowd behavior"
+    },
+    {
+      "path": "library/Skills/Prediction_Markets/odds-modeling/SKILL.md",
+      "name": "Odds Modeling",
+      "description": "Model and calculate fair odds"
+    },
+    {
+      "path": "library/Skills/Prediction_Markets/polymarket/SKILL.md",
+      "name": "Polymarket",
+      "description": "Trade on Polymarket prediction platform"
+    },
+    {
+      "path": "library/Skills/Prediction_Markets/sports-betting/SKILL.md",
+      "name": "Sports Betting",
+      "description": "Analyze and place sports bets strategically"
+    }
+  ],
+  "prerequisites": {
+    "required_tools": [],
+    "optional_tools": ["python", "pandas", "jupyter"],
+    "recommended_knowledge": ["Probability theory", "Statistics", "Financial markets", "Risk management"]
+  },
+  "installation_notes": "No special installation required. Optional: Python with pandas for advanced analytics.",
+  "use_cases": [
+    "Building prediction market trading strategies",
+    "Sports betting analysis and optimization",
+    "Arbitrage opportunity detection",
+    "Bankroll and risk management",
+    "Market sentiment analysis",
+    "Odds calculation and modeling"
+  ],
+  "related_packs": ["finance-portfolio-pack"],
+  "created_at": "2026-03-30",
+  "updated_at": "2026-03-30"
+}

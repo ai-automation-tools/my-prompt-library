@@ -1,0 +1,105 @@
+{
+  "name": "Game Design Pack",
+  "id": "game-design-pack",
+  "description": "Complete game development toolkit covering all aspects from initial concept to publishing including mechanics design, level design, narrative, art direction, audio, UI/UX, analytics, and testing.",
+  "icon": "🎮",
+  "version": "1.0.0",
+  "author": "my-prompt-library",
+  "tags": ["game-design", "game-dev", "unity", "unreal", "mechanics", "level-design", "narrative"],
+  "category": "Development",
+  "skills": [
+    {
+      "path": "library/Skills/Game_Design/art-direction/SKILL.md",
+      "name": "Art Direction",
+      "description": "Define visual style and artistic vision for games"
+    },
+    {
+      "path": "library/Skills/Game_Design/audio-design/SKILL.md",
+      "name": "Audio Design",
+      "description": "Create sound effects, music, and audio landscapes"
+    },
+    {
+      "path": "library/Skills/Game_Design/economy-design/SKILL.md",
+      "name": "Economy Design",
+      "description": "Design in-game economies and monetization systems"
+    },
+    {
+      "path": "library/Skills/Game_Design/game-analytics/SKILL.md",
+      "name": "Game Analytics",
+      "description": "Track and analyze player behavior and metrics"
+    },
+    {
+      "path": "library/Skills/Game_Design/game-balancing/SKILL.md",
+      "name": "Game Balancing",
+      "description": "Balance gameplay difficulty and progression"
+    },
+    {
+      "path": "library/Skills/Game_Design/game-concept/SKILL.md",
+      "name": "Game Concept",
+      "description": "Develop initial game concepts and pitches"
+    },
+    {
+      "path": "library/Skills/Game_Design/game-design-document/SKILL.md",
+      "name": "Game Design Document",
+      "description": "Create comprehensive game design documentation"
+    },
+    {
+      "path": "library/Skills/Game_Design/game-prototyping/SKILL.md",
+      "name": "Game Prototyping",
+      "description": "Rapidly prototype game mechanics and ideas"
+    },
+    {
+      "path": "library/Skills/Game_Design/game-publishing/SKILL.md",
+      "name": "Game Publishing",
+      "description": "Publish and market games on various platforms"
+    },
+    {
+      "path": "library/Skills/Game_Design/game-testing/SKILL.md",
+      "name": "Game Testing",
+      "description": "Test games for bugs, balance, and player experience"
+    },
+    {
+      "path": "library/Skills/Game_Design/level-design/SKILL.md",
+      "name": "Level Design",
+      "description": "Design engaging and balanced game levels"
+    },
+    {
+      "path": "library/Skills/Game_Design/mechanics-design/SKILL.md",
+      "name": "Mechanics Design",
+      "description": "Create core gameplay mechanics and systems"
+    },
+    {
+      "path": "library/Skills/Game_Design/multiplayer-design/SKILL.md",
+      "name": "Multiplayer Design",
+      "description": "Design multiplayer experiences and matchmaking"
+    },
+    {
+      "path": "library/Skills/Game_Design/narrative-design/SKILL.md",
+      "name": "Narrative Design",
+      "description": "Craft compelling stories and dialogue for games"
+    },
+    {
+      "path": "library/Skills/Game_Design/ui-ux-design/SKILL.md",
+      "name": "UI/UX Design",
+      "description": "Design intuitive game interfaces and user experiences"
+    }
+  ],
+  "prerequisites": {
+    "required_tools": [],
+    "optional_tools": ["Unity", "Unreal Engine", "Godot", "Blender"],
+    "recommended_knowledge": ["Game development basics", "Programming fundamentals", "Design principles"]
+  },
+  "installation_notes": "No special installation required. Optional: Install a game engine (Unity, Unreal, or Godot) for hands-on prototyping.",
+  "use_cases": [
+    "Indie game development",
+    "AAA game production",
+    "Mobile game design",
+    "Game concept pitching",
+    "Educational game development",
+    "Serious games and simulations",
+    "Game jams and rapid prototyping"
+  ],
+  "related_packs": ["developer-essentials-pack"],
+  "created_at": "2026-03-30",
+  "updated_at": "2026-03-30"
+}
