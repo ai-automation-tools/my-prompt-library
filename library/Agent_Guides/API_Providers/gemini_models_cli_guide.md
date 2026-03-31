@@ -2,7 +2,7 @@
 title: " Gemini Models CLI Guide"
 tags: ["gemini", "google", "cli", "reference", "api", "multimodal"]
 category: "Agent_Guides"
-subcategory: "Other"
+subcategory: "API_Providers"
 ---
 ## CLI Sync Notes (March 2026)
 

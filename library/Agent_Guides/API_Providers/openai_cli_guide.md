@@ -2,7 +2,7 @@
 title: "OpenAI GPT-4 CLI Guide"
 tags: ["openai", "gpt-4", "cli", "reference", "api"]
 category: "Agent_Guides"
-subcategory: "Other"
+subcategory: "API_Providers"
 ---
 ## CLI Sync Notes (March 2026)
 
