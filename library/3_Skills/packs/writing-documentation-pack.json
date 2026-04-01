@@ -2,127 +2,143 @@
   "name": "Writing & Documentation Pack",
   "id": "writing-documentation-pack",
   "description": "Professional writing and documentation toolkit covering technical writing, API docs, user guides, proposals, reports, and content across multiple formats (PDF, DOCX, XLSX, PPTX, Markdown).",
-  "icon": "📝",
+  "icon": "\ud83d\udcdd",
   "version": "1.0.0",
   "author": "my-prompt-library",
-  "tags": ["writing", "documentation", "technical-writing", "api-docs", "content", "markdown"],
+  "tags": [
+    "writing",
+    "documentation",
+    "technical-writing",
+    "api-docs",
+    "content",
+    "markdown"
+  ],
   "category": "Documentation",
   "skills": [
     {
-      "path": "library/Skills/Documentation/api-documentation/SKILL.md",
+      "path": "library/3_Skills/Content/api-documentation/SKILL.md",
       "name": "API Documentation",
       "description": "Write clear, comprehensive API documentation"
     },
     {
-      "path": "library/Skills/Documentation/content-strategy/SKILL.md",
+      "path": "library/3_Skills/Content/content-strategy/SKILL.md",
       "name": "Content Strategy",
       "description": "Develop content strategies and editorial calendars"
     },
     {
-      "path": "library/Skills/Documentation/copywriting/SKILL.md",
+      "path": "library/3_Skills/Content/copywriting/SKILL.md",
       "name": "Copywriting",
       "description": "Write persuasive marketing and sales copy"
     },
     {
-      "path": "library/Skills/Documentation/document-writer/SKILL.md",
+      "path": "library/3_Skills/Content/document-writer/SKILL.md",
       "name": "Document Writer",
       "description": "Create professional business documents"
     },
     {
-      "path": "library/Skills/Documentation/documentation-templates/SKILL.md",
+      "path": "library/3_Skills/Content/documentation-templates/SKILL.md",
       "name": "Documentation Templates",
       "description": "Use and customize documentation templates"
     },
     {
-      "path": "library/Skills/Documentation/docx/SKILL.md",
+      "path": "library/3_Skills/Content/docx/SKILL.md",
       "name": "DOCX Documents",
       "description": "Work with Microsoft Word documents"
     },
     {
-      "path": "library/Skills/Documentation/github-readme/SKILL.md",
+      "path": "library/3_Skills/Content/github-readme/SKILL.md",
       "name": "GitHub README",
       "description": "Write effective GitHub README files"
     },
     {
-      "path": "library/Skills/Documentation/humanizer/SKILL.md",
+      "path": "library/3_Skills/Content/humanizer/SKILL.md",
       "name": "Humanizer",
       "description": "Make technical content more accessible"
     },
     {
-      "path": "library/Skills/Documentation/json-canvas/SKILL.md",
+      "path": "library/3_Skills/Content/json-canvas/SKILL.md",
       "name": "JSON Canvas",
       "description": "Work with JSON Canvas format for knowledge graphs"
     },
     {
-      "path": "library/Skills/Documentation/knowledge-base/SKILL.md",
+      "path": "library/3_Skills/Content/knowledge-base/SKILL.md",
       "name": "Knowledge Base",
       "description": "Build and organize knowledge base articles"
     },
     {
-      "path": "library/Skills/Documentation/obsidian-bases/SKILL.md",
+      "path": "library/3_Skills/Content/obsidian-bases/SKILL.md",
       "name": "Obsidian Bases",
       "description": "Create Obsidian knowledge bases"
     },
     {
-      "path": "library/Skills/Documentation/obsidian-markdown/SKILL.md",
+      "path": "library/3_Skills/Content/obsidian-markdown/SKILL.md",
       "name": "Obsidian Markdown",
       "description": "Write Markdown for Obsidian with advanced features"
     },
     {
-      "path": "library/Skills/Documentation/pdf/SKILL.md",
+      "path": "library/3_Skills/Content/pdf/SKILL.md",
       "name": "PDF Documents",
       "description": "Create and work with PDF documents"
     },
     {
-      "path": "library/Skills/Documentation/pptx/SKILL.md",
+      "path": "library/3_Skills/Content/pptx/SKILL.md",
       "name": "PowerPoint Presentations",
       "description": "Create compelling slide presentations"
     },
     {
-      "path": "library/Skills/Documentation/proposal-writing/SKILL.md",
+      "path": "library/3_Skills/Content/proposal-writing/SKILL.md",
       "name": "Proposal Writing",
       "description": "Write winning business proposals"
     },
     {
-      "path": "library/Skills/Documentation/release-notes/SKILL.md",
+      "path": "library/3_Skills/Content/release-notes/SKILL.md",
       "name": "Release Notes",
       "description": "Document software releases and changelogs"
     },
     {
-      "path": "library/Skills/Documentation/report-writing/SKILL.md",
+      "path": "library/3_Skills/Content/report-writing/SKILL.md",
       "name": "Report Writing",
       "description": "Create professional business and technical reports"
     },
     {
-      "path": "library/Skills/Documentation/spreadsheet/SKILL.md",
+      "path": "library/3_Skills/Content/spreadsheet/SKILL.md",
       "name": "Spreadsheet Documentation",
       "description": "Document and explain spreadsheet data"
     },
     {
-      "path": "library/Skills/Documentation/style-guide/SKILL.md",
+      "path": "library/3_Skills/Content/style-guide/SKILL.md",
       "name": "Style Guide",
       "description": "Create and maintain writing style guides"
     },
     {
-      "path": "library/Skills/Documentation/technical-writing/SKILL.md",
+      "path": "library/3_Skills/Content/technical-writing/SKILL.md",
       "name": "Technical Writing",
       "description": "Write clear, concise technical documentation"
     },
     {
-      "path": "library/Skills/Documentation/user-guides/SKILL.md",
+      "path": "library/3_Skills/Content/user-guides/SKILL.md",
       "name": "User Guides",
       "description": "Create user-friendly product documentation"
     },
     {
-      "path": "library/Skills/Documentation/xlsx/SKILL.md",
+      "path": "library/3_Skills/Content/xlsx/SKILL.md",
       "name": "Excel Documents",
       "description": "Work with Excel spreadsheets and data"
     }
   ],
   "prerequisites": {
     "required_tools": [],
-    "optional_tools": ["pandoc", "markdown editor", "Obsidian", "MS Office"],
-    "recommended_knowledge": ["Markdown basics", "Grammar and style", "Document structure"]
+    "optional_tools": [
+      "pandoc",
+      "markdown editor",
+      "Obsidian",
+      "MS Office"
+    ],
+    "recommended_knowledge": [
+      "Markdown basics",
+      "Grammar and style",
+      "Document structure"
+    ]
   },
   "installation_notes": "No special installation required. Optional: Install Pandoc for format conversions, Obsidian for knowledge management.",
   "use_cases": [
@@ -135,7 +151,9 @@
     "Educational materials",
     "User manuals and guides"
   ],
-  "related_packs": ["developer-essentials-pack"],
+  "related_packs": [
+    "developer-essentials-pack"
+  ],
   "created_at": "2026-03-30",
-  "updated_at": "2026-03-30"
+  "updated_at": "2026-04-01"
 }
