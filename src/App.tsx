@@ -400,7 +400,9 @@ export default function App() {
   const allTags = useMemo(() => {
     const tags = new Set<string>();
     sectionPrompts.forEach(p => {
-      p.tags.forEach(tag => tags.add(tag));
+      if (Array.isArray(p.tags)) {
+        p.tags.forEach(tag => tags.add(tag));
+      }
     });
     return Array.from(tags).sort();
   }, [sectionPrompts]);
