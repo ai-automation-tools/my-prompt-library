@@ -177,7 +177,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
         }
         
         // For Skills section, only include SKILL.md files
-        if (item.path.startsWith('library/Skills/')) {
+        if (item.path.startsWith('library/3_Skills/')) {
           return item.path.endsWith('/SKILL.md');
         }
         
@@ -564,8 +564,8 @@ app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
     const skillPath = decodeURIComponent(req.params.skillPath).replace(/\\/g, '/');
     
     // Validate that this is a Skills directory
-    if (!skillPath.startsWith('Skills/')) {
-      return res.status(400).json({ error: "Invalid skill path. Must be under Skills/ directory." });
+    if (!skillPath.startsWith('3_Skills/')) {
+      return res.status(400).json({ error: "Invalid skill path. Must be under 3_Skills/ directory." });
     }
 
     // Check if using GitHub or filesystem
