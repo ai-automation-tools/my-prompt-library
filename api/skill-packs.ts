@@ -22,7 +22,7 @@ async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): Promis
   return arrayOfFiles;
 }
 
-const packsDir = path.join(process.cwd(), 'library/Skills/packs');
+const packsDir = path.join(process.cwd(), 'library/3_Skills/packs');
 
 // Helper to read all pack files
 async function getAllPacks() {
