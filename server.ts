@@ -55,7 +55,7 @@ async function startServer() {
 
   // Use __dirname to find library relative to this file, not cwd
   const promptsRoot = path.join(__dirname, "library");
-  const ALLOWED_SOURCE_SECTIONS = new Set(["Collections", "System_Prompts", "Agent_Guides"]);
+  const ALLOWED_SOURCE_SECTIONS = new Set(["Collections", "5_System_Prompts", "1_Guides"]);
 
   // Helper function to extract first heading from markdown content
   const extractFirstHeading = (content: string): string | null => {
@@ -237,7 +237,7 @@ async function startServer() {
               const relativePath = path.relative(promptsDir, fullPath);
               
               // For Skills section, only include SKILL.md files
-              if (relativePath.startsWith('Skills' + path.sep)) {
+              if (relativePath.startsWith('3_Skills' + path.sep)) {
                 if (!file.endsWith('SKILL.md')) {
                   return; // Skip non-SKILL.md files in Skills section
                 }
@@ -439,8 +439,8 @@ async function startServer() {
       const skillPath = decodeURIComponent(req.params.skillPath).replace(/\\/g, '/');
       
       // Validate that this is a Skills directory
-      if (!skillPath.startsWith('Skills/')) {
-        return res.status(400).json({ error: "Invalid skill path. Must be under Skills/ directory." });
+      if (!skillPath.startsWith('3_Skills/')) {
+        return res.status(400).json({ error: "Invalid skill path. Must be under 3_Skills/ directory." });
       }
 
       const fullPath = path.join(__dirname, "library", skillPath);

@@ -109,6 +109,34 @@ const THEMES: { id: Theme; name: string; icon: string }[] = [
   { id: 'light', name: 'Light', icon: '☀️' },
 ];
 
+// Helper functions to map between tab names and folder names
+const getSectionFolder = (tab: string): string => {
+  switch(tab) {
+    case 'guides': return '1_Guides';
+    case 'agents': return '2_Agents';
+    case 'skills': return '3_Skills';
+    case 'prompts': return '4_Prompts';
+    case 'system-prompts': return '5_System_Prompts';
+    // Legacy tab names for backward compatibility
+    case 'agent-guides': return '1_Guides';
+    case 'prompt-library': return '4_Prompts';
+    default: return '';
+  }
+};
+
+const getSectionDisplayName = (tab: string): string => {
+  switch(tab) {
+    case 'guides':
+    case 'agent-guides': return 'Guides';
+    case 'agents': return 'Agents';
+    case 'skills': return 'Skills';
+    case 'prompts':
+    case 'prompt-library': return 'Prompts';
+    case 'system-prompts': return 'System Prompts';
+    default: return 'Library';
+  }
+};
+
 export default function App() {
   const { user, logout, isLoading: authLoading } = useAuth();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
@@ -342,12 +370,7 @@ export default function App() {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
-  const activeSection = 
-    activeTab === 'agent-guides' ? 'Agent_Guides' : 
-    activeTab === 'agents' ? 'Agents' : 
-    activeTab === 'prompt-library' ? 'Prompt_Library' : 
-    activeTab === 'system-prompts' ? 'System_Prompts' :
-    'Skills';
+  const activeSection = getSectionFolder(activeTab) || '4_Prompts';
 
   const sectionPrompts = useMemo(() => {
     console.log(`🔍 DEBUG: BEFORE FILTER - prompts.length=${prompts.length}, activeSection="${activeSection}"`);
@@ -390,11 +413,11 @@ export default function App() {
       }
       
       // Path filter only for public library file-based prompts
-      if (activeTab === 'agent-guides' && !prompt.id.startsWith('Agent_Guides/')) return false;
-      if (activeTab === 'agents' && !prompt.id.startsWith('Agents/')) return false;
-      if (activeTab === 'prompt-library' && !prompt.id.startsWith('Prompt_Library/')) return false;
-      if (activeTab === 'system-prompts' && !prompt.id.startsWith('System_Prompts/')) return false;
-      if (activeTab === 'skills' && !prompt.id.startsWith('Skills/')) return false;
+      if (activeTab === 'agent-guides' && !prompt.id.startsWith('1_Guides/')) return false;
+      if (activeTab === 'agents' && !prompt.id.startsWith('2_Agents/')) return false;
+      if (activeTab === 'prompt-library' && !prompt.id.startsWith('4_Prompts/')) return false;
+      if (activeTab === 'system-prompts' && !prompt.id.startsWith('5_System_Prompts/')) return false;
+      if (activeTab === 'skills' && !prompt.id.startsWith('3_Skills/')) return false;
       return true;
     });
     console.log(`🔍 DEBUG: activeTab="${activeTab}", after path filter=${currentPrompts.length}/${sectionPrompts.length}`);
@@ -603,7 +626,7 @@ export default function App() {
 
   const handleDownloadMarkdown = useCallback(async (prompt: Prompt) => {
     // Check if this is a Skill - download as zip
-    if (prompt.section === 'Skills') {
+    if (prompt.section === '3_Skills') {
       try {
         // Extract the skill directory path (remove /SKILL.md from the end)
         const skillDirPath = prompt.id.replace(/\/SKILL\.md$/, '');
@@ -1775,11 +1798,7 @@ source: My Prompt Library
             <div className="py-8 md:py-12 mb-8">
               <div className="max-w-4xl">
                 <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-3">
-                  {activeTab === 'prompt-library' ? 'Prompt Library' : 
-                   activeTab === 'agents' ? 'Agents' : 
-                   activeTab === 'agent-guides' ? 'Agent Guides' : 
-                   activeTab === 'system-prompts' ? 'System Prompts' :
-                   'Skills'}
+                  {getSectionDisplayName(activeTab)}
                 </h1>
                 
                 {/* Attribution */}
@@ -1821,7 +1840,7 @@ source: My Prompt Library
                 className="flex items-center gap-1 hover:text-[var(--accent)] transition-colors"
               >
                 <Home className="w-3.5 h-3.5" />
-                <span>{activeTab === 'prompt-library' ? 'Prompt Library' : activeTab === 'agents' ? 'Agents' : activeTab === 'agent-guides' ? 'Agent Guides' : activeTab === 'system-prompts' ? 'System Prompts' : 'Skills'}</span>
+                <span>{getSectionDisplayName(activeTab)}</span>
               </button>
               {selectedSubcategory && (
                 <>
@@ -1873,11 +1892,7 @@ source: My Prompt Library
                   <div className="flex items-center gap-3 flex-wrap">
                     <div>
                       <h2 className="heading-display text-xl font-bold tracking-tight text-[var(--text-primary)]">
-                        {activeTab === 'prompt-library' ? 'Prompt Library' : 
-                         activeTab === 'agents' ? 'Agents' : 
-                         activeTab === 'agent-guides' ? 'Agent Guides' : 
-                         activeTab === 'system-prompts' ? 'System Prompts' :
-                         'Skills'}
+                        {getSectionDisplayName(activeTab)}
                       </h2>
                       <p className="label mt-2">{sortedPrompts.length} prompts</p>
                     </div>

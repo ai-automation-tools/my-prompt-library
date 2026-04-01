@@ -190,8 +190,8 @@ export default function PromptEditorModal({
                   >
                     <option value="My_Prompts">My Prompts</option>
                     <option value="Collections">Collections</option>
-                    <option value="System_Prompts">System Prompts</option>
-                    <option value="Agent_Guides">Agent Guides</option>
+                    <option value="5_System_Prompts">System Prompts</option>
+                    <option value="1_Guides">Guides</option>
                   </select>
                 </div>
               </div>
