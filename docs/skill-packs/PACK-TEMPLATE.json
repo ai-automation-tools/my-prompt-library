@@ -14,12 +14,12 @@
   "category": "Category_Name",
   "skills": [
     {
-      "path": "library/Skills/Category/skill-name/SKILL.md",
+      "path": "library/3_Skills/Category/skill-name/SKILL.md",
       "name": "Skill Display Name",
       "description": "Brief description of what this skill does"
     },
     {
-      "path": "library/Skills/Category/another-skill/SKILL.md",
+      "path": "library/3_Skills/Category/another-skill/SKILL.md",
       "name": "Another Skill Name",
       "description": "Another skill description"
     }

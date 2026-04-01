@@ -24,7 +24,7 @@
     "noEmit": true
   },
   "exclude": [
-    "library/Skills/Video/remotion/**/*",
-    "library/Skills/Video/motion-canvas/**/*"
+    "library/3_Skills/Video/remotion/**/*",
+    "library/3_Skills/Video/motion-canvas/**/*"
   ]
 }
