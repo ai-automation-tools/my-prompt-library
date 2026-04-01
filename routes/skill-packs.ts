@@ -11,7 +11,7 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const packsDir = path.join(__dirname, '../library/Skills/packs');
+const packsDir = path.join(__dirname, '../library/3_Skills/packs');
 
 // Helper to read all pack files
 async function getAllPacks() {
