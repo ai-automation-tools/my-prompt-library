@@ -2,7 +2,7 @@
   "version": 2,
   "functions": {
     "api/skill-packs.ts": {
-      "includeFiles": "library/Skills/**"
+      "includeFiles": "library/3_Skills/**"
     }
   },
   "rewrites": [
