@@ -5,7 +5,7 @@ category: "Agent_Guides"
 subcategory: "Claude_Code"
 ---
 
-<!-- Last Updated: 2026-03-28 - Synced with upstream v2.1.77 -->
+<!-- Last Updated: 2026-04-11 - Synced with upstream v2.1.101 -->
 
 # Claude Code Agent Guide
 
