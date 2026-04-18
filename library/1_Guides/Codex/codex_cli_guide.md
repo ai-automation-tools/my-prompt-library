@@ -5,7 +5,7 @@ category: "Agent_Guides"
 subcategory: "Codex"
 ---
 
-<!-- Last Updated: 2026-03-28 - Synced with upstream v0.116.0 -->
+<!-- Last Updated: 2026-04-18 - Synced with upstream v0.121.0 -->
 
 # OpenAI Codex Agent Guide
 
@@ -19,7 +19,9 @@ Comprehensive reference for building and managing agents with OpenAI Codex CLI.
 - 🎯 Flexible approval policies for command execution
 - 💻 Available in terminal, VS Code, Cursor, Windsurf
 - 🌐 Web and cloud-based versions available
+- 🧩 Plugin marketplace support (`codex marketplace add`)
 - 🔧 MCP (Model Context Protocol) support (experimental)
+- 🧠 Expanded memory controls in TUI and app server
 
 **Authentication:** Codex is included with ChatGPT Plus, Pro, Business, Edu, and Enterprise plans. Recommended to authenticate with your ChatGPT account when prompted. API key authentication is also available but requires additional setup.
 

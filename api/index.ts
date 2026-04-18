@@ -175,6 +175,10 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
         if (item.type !== 'blob' || !item.path.startsWith('library/') || !item.path.endsWith('.md')) {
           return false;
         }
+
+        if (item.path.endsWith('/README.md')) {
+          return false;
+        }
         
         // For Skills section, only include SKILL.md files
         if (item.path.startsWith('library/3_Skills/')) {
@@ -238,6 +242,10 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
           if (stat.isDirectory()) {
             results = results.concat(walkDir(filePath, baseDir));
           } else if (file.endsWith('.md')) {
+            if (file === 'README.md') {
+              return;
+            }
+
             const relativePath = path.relative(baseDir, filePath);
             
             // For Skills section, only include SKILL.md files
