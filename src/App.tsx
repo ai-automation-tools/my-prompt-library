@@ -56,6 +56,17 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+function slugifyPromptPath(promptId: string): string {
+  return promptId
+    .replace(/\\/g, '/')
+    .replace(/\.md$/i, '')
+    .replace(/^library\//i, '')
+    .split('/')
+    .filter(Boolean)
+    .map(segment => encodeURIComponent(segment))
+    .join('/');
+}
+
 // Extract emoji from the beginning of a string
 function extractEmoji(text: string): { emoji: string | null; title: string } {
   // Match emoji at the start of the string (Unicode emoji range)
@@ -86,6 +97,7 @@ interface Prompt {
   lastModified: string;
   featured?: boolean;
   isUserOwned?: boolean; // true if user created or copied this prompt
+  anchor?: string;
 }
 
 type Theme = 'ax-platform' | 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro' | 'react-modern' | 'dark-pro' | 'nordic-night';
@@ -155,6 +167,7 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 50; // Show 50 prompts per page
   const [copied, setCopied] = useState<string | null>(null);
+  const [copiedShareLink, setCopiedShareLink] = useState(false);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts' | 'skill-packs'>(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -173,6 +186,10 @@ export default function App() {
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(() => {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('subcategory');
+  });
+  const [promptPathParam, setPromptPathParam] = useState<string | null>(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('prompt');
   });
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const themeRef = useRef<HTMLDivElement>(null);
@@ -249,6 +266,36 @@ export default function App() {
     window.history.replaceState({}, '', url.toString());
   }, [libraryMode]);
 
+  useEffect(() => {
+    const handlePopState = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const section = urlParams.get('section');
+      const library = urlParams.get('library');
+      const category = urlParams.get('category');
+      const subcategory = urlParams.get('subcategory');
+      const prompt = urlParams.get('prompt');
+
+      if (section === 'agent-guides') setActiveTab('agent-guides');
+      else if (section === 'agents') setActiveTab('agents');
+      else if (section === 'skills') setActiveTab('skills');
+      else if (section === 'system-prompts') setActiveTab('system-prompts');
+      else if (section === 'skill-packs') setActiveTab('skill-packs');
+      else setActiveTab('prompt-library');
+
+      if (library === 'public' || library === 'my') setLibraryMode(library);
+      setActiveCategory(category);
+      setActiveSubcategory(subcategory);
+      setPromptPathParam(prompt);
+
+      if (!prompt) {
+        setSelectedPrompt(null);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // Update URL when navigation state changes
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -275,9 +322,15 @@ export default function App() {
     } else {
       url.searchParams.delete('subcategory');
     }
+
+    if (selectedPrompt && !selectedPrompt.isUserOwned) {
+      url.searchParams.set('prompt', slugifyPromptPath(selectedPrompt.id));
+    } else {
+      url.searchParams.delete('prompt');
+    }
     
     window.history.replaceState({}, '', url.toString());
-  }, [activeTab, activeCategory, activeSubcategory]);
+  }, [activeTab, activeCategory, activeSubcategory, selectedPrompt]);
 
   // Debounce search input for better performance
   useEffect(() => {
@@ -551,6 +604,8 @@ export default function App() {
   }, [expandedCategories, handleSubcategoryClick]);
 
   const handlePromptClick = useCallback(async (prompt: Prompt) => {
+    setPromptPathParam(prompt.isUserOwned ? null : slugifyPromptPath(prompt.id));
+    setCopiedShareLink(false);
     // Always fetch full content since we're using lightweight mode
     let fullPrompt = prompt;
     try {
@@ -586,10 +641,13 @@ export default function App() {
     setSelectedSubcategory(null);
     setActiveCategory(null);
     setActiveSubcategory(null);
+    setPromptPathParam(null);
+    setCopiedShareLink(false);
     // Clear URL params
     const url = new URL(window.location.href);
     url.searchParams.delete('category');
     url.searchParams.delete('subcategory');
+    url.searchParams.delete('prompt');
     window.history.pushState({}, '', url.toString());
   }, []);
 
@@ -597,6 +655,8 @@ export default function App() {
     if (selectedPrompt) {
       // Close prompt detail, go to category ALL view
       setSelectedPrompt(null);
+      setPromptPathParam(null);
+      setCopiedShareLink(false);
       
       // If we have an activeCategory, select its ALL view
       if (activeCategory) {
@@ -625,6 +685,60 @@ export default function App() {
     setTimeout(() => setCopied(null), 2000);
     showToast('success', 'Copied to clipboard');
   }, [showToast]);
+
+  const handleCopyShareLink = useCallback(async (prompt: Prompt) => {
+    if (prompt.isUserOwned) {
+      showToast('info', 'Direct links are only available for public library items');
+      return;
+    }
+
+    const shareUrl = new URL(window.location.href);
+    shareUrl.searchParams.set('library', 'public');
+    shareUrl.searchParams.set('prompt', slugifyPromptPath(prompt.id));
+    shareUrl.searchParams.set('section',
+      prompt.section === '1_Guides' ? 'agent-guides' :
+      prompt.section === '2_Agents' ? 'agents' :
+      prompt.section === '3_Skills' ? 'skills' :
+      prompt.section === '5_System_Prompts' ? 'system-prompts' :
+      'prompt-library'
+    );
+    shareUrl.searchParams.set('category', prompt.category);
+    if (prompt.subcategory) shareUrl.searchParams.set('subcategory', prompt.subcategory);
+    else shareUrl.searchParams.delete('subcategory');
+
+    await navigator.clipboard.writeText(shareUrl.toString());
+    setCopiedShareLink(true);
+    setTimeout(() => setCopiedShareLink(false), 2000);
+    showToast('success', 'Direct link copied');
+  }, [showToast]);
+
+  useEffect(() => {
+    if (!promptPathParam || prompts.length === 0 || selectedPrompt) {
+      return;
+    }
+
+    const normalizedPromptPath = decodeURIComponent(promptPathParam).replace(/^library\//, '');
+    const matchingPrompt = prompts.find(prompt => {
+      if (prompt.isUserOwned) return false;
+      return slugifyPromptPath(prompt.id) === normalizedPromptPath;
+    });
+
+    if (matchingPrompt) {
+      const nextTab =
+        matchingPrompt.section === '1_Guides' ? 'agent-guides' :
+        matchingPrompt.section === '2_Agents' ? 'agents' :
+        matchingPrompt.section === '3_Skills' ? 'skills' :
+        matchingPrompt.section === '5_System_Prompts' ? 'system-prompts' :
+        'prompt-library';
+
+      if (activeTab !== nextTab) setActiveTab(nextTab);
+      if (libraryMode !== 'public') setLibraryMode('public');
+      if (activeCategory !== matchingPrompt.category) setActiveCategory(matchingPrompt.category);
+      if (activeSubcategory !== matchingPrompt.subcategory) setActiveSubcategory(matchingPrompt.subcategory);
+
+      void handlePromptClick(matchingPrompt);
+    }
+  }, [promptPathParam, prompts, selectedPrompt, activeTab, libraryMode, activeCategory, activeSubcategory, handlePromptClick]);
 
   const handleDownloadMarkdown = useCallback(async (prompt: Prompt) => {
     // Check if this is a Skill - download as zip
@@ -2393,7 +2507,17 @@ source: My Prompt Library
                         title="Share via Email"
                       >
                         <Share2 className="w-3.5 h-3.5" />
-                        Share
+                        Email
+                      </motion.button>
+
+                      <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleCopyShareLink(selectedPrompt)}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                        title="Copy direct link"
+                      >
+                        {copiedShareLink ? <Check className="w-3.5 h-3.5" /> : <Share2 className="w-3.5 h-3.5" />}
+                        {copiedShareLink ? 'Link Copied' : 'Copy Link'}
                       </motion.button>
 
                       {/* Only show "Save to My Prompts" button if in Public Library */}
