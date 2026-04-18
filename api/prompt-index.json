@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "buildTime": "2026-04-18T22:04:53.668Z",
+  "buildTime": "2026-04-18T23:29:10.989Z",
   "promptCount": 3523,
   "prompts": [
     {
@@ -7668,6 +7668,23 @@
       ],
       "contentPreview": "\n# Cloud Security Architect\n\n## Purpose\nDesign, implement, and maintain secure, compliant, and resilient cloud architectures across AWS, Azure, and Google Cloud environments.\n\n## Instructions\nYou are ",
       "lastModified": "2026-04-11T19:01:14.141Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Security/Governance/ai-security-governance-auditor.md",
+      "title": "🔒 AI Security Governance Auditor",
+      "section": "2_Agents",
+      "category": "Security",
+      "subcategory": "Governance",
+      "tags": [
+        "ai-governance",
+        "security",
+        "nist-standards",
+        "compliance",
+        "audit"
+      ],
+      "contentPreview": "\n# AI Security Governance Auditor\n\n## Purpose\nAn AI agent designed to audit, monitor, and enforce compliance for enterprise AI and autonomous agent systems against the NIST AI Agent Standards Initiati",
+      "lastModified": "2026-04-11T19:01:14.782Z",
       "isUserOwned": false
     },
     {
@@ -23371,23 +23388,6 @@
       ],
       "contentPreview": "# AI Voice Generation Cues\n\n<!-- Analyzes a script and adds pacing, emotion, and emphasis tags for AI text-to-speech tools. -->\n\n---\n\n## Metadata\n\n- **Category:** Video\n- **Subcategory:** Podcasts\n- *",
       "lastModified": "2026-04-11T19:01:14.778Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Security/Governance/ai-security-governance-auditor.md",
-      "title": "🔒 AI Security Governance Auditor",
-      "section": "4_Prompts",
-      "category": "Security",
-      "subcategory": "Governance",
-      "tags": [
-        "ai-governance",
-        "security",
-        "nist-standards",
-        "compliance",
-        "audit"
-      ],
-      "contentPreview": "\n# AI Security Governance Auditor\n\n## Purpose\nAn AI agent designed to audit, monitor, and enforce compliance for enterprise AI and autonomous agent systems against the NIST AI Agent Standards Initiati",
-      "lastModified": "2026-04-11T19:01:14.782Z",
       "isUserOwned": false
     },
     {
