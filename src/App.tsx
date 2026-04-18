@@ -56,6 +56,8 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+const PUBLIC_SHARE_ORIGIN = 'https://prompts.ax-platform.com';
+
 function slugifyPromptPath(promptId: string): string {
   return promptId
     .replace(/\\/g, '/')
@@ -693,6 +695,8 @@ export default function App() {
     }
 
     const shareUrl = new URL(window.location.href);
+    shareUrl.protocol = 'https:';
+    shareUrl.host = new URL(PUBLIC_SHARE_ORIGIN).host;
     shareUrl.searchParams.set('library', 'public');
     shareUrl.searchParams.set('prompt', slugifyPromptPath(prompt.id));
     shareUrl.searchParams.set('section',
