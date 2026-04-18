@@ -65,7 +65,6 @@ function slugifyPromptPath(promptId: string): string {
     .replace(/^library\//i, '')
     .split('/')
     .filter(Boolean)
-    .map(segment => encodeURIComponent(segment))
     .join('/');
 }
 
@@ -694,9 +693,7 @@ export default function App() {
       return;
     }
 
-    const shareUrl = new URL(window.location.href);
-    shareUrl.protocol = 'https:';
-    shareUrl.host = new URL(PUBLIC_SHARE_ORIGIN).host;
+    const shareUrl = new URL(PUBLIC_SHARE_ORIGIN);
     shareUrl.searchParams.set('library', 'public');
     shareUrl.searchParams.set('prompt', slugifyPromptPath(prompt.id));
     shareUrl.searchParams.set('section',
@@ -721,7 +718,9 @@ export default function App() {
       return;
     }
 
-    const normalizedPromptPath = decodeURIComponent(promptPathParam).replace(/^library\//, '');
+    const normalizedPromptPath = decodeURIComponent(promptPathParam)
+      .replace(/^library\//, '')
+      .replace(/^\/+|\/+$/g, '');
     const matchingPrompt = prompts.find(prompt => {
       if (prompt.isUserOwned) return false;
       return slugifyPromptPath(prompt.id) === normalizedPromptPath;
