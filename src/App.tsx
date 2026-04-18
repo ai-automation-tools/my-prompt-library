@@ -59,6 +59,18 @@ function cn(...inputs: ClassValue[]) {
 
 const PUBLIC_SHARE_ORIGIN = 'https://prompts.ax-platform.com';
 
+function getSectionParamForPromptSection(section: string): string {
+  return section === '1_Guides'
+    ? 'agent-guides'
+    : section === '2_Agents'
+      ? 'agents'
+      : section === '3_Skills'
+        ? 'skills'
+        : section === '5_System_Prompts'
+          ? 'system-prompts'
+          : 'prompt-library';
+}
+
 function slugifyPromptPath(promptId: string): string {
   return promptId
     .replace(/\\/g, '/')
@@ -726,13 +738,7 @@ export default function App() {
     const shareUrl = new URL(PUBLIC_SHARE_ORIGIN);
     shareUrl.searchParams.set('library', 'public');
     shareUrl.searchParams.set('prompt', slugifyPromptPath(prompt.id));
-    shareUrl.searchParams.set('section',
-      prompt.section === '1_Guides' ? 'agent-guides' :
-      prompt.section === '2_Agents' ? 'agents' :
-      prompt.section === '3_Skills' ? 'skills' :
-      prompt.section === '5_System_Prompts' ? 'system-prompts' :
-      'prompt-library'
-    );
+    shareUrl.searchParams.set('section', getSectionParamForPromptSection(prompt.section));
     shareUrl.searchParams.set('category', prompt.category);
     if (prompt.subcategory) shareUrl.searchParams.set('subcategory', prompt.subcategory);
     else shareUrl.searchParams.delete('subcategory');
@@ -742,6 +748,27 @@ export default function App() {
     setTimeout(() => setCopiedShareLink(false), 2000);
     showToast('success', 'Direct link copied');
   }, [showToast]);
+
+  const handleCopySubsectionLink = useCallback(async (category: string, subcategory: string | 'ALL') => {
+    const shareUrl = new URL(PUBLIC_SHARE_ORIGIN);
+    shareUrl.searchParams.set('library', 'public');
+    shareUrl.searchParams.set('section',
+      activeTab === 'agent-guides' ? 'agent-guides' :
+      activeTab === 'agents' ? 'agents' :
+      activeTab === 'skills' ? 'skills' :
+      activeTab === 'system-prompts' ? 'system-prompts' :
+      'prompt-library'
+    );
+    shareUrl.searchParams.set('category', category);
+    if (subcategory !== 'ALL') shareUrl.searchParams.set('subcategory', subcategory);
+    else shareUrl.searchParams.delete('subcategory');
+    shareUrl.searchParams.delete('prompt');
+
+    await navigator.clipboard.writeText(shareUrl.toString());
+    setCopiedShareLink(true);
+    setTimeout(() => setCopiedShareLink(false), 2000);
+    showToast('success', 'Subsection link copied');
+  }, [activeTab, showToast]);
 
   useEffect(() => {
     if (!promptPathParam || prompts.length === 0 || selectedPrompt) {
@@ -757,12 +784,7 @@ export default function App() {
     });
 
     if (matchingPrompt) {
-      const nextTab =
-        matchingPrompt.section === '1_Guides' ? 'agent-guides' :
-        matchingPrompt.section === '2_Agents' ? 'agents' :
-        matchingPrompt.section === '3_Skills' ? 'skills' :
-        matchingPrompt.section === '5_System_Prompts' ? 'system-prompts' :
-        'prompt-library';
+      const nextTab = getSectionParamForPromptSection(matchingPrompt.section) as typeof activeTab;
 
       if (activeTab !== nextTab) setActiveTab(nextTab);
       if (libraryMode !== 'public') setLibraryMode('public');
@@ -2535,23 +2557,34 @@ source: My Prompt Library
                 transition={{ duration: 0.3 }}
                 className="w-full"
               >
-                <div className="flex items-center gap-4 mb-8">
-                  <button
-                    onClick={handleShowAllPrompts}
-                    className="p-2 rounded-[var(--radius-sm)] hover:bg-[var(--glass-bg-hover)] transition-colors"
-                  >
-                    <ArrowLeft className="w-4 h-4 text-[var(--text-tertiary)]" />
-                  </button>
-                  <div>
-                    <h2 className="heading-display text-2xl font-bold tracking-tight text-[var(--text-primary)]">
-                      {selectedSubcategory.category.replace(/_/g, ' ')}
-                      <span className="text-[var(--text-tertiary)] mx-2">/</span>
-                      <span className="text-[var(--accent)]">
-                        {selectedSubcategory.subcategory === 'ALL' ? 'All' : selectedSubcategory.subcategory.replace(/_/g, ' ')}
-                      </span>
-                    </h2>
-                    <p className="label mt-2">{subcategoryPrompts.length} prompts</p>
+                <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={handleShowAllPrompts}
+                      className="p-2 rounded-[var(--radius-sm)] hover:bg-[var(--glass-bg-hover)] transition-colors"
+                    >
+                      <ArrowLeft className="w-4 h-4 text-[var(--text-tertiary)]" />
+                    </button>
+                    <div>
+                      <h2 className="heading-display text-2xl font-bold tracking-tight text-[var(--text-primary)]">
+                        {selectedSubcategory.category.replace(/_/g, ' ')}
+                        <span className="text-[var(--text-tertiary)] mx-2">/</span>
+                        <span className="text-[var(--accent)]">
+                          {selectedSubcategory.subcategory === 'ALL' ? 'All' : selectedSubcategory.subcategory.replace(/_/g, ' ')}
+                        </span>
+                      </h2>
+                      <p className="label mt-2">{subcategoryPrompts.length} prompts</p>
+                    </div>
                   </div>
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleCopySubsectionLink(selectedSubcategory.category, selectedSubcategory.subcategory)}
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
+                    title="Copy subsection link"
+                  >
+                    {copiedShareLink ? <Check className="w-3.5 h-3.5" /> : <Share2 className="w-3.5 h-3.5" />}
+                    {copiedShareLink ? 'Link Copied' : 'Copy Section Link'}
+                  </motion.button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
