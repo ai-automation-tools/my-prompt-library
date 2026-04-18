@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "buildTime": "2026-04-18T21:54:49.279Z",
-  "promptCount": 3560,
+  "buildTime": "2026-04-18T22:04:53.668Z",
+  "promptCount": 3523,
   "prompts": [
     {
       "id": "1_Guides/API_Providers/anthropic_api_guide.md",
@@ -721,17 +721,6 @@
         "ai-coding"
       ],
       "contentPreview": "\n<!-- Last Updated: 2026-03-31 - Based on official Windsurf documentation -->\n\n# Windsurf Cascade Agent Guide\n\nComprehensive reference for using Windsurf's Cascade AI agent for agentic coding workflow",
-      "lastModified": "2026-04-11T19:01:13.973Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "1_Guides/README.md",
-      "title": "Agent Guides",
-      "section": "1_Guides",
-      "category": "README",
-      "subcategory": null,
-      "tags": [],
-      "contentPreview": "# Agent Guides\n\nComprehensive guides for AI coding agents, IDEs, CLI tools, and API providers.\n\n## 📁 Directory Structure\n\n### CLI-Based Agents\n- **Claude_Code/** - Anthropic's Claude Code CLI agent\n-",
       "lastModified": "2026-04-11T19:01:13.973Z",
       "isUserOwned": false
     },
@@ -7664,17 +7653,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/README.md",
-      "title": "2_Agents - Agent Personas & Instructions",
-      "section": "2_Agents",
-      "category": "README",
-      "subcategory": null,
-      "tags": [],
-      "contentPreview": "# 2_Agents - Agent Personas & Instructions\n\n**Last Updated:** March 31, 2026  \n**Status:** ✅ Reorganized (Phase 2 complete)\n\n---\n\n## 📂 Directory Structure\n\nThis directory contains complete agent defi",
-      "lastModified": "2026-04-11T19:01:14.137Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Security/Architecture/cloud-security-architect.md",
       "title": "🤖 Cloud Security Architect",
       "section": "2_Agents",
@@ -7867,17 +7845,6 @@
       "subcategory": "Agent_Development",
       "tags": [],
       "contentPreview": "# Agent Triggering Examples: Best Practices\r\n\r\nComplete guide to writing effective `<example>` blocks in agent descriptions for reliable triggering.\r\n\r\n## Example Block Format\r\n\r\nThe standard format f",
-      "lastModified": "2026-04-11T19:01:14.145Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/AI_ML/Agent_Development/agent-md-refactor/README.md",
-      "title": "Agent MD Refactor",
-      "section": "3_Skills",
-      "category": "AI_ML",
-      "subcategory": "Agent_Development",
-      "tags": [],
-      "contentPreview": "# Agent MD Refactor\r\n\r\nA Claude Code skill that transforms bloated agent instruction files into clean, organized documentation using progressive disclosure principles.\r\n\r\nBased on https://x.com/mattpo",
       "lastModified": "2026-04-11T19:01:14.145Z",
       "isUserOwned": false
     },
@@ -8525,17 +8492,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Content/General/humanizer/README.md",
-      "title": "Humanizer",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "General",
-      "tags": [],
-      "contentPreview": "# Humanizer\n\nA Claude Code skill that removes signs of AI-generated writing from text, making it sound more natural and human.\n\n## Installation\n\n### Recommended (clone directly into Claude Code skills",
-      "lastModified": "2026-04-11T19:01:14.185Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Content/General/humanizer/SKILL.md",
       "title": "🤖 Humanizer: Remove AI Writing Patterns",
       "section": "3_Skills",
@@ -8785,17 +8741,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Content/humanizer/README.md",
-      "title": "Humanizer",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "humanizer",
-      "tags": [],
-      "contentPreview": "# Humanizer\n\nA Claude Code skill that removes signs of AI-generated writing from text, making it sound more natural and human.\n\n## Installation\n\n### Recommended (clone directly into Claude Code skills",
-      "lastModified": "2026-04-11T19:01:14.245Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Content/humanizer/SKILL.md",
       "title": "Humanizer: Remove AI Writing Patterns",
       "section": "3_Skills",
@@ -8935,17 +8880,6 @@
       "tags": [],
       "contentPreview": "# Changelog\r\n\r\nAll notable changes to this project will be documented in this file.\r\n\r\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\r\nand this project adheres to [Se",
       "lastModified": "2026-04-11T19:01:14.249Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/notebooklm/README.md",
-      "title": "NotebookLM Claude Code Skill",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "notebooklm",
-      "tags": [],
-      "contentPreview": "<div align=\"center\">\r\n\r\n# NotebookLM Claude Code Skill\r\n\r\n**Let [Claude Code](https://github.com/anthropics/claude-code) chat directly with NotebookLM for source-grounded answers based exclusively on ",
-      "lastModified": "2026-04-11T19:01:14.253Z",
       "isUserOwned": false
     },
     {
@@ -9936,17 +9870,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Data/scientific-schematics/README.md",
-      "title": "Scientific Schematics - Nano Banana Pro",
-      "section": "3_Skills",
-      "category": "Data",
-      "subcategory": "scientific-schematics",
-      "tags": [],
-      "contentPreview": "# Scientific Schematics - Nano Banana Pro\r\n\r\n**Generate any scientific diagram by describing it in natural language.**\r\n\r\nNano Banana Pro creates publication-quality diagrams automatically - no coding",
-      "lastModified": "2026-04-11T19:01:14.345Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Data/scientific-schematics/SKILL.md",
       "title": "Scientific Schematics and Diagrams",
       "section": "3_Skills",
@@ -10278,17 +10201,6 @@
       "tags": [],
       "contentPreview": "\n# TimesFM Forecasting\n\n## Overview\n\nTimesFM (Time Series Foundation Model) is a pretrained decoder-only foundation model\ndeveloped by Google Research for time-series forecasting. It works **zero-shot",
       "lastModified": "2026-04-11T19:01:14.361Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Data/timesfm-forecasting/examples/global-temperature/README.md",
-      "title": "TimesFM Forecast Report: Global Temperature Anomaly (2025)",
-      "section": "3_Skills",
-      "category": "Data",
-      "subcategory": "timesfm-forecasting",
-      "tags": [],
-      "contentPreview": "# TimesFM Forecast Report: Global Temperature Anomaly (2025)\n\n**Model:** TimesFM 1.0 (200M) PyTorch  \n**Generated:** 2026-02-21  \n**Source:** NOAA GISTEMP Global Land-Ocean Temperature Index\n\n---\n\n## ",
-      "lastModified": "2026-04-11T19:01:14.365Z",
       "isUserOwned": false
     },
     {
@@ -10860,17 +10772,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/API/claude-api/python/agent-sdk/README.md",
-      "title": "Agent SDK — Python",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "API",
-      "tags": [],
-      "contentPreview": "# Agent SDK — Python\n\nThe Claude Agent SDK provides a higher-level interface for building AI agents with built-in tools, safety features, and agentic capabilities.\n\n## Installation\n\n```bash\npip instal",
-      "lastModified": "2026-04-11T19:01:14.397Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/API/claude-api/python/agent-sdk/patterns.md",
       "title": "Agent SDK Patterns — Python",
       "section": "3_Skills",
@@ -10879,17 +10780,6 @@
       "tags": [],
       "contentPreview": "# Agent SDK Patterns — Python\n\n## Basic Agent\n\n```python\nimport anyio\nfrom claude_agent_sdk import query, ClaudeAgentOptions, ResultMessage\n\nasync def main():\n    async for message in query(\n        p",
       "lastModified": "2026-04-11T19:01:14.397Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/API/claude-api/python/claude-api/README.md",
-      "title": "Claude API — Python",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "API",
-      "tags": [],
-      "contentPreview": "# Claude API — Python\n\n## Installation\n\n```bash\npip install anthropic\n```\n\n## Client Initialization\n\n```python\nimport anthropic\n\n# Default (uses ANTHROPIC_API_KEY env var)\nclient = anthropic.Anthropic",
-      "lastModified": "2026-04-11T19:01:14.401Z",
       "isUserOwned": false
     },
     {
@@ -10992,17 +10882,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/API/claude-api/typescript/agent-sdk/README.md",
-      "title": "Agent SDK — TypeScript",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "API",
-      "tags": [],
-      "contentPreview": "# Agent SDK — TypeScript\n\nThe Claude Agent SDK provides a higher-level interface for building AI agents with built-in tools, safety features, and agentic capabilities.\n\n## Installation\n\n```bash\nnpm in",
-      "lastModified": "2026-04-11T19:01:14.401Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/API/claude-api/typescript/agent-sdk/patterns.md",
       "title": "Agent SDK Patterns — TypeScript",
       "section": "3_Skills",
@@ -11010,17 +10889,6 @@
       "subcategory": "API",
       "tags": [],
       "contentPreview": "# Agent SDK Patterns — TypeScript\n\n## Basic Agent\n\n```typescript\nimport { query } from \"@anthropic-ai/claude-agent-sdk\";\n\nasync function main() {\n  for await (const message of query({\n    prompt: \"Exp",
-      "lastModified": "2026-04-11T19:01:14.401Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/API/claude-api/typescript/claude-api/README.md",
-      "title": "Claude API — TypeScript",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "API",
-      "tags": [],
-      "contentPreview": "# Claude API — TypeScript\n\n## Installation\n\n```bash\nnpm install @anthropic-ai/sdk\n```\n\n## Client Initialization\n\n```typescript\nimport Anthropic from \"@anthropic-ai/sdk\";\n\n// Default (uses ANTHROPIC_AP",
       "lastModified": "2026-04-11T19:01:14.401Z",
       "isUserOwned": false
     },
@@ -11667,17 +11535,6 @@
       "subcategory": "Database",
       "tags": [],
       "contentPreview": "# Postgres Best Practices\r\n\r\n**Version 1.0.0**\r\nSupabase\r\nJanuary 2026\r\n\r\n> This document is optimized for AI agents and LLMs. Rules are prioritized by performance impact.\r\n\r\n---\r\n\r\n## Abstract\r\n\r\nCom",
-      "lastModified": "2026-04-11T19:01:14.437Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/Database/supabase-postgres-best-practices/README.md",
-      "title": "Postgres Best Practices - Contributor Guide",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "Database",
-      "tags": [],
-      "contentPreview": "# Postgres Best Practices - Contributor Guide\r\n\r\nThis repository contains Postgres performance optimization rules optimized for\r\nAI agents and LLMs.\r\n\r\n## Quick Start\r\n\r\n```bash\r\n# From repository roo",
       "lastModified": "2026-04-11T19:01:14.437Z",
       "isUserOwned": false
     },
@@ -12756,17 +12613,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/README.md",
-      "title": "Skill Packs",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "README",
-      "tags": [],
-      "contentPreview": "# Skill Packs\n\nCurated collections of related skills for specific domains and workflows.\n\n---\n\n## Available Packs\n\n### 💻 Developer Essentials Pack\n**ID:** `developer-essentials-pack`  \n**Skills:** 10",
-      "lastModified": "2026-04-11T19:01:14.469Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/SME_Skills/senior-architect/SKILL.md",
       "title": "Senior Architect",
       "section": "3_Skills",
@@ -13828,17 +13674,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Enterprise/Communications/feedback-mastery/README.md",
-      "title": "Feedback Mastery",
-      "section": "3_Skills",
-      "category": "Enterprise",
-      "subcategory": "Communications",
-      "tags": [],
-      "contentPreview": "# Feedback Mastery\r\n\r\nA skill for navigating difficult workplace conversations and delivering constructive feedback using proven frameworks.\r\n\r\n## Purpose\r\n\r\nThis skill provides structured approaches ",
-      "lastModified": "2026-04-11T19:01:14.562Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Enterprise/Communications/feedback-mastery/SKILL.md",
       "title": "Feedback Conversations",
       "section": "3_Skills",
@@ -14015,17 +13850,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Enterprise/Communications/writing-clearly-and-concisely/README.md",
-      "title": "Writing Clearly and Concisely",
-      "section": "3_Skills",
-      "category": "Enterprise",
-      "subcategory": "Communications",
-      "tags": [],
-      "contentPreview": "# Writing Clearly and Concisely\r\n\r\nA skill that applies William Strunk Jr.'s timeless writing principles to produce clearer, stronger, more professional prose while avoiding common AI writing patterns",
-      "lastModified": "2026-04-11T19:01:14.570Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Enterprise/Communications/writing-clearly-and-concisely/SKILL.md",
       "title": "Writing Clearly and Concisely",
       "section": "3_Skills",
@@ -14165,17 +13989,6 @@
       "subcategory": "Betting_&_Gambling",
       "tags": [],
       "contentPreview": "\n# Polymarket Development Suite\n\n🔗 **Source Link:** [PolyMarket Dev Suite - MCP Market](https://mcpmarket.com/tools/skills/polymarket-development-suite)\n\nComplete assistance with Polymarket developme",
-      "lastModified": "2026-04-11T19:01:14.578Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Finance/Betting_&_Gambling/polymarket/references/README.md",
-      "title": "Real time data client",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "Betting_&_Gambling",
-      "tags": [],
-      "contentPreview": "# Real time data client\n\nThis client provides a wrapper to connect to the `real-time-data-streaming` `WebSocket` service.\n\n## How to use it\n\nHere is a quick example about how to connect to the service",
       "lastModified": "2026-04-11T19:01:14.578Z",
       "isUserOwned": false
     },
@@ -14939,17 +14752,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Finance/polymarket/references/README.md",
-      "title": "Real time data client",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "polymarket",
-      "tags": [],
-      "contentPreview": "# Real time data client\n\nThis client provides a wrapper to connect to the `real-time-data-streaming` `WebSocket` service.\n\n## How to use it\n\nHere is a quick example about how to connect to the service",
-      "lastModified": "2026-04-11T19:01:14.642Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Finance/polymarket/references/api.md",
       "title": "Polymarket - Api",
       "section": "3_Skills",
@@ -15114,17 +14916,6 @@
       "tags": [],
       "contentPreview": "\n# PPTX Skill\n\n## Quick Reference\n\n| Task | Guide |\n|------|-------|\n| Read/analyze content | `python -m markitdown presentation.pptx` |\n| Edit or create from template | Read [editing.md](editing.md) ",
       "lastModified": "2026-04-11T19:01:14.646Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/README.md",
-      "title": "3_Skills - Reusable Skill Modules",
-      "section": "3_Skills",
-      "category": "README",
-      "subcategory": null,
-      "tags": [],
-      "contentPreview": "# 3_Skills - Reusable Skill Modules\n\n**Last Updated:** March 31, 2026  \n**Status:** ✅ Reorganized (Phase 3 complete)\n\n---\n\n## 📂 Directory Structure\n\nThis directory contains reusable skill modules fol",
-      "lastModified": "2026-04-11T19:01:14.650Z",
       "isUserOwned": false
     },
     {
@@ -15421,17 +15212,6 @@
       "subcategory": "windows-privilege-escalation",
       "tags": [],
       "contentPreview": "\n# Windows Privilege Escalation\n\n## Purpose\n\nProvide systematic methodologies for discovering and exploiting privilege escalation vulnerabilities on Windows systems during penetration testing engageme",
-      "lastModified": "2026-04-11T19:01:14.666Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/packs/README.md",
-      "title": "Skill Packs",
-      "section": "3_Skills",
-      "category": "packs",
-      "subcategory": "README",
-      "tags": [],
-      "contentPreview": "# Skill Packs\n\nCurated collections of related skills for specific domains and workflows.\n\n---\n\n## Available Packs\n\n### 💻 Developer Essentials Pack\n**ID:** `developer-essentials-pack`  \n**Skills:** 10",
       "lastModified": "2026-04-11T19:01:14.666Z",
       "isUserOwned": false
     },
@@ -23594,17 +23374,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/README.md",
-      "title": "4_Prompts - Prompt Templates & Examples",
-      "section": "4_Prompts",
-      "category": "README",
-      "subcategory": null,
-      "tags": [],
-      "contentPreview": "# 4_Prompts - Prompt Templates & Examples\n\n**Last Updated:** March 31, 2026  \n**Status:** ✅ Reorganized (Phase 4 complete)\n\n---\n\n## 📂 Directory Structure\n\nThis directory contains prompt templates, co",
-      "lastModified": "2026-04-11T19:01:14.782Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/Security/Governance/ai-security-governance-auditor.md",
       "title": "🔒 AI Security Governance Auditor",
       "section": "4_Prompts",
@@ -25754,17 +25523,6 @@
         "a22b"
       ],
       "contentPreview": "\nYou are Qwen, an AI assistant developed by Alibaba’s Tongyi Lab. You are designed to be helpful, harmless, and honest in all your interactions. Your purpose is to provide accurate, clear, and useful ",
-      "lastModified": "2026-04-11T19:01:14.822Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "5_System_Prompts/README.md",
-      "title": "5_System_Prompts - Platform System Prompts",
-      "section": "5_System_Prompts",
-      "category": "README",
-      "subcategory": null,
-      "tags": [],
-      "contentPreview": "# 5_System_Prompts - Platform System Prompts\n\n**Last Updated:** March 31, 2026  \n**Status:** ✅ Reorganized (Phase 5 complete)\n\n---\n\n## 📂 Directory Structure\n\nThis directory contains system prompts fr",
       "lastModified": "2026-04-11T19:01:14.822Z",
       "isUserOwned": false
     },
@@ -40605,17 +40363,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Legacy/Skills_OLD/AI_Engineering/Agent_Development/agent-md-refactor/README.md",
-      "title": "Agent MD Refactor",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "AI_Engineering",
-      "tags": [],
-      "contentPreview": "# Agent MD Refactor\r\n\r\nA Claude Code skill that transforms bloated agent instruction files into clean, organized documentation using progressive disclosure principles.\r\n\r\nBased on https://x.com/mattpo",
-      "lastModified": "2026-04-11T19:01:15.046Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Legacy/Skills_OLD/AI_Engineering/Agent_Development/agent-md-refactor/SKILL.md",
       "title": "Agent MD Refactor",
       "section": "Legacy",
@@ -42064,17 +41811,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Legacy/Skills_OLD/Development/API/claude-api/python/agent-sdk/README.md",
-      "title": "Agent SDK — Python",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Development",
-      "tags": [],
-      "contentPreview": "# Agent SDK — Python\n\nThe Claude Agent SDK provides a higher-level interface for building AI agents with built-in tools, safety features, and agentic capabilities.\n\n## Installation\n\n```bash\npip instal",
-      "lastModified": "2026-04-11T19:01:15.134Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Legacy/Skills_OLD/Development/API/claude-api/python/agent-sdk/patterns.md",
       "title": "Agent SDK Patterns — Python",
       "section": "Legacy",
@@ -42082,17 +41818,6 @@
       "subcategory": "Development",
       "tags": [],
       "contentPreview": "# Agent SDK Patterns — Python\n\n## Basic Agent\n\n```python\nimport anyio\nfrom claude_agent_sdk import query, ClaudeAgentOptions, ResultMessage\n\nasync def main():\n    async for message in query(\n        p",
-      "lastModified": "2026-04-11T19:01:15.134Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Legacy/Skills_OLD/Development/API/claude-api/python/claude-api/README.md",
-      "title": "Claude API — Python",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Development",
-      "tags": [],
-      "contentPreview": "# Claude API — Python\n\n## Installation\n\n```bash\npip install anthropic\n```\n\n## Client Initialization\n\n```python\nimport anthropic\n\n# Default (uses ANTHROPIC_API_KEY env var)\nclient = anthropic.Anthropic",
       "lastModified": "2026-04-11T19:01:15.134Z",
       "isUserOwned": false
     },
@@ -42196,17 +41921,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Legacy/Skills_OLD/Development/API/claude-api/typescript/agent-sdk/README.md",
-      "title": "Agent SDK — TypeScript",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Development",
-      "tags": [],
-      "contentPreview": "# Agent SDK — TypeScript\n\nThe Claude Agent SDK provides a higher-level interface for building AI agents with built-in tools, safety features, and agentic capabilities.\n\n## Installation\n\n```bash\nnpm in",
-      "lastModified": "2026-04-11T19:01:15.138Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Legacy/Skills_OLD/Development/API/claude-api/typescript/agent-sdk/patterns.md",
       "title": "Agent SDK Patterns — TypeScript",
       "section": "Legacy",
@@ -42214,17 +41928,6 @@
       "subcategory": "Development",
       "tags": [],
       "contentPreview": "# Agent SDK Patterns — TypeScript\n\n## Basic Agent\n\n```typescript\nimport { query } from \"@anthropic-ai/claude-agent-sdk\";\n\nasync function main() {\n  for await (const message of query({\n    prompt: \"Exp",
-      "lastModified": "2026-04-11T19:01:15.138Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Legacy/Skills_OLD/Development/API/claude-api/typescript/claude-api/README.md",
-      "title": "Claude API — TypeScript",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Development",
-      "tags": [],
-      "contentPreview": "# Claude API — TypeScript\n\n## Installation\n\n```bash\nnpm install @anthropic-ai/sdk\n```\n\n## Client Initialization\n\n```typescript\nimport Anthropic from \"@anthropic-ai/sdk\";\n\n// Default (uses ANTHROPIC_AP",
       "lastModified": "2026-04-11T19:01:15.138Z",
       "isUserOwned": false
     },
@@ -42632,17 +42335,6 @@
       "subcategory": "Documentation",
       "tags": [],
       "contentPreview": "\nYou are a **GitHub README Designer** — an expert in crafting repository README files that are visually striking, information-dense, and professional on GitHub.com. You combine technical writing with ",
-      "lastModified": "2026-04-11T19:01:15.246Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Legacy/Skills_OLD/Documentation/humanizer/README.md",
-      "title": "Humanizer",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Documentation",
-      "tags": [],
-      "contentPreview": "# Humanizer\n\nA Claude Code skill that removes signs of AI-generated writing from text, making it sound more natural and human.\n\n## Installation\n\n### Recommended (clone directly into Claude Code skills",
       "lastModified": "2026-04-11T19:01:15.246Z",
       "isUserOwned": false
     },
@@ -43182,17 +42874,6 @@
       "subcategory": "Engineering",
       "tags": [],
       "contentPreview": "# Postgres Best Practices\r\n\r\n**Version 1.0.0**\r\nSupabase\r\nJanuary 2026\r\n\r\n> This document is optimized for AI agents and LLMs. Rules are prioritized by performance impact.\r\n\r\n---\r\n\r\n## Abstract\r\n\r\nCom",
-      "lastModified": "2026-04-11T19:01:15.326Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Legacy/Skills_OLD/Engineering/Database/supabase-postgres-best-practices/README.md",
-      "title": "Postgres Best Practices - Contributor Guide",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Engineering",
-      "tags": [],
-      "contentPreview": "# Postgres Best Practices - Contributor Guide\r\n\r\nThis repository contains Postgres performance optimization rules optimized for\r\nAI agents and LLMs.\r\n\r\n## Quick Start\r\n\r\n```bash\r\n# From repository roo",
       "lastModified": "2026-04-11T19:01:15.326Z",
       "isUserOwned": false
     },
@@ -44495,17 +44176,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Legacy/Skills_OLD/Enterprise/Communications/feedback-mastery/README.md",
-      "title": "Feedback Mastery",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Enterprise",
-      "tags": [],
-      "contentPreview": "# Feedback Mastery\r\n\r\nA skill for navigating difficult workplace conversations and delivering constructive feedback using proven frameworks.\r\n\r\n## Purpose\r\n\r\nThis skill provides structured approaches ",
-      "lastModified": "2026-04-11T19:01:15.362Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Legacy/Skills_OLD/Enterprise/Communications/feedback-mastery/SKILL.md",
       "title": "Feedback Conversations",
       "section": "Legacy",
@@ -44682,17 +44352,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Legacy/Skills_OLD/Enterprise/Communications/writing-clearly-and-concisely/README.md",
-      "title": "Writing Clearly and Concisely",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Enterprise",
-      "tags": [],
-      "contentPreview": "# Writing Clearly and Concisely\r\n\r\nA skill that applies William Strunk Jr.'s timeless writing principles to produce clearer, stronger, more professional prose while avoiding common AI writing patterns",
-      "lastModified": "2026-04-11T19:01:15.370Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Legacy/Skills_OLD/Enterprise/Communications/writing-clearly-and-concisely/SKILL.md",
       "title": "Writing Clearly and Concisely",
       "section": "Legacy",
@@ -44833,17 +44492,6 @@
       "tags": [],
       "contentPreview": "\n# Polymarket Development Suite\n\n🔗 **Source Link:** [PolyMarket Dev Suite - MCP Market](https://mcpmarket.com/tools/skills/polymarket-development-suite)\n\nComplete assistance with Polymarket developme",
       "lastModified": "2026-04-11T19:01:15.378Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Legacy/Skills_OLD/Finance/Betting_&_Gambling/polymarket/references/README.md",
-      "title": "Real time data client",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Finance",
-      "tags": [],
-      "contentPreview": "# Real time data client\n\nThis client provides a wrapper to connect to the `real-time-data-streaming` `WebSocket` service.\n\n## How to use it\n\nHere is a quick example about how to connect to the service",
-      "lastModified": "2026-04-11T19:01:15.382Z",
       "isUserOwned": false
     },
     {
@@ -46070,17 +45718,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Legacy/Skills_OLD/Prediction_Markets/polymarket/references/README.md",
-      "title": "Real time data client",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Prediction_Markets",
-      "tags": [],
-      "contentPreview": "# Real time data client\n\nThis client provides a wrapper to connect to the `real-time-data-streaming` `WebSocket` service.\n\n## How to use it\n\nHere is a quick example about how to connect to the service",
-      "lastModified": "2026-04-11T19:01:15.482Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Legacy/Skills_OLD/Prediction_Markets/polymarket/references/api.md",
       "title": "Polymarket - Api",
       "section": "Legacy",
@@ -46275,17 +45912,6 @@
       "subcategory": "Productivity",
       "tags": [],
       "contentPreview": "# Changelog\r\n\r\nAll notable changes to this project will be documented in this file.\r\n\r\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\r\nand this project adheres to [Se",
-      "lastModified": "2026-04-11T19:01:15.490Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Legacy/Skills_OLD/Productivity/notebooklm/README.md",
-      "title": "NotebookLM Claude Code Skill",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Productivity",
-      "tags": [],
-      "contentPreview": "<div align=\"center\">\r\n\r\n# NotebookLM Claude Code Skill\r\n\r\n**Let [Claude Code](https://github.com/anthropics/claude-code) chat directly with NotebookLM for source-grounded answers based exclusively on ",
       "lastModified": "2026-04-11T19:01:15.490Z",
       "isUserOwned": false
     },
@@ -46807,17 +46433,6 @@
       "isUserOwned": false
     },
     {
-      "id": "Legacy/Skills_OLD/Science/scientific-schematics/README.md",
-      "title": "Scientific Schematics - Nano Banana Pro",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Science",
-      "tags": [],
-      "contentPreview": "# Scientific Schematics - Nano Banana Pro\r\n\r\n**Generate any scientific diagram by describing it in natural language.**\r\n\r\nNano Banana Pro creates publication-quality diagrams automatically - no coding",
-      "lastModified": "2026-04-11T19:01:15.514Z",
-      "isUserOwned": false
-    },
-    {
       "id": "Legacy/Skills_OLD/Science/scientific-schematics/SKILL.md",
       "title": "Scientific Schematics and Diagrams",
       "section": "Legacy",
@@ -47134,17 +46749,6 @@
       "tags": [],
       "contentPreview": "\n# TimesFM Forecasting\n\n## Overview\n\nTimesFM (Time Series Foundation Model) is a pretrained decoder-only foundation model\ndeveloped by Google Research for time-series forecasting. It works **zero-shot",
       "lastModified": "2026-04-11T19:01:15.526Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Legacy/Skills_OLD/Science/timesfm-forecasting/examples/global-temperature/README.md",
-      "title": "TimesFM Forecast Report: Global Temperature Anomaly (2025)",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Science",
-      "tags": [],
-      "contentPreview": "# TimesFM Forecast Report: Global Temperature Anomaly (2025)\n\n**Model:** TimesFM 1.0 (200M) PyTorch  \n**Generated:** 2026-02-21  \n**Source:** NOAA GISTEMP Global Land-Ocean Temperature Index\n\n---\n\n## ",
-      "lastModified": "2026-04-11T19:01:15.534Z",
       "isUserOwned": false
     },
     {
@@ -47726,17 +47330,6 @@
       "subcategory": "Writing",
       "tags": [],
       "contentPreview": "\n# New Recipe\n\nThis skill guides you through the complete workflow for processing a recipe task in the Flavor Atlas project: from task selection to GitHub publication and task closure.\n\n## Overview\n\n1",
-      "lastModified": "2026-04-11T19:01:15.566Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "Legacy/Skills_OLD/Writing/General/humanizer/README.md",
-      "title": "Humanizer",
-      "section": "Legacy",
-      "category": "Skills_OLD",
-      "subcategory": "Writing",
-      "tags": [],
-      "contentPreview": "# Humanizer\n\nA Claude Code skill that removes signs of AI-generated writing from text, making it sound more natural and human.\n\n## Installation\n\n### Recommended (clone directly into Claude Code skills",
       "lastModified": "2026-04-11T19:01:15.566Z",
       "isUserOwned": false
     },
