@@ -5,10 +5,12 @@ category: "Agent_Guides"
 subcategory: "CLI_Tools"
 ---
 
+<!-- Last Updated: 2026-04-18 - Synced with upstream documentation -->
+
 # SWE-agent CLI Guide
 
 ## Overview
-SWE-agent turns language models into software engineering agents.
+SWE-agent turns language models into software engineering agents. Upstream now recommends mini-swe-agent for most new use cases.
 
 ## Agent Configuration
 

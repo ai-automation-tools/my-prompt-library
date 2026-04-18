@@ -24,15 +24,26 @@ async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): Promis
 
 const packsDir = path.join(process.cwd(), 'library/3_Skills/packs');
 
+async function getAllPackFiles(dirPath: string): Promise<string[]> {
+  const entries = await fs.readdir(dirPath, { withFileTypes: true });
+  const files = await Promise.all(entries.map(async (entry) => {
+    const fullPath = path.join(dirPath, entry.name);
+    if (entry.isDirectory()) {
+      return getAllPackFiles(fullPath);
+    }
+    return entry.name.endsWith('.json') && entry.name !== 'package.json' ? [fullPath] : [];
+  }));
+  return files.flat();
+}
+
 // Helper to read all pack files
 async function getAllPacks() {
   try {
-    const files = await fs.readdir(packsDir);
-    const packFiles = files.filter(f => f.endsWith('.json') && f !== 'package.json');
+    const packFiles = await getAllPackFiles(packsDir);
     
     const packs = await Promise.all(
-      packFiles.map(async (file) => {
-        const content = await fs.readFile(path.join(packsDir, file), 'utf-8');
+      packFiles.map(async (filePath) => {
+        const content = await fs.readFile(filePath, 'utf-8');
         return JSON.parse(content);
       })
     );
@@ -223,9 +234,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       console.log(`Total files added to archive: ${totalFilesAdded}`);
       
       // Add pack manifest JSON
-      const packManifestPath = path.join(packsDir, `${packId}.json`);
-      console.log(`Adding manifest: ${packManifestPath}`);
-      archive.file(packManifestPath, { name: `${packId}.json` });
+      const packFiles = await getAllPackFiles(packsDir);
+      const packManifestPath = packFiles.find(file => path.basename(file) === `${packId}.json`);
+      if (packManifestPath) {
+        console.log(`Adding manifest: ${packManifestPath}`);
+        archive.file(packManifestPath, { name: `${packId}.json` });
+      }
       
       // Finalize archive (must be called after all files are added)
       console.log('Finalizing archive...');

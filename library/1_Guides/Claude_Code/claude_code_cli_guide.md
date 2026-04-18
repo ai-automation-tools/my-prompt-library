@@ -5,7 +5,7 @@ category: "Agent_Guides"
 subcategory: "Claude_Code"
 ---
 
-<!-- Last Updated: 2026-03-28 - Synced with upstream v2.1.77 -->
+<!-- Last Updated: 2026-04-18 - Synced with upstream v2.1.114 -->
 
 # Claude Code Agent Guide
 
@@ -14,10 +14,12 @@ Comprehensive reference for building and managing agents with Claude Code CLI.
 **Key Features:**
 - 🤖 Agentic coding tool that understands your codebase
 - 💬 Natural language commands for routine tasks and git workflows
+- ⚡ Native per-platform CLI binary for faster startup and improved reliability
 - 🔧 Extensible via plugins for custom commands and agents
 - 🔌 MCP (Model Context Protocol) support for custom integrations
 - 💻 Available in terminal, IDE, or via @claude on GitHub
 - 🛡️ Multiple permission modes for safe execution
+- 🌐 `sandbox.network.deniedDomains` support for explicit domain blocking
 
 **Installation Note:** NPM installation is deprecated. Use curl/bash script, Homebrew, or WinGet for installation.
 
