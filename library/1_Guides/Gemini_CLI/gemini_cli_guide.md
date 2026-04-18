@@ -5,7 +5,7 @@ category: "Agent_Guides"
 subcategory: "Gemini_CLI"
 ---
 
-<!-- Last Updated: 2026-04-11 - Synced with upstream v0.37.1 -->
+<!-- Last Updated: 2026-04-18 - Synced with upstream v0.38.2 -->
 
 # Gemini CLI Agent Guide
 
@@ -15,6 +15,7 @@ Comprehensive reference for building and managing agents with Gemini CLI.
 - 🎯 Free tier: 60 requests/min and 1,000 requests/day with personal Google account (OAuth)
 - 🧠 Powerful Gemini 2.5/3.0 models with 1M token context window and improved reasoning
 - 🔧 Built-in tools: Google Search grounding, file operations, shell commands, web fetching
+- 🧠 Memory workflows with inbox review and skill patching improvements
 - 🔌 Extensible via MCP (Model Context Protocol) for custom integrations
 - 💻 Terminal-first design for developers who live in the command line
 - 🤝 GitHub Actions integration for automated workflows (PR reviews, issue triage, on-demand assistance)
