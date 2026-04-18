@@ -33,6 +33,10 @@ function walkDir(dir, baseDir = LIBRARY_PATH) {
     if (stat.isDirectory()) {
       results = results.concat(walkDir(filePath, baseDir));
     } else if (file.endsWith('.md')) {
+      if (file === 'README.md') {
+        return;
+      }
+
       const relativePath = path.relative(baseDir, filePath);
       
       // For Skills section, only include SKILL.md files
