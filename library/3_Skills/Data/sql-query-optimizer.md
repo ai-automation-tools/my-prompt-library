@@ -1,18 +1,51 @@
 ---
 title: "🔧 SQL Query Optimizer"
-tags: ["skill", "sql", "database"]
+tags: ["sql", "data"]
 category: "Skills"
 subcategory: "Data"
-name: sql-query-optimizer
-description: "Analyzes and rewrites SQL queries for maximum performance. Use when: (1) queries are timing out, (2) dealing with large datasets, (3) designing indexes. NOT for: NoSQL databases."
 ---
 
 # SQL Query Optimizer
 
-This skill gives the agent the ability to analyze EXPLAIN plans, suggest indexes, and rewrite complex joins for optimal performance in relational databases.
+Optimizes slow SQL queries.
 
 ## Prerequisites
+- Database access
 
-- **Required Tool/Service:** Database Engine (PostgreSQL/MySQL) - To run EXPLAIN
-- **Authentication:** Read-only DB access
-- **Permissions:** Ability to execute EXPLAIN queries
+### Setup Instructions
+1. Connect to DB.
+
+**Verification:**
+```bash
+psql --version
+```
+
+Expected output:
+```
+psql (PostgreSQL) 14.0
+```
+
+## Usage
+### Basic Usage
+```bash
+EXPLAIN ANALYZE SELECT * FROM users;
+```
+**What it does:**
+1. Shows query plan.
+
+## Configuration
+### Optional Configuration
+None.
+
+## Examples
+### Example 1
+**Context:** Slow query.
+**Task:** Analyze it.
+**Commands:**
+```bash
+EXPLAIN SELECT 1;
+```
+**Output:**
+```
+Plan
+```
