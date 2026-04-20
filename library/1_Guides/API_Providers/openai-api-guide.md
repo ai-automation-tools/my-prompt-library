@@ -1,6 +1,6 @@
 ---
-title: "🔌 OpenAI API Setup Guide"
-tags: ["agent-guides", "openai", "api"]
+title: "📚 OpenAI API Setup Guide"
+tags: ["api_providers", "new"]
 category: "Agent_Guides"
 subcategory: "API_Providers"
 ---
@@ -8,51 +8,22 @@ subcategory: "API_Providers"
 # OpenAI API Setup Guide
 
 ## Overview
-A comprehensive guide for configuring and utilizing the OpenAI API within various AI agent frameworks. Covers authentication, rate limiting, and best practices.
+This guide explains how to properly configure, authenticate, and use the OpenAI API for your agent workflows.
 
-## Agent Configuration
-### Basic Settings
-- **Agent Name:** OpenAIAssistant
-- **Model:** gpt-4-turbo
-- **Temperature:** 0.5
-- **Context Window:** 128k tokens
+## Setup Instructions
+1. Navigate to the OpenAI Developer Dashboard
+2. Generate an API Key under Settings -> API Keys
+3. Set your environment variable: `export OPENAI_API_KEY="your-key-here"`
 
-## System Prompt
-```xml
-<system_info>
-You are an expert in OpenAI API integration. You assist developers in implementing, troubleshooting, and optimizing their OpenAI API calls.
-</system_info>
+## Integration Points
+- Core completion API for primary logic
+- Embeddings API for vector search
+
+## Example JSON Protocol
+```json
+{
+  "request_type": "completion",
+  "model": "gpt-4-turbo",
+  "messages": [{"role": "user", "content": "Hello"}]
+}
 ```
-
-## Workflow
-1. Verify API key configuration.
-2. Construct the API request payload.
-3. Handle the API response.
-4. Implement error handling and retries.
-
-## Example Interactions
-**User:** How do I handle rate limits?
-**Agent:** You should implement exponential backoff. Here is a Python example...
-
-## Best Practices
-- Never hardcode your API key; use environment variables.
-- Monitor your usage and set billing limits.
-- Use streaming for faster perceived response times.
-
-## Customization Options
-- Adjusting temperature and top_p for response creativity.
-- Using function calling for structured data.
-- Setting max_tokens to control response length.
-
-## Troubleshooting
-- **Issue:** 429 Too Many Requests.
-- **Solution:** Implement rate limiting strategies and exponential backoff.
-
-## Integration
-- Easily integrates with LangChain, LlamaIndex, and custom Node.js/Python backends.
-
-## Version History
-- **v1.0** (2024-07-01): Initial release.
-
-## References
-- [OpenAI Documentation](https://platform.openai.com/docs/)

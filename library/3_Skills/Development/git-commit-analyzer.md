@@ -1,86 +1,67 @@
 ---
-title: "🔍 Git Commit Analyzer"
-tags: ["skill", "git", "development", "analysis"]
+title: "🔧 Git Commit Analyzer"
+tags: ["development", "new"]
 category: "Skills"
 subcategory: "Development"
 ---
 
 # Git Commit Analyzer
 
-A skill for analyzing git commit history to identify patterns, generate changelogs, and assess code churn.
+Analyzes git commit history to identify complex changes, author patterns, and potential bug introductions.
 
 ## Prerequisites
-- Git installed and accessible.
-- Access to a local git repository.
+- **Required Tool/Service:** Git - To access repository history
+- **Environment:** Local or CI/CD bash environment
+
+### Setup Instructions
+1. Ensure `git` is installed
+2. Navigate to the target repository
+3. Verify git access
+
+**Verification:**
+```bash
+git --version
+```
+
+Expected output:
+```
+git version 2.34.1 (or similar)
+```
 
 ## Usage
-Provide the repository path and the desired analysis parameters (e.g., date range, author).
+
+### Basic Usage
+Run the analyzer on the last N commits.
+
+```bash
+git log -n 10 --stat
+```
+
+**What it does:**
+1. Fetches commit metadata
+2. Identifies changed files
+3. Quantifies lines added/removed
 
 ## Configuration
-No special configuration required beyond standard git access.
+
+### Optional Configuration
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `depth` | `10` | Number of commits to analyze |
 
 ## Examples
+
+### Example 1: Basic Analysis
+**Context:** Need to understand recent repo activity.
+**Task:** Analyze last 5 commits.
+**Commands:**
 ```bash
-# Generate a summary of commits in the last 7 days
-git log --since="7 days ago" --oneline --stat
+git log -n 5 --oneline
 ```
-
-## Advanced Usage
-Analyzing code churn by file to identify potential technical debt hotspots.
-
-## Integration
-Can be integrated into CI/CD pipelines to automatically generate release notes.
-
-## Troubleshooting
-- **No git repository:** Ensure you are running the command in a directory with a `.git` folder.
-
-## Best Practices
-- Use semantic versioning for commits to improve analysis accuracy.
-
-## Performance Considerations
-Analyzing very large repositories with deep histories may take significant time. Use shallow clones if possible.
-
-## Security & Safety
-
-### Permissions Required
-- Read access to the local filesystem.
-
-### Safety Considerations
-⚠️ **Important Warnings:**
-- Do not expose sensitive commit messages in public changelogs.
-
-### Data Handling
-- Analyzes metadata only, not file contents (unless specifically requested).
-
-## API Reference
-
-### Functions
-
-#### `analyze_commits(repo_path, days)`
-**Description:** Analyzes commits for a given repository over a specified number of days.
-**Parameters:**
-- `repo_path` (string): Path to the git repository.
-- `days` (int): Number of days to look back.
-**Returns:**
-- (dict): Summary statistics and commit list.
-
-## File Structure
+**Output:**
 ```
-git-commit-analyzer/
-├── SKILL.md
-└── scripts/
-    └── analyze.sh
+a1b2c3d Fix memory leak
+e4f5g6h Update deps
+...
 ```
-
-## References
-- [Git Documentation](https://git-scm.com/doc)
-
-## Changelog
-### Version 1.0.0 - 2024-05-20
-- Initial implementation of the Git Commit Analyzer skill.
-
-## Contributing
-Submit pull requests with improvements to analysis scripts or documentation.
-
-## License
-MIT License
+**Explanation:** Shows a concise history.
