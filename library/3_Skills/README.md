@@ -29,7 +29,7 @@ This directory contains reusable skill modules following the AgentSkills specifi
 
 ## 📊 Statistics
 
-- **Total Skills:** 304 (all SKILL.md files)
+- **Total Skills:** 317 (all SKILL.md files)
 - **Categories:** 10 (reduced from 26)
 - **Reduction:** 62%
 
@@ -37,16 +37,16 @@ This directory contains reusable skill modules following the AgentSkills specifi
 
 | Category | Skills | Description |
 |----------|--------|-------------|
-| Development | 99 | DevOps, Git, Cloud, Mobile, Blockchain, Engineering |
+| Development | 102 | DevOps, Git, Cloud, Mobile, Blockchain, Engineering |
 | Finance | 61 | Financial analysis, prediction markets |
 | Content | 46 | Documentation, writing, productivity, video |
-| Design | 25 | UI/UX, game design |
+| Design | 26 | UI/UX, game design |
 | Business | 14 | Marketing, operations, analytics |
 | Security | 14 | Security testing, compliance |
-| Enterprise | 13 | Communications, governance |
-| Data | 22 | Data science, analytics |
-| AI_ML | 9 | AI engineering, MCP, prompting |
-| Platform_Integrations | 1 | AX Platform |
+| Enterprise | 15 | Communications, governance |
+| Data | 24 | Data science, analytics |
+| AI_ML | 13 | AI engineering, MCP, prompting |
+| Platform_Integrations | 2 | AX Platform |
 
 ---
 
