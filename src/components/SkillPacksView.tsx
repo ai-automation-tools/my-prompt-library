@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+
+type ToastType = 'success' | 'error' | 'warning' | 'info';
 import { Package, Download, ArrowLeft, Tag, Wrench, Info } from 'lucide-react';
 
 interface SkillPackSummary {
@@ -40,12 +42,47 @@ interface SkillPackDetail extends SkillPackSummary {
   related_packs: string[];
 }
 
-export default function SkillPacksView() {
+interface SkillPacksViewProps {
+  user: { id: string } | null;
+  onRequireLogin: () => void;
+  onToast: (type: ToastType, message: string) => void;
+}
+
+export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillPacksViewProps) {
   const [packs, setPacks] = useState<SkillPackSummary[]>([]);
   const [selectedPack, setSelectedPack] = useState<SkillPackDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [addingPackId, setAddingPackId] = useState<string | null>(null);
+
+  const handleAddPackToLibrary = async (packId: string) => {
+    if (!user) {
+      onToast('info', 'Sign in to add skill packs to your library');
+      onRequireLogin();
+      return;
+    }
+
+    try {
+      setAddingPackId(packId);
+      const response = await fetch(`/api/skill-packs/${packId}/add-to-library`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || 'Failed to add pack to library');
+      }
+
+      onToast('success', data?.message || 'Skill pack added to My Library');
+    } catch (err) {
+      onToast('error', err instanceof Error ? err.message : 'Failed to add pack to library');
+    } finally {
+      setAddingPackId(null);
+    }
+  };
 
   useEffect(() => {
     fetchPacks();
@@ -202,13 +239,23 @@ export default function SkillPacksView() {
                 Get all {selectedPack.skillCount} skills as a ZIP file with complete documentation
               </p>
             </div>
-            <button 
-              onClick={() => handleDownloadPack(selectedPack.id)}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium"
-            >
-              <Download className="w-5 h-5" />
-              Download ZIP
-            </button>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                onClick={() => handleAddPackToLibrary(selectedPack.id)}
+                disabled={addingPackId === selectedPack.id}
+                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-60 transition-colors flex items-center gap-2 font-medium"
+              >
+                <Package className="w-5 h-5" />
+                {addingPackId === selectedPack.id ? 'Adding...' : 'Add to My Library'}
+              </button>
+              <button 
+                onClick={() => handleDownloadPack(selectedPack.id)}
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium"
+              >
+                <Download className="w-5 h-5" />
+                Download ZIP
+              </button>
+            </div>
           </div>
         </div>
 
@@ -393,8 +440,18 @@ export default function SkillPacksView() {
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500 gap-3">
               <span>v{pack.version}</span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddPackToLibrary(pack.id);
+                }}
+                disabled={addingPackId === pack.id}
+                className="text-[11px] px-2 py-1 rounded bg-green-600 text-white hover:bg-green-700 disabled:opacity-60 transition-colors"
+              >
+                {addingPackId === pack.id ? 'Adding...' : 'Add to Library'}
+              </button>
               <span className="flex items-center gap-1 text-primary group-hover:translate-x-1 transition-transform">
                 View Details
                 <span>→</span>

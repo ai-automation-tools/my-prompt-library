@@ -880,12 +880,22 @@ source: My Prompt Library
     });
   }, []);
 
-  const refreshPrompts = useCallback(() => {
-    const url = `/api/prompts?library=${libraryMode}`;
-    fetch(url)
-      .then(res => res.json())
-      .then(data => setPrompts(data))
-      .catch(err => console.error('Failed to fetch prompts:', err));
+  const refreshPrompts = useCallback(async () => {
+    const url = `/api/prompts?library=${libraryMode}&lightweight=true`;
+
+    try {
+      const res = await fetch(url, { credentials: 'include' });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data?.error || 'Failed to refresh prompts');
+      }
+
+      setPrompts(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error('Failed to fetch prompts:', err);
+      setPrompts([]);
+    }
   }, [libraryMode]);
 
   const handleCopyToMyPrompts = useCallback(async (prompt: Prompt) => {
@@ -2451,7 +2461,11 @@ source: My Prompt Library
 
                 {/* Skill Packs View */}
                 {activeTab === 'skill-packs' && (
-                  <SkillPacksView />
+                  <SkillPacksView
+                    user={user}
+                    onRequireLogin={() => setIsLoginOpen(true)}
+                    onToast={showToast}
+                  />
                 )}
 
                 {/* All Prompts Section Header - Only show when featured section is visible (Public Library only) */}
