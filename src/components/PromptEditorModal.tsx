@@ -32,7 +32,7 @@ export default function PromptEditorModal({
   onClose,
   onSave,
   editingPrompt,
-  defaultSection = 'My_Prompts'
+  defaultSection = '4_Prompts'
 }: PromptEditorModalProps) {
   const [title, setTitle] = useState('');
   const [section, setSection] = useState(defaultSection);
@@ -188,10 +188,11 @@ export default function PromptEditorModal({
                     className="w-full px-4 py-2.5 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent)] transition-colors"
                     disabled={!!editingPrompt}
                   >
-                    <option value="My_Prompts">My Prompts</option>
-                    <option value="Collections">Collections</option>
-                    <option value="5_System_Prompts">System Prompts</option>
                     <option value="1_Guides">Guides</option>
+                    <option value="2_Agents">Agents</option>
+                    <option value="3_Skills">Skills</option>
+                    <option value="4_Prompts">Prompts</option>
+                    <option value="5_System_Prompts">System Prompts</option>
                   </select>
                 </div>
               </div>

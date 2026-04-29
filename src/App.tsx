@@ -994,9 +994,20 @@ source: My Prompt Library
       setIsLoginOpen(true);
       return;
     }
+
+    // New prompts are user-owned: open editor in My Library mode
+    if (libraryMode !== 'my') {
+      setLibraryMode('my');
+    }
+
+    // Skill Packs tab is not a prompt section
+    if (activeTab === 'skill-packs') {
+      setActiveTab('prompt-library');
+    }
+
     setEditingPrompt(null);
     setIsEditorOpen(true);
-  }, [user, showToast]);
+  }, [user, showToast, libraryMode, activeTab]);
 
   // Prompt card component for reuse (memoized for performance)
   const PromptCard = memo(({ prompt, index }: { prompt: Prompt; index: number }) => (
