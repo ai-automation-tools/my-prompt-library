@@ -5,6 +5,8 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import matter from 'gray-matter';
 import archiver from 'archiver';
+import { authenticate } from '../middleware/auth.js';
+import { promptDb } from '../db/postgres.js';
 
 const router = express.Router();
 
@@ -123,6 +125,66 @@ router.get('/:packId', async (req, res) => {
   } catch (error) {
     console.error('Error fetching pack:', error);
     res.status(500).json({ error: 'Failed to fetch pack details' });
+  }
+});
+
+
+// POST /api/skill-packs/:packId/add-to-library - Copy all skills in a pack to user's library
+router.post('/:packId/add-to-library', authenticate, async (req, res) => {
+  try {
+    const { packId } = req.params;
+    const packs = await getAllPacks();
+    const pack = packs.find(p => p.id === packId);
+
+    if (!pack) {
+      return res.status(404).json({ error: 'Pack not found' });
+    }
+
+    const existing = await promptDb.findByUserId(req.user!.id);
+    const existingKeys = new Set(existing.map(p => `${p.title}::${p.section}::${p.category}`));
+
+    let added = 0;
+    let skipped = 0;
+
+    for (const skill of pack.skills) {
+      const fullPath = path.join(__dirname, '..', skill.path);
+      const raw = await fs.readFile(fullPath, 'utf-8');
+      const { data, content } = matter(raw);
+
+      const title = data.name || data.title || skill.name || path.basename(fullPath, '.md');
+      const section = '3_Skills';
+      const category = data.category || pack.category || 'Skill Packs';
+      const subcategory = data.subcategory || pack.name;
+      const tags = Array.isArray(data.tags) ? data.tags : (Array.isArray(pack.tags) ? pack.tags : []);
+
+      const dedupeKey = `${title}::${section}::${category}`;
+      if (existingKeys.has(dedupeKey)) {
+        skipped++;
+        continue;
+      }
+
+      await promptDb.copyFromPublic(req.user!.id, {
+        title,
+        section,
+        category,
+        subcategory,
+        tags,
+        content,
+      });
+
+      existingKeys.add(dedupeKey);
+      added++;
+    }
+
+    return res.json({
+      message: `Added ${added} skill${added === 1 ? '' : 's'} from ${pack.name}${skipped > 0 ? ` (${skipped} skipped)` : ''}`,
+      added,
+      skipped,
+      packId,
+    });
+  } catch (error) {
+    console.error('Error adding pack to library:', error);
+    return res.status(500).json({ error: 'Failed to add pack to library' });
   }
 });
 
