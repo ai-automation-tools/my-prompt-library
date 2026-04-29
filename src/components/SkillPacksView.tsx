@@ -64,11 +64,22 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
       return;
     }
 
+    const pack = packs.find(p => p.id === packId);
+    const confirmed = window.confirm(
+      `Add skill pack${pack ? ` "${pack.name}"` : ''} to My Library?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
     try {
       setAddingPackId(packId);
       const response = await fetch(`/api/skill-packs/${packId}/add-to-library`, {
         method: 'POST',
         credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ confirm: true }),
       });
 
       const data = await response.json();
@@ -440,18 +451,8 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500 gap-3">
+            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
               <span>v{pack.version}</span>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleAddPackToLibrary(pack.id);
-                }}
-                disabled={addingPackId === pack.id}
-                className="text-[11px] px-2 py-1 rounded bg-green-600 text-white hover:bg-green-700 disabled:opacity-60 transition-colors"
-              >
-                {addingPackId === pack.id ? 'Adding...' : 'Add to Library'}
-              </button>
               <span className="flex items-center gap-1 text-primary group-hover:translate-x-1 transition-transform">
                 View Details
                 <span>→</span>

@@ -132,6 +132,10 @@ router.get('/:packId', async (req, res) => {
 // POST /api/skill-packs/:packId/add-to-library - Copy all skills in a pack to user's library
 router.post('/:packId/add-to-library', authenticate, async (req, res) => {
   try {
+    if (req.body?.confirm !== true) {
+      return res.status(400).json({ error: 'Explicit confirmation required' });
+    }
+
     const { packId } = req.params;
     const packs = await getAllPacks();
     const pack = packs.find(p => p.id === packId);
