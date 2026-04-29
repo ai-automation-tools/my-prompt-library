@@ -560,7 +560,19 @@ export default function App() {
       minMatchCharLength: 2,
     });
 
-    return fuse.search(debouncedSearch).map(result => result.item);
+    const fuseResults = fuse.search(debouncedSearch).map(result => result.item);
+
+    // Prioritize title matches first so users find obvious hits immediately
+    const query = debouncedSearch.trim().toLowerCase();
+    const startsWithTitle = fuseResults.filter(p => p.title.toLowerCase().startsWith(query));
+    const containsTitle = fuseResults.filter(
+      p => !p.title.toLowerCase().startsWith(query) && p.title.toLowerCase().includes(query)
+    );
+    const remaining = fuseResults.filter(
+      p => !p.title.toLowerCase().includes(query)
+    );
+
+    return [...startsWithTitle, ...containsTitle, ...remaining];
   }, [sectionPrompts, debouncedSearch, activeTab, selectedTags, activeCategory, activeSubcategory, selectedPrompt]);
 
   const sortedPrompts = useMemo(() => {
