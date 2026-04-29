@@ -539,6 +539,19 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
       ? (data.name || extractFirstHeading(content) || path.basename(promptId, ".md"))
       : (data.title || extractFirstHeading(content) || path.basename(promptId, ".md"));
 
+    const existingPrompts = await promptDb.findByUserId(req.user!.id);
+    const normalizedTitle = title.trim().toLowerCase();
+    const duplicate = existingPrompts.find(p =>
+      p.section === section &&
+      p.category === category &&
+      (p.subcategory || null) === (subcategory || null) &&
+      p.title.trim().toLowerCase() === normalizedTitle
+    );
+
+    if (duplicate) {
+      return res.status(409).json({ error: "This prompt already exists in your library" });
+    }
+
     const copiedPrompt = await promptDb.copyFromPublic(req.user!.id, {
       title,
       section,
