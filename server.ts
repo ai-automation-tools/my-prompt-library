@@ -405,6 +405,19 @@ async function startServer() {
       const subcategory = pathParts.length > 2 ? pathParts[2] : null;
       const title = data.title || extractFirstHeading(content) || path.basename(promptId, ".md");
 
+      const existingPrompts = await promptDb.findByUserId(req.user!.id);
+      const normalizedTitle = title.trim().toLowerCase();
+      const duplicate = existingPrompts.find(p =>
+        p.section === section &&
+        p.category === category &&
+        (p.subcategory || null) === (subcategory || null) &&
+        p.title.trim().toLowerCase() === normalizedTitle
+      );
+
+      if (duplicate) {
+        return res.status(409).json({ error: "This prompt already exists in your library" });
+      }
+
       // Copy to user's database
       const copiedPrompt = await promptDb.copyFromPublic(req.user!.id, {
         title,
