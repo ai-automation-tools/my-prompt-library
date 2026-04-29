@@ -1058,7 +1058,7 @@ source: My Prompt Library
                 handleDeletePrompt(prompt.id);
               }}
               className="p-2 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] hover:bg-red-500 text-[var(--text-tertiary)] hover:text-white transition-all duration-300 border border-[var(--glass-border)] hover:border-red-500 backdrop-blur-sm"
-              title="Delete prompt"
+              title="Remove from My Library"
             >
               <Trash2 className="w-3.5 h-3.5" />
             </button>
@@ -2682,6 +2682,19 @@ source: My Prompt Library
                         >
                           <FolderPlus className="w-3.5 h-3.5" />
                           {copyingToMyPromptsId === selectedPrompt.id ? 'Saving...' : 'Save to My Library'}
+                        </motion.button>
+                      )}
+
+                      {/* Only show "Remove from My Library" button if in My Library */}
+                      {libraryMode === 'my' && (
+                        <motion.button
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => handleDeletePrompt(selectedPrompt.id)}
+                          className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 bg-red-500/10 border-red-500/40 text-red-400 hover:bg-red-500 hover:text-white"
+                          title="Remove this prompt from My Library"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          Remove from My Library
                         </motion.button>
                       )}
                       <motion.button
