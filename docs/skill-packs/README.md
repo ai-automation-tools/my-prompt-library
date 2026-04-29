@@ -6,7 +6,7 @@ Complete guide to the Skill Packs feature - curated collections of related skill
 
 ## Overview
 
-Skill Packs are pre-configured bundles of related skills designed for specific use cases. Users can browse packs, view included skills, and download complete packages as ZIP files for offline use.
+Skill Packs are pre-configured bundles of related skills designed for specific use cases. Users can browse packs, view included skills, add packs to **My Library**, remove packs from **My Library**, and download complete packages as ZIP files for offline use.
 
 **Current Packs:**
 - 💻 [Developer Essentials Pack](#developer-essentials-pack) (10 skills)
@@ -38,13 +38,25 @@ Skill Packs are pre-configured bundles of related skills designed for specific u
 
 ### API Endpoints
 
-**GET /api/skill-packs**
-- Lists all available packs (summary)
+**GET /api/skill-packs?library=public|my**
+- Lists packs by library mode (summary)
+- `public`: all available packs
+- `my`: only packs explicitly added by the authenticated user
 - Returns: Array of pack metadata
 
 **GET /api/skill-packs/:packId**
 - Gets full pack details with resolved skill metadata
 - Returns: Complete pack object with skills array
+
+**POST /api/skill-packs/:packId/add-to-library**
+- Adds a pack to My Library (auth required)
+- Imports pack skills into user prompts with pack tag `skill-pack:<packId>`
+- Requires explicit confirmation payload: `{ "confirm": true }`
+
+**DELETE /api/skill-packs/:packId/remove-from-library**
+- Removes a pack from My Library (auth required)
+- Deletes imported pack skills tagged with `skill-pack:<packId>`
+- Requires explicit confirmation payload: `{ "confirm": true }`
 
 **GET /api/skill-packs/:packId/download**
 - Downloads pack as ZIP file
@@ -55,15 +67,17 @@ Skill Packs are pre-configured bundles of related skills designed for specific u
 
 ## Pack Manifests
 
-Packs are defined as JSON files in `library/Skills/packs/`.
+Packs are defined as JSON files in `library/3_Skills/packs/`.
 
 ### Location
 ```
-library/Skills/packs/
-├── README.md
-├── developer-essentials-pack.json
-├── finance-portfolio-pack.json
-└── project-management-pack.json
+library/3_Skills/packs/
+├── development/developer-essentials-pack.json
+├── development/game-design-pack.json
+├── documentation/writing-documentation-pack.json
+├── finance/finance-portfolio-pack.json
+├── finance/prediction-markets-pack.json
+└── productivity/project-management-pack.json
 ```
 
 ### Manifest Format
@@ -130,7 +144,7 @@ library/Skills/packs/
 Create a new JSON file in `library/Skills/packs/`:
 
 ```bash
-cd library/Skills/packs
+cd library/3_Skills/packs
 touch my-new-pack.json
 ```
 
@@ -168,14 +182,14 @@ Find skills to include:
 
 ```bash
 # List all available skills
-find library/Skills -name "SKILL.md" -type f
+find library/3_Skills -name "SKILL.md" -type f
 ```
 
 Add each skill to the `skills` array:
 
 ```json
 {
-  "path": "library/Skills/Git/gh-address-comments/SKILL.md",
+  "path": "library/3_Skills/Development/Git/gh-address-comments/SKILL.md",
   "name": "GitHub PR Comment Handler",
   "description": "Address review comments on GitHub PRs"
 }

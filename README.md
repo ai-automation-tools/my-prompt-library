@@ -29,6 +29,7 @@ A modern, full-stack web application for managing and organizing AI prompt templ
 - Responsive design (mobile, tablet, desktop)
 - Dark/light theme toggle
 - Fuzzy search with Fuse.js
+- Title-prioritized search ranking (title starts-with/contains first)
 - Clean, intuitive interface
 
 🚀 **Production-Ready**
@@ -180,7 +181,14 @@ GITHUB_BRANCH=main
 - `DELETE /api/prompts/:id` - Delete prompt (auth required)
 - `POST /api/prompts/:path/copy-to-my-prompts` - Copy to My Library
 
-See [API.md](docs/API.md) for detailed documentation.
+### Skill Packs
+- `GET /api/skill-packs?library=public|my` - List packs by mode
+- `GET /api/skill-packs/:packId` - Pack details
+- `POST /api/skill-packs/:packId/add-to-library` - Add pack to My Library (auth + confirm)
+- `DELETE /api/skill-packs/:packId/remove-from-library` - Remove pack from My Library (auth + confirm)
+- `GET /api/skill-packs/:packId/download` - Download pack ZIP
+
+See [docs/features/API.md](docs/features/API.md) for detailed documentation.
 
 ---
 
@@ -190,6 +198,7 @@ See [API.md](docs/API.md) for detailed documentation.
 - `users` - User accounts
 - `user_prompts` - User-owned prompts
 - `user_sessions` - Authentication sessions
+- `user_skill_pack_installs` - User-installed skill packs
 
 **Hybrid Storage:**
 - Public Library → Files (`library/` directory, Git version control)
