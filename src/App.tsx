@@ -546,33 +546,41 @@ export default function App() {
       return currentPrompts;
     }
 
-    const fuse = new Fuse(currentPrompts, {
-      keys: [
-        { name: 'title', weight: 10 },       // Highest priority - exact title matches
-        { name: 'tags', weight: 3 },         // High priority - tags
-        { name: 'category', weight: 2 },     // Medium priority - category
-        { name: 'subcategory', weight: 2 },  // Medium priority - subcategory
-        { name: 'content', weight: 1 }       // Lowest priority - content
-      ],
-      includeScore: true,
-      threshold: 0.4, // Slightly higher threshold for better relevance
-      ignoreLocation: true,
-      minMatchCharLength: 2,
-    });
-
-    const fuseResults = fuse.search(debouncedSearch).map(result => result.item);
-
-    // Prioritize title matches first so users find obvious hits immediately
     const query = debouncedSearch.trim().toLowerCase();
-    const startsWithTitle = fuseResults.filter(p => p.title.toLowerCase().startsWith(query));
-    const containsTitle = fuseResults.filter(
+
+    // Stage 1: strong direct matches (title-first)
+    const titleStartsWith = currentPrompts.filter(p => p.title.toLowerCase().startsWith(query));
+    const titleContains = currentPrompts.filter(
       p => !p.title.toLowerCase().startsWith(query) && p.title.toLowerCase().includes(query)
     );
-    const remaining = fuseResults.filter(
-      p => !p.title.toLowerCase().includes(query)
-    );
+    const metadataContains = currentPrompts.filter(p => {
+      if (p.title.toLowerCase().includes(query)) return false;
+      const inCategory = p.category?.toLowerCase().includes(query);
+      const inSubcategory = p.subcategory?.toLowerCase().includes(query);
+      const inTags = Array.isArray(p.tags) && p.tags.some(tag => tag.toLowerCase().includes(query));
+      return inCategory || inSubcategory || inTags;
+    });
 
-    return [...startsWithTitle, ...containsTitle, ...remaining];
+    const strictOrdered = [...titleStartsWith, ...titleContains, ...metadataContains];
+    if (strictOrdered.length > 0) {
+      return strictOrdered;
+    }
+
+    // Stage 2 fallback: fuzzy on title/tags/category/subcategory only (exclude content noise)
+    const fuse = new Fuse(currentPrompts, {
+      keys: [
+        { name: 'title', weight: 10 },
+        { name: 'tags', weight: 3 },
+        { name: 'category', weight: 2 },
+        { name: 'subcategory', weight: 2 },
+      ],
+      includeScore: true,
+      threshold: 0.22,
+      ignoreLocation: true,
+      minMatchCharLength: 3,
+    });
+
+    return fuse.search(debouncedSearch).map(result => result.item);
   }, [sectionPrompts, debouncedSearch, activeTab, selectedTags, activeCategory, activeSubcategory, selectedPrompt]);
 
   const sortedPrompts = useMemo(() => {

@@ -892,6 +892,56 @@ const full = await fetch(`/api/prompts/${encodeURIComponent(promptId)}`);
 
 ---
 
+## Skill Pack Endpoints
+
+### GET /api/skill-packs?library=public|my
+
+List skill packs by library mode.
+
+- `public`: all available packs
+- `my`: only packs explicitly added by the authenticated user
+
+**Auth:** Required only for `library=my`
+
+### GET /api/skill-packs/:packId
+
+Get full pack details and resolved skill metadata.
+
+### POST /api/skill-packs/:packId/add-to-library
+
+Add a skill pack to My Library.
+
+**Auth:** Required  
+**Body:**
+```json
+{ "confirm": true }
+```
+
+Behavior:
+- Tracks install in `user_skill_pack_installs`
+- Imports pack skills into `user_prompts`
+- Tags imported skills with `skill-pack:<packId>` for cleanup
+
+### DELETE /api/skill-packs/:packId/remove-from-library
+
+Remove a skill pack from My Library.
+
+**Auth:** Required  
+**Body:**
+```json
+{ "confirm": true }
+```
+
+Behavior:
+- Removes pack install from `user_skill_pack_installs`
+- Removes imported skills tagged `skill-pack:<packId>` from user prompts
+
+### GET /api/skill-packs/:packId/download
+
+Download the pack as ZIP.
+
+---
+
 ## Versioning
 
 **Current Version:** v1 (implicit)
@@ -913,6 +963,13 @@ const full = await fetch(`/api/prompts/${encodeURIComponent(promptId)}`);
 ---
 
 ## Changelog
+
+### v1.2.0 (April 2026)
+- Added skill pack library-mode endpoint behavior (`public` vs `my`)
+- Added skill pack install/remove APIs with explicit confirmation
+- Added user skill pack install tracking (`user_skill_pack_installs`)
+- Added cleanup behavior for imported skill-pack prompts
+- Improved search ranking to prioritize prompt title matches first
 
 ### v1.1.0 (March 2026)
 - **Performance:** Added prebuilt index for 50x faster cold starts

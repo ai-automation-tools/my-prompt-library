@@ -29,7 +29,8 @@ Complete documentation for the my-prompt-library project.
 
 ### Planning & Status
 - **[Project Status](planning/PROJECT-STATUS.md)** - Current state and roadmap
-- **[Changelog](planning/CHANGELOG-2026-03-25.md)** - Recent updates and changes
+- **[Changelog (2026-04-29)](planning/CHANGELOG-2026-04-29.md)** - Recent updates and fixes
+- **[Changelog (2026-03-25)](planning/CHANGELOG-2026-03-25.md)** - Earlier update log
 
 ---
 
@@ -71,6 +72,7 @@ docs/
 │
 ├── planning/                     # Project planning
 │   ├── PROJECT-STATUS.md
+│   ├── CHANGELOG-2026-04-29.md
 │   └── CHANGELOG-2026-03-25.md
 │
 └── archive/                      # Archived docs
@@ -178,7 +180,7 @@ See [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for more commands.
 ## 📊 Project Status
 
 **Current State:** Production-ready  
-**Latest Updates:** March 25, 2026
+**Latest Updates:** April 29, 2026
 
 See [PROJECT-STATUS.md](planning/PROJECT-STATUS.md) for roadmap and recent changes.
 
@@ -211,5 +213,5 @@ See [PROJECT-STATUS.md](planning/PROJECT-STATUS.md) for roadmap and recent chang
 
 ---
 
-**Last Updated:** March 28, 2026  
+**Last Updated:** April 29, 2026  
 **Documentation Version:** 2.0
