@@ -409,14 +409,20 @@ export default function App() {
       return;
     }
 
-    fetch('/api/skill-packs')
-      .then(res => res.json())
+    fetch(`/api/skill-packs?library=${libraryMode}`, { credentials: 'include' })
+      .then(async res => {
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data?.error || 'Failed to fetch skill packs');
+        }
+        return data;
+      })
       .then(data => setSkillPacks(Array.isArray(data) ? data : []))
       .catch(err => {
         console.error('Failed to fetch skill packs:', err);
         setSkillPacks([]);
       });
-  }, [activeTab]);
+  }, [activeTab, libraryMode]);
 
   // Close external resource dropdowns when clicking outside
   useEffect(() => {
@@ -2463,6 +2469,7 @@ source: My Prompt Library
                 {activeTab === 'skill-packs' && (
                   <SkillPacksView
                     user={user}
+                    libraryMode={libraryMode}
                     onRequireLogin={() => setIsLoginOpen(true)}
                     onToast={showToast}
                   />

@@ -44,11 +44,12 @@ interface SkillPackDetail extends SkillPackSummary {
 
 interface SkillPacksViewProps {
   user: { id: string } | null;
+  libraryMode: 'public' | 'my';
   onRequireLogin: () => void;
   onToast: (type: ToastType, message: string) => void;
 }
 
-export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillPacksViewProps) {
+export default function SkillPacksView({ user, libraryMode, onRequireLogin, onToast }: SkillPacksViewProps) {
   const [packs, setPacks] = useState<SkillPackSummary[]>([]);
   const [selectedPack, setSelectedPack] = useState<SkillPackDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -56,6 +57,7 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
   const [error, setError] = useState<string | null>(null);
 
   const [addingPackId, setAddingPackId] = useState<string | null>(null);
+  const [removingPackId, setRemovingPackId] = useState<string | null>(null);
 
   const handleAddPackToLibrary = async (packId: string) => {
     if (!user) {
@@ -75,7 +77,7 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
 
     try {
       setAddingPackId(packId);
-      const response = await fetch(`/api/skill-packs/${packId}/add-to-library`, {
+      const response = await fetch(`/api/skill-packs/${encodeURIComponent(packId)}/add-to-library`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -88,6 +90,7 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
       }
 
       onToast('success', data?.message || 'Skill pack added to My Library');
+      fetchPacks();
     } catch (err) {
       onToast('error', err instanceof Error ? err.message : 'Failed to add pack to library');
     } finally {
@@ -95,15 +98,54 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
     }
   };
 
+
+  const handleRemovePackFromLibrary = async (packId: string) => {
+    if (!user) {
+      onToast('info', 'Sign in to manage your skill packs');
+      onRequireLogin();
+      return;
+    }
+
+    const pack = packs.find(p => p.id === packId);
+    const confirmed = window.confirm(
+      `Remove skill pack${pack ? ` "${pack.name}"` : ''} from My Library?`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setRemovingPackId(packId);
+      const response = await fetch(`/api/skill-packs/${encodeURIComponent(packId)}/remove-from-library`, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ confirm: true }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data?.error || 'Failed to remove pack from library');
+
+      onToast('success', data?.message || 'Skill pack removed from My Library');
+      if (selectedPack?.id === packId) {
+        setSelectedPack(null);
+      }
+      fetchPacks();
+    } catch (err) {
+      onToast('error', err instanceof Error ? err.message : 'Failed to remove pack from library');
+    } finally {
+      setRemovingPackId(null);
+    }
+  };
   useEffect(() => {
     fetchPacks();
-  }, []);
+  }, [libraryMode]);
 
   const fetchPacks = async () => {
     try {
       setLoading(true);
-      console.log('Fetching skill packs from:', '/api/skill-packs');
-      const response = await fetch('/api/skill-packs');
+      const url = `/api/skill-packs?library=${libraryMode}`;
+      console.log('Fetching skill packs from:', url);
+      const response = await fetch(url, { credentials: 'include' });
       console.log('Response status:', response.status);
       if (!response.ok) throw new Error(`Failed to fetch skill packs (${response.status})`);
       const data = await response.json();
@@ -120,7 +162,7 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
   const fetchPackDetail = async (packId: string) => {
     try {
       setDetailLoading(true);
-      const response = await fetch(`/api/skill-packs/${packId}`);
+      const response = await fetch(`/api/skill-packs/${encodeURIComponent(packId)}`);
       if (!response.ok) throw new Error('Failed to fetch pack details');
       const data = await response.json();
       setSelectedPack(data);
@@ -142,7 +184,7 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
   const handleDownloadPack = async (packId: string) => {
     try {
       // Request download from backend
-      const response = await fetch(`/api/skill-packs/${packId}/download`, {
+      const response = await fetch(`/api/skill-packs/${encodeURIComponent(packId)}/download`, {
         method: 'GET',
       });
 
@@ -251,14 +293,26 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={() => handleAddPackToLibrary(selectedPack.id)}
-                disabled={addingPackId === selectedPack.id}
-                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-60 transition-colors flex items-center gap-2 font-medium"
-              >
-                <Package className="w-5 h-5" />
-                {addingPackId === selectedPack.id ? 'Adding...' : 'Add to My Library'}
-              </button>
+              {libraryMode === 'public' && (
+                <button
+                  onClick={() => handleAddPackToLibrary(selectedPack.id)}
+                  disabled={addingPackId === selectedPack.id}
+                  className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-60 transition-colors flex items-center gap-2 font-medium"
+                >
+                  <Package className="w-5 h-5" />
+                  {addingPackId === selectedPack.id ? 'Adding...' : 'Add to My Library'}
+                </button>
+              )}
+              {libraryMode === 'my' && (
+                <button
+                  onClick={() => handleRemovePackFromLibrary(selectedPack.id)}
+                  disabled={removingPackId === selectedPack.id}
+                  className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-60 transition-colors flex items-center gap-2 font-medium"
+                >
+                  <Package className="w-5 h-5" />
+                  {removingPackId === selectedPack.id ? 'Removing...' : 'Remove from My Library'}
+                </button>
+              )}
               <button 
                 onClick={() => handleDownloadPack(selectedPack.id)}
                 className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium"
@@ -401,7 +455,7 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Skill Packs</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{libraryMode === 'my' ? 'My Skill Packs' : 'Skill Packs'}</h1>
         <p className="text-gray-600 dark:text-gray-400">
           Curated collections of skills for specific domains and workflows
         </p>
@@ -451,8 +505,25 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500 gap-2">
               <span>v{pack.version}</span>
+              {libraryMode === 'public' ? (
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleAddPackToLibrary(pack.id); }}
+                  disabled={addingPackId === pack.id}
+                  className="text-[11px] px-2 py-1 rounded bg-green-600 text-white hover:bg-green-700 disabled:opacity-60 transition-colors"
+                >
+                  {addingPackId === pack.id ? 'Adding...' : 'Add'}
+                </button>
+              ) : (
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleRemovePackFromLibrary(pack.id); }}
+                  disabled={removingPackId === pack.id}
+                  className="text-[11px] px-2 py-1 rounded bg-red-600 text-white hover:bg-red-700 disabled:opacity-60 transition-colors"
+                >
+                  {removingPackId === pack.id ? 'Removing...' : 'Remove'}
+                </button>
+              )}
               <span className="flex items-center gap-1 text-primary group-hover:translate-x-1 transition-transform">
                 View Details
                 <span>→</span>
@@ -465,7 +536,7 @@ export default function SkillPacksView({ user, onRequireLogin, onToast }: SkillP
       {packs.length === 0 && !loading && (
         <div className="text-center py-12 text-gray-500 dark:text-gray-500">
           <Package className="w-16 h-16 mx-auto mb-4 opacity-50" />
-          <p>No skill packs available</p>
+          <p>{libraryMode === 'my' ? 'No skill packs in My Library yet' : 'No skill packs available'}</p>
         </div>
       )}
     </div>

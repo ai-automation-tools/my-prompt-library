@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import matter from 'gray-matter';
 import archiver from 'archiver';
-import { authenticate } from '../middleware/auth.js';
-import { promptDb } from '../db/postgres.js';
+import { authenticate, optionalAuth } from '../middleware/auth.js';
+import { promptDb, userSkillPackDb } from '../db/postgres.js';
 
 const router = express.Router();
 
@@ -68,12 +68,22 @@ async function resolveSkillData(skillPath: string) {
 }
 
 // GET /api/skill-packs - List all packs
-router.get('/', async (req, res) => {
+router.get('/', optionalAuth, async (req, res) => {
   try {
     const packs = await getAllPacks();
+    const libraryMode = req.query.library as string | undefined;
+
+    let filtered = packs;
+    if (libraryMode === 'my') {
+      if (!req.user) {
+        return res.status(401).json({ error: 'Authentication required for My Library' });
+      }
+      const installed = await userSkillPackDb.listByUserId(req.user.id);
+      const installedIds = new Set(installed.map(i => i.pack_id));
+      filtered = packs.filter(pack => installedIds.has(pack.id));
+    }
     
-    // Return summary info (without full skill details)
-    const summary = packs.map(pack => ({
+    const summary = filtered.map(pack => ({
       id: pack.id,
       name: pack.name,
       description: pack.description,
@@ -160,6 +170,8 @@ router.post('/:packId/add-to-library', authenticate, async (req, res) => {
       const category = data.category || pack.category || 'Skill Packs';
       const subcategory = data.subcategory || pack.name;
       const tags = Array.isArray(data.tags) ? data.tags : (Array.isArray(pack.tags) ? pack.tags : []);
+      const installTag = `skill-pack:${pack.id}`;
+      const tagsWithInstall = tags.includes(installTag) ? tags : [...tags, installTag];
 
       const dedupeKey = `${title}::${section}::${category}`;
       if (existingKeys.has(dedupeKey)) {
@@ -172,13 +184,15 @@ router.post('/:packId/add-to-library', authenticate, async (req, res) => {
         section,
         category,
         subcategory,
-        tags,
+        tags: tagsWithInstall,
         content,
       });
 
       existingKeys.add(dedupeKey);
       added++;
     }
+
+    await userSkillPackDb.add(req.user!.id, pack.id);
 
     return res.json({
       message: `Added ${added} skill${added === 1 ? '' : 's'} from ${pack.name}${skipped > 0 ? ` (${skipped} skipped)` : ''}`,
@@ -189,6 +203,39 @@ router.post('/:packId/add-to-library', authenticate, async (req, res) => {
   } catch (error) {
     console.error('Error adding pack to library:', error);
     return res.status(500).json({ error: 'Failed to add pack to library' });
+  }
+});
+
+// DELETE /api/skill-packs/:packId/remove-from-library - Remove all pack skills from user's library
+router.delete('/:packId/remove-from-library', authenticate, async (req, res) => {
+  try {
+    if (req.body?.confirm !== true) {
+      return res.status(400).json({ error: 'Explicit confirmation required' });
+    }
+
+    const { packId } = req.params;
+    const installTag = `skill-pack:${packId}`;
+    const userPrompts = await promptDb.findByUserId(req.user!.id);
+    const packPrompts = userPrompts.filter(
+      p => p.section === '3_Skills' && Array.isArray(p.tags) && p.tags.includes(installTag)
+    );
+
+    let removed = 0;
+    for (const prompt of packPrompts) {
+      const ok = await promptDb.delete(prompt.id, req.user!.id);
+      if (ok) removed++;
+    }
+
+    await userSkillPackDb.remove(req.user!.id, packId);
+
+    return res.json({
+      message: `Removed ${removed} skill${removed === 1 ? '' : 's'} from My Library`,
+      removed,
+      packId,
+    });
+  } catch (error) {
+    console.error('Error removing pack from library:', error);
+    return res.status(500).json({ error: 'Failed to remove pack from library' });
   }
 });
 

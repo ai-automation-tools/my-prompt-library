@@ -1,5 +1,11 @@
 import { Pool } from 'pg';
 
+export interface UserSkillPackInstall {
+  user_id: string;
+  pack_id: string;
+  created_at: string;
+}
+
 // PostgreSQL connection pool
 let pool: Pool | null = null;
 
@@ -294,6 +300,35 @@ export const promptDb = {
   },
 };
 
+export const userSkillPackDb = {
+  listByUserId: async (userId: string): Promise<UserSkillPackInstall[]> => {
+    const pool = getPool();
+    const result = await pool.query(
+      'SELECT user_id, pack_id, created_at FROM user_skill_pack_installs WHERE user_id = $1 ORDER BY created_at DESC',
+      [userId]
+    );
+    return result.rows;
+  },
+
+  add: async (userId: string, packId: string): Promise<void> => {
+    const pool = getPool();
+    await pool.query(
+      `INSERT INTO user_skill_pack_installs (user_id, pack_id)
+       VALUES ($1, $2)
+       ON CONFLICT (user_id, pack_id) DO NOTHING`,
+      [userId, packId]
+    );
+  },
+
+  remove: async (userId: string, packId: string): Promise<void> => {
+    const pool = getPool();
+    await pool.query(
+      'DELETE FROM user_skill_pack_installs WHERE user_id = $1 AND pack_id = $2',
+      [userId, packId]
+    );
+  },
+};
+
 export const sessionDb = {
   create: async (userId: string, expiresInDays: number = 30): Promise<Session> => {
     const pool = getPool();
@@ -372,11 +407,19 @@ export async function initializeSchema() {
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
+    CREATE TABLE IF NOT EXISTS user_skill_pack_installs (
+      user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      pack_id TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (user_id, pack_id)
+    );
+
     CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
     CREATE INDEX IF NOT EXISTS idx_user_prompts_user_id ON user_prompts(user_id);
     CREATE INDEX IF NOT EXISTS idx_user_prompts_section ON user_prompts(section, user_id);
     CREATE INDEX IF NOT EXISTS idx_sessions_token ON user_sessions(token);
     CREATE INDEX IF NOT EXISTS idx_sessions_expires ON user_sessions(expires_at);
+    CREATE INDEX IF NOT EXISTS idx_user_skill_pack_installs_user_id ON user_skill_pack_installs(user_id);
   `);
   
   console.log('✅ PostgreSQL schema initialized');
