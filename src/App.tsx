@@ -57,7 +57,7 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const PUBLIC_SHARE_ORIGIN = 'https://prompts.ax-platform.com';
+const PUBLIC_SHARE_ORIGIN = 'https://prompts.mikesailab.com';
 
 function getSectionParamForPromptSection(section: string): string {
   return section === '1_Guides'
@@ -128,10 +128,9 @@ interface SkillPackSummary {
   updated_at: string;
 }
 
-type Theme = 'ax-platform' | 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro' | 'react-modern' | 'dark-pro' | 'nordic-night';
+type Theme = 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro' | 'react-modern' | 'dark-pro' | 'nordic-night';
 
 const THEMES: { id: Theme; name: string; icon: string }[] = [
-  { id: 'ax-platform', name: 'aX Platform', icon: '🚀' },
   { id: 'retro-wave', name: 'Retro Wave', icon: '⚡' },
   { id: 'obsidian-cyan', name: 'Obsidian Cyan', icon: '💎' },
   { id: 'carbon-ember', name: 'Carbon Ember', icon: '🔥' },
@@ -1494,20 +1493,6 @@ source: My Prompt Library
               </AnimatePresence>
             </div>
 
-            {/* Attribution */}
-            <div className="mt-3 pt-3 border-t border-[var(--glass-border)]">
-              <p className="text-[0.7rem] text-center text-[var(--text-tertiary)]">
-                Built on the{' '}
-                <a
-                  href="https://ax-platform.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  aX Platform
-                </a>
-              </p>
-            </div>
           </div>
         </div>
       </aside>
@@ -1525,32 +1510,8 @@ source: My Prompt Library
               <Menu className="w-5 h-5 text-[var(--text-secondary)]" />
             </button>
 
-            {/* aX Platform - Mobile (top right) */}
-            <a
-              href="https://ax-platform.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="md:hidden ml-auto flex items-center gap-1 px-3 py-1.5 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900 border-2 border-slate-700 hover:border-blue-500 transition-all duration-300 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] group"
-            >
-              <span className="text-xs font-bold text-slate-100 tracking-wide">aX-</span>
-              <div className="w-px h-3.5 bg-slate-600 group-hover:bg-blue-500 transition-colors"></div>
-              <span className="text-xs font-bold text-blue-400 group-hover:text-blue-300 transition-colors tracking-wide">Platform</span>
-            </a>
-
             {/* CENTER: Navigation Dropdowns (Desktop Only) */}
             <div className="hidden md:flex items-center justify-center gap-3 flex-1">
-              {/* aX Platform Standalone Link */}
-              <a
-                href="https://ax-platform.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900 border-2 border-slate-700 hover:border-blue-500 transition-all duration-300 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] group"
-              >
-                <span className="text-sm font-bold text-slate-100 tracking-wide">aX-</span>
-                <div className="w-px h-4 bg-slate-600 group-hover:bg-blue-500 transition-colors"></div>
-                <span className="text-sm font-bold text-blue-400 group-hover:text-blue-300 transition-colors tracking-wide">Platform</span>
-              </a>
-
               {/* CLI Repos */}
               <div className="relative external-resource-dropdown">
                 <button
@@ -2086,24 +2047,10 @@ source: My Prompt Library
           {!selectedPrompt && !selectedSubcategory && (
             <div className="py-8 md:py-12 mb-8">
               <div className="max-w-4xl">
-                <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-3">
+                <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-6">
                   {getSectionDisplayName(activeTab)}
                 </h1>
-                
-                {/* Attribution */}
-                <p className="text-sm text-[var(--text-tertiary)] mb-6">
-                  Built on the{' '}
-                  <a
-                    href="https://ax-platform.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center gap-1"
-                  >
-                    aX Platform
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </p>
-                
+
                 {/* Search Bar */}
                 <div className="relative max-w-2xl">
                   <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
