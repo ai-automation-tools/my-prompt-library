@@ -33,6 +33,28 @@
   --sidebar-bg: #12121a;
 }
 
+/* MIKES AI LAB — Matches mikesailab.com home page: near-black zinc bg, sky-400 accent, neutral zinc glass */
+[data-theme='mikesailab'] {
+  --bg-primary: #060606;
+  --bg-secondary: rgba(24, 24, 27, 0.5);
+  --bg-tertiary: rgba(24, 24, 27, 0.7);
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
+  --accent: #38bdf8;
+  --accent-secondary: #0ea5e9;
+  --accent-glow: rgba(56, 189, 248, 0.3);
+  --accent-glow-subtle: rgba(56, 189, 248, 0.08);
+  --border: rgba(39, 39, 42, 0.6);
+  --border-hover: rgba(82, 82, 91, 0.85);
+  --glass-bg: rgba(24, 24, 27, 0.4);
+  --glass-bg-hover: rgba(24, 24, 27, 0.7);
+  --glass-border: rgba(39, 39, 42, 0.6);
+  --glass-border-hover: rgba(82, 82, 91, 0.85);
+  --sidebar-bg: #0a0a0a;
+  --noise-opacity: 0.015;
+}
+
 [data-theme='light'] {
   --bg-primary: #f5f5f7;
   --bg-secondary: rgba(255, 255, 255, 0.7);
