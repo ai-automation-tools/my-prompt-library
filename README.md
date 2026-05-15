@@ -27,7 +27,7 @@ A modern, full-stack web application for managing and organizing AI prompt templ
 
 🎨 **Modern UI**
 - Responsive design (mobile, tablet, desktop)
-- Dark/light theme toggle
+- 16 selectable themes (default: Mikes AI Lab, matching [mikesailab.com](https://mikesailab.com))
 - Fuzzy search with Fuse.js
 - Title-prioritized search ranking (title starts-with/contains first)
 - Clean, intuitive interface
