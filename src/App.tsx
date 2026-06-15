@@ -822,8 +822,12 @@ export default function App() {
   }, [promptPathParam, prompts, selectedPrompt, activeTab, libraryMode, activeCategory, activeSubcategory, handlePromptClick]);
 
   const handleDownloadMarkdown = useCallback(async (prompt: Prompt) => {
-    // Check if this is a Skill - download as zip
-    if (prompt.section === '3_Skills') {
+    // Public-library skills are file-backed (id is a path like
+    // "3_Skills/Category/skill-name/SKILL.md") and download as a zip of the
+    // skill directory. User-owned skills in My Library come from the database
+    // (id is a "prompt_..." key with no source directory), so they fall through
+    // to the markdown download of their stored content.
+    if (prompt.section === '3_Skills' && !prompt.isUserOwned) {
       try {
         // Extract the skill directory path (remove /SKILL.md from the end)
         const skillDirPath = prompt.id.replace(/\/SKILL\.md$/, '');
@@ -857,7 +861,7 @@ export default function App() {
         showToast('error', 'Failed to download skill');
       }
     } else {
-      // Regular prompt - download as markdown
+      // Regular prompt (or a My Library skill) - download as markdown
       const frontmatter = `---
 title: ${prompt.title}
 section: ${prompt.section}
@@ -879,7 +883,7 @@ source: My Prompt Library
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast('success', 'Prompt downloaded!');
+      showToast('success', prompt.section === '3_Skills' ? 'Skill downloaded as markdown!' : 'Prompt downloaded!');
     }
   }, [showToast]);
 
