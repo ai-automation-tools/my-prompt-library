@@ -1,6 +1,6 @@
 # Library Mode Implementation Progress
 
-> **Note (2026-04-29):** This document reflects an earlier implementation phase. For current behavior (prompt creation flow, My Library removal actions, and skill-pack add/remove + mode filtering), see `docs/planning/CHANGELOG-2026-04-29.md` and `docs/features/API.md`.
+> **Note (2026-04-29):** This document reflects an earlier implementation phase. For current behavior (prompt creation flow, My Library removal actions, and skill-pack add/remove + mode filtering), see the 2026-04-29 entry in `docs/CHANGELOG.md` and `docs/features/API.md`.
 
 ## ✅ Phase 1 Complete: Foundation & UI Switching
 
