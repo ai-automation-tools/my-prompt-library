@@ -28,9 +28,9 @@ Complete documentation for the my-prompt-library project.
 - **[PostgreSQL Migration](development/POSTGRES-MIGRATION-SUMMARY.md)** - SQLite → Postgres notes
 
 ### Planning & Status
-- **[Project Status](planning/PROJECT-STATUS.md)** - Current state and roadmap
-- **[Changelog (2026-04-29)](planning/CHANGELOG-2026-04-29.md)** - Recent updates and fixes
-- **[Changelog (2026-03-25)](planning/CHANGELOG-2026-03-25.md)** - Earlier update log
+- **[Roadmap](ROADMAP.md)** - What's next: near-term cleanup, UI de-bulk, content/feature plans
+- **[Changelog](CHANGELOG.md)** - Shipped work, newest first
+- **[Project Audit (2026-06-24)](audits/PROJECT-AUDIT-2026-06-24.md)** - Whole-repo health check + UI bulk analysis
 
 ---
 
@@ -39,9 +39,13 @@ Complete documentation for the my-prompt-library project.
 ```
 docs/
 ├── README.md                     # This file
+├── ROADMAP.md                    # What's next
+├── CHANGELOG.md                  # Shipped work, newest first
 ├── ARCHITECTURE.md               # System design
 ├── QUICK_REFERENCE.md            # Quick commands
-├── prompt-template-guide.md      # Prompt formatting guide
+│
+├── audits/                       # Point-in-time health checks
+│   └── PROJECT-AUDIT-2026-06-24.md
 │
 ├── setup/                        # Setup & deployment
 │   ├── SETUP.md                  # Local dev setup
@@ -70,16 +74,7 @@ docs/
 │   ├── DEBUG_UI.md
 │   └── POSTGRES-MIGRATION-SUMMARY.md
 │
-├── planning/                     # Project planning
-│   ├── PROJECT-STATUS.md
-│   ├── CHANGELOG-2026-04-29.md
-│   └── CHANGELOG-2026-03-25.md
-│
-└── archive/                      # Archived docs
-    ├── GAP-FILLING-SUMMARY.md
-    ├── LIBRARY-GAP-ANALYSIS.md
-    ├── feature-list.md
-    └── major-updates-plan.md
+└── archive/                      # Superseded / historical docs
 ```
 
 ---
@@ -110,7 +105,7 @@ docs/
 
 **...troubleshoot issues**
 1. [Debug Guide](development/DEBUG_UI.md)
-2. [Project Status](planning/PROJECT-STATUS.md)
+2. [Roadmap](ROADMAP.md)
 
 ---
 
@@ -170,7 +165,7 @@ npm run dev
 npm run build
 
 # Run type checking
-npm run type-check
+npm run lint
 ```
 
 See [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for more commands.
@@ -179,10 +174,9 @@ See [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for more commands.
 
 ## 📊 Project Status
 
-**Current State:** Production-ready  
-**Latest Updates:** April 29, 2026
+**Current State:** Production-ready, live at `prompts.mikesailab.com`
 
-See [PROJECT-STATUS.md](planning/PROJECT-STATUS.md) for roadmap and recent changes.
+See [ROADMAP.md](ROADMAP.md) for what's next and [CHANGELOG.md](CHANGELOG.md) for recent changes.
 
 ---
 
@@ -191,7 +185,7 @@ See [PROJECT-STATUS.md](planning/PROJECT-STATUS.md) for roadmap and recent chang
 ### Adding Content
 
 1. Choose appropriate template from [templates/](templates/)
-2. Follow [Prompt Template Guide](prompt-template-guide.md)
+2. Follow [Prompt Template Guide](archive/prompt-template-guide.md)
 3. Ensure all 4 required metadata fields (title, tags, category, subcategory)
 4. Submit PR with content in correct directory
 
@@ -209,9 +203,8 @@ See [PROJECT-STATUS.md](planning/PROJECT-STATUS.md) for roadmap and recent chang
 
 - **Main README:** [../README.md](../README.md)
 - **GitHub Repository:** [github.com/michaelschecht/my-prompt-library](https://github.com/michaelschecht/my-prompt-library)
-- **Live Demo:** [my-prompt-library.vercel.app](https://my-prompt-library.vercel.app)
+- **Live Site:** [prompts.mikesailab.com](https://prompts.mikesailab.com)
 
 ---
 
-**Last Updated:** April 29, 2026  
-**Documentation Version:** 2.0
+**Last Updated:** 2026-06-24
