@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">My Prompt Library Skill Packs landscape logo concept</title>
+  <desc id="desc">A packed template card with an AI sparkle Landscape logo proposal for GitHub README art and website headers.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#18181b"/>
+      <stop offset="1" stop-color="#050505"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="78" y1="70" x2="286" y2="282" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" rx="40" fill="url(#bg)"/>
+  <rect x="72" y="72" width="216" height="216" rx="46" fill="#09090b" stroke="url(#accent)" stroke-width="8"/>
+  <g transform="translate(72 72) scale(0.84375)">
+  <rect x="62" y="76" width="132" height="98" rx="18" fill="none" stroke="#8b5cf6" stroke-width="12"/>
+  <path d="M84 101h88M84 128h88M84 155h54" stroke="#27272a" stroke-width="10" stroke-linecap="round"/>
+  <path d="M97 203h62" stroke="#f4f4f5" stroke-width="14" stroke-linecap="round"/>
+  <path d="M128 174v29" stroke="#f4f4f5" stroke-width="14" stroke-linecap="round"/>
+  <path d="M187 53l9 22 22 9-22 9-9 22-9-22-22-9 22-9z" fill="#f59e0b"/>
+  </g>
+  <text x="344" y="176" fill="#f4f4f5" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="92" font-weight="800" letter-spacing="0">My Prompt Library</text>
+  <text x="350" y="232" fill="#a1a1aa" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="500" letter-spacing="0">Searchable prompt templates and skill packs</text>
+  <g transform="translate(928 112)">
+    <rect x="0" y="0" width="184" height="136" rx="28" fill="#111113" stroke="#27272a" stroke-width="3"/>
+    <circle cx="44" cy="46" r="11" fill="#8b5cf6"/>
+    <circle cx="92" cy="46" r="11" fill="#f59e0b"/>
+    <circle cx="140" cy="46" r="11" fill="#22d3ee"/>
+    <path d="M36 84h112" stroke="#27272a" stroke-width="10" stroke-linecap="round"/>
+    <path d="M36 108h76" stroke="#8b5cf6" stroke-width="10" stroke-linecap="round"/>
+  </g>
+</svg>
