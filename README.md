@@ -1,9 +1,40 @@
-# My Prompt Library
+<a id="readme-top"></a>
 
-A modern, full-stack web application for managing and organizing AI prompt templates with user authentication, personal libraries, and a public template collection.
+<p align="center">
+  <a href="https://prompts.mikesailab.com">
+    <img src="images/My-Prompt-Library-Images/logos/dark/landscape-01-template-vault.svg" alt="My Prompt Library - searchable prompt templates and skill packs" width="720">
+  </a>
+</p>
 
-![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
-![Status](https://img.shields.io/badge/status-production-green.svg)
+<p align="center">
+  <em>A full-stack prompt-template manager with public templates,<br>personal libraries, auth, search, markdown, and skill packs.</em>
+</p>
+
+<p align="center">
+  <a href="docs/README.md"><strong>Explore the docs »</strong></a>
+</p>
+
+<p align="center">
+  <a href="https://prompts.mikesailab.com">View Demo</a>
+  ·
+  <a href="https://github.com/michaelschecht/my-prompt-library/issues">Report Bug</a>
+  ·
+  <a href="https://github.com/michaelschecht/my-prompt-library/issues">Request Feature</a>
+</p>
+
+<p align="center">
+  <a href="https://prompts.mikesailab.com"><img src="https://img.shields.io/badge/Live_Demo-prompts.mikesailab.com-f59e0b?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
+  <img src="https://img.shields.io/badge/status-production-2ea44f?style=for-the-badge" alt="Status: production">
+  <a href="docs/ROADMAP.md"><img src="https://img.shields.io/badge/plan-ROADMAP-8B5CF6?style=for-the-badge" alt="Roadmap"></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 19">
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 5">
+  <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4">
+  <img src="https://img.shields.io/badge/PostgreSQL-Neon-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL on Neon">
+  <img src="https://img.shields.io/badge/Vercel-serverless-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel serverless">
+</p>
 
 ---
 
