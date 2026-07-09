@@ -19,6 +19,6 @@
   <path d="M115 96h35M110 128h45M115 160h35" stroke="#8b5cf6" stroke-width="10" stroke-linecap="round"/>
   <circle cx="185" cy="70" r="16" fill="#10b981"/>
   </g>
-  <text x="344" y="176" fill="#18181b" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="92" font-weight="800" letter-spacing="0">My Prompt Library</text>
+  <text x="344" y="176" fill="#18181b" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="0">My Prompt Library</text>
   <text x="350" y="232" fill="#52525b" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="500" letter-spacing="0">Searchable prompt templates and skill packs</text>
 </svg>
