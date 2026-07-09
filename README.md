@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://prompts.mikesailab.com">
-    <img src="images/My-Prompt-Library-Images/logos/dark/landscape-02-template-vault.svg" alt="My Prompt Library - searchable prompt templates and skill packs" width="720">
+    <img src="images/My-Prompt-Library-Images/logos/dark/landscape-01-template-vault.svg" alt="My Prompt Library - searchable prompt templates and skill packs" width="720">
   </a>
 </p>
 
