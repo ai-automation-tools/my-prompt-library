@@ -16,9 +16,15 @@ bundles) and a large **System Prompts** archive.
 - **Data:** Public Library = markdown files in `library/` (Git-versioned). User data = Postgres (Neon).
 - **Deploy:** Vercel. Working branch **`mike_desktop`**, deploy branch **`main`**. `vercel-build` rebuilds the prompt index.
 
+> **Repo layout:** the entire deployable app (source, `api/`, `library/`, build config,
+> `package.json`) lives under **`site/`**. Run all `npm` commands from `site/`. On Vercel,
+> the project's **Root Directory** must be set to **`site`**. Root-level `docs/`, `images/`,
+> `scripts/` (utility scripts) and repo meta stay outside the deploy root.
+
 ## Run it
 
 ```bash
+cd site
 npm install
 cp .env.example .env      # then set DATABASE_URL (Neon) — see .env
 npm run dev               # tsx server.ts → http://localhost:3010
@@ -29,20 +35,29 @@ Other scripts: `npm run build` (build:index → tsc → vite build), `npm run bu
 
 ## Layout
 
+Everything under `site/` is the deployable app (Vercel Root Directory = `site`).
+Paths below are relative to `site/`.
+
 ```
-src/                 React app
-  App.tsx            ⚠️ 2,845-line monolith — the whole UI + ~40 useState hooks live here
-  components/        LoginModal, SignupModal, PromptEditorModal, SkillPacksView, Toast, EmptyState
-  contexts/          AuthContext
-  themes.css         16 themes
-server.ts            Local Express dev server (port 3010)
-api/index.ts         Vercel handler: prompts, auth, GitHub-mode public library
-api/skill-packs.ts   Vercel handler for skill packs (bundles library/3_Skills/**)
-routes/, middleware/ auth.ts (bcrypt + cookie sessions)
-db/postgres.ts       Postgres layer (users, user_prompts, user_sessions, user_skill_pack_installs)
-library/             Public content, numbered sections (see below)
-scripts/build-prompt-index.js   Walks library/ → api/prompt-index.json
-docs/                Documentation (see docs/README.md; analysis in docs/audits/)
+site/
+  src/                 React app
+    App.tsx            ⚠️ 2,845-line monolith — the whole UI + ~40 useState hooks live here
+    components/        LoginModal, SignupModal, PromptEditorModal, SkillPacksView, Toast, EmptyState
+    contexts/          AuthContext
+    themes.css         16 themes
+  server.ts            Local Express dev server (port 3010)
+  api/index.ts         Vercel handler: prompts, auth, GitHub-mode public library
+  api/skill-packs.ts   Vercel handler for skill packs (bundles library/3_Skills/**)
+  routes/, middleware/ auth.ts (bcrypt + cookie sessions)
+  db/postgres.ts       Postgres layer (users, user_prompts, user_sessions, user_skill_pack_installs)
+  library/             Public content, numbered sections (see below)
+  scripts/build-prompt-index.js   Walks library/ → api/prompt-index.json (site build step)
+  package.json, vite.config.ts, tsconfig.json, vercel.json, index.html
+
+(repo root, outside the deploy root)
+  scripts/             Utility scripts (add-frontmatter.mjs, prompt_generation/, *.py helpers)
+  docs/                Documentation (see docs/README.md; analysis in docs/audits/)
+  images/              README / branding assets
 ```
 
 ## Library structure (current — numbered)
