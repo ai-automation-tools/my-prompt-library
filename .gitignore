@@ -8,6 +8,6 @@ coverage/
 !.env.example
 
 # Database
-db/*.db
-db/*.db-shm
-db/*.db-wal
+**/db/*.db
+**/db/*.db-shm
+**/db/*.db-wal
