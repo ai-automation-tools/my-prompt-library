@@ -78,7 +78,7 @@
 ```bash
 # Clone the repository
 git clone https://github.com/michaelschecht/my-prompt-library.git
-cd my-prompt-library
+cd my-prompt-library/site
 
 # Install dependencies
 npm install
@@ -95,7 +95,7 @@ npm run dev
 
 ### Deploy to Vercel
 
-See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete deployment instructions.
+See [DEPLOYMENT.md](docs/setup/DEPLOYMENT.md) for complete deployment instructions.
 
 ---
 
@@ -122,7 +122,6 @@ See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete deployment instructions.
 
 **Development**
 - [Debug Guide](docs/development/DEBUG_UI.md) - Troubleshooting
-- [Project Status](docs/planning/PROJECT-STATUS.md) - Current state and roadmap
 
 ---
 
@@ -152,35 +151,33 @@ See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete deployment instructions.
 
 ```
 my-prompt-library/
-├── api/
-│   └── index.ts              # Vercel serverless API handler
-├── src/
-│   ├── App.tsx               # Main React application
-│   ├── components/           # React components
-│   ├── contexts/             # Auth context provider
-│   └── main.tsx              # React entry point
-├── library/                  # Public prompt templates (files)
-│   ├── Prompt_Library/
-│   ├── Agent_Instructions/
-│   ├── Agent_Guides/
-│   └── System_Prompts/
-├── db/
-│   └── postgres.ts           # Database layer (PostgreSQL)
-├── routes/
-│   └── auth.ts               # Auth API routes
-├── middleware/
-│   └── auth.ts               # Auth middleware
-├── docs/                     # Documentation
-├── server.ts                 # Local dev server
-├── vercel.json               # Vercel configuration
-└── README.md                 # This file
+├── site/                     # Deployable app (Vercel Root Directory = site)
+│   ├── api/                  # Vercel serverless API handlers
+│   ├── src/                  # React application
+│   │   ├── App.tsx           # Main React component
+│   │   ├── components/       # UI components
+│   │   ├── contexts/         # Auth context provider
+│   │   └── main.tsx          # Entry point
+│   ├── library/              # Public prompt templates (numbered)
+│   │   ├── 1_Guides/
+│   │   ├── 2_Agents/
+│   │   ├── 3_Skills/
+│   │   ├── 4_Prompts/
+│   │   └── 5_System_Prompts/
+│   ├── db/                   # Database layer (PostgreSQL)
+│   ├── routes/               # Auth routes
+│   ├── middleware/           # Auth middleware
+│   └── server.ts             # Local Express dev server (port 3010)
+├── docs/                     # Project documentation
+├── scripts/                  # Utility scripts
+└── README.md
 ```
 
 ---
 
 ## Environment Variables
 
-Create a `.env` file in the root:
+Create a `.env` file under `site/`:
 
 ```bash
 # PostgreSQL Database (Neon)
