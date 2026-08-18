@@ -216,13 +216,16 @@ curl -s http://localhost:3010/api/prompts | jq '[.[] | select(.isUserOwned == tr
 ### Code Locations
 
 **Frontend**:
-- State: `src/App.tsx` line ~105
-- Switcher UI: `src/App.tsx` line ~703
-- Filtering: `src/App.tsx` line ~245
-- Conditional buttons: `src/App.tsx` line ~595
+- State: the `libraryMode` `useState` in `src/App.tsx`
+- Switcher UI: the Public / My Library buttons in `src/components/Sidebar.tsx`
+- Filtering: the `libraryMode` branch in `src/hooks/usePromptFilters.ts`
+- Conditional buttons: `src/components/PromptCard.tsx` and `src/components/PromptDetail.tsx`
 
 **Backend**:
-- isUserOwned logic: `server.ts` line ~152 and ~202
+- isUserOwned logic: the `isUserOwned` assignments in `server.ts` / `api/index.ts`
+
+> Pointers are by symbol, not line number — the line numbers here rotted through two rounds
+> of `App.tsx` extraction.
 
 ---
 

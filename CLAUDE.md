@@ -41,9 +41,10 @@ Paths below are relative to `site/`.
 ```
 site/
   src/                 React app
-    App.tsx            1,393 lines (was 2,845) — still the app shell + 27 useState hooks
+    App.tsx            1,332 lines (was 2,845) — still the app shell + 27 useState hooks
     hooks/             usePromptFilters (search, tags, sort, pagination)
-    components/        LoginModal, SignupModal, PromptEditorModal, SkillPacksView, Toast, EmptyState
+    components/        TopBar, LibraryHero, Sidebar, ResourcesNav, PromptCard, PromptDetail,
+                       LoginModal, SignupModal, PromptEditorModal, SkillPacksView, Toast, EmptyState
     contexts/          AuthContext
     themes.css         16 themes
   server.ts            Local Express dev server (port 3010)

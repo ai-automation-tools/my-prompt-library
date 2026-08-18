@@ -16,7 +16,7 @@ Single source of truth for *what's next*. Forward-looking only — shipped work 
 | Public Library | Markdown files in `library/` (numbered: `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`; `Legacy/` excluded from the index) |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `api/prompt-index.json` — **1,722** prompts, 1.06 MB (rebuild with `npm run build:index`) |
-| `src/App.tsx` | **1,393 lines** (was 2,845), 27 `useState` hooks |
+| `src/App.tsx` | **1,332 lines** (was 2,845), 27 `useState` hooks |
 | Health | Production-ready and live. Items below are UX/content/maintainability, not outages. |
 
 > Counts are read from `api/prompt-index.json` (`promptCount`), not kept by hand here.
@@ -44,13 +44,13 @@ Single source of truth for *what's next*. Forward-looking only — shipped work 
 
 ## Next — finish the `App.tsx` de-bulk
 
-`App.tsx` is down to **1,393 lines** from 2,845. The audit's target was ~600–800, so roughly
+`App.tsx` is down to **1,332 lines** from 2,845. The audit's target was ~600–800, so roughly
 one more extraction pass. Behavior-preserving, one small PR at a time, each Vercel-previewed.
 
-- [ ] **Extract the top bar / header** (search field, sort control, library-mode switcher,
-      auth buttons) into `components/TopBar.tsx`.
 - [ ] **Extract the prompt grid + pagination** into `components/PromptGrid.tsx` — it consumes
-      `paginatedPrompts` / `totalPages` straight from `usePromptFilters`.
+      `paginatedPrompts` / `totalPages` straight from `usePromptFilters`. Take the list
+      toolbar with it: the sort `<select>`, the stat badges, and the favorites/recent/tags
+      filter dropdowns are all part of that block.
 - [ ] **Lift the remaining URL/routing state** (`activeTab`, `activeCategory`, `activeSubcategory`,
       `promptPathParam` and their `history.pushState` effects) into a `useLibraryRoute` hook.
       This is the largest single block of `useState` + `useEffect` still in the monolith.
@@ -60,12 +60,18 @@ one more extraction pass. Behavior-preserving, one small PR at a time, each Verc
 
 ## Then — build & payload
 
-- [ ] **Code-split the bundle.** `dist/assets/index-*.js` is **976 KB** (264 KB gzipped) and Vite
+- [ ] **Code-split the bundle.** `dist/assets/index-*.js` is **985 KB** (264 KB gzipped) and Vite
       warns on every build. Route/modal-level `React.lazy` on `SkillPacksView`,
       `PromptEditorModal`, and the auth modals is the obvious first cut.
 - [ ] **Recover the two multi-MB bulk files.** `act-as-an-expert.md` (3.4 MB) and
       `promptsdotchat-opensource.md` (2.5 MB) are skipped by the 500 KB index filter, so they
       are invisible in the app. Split them into individual prompts or drop them.
+- [ ] **Reconcile the dev walk with the built index.** `/api/prompts?library=public` from
+      `npm run dev` returns **1,728** entries against the index's **1,722**: the filesystem
+      walk includes the four section `README.md` files and the two >500 KB bulk files that
+      `build-prompt-index.js` filters out. Harmless today, but dev and prod disagreeing about
+      the library contents is exactly the class of bug fixed on 2026-08-18. Decide which side
+      is right (almost certainly: skip `README.md` in the walks too) and make them match.
 - [ ] **Guard against index drift in CI.** `vercel-build` rebuilds the index, so a stale
       committed copy never reaches production — but it does make local `git status` noisy.
       Either stop committing `api/prompt-index.json` or add a pre-commit rebuild.
@@ -103,7 +109,14 @@ one more extraction pass. Behavior-preserving, one small PR at a time, each Verc
 
 ## Done
 
-See [CHANGELOG.md](CHANGELOG.md). Most recently (2026-08-18): the audit's stale-metadata and
-`App.tsx` de-bulk passes, plus the rename-drift bugs those passes uncovered — `Legacy/` and
-skill sub-files leaking into the index, one bad frontmatter file emptying the whole library,
-Windows-only backslash prompt ids, and a missing database taking down the dev server.
+See [CHANGELOG.md](CHANGELOG.md). Most recently:
+
+- **2026-08-18 — top bar extracted.** `App.tsx` **1,393 → 1,332 lines** via
+  `components/TopBar.tsx` (mobile menu trigger, `ResourcesNav`, auth buttons) and
+  `components/LibraryHero.tsx` (section heading + search field). The other controls that item
+  listed live elsewhere: the library-mode switcher is already in `Sidebar.tsx`, and the sort
+  control belongs to the list toolbar, so it travels with `PromptGrid.tsx`.
+- **2026-08-18 — audit follow-through.** The stale-metadata and `App.tsx` de-bulk passes, plus
+  the rename-drift bugs those passes uncovered — `Legacy/` and skill sub-files leaking into the
+  index, one bad frontmatter file emptying the whole library, Windows-only backslash prompt ids,
+  and a missing database taking down the dev server.
