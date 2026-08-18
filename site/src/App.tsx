@@ -5,16 +5,12 @@
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import {
-  Search,
-  Menu,
   FileText,
   LayoutGrid,
-  Library,
   Sparkles,
   ArrowLeft,
   Tag,
   Plus,
-  Trash2,
   Star,
   Home,
   ChevronRight as BreadcrumbArrow,
@@ -33,10 +29,11 @@ import EmptyState from './components/EmptyState';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { useAuth } from './contexts/AuthContext';
 import SkillPacksView from './components/SkillPacksView';
-import ResourcesNav from './components/ResourcesNav';
-import PromptCard, { extractEmoji, type Prompt } from './components/PromptCard';
+import PromptCard, { type Prompt } from './components/PromptCard';
 import PromptDetail from './components/PromptDetail';
 import Sidebar, { type Theme, type SkillPackSummary } from './components/Sidebar';
+import TopBar from './components/TopBar';
+import LibraryHero from './components/LibraryHero';
 import { usePromptFilters } from './hooks/usePromptFilters';
 
 function cn(...inputs: ClassValue[]) {
@@ -769,82 +766,24 @@ source: My Prompt Library
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col h-full overflow-hidden relative">
-        {/* Top Bar with Mobile Menu and ResourcesNav */}
-        <div className="shrink-0 px-4 md:px-6 py-3 border-b border-[var(--glass-border)]">
-          <div className="flex items-center gap-4">
-            {/* LEFT: Mobile menu */}
-            <button
-              onClick={() => setIsSidebarOpen(true)}
-              className="p-2 rounded-[var(--radius-sm)] hover:bg-[var(--glass-bg-hover)] transition-colors md:hidden"
-            >
-              <Menu className="w-5 h-5 text-[var(--text-secondary)]" />
-            </button>
-
-            {/* CENTER: Navigation Dropdowns (Desktop Only) */}
-            <ResourcesNav />
-
-            {/* RIGHT: Auth Buttons */}
-            <div className="hidden md:flex items-center gap-3">
-              {user ? (
-                <div className="flex items-center rounded-lg glass-subtle border border-[var(--glass-border)] overflow-hidden">
-                  <div className="px-4 py-1.5 border-r border-[var(--glass-border)]">
-                    <p className="text-sm font-medium text-[var(--text-primary)]">
-                      {user.name || user.email}
-                    </p>
-                  </div>
-                  <button
-                    onClick={logout}
-                    className="px-4 py-1.5 bg-red-900/20 hover:bg-red-800/30 text-sm font-medium text-red-300 hover:text-red-200 transition-all"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setIsLoginOpen(true)}
-                    className="px-4 py-1.5 rounded-lg glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent)] transition-all"
-                  >
-                    Login
-                  </button>
-                  <button
-                    onClick={() => setIsSignupOpen(true)}
-                    className="px-4 py-1.5 rounded-lg bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white text-sm font-semibold transition-colors shadow-[0_2px_12px_var(--accent-glow)]"
-                  >
-                    Sign Up
-                  </button>
-                </div>
-              )}
-            </div>
-
-          </div>
-        </div>
+        {/* Top Bar: mobile menu trigger, resources nav, auth controls */}
+        <TopBar
+          user={user}
+          onOpenSidebar={() => setIsSidebarOpen(true)}
+          onLogin={() => setIsLoginOpen(true)}
+          onSignup={() => setIsSignupOpen(true)}
+          onLogout={logout}
+        />
 
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto px-4 md:px-6 pb-6">
           {/* Hero Section */}
           {!selectedPrompt && !selectedSubcategory && (
-            <div className="py-8 md:py-12 mb-8">
-              <div className="max-w-4xl">
-                <h1 className="heading-display text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-6">
-                  {getSectionDisplayName(activeTab)}
-                </h1>
-
-                {/* Search Bar */}
-                <div className="relative max-w-2xl">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <Search className="w-5 h-5 text-[var(--text-tertiary)]" />
-                  </div>
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search prompts by title, content, tags, or category..."
-                    className="w-full pl-12 pr-4 py-3.5 rounded-[var(--radius-lg)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all duration-300"
-                  />
-                </div>
-              </div>
-            </div>
+            <LibraryHero
+              title={getSectionDisplayName(activeTab)}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+            />
           )}
 
           {/* Breadcrumbs */}

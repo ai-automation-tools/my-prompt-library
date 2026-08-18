@@ -882,7 +882,7 @@ const full = await fetch(`/api/prompts/${encodeURIComponent(promptId)}`);
 ### Pagination
 
 **Frontend Pagination:**
-- 50 prompts per page (configurable in `src/App.tsx`)
+- 50 prompts per page (`ITEMS_PER_PAGE` in `src/hooks/usePromptFilters.ts`)
 - Client-side pagination (all data loaded once)
 - Navigation: Previous/Next buttons
 

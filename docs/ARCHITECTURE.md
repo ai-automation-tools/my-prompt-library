@@ -178,26 +178,15 @@ my-prompt-library/
 ### Frontend Components
 
 ```
-App.tsx
-├── Header
-│   ├── Logo
-│   ├── SearchBar (Fuse.js)
-│   └── ViewToggle (Grid/List)
-├── Sidebar
-│   ├── SectionFilter
-│   ├── CategoryFilter
-│   └── TagFilter
-├── PromptList
-│   ├── PromptCard
-│   │   ├── Title
-│   │   ├── Tags
-│   │   ├── Preview
-│   │   └── Actions
-│   │       ├── View
-│   │       ├── Edit
-│   │       ├── Delete
-│   │       └── Copy
-│   └── EmptyState
+App.tsx                       app shell, data fetching, routing state
+├── Sidebar                   library-mode switcher, section select, categories, theme picker
+├── TopBar                    mobile menu trigger, ResourcesNav, auth buttons
+│   └── ResourcesNav          data-driven external-link menus
+├── LibraryHero               section heading + search field
+├── PromptCard                (grid) title, tags, preview, row actions
+├── PromptDetail              single-prompt view
+├── SkillPacksView            skill-pack catalog (own tab)
+├── EmptyState                not-authenticated / no-prompts states
 └── PromptModal
     ├── MarkdownRenderer
     ├── Metadata

@@ -4,6 +4,42 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-18 — Top bar extracted out of `App.tsx`
+
+Next item on the [roadmap](ROADMAP.md)'s `App.tsx` de-bulk list. Behavior-preserving: the
+markup moved verbatim, nothing was restyled or repositioned.
+
+**New components** — `App.tsx` **1,393 → 1,332 lines**
+- `src/components/TopBar.tsx` — the header row above the content area: mobile sidebar
+  trigger, `ResourcesNav`, and the logged-in/logged-out auth controls. Takes the current
+  user plus four callbacks; holds no state of its own.
+- `src/components/LibraryHero.tsx` — the section heading and library search field shown
+  whenever no prompt or subcategory is selected. `searchQuery` still lives in
+  `usePromptFilters`, passed down as a controlled value.
+- `App.tsx` dropped its now-dead `ResourcesNav` import and four unused `lucide-react`
+  icons (`Search`, `Menu`, `Library`, `Trash2`) plus an unused `extractEmoji` import.
+
+**Scope note.** The roadmap item also listed the sort control and the library-mode switcher
+as part of the top bar. Neither is: the library-mode switcher already lives in
+`Sidebar.tsx`, and the sort `<select>` belongs to the prompt-list toolbar, so it travels
+with the `PromptGrid.tsx` extraction instead. Moving either into the header would have been
+a redesign, not an extraction.
+
+**Docs caught up while here** — all three described the pre-extraction shape
+- `docs/ARCHITECTURE.md`'s component tree listed a `Header`/`ViewToggle`/`PromptList` structure
+  that never shipped; it now names the actual component files.
+- `docs/features/LIBRARY-MODE-IMPLEMENTATION.md` pointed at `App.tsx` line numbers that rotted
+  through two extraction rounds — now symbol/file pointers, and the switcher is correctly
+  attributed to `Sidebar.tsx`.
+- `docs/features/API.md` said the page size is configurable in `App.tsx`; it is
+  `ITEMS_PER_PAGE` in `src/hooks/usePromptFilters.ts`.
+
+_Touched: `src/App.tsx`, `src/components/TopBar.tsx`, `src/components/LibraryHero.tsx`,
+`docs/ROADMAP.md`, `docs/ARCHITECTURE.md`, `docs/features/LIBRARY-MODE-IMPLEMENTATION.md`,
+`docs/features/API.md`, `CLAUDE.md`._
+
+---
+
 ## 2026-08-18 — Audit follow-through: rename drift, index correctness, App.tsx de-bulk
 
 Working through [audits/PROJECT-AUDIT-2026-06-24.md](audits/PROJECT-AUDIT-2026-06-24.md).
