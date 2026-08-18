@@ -1,9 +1,9 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-06-24 · **Live:** `prompts.mikesailab.com` (Vercel) · **Branches:** work `mike_desktop` → deploy `main`
+**Updated:** 2026-08-18 · **Live:** `prompts.mikesailab.com` (Vercel) · **Branches:** work `mike_desktop` → deploy `main`
 
 Single source of truth for *what's next*. Forward-looking only — shipped work lives in
-[CHANGELOG.md](CHANGELOG.md); the detailed code/UI analysis behind the near-term items is in
+[CHANGELOG.md](CHANGELOG.md); the analysis that seeded the current items is in
 [audits/PROJECT-AUDIT-2026-06-24.md](audits/PROJECT-AUDIT-2026-06-24.md).
 
 ---
@@ -13,53 +13,73 @@ Single source of truth for *what's next*. Forward-looking only — shipped work 
 | | |
 |:---|:---|
 | Stack | React 19 + TS + Vite 6 + Tailwind v4 · Express/Vercel serverless · Neon Postgres |
-| Public Library | Markdown files in `library/` (numbered: `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`; `Legacy/` not shipped) |
+| Public Library | Markdown files in `library/` (numbered: `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`; `Legacy/` excluded from the index) |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
-| Prompt index | `api/prompt-index.json` — **3,652** prompts (rebuild with `npm run build:index`) |
-| Health | Production-ready and live. Items below are maintainability/UX, not outages. |
+| Prompt index | `api/prompt-index.json` — **1,722** prompts, 1.06 MB (rebuild with `npm run build:index`) |
+| `src/App.tsx` | **1,393 lines** (was 2,845), 27 `useState` hooks |
+| Health | Production-ready and live. Items below are UX/content/maintainability, not outages. |
 
 > Counts are read from `api/prompt-index.json` (`promptCount`), not kept by hand here.
 
 ---
 
-## Now — quick wins (low risk, do first)
+## Now — decisions and follow-ups
 
-Documentation/metadata drift. Roughly a half-day total, mostly mechanical.
-
-- [ ] **`.env.example`:** add `DATABASE_URL`, `NODE_ENV`, optional `GEMINI_API_KEY` (currently only documents GitHub-mode vars, so a fresh clone can't run auth).
-- [ ] **`README.md`:** fix the project-structure block to the numbered `library/` folders; correct the live URL to `prompts.mikesailab.com`.
-- [ ] **`docs/README.md`:** drop `npm run type-check` (it's `npm run lint`) and the stale `*.vercel.app` demo link.
-- [ ] **`package.json`:** rename `react-example` → `my-prompt-library`, bump version off `0.0.0`.
-- [ ] **Rebuild the prompt index** so `api/prompt-index.json` matches current `library/` files.
-- [ ] Prune root clutter: `backup/`, loose `check_skills.py` / `get_popular_skills.py` / `get_raw_urls.py` (move under `scripts/` or delete), `import/`.
+- [ ] **Verify the smaller index on a Vercel preview before merging to `main`.** The public
+      library legitimately drops from 3,826 → 1,722 entries: `Legacy/` (1,705 stale `*_OLD`
+      duplicates) and 421 skill *sub-files* (`examples/`, `references/`) are no longer indexed.
+      Nothing users could reach is gone, but the headline count on the live site changes.
+- [ ] **UX decision (needs Mike):** does the external-link directory belong in the primary
+      nav at all, or move to the sidebar / a footer / a dedicated `/resources` page? The
+      menus are now data-driven in `components/ResourcesNav.tsx`, so any of these is cheap.
+- [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (currently a placeholder, so auth and
+      My Library are dead locally). Pull it from the Vercel project env or the Neon dashboard.
+      The dev server now boots without it and serves the read-only Public Library.
+- [ ] **Prune root clutter — needs a call on each, all are Git-tracked with real content:**
+      - `backup/` (224 files: old SQLite `db/`, plus a `My_Prompts/` tree) — archive or delete?
+      - `import/` (795 files: `game-design-skills`, `Prediction_Markets`, `Writing_Documentation`)
+        — is this staged content still waiting to be merged into `library/`, or dead?
 
 ---
 
-## Next — de-bulk the UI (`src/App.tsx`)
+## Next — finish the `App.tsx` de-bulk
 
-`App.tsx` is a **2,845-line monolith** with ~40 `useState` hooks. Behavior-preserving
-refactors, shipped one small PR at a time, each verified against a Vercel preview. See the
-audit for line-level detail.
+`App.tsx` is down to **1,393 lines** from 2,845. The audit's target was ~600–800, so roughly
+one more extraction pass. Behavior-preserving, one small PR at a time, each Vercel-previewed.
 
-- [ ] **Top-bar "External Resources" mega-menus (~490 lines):** the five hardcoded link
-      dropdowns (CLI/Prompts/Skills/Tools/Agent Templates) compete with the real sidebar nav.
-      Data-drive them (`const RESOURCES = [...]` → one `<ResourceMenu>` component) — deletes
-      ~400 lines outright. **Highest impact.**
-- [ ] **Extract components** out of `App.tsx`: `Sidebar`, `PromptCard`, `PromptDetail`
-      (move `PromptCard` out of render so its `memo` actually helps).
-- [ ] **Lift filter/search state** into a `usePromptFilters` hook.
-- [ ] Target: `App.tsx` from ~2,845 → ~600–800 lines, no behavior change.
-- [ ] **UX decision (needs Mike):** does the external-link directory belong in the primary
-      nav at all, or move to the sidebar / a footer / a dedicated `/resources` page?
+- [ ] **Extract the top bar / header** (search field, sort control, library-mode switcher,
+      auth buttons) into `components/TopBar.tsx`.
+- [ ] **Extract the prompt grid + pagination** into `components/PromptGrid.tsx` — it consumes
+      `paginatedPrompts` / `totalPages` straight from `usePromptFilters`.
+- [ ] **Lift the remaining URL/routing state** (`activeTab`, `activeCategory`, `activeSubcategory`,
+      `promptPathParam` and their `history.pushState` effects) into a `useLibraryRoute` hook.
+      This is the largest single block of `useState` + `useEffect` still in the monolith.
+- [ ] Consider lazy-mounting the 16-theme picker so it isn't in every render tree.
+
+---
+
+## Then — build & payload
+
+- [ ] **Code-split the bundle.** `dist/assets/index-*.js` is **976 KB** (264 KB gzipped) and Vite
+      warns on every build. Route/modal-level `React.lazy` on `SkillPacksView`,
+      `PromptEditorModal`, and the auth modals is the obvious first cut.
+- [ ] **Recover the two multi-MB bulk files.** `act-as-an-expert.md` (3.4 MB) and
+      `promptsdotchat-opensource.md` (2.5 MB) are skipped by the 500 KB index filter, so they
+      are invisible in the app. Split them into individual prompts or drop them.
+- [ ] **Guard against index drift in CI.** `vercel-build` rebuilds the index, so a stale
+      committed copy never reaches production — but it does make local `git status` noisy.
+      Either stop committing `api/prompt-index.json` or add a pre-commit rebuild.
 
 ---
 
 ## Later — content & features
 
-### Library content (was PROJECT-STATUS "Phase 2/3" gap-filling)
+### Library content
 - [ ] Expand thin categories: Healthcare, Education, Legal/Compliance, E-commerce, Personal Productivity.
 - [ ] Long-tail: Data Science, Blockchain/Web3, Design, industry verticals (Real Estate, Energy, Agriculture).
 - [ ] Refresh `5_System_Prompts` as new frontier models ship.
+- [ ] Decide the fate of `library/Legacy/` (1,723 files). It is no longer indexed or served;
+      keeping it in Git is fine, but it should either be mined for salvageable prompts or removed.
 
 ### Features
 - [ ] Role-based "starter pack" collections.
@@ -74,6 +94,7 @@ audit for line-level detail.
 | When | Task |
 |:---|:---|
 | Each deploy | Prompt index rebuilds automatically (`vercel-build` runs `build:index`). |
+| After adding content | Watch the build log for `[WARN] Failed to parse frontmatter` — those files are silently dropped from the library. |
 | Monthly | Add/refresh `5_System_Prompts` as models release. |
 | Quarterly | Audit prompts for accuracy; review/rotate featured prompts. |
 | As needed | Keep MCP-server prompt collections current as those APIs evolve. |
@@ -82,6 +103,7 @@ audit for line-level detail.
 
 ## Done
 
-See [CHANGELOG.md](CHANGELOG.md). Highlights: Postgres/Neon migration, Public-vs-My library
-modes, Skill Packs add/remove lifecycle, title-prioritized search, and the 2026-03 performance
-pass (prebuilt index, lightweight mode, pagination — cold start 2–5s → <100ms).
+See [CHANGELOG.md](CHANGELOG.md). Most recently (2026-08-18): the audit's stale-metadata and
+`App.tsx` de-bulk passes, plus the rename-drift bugs those passes uncovered — `Legacy/` and
+skill sub-files leaking into the index, one bad frontmatter file emptying the whole library,
+Windows-only backslash prompt ids, and a missing database taking down the dev server.

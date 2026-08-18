@@ -4,6 +4,52 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-18 — Audit follow-through: rename drift, index correctness, App.tsx de-bulk
+
+Working through [audits/PROJECT-AUDIT-2026-06-24.md](audits/PROJECT-AUDIT-2026-06-24.md).
+The metadata items were mostly already done; verifying them surfaced four live bugs, all
+from the `Skills/` → `3_Skills/` folder rename never reaching the backend.
+
+**Index correctness** — public library **3,826 → 1,722** prompts, `api/prompt-index.json` **2.4 MB → 1.06 MB**
+- `Legacy/` was being indexed and shipped to every browser: **1,705 entries** (45% of the payload)
+  tagged `section: "Legacy"`, which no tab maps to — so they were undisplayable dead weight.
+  Now skipped in `build-prompt-index.js`, `api/index.ts` (filesystem + GitHub walks) and `server.ts`.
+- The "only index `SKILL.md`" rule still tested the pre-rename `Skills/` path, so **421 skill
+  sub-files** (`examples/`, `references/`, `agents/`) were listed in the Skills tab as if they
+  were skills. Skills tab now shows the correct **320**.
+- Same stale name made `isSkill` always false, so skills used `title:` instead of their `name:`
+  frontmatter field.
+- Dev and prod disagreed on all of the above — `server.ts` had been updated for the rename,
+  `api/index.ts` and the index builder had not.
+
+**Reliability**
+- **One malformed frontmatter file emptied the entire Public Library.** An unguarded `matter()`
+  call in `server.ts` / `api/index.ts` threw and the handler returned `[]`. Bad files are now
+  logged and skipped, matching the index builder. Fixed the 4 offending files at the source
+  (broken quoting in `title:`), recovering 4 prompts.
+- **Prompt ids are now always forward-slashed.** `path.relative` emits backslashes on Windows,
+  so every tab filter (`id.startsWith('4_Prompts/')`) failed and local dev showed 0 prompts.
+- **A missing/unreachable `DATABASE_URL` no longer crashes the dev server.** `initializeSchema()`
+  threw before `app.listen`, so a fresh clone couldn't run the app at all — contradicting the
+  documented "runs read-only without a database" behavior. It now warns and serves the
+  Public Library.
+
+**`App.tsx` de-bulk** — **2,845 → 1,393 lines**, ~40 → 27 `useState` hooks
+- Extracted earlier: `ResourcesNav`, `Sidebar`, `PromptCard`, `PromptDetail`.
+- New `src/hooks/usePromptFilters.ts`: owns search + debounce, tag filter, sort, and pagination
+  plus everything derived from them. The five hardcoded per-tab path checks collapse into one
+  `TAB_PATH_PREFIX` lookup.
+
+**Metadata**
+- `package.json` version `0.0.0` → `1.0.0`; `.env.example` referenced a `prompts/` directory
+  that no longer exists.
+
+_Touched: `src/App.tsx`, `src/hooks/usePromptFilters.ts`, `api/index.ts`, `server.ts`,
+`scripts/build-prompt-index.js`, `api/prompt-index.json`, `package.json`, `.env.example`,
+4 library files._
+
+---
+
 ## 2026-04-29 — My Library, Skill Packs & search
 
 **My Library actions**
