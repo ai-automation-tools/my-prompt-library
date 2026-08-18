@@ -41,7 +41,8 @@ Paths below are relative to `site/`.
 ```
 site/
   src/                 React app
-    App.tsx            ⚠️ 2,845-line monolith — the whole UI + ~40 useState hooks live here
+    App.tsx            1,393 lines (was 2,845) — still the app shell + 27 useState hooks
+    hooks/             usePromptFilters (search, tags, sort, pagination)
     components/        LoginModal, SignupModal, PromptEditorModal, SkillPacksView, Toast, EmptyState
     contexts/          AuthContext
     themes.css         16 themes
@@ -63,7 +64,8 @@ site/
 ## Library structure (current — numbered)
 
 `library/1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`, plus
-`Legacy/` (old `*_OLD` trees, **not** indexed/shipped). The frontend tab ids
+`Legacy/` (old `*_OLD` trees, excluded from the index by `build-prompt-index.js`,
+`api/index.ts` and `server.ts`). The frontend tab ids
 (`agent-guides`, `agents`, `skills`, `prompt-library`, `system-prompts`) map to these
 folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, run
 `npm run build:index` so `api/prompt-index.json` reflects it.
@@ -79,7 +81,7 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
 - Parameterized SQL only (`db/postgres.ts`). Never expose `DATABASE_URL` client-side.
 - Never commit `.env*` (gitignored), `DATABASE_URL`, GitHub tokens, or `GEMINI_API_KEY`.
 - Match the existing file's style. `App.tsx` is huge — when touching the UI, prefer
-  extracting into `src/components/` over growing the monolith (see docs/audits/).
+  extracting into `src/components/` or `src/hooks/` over growing it back (see docs/ROADMAP.md).
 
 ## Env vars
 

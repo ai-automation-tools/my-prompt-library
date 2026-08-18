@@ -37,7 +37,7 @@ import ResourcesNav from './components/ResourcesNav';
 import PromptCard, { extractEmoji, type Prompt } from './components/PromptCard';
 import PromptDetail from './components/PromptDetail';
 import Sidebar, { type Theme, type SkillPackSummary } from './components/Sidebar';
-import Fuse from 'fuse.js';
+import { usePromptFilters } from './hooks/usePromptFilters';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -104,14 +104,8 @@ export default function App() {
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
   const [theme, setTheme] = useState<Theme>('mikesailab');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [sortOption, setSortOption] = useState<'title-asc' | 'title-desc' | 'modified-desc' | 'modified-asc'>('title-asc');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const ITEMS_PER_PAGE = 50;
   const [copied, setCopied] = useState<string | null>(null);
   const [copiedShareLink, setCopiedShareLink] = useState(false);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
@@ -260,19 +254,6 @@ export default function App() {
     window.history.replaceState({}, '', url.toString());
   }, [activeTab, activeCategory, activeSubcategory, selectedPrompt]);
 
-  // Debounce search input
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(searchQuery);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
-
-  // Reset to page 1 when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [activeTab, debouncedSearch, selectedTags, sortOption, activeCategory, activeSubcategory]);
-
   useEffect(() => {
     if (authLoading) {
       return;
@@ -339,121 +320,33 @@ export default function App() {
 
   const activeSection = getSectionFolder(activeTab) || '4_Prompts';
 
-  const sectionPrompts = useMemo(() => {
-    return prompts.filter(p => p.section === activeSection);
-  }, [prompts, activeSection]);
-
-  const categories = useMemo(() => {
-    const map: Record<string, Set<string>> = {};
-    sectionPrompts.forEach(p => {
-      if (!map[p.category]) map[p.category] = new Set();
-      if (p.subcategory) map[p.category].add(p.subcategory);
-    });
-    return map;
-  }, [sectionPrompts]);
-
-  const allTags = useMemo(() => {
-    const tags = new Set<string>();
-    sectionPrompts.forEach(p => {
-      if (Array.isArray(p.tags)) {
-        p.tags.forEach(tag => tags.add(tag));
-      }
-    });
-    return Array.from(tags).sort();
-  }, [sectionPrompts]);
-
-  const filteredPrompts = useMemo(() => {
-    let currentPrompts = sectionPrompts.filter(prompt => {
-      if (prompt.isUserOwned || libraryMode === 'my') {
-        return true;
-      }
-      
-      if (activeTab === 'agent-guides' && !prompt.id.startsWith('1_Guides/')) return false;
-      if (activeTab === 'agents' && !prompt.id.startsWith('2_Agents/')) return false;
-      if (activeTab === 'prompt-library' && !prompt.id.startsWith('4_Prompts/')) return false;
-      if (activeTab === 'system-prompts' && !prompt.id.startsWith('5_System_Prompts/')) return false;
-      if (activeTab === 'skills' && !prompt.id.startsWith('3_Skills/')) return false;
-      return true;
-    });
-
-    if (activeCategory && !selectedPrompt) {
-      currentPrompts = currentPrompts.filter(p => p.category === activeCategory);
-      if (activeSubcategory) {
-        currentPrompts = currentPrompts.filter(p => p.subcategory === activeSubcategory);
-      }
-    }
-
-    if (selectedTags.length > 0) {
-      currentPrompts = currentPrompts.filter(prompt =>
-        selectedTags.every(tag => prompt.tags.includes(tag))
-      );
-    }
-
-    if (!debouncedSearch) {
-      return currentPrompts;
-    }
-
-    const query = debouncedSearch.trim().toLowerCase();
-
-    const titleStartsWith = currentPrompts.filter(p => p.title.toLowerCase().startsWith(query));
-    const titleContains = currentPrompts.filter(
-      p => !p.title.toLowerCase().startsWith(query) && p.title.toLowerCase().includes(query)
-    );
-    const metadataContains = currentPrompts.filter(p => {
-      if (p.title.toLowerCase().includes(query)) return false;
-      const inCategory = p.category?.toLowerCase().includes(query);
-      const inSubcategory = p.subcategory?.toLowerCase().includes(query);
-      const inTags = Array.isArray(p.tags) && p.tags.some(tag => tag.toLowerCase().includes(query));
-      return inCategory || inSubcategory || inTags;
-    });
-
-    const strictOrdered = [...titleStartsWith, ...titleContains, ...metadataContains];
-    if (strictOrdered.length > 0) {
-      return strictOrdered;
-    }
-
-    const fuse = new Fuse(currentPrompts, {
-      keys: [
-        { name: 'title', weight: 10 },
-        { name: 'tags', weight: 3 },
-        { name: 'category', weight: 2 },
-        { name: 'subcategory', weight: 2 },
-      ],
-      includeScore: true,
-      threshold: 0.22,
-      ignoreLocation: true,
-      minMatchCharLength: 3,
-    });
-
-    return fuse.search(debouncedSearch).map(result => result.item);
-  }, [sectionPrompts, debouncedSearch, activeTab, selectedTags, activeCategory, activeSubcategory, selectedPrompt, libraryMode]);
-
-  const sortedPrompts = useMemo(() => {
-    const promptsToSort = [...filteredPrompts];
-    
-    switch (sortOption) {
-      case 'title-asc':
-        return promptsToSort.sort((a, b) => a.title.localeCompare(b.title));
-      case 'title-desc':
-        return promptsToSort.sort((a, b) => b.title.localeCompare(a.title));
-      case 'modified-desc':
-        return promptsToSort.sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime());
-      case 'modified-asc':
-        return promptsToSort.sort((a, b) => new Date(a.lastModified).getTime() - new Date(b.lastModified).getTime());
-      default:
-        return promptsToSort;
-    }
-  }, [filteredPrompts, sortOption]);
-
-  const paginatedPrompts = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    return sortedPrompts.slice(startIndex, endIndex);
-  }, [sortedPrompts, currentPage, ITEMS_PER_PAGE]);
-
-  const totalPages = useMemo(() => {
-    return Math.ceil(sortedPrompts.length / ITEMS_PER_PAGE);
-  }, [sortedPrompts.length, ITEMS_PER_PAGE]);
+  const {
+    searchQuery,
+    setSearchQuery,
+    debouncedSearch,
+    selectedTags,
+    handleTagToggle,
+    clearTags,
+    sortOption,
+    setSortOption,
+    currentPage,
+    totalPages,
+    goToPreviousPage,
+    goToNextPage,
+    sectionPrompts,
+    categories,
+    allTags,
+    sortedPrompts,
+    paginatedPrompts,
+  } = usePromptFilters({
+    prompts,
+    activeSection,
+    activeTab,
+    activeCategory,
+    activeSubcategory,
+    selectedPrompt,
+    libraryMode,
+  });
 
   const subcategoryPrompts = useMemo(() => {
     if (!selectedSubcategory) return [];
@@ -713,16 +606,6 @@ source: My Prompt Library
         return prev.filter(id => id !== promptId);
       } else {
         return [...prev, promptId];
-      }
-    });
-  }, []);
-
-  const handleTagToggle = useCallback((tag: string) => {
-    setSelectedTags(prev => {
-      if (prev.includes(tag)) {
-        return prev.filter(t => t !== tag);
-      } else {
-        return [...prev, tag];
       }
     });
   }, []);
@@ -1164,7 +1047,7 @@ source: My Prompt Library
                                   <span className="text-xs font-semibold text-[var(--text-secondary)] uppercase">Select Tags</span>
                                   {selectedTags.length > 0 && (
                                     <button
-                                      onClick={() => setSelectedTags([])}
+                                      onClick={clearTags}
                                       className="text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
                                     >
                                       Clear All
@@ -1337,7 +1220,7 @@ source: My Prompt Library
                     {totalPages > 1 && (
                       <div className="flex items-center justify-center gap-6 mt-8">
                         <button
-                          onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                          onClick={goToPreviousPage}
                           disabled={currentPage === 1}
                           className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--accent)] border-2 border-[var(--accent)] text-white font-bold shadow-lg hover:shadow-[0_0_24px_var(--accent-glow)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:scale-105 transition-all duration-200"
                         >
@@ -1347,7 +1230,7 @@ source: My Prompt Library
                           Page {currentPage} of {totalPages} <span className="text-[var(--text-tertiary)]">({sortedPrompts.length} total)</span>
                         </span>
                         <button
-                          onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                          onClick={goToNextPage}
                           disabled={currentPage === totalPages}
                           className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--accent)] border-2 border-[var(--accent)] text-white font-bold shadow-lg hover:shadow-[0_0_24px_var(--accent-glow)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:scale-105 transition-all duration-200"
                         >

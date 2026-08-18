@@ -1,6 +1,5 @@
 ---
-title: "🤖 Prompt: Design a Comprehensive IAM/RBAC and ABAC System for a Multi-Tenant"
-  SaaS Platform'
+title: "🤖 Prompt: Design a Comprehensive IAM/RBAC and ABAC System for a Multi-Tenant SaaS Platform"
 tags:
 - collections
 - engineering

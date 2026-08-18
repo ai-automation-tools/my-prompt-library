@@ -77,6 +77,11 @@ const getLibraryPath = () => {
 
 const LIBRARY_PATH = getLibraryPath();
 
+// Library section folder holding skills (numbered layout)
+const SKILLS_SECTION = '3_Skills';
+// Pre-rename *_OLD trees — kept in the repo, never served
+const LEGACY_SECTION = 'Legacy';
+
 // GitHub configuration
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_OWNER = process.env.GITHUB_OWNER;
@@ -180,8 +185,12 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
           return false;
         }
         
+        if (item.path.startsWith(`library/${LEGACY_SECTION}/`)) {
+          return false;
+        }
+
         // For Skills section, only include SKILL.md files
-        if (item.path.startsWith('library/3_Skills/')) {
+        if (item.path.startsWith(`library/${SKILLS_SECTION}/`)) {
           return item.path.endsWith('/SKILL.md');
         }
         
@@ -207,7 +216,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
           const subcategory = pathParts.length > 2 ? pathParts[2] : null;
           
           // For Skills, use 'name' field instead of 'title'
-          const isSkill = section === 'Skills';
+          const isSkill = section === SKILLS_SECTION;
           const title = isSkill
             ? (data.name || extractFirstHeading(content) || path.basename(file.path, '.md'))
             : (data.title || extractFirstHeading(content) || path.basename(file.path, '.md'));
@@ -240,6 +249,9 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
           const stat = fs.statSync(filePath);
           
           if (stat.isDirectory()) {
+            if (dir === baseDir && file === LEGACY_SECTION) {
+              return;
+            }
             results = results.concat(walkDir(filePath, baseDir));
           } else if (file.endsWith('.md')) {
             if (file === 'README.md') {
@@ -249,7 +261,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
             const relativePath = path.relative(baseDir, filePath);
             
             // For Skills section, only include SKILL.md files
-            if (relativePath.startsWith('Skills' + path.sep)) {
+            if (relativePath.startsWith(SKILLS_SECTION + path.sep)) {
               if (!file.endsWith('SKILL.md')) {
                 return; // Skip non-SKILL.md files in Skills section
               }
@@ -262,7 +274,17 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
             }
             
             const rawContent = fs.readFileSync(filePath, 'utf-8');
-            const { data, content } = matter(rawContent);
+
+            // One file with malformed frontmatter must not empty the whole library
+            let data: Record<string, any>;
+            let content: string;
+            try {
+              ({ data, content } = matter(rawContent));
+            } catch (err) {
+              console.warn(`[WARN] Failed to parse frontmatter in ${relativePath}, skipping`);
+              return;
+            }
+
             const pathParts = relativePath.replace('.md', '').split(path.sep);
             
             const section = pathParts[0] || 'General';
@@ -270,13 +292,14 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
             const subcategory = pathParts.length > 2 ? pathParts[2] : null;
             
             // For Skills, use 'name' field instead of 'title'
-            const isSkill = section === 'Skills';
+            const isSkill = section === SKILLS_SECTION;
             const title = isSkill
               ? (data.name || extractFirstHeading(content) || path.basename(file, '.md'))
               : (data.title || extractFirstHeading(content) || path.basename(file, '.md'));
             
             results.push({
-              id: relativePath,
+              // Ids are URL/path keys — always forward-slashed, even on Windows
+              id: relativePath.split(path.sep).join('/'),
               title: title,
               section,
               category,
@@ -534,7 +557,7 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
     const subcategory = pathParts.length > 2 ? pathParts[2] : null;
     
     // For Skills, use 'name' field instead of 'title'
-    const isSkill = section === 'Skills';
+    const isSkill = section === SKILLS_SECTION;
     const title = isSkill
       ? (data.name || extractFirstHeading(content) || path.basename(promptId, ".md"))
       : (data.title || extractFirstHeading(content) || path.basename(promptId, ".md"));

@@ -231,6 +231,10 @@ async function startServer() {
         files.forEach((file) => {
           const fullPath = path.join(dirPath, file);
           if (fs.statSync(fullPath).isDirectory()) {
+            // Legacy/ holds the pre-rename *_OLD trees — never served
+            if (dirPath === promptsDir && file === 'Legacy') {
+              return;
+            }
             arrayOfFiles = getAllFiles(fullPath, arrayOfFiles);
           } else {
             if (file.endsWith(".md")) {
@@ -254,8 +258,17 @@ async function startServer() {
       const filePaths = getAllFiles(promptsDir);
       const prompts = filePaths.map((filePath) => {
         const fileContent = fs.readFileSync(filePath, "utf8");
-        const { data, content } = matter(fileContent);
         const relativePath = path.relative(promptsDir, filePath);
+
+        // One file with malformed frontmatter must not empty the whole library
+        let data: Record<string, any>;
+        let content: string;
+        try {
+          ({ data, content } = matter(fileContent));
+        } catch (err) {
+          console.warn(`[WARN] Failed to parse frontmatter in ${relativePath}, skipping`);
+          return null;
+        }
 
         const pathParts = relativePath.split(path.sep);
         const inferredSection = pathParts.length > 1 ? pathParts[0] : "My_Prompts";
@@ -266,7 +279,8 @@ async function startServer() {
         const title = data.title || extractFirstHeading(content) || path.basename(filePath, ".md");
 
         return {
-          id: relativePath,
+          // Ids are URL/path keys — always forward-slashed, even on Windows
+          id: relativePath.split(path.sep).join('/'),
           title,
           section: inferredSection,
           category: inferredCategory,
@@ -278,7 +292,7 @@ async function startServer() {
         };
       });
 
-      res.json(prompts);
+      res.json(prompts.filter(p => p !== null));
     } catch (error: any) {
       console.error("Error reading prompts:", error);
       console.error("Error stack:", error?.stack);
@@ -517,8 +531,18 @@ async function startServer() {
     });
   }
 
-  // Initialize database schema
-  await initializeSchema();
+  // Initialize database schema. A missing/unreachable DATABASE_URL must not stop the
+  // server — the read-only Public Library works without it; only auth and My Library break.
+  try {
+    await initializeSchema();
+  } catch (err) {
+    console.warn(
+      "[DB] Schema init failed — starting without a database. " +
+      "Public Library is read-only; auth and My Library will not work. " +
+      "Set DATABASE_URL in site/.env to enable them."
+    );
+    console.warn("[DB]", err instanceof Error ? err.message : err);
+  }
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on http://localhost:${PORT}`);
