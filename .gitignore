@@ -11,3 +11,7 @@ coverage/
 **/db/*.db
 **/db/*.db-shm
 **/db/*.db-wal
+
+# Local-only working trees (kept on disk, not tracked)
+backup/
+import/
