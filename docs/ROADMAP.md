@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-08-18 · **Live:** `prompts.mikesailab.com` (Vercel) · **Branches:** work `mike_desktop` → deploy `main`
+**Updated:** 2026-08-22 · **Live:** `prompts.mikesailab.com` (Vercel) · **Branches:** work `mike_desktop` → deploy `main`
 
 Single source of truth for *what's next*. Forward-looking only — shipped work lives in
 [CHANGELOG.md](CHANGELOG.md); the analysis that seeded the current items is in
@@ -16,7 +16,7 @@ Single source of truth for *what's next*. Forward-looking only — shipped work 
 | Public Library | Markdown files in `library/` (numbered: `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`; `Legacy/` excluded from the index) |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `api/prompt-index.json` — **1,722** prompts, 1.06 MB (rebuild with `npm run build:index`) |
-| `src/App.tsx` | **1,332 lines** (was 2,845), 27 `useState` hooks |
+| `src/App.tsx` | **1,050 lines** (was 2,845), 24 `useState` hooks |
 | Health | Production-ready and live. Items below are UX/content/maintainability, not outages. |
 
 > Counts are read from `api/prompt-index.json` (`promptCount`), not kept by hand here.
@@ -44,13 +44,17 @@ Single source of truth for *what's next*. Forward-looking only — shipped work 
 
 ## Next — finish the `App.tsx` de-bulk
 
-`App.tsx` is down to **1,332 lines** from 2,845. The audit's target was ~600–800, so roughly
-one more extraction pass. Behavior-preserving, one small PR at a time, each Vercel-previewed.
+`App.tsx` is down to **1,050 lines** from 2,845. The audit's target was ~600–800, so the
+routing extraction below should about get there. Behavior-preserving, one small PR at a
+time, each Vercel-previewed.
 
-- [ ] **Extract the prompt grid + pagination** into `components/PromptGrid.tsx` — it consumes
-      `paginatedPrompts` / `totalPages` straight from `usePromptFilters`. Take the list
-      toolbar with it: the sort `<select>`, the stat badges, and the favorites/recent/tags
-      filter dropdowns are all part of that block.
+- [x] **Extract the prompt grid + pagination** into `components/PromptGrid.tsx`.
+      *Done 2026-08-22 — 1,332 → 1,050 lines.* Shipped as two components, not one:
+      `PromptListToolbar.tsx` (counts, stat badges, the favorites/recent/tags dropdowns and
+      the sort `<select>`) and `PromptGrid.tsx` (loading skeletons, empty states, the
+      paginated grid and its controls), because the featured section renders between them.
+      `PromptGrid.tsx` also exports `PromptCardGrid` + the `PromptCardActions` prop bundle,
+      which the featured and subcategory grids now share.
 - [ ] **Lift the remaining URL/routing state** (`activeTab`, `activeCategory`, `activeSubcategory`,
       `promptPathParam` and their `history.pushState` effects) into a `useLibraryRoute` hook.
       This is the largest single block of `useState` + `useEffect` still in the monolith.
@@ -111,6 +115,11 @@ one more extraction pass. Behavior-preserving, one small PR at a time, each Verc
 
 See [CHANGELOG.md](CHANGELOG.md). Most recently:
 
+- **2026-08-22 — prompt list toolbar + grid extracted.** `App.tsx` **1,332 → 1,050 lines**
+  via `components/PromptListToolbar.tsx` and `components/PromptGrid.tsx`, plus a shared
+  `PromptCardGrid` / `PromptCardActions` pair that de-duplicates the three card grids.
+  `App.tsx` also lost three `useState` hooks and the filter-dropdown outside-click effect,
+  which moved into the toolbar.
 - **2026-08-18 — top bar extracted.** `App.tsx` **1,393 → 1,332 lines** via
   `components/TopBar.tsx` (mobile menu trigger, `ResourcesNav`, auth buttons) and
   `components/LibraryHero.tsx` (section heading + search field). The other controls that item
