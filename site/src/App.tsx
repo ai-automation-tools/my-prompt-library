@@ -9,36 +9,27 @@ import {
   LayoutGrid,
   Sparkles,
   ArrowLeft,
-  Tag,
   Plus,
-  Star,
   Home,
   ChevronRight as BreadcrumbArrow,
-  ChevronDown,
-  ChevronRight,
   Share2,
   Check
 } from 'lucide-react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 import { motion, AnimatePresence } from 'motion/react';
 import PromptEditorModal from './components/PromptEditorModal';
 import LoginModal from './components/LoginModal';
 import SignupModal from './components/SignupModal';
-import EmptyState from './components/EmptyState';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { useAuth } from './contexts/AuthContext';
 import SkillPacksView from './components/SkillPacksView';
-import PromptCard, { type Prompt } from './components/PromptCard';
+import { type Prompt } from './components/PromptCard';
 import PromptDetail from './components/PromptDetail';
 import Sidebar, { type Theme, type SkillPackSummary } from './components/Sidebar';
 import TopBar from './components/TopBar';
 import LibraryHero from './components/LibraryHero';
+import PromptGrid, { PromptCardGrid, type PromptCardActions } from './components/PromptGrid';
+import PromptListToolbar from './components/PromptListToolbar';
 import { usePromptFilters } from './hooks/usePromptFilters';
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
 
 const PUBLIC_SHARE_ORIGIN = 'https://prompts.mikesailab.com';
 
@@ -151,11 +142,6 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
   
-  // Sidebar section expansion (default closed)
-  const [favoritesExpanded, setFavoritesExpanded] = useState(false);
-  const [recentlyViewedExpanded, setRecentlyViewedExpanded] = useState(false);
-  const [tagsExpanded, setTagsExpanded] = useState(false);
-
   // Toast notifications
   const [toasts, setToasts] = useState<ToastProps[]>([]);
   
@@ -300,20 +286,6 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
-
-  // Close filter dropdowns on outside click
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest('.filter-dropdown')) {
-        setFavoritesExpanded(false);
-        setRecentlyViewedExpanded(false);
-        setTagsExpanded(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
 
   const activeSection = getSectionFolder(activeTab) || '4_Prompts';
 
@@ -728,6 +700,33 @@ source: My Prompt Library
     setIsEditorOpen(true);
   }, [user, showToast, libraryMode, activeTab]);
 
+  /** Card-level props shared by the featured, all-prompts and subcategory grids. */
+  const promptCardActions: PromptCardActions = useMemo(() => ({
+    libraryMode,
+    copyingToMyPromptsId,
+    favorites,
+    copied,
+    onPromptClick: handlePromptClick,
+    onCopyToMyPrompts: handleCopyToMyPrompts,
+    onToggleFavorite: toggleFavorite,
+    onEditPrompt: handleEditPrompt,
+    onDeletePrompt: handleDeletePrompt,
+    onDownloadMarkdown: handleDownloadMarkdown,
+    onCopy: handleCopy,
+  }), [
+    libraryMode,
+    copyingToMyPromptsId,
+    favorites,
+    copied,
+    handlePromptClick,
+    handleCopyToMyPrompts,
+    toggleFavorite,
+    handleEditPrompt,
+    handleDeletePrompt,
+    handleDownloadMarkdown,
+    handleCopy,
+  ]);
+
   return (
     <div className="flex h-screen overflow-hidden font-[var(--font-sans)]">
       {/* Mobile sidebar overlay */}
@@ -842,194 +841,21 @@ source: My Prompt Library
                 transition={{ duration: 0.3 }}
                 className="w-full"
               >
-                <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <div>
-                      <h2 className="heading-display text-xl font-bold tracking-tight text-[var(--text-primary)]">
-                        {getSectionDisplayName(activeTab)}
-                      </h2>
-                      <p className="label mt-2">{sortedPrompts.length} prompts</p>
-                    </div>
-                    
-                    {/* Stat badges */}
-                    <div className="flex items-center gap-2">
-                      <div className="glass rounded-[var(--radius-sm)] px-3 py-1.5 text-center">
-                        <span className="text-sm font-bold text-[var(--accent)]">{sectionPrompts.length}</span>
-                        <span className="text-xs text-[var(--text-tertiary)] ml-1">Total</span>
-                      </div>
-                      <div className="glass rounded-[var(--radius-sm)] px-3 py-1.5 text-center">
-                        <span className="text-sm font-bold text-[var(--text-primary)]">{Object.keys(categories).length}</span>
-                        <span className="text-xs text-[var(--text-tertiary)] ml-1">Categories</span>
-                      </div>
-                    </div>
-
-                    {/* Filter Buttons */}
-                    {(favoritePrompts.length > 0 || recentlyViewedPrompts.length > 0 || allTags.length > 0) && (
-                      <div className="flex flex-wrap gap-2">
-                        {/* Favorites */}
-                        {favoritePrompts.length > 0 && (
-                          <div className="relative filter-dropdown">
-                            <button
-                              onClick={() => {
-                                setFavoritesExpanded(!favoritesExpanded);
-                                setRecentlyViewedExpanded(false);
-                                setTagsExpanded(false);
-                              }}
-                              className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
-                            >
-                              <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
-                              <span className="font-semibold text-[var(--text-secondary)]">Favorites</span>
-                              <span className="font-bold text-[var(--accent)]">({favoritePrompts.length})</span>
-                              {favoritesExpanded ? (
-                                <ChevronDown className="w-3 h-3 text-[var(--text-tertiary)]" />
-                              ) : (
-                                <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)]" />
-                              )}
-                            </button>
-                            {favoritesExpanded && (
-                              <div className="absolute top-full left-0 mt-2 z-50 w-72 dropdown-solid rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]">
-                                <div className="space-y-1 max-h-80 overflow-y-auto custom-scrollbar">
-                                  {favoritePrompts.map(prompt => (
-                                    <button
-                                      key={prompt.id}
-                                      onClick={() => {
-                                        handlePromptClick(prompt);
-                                        setFavoritesExpanded(false);
-                                      }}
-                                      className="w-full text-left px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                                    >
-                                      <p className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
-                                        {prompt.title}
-                                      </p>
-                                      <p className="text-xs text-[var(--text-tertiary)] truncate mt-0.5">
-                                        {prompt.category?.replace(/_/g, ' ')}
-                                      </p>
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        {/* Recently Viewed */}
-                        {recentlyViewedPrompts.length > 0 && (
-                          <div className="relative filter-dropdown">
-                            <button
-                              onClick={() => {
-                                setRecentlyViewedExpanded(!recentlyViewedExpanded);
-                                setFavoritesExpanded(false);
-                                setTagsExpanded(false);
-                              }}
-                              className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
-                            >
-                              <FileText className="w-3 h-3 text-[var(--text-tertiary)]" />
-                              <span className="font-semibold text-[var(--text-secondary)]">Recent</span>
-                              <span className="font-bold text-[var(--accent)]">({recentlyViewedPrompts.length})</span>
-                              {recentlyViewedExpanded ? (
-                                <ChevronDown className="w-3 h-3 text-[var(--text-tertiary)]" />
-                              ) : (
-                                <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)]" />
-                              )}
-                            </button>
-                            {recentlyViewedExpanded && (
-                              <div className="absolute top-full left-0 mt-2 z-50 w-72 dropdown-solid rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]">
-                                <div className="space-y-1 max-h-80 overflow-y-auto custom-scrollbar">
-                                  {recentlyViewedPrompts.map(prompt => (
-                                    <button
-                                      key={prompt.id}
-                                      onClick={() => {
-                                        handlePromptClick(prompt);
-                                        setRecentlyViewedExpanded(false);
-                                      }}
-                                      className="w-full text-left px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-                                    >
-                                      <p className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
-                                        {prompt.title}
-                                      </p>
-                                      <p className="text-xs text-[var(--text-tertiary)] truncate mt-0.5">
-                                        {prompt.category?.replace(/_/g, ' ')}
-                                      </p>
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        {/* Tag Filter */}
-                        {allTags.length > 0 && (
-                          <div className="relative filter-dropdown">
-                            <button
-                              onClick={() => {
-                                setTagsExpanded(!tagsExpanded);
-                                setFavoritesExpanded(false);
-                                setRecentlyViewedExpanded(false);
-                              }}
-                              className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
-                            >
-                              <Tag className="w-3 h-3 text-[var(--text-tertiary)]" />
-                              <span className="font-semibold text-[var(--text-secondary)]">Tags</span>
-                              {selectedTags.length > 0 && (
-                                <span className="font-bold text-[var(--accent)]">({selectedTags.length})</span>
-                              )}
-                              {tagsExpanded ? (
-                                <ChevronDown className="w-3 h-3 text-[var(--text-tertiary)]" />
-                              ) : (
-                                <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)]" />
-                              )}
-                            </button>
-                            {tagsExpanded && (
-                              <div className="absolute top-full left-0 mt-2 z-50 w-96 dropdown-solid rounded-[var(--radius-md)] p-4 shadow-xl border border-[var(--glass-border)]">
-                                <div className="flex items-center justify-between mb-3">
-                                  <span className="text-xs font-semibold text-[var(--text-secondary)] uppercase">Select Tags</span>
-                                  {selectedTags.length > 0 && (
-                                    <button
-                                      onClick={clearTags}
-                                      className="text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
-                                    >
-                                      Clear All
-                                    </button>
-                                  )}
-                                </div>
-                                <div className="flex flex-wrap gap-2 max-h-80 overflow-y-auto custom-scrollbar">
-                                  {allTags.map(tag => (
-                                    <button
-                                      key={tag}
-                                      onClick={() => handleTagToggle(tag)}
-                                      className={cn(
-                                        "px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-colors",
-                                        selectedTags.includes(tag)
-                                          ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                                          : "bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-tertiary)] hover:bg-[var(--glass-bg-hover)] hover:text-[var(--text-primary)]"
-                                      )}
-                                    >
-                                      {tag}
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <div className="relative">
-                    <select
-                      value={sortOption}
-                      onChange={(e) => setSortOption(e.target.value as typeof sortOption)}
-                      className="py-2 pl-3 pr-8 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.75rem] font-medium tracking-wider uppercase text-[var(--text-secondary)] cursor-pointer appearance-none transition-all duration-300 hover:border-[var(--accent)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)]"
-                    >
-                      <option value="title-asc">Title (A-Z)</option>
-                      <option value="title-desc">Title (Z-A)</option>
-                      <option value="modified-desc">Newest</option>
-                      <option value="modified-asc">Oldest</option>
-                    </select>
-                    <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)] pointer-events-none" />
-                  </div>
-                </div>
+                <PromptListToolbar
+                  title={getSectionDisplayName(activeTab)}
+                  totalCount={sortedPrompts.length}
+                  sectionCount={sectionPrompts.length}
+                  categoryCount={Object.keys(categories).length}
+                  favoritePrompts={favoritePrompts}
+                  recentlyViewedPrompts={recentlyViewedPrompts}
+                  onPromptSelect={handlePromptClick}
+                  allTags={allTags}
+                  selectedTags={selectedTags}
+                  onTagToggle={handleTagToggle}
+                  onClearTags={clearTags}
+                  sortOption={sortOption}
+                  onSortChange={setSortOption}
+                />
 
                 {/* Featured Section */}
                 {activeTab !== 'skill-packs' && libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
@@ -1045,26 +871,11 @@ source: My Prompt Library
                         Featured Prompts
                       </h3>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                      {featuredPrompts.map((prompt, i) => (
-                        <PromptCard
-                          key={prompt.id}
-                          prompt={prompt}
-                          index={i}
-                          libraryMode={libraryMode}
-                          copyingToMyPromptsId={copyingToMyPromptsId}
-                          favorites={favorites}
-                          copied={copied}
-                          onPromptClick={handlePromptClick}
-                          onCopyToMyPrompts={handleCopyToMyPrompts}
-                          onToggleFavorite={toggleFavorite}
-                          onEditPrompt={handleEditPrompt}
-                          onDeletePrompt={handleDeletePrompt}
-                          onDownloadMarkdown={handleDownloadMarkdown}
-                          onCopy={handleCopy}
-                        />
-                      ))}
-                    </div>
+                    <PromptCardGrid
+                      prompts={featuredPrompts}
+                      actions={promptCardActions}
+                      columns="featured"
+                    />
                   </motion.div>
                 )}
 
@@ -1088,96 +899,22 @@ source: My Prompt Library
                   </div>
                 )}
 
-                {activeTab !== 'skill-packs' && isLoading ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {[...Array(6)].map((_, i) => (
-                      <div key={i} className="glass-card rounded-[var(--radius-lg)] p-6 animate-pulse">
-                        <div className="h-4 bg-[var(--glass-bg)] rounded w-3/4 mb-4"></div>
-                        <div className="h-3 bg-[var(--glass-bg)] rounded w-1/2 mb-6"></div>
-                        <div className="space-y-2">
-                          <div className="h-2 bg-[var(--glass-bg)] rounded"></div>
-                          <div className="h-2 bg-[var(--glass-bg)] rounded w-5/6"></div>
-                          <div className="h-2 bg-[var(--glass-bg)] rounded w-4/6"></div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : activeTab !== 'skill-packs' && sortedPrompts.length === 0 ? (
-                  libraryMode === 'my' && !user ? (
-                    <EmptyState
-                      type="not-authenticated"
-                      onLogin={() => setIsLoginOpen(true)}
-                      onSignup={() => setIsSignupOpen(true)}
-                      onBrowsePublic={() => setLibraryMode('public')}
-                    />
-                  ) : libraryMode === 'my' && user ? (
-                    <EmptyState
-                      type="no-prompts"
-                      onBrowsePublic={() => setLibraryMode('public')}
-                    />
-                  ) : searchQuery ? (
-                    <div className="flex flex-col items-center justify-center py-20 text-center">
-                      <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
-                      <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
-                      <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
-                        No prompts match "{searchQuery}". Try a different search term.
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center py-20 text-center">
-                      <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
-                      <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
-                      <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
-                        Get started by creating your first prompt!
-                      </p>
-                    </div>
-                  )
-                ) : activeTab !== 'skill-packs' && (
-                  <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                      {paginatedPrompts.map((prompt, i) => (
-                        <PromptCard
-                          key={prompt.id}
-                          prompt={prompt}
-                          index={i}
-                          libraryMode={libraryMode}
-                          copyingToMyPromptsId={copyingToMyPromptsId}
-                          favorites={favorites}
-                          copied={copied}
-                          onPromptClick={handlePromptClick}
-                          onCopyToMyPrompts={handleCopyToMyPrompts}
-                          onToggleFavorite={toggleFavorite}
-                          onEditPrompt={handleEditPrompt}
-                          onDeletePrompt={handleDeletePrompt}
-                          onDownloadMarkdown={handleDownloadMarkdown}
-                          onCopy={handleCopy}
-                        />
-                      ))}
-                    </div>
-                    
-                    {/* Pagination Controls */}
-                    {totalPages > 1 && (
-                      <div className="flex items-center justify-center gap-6 mt-8">
-                        <button
-                          onClick={goToPreviousPage}
-                          disabled={currentPage === 1}
-                          className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--accent)] border-2 border-[var(--accent)] text-white font-bold shadow-lg hover:shadow-[0_0_24px_var(--accent-glow)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:scale-105 transition-all duration-200"
-                        >
-                          ← Previous
-                        </button>
-                        <span className="text-sm font-medium text-[var(--text-secondary)] px-4">
-                          Page {currentPage} of {totalPages} <span className="text-[var(--text-tertiary)]">({sortedPrompts.length} total)</span>
-                        </span>
-                        <button
-                          onClick={goToNextPage}
-                          disabled={currentPage === totalPages}
-                          className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--accent)] border-2 border-[var(--accent)] text-white font-bold shadow-lg hover:shadow-[0_0_24px_var(--accent-glow)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:scale-105 transition-all duration-200"
-                        >
-                          Next →
-                        </button>
-                      </div>
-                    )}
-                  </>
+                {activeTab !== 'skill-packs' && (
+                  <PromptGrid
+                    isLoading={isLoading}
+                    prompts={paginatedPrompts}
+                    totalCount={sortedPrompts.length}
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPreviousPage={goToPreviousPage}
+                    onNextPage={goToNextPage}
+                    searchQuery={searchQuery}
+                    isAuthenticated={Boolean(user)}
+                    onLogin={() => setIsLoginOpen(true)}
+                    onSignup={() => setIsSignupOpen(true)}
+                    onBrowsePublic={() => setLibraryMode('public')}
+                    actions={promptCardActions}
+                  />
                 )}
               </motion.div>
 
@@ -1221,26 +958,7 @@ source: My Prompt Library
                   </motion.button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {subcategoryPrompts.map((prompt, i) => (
-                    <PromptCard
-                      key={prompt.id}
-                      prompt={prompt}
-                      index={i}
-                      libraryMode={libraryMode}
-                      copyingToMyPromptsId={copyingToMyPromptsId}
-                      favorites={favorites}
-                      copied={copied}
-                      onPromptClick={handlePromptClick}
-                      onCopyToMyPrompts={handleCopyToMyPrompts}
-                      onToggleFavorite={toggleFavorite}
-                      onEditPrompt={handleEditPrompt}
-                      onDeletePrompt={handleDeletePrompt}
-                      onDownloadMarkdown={handleDownloadMarkdown}
-                      onCopy={handleCopy}
-                    />
-                  ))}
-                </div>
+                <PromptCardGrid prompts={subcategoryPrompts} actions={promptCardActions} />
               </motion.div>
 
             ) : selectedPrompt ? (

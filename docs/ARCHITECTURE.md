@@ -183,7 +183,10 @@ App.tsx                       app shell, data fetching, routing state
 ├── TopBar                    mobile menu trigger, ResourcesNav, auth buttons
 │   └── ResourcesNav          data-driven external-link menus
 ├── LibraryHero               section heading + search field
-├── PromptCard                (grid) title, tags, preview, row actions
+├── PromptListToolbar         counts, stat badges, favorites/recent/tag filters, sort select
+├── PromptGrid                loading skeletons, empty states, paginated grid + pagination
+│   └── PromptCardGrid        responsive card grid (also used by featured + subcategory views)
+│       └── PromptCard        title, tags, preview, row actions
 ├── PromptDetail              single-prompt view
 ├── SkillPacksView            skill-pack catalog (own tab)
 ├── EmptyState                not-authenticated / no-prompts states
@@ -192,6 +195,10 @@ App.tsx                       app shell, data fetching, routing state
     ├── Metadata
     └── ActionButtons
 ```
+
+`PromptCardActions` (exported from `PromptGrid.tsx`) bundles the eleven card-level
+props — `libraryMode`, the transient `copied` / `copyingToMyPromptsId` / `favorites`
+state, and the seven row-action callbacks — so all three grids pass one object.
 
 ---
 

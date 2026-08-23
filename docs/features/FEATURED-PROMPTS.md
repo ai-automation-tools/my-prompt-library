@@ -187,20 +187,30 @@ All featured prompts should have an emoji in the title for better visual identif
 
 ## Featured Prompts Display Logic
 
-**Code Location:** `src/App.tsx`
+**Code Location:** the `featuredPrompts` memo in `src/App.tsx`; the grid itself is
+`PromptCardGrid` from `src/components/PromptGrid.tsx`, rendered with `columns="featured"`.
 
 **Display on Landing Page:**
 - Shows 4 featured prompts per section when no search/filter is active
 - Grid layout: responsive (1 col mobile → 4 cols desktop)
 - Special styling: Star badge, accent border, hover glow
 
-**Filtering:**
+**Filtering:** favorited prompts count as featured, and a section with neither falls back
+to its four most recently modified prompts, so the row is never empty:
 ```typescript
 const featuredPrompts = useMemo(() => {
-  return sortedPrompts
-    .filter(p => p.tags?.includes('featured'))
+  const featured = sectionPrompts
+    .filter(p => p.tags.includes('featured') || favorites.includes(p.id))
     .slice(0, 4);
-}, [sortedPrompts]);
+
+  if (featured.length === 0) {
+    return sectionPrompts
+      .sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())
+      .slice(0, 4);
+  }
+
+  return featured;
+}, [sectionPrompts, favorites]);
 ```
 
 **Pagination:**

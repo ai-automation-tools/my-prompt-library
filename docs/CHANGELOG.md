@@ -4,6 +4,43 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-22 — Prompt list toolbar and grid extracted out of `App.tsx`
+
+The last big block on the [roadmap](ROADMAP.md)'s `App.tsx` de-bulk list. Behavior-preserving:
+the markup moved verbatim, nothing was restyled or repositioned.
+
+**New components** — `App.tsx` **1,332 → 1,050 lines**
+- `src/components/PromptListToolbar.tsx` — the header row above the prompt list: section
+  title and count, the Total/Categories stat badges, the favorites / recent / tag filter
+  dropdowns, and the sort `<select>`. It now owns *which* dropdown is open (one
+  `openDropdown` value replacing three booleans in `App.tsx`) plus the outside-click
+  handler that closes it; every filter value it edits still lives in `usePromptFilters`.
+- `src/components/PromptGrid.tsx` — the main list: loading skeletons, the four empty
+  states, the paginated card grid and its Previous/Next controls. Also exports
+  `PromptCardGrid` (the responsive grid markup) and the `PromptCardActions` type.
+- `PromptCardActions` bundles the eleven card-level props the three grids were each
+  drilling into `PromptCard` by hand — featured, all-prompts and subcategory now pass one
+  memoized object. Featured keeps its `lg:grid-cols-4` layout via `columns="featured"`.
+- `App.tsx` shed three `useState` hooks, one `useEffect`, the local `cn()` helper (and its
+  `clsx` / `tailwind-merge` imports), the now-unused `PromptCard` and `EmptyState`
+  imports, and four `lucide-react` icons (`Tag`, `Star`, `ChevronDown`, `ChevronRight`).
+
+**Scope note.** The roadmap item named one file, `PromptGrid.tsx`. It became two because
+the featured section renders *between* the toolbar and the grid — folding the toolbar into
+`PromptGrid` would have meant passing the featured block through as a slot, which is more
+indirection than the split it was meant to avoid.
+
+**Docs caught up while here** — `docs/features/FEATURED-PROMPTS.md` still showed a
+`featuredPrompts` snippet that filtered `sortedPrompts` on the `featured` tag alone. The
+real memo reads `sectionPrompts`, counts favorites as featured, and falls back to the four
+most recently modified prompts so the row is never empty.
+
+_Touched: `src/App.tsx`, `src/components/PromptGrid.tsx`,
+`src/components/PromptListToolbar.tsx`, `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`,
+`docs/features/FEATURED-PROMPTS.md`, `CLAUDE.md`._
+
+---
+
 ## 2026-08-18 — Top bar extracted out of `App.tsx`
 
 Next item on the [roadmap](ROADMAP.md)'s `App.tsx` de-bulk list. Behavior-preserving: the
