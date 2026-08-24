@@ -1,0 +1,169 @@
+/* ===== Extended Theme Definitions ===== */
+
+/* OBSIDIAN CYAN — Deep arctic ocean: rich navy bg, electric cyan, frosted blue glass */
+[data-theme='obsidian-cyan'] {
+  --bg-primary: #05162a;
+  --bg-secondary: rgba(8, 30, 60, 0.85);
+  --bg-tertiary: rgba(12, 44, 82, 0.6);
+  --text-primary: #c8e8ff;
+  --text-secondary: #5cb8e0;
+  --text-tertiary: #2a7a9e;
+  --accent: #00e5ff;
+  --accent-secondary: #00b8d4;
+  --accent-glow: rgba(0, 229, 255, 0.5);
+  --accent-glow-subtle: rgba(0, 229, 255, 0.18);
+  --border: rgba(0, 229, 255, 0.22);
+  --border-hover: rgba(0, 229, 255, 0.4);
+  --glass-bg: rgba(0, 140, 200, 0.12);
+  --glass-bg-hover: rgba(0, 140, 200, 0.2);
+  --glass-border: rgba(0, 229, 255, 0.16);
+  --glass-border-hover: rgba(0, 229, 255, 0.32);
+  --sidebar-bg: #081e3c;
+}
+
+/* CARBON EMBER — Smoldering forge: visible brown-charcoal bg, hot orange, warm amber glass */
+[data-theme='carbon-ember'] {
+  --bg-primary: #1c1208;
+  --bg-secondary: rgba(40, 28, 14, 0.85);
+  --bg-tertiary: rgba(60, 40, 18, 0.6);
+  --text-primary: #ffe4c8;
+  --text-secondary: #d4944a;
+  --text-tertiary: #8a6030;
+  --accent: #ff6b2c;
+  --accent-secondary: #ff4800;
+  --accent-glow: rgba(255, 107, 44, 0.5);
+  --accent-glow-subtle: rgba(255, 107, 44, 0.18);
+  --border: rgba(255, 107, 44, 0.22);
+  --border-hover: rgba(255, 107, 44, 0.38);
+  --glass-bg: rgba(200, 80, 20, 0.12);
+  --glass-bg-hover: rgba(200, 80, 20, 0.2);
+  --glass-border: rgba(255, 107, 44, 0.16);
+  --glass-border-hover: rgba(255, 107, 44, 0.3);
+  --sidebar-bg: #281c0e;
+}
+
+/* MIDNIGHT VIOLET — Royal purple haze: deep saturated purple bg, luminous lavender, violet-tinted glass */
+[data-theme='midnight-violet'] {
+  --bg-primary: #140a30;
+  --bg-secondary: rgba(28, 18, 66, 0.85);
+  --bg-tertiary: rgba(44, 28, 90, 0.55);
+  --text-primary: #e0d4ff;
+  --text-secondary: #b088ee;
+  --text-tertiary: #7050a8;
+  --accent: #c084fc;
+  --accent-secondary: #a855f7;
+  --accent-glow: rgba(192, 132, 252, 0.5);
+  --accent-glow-subtle: rgba(192, 132, 252, 0.18);
+  --border: rgba(192, 132, 252, 0.22);
+  --border-hover: rgba(192, 132, 252, 0.38);
+  --glass-bg: rgba(120, 60, 220, 0.12);
+  --glass-bg-hover: rgba(120, 60, 220, 0.2);
+  --glass-border: rgba(192, 132, 252, 0.16);
+  --glass-border-hover: rgba(192, 132, 252, 0.3);
+  --sidebar-bg: #1c1242;
+}
+
+/* SOLAR FLARE — Volcanic crimson: deep red-black bg, blazing hot pink-red, red-tinted glass */
+[data-theme='solar-flare'] {
+  --bg-primary: #220810;
+  --bg-secondary: rgba(48, 12, 22, 0.85);
+  --bg-tertiary: rgba(70, 18, 30, 0.55);
+  --text-primary: #ffd4dc;
+  --text-secondary: #e86880;
+  --text-tertiary: #a03850;
+  --accent: #ff2d55;
+  --accent-secondary: #ff0040;
+  --accent-glow: rgba(255, 45, 85, 0.55);
+  --accent-glow-subtle: rgba(255, 45, 85, 0.2);
+  --border: rgba(255, 45, 85, 0.24);
+  --border-hover: rgba(255, 45, 85, 0.42);
+  --glass-bg: rgba(220, 30, 60, 0.12);
+  --glass-bg-hover: rgba(220, 30, 60, 0.2);
+  --glass-border: rgba(255, 45, 85, 0.18);
+  --glass-border-hover: rgba(255, 45, 85, 0.34);
+  --sidebar-bg: #300c16;
+}
+
+/* SAHARA GOLD — Desert sunset: warm sandy-brown bg (lightest dark theme), rich gold, amber-tinted glass */
+[data-theme='sahara-gold'] {
+  --bg-primary: #221a0a;
+  --bg-secondary: rgba(50, 38, 16, 0.85);
+  --bg-tertiary: rgba(72, 54, 22, 0.55);
+  --text-primary: #fff0c8;
+  --text-secondary: #d4a84a;
+  --text-tertiary: #9a7830;
+  --accent: #ffb800;
+  --accent-secondary: #e6a400;
+  --accent-glow: rgba(255, 184, 0, 0.5);
+  --accent-glow-subtle: rgba(255, 184, 0, 0.18);
+  --border: rgba(255, 184, 0, 0.22);
+  --border-hover: rgba(255, 184, 0, 0.38);
+  --glass-bg: rgba(200, 140, 0, 0.12);
+  --glass-bg-hover: rgba(200, 140, 0, 0.2);
+  --glass-border: rgba(255, 184, 0, 0.16);
+  --glass-border-hover: rgba(255, 184, 0, 0.3);
+  --sidebar-bg: #322610;
+}
+
+/* FROSTED STEEL — Cool neutral: blue-grey bg, muted silver accent, steely glass */
+[data-theme='frosted-steel'] {
+  --bg-primary: #0e1218;
+  --bg-secondary: rgba(20, 26, 36, 0.82);
+  --bg-tertiary: rgba(30, 38, 50, 0.55);
+  --text-primary: #dce4f0;
+  --text-secondary: #7c8ca8;
+  --text-tertiary: #4e5a72;
+  --accent: #94a3b8;
+  --accent-secondary: #64748b;
+  --accent-glow: rgba(148, 163, 184, 0.35);
+  --accent-glow-subtle: rgba(148, 163, 184, 0.1);
+  --border: rgba(148, 163, 184, 0.14);
+  --border-hover: rgba(148, 163, 184, 0.24);
+  --glass-bg: rgba(120, 140, 170, 0.06);
+  --glass-bg-hover: rgba(120, 140, 170, 0.12);
+  --glass-border: rgba(148, 163, 184, 0.1);
+  --glass-border-hover: rgba(148, 163, 184, 0.2);
+  --sidebar-bg: #141a24;
+}
+
+/* TERMINAL HACKER — CRT green-on-black: true black bg, neon green, green phosphor glass */
+[data-theme='terminal-hacker'] {
+  --bg-primary: #020804;
+  --bg-secondary: rgba(6, 16, 8, 0.85);
+  --bg-tertiary: rgba(10, 28, 14, 0.6);
+  --text-primary: #c8ffd8;
+  --text-secondary: #50d878;
+  --text-tertiary: #2a8a48;
+  --accent: #39ff14;
+  --accent-secondary: #22c55e;
+  --accent-glow: rgba(57, 255, 20, 0.5);
+  --accent-glow-subtle: rgba(57, 255, 20, 0.15);
+  --border: rgba(57, 255, 20, 0.18);
+  --border-hover: rgba(57, 255, 20, 0.32);
+  --glass-bg: rgba(40, 200, 20, 0.08);
+  --glass-bg-hover: rgba(40, 200, 20, 0.15);
+  --glass-border: rgba(57, 255, 20, 0.14);
+  --glass-border-hover: rgba(57, 255, 20, 0.26);
+  --sidebar-bg: #061008;
+}
+
+/* GITHUB DARK PRO — Familiar dev: slate-charcoal bg, GitHub blue accent, neutral glass */
+[data-theme='github-dark-pro'] {
+  --bg-primary: #0d1117;
+  --bg-secondary: rgba(22, 28, 38, 0.82);
+  --bg-tertiary: rgba(32, 40, 52, 0.55);
+  --text-primary: #c9d1d9;
+  --text-secondary: #8b949e;
+  --text-tertiary: #5a6370;
+  --accent: #2f81f7;
+  --accent-secondary: #1f6feb;
+  --accent-glow: rgba(47, 129, 247, 0.35);
+  --accent-glow-subtle: rgba(47, 129, 247, 0.12);
+  --border: rgba(47, 129, 247, 0.14);
+  --border-hover: rgba(47, 129, 247, 0.26);
+  --glass-bg: rgba(40, 100, 220, 0.06);
+  --glass-bg-hover: rgba(40, 100, 220, 0.12);
+  --glass-border: rgba(47, 129, 247, 0.1);
+  --glass-border-hover: rgba(47, 129, 247, 0.2);
+  --sidebar-bg: #161c26;
+}

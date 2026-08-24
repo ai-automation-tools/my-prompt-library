@@ -178,31 +178,27 @@ my-prompt-library/
 ### Frontend Components
 
 ```
-App.tsx
-├── Header
-│   ├── Logo
-│   ├── SearchBar (Fuse.js)
-│   └── ViewToggle (Grid/List)
-├── Sidebar
-│   ├── SectionFilter
-│   ├── CategoryFilter
-│   └── TagFilter
-├── PromptList
-│   ├── PromptCard
-│   │   ├── Title
-│   │   ├── Tags
-│   │   ├── Preview
-│   │   └── Actions
-│   │       ├── View
-│   │       ├── Edit
-│   │       ├── Delete
-│   │       └── Copy
-│   └── EmptyState
+App.tsx                       app shell, data fetching, routing state
+├── Sidebar                   library-mode switcher, section select, categories, theme picker
+├── TopBar                    mobile menu trigger, ResourcesNav, auth buttons
+│   └── ResourcesNav          data-driven external-link menus
+├── LibraryHero               section heading + search field
+├── PromptListToolbar         counts, stat badges, favorites/recent/tag filters, sort select
+├── PromptGrid                loading skeletons, empty states, paginated grid + pagination
+│   └── PromptCardGrid        responsive card grid (also used by featured + subcategory views)
+│       └── PromptCard        title, tags, preview, row actions
+├── PromptDetail              single-prompt view
+├── SkillPacksView            skill-pack catalog (own tab)
+├── EmptyState                not-authenticated / no-prompts states
 └── PromptModal
     ├── MarkdownRenderer
     ├── Metadata
     └── ActionButtons
 ```
+
+`PromptCardActions` (exported from `PromptGrid.tsx`) bundles the eleven card-level
+props — `libraryMode`, the transient `copied` / `copyingToMyPromptsId` / `favorites`
+state, and the seven row-action callbacks — so all three grids pass one object.
 
 ---
 

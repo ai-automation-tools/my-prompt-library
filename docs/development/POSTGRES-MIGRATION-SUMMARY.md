@@ -18,9 +18,10 @@ Successfully migrated from SQLite (local-only) to PostgreSQL (Neon) for producti
 ## Database Details
 
 **Provider:** Neon (Serverless Postgres)  
-**Connection String:**
+**Connection String:** stored only in the untracked `site/.env` (`DATABASE_URL`) and in Vercel
+project environment variables. Never commit a live value here — use the placeholder form:
 ```
-postgresql://neondb_owner:REDACTED-ROTATED-CREDENTIAL@ep-nameless-butterfly-a89ulf6v-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require
+postgresql://<user>:<password>@<host>.neon.tech/<database>?sslmode=require&channel_binding=require
 ```
 
 **Region:** East US 2 (Azure)  

@@ -1,9 +1,40 @@
-# My Prompt Library
+<a id="readme-top"></a>
 
-A modern, full-stack web application for managing and organizing AI prompt templates with user authentication, personal libraries, and a public template collection.
+<p align="center">
+  <a href="https://prompts.mikesailab.com">
+    <img src="images/My-Prompt-Library-Images/logos/dark/landscape-01-template-vault.svg" alt="My Prompt Library - searchable prompt templates and skill packs" width="720">
+  </a>
+</p>
 
-![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
-![Status](https://img.shields.io/badge/status-production-green.svg)
+<p align="center">
+  <em>A full-stack prompt-template manager with public templates,<br>personal libraries, auth, search, markdown, and skill packs.</em>
+</p>
+
+<p align="center">
+  <a href="docs/README.md"><strong>Explore the docs »</strong></a>
+</p>
+
+<p align="center">
+  <a href="https://prompts.mikesailab.com">View Demo</a>
+  ·
+  <a href="https://github.com/michaelschecht/my-prompt-library/issues">Report Bug</a>
+  ·
+  <a href="https://github.com/michaelschecht/my-prompt-library/issues">Request Feature</a>
+</p>
+
+<p align="center">
+  <a href="https://prompts.mikesailab.com"><img src="https://img.shields.io/badge/Live_Demo-prompts.mikesailab.com-f59e0b?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
+  <img src="https://img.shields.io/badge/status-production-2ea44f?style=for-the-badge" alt="Status: production">
+  <a href="docs/ROADMAP.md"><img src="https://img.shields.io/badge/plan-ROADMAP-8B5CF6?style=for-the-badge" alt="Roadmap"></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 19">
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 5">
+  <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4">
+  <img src="https://img.shields.io/badge/PostgreSQL-Neon-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL on Neon">
+  <img src="https://img.shields.io/badge/Vercel-serverless-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel serverless">
+</p>
 
 ---
 
@@ -27,8 +58,9 @@ A modern, full-stack web application for managing and organizing AI prompt templ
 
 🎨 **Modern UI**
 - Responsive design (mobile, tablet, desktop)
-- Dark/light theme toggle
+- 16 selectable themes (default: Mikes AI Lab, matching [mikesailab.com](https://mikesailab.com))
 - Fuzzy search with Fuse.js
+- Title-prioritized search ranking (title starts-with/contains first)
 - Clean, intuitive interface
 
 🚀 **Production-Ready**
@@ -46,7 +78,7 @@ A modern, full-stack web application for managing and organizing AI prompt templ
 ```bash
 # Clone the repository
 git clone https://github.com/michaelschecht/my-prompt-library.git
-cd my-prompt-library
+cd my-prompt-library/site
 
 # Install dependencies
 npm install
@@ -63,7 +95,7 @@ npm run dev
 
 ### Deploy to Vercel
 
-See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete deployment instructions.
+See [DEPLOYMENT.md](docs/setup/DEPLOYMENT.md) for complete deployment instructions.
 
 ---
 
@@ -90,7 +122,6 @@ See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete deployment instructions.
 
 **Development**
 - [Debug Guide](docs/development/DEBUG_UI.md) - Troubleshooting
-- [Project Status](docs/planning/PROJECT-STATUS.md) - Current state and roadmap
 
 ---
 
@@ -120,35 +151,33 @@ See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete deployment instructions.
 
 ```
 my-prompt-library/
-├── api/
-│   └── index.ts              # Vercel serverless API handler
-├── src/
-│   ├── App.tsx               # Main React application
-│   ├── components/           # React components
-│   ├── contexts/             # Auth context provider
-│   └── main.tsx              # React entry point
-├── library/                  # Public prompt templates (files)
-│   ├── Prompt_Library/
-│   ├── Agent_Instructions/
-│   ├── Agent_Guides/
-│   └── System_Prompts/
-├── db/
-│   └── postgres.ts           # Database layer (PostgreSQL)
-├── routes/
-│   └── auth.ts               # Auth API routes
-├── middleware/
-│   └── auth.ts               # Auth middleware
-├── docs/                     # Documentation
-├── server.ts                 # Local dev server
-├── vercel.json               # Vercel configuration
-└── README.md                 # This file
+├── site/                     # Deployable app (Vercel Root Directory = site)
+│   ├── api/                  # Vercel serverless API handlers
+│   ├── src/                  # React application
+│   │   ├── App.tsx           # Main React component
+│   │   ├── components/       # UI components
+│   │   ├── contexts/         # Auth context provider
+│   │   └── main.tsx          # Entry point
+│   ├── library/              # Public prompt templates (numbered)
+│   │   ├── 1_Guides/
+│   │   ├── 2_Agents/
+│   │   ├── 3_Skills/
+│   │   ├── 4_Prompts/
+│   │   └── 5_System_Prompts/
+│   ├── db/                   # Database layer (PostgreSQL)
+│   ├── routes/               # Auth routes
+│   ├── middleware/           # Auth middleware
+│   └── server.ts             # Local Express dev server (port 3010)
+├── docs/                     # Project documentation
+├── scripts/                  # Utility scripts
+└── README.md
 ```
 
 ---
 
 ## Environment Variables
 
-Create a `.env` file in the root:
+Create a `.env` file under `site/`:
 
 ```bash
 # PostgreSQL Database (Neon)
@@ -180,7 +209,14 @@ GITHUB_BRANCH=main
 - `DELETE /api/prompts/:id` - Delete prompt (auth required)
 - `POST /api/prompts/:path/copy-to-my-prompts` - Copy to My Library
 
-See [API.md](docs/API.md) for detailed documentation.
+### Skill Packs
+- `GET /api/skill-packs?library=public|my` - List packs by mode
+- `GET /api/skill-packs/:packId` - Pack details
+- `POST /api/skill-packs/:packId/add-to-library` - Add pack to My Library (auth + confirm)
+- `DELETE /api/skill-packs/:packId/remove-from-library` - Remove pack from My Library (auth + confirm)
+- `GET /api/skill-packs/:packId/download` - Download pack ZIP
+
+See [docs/features/API.md](docs/features/API.md) for detailed documentation.
 
 ---
 
@@ -190,6 +226,7 @@ See [API.md](docs/API.md) for detailed documentation.
 - `users` - User accounts
 - `user_prompts` - User-owned prompts
 - `user_sessions` - Authentication sessions
+- `user_skill_pack_installs` - User-installed skill packs
 
 **Hybrid Storage:**
 - Public Library → Files (`library/` directory, Git version control)
