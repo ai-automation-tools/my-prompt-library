@@ -31,7 +31,7 @@
       "description": "Write persuasive marketing and sales copy"
     },
     {
-      "path": "library/3_Skills/Content/document-writer/SKILL.md",
+      "path": "library/3_Skills/Content/General/document-writer/SKILL.md",
       "name": "Document Writer",
       "description": "Create professional business documents"
     },
@@ -51,7 +51,7 @@
       "description": "Write effective GitHub README files"
     },
     {
-      "path": "library/3_Skills/Content/humanizer/SKILL.md",
+      "path": "library/3_Skills/Content/General/humanizer/SKILL.md",
       "name": "Humanizer",
       "description": "Make technical content more accessible"
     },
@@ -66,12 +66,12 @@
       "description": "Build and organize knowledge base articles"
     },
     {
-      "path": "library/3_Skills/Content/obsidian-bases/SKILL.md",
+      "path": "library/3_Skills/Content/obsidian/obsidian-bases/SKILL.md",
       "name": "Obsidian Bases",
       "description": "Create Obsidian knowledge bases"
     },
     {
-      "path": "library/3_Skills/Content/obsidian-markdown/SKILL.md",
+      "path": "library/3_Skills/Content/obsidian/obsidian-markdown/SKILL.md",
       "name": "Obsidian Markdown",
       "description": "Write Markdown for Obsidian with advanced features"
     },
@@ -101,7 +101,7 @@
       "description": "Create professional business and technical reports"
     },
     {
-      "path": "library/3_Skills/Content/spreadsheet/SKILL.md",
+      "path": "library/3_Skills/Content/excel/spreadsheet/SKILL.md",
       "name": "Spreadsheet Documentation",
       "description": "Document and explain spreadsheet data"
     },

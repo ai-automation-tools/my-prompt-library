@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "buildTime": "2026-08-24T00:29:08.094Z",
-  "promptCount": 1749,
+  "buildTime": "2026-08-24T15:05:49.257Z",
+  "promptCount": 1725,
   "prompts": [
     {
       "id": "1_Guides/API_Providers/anthropic-api-guide.md",
@@ -9604,17 +9604,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/AI_ML/Agent_Development/SKILL.md",
-      "title": "💻 Agent Development",
-      "section": "3_Skills",
-      "category": "AI_ML",
-      "subcategory": "Agent_Development",
-      "tags": [],
-      "contentPreview": "\r\n# Agent Development for Claude Code Plugins\r\n\r\n## Overview\r\n\r\nAgents are autonomous subprocesses that handle complex, multi-step tasks independently. Understanding agent structure, triggering condit",
-      "lastModified": "2026-08-24T00:27:06.844Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/AI_ML/eval-harness/SKILL.md",
       "title": "🧪 Eval Harness",
       "section": "3_Skills",
@@ -9622,7 +9611,7 @@
       "subcategory": "eval-harness",
       "tags": [],
       "contentPreview": "\r\n# Eval Harness\r\n\r\nBuild lightweight, repeatable evals before and during implementation so agent behavior can be measured instead of guessed.\r\n\r\n## When To Use\r\n\r\n- Define success criteria before cod",
-      "lastModified": "2026-08-24T00:27:00.892Z",
+      "lastModified": "2026-08-24T15:01:29.546Z",
       "isUserOwned": false
     },
     {
@@ -9732,7 +9721,7 @@
       "subcategory": "whisper",
       "tags": [],
       "contentPreview": "\r\n# Whisper - Robust Speech Recognition\r\n\r\nOpenAI's multilingual speech recognition model.\r\n\r\n## When to use Whisper\r\n\r\n**Use when:**\r\n- Speech-to-text transcription (99 languages)\r\n- Podcast/video tr",
-      "lastModified": "2026-08-24T00:27:00.897Z",
+      "lastModified": "2026-08-24T15:01:29.549Z",
       "isUserOwned": false
     },
     {
@@ -9978,17 +9967,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Content/document-writer/SKILL.md",
-      "title": "document-writer",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "document-writer",
-      "tags": [],
-      "contentPreview": "\r\nYou are a TECHNICAL WRITER with deep engineering background who transforms complex codebases into crystal-clear documentation. You have an innate ability to explain complex concepts simply while mai",
-      "lastModified": "2026-08-24T00:27:06.914Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Content/documentation-templates/SKILL.md",
       "title": "documentation-templates",
       "section": "3_Skills",
@@ -10011,17 +9989,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Content/docx-official/SKILL.md",
-      "title": "docx",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "docx-official",
-      "tags": [],
-      "contentPreview": "\r\n# DOCX creation, editing, and analysis\r\n\r\n## Overview\r\n\r\nA .docx file is a ZIP archive containing XML files.\r\n\r\n## Quick Reference\r\n\r\n| Task | Approach |\r\n|------|----------|\r\n| Read/analyze content",
-      "lastModified": "2026-08-24T00:27:06.916Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Content/excel/spreadsheet/SKILL.md",
       "title": "🛠️ \"spreadsheet\"",
       "section": "3_Skills",
@@ -10030,17 +9997,6 @@
       "tags": [],
       "contentPreview": "\r\n\r\n# Spreadsheet Skill (Create, Edit, Analyze, Visualize)\r\n\r\n## When to use\r\n- Build new workbooks with formulas, formatting, and structured layouts.\r\n- Read or analyze tabular data (filter, aggregat",
       "lastModified": "2026-08-24T00:27:07.001Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/excel/xlsx/SKILL.md",
-      "title": "🛠️ xlsx",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "excel",
-      "tags": [],
-      "contentPreview": "\r\n# Requirements for Outputs\r\n\r\n## All Excel files\r\n\r\n### Professional Font\r\n- Use a consistent, professional font (e.g., Arial, Times New Roman) for all deliverables unless otherwise instructed by th",
-      "lastModified": "2026-08-24T00:27:07.003Z",
       "isUserOwned": false
     },
     {
@@ -10103,17 +10059,6 @@
       "tags": [],
       "contentPreview": "\r\nYou are a **GitHub README Designer** — an expert in crafting repository README files that are visually striking, information-dense, and professional on GitHub.com. You combine technical writing with",
       "lastModified": "2026-08-24T00:27:07.007Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/humanizer/SKILL.md",
-      "title": "humanizer",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "humanizer",
-      "tags": [],
-      "contentPreview": "\r\n# Humanizer: Remove AI Writing Patterns\r\n\r\nYou are a writing editor that identifies and removes signs of AI-generated text to make writing sound more natural and human. This guide is based on Wikipe",
-      "lastModified": "2026-08-24T00:27:07.008Z",
       "isUserOwned": false
     },
     {
@@ -10201,28 +10146,6 @@
       "tags": [],
       "contentPreview": "\r\n# Obsidian Flavored Markdown Skill\r\n\r\nThis skill enables Claude Code to create and edit valid Obsidian Flavored Markdown, including all Obsidian-specific syntax extensions.\r\n\r\n## Overview\r\n\r\nObsidia",
       "lastModified": "2026-08-24T00:27:07.025Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/obsidian-bases/SKILL.md",
-      "title": "obsidian-bases",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "obsidian-bases",
-      "tags": [],
-      "contentPreview": "\r\n# Obsidian Bases Skill\r\n\r\nThis skill enables Claude Code to create and edit valid Obsidian Bases (`.base` files) including views, filters, formulas, and all related configurations.\r\n\r\n## Overview\r\n\r",
-      "lastModified": "2026-08-24T00:27:07.023Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/obsidian-markdown/SKILL.md",
-      "title": "obsidian-markdown",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "obsidian-markdown",
-      "tags": [],
-      "contentPreview": "\r\n# Obsidian Flavored Markdown Skill\r\n\r\nThis skill enables Claude Code to create and edit valid Obsidian Flavored Markdown, including all Obsidian-specific syntax extensions.\r\n\r\n## Overview\r\n\r\nObsidia",
-      "lastModified": "2026-08-24T00:27:07.023Z",
       "isUserOwned": false
     },
     {
@@ -10326,7 +10249,7 @@
         "logs"
       ],
       "contentPreview": "\r\n# session-logs\r\n\r\nSearch and analyze prior agent session logs when the user asks about earlier conversations, missing context, or historical decisions.\r\n\r\n## Overview\r\n\r\nUse this skill when:\r\n\r\n- Th",
-      "lastModified": "2026-08-24T00:27:01.224Z",
+      "lastModified": "2026-08-24T15:01:29.550Z",
       "isUserOwned": false
     },
     {
@@ -10360,17 +10283,6 @@
       "tags": [],
       "contentPreview": "\r\n\r\n# Sora Video Generation Skill\r\n\r\nCreates or manages short video clips for the current project (product demos, marketing spots, cinematic shots, UI mocks). Defaults to `sora-2` and a structured pro",
       "lastModified": "2026-08-24T00:27:07.095Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/spreadsheet/SKILL.md",
-      "title": "spreadsheet",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "spreadsheet",
-      "tags": [],
-      "contentPreview": "\r\n\r\n# Spreadsheet Skill (Create, Edit, Analyze, Visualize)\r\n\r\n## When to use\r\n- Build new workbooks with formulas, formatting, and structured layouts.\r\n- Read or analyze tabular data (filter, aggregat",
-      "lastModified": "2026-08-24T00:27:07.102Z",
       "isUserOwned": false
     },
     {
@@ -10457,7 +10369,7 @@
         "api"
       ],
       "contentPreview": "\r\n# arxiv\r\n\r\nSearch and retrieve academic papers from arXiv via the public REST API. No API key required.\r\n\r\n## Overview\r\n\r\nUse this skill to:\r\n\r\n- Search papers by keyword, title, author, abstract, o",
-      "lastModified": "2026-08-24T00:27:01.273Z",
+      "lastModified": "2026-08-24T15:01:29.552Z",
       "isUserOwned": false
     },
     {
@@ -10473,7 +10385,7 @@
         "feeds"
       ],
       "contentPreview": "\r\n# blogwatcher\r\n\r\nMonitor blogs and RSS or Atom feeds with `blogwatcher-cli`.\r\n\r\n## Overview\r\n\r\nUse this skill to:\r\n\r\n- Track blog updates over time\r\n- Discover feeds automatically from a site URL\r\n-",
-      "lastModified": "2026-08-24T00:27:01.274Z",
+      "lastModified": "2026-08-24T15:01:29.556Z",
       "isUserOwned": false
     },
     {
@@ -10577,7 +10489,7 @@
       "subcategory": "jupyter-notebook",
       "tags": [],
       "contentPreview": "\r\n# Jupyter Notebook\r\n\r\nProduce clean, reproducible notebooks instead of hand-editing raw notebook JSON.\r\n\r\n## When To Use\r\n\r\n- Create a new `.ipynb` notebook from scratch\r\n- Convert notes or scripts ",
-      "lastModified": "2026-08-24T00:27:01.283Z",
+      "lastModified": "2026-08-24T15:01:29.558Z",
       "isUserOwned": false
     },
     {
@@ -10659,7 +10571,7 @@
       "subcategory": "polars",
       "tags": [],
       "contentPreview": "\r\n# Polars\r\n\r\n## Overview\r\n\r\nPolars is a blazingly fast DataFrame library written in Rust with Python bindings. Built for performance and memory efficiency, Polars leverages parallel execution and laz",
-      "lastModified": "2026-08-24T00:27:01.292Z",
+      "lastModified": "2026-08-24T15:01:29.560Z",
       "isUserOwned": false
     },
     {
@@ -10763,7 +10675,7 @@
         "research"
       ],
       "contentPreview": "\r\n# scrapling\r\n\r\nWeb scraping with Scrapling for HTTP fetching, dynamic browser automation, Cloudflare-aware stealth fetching, and spider crawling.\r\n\r\n## Overview\r\n\r\nUse this skill when:\r\n\r\n- Static H",
-      "lastModified": "2026-08-24T00:27:01.327Z",
+      "lastModified": "2026-08-24T15:01:29.562Z",
       "isUserOwned": false
     },
     {
@@ -11429,17 +11341,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/canvas-design/SKILL.md",
-      "title": "canvas-design",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "canvas-design",
-      "tags": [],
-      "contentPreview": "\r\nThese are instructions for creating design philosophies - aesthetic movements that are then EXPRESSED VISUALLY. Output only .md files, .pdf files, and .png files.\r\n\r\nComplete this in two steps:\r\n1. ",
-      "lastModified": "2026-08-24T00:27:07.444Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/CI_CD/blue-green-deployment-strategy/SKILL.md",
       "title": "blue-green-deployment-strategy",
       "section": "3_Skills",
@@ -11729,7 +11630,7 @@
         "pages"
       ],
       "contentPreview": "\r\n# cloudflare-deploy\r\n\r\nDeploy applications and supporting infrastructure to Cloudflare using Workers, Pages, and related platform services.\r\n\r\n## Overview\r\n\r\nUse this skill when:\r\n\r\n- The user wants",
-      "lastModified": "2026-08-24T00:27:01.422Z",
+      "lastModified": "2026-08-24T15:01:29.565Z",
       "isUserOwned": false
     },
     {
@@ -11796,7 +11697,7 @@
       "subcategory": "Cloud",
       "tags": [],
       "contentPreview": "\r\n# Together GPU Clusters\r\n\r\n## Overview\r\n\r\nProvision GPU clusters on Together AI for distributed training, large-scale inference, and HPC workloads.\r\n\r\n- **Hardware**: NVIDIA H100, H200, B200 (80GB S",
-      "lastModified": "2026-08-24T00:27:01.423Z",
+      "lastModified": "2026-08-24T15:01:29.567Z",
       "isUserOwned": false
     },
     {
@@ -11812,7 +11713,7 @@
         "documentation"
       ],
       "contentPreview": "\r\n# code-tour\r\n\r\nCreate CodeTour `.tour` files with real file and line anchors for onboarding, architecture walkthroughs, PR reviews, RCA walkthroughs, and guided code explanations.\r\n\r\n## Overview\r\n\r\n",
-      "lastModified": "2026-08-24T00:27:01.618Z",
+      "lastModified": "2026-08-24T15:01:29.580Z",
       "isUserOwned": false
     },
     {
@@ -11857,28 +11758,6 @@
       "tags": [],
       "contentPreview": "\r\n# Docker Compose Configuration Generator\r\n\r\nThis skill focuses on containerizing applications effectively, prioritizing security, multi-stage builds, performance, and best practices for Docker Compo",
       "lastModified": "2026-08-24T00:27:07.446Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/docx/SKILL.md",
-      "title": "📄 DOCX Editing",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "docx",
-      "tags": [],
-      "contentPreview": "\r\n# DOCX creation, editing, and analysis\r\n\r\n## Overview\r\n\r\nA .docx file is a ZIP archive containing XML files.\r\n\r\n## Quick Reference\r\n\r\n| Task | Approach |\r\n|------|----------|\r\n| Read/analyze content",
-      "lastModified": "2026-08-24T00:27:07.448Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/frontend-design/SKILL.md",
-      "title": "🎨 frontend-design",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "frontend-design",
-      "tags": [],
-      "contentPreview": "\r\nThis skill guides creation of distinctive, production-grade frontend interfaces that avoid generic \"AI slop\" aesthetics. Implement real working code with exceptional attention to aesthetic details a",
-      "lastModified": "2026-08-24T00:27:07.450Z",
       "isUserOwned": false
     },
     {
@@ -11971,7 +11850,7 @@
         "repositories"
       ],
       "contentPreview": "\r\n# github-search\r\n\r\nSearch GitHub code, repositories, issues, and pull requests with focused queries instead of broad manual browsing.\r\n\r\n## Overview\r\n\r\nUse this skill when:\r\n\r\n- Looking for prior ar",
-      "lastModified": "2026-08-24T00:27:01.461Z",
+      "lastModified": "2026-08-24T15:01:29.568Z",
       "isUserOwned": false
     },
     {
@@ -11996,17 +11875,6 @@
       ],
       "contentPreview": "\r\n**Persona:** You are a Go ecosystem expert. You know the library landscape well enough to recommend the simplest production-ready option — and to tell the developer when the standard library is alre",
       "lastModified": "2026-08-24T00:27:07.452Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/mcp-builder/SKILL.md",
-      "title": "🏗️ MCP Builder",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "mcp-builder",
-      "tags": [],
-      "contentPreview": "\r\n# MCP Server Development Guide\r\n\r\n## Overview\r\n\r\nCreate MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. The quality of an MCP se",
-      "lastModified": "2026-08-24T00:27:07.457Z",
       "isUserOwned": false
     },
     {
@@ -12232,17 +12100,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/pdf/SKILL.md",
-      "title": "pdf",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "pdf",
-      "tags": [],
-      "contentPreview": "\r\n# PDF Processing Guide\r\n\r\n## Overview\r\n\r\nThis guide covers essential PDF processing operations using Python libraries and command-line tools. For advanced features, JavaScript libraries, and detaile",
-      "lastModified": "2026-08-24T00:27:07.462Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/powerskills/SKILL.md",
       "title": "powerskills",
       "section": "3_Skills",
@@ -12255,18 +12112,7 @@
         "desktop"
       ],
       "contentPreview": "\r\n# powerskills\r\n\r\nWindows automation toolkit workflow for agents that need desktop control, Outlook access, Edge automation, or structured PowerShell-driven system actions.\r\n\r\n## Overview\r\n\r\nUse this",
-      "lastModified": "2026-08-24T00:27:01.641Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/pptx/SKILL.md",
-      "title": "📊 PPTX Editing",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "pptx",
-      "tags": [],
-      "contentPreview": "\r\n# PPTX Skill\r\n\r\n## Quick Reference\r\n\r\n| Task | Guide |\r\n|------|-------|\r\n| Read/analyze content | `python -m markitdown presentation.pptx` |\r\n| Edit or create from template | Read [editing.md](edit",
-      "lastModified": "2026-08-24T00:27:07.464Z",
+      "lastModified": "2026-08-24T15:01:29.580Z",
       "isUserOwned": false
     },
     {
@@ -12277,7 +12123,7 @@
       "subcategory": "Python",
       "tags": [],
       "contentPreview": "\r\n# Python Design Patterns\r\n\r\nWrite Python that stays easy to understand, test, and modify as the codebase grows.\r\n\r\n## When To Use\r\n\r\n- Design a new Python module, service, or component\r\n- Refactor o",
-      "lastModified": "2026-08-24T00:27:01.475Z",
+      "lastModified": "2026-08-24T15:01:29.573Z",
       "isUserOwned": false
     },
     {
@@ -12293,18 +12139,7 @@
         "workflow"
       ],
       "contentPreview": "\r\n# search-first\r\n\r\nResearch-before-coding workflow. Search for existing tools, libraries, and patterns before writing custom code.\r\n\r\n## Overview\r\n\r\nUse this skill when:\r\n\r\n- Starting a new feature t",
-      "lastModified": "2026-08-24T00:27:01.646Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/slack-gif-creator/SKILL.md",
-      "title": "🧠 slack-gif-creator",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "slack-gif-creator",
-      "tags": [],
-      "contentPreview": "\r\n# Slack GIF Creator\r\n\r\nA toolkit providing utilities and knowledge for creating animated GIFs optimized for Slack.\r\n\r\n## Slack Requirements\r\n\r\n**Dimensions:**\r\n- Emoji GIFs: 128x128 (recommended)\r\n-",
-      "lastModified": "2026-08-24T00:27:07.467Z",
+      "lastModified": "2026-08-24T15:01:29.583Z",
       "isUserOwned": false
     },
     {
@@ -12474,7 +12309,7 @@
         "c-cpp"
       ],
       "contentPreview": "\r\n# aflpp\r\n\r\nUse AFL++ for multi-core fuzzing of C and C++ targets when you need stronger coverage, mature mutation strategies, or better campaign throughput than simpler single-process setups.\r\n\r\n## ",
-      "lastModified": "2026-08-24T00:27:01.520Z",
+      "lastModified": "2026-08-24T15:01:29.574Z",
       "isUserOwned": false
     },
     {
@@ -12485,7 +12320,7 @@
       "subcategory": "Testing",
       "tags": [],
       "contentPreview": "\r\n# Performance Testing\r\n\r\nTest application speed, responsiveness, stability, and scalability under various load conditions.\r\n\r\n## When to use me\r\n\r\nUse this skill when:\r\n- Preparing for traffic spike",
-      "lastModified": "2026-08-24T00:27:01.521Z",
+      "lastModified": "2026-08-24T15:01:29.575Z",
       "isUserOwned": false
     },
     {
@@ -12545,7 +12380,7 @@
         "flags"
       ],
       "contentPreview": "\r\n# feature-flags\r\n\r\nHandle feature-flagged React development and tests, especially when flags differ by environment, channel, or forked configuration.\r\n\r\n## Overview\r\n\r\nUse this skill when:\r\n\r\n- A fe",
-      "lastModified": "2026-08-24T00:27:01.604Z",
+      "lastModified": "2026-08-24T15:01:29.575Z",
       "isUserOwned": false
     },
     {
@@ -12578,7 +12413,7 @@
       "subcategory": "Web_Development",
       "tags": [],
       "contentPreview": "\r\n# Rspack Tracing & Performance Profiling\r\n\r\n## When to Use This Skill\r\n\r\nUse this skill when you need to:\r\n1. Diagnose why an Rspack build is slow.\r\n2. Understand which plugins or loaders are taking",
-      "lastModified": "2026-08-24T00:27:01.606Z",
+      "lastModified": "2026-08-24T15:01:29.578Z",
       "isUserOwned": false
     },
     {
@@ -12601,17 +12436,6 @@
       "tags": [],
       "contentPreview": "\r\n# Web Application Testing\r\n\r\nTo test local web applications, write native Python Playwright scripts.\r\n\r\n**Helper Scripts Available**:\r\n- `scripts/with_server.py` - Manages server lifecycle (supports",
       "lastModified": "2026-08-24T00:27:07.437Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/xlsx/SKILL.md",
-      "title": "📊 xlsx",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "xlsx",
-      "tags": [],
-      "contentPreview": "\r\n# Requirements for Outputs\r\n\r\n## All Excel files\r\n\r\n### Professional Font\r\n- Use a consistent, professional font (e.g., Arial, Times New Roman) for all deliverables unless otherwise instructed by th",
-      "lastModified": "2026-08-24T00:27:07.473Z",
       "isUserOwned": false
     },
     {
@@ -12649,17 +12473,6 @@
     },
     {
       "id": "3_Skills/Enterprise/Communications/internal-comms/SKILL.md",
-      "title": "🛠️ internal-comms",
-      "section": "3_Skills",
-      "category": "Enterprise",
-      "subcategory": "Communications",
-      "tags": [],
-      "contentPreview": "\r\n## When to use this skill\r\nTo write internal communications, use this skill for:\r\n- 3P updates (Progress, Plans, Problems)\r\n- Company newsletters\r\n- FAQ responses\r\n- Status reports\r\n- Leadership upd",
-      "lastModified": "2026-08-24T00:27:07.483Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Enterprise/Communications/internal-comms-anthropic/SKILL.md",
       "title": "internal-comms",
       "section": "3_Skills",
       "category": "Enterprise",
@@ -12667,17 +12480,6 @@
       "tags": [],
       "contentPreview": "\r\n## When to use this skill\r\nTo write internal communications, use this skill for:\r\n- 3P updates (Progress, Plans, Problems)\r\n- Company newsletters\r\n- FAQ responses\r\n- Status reports\r\n- Leadership upd",
       "lastModified": "2026-08-24T00:27:07.479Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Enterprise/Communications/internal-comms-community/SKILL.md",
-      "title": "internal-comms",
-      "section": "3_Skills",
-      "category": "Enterprise",
-      "subcategory": "Communications",
-      "tags": [],
-      "contentPreview": "\r\n## When to use this skill\r\nTo write internal communications, use this skill for:\r\n- 3P updates (Progress, Plans, Problems)\r\n- Company newsletters\r\n- FAQ responses\r\n- Status reports\r\n- Leadership upd",
-      "lastModified": "2026-08-24T00:27:07.482Z",
       "isUserOwned": false
     },
     {
@@ -12977,17 +12779,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Finance/kalshi-markets/SKILL.md",
-      "title": "kalshi-markets",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "kalshi-markets",
-      "tags": [],
-      "contentPreview": "\r\n# kalshi-markets\r\n\r\n## 🎯 Triggers\r\n**USE:** prediction markets, Kalshi, betting odds, forecast markets, election betting, market probabilities\r\n**SKIP:** general knowledge (use built-in)\r\n\r\n## Scri",
-      "lastModified": "2026-08-24T00:27:07.576Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Finance/live-betting-strategy/SKILL.md",
       "title": "live-betting-strategy",
       "section": "3_Skills",
@@ -12995,17 +12786,6 @@
       "subcategory": "live-betting-strategy",
       "tags": [],
       "contentPreview": "\r\n# Live Betting Strategy — In-Play Analysis & Execution\r\n\r\nExploit the unique dynamics of live / in-play betting where odds update in real-time and new information creates windows of value.\r\n\r\n## Whe",
-      "lastModified": "2026-08-24T00:27:07.581Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Finance/market-mechanics-betting/SKILL.md",
-      "title": "market-mechanics-betting",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "market-mechanics-betting",
-      "tags": [],
-      "contentPreview": "\r\n# Market Mechanics & Betting\r\n\r\n## Table of Contents\r\n- [What is Market Mechanics?](#what-is-market-mechanics)\r\n- [When to Use This Skill](#when-to-use-this-skill)\r\n- [Interactive Menu](#interactive",
       "lastModified": "2026-08-24T00:27:07.581Z",
       "isUserOwned": false
     },
@@ -13032,28 +12812,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Finance/polymarket/SKILL.md",
-      "title": "polymarket",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "polymarket",
-      "tags": [],
-      "contentPreview": "\r\n# Polymarket Comprehensive Skill\r\n\r\nComplete assistance with Polymarket development - covering the full platform (API, trading, market data) and the real-time data streaming client (WebSocket subscr",
-      "lastModified": "2026-08-24T00:27:07.585Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Finance/Portfolio_Management/alternatives/SKILL.md",
-      "title": "🔌 alternatives",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "Portfolio_Management",
-      "tags": [],
-      "contentPreview": "\r\n# Alternatives\r\n\r\n## Purpose\r\nAnalyze alternative investments including hedge funds, private equity, and venture capital. This skill covers strategy classification, fee structure analysis, performan",
-      "lastModified": "2026-08-24T00:27:07.526Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Finance/Portfolio_Management/analyzing-financial-statements/SKILL.md",
       "title": "🛠️ analyzing-financial-statements",
       "section": "3_Skills",
@@ -13062,28 +12820,6 @@
       "tags": [],
       "contentPreview": "\r\n# Financial Ratio Calculator Skill\r\n\r\nThis skill provides comprehensive financial ratio analysis for evaluating company performance, profitability, liquidity, and valuation.\r\n\r\n## Capabilities\r\n\r\nCa",
       "lastModified": "2026-08-24T00:27:07.527Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Finance/Portfolio_Management/digital-assets/SKILL.md",
-      "title": "📋 digital-assets",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "Portfolio_Management",
-      "tags": [],
-      "contentPreview": "\r\n# Digital Assets\r\n\r\n## Purpose\r\nAnalyze digital assets including cryptocurrency fundamentals, blockchain mechanics, DeFi protocols, staking yields, and on-chain metrics. This skill covers the unique",
-      "lastModified": "2026-08-24T00:27:07.529Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Finance/Portfolio_Management/diversification/SKILL.md",
-      "title": "🧠 diversification",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "Portfolio_Management",
-      "tags": [],
-      "contentPreview": "\r\n# Diversification\r\n\r\n## Purpose\r\nProvides the mathematical foundations and practical frameworks for building diversified portfolios. Covers portfolio variance, correlation effects, the efficient fro",
-      "lastModified": "2026-08-24T00:27:07.529Z",
       "isUserOwned": false
     },
     {
@@ -13519,7 +13255,7 @@
         "issues"
       ],
       "contentPreview": "\r\n# linear-cli\r\n\r\nManage Linear issues from the command line with a repeatable workflow for finding, updating, and progressing tickets.\r\n\r\n## Overview\r\n\r\nUse this skill when:\r\n\r\n- Working from Linear ",
-      "lastModified": "2026-08-24T00:27:01.775Z",
+      "lastModified": "2026-08-24T15:01:29.584Z",
       "isUserOwned": false
     },
     {
@@ -13535,7 +13271,7 @@
         "integrations"
       ],
       "contentPreview": "\r\n# n8n-workflow-patterns\r\n\r\nProven architectural patterns for building n8n workflows instead of improvising node graphs from scratch.\r\n\r\n## Overview\r\n\r\nUse this skill when:\r\n\r\n- Designing a new n8n w",
-      "lastModified": "2026-08-24T00:27:01.776Z",
+      "lastModified": "2026-08-24T15:01:29.585Z",
       "isUserOwned": false
     },
     {
@@ -13546,7 +13282,7 @@
       "subcategory": "notion",
       "tags": [],
       "contentPreview": "\r\n# Notion\r\n\r\nUse the Notion API for page management, structured data workflows, and block-level content updates.\r\n\r\n## When To Use\r\n\r\n- Create or update Notion pages\r\n- Query Notion databases or data",
-      "lastModified": "2026-08-24T00:27:01.778Z",
+      "lastModified": "2026-08-24T15:01:29.587Z",
       "isUserOwned": false
     },
     {

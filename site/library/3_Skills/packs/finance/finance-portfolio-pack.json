@@ -21,7 +21,7 @@
       "description": "Optimize portfolio asset distribution"
     },
     {
-      "path": "library/3_Skills/Finance/Portfolio_Management/diversification/SKILL.md",
+      "path": "library/3_Skills/Finance/Portfolio_Management/wealth-management/skills/diversification/SKILL.md",
       "name": "Portfolio Diversification",
       "description": "Build diversified investment portfolios"
     },
@@ -71,12 +71,12 @@
       "description": "Invest in corporate bonds"
     },
     {
-      "path": "library/3_Skills/Finance/Portfolio_Management/alternatives/SKILL.md",
+      "path": "library/3_Skills/Finance/Portfolio_Management/wealth-management/skills/alternatives/SKILL.md",
       "name": "Alternative Investments",
       "description": "Explore hedge funds, private equity, real estate"
     },
     {
-      "path": "library/3_Skills/Finance/Portfolio_Management/digital-assets/SKILL.md",
+      "path": "library/3_Skills/Finance/Portfolio_Management/wealth-management/skills/digital-assets/SKILL.md",
       "name": "Digital Assets",
       "description": "Invest in cryptocurrencies and blockchain assets"
     },

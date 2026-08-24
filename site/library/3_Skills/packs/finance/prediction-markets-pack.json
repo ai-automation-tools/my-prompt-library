@@ -31,7 +31,7 @@
       "description": "Trade futures contracts and derivatives"
     },
     {
-      "path": "library/3_Skills/Finance/kalshi-markets/SKILL.md",
+      "path": "library/3_Skills/Finance/Betting_&_Gambling/kalshi-markets/SKILL.md",
       "name": "Kalshi Markets",
       "description": "Trade on Kalshi prediction markets"
     },
@@ -41,7 +41,7 @@
       "description": "Develop strategies for in-play betting"
     },
     {
-      "path": "library/3_Skills/Finance/market-mechanics-betting/SKILL.md",
+      "path": "library/3_Skills/Finance/Betting_&_Gambling/market-mechanics-betting/SKILL.md",
       "name": "Market Mechanics Betting",
       "description": "Understand betting market dynamics"
     },
@@ -56,7 +56,7 @@
       "description": "Model and calculate fair odds"
     },
     {
-      "path": "library/3_Skills/Finance/polymarket/SKILL.md",
+      "path": "library/3_Skills/Finance/Betting_&_Gambling/polymarket/SKILL.md",
       "name": "Polymarket",
       "description": "Trade on Polymarket prediction platform"
     },
