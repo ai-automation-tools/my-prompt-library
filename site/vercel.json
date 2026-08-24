@@ -1,25 +1,13 @@
 {
   "version": 2,
   "functions": {
-    "api/index.ts": {
-      "includeFiles": "library/[1-5]_*/**"
-    },
     "api/skill-packs.ts": {
       "includeFiles": "library/3_Skills/**"
     }
   },
   "rewrites": [
-    {
-      "source": "/api/skill-packs/:path*",
-      "destination": "/api/skill-packs"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/api"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/api/skill-packs/:path*", "destination": "/api/skill-packs" },
+    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

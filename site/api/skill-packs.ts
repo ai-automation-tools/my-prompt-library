@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import archiver from 'archiver';
 import { sessionDb, userDb, promptDb, userSkillPackDb } from '../db/postgres.js';
@@ -23,7 +24,12 @@ async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): Promis
   return arrayOfFiles;
 }
 
-const packsDir = path.join(process.cwd(), 'library/3_Skills/packs');
+// App root. Resolve from this file, not process.cwd(): on Vercel the function
+// runs with cwd=/var/task while the app (Root Directory = site) is bundled at
+// /var/task/site, so cwd-based paths miss library/ entirely.
+const APP_ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+const packsDir = path.join(APP_ROOT, 'library/3_Skills/packs');
 
 
 function getCookieToken(cookieHeader?: string): string | null {
@@ -82,7 +88,7 @@ async function getAllPacks() {
 // Helper to resolve skill paths and read skill metadata
 async function resolveSkillData(skillPath: string) {
   try {
-    const fullPath = path.join(process.cwd(), skillPath);
+    const fullPath = path.join(APP_ROOT, skillPath);
     const content = await fs.readFile(fullPath, 'utf-8');
     const { data } = matter(content);
     
@@ -166,7 +172,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       let added = 0;
       let skipped = 0;
       for (const skill of pack.skills) {
-        const fullPath = path.join(process.cwd(), skill.path);
+        const fullPath = path.join(APP_ROOT, skill.path);
         const raw = await fs.readFile(fullPath, 'utf-8');
         const { data, content } = matter(raw);
 
@@ -313,7 +319,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       
       // Add each skill's entire directory to the ZIP
       for (const skill of pack.skills) {
-        const skillPath = path.join(process.cwd(), skill.path);
+        const skillPath = path.join(APP_ROOT, skill.path);
         const skillDir = path.dirname(skillPath);
         const skillDirName = path.basename(skillDir);
         

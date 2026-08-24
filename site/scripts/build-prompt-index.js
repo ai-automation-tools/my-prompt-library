@@ -14,7 +14,6 @@ const __dirname = path.dirname(__filename);
 
 const LIBRARY_PATH = path.join(__dirname, '../library');
 const OUTPUT_PATH = path.join(__dirname, '../api/prompt-index.json');
-const CONTENT_OUTPUT_PATH = path.join(__dirname, '../api/prompt-content.json');
 
 // Library section folder holding skills (numbered layout)
 const SKILLS_SECTION = '3_Skills';
@@ -23,9 +22,6 @@ function extractFirstHeading(markdown) {
   const match = markdown.match(/^#\s+(.+)$/m);
   return match ? match[1].trim() : null;
 }
-
-// id -> full markdown body (frontmatter stripped), written to prompt-content.json
-const contentStore = {};
 
 function walkDir(dir, baseDir = LIBRARY_PATH) {
   if (!fs.existsSync(dir)) return [];
@@ -85,13 +81,9 @@ function walkDir(dir, baseDir = LIBRARY_PATH) {
         ? (data.name || extractFirstHeading(content) || path.basename(file, '.md'))
         : (data.title || extractFirstHeading(content) || path.basename(file, '.md'));
       
-      const id = relativePath.split(path.sep).join('/');
-      // Full body lives in the sidecar so the lambda never needs library/ on disk
-      contentStore[id] = content;
-
       results.push({
         // Ids are URL/path keys — always forward-slashed, even on Windows
-        id,
+        id: relativePath.split(path.sep).join('/'),
         title: title,
         section,
         category,
@@ -121,17 +113,6 @@ const index = {
 
 fs.writeFileSync(OUTPUT_PATH, JSON.stringify(index, null, 2));
 
-// Sidecar: full content keyed by id. Serverless functions don't get library/ in
-// their bundle, so this is the only copy of the prompt bodies they can read.
-fs.writeFileSync(CONTENT_OUTPUT_PATH, JSON.stringify({
-  version: 1,
-  buildTime: index.buildTime,
-  promptCount: prompts.length,
-  content: contentStore,
-}));
-
 const duration = Date.now() - startTime;
-const contentKb = (fs.statSync(CONTENT_OUTPUT_PATH).size / 1024).toFixed(0);
 console.log(`✓ Built index with ${prompts.length} prompts in ${duration}ms`);
 console.log(`✓ Saved to: ${OUTPUT_PATH}`);
-console.log(`✓ Saved content store (${contentKb}KB) to: ${CONTENT_OUTPUT_PATH}`);
