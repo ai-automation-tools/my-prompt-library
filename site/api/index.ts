@@ -65,14 +65,20 @@ const ensureDir = (dirPath: string) => {
   }
 };
 
-// Library path resolution
+// Library path resolution.
+// Always resolve relative to this file, never process.cwd(): on Vercel the
+// function runs with cwd=/var/task while the app (Root Directory = site) is
+// bundled at /var/task/site, so a cwd-based path misses library/ entirely.
 const getLibraryPath = () => {
-  // In production (Vercel), library is at the root
-  if (process.env.VERCEL) {
-    return path.join(process.cwd(), 'library');
+  const candidates = [
+    path.join(__dirname, '..', 'library'),
+    path.join(process.cwd(), 'library'),
+  ];
+  const found = candidates.find(p => fs.existsSync(p));
+  if (!found) {
+    console.warn(`[LIBRARY] Not found in any of: ${candidates.join(', ')}`);
   }
-  // In development, go up from api/ to repo root
-  return path.join(__dirname, '..', 'library');
+  return found || candidates[0];
 };
 
 const LIBRARY_PATH = getLibraryPath();
@@ -357,8 +363,9 @@ app.get("/api/prompts/:id", optionalAuth, async (req, res) => {
     // Otherwise, it's a file path in the library
     if (isGitHubConfigured()) {
       // GitHub mode
+      const githubPath = promptId.startsWith('library/') ? promptId : `library/${promptId}`;
       const response = await fetch(
-        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${promptId}?ref=${GITHUB_BRANCH}`,
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${githubPath}?ref=${GITHUB_BRANCH}`,
         { headers: githubHeaders }
       );
       
