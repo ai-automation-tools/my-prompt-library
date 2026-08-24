@@ -50,6 +50,44 @@ try {
   console.warn('[INDEX] Failed to load prebuilt index:', err);
 }
 
+// Full prompt bodies, keyed by id. Built by scripts/build-prompt-index.js and
+// bundled next to this function — on Vercel the library/ tree is NOT in the
+// lambda, so this sidecar is the only way to serve full content there.
+// Loaded lazily: the listing endpoints never need it.
+// Ids travel as forward-slashed, library/-relative paths
+const normalizeLibraryId = (id: string): string =>
+  id.split('\\').join('/').replace(/^library\//, '');
+
+let contentStore: Record<string, string> | null = null;
+let contentStoreLoaded = false;
+
+const getPrebuiltContent = (id: string): string | null => {
+  if (!contentStoreLoaded) {
+    contentStoreLoaded = true;
+    try {
+      const contentPath = path.join(__dirname, 'prompt-content.json');
+      if (fs.existsSync(contentPath)) {
+        const parsed = JSON.parse(fs.readFileSync(contentPath, 'utf-8'));
+        contentStore = parsed.content || null;
+        console.log(`[CONTENT] Loaded content store with ${Object.keys(contentStore || {}).length} prompts`);
+      } else {
+        console.warn('[CONTENT] prompt-content.json not found — full content unavailable');
+      }
+    } catch (err) {
+      console.warn('[CONTENT] Failed to load content store:', err);
+    }
+  }
+  if (!contentStore) return null;
+  const normalized = normalizeLibraryId(id);
+  return contentStore[normalized] ?? null;
+};
+
+const getIndexEntry = (id: string): any | null => {
+  if (!prebuiltIndex) return null;
+  const normalized = normalizeLibraryId(id);
+  return prebuiltIndex.prompts.find((p: any) => p.id === normalized) || null;
+};
+
 // Helper function to generate safe filename
 const generateFilename = (title: string) => {
   return title
@@ -103,6 +141,28 @@ const extractFirstHeading = (content: string): string | null => {
   const match = content.match(/^#\s+(.+)$/m);
   return match ? match[1] : null;
 };
+
+// TEMP diagnostic: shows where the bundler actually placed library/ in the lambda.
+// Remove once the includeFiles layout is confirmed.
+app.get("/api/_debug/fs", (_req, res) => {
+  const safeList = (p: string) => {
+    try { return fs.readdirSync(p).slice(0, 40); } catch (e: any) { return `ERR ${e.code}`; }
+  };
+  res.json({
+    cwd: process.cwd(),
+    dirname: __dirname,
+    libraryPath: LIBRARY_PATH,
+    libraryExists: fs.existsSync(LIBRARY_PATH),
+    contentStoreExists: fs.existsSync(path.join(__dirname, 'prompt-content.json')),
+    listing: {
+      cwd: safeList(process.cwd()),
+      dirname: safeList(__dirname),
+      cwdLibrary: safeList(path.join(process.cwd(), 'library')),
+      taskLibrary: safeList('/var/task/library'),
+      taskSiteLibrary: safeList('/var/task/site/library'),
+    },
+  });
+});
 
 // API to list all prompts (with optional lightweight mode)
 app.get("/api/prompts", optionalAuth, async (req, res) => {
@@ -354,11 +414,32 @@ app.get("/api/prompts/:id", optionalAuth, async (req, res) => {
       }
     }
     
+    // Public library: prefer the bundled content store. On Vercel the library/
+    // tree isn't in the lambda, so the filesystem branch below can't find it.
+    const prebuiltContent = getPrebuiltContent(promptId);
+    if (prebuiltContent !== null) {
+      const entry = getIndexEntry(promptId);
+      const normalizedId = normalizeLibraryId(promptId);
+      const pathParts = normalizedId.replace('.md', '').split('/');
+      return res.json({
+        id: normalizedId,
+        title: entry?.title || extractFirstHeading(prebuiltContent) || path.basename(normalizedId, '.md'),
+        section: entry?.section || pathParts[0] || 'General',
+        category: entry?.category || pathParts[1] || 'Uncategorized',
+        subcategory: entry?.subcategory ?? (pathParts.length > 2 ? pathParts[2] : null),
+        tags: entry?.tags || [],
+        content: prebuiltContent,
+        lastModified: entry?.lastModified || null,
+        isUserOwned: false,
+      });
+    }
+
     // Otherwise, it's a file path in the library
     if (isGitHubConfigured()) {
       // GitHub mode
+      const githubPath = promptId.startsWith('library/') ? promptId : `library/${promptId}`;
       const response = await fetch(
-        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${promptId}?ref=${GITHUB_BRANCH}`,
+        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${githubPath}?ref=${GITHUB_BRANCH}`,
         { headers: githubHeaders }
       );
       
@@ -519,11 +600,16 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
   try {
     const promptId = decodeURIComponent(req.params.path);
     
-    // Read from filesystem or GitHub
+    // Read from the bundled content store, then GitHub/filesystem as fallbacks
     let content: string;
     let data: any;
     
-    if (isGitHubConfigured()) {
+    const prebuiltContent = getPrebuiltContent(promptId);
+    if (prebuiltContent !== null) {
+      const entry = getIndexEntry(promptId);
+      content = prebuiltContent;
+      data = { tags: entry?.tags || [], name: entry?.title, title: entry?.title };
+    } else if (isGitHubConfigured()) {
       const contentResponse = await fetch(
         `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/library/${promptId}?ref=${GITHUB_BRANCH}`,
         { headers: githubHeaders }
