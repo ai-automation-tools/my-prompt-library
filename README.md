@@ -113,7 +113,8 @@ See [DEPLOYMENT.md](docs/setup/DEPLOYMENT.md) for complete deployment instructio
 **Creating Content**
 - [Contributing Guide](docs/CONTRIBUTING.md) - How to add content
 - [Templates](docs/templates/) - Starter templates for all content types
-- [Quick Reference](docs/QUICK_REFERENCE.md) - Common commands
+- [Roadmap](docs/ROADMAP.md) - What's next
+- [Changelog](docs/CHANGELOG.md) - Shipped work
 
 **Features**
 - [API Reference](docs/features/API.md) - REST API endpoints

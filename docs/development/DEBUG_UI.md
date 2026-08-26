@@ -35,7 +35,7 @@ You should see JSON data like:
 ```json
 [
   {
-    "id": "Skills/News/ai-news-digest/SKILL.md",
+    "id": "3_Skills/News/ai-news-digest/SKILL.md",
     "title": "Weekly AI News Digest",
     "section": "Skills",
     "category": "News",
@@ -161,7 +161,7 @@ When working correctly, you should see:
 ```
 🔍 DEBUG: Fetched prompts: 15
 🔍 DEBUG: First prompt: {
-  id: "Skills/Finance/financial-analysis/SKILL.md",
+  id: "3_Skills/Finance/financial-analysis/SKILL.md",
   title: "Financial Analysis",
   section: "Skills",
   category: "Finance",

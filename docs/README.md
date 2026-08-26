@@ -1,36 +1,37 @@
 # Documentation
 
-Complete documentation for the my-prompt-library project.
+Documentation for **my-prompt-library**, live at
+[prompts.mikesailab.com](https://prompts.mikesailab.com).
 
 ---
 
 ## 📚 Quick Links
 
 ### Getting Started
-- **[Setup Guide](setup/SETUP.md)** - Local development and production setup
-- **[Deployment Guide](setup/DEPLOYMENT.md)** - Deploy to Vercel with Neon PostgreSQL
-- **[Architecture](ARCHITECTURE.md)** - System design and technology stack
+- **[Setup Guide](setup/SETUP.md)** — local development and production setup
+- **[Deployment Guide](setup/DEPLOYMENT.md)** — Vercel + Neon PostgreSQL
+- **[Architecture](ARCHITECTURE.md)** — system design, repo layout, technology stack
 
 ### Creating Content
-- **[Contributing Guide](CONTRIBUTING.md)** - How to add content (all types)
-- **[Templates](templates/)** - Starter templates for all 5 content types
-- **[Skill Packs](skill-packs/)** - Create and manage skill pack collections
-- **[Quick Reference](QUICK_REFERENCE.md)** - Common tasks and CLI commands
+- **[Contributing Guide](CONTRIBUTING.md)** — how to add content of any type
+- **[Templates](templates/)** — starter templates for all five content types
+- **[Skill Packs](skill-packs/)** — create and manage skill pack collections
 
 ### Features
-- **[API Reference](features/API.md)** - REST API endpoints
-- **[Library Modes](features/LIBRARY-MODE-IMPLEMENTATION.md)** - Public vs My Library
-- **[Featured Prompts](features/FEATURED-PROMPTS.md)** - Highlighting top prompts
-- **[GitHub Mode](features/GITHUB_MODE.md)** - Use GitHub as storage backend
+- **[API Reference](features/API.md)** — REST endpoints
+- **[Library Modes](features/LIBRARY-MODE-IMPLEMENTATION.md)** — Public vs My Library
+- **[Featured Prompts](features/FEATURED-PROMPTS.md)** — highlighting top prompts
+- **[GitHub Mode](features/GITHUB_MODE.md)** — using GitHub as the storage backend
 
 ### Development
-- **[Debug Guide](development/DEBUG_UI.md)** - Troubleshooting and debugging
-- **[PostgreSQL Migration](development/POSTGRES-MIGRATION-SUMMARY.md)** - SQLite → Postgres notes
+- **[Debug Guide](development/DEBUG_UI.md)** — troubleshooting
+- **[PostgreSQL Migration](development/POSTGRES-MIGRATION-SUMMARY.md)** — SQLite → Postgres notes
 
 ### Planning & Status
-- **[Roadmap](ROADMAP.md)** - What's next: near-term cleanup, UI de-bulk, content/feature plans
-- **[Changelog](CHANGELOG.md)** - Shipped work, newest first
-- **[Project Audit (2026-06-24)](audits/PROJECT-AUDIT-2026-06-24.md)** - Whole-repo health check + UI bulk analysis
+- **[Roadmap](ROADMAP.md)** — what's next
+- **[Changelog](CHANGELOG.md)** — shipped work, newest first
+- **[Repository Audit (2026-08-26)](audits/REPO-AUDIT-2026-08-26.md)** — whole-repo health check
+- **[Upstream Drift Baseline](audits/upstream-drift-2026-08-26.md)** — first drift report
 
 ---
 
@@ -41,105 +42,92 @@ docs/
 ├── README.md                     # This file
 ├── ROADMAP.md                    # What's next
 ├── CHANGELOG.md                  # Shipped work, newest first
-├── ARCHITECTURE.md               # System design
-├── QUICK_REFERENCE.md            # Quick commands
+├── ARCHITECTURE.md               # System design and repo layout
+├── CONTRIBUTING.md               # How to add content
 │
 ├── audits/                       # Point-in-time health checks
-│   └── PROJECT-AUDIT-2026-06-24.md
+│   ├── REPO-AUDIT-2026-08-26.md
+│   └── upstream-drift-2026-08-26.md
 │
-├── setup/                        # Setup & deployment
+├── setup/
 │   ├── SETUP.md                  # Local dev setup
 │   └── DEPLOYMENT.md             # Production deployment
 │
-├── templates/                    # Content templates
-│   ├── README.md                 # Template guide
+├── templates/                    # Content templates, one per section
+│   ├── README.md
 │   ├── prompt-library-template.md
 │   ├── agent-guides-template.md
 │   ├── agents-template.md
 │   ├── system-prompts-template.md
-│   └── skills-template.md
+│   ├── skills-template.md
+│   └── TEMPLATE-SUMMARY.md
 │
-├── skill-packs/                  # Skill pack documentation
+├── skill-packs/
 │   ├── README.md                 # Complete guide
-│   ├── QUICK-START.md            # Fast creation guide
-│   └── PACK-TEMPLATE.json        # Template file
+│   ├── QUICK-START.md
+│   └── PACK-TEMPLATE.json
 │
-├── features/                     # Feature documentation
-│   ├── API.md                    # API endpoints
+├── features/
+│   ├── API.md
 │   ├── LIBRARY-MODE-IMPLEMENTATION.md
 │   ├── FEATURED-PROMPTS.md
 │   └── GITHUB_MODE.md
 │
-├── development/                  # Developer guides
-│   ├── DEBUG_UI.md
-│   └── POSTGRES-MIGRATION-SUMMARY.md
-│
-└── archive/                      # Superseded / historical docs
+└── development/
+    ├── DEBUG_UI.md
+    └── POSTGRES-MIGRATION-SUMMARY.md
 ```
+
+> Superseded planning docs (`archive/`, `QUICK_REFERENCE.md`, `library-update-logs/`) were
+> removed on 2026-08-26. They remain in Git history; the entries worth keeping were folded
+> into [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
 ## 🚀 Quick Start Paths
 
-### I want to...
+**...run the app locally** → [Setup Guide](setup/SETUP.md), then `cd site && npm run dev`
 
-**...run the app locally**
-1. [Setup Guide](setup/SETUP.md)
-2. [Quick Reference](QUICK_REFERENCE.md)
+**...deploy to production** → [Deployment Guide](setup/DEPLOYMENT.md) → [Architecture](ARCHITECTURE.md)
 
-**...deploy to production**
-1. [Deployment Guide](setup/DEPLOYMENT.md)
-2. [Architecture](ARCHITECTURE.md)
+**...add new content** → [Contributing Guide](CONTRIBUTING.md) → [Templates](templates/)
 
-**...add new content**
-1. [Contributing Guide](CONTRIBUTING.md)
-2. [Templates](templates/)
+**...understand the codebase** → [Architecture](ARCHITECTURE.md) → [API Reference](features/API.md)
 
-**...understand the codebase**
-1. [Architecture](ARCHITECTURE.md)
-2. [API Reference](features/API.md)
+**...know what needs doing** → [Roadmap](ROADMAP.md) → [Repository Audit](audits/REPO-AUDIT-2026-08-26.md)
 
-**...contribute content**
-1. [Contributing Guide](CONTRIBUTING.md)
-2. [Templates README](templates/README.md)
-
-**...troubleshoot issues**
-1. [Debug Guide](development/DEBUG_UI.md)
-2. [Roadmap](ROADMAP.md)
+**...troubleshoot** → [Debug Guide](development/DEBUG_UI.md)
 
 ---
 
 ## 📝 Content Templates
 
-Use these templates when adding new content:
+| Template | Use for | Library section |
+|:---|:---|:---|
+| 📌 **[Prompts](templates/prompt-library-template.md)** | General AI prompts | `4_Prompts/` |
+| 💻 **[Guides](templates/agent-guides-template.md)** | Platform documentation | `1_Guides/` |
+| 🤖 **[Agents](templates/agents-template.md)** | Agent definitions | `2_Agents/` |
+| 📝 **[System Prompts](templates/system-prompts-template.md)** | LLM instructions | `5_System_Prompts/` |
+| 🔧 **[Skills](templates/skills-template.md)** | Agent Skills (`SKILL.md`) | `3_Skills/` |
 
-| Template | Use For | Location |
-|----------|---------|----------|
-| 📌 **Prompt Library** | General AI prompts | [template](templates/prompt-library-template.md) |
-| 💻 **Agent Guides** | Platform documentation | [template](templates/agent-guides-template.md) |
-| 🤖 **Agents** | Agent definitions | [template](templates/agents-template.md) |
-| 📝 **System Prompts** | LLM instructions | [template](templates/system-prompts-template.md) |
-| 🔧 **Skills** | Tool integrations | [template](templates/skills-template.md) |
+See the [Templates README](templates/README.md) for the detailed usage guide.
 
-See [Templates README](templates/README.md) for detailed usage guide.
+Skills additionally have to satisfy the Agent Skills spec: `name` must be lowercase-hyphen
+and match the containing directory, and `description` is required. Run
+`node scripts/fix-skill-frontmatter.mjs` to check, and
+`node scripts/skill-frontmatter.test.mjs` to verify the whole section.
 
 ---
 
-## 🏗️ Architecture Overview
+## 🏗️ Stack
 
-**Frontend:**
-- React + TypeScript + Vite
-- Tailwind CSS
-- Fuzzy search (Fuse.js)
-
-**Backend:**
-- Node.js + Express + TypeScript
-- PostgreSQL (Neon)
-- Session-based auth
-
-**Deployment:**
-- Vercel (serverless)
-- Neon (database)
+| Layer | Technology |
+|:---|:---|
+| Frontend | React 19, TypeScript, Vite 6, Tailwind v4, Fuse.js |
+| Backend | Express (local dev) and Vercel serverless handlers |
+| Data | Public Library = markdown in `site/library/`; user data = Neon PostgreSQL |
+| Auth | bcrypt hashes, CSPRNG cookie sessions (30-day) |
+| Deploy | Vercel, Root Directory `site` |
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 
@@ -147,64 +135,64 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 
 ## 🔧 Development
 
-### Prerequisites
-- Node.js 18+
-- PostgreSQL (local or Neon)
-- Git
-
-### Quick Commands
+Prerequisites: Node.js 18+, a Neon (or local) PostgreSQL URL, Git.
 
 ```bash
-# Install dependencies
+cd site                     # the whole app lives here
 npm install
-
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
-
-# Run type checking
-npm run lint
+cp .env.example .env        # then set DATABASE_URL
+npm run dev                 # http://localhost:3010
+npm run build               # build:index -> tsc -> vite build
+npm run lint                # tsc --noEmit
+npm run build:index         # regenerate api/prompt-index.json from library/
 ```
 
-See [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for more commands.
+Repo-level tooling lives in `scripts/`, outside the deploy root:
+
+```bash
+node scripts/check-upstream-drift.mjs      # what has drifted from upstream
+node scripts/attribute-upstream.mjs        # re-stamp provenance (see its header)
+node scripts/fix-skill-frontmatter.mjs     # enforce the Agent Skills spec
+node scripts/upstream.test.mjs             # self-checks
+node scripts/skill-frontmatter.test.mjs
+```
+
+The app runs without `DATABASE_URL` — it serves the read-only Public Library, and auth plus
+My Library are disabled.
 
 ---
 
 ## 📊 Project Status
 
-**Current State:** Production-ready, live at `prompts.mikesailab.com`
+Production-ready and live. Security is clean as of 2026-08-26 (0 npm advisories, path
+traversal closed, CSPRNG session tokens). The open work is content freshness, dev/prod
+parity, and payload size — see [ROADMAP.md](ROADMAP.md).
 
-See [ROADMAP.md](ROADMAP.md) for what's next and [CHANGELOG.md](CHANGELOG.md) for recent changes.
+A weekly GitHub Action (`.github/workflows/upstream-drift.yml`) reports which vendored
+skills have fallen behind their upstream. It never edits content; it updates one rolling
+issue for a human to triage.
 
 ---
 
 ## 🤝 Contributing
 
-### Adding Content
+**Content:** pick a template from [templates/](templates/), follow
+[CONTRIBUTING.md](CONTRIBUTING.md), include the required metadata fields, and put the file
+in the right section directory. Then run `npm run build:index` from `site/` so the index
+reflects it.
 
-1. Choose appropriate template from [templates/](templates/)
-2. Follow [Prompt Template Guide](archive/prompt-template-guide.md)
-3. Ensure all 4 required metadata fields (title, tags, category, subcategory)
-4. Submit PR with content in correct directory
-
-### Code Contributions
-
-1. Fork the repository
-2. Create feature branch
-3. Follow existing code style
-4. Test locally
-5. Submit PR with clear description
+**Code:** branch off `main`, keep the existing style (strict TS, no `any`; Tailwind
+utility-first), run `npm run lint` and `npm run build`, and open a PR describing the change.
 
 ---
 
 ## 📖 Additional Resources
 
 - **Main README:** [../README.md](../README.md)
-- **GitHub Repository:** [github.com/michaelschecht/my-prompt-library](https://github.com/michaelschecht/my-prompt-library)
-- **Live Site:** [prompts.mikesailab.com](https://prompts.mikesailab.com)
+- **Agent guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Repository:** [github.com/michaelschecht/my-prompt-library](https://github.com/michaelschecht/my-prompt-library)
+- **Live site:** [prompts.mikesailab.com](https://prompts.mikesailab.com)
 
 ---
 
-**Last Updated:** 2026-06-24
+**Last updated:** 2026-08-26

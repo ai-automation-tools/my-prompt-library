@@ -90,24 +90,24 @@ Place files in correct location based on category/subcategory:
 
 ```
 library/
-├── Prompt_Library/
+├── 4_Prompts/
 │   └── [Category]/
 │       └── [Subcategory]/
 │           └── your-prompt.md
 │
-├── Agent_Guides/
+├── 1_Guides/
 │   └── [Platform]/
 │       └── your-guide.md
 │
-├── Agents/
+├── 2_Agents/
 │   └── [Category]/
 │       └── your-agent.md
 │
-├── System_Prompts/
+├── 5_System_Prompts/
 │   └── [Platform]/
 │       └── your-system.md
 │
-└── Skills/
+└── 3_Skills/
     └── [Category]/
         └── [skill-name]/
             └── SKILL.md
@@ -223,7 +223,7 @@ tags: [no, quotes]
 **Fix:** Always quote strings
 
 ### ❌ Wrong Directory
-File: `library/Agents/Marketing/email-agent.md`  
+File: `site/library/2_Agents/Marketing/email-agent.md`  
 Metadata: `category: "Marketing"`
 
 **Fix:** Category should be `"Agents"`, subcategory should be `"Marketing"`
@@ -245,7 +245,7 @@ tags: ["prompt", "content", "text"]  # Too generic
 ## Need Help?
 
 - **Templates:** See [templates/README.md](templates/README.md)
-- **Examples:** Browse existing content in [library/](../library/)
+- **Examples:** Browse existing content in [site/library/](../site/library/)
 - **Questions:** Open an issue with `question` label
 - **Feedback:** Open an issue with `feedback` label
 
