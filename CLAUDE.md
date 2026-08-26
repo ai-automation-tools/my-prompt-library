@@ -82,7 +82,7 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
 - React 19 functional components + hooks; strict TS, no `any`. Tailwind utility-first.
 - Auth = bcrypt hashes + cookie sessions (30-day). Secure cookies off in dev (`NODE_ENV`).
 - Parameterized SQL only (`db/postgres.ts`). Never expose `DATABASE_URL` client-side.
-- Never commit `.env*` (gitignored), `DATABASE_URL`, GitHub tokens, or `GEMINI_API_KEY`.
+- Never commit `.env*` (gitignored), `DATABASE_URL`, or GitHub tokens.
 - Match the existing file's style. `App.tsx` is huge — when touching the UI, prefer
   extracting into `src/components/` or `src/hooks/` over growing it back (see docs/ROADMAP.md).
 
@@ -94,4 +94,3 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
 | `NODE_ENV` | cookie security, dev branch | `development` locally. |
 | `USE_GITHUB_MODE` | public library source | `false` = read local `library/` files (default dev); `true` = fetch from GitHub. |
 | `GITHUB_TOKEN` / `GITHUB_OWNER` / `GITHUB_REPO` / `GITHUB_BRANCH` | GitHub mode only | Only when `USE_GITHUB_MODE=true`. |
-| `GEMINI_API_KEY` | optional | `@google/genai` dep; surfaced via Vite. Not required to run. |
