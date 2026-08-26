@@ -1,5 +1,6 @@
 ---
-name: "🔎 Tavily"
+title: "🔎 Tavily"
+name: "tavily"
 description: AI-optimized web search using the Tavily API for current events, domain-filtered research, answer summaries, and raw content extraction. Use when live web research needs cleaner LLM-ready results than generic search.
 source: https://skillsmp.com/skills/openclaw-skills-skills-bert-builder-tavily-skill-md
 author: openclaw

@@ -1,4 +1,6 @@
 ---
+name: "cloudflare-deploy"
+description: "Deploy applications and supporting infrastructure to Cloudflare using Workers, Pages, and related platform services."
 title: "cloudflare-deploy"
 tags: ["cloudflare", "deployment", "workers", "pages"]
 category: "Skills"

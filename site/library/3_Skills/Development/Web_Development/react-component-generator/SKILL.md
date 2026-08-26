@@ -1,5 +1,6 @@
 ---
-name: 🛠️ react-component-generator
+title: "🛠️ react-component-generator"
+name: "react-component-generator"
 description: Generate robust, accessible, and well-typed React components using Tailwind CSS and TypeScript. Use this skill when asked to create a new UI component, page element, or widget.
 upstream:
   match: unknown

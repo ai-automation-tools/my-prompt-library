@@ -1,4 +1,6 @@
 ---
+name: "blogwatcher"
+description: "Monitor blogs and RSS or Atom feeds with blogwatcher-cli."
 title: "blogwatcher"
 tags: ["rss", "blogs", "monitoring", "feeds"]
 category: "Skills"

@@ -1,4 +1,6 @@
 ---
+name: "aflpp"
+description: "Use AFL++ for multi-core fuzzing of C and C++ targets when you need stronger coverage, mature mutation strategies, or better campaign throughput than simpler single-process setups."
 title: "aflpp"
 tags: ["fuzzing", "security", "testing", "c-cpp"]
 category: "Skills"

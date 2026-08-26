@@ -1,5 +1,6 @@
 ---
-name: "Performance Testing"
+title: "Performance Testing"
+name: "testing-performance"
 description: Load, stress, endurance, and benchmarking workflows for validating application performance under realistic traffic.
 source: https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-wojons-skills-testing-performance-skill-md
 author: NeverSight

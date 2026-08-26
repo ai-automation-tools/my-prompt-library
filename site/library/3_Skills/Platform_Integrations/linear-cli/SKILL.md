@@ -1,4 +1,6 @@
 ---
+name: "linear-cli"
+description: "Manage Linear issues from the command line with a repeatable workflow for finding, updating, and progressing tickets."
 title: "linear-cli"
 tags: ["linear", "cli", "project-management", "issues"]
 category: "Skills"

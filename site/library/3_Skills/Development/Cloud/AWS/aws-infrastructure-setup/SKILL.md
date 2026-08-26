@@ -1,5 +1,6 @@
 ---
-name: ☁️ AWS Infrastructure Setup
+title: "☁️ AWS Infrastructure Setup"
+name: "aws-infrastructure-setup"
 description: Set up AWS infrastructure using Terraform/CloudFormation with best practices for security, scalability, and cost optimization.
 metadata:
   short-description: Set up AWS infrastructure using Terraform/CloudFormation with best practices for security, scalability, and cost optimization.

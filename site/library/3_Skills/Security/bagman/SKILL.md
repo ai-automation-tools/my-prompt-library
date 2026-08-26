@@ -1,4 +1,6 @@
 ---
+name: "bagman"
+description: "Secure key and secret handling for AI agents, especially agents that interact with wallets, private keys, API credentials, or systems where prompt injection could expose sensitive material."
 title: "Bagman"
 tags: ["secrets", "key-management", "wallets", "prompt-injection", "security"]
 category: "Skills"

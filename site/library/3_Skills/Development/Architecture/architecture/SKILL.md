@@ -1,5 +1,6 @@
 ---
-name: 🛠️ architecture
+title: "🛠️ architecture"
+name: "architecture"
 description: Architectural decision-making framework. Requirements analysis, trade-off evaluation, ADR documentation. Use when making architecture decisions or analyzing system design.
 allowed-tools: Read, Glob, Grep
 upstream:

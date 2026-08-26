@@ -1,4 +1,6 @@
 ---
+name: "arxiv"
+description: "Search and retrieve academic papers from arXiv via the public REST API. No API key required."
 title: "arxiv"
 tags: ["research", "academic", "papers", "science", "api"]
 category: "Skills"

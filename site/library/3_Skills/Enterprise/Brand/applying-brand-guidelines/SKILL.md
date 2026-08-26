@@ -1,5 +1,6 @@
 ---
-name: 🛠️ applying-brand-guidelines
+title: "🛠️ applying-brand-guidelines"
+name: "applying-brand-guidelines"
 description: This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging
 upstream:
   match: ambiguous

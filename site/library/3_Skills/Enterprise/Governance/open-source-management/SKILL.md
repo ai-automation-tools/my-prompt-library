@@ -1,4 +1,6 @@
 ---
+name: "open-source-management"
+description: "Use this skill to maintain healthy open source projects: contribution workflows, issue triage, governance, licensing, changelogs, releases, and community operations."
 title: "Open Source Management"
 tags: ["open-source", "governance", "maintainers", "releases", "community"]
 category: "Skills"

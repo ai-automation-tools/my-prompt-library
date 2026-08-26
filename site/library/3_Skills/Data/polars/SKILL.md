@@ -1,5 +1,6 @@
 ---
-name: "Polars"
+title: "Polars"
+name: "polars"
 description: High-performance DataFrame workflows with Polars for large-scale ETL, lazy evaluation, and analytics.
 source: https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-silvainfm-claude-skills-polars-skill-md
 author: NeverSight

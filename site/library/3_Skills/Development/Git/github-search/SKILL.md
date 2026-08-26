@@ -1,4 +1,6 @@
 ---
+name: "github-search"
+description: "Search GitHub code, repositories, issues, and pull requests with focused queries instead of broad manual browsing."
 title: "github-search"
 tags: ["github", "search", "code-search", "repositories"]
 category: "Skills"

@@ -1,5 +1,6 @@
 ---
-name: "🧪 Eval Harness"
+title: "🧪 Eval Harness"
+name: "eval-harness"
 description: Formal evaluation framework for agent workflows using eval-driven development (EDD). Use when defining pass/fail criteria, building regression evals, measuring pass@k, or benchmarking agent reliability.
 source: https://skillsmp.com/skills/affaan-m-everything-claude-code-skills-eval-harness-skill-md
 author: affaan-m

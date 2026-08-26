@@ -1,5 +1,6 @@
 ---
-name: "🔬 autoresearch"
+title: "🔬 autoresearch"
+name: "autoresearch"
 description: Autonomously runs iterative experiment loops to optimize code against a measurable metric. Use when the user wants to improve execution time, memory usage, test pass rate, or any numeric performance goal across repeated experiments — NOT for one-shot bug fixes or simple code review.
 source: https://github.com/github/awesome-copilot
 upstream:

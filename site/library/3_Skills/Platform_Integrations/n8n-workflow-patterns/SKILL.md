@@ -1,4 +1,6 @@
 ---
+name: "n8n-workflow-patterns"
+description: "Proven architectural patterns for building n8n workflows instead of improvising node graphs from scratch."
 title: "n8n-workflow-patterns"
 tags: ["n8n", "automation", "workflow-design", "integrations"]
 category: "Skills"

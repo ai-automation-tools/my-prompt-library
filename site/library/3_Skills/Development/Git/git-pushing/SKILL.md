@@ -1,5 +1,6 @@
 ---
-name: 🐙 git-pushing
+title: "🐙 git-pushing"
+name: "git-pushing"
 description: Stage, commit, and push git changes with conventional commit messages. Use when user wants to commit and push changes, mentions pushing to remote, or asks to save and push their work. Also activates when user says "push changes", "commit and push", "push this", "push to github", or similar git workflow requests.
 upstream:
   match: ambiguous

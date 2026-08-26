@@ -1,5 +1,6 @@
 ---
-name: 🔗 scientific-brainstorming
+title: "🔗 scientific-brainstorming"
+name: "scientific-brainstorming"
 description: "Research ideation partner. Generate hypotheses, explore interdisciplinary connections, challenge assumptions, develop methodologies, identify research gaps, for creative scientific problem-solving."
 upstream:
   match: ambiguous

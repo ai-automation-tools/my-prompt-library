@@ -1,5 +1,6 @@
 ---
-name: "✨ Gemini"
+title: "✨ Gemini"
+name: "gemini"
 description: Use the Gemini CLI for one-shot Q&A, summarization, and generation tasks. Trigger when Gemini-specific CLI usage, model selection, or JSON-formatted output is needed.
 source: https://skillsmp.com/skills/openclaw-openclaw-skills-gemini-skill-md
 author: openclaw

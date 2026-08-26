@@ -1,4 +1,6 @@
 ---
+name: "stream-formatter"
+description: "Improve real-time LLM streaming output by buffering partial chunks, preserving readable sentence boundaries, repairing common Markdown issues, and reducing duplicate or malformed output before rendering to users."
 title: "Stream Formatter"
 tags: ["streaming", "llm", "markdown", "chat-ui", "typescript"]
 category: "Skills"

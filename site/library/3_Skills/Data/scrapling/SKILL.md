@@ -1,4 +1,6 @@
 ---
+name: "scrapling"
+description: "Web scraping with Scrapling for HTTP fetching, dynamic browser automation, Cloudflare-aware stealth fetching, and spider crawling."
 title: "scrapling"
 tags: ["web-scraping", "browser", "crawler", "research"]
 category: "Skills"

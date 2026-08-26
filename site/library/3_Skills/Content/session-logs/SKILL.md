@@ -1,4 +1,6 @@
 ---
+name: "session-logs"
+description: "Search and analyze prior agent session logs when the user asks about earlier conversations, missing context, or historical decisions."
 title: "session-logs"
 tags: ["history", "productivity", "analysis", "logs"]
 category: "Skills"

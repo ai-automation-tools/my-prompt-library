@@ -1,5 +1,6 @@
 ---
-name: "📝 Notion"
+title: "📝 Notion"
+name: "notion"
 description: Use the Notion API to create, read, update, and query pages, databases, and blocks. Use when integrating with Notion workspaces, automating knowledge workflows, or managing structured content in Notion.
 source: https://skillsmp.com/skills/openclaw-openclaw-skills-notion-skill-md
 author: openclaw

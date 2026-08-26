@@ -1,4 +1,6 @@
 ---
+name: "popular-support-analysis"
+description: "A framework for understanding that the success of rebellion depends primarily on the people's condition, not the leader's capabilities."
 title: "Popular Support Analysis"
 tags: ["agent-skills"]
 category: "Skills"

@@ -1,5 +1,6 @@
 ---
-name: "Together GPU Clusters"
+title: "Together GPU Clusters"
+name: "together-gpu-clusters"
 description: Provision and operate Together AI GPU clusters for distributed training, inference, and HPC workloads.
 source: https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-zainhas-togetherai-skills-together-gpu-clusters-skill-md
 author: NeverSight

@@ -1,4 +1,6 @@
 ---
+name: "popular-support-building-strategy"
+description: "A method for gaining popular support through asymmetric economic policies that benefit the populace."
 title: "Popular Support Building Strategy"
 tags: ["agent-skills"]
 category: "Skills"

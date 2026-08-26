@@ -1,4 +1,6 @@
 ---
+name: "self-improvement"
+description: "Capture corrections, command failures, tool surprises, missing capabilities, and better approaches as durable project learnings. Use this skill when a task reveals reusable knowledge that should prevent future mistakes or improve agent behavior."
 title: "Self Improvement"
 tags: ["learning", "memory", "agent-improvement", "postmortem"]
 category: "Skills"

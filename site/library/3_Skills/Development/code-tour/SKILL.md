@@ -1,4 +1,6 @@
 ---
+name: "code-tour"
+description: "Create CodeTour .tour files with real file and line anchors for onboarding, architecture walkthroughs, PR reviews, RCA walkthroughs, and guided code explanations."
 title: "code-tour"
 tags: ["development", "onboarding", "architecture", "documentation"]
 category: "Skills"

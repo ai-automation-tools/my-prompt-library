@@ -1,4 +1,6 @@
 ---
+name: "popular-web-designs"
+description: "54 real-world design systems ready for use when generating HTML/CSS. Each template captures a site's complete visual language: color palette, typography hierarchy, component styles, spacing system, shadows, responsive behavior, and practical agent prompts with exact CSS values."
 title: "Popular Web Designs"
 tags: [design, css, html, ui, web-development, design-systems, templates]
 category: "Skills"

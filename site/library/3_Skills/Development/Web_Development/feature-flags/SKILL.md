@@ -1,4 +1,6 @@
 ---
+name: "feature-flags"
+description: "Handle feature-flagged React development and tests, especially when flags differ by environment, channel, or forked configuration."
 title: "feature-flags"
 tags: ["react", "frontend", "testing", "flags"]
 category: "Skills"
