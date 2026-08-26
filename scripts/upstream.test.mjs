@@ -77,4 +77,32 @@ if (fs.existsSync(LIB)) {
   }
 }
 
+// --- resync re-stamping ---
+// Mirror of stampUpstream in resync-upstream.mjs. The risk it guards is a
+// resync that rewrites 68 files and quietly corrupts the one block the drift
+// checker reads next week: a duplicated key, a dropped `repo`, or curation
+// outside the block getting eaten.
+const stampUpstream = (fm, { ref, checked }) =>
+  fm.replace(/^upstream:\n((?:[ \t]+.*\n?)*)/m, (_all, block) => {
+    const keep = block.split("\n").filter((l) => l.trim() && !/^\s+(ref|checked|match):/.test(l));
+    return ["upstream:", "  match: exact", ...keep, `  ref: ${ref}`, `  checked: ${checked}`]
+      .join("\n") + "\n";
+  });
+
+const before = "name: \"🛠️ thing\"\ntags: [\"a\"]\nupstream:\n  match: behind\n" +
+  "  repo: a/b\n  path: skills/thing/SKILL.md\n  ref: old\n  checked: 2020-01-01\n";
+const after = stampUpstream(before, { ref: "newsha", checked: "2026-08-26" });
+const su = readUpstream(after);
+assert.equal(su.match, "exact", "a resynced body is an exact match");
+assert.equal(su.ref, "newsha");
+assert.equal(su.checked, "2026-08-26");
+assert.equal(su.repo, "a/b", "repo survives re-stamping");
+assert.equal(su.path, "skills/thing/SKILL.md", "path survives re-stamping");
+assert.equal((after.match(/^upstream:$/gm) || []).length, 1, "still exactly one upstream block");
+assert.equal((after.match(/^\s+ref:/gm) || []).length, 1, "no duplicated ref");
+assert.ok(after.includes("tags: [\"a\"]"), "local curation outside the block is untouched");
+
+// Idempotent: stamping the result again changes nothing.
+assert.equal(stampUpstream(after, { ref: "newsha", checked: "2026-08-26" }), after);
+
 console.log("upstream: all checks passed");

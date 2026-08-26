@@ -4,6 +4,66 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-26 — The six most-drifted skills pulled back level with upstream
+
+The drift report shipped earlier the same day named 16 skills as `behind` — missing more
+than a quarter of their upstream's content. The six worst are now `current`, verified by
+re-running the same checker: `behind` 16 → 10, `current` 26 → 32.
+
+| skill | upstream | was missing |
+|:---|:---|---:|
+| `Development/code-tour` | github/awesome-copilot | 91% |
+| `Data/huggingface-gradio` | huggingface/skills | 86% |
+| `Content/brainstorming` | obra/superpowers | 86% |
+| `AI_ML/huggingface-llm-trainer` | huggingface/skills | 84% |
+| `AI_ML/Agent_Development/discernment-nudge` | anthropics/skills | 77% |
+| `Development/API/claude-api` | anthropics/skills | 77% |
+
+Five of the six were stubs — a paraphrased summary of the upstream skill rather than a copy
+of it. `code-tour` carried 295 words against upstream's 3,160 and none of its 20 personas or
+step types. What shipped to visitors was a description of a skill, not the skill.
+
+`claude-api` was a different failure: the body was close, but the support tree had been left
+at an old layout. Anthropic split each language's single `claude-api.md` into a directory and
+renamed `agent-sdk/` to `managed-agents/`, so 42 files were missing and 9 were orphans of a
+structure that no longer exists. It now mirrors upstream at 68 files, and the skill-pack zip
+went from 26 entries to 90.
+
+**Frontmatter is not synced, and that is the point.** `title` carries the decorated emoji
+form the site renders, and `tags`/`category`/`subcategory`/`source` are this library's own
+curation — none of it exists upstream. The drift checker strips frontmatter before comparing,
+so syncing the body is exactly what moves a skill from `behind` to `current`. Only the
+`upstream:` block is rewritten: `ref` to the sha synced from, `checked` to today, and `match`
+to `exact`, which after the sync it genuinely is.
+
+### New tooling
+
+`scripts/resync-upstream.mjs` is the repair half of `check-upstream-drift.mjs` and shares its
+resolution logic deliberately — stamped paths come from a mirror whose layout is not the
+origin repo's, so the skill is located by directory name, not by trusting the path. It
+mirrors the whole upstream skill directory and prunes local files upstream no longer has
+(`--keep-extra` to opt out, `--dry-run` to preview), and never writes outside the named skill
+directories. Line endings follow the local `SKILL.md`, so this library stays CRLF throughout
+and the separate normalization decision is not pre-empted.
+
+`scripts/upstream.test.mjs` grew a check for the re-stamping: a resync rewrites up to 68
+files, and the one thing that must survive is the block the drift checker reads next week.
+It asserts no duplicated keys, `repo`/`path` preserved, curation outside the block untouched,
+and idempotency.
+
+### A number that moved
+
+The library now mentions the current Claude 5 model family in 47 files, up from zero — all 47
+inside the resynced `claude-api` tree. Nothing else in the library names a current model, so
+the roadmap's "sweep deprecated model IDs" item stands; its counts are updated.
+
+_Touched: `scripts/resync-upstream.mjs`, `scripts/upstream.test.mjs`, 6 skill directories
+under `site/library/3_Skills/` (+82 files, −9), `site/api/prompt-index.json`,
+`docs/ROADMAP.md`, `docs/ARCHITECTURE.md`, `docs/README.md`,
+`docs/audits/upstream-drift-2026-08-26.md`._
+
+---
+
 ## 2026-08-26 — Repository audit, security fixes, and upstream provenance
 
 A full audit of the repo after several months idle, then the first remediation pass.

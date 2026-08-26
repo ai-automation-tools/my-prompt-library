@@ -9572,8 +9572,8 @@
       "category": "AI_ML",
       "subcategory": "Agent_Development",
       "tags": [],
-      "contentPreview": "\r\n# Discernment Nudge\r\n\r\nBuilds an \"AI fluency\" habit into responses: after answering fully, optionally prompt the user to fact-check, question the reasoning, or notice what's missing — without becomi",
-      "lastModified": "2026-08-26T20:51:12.696Z",
+      "contentPreview": "\r\n# Discernment nudge\r\n\r\n## Why this exists\r\n\r\nPeople often take an AI answer at face value, especially when it's\r\nconfidently written and well-structured. That's usually fine — but for\r\nsubstantive a",
+      "lastModified": "2026-08-26T21:58:36.547Z",
       "isUserOwned": false
     },
     {
@@ -9643,8 +9643,8 @@
       "category": "AI_ML",
       "subcategory": "huggingface-llm-trainer",
       "tags": [],
-      "contentPreview": "\r\n# Hugging Face LLM Trainer\r\n\r\nFine-tune language and vision models using TRL (Transformer Reinforcement Learning) on HuggingFace's managed cloud GPU infrastructure.\r\n\r\n## Prerequisites\r\n\r\n- **Paid H",
-      "lastModified": "2026-08-26T21:00:03.539Z",
+      "contentPreview": "\r\n# TRL Training on Hugging Face Jobs\r\n\r\n## Overview\r\n\r\nTrain language models using TRL (Transformer Reinforcement Learning) on fully managed Hugging Face infrastructure. No local GPU setup required—m",
+      "lastModified": "2026-08-26T21:58:35.609Z",
       "isUserOwned": false
     },
     {
@@ -9896,8 +9896,8 @@
       "category": "Content",
       "subcategory": "brainstorming",
       "tags": [],
-      "contentPreview": "\r\n# Brainstorming Ideas Into Designs\r\n\r\n## Overview\r\n\r\nHelp turn ideas into fully formed designs and specs through natural collaborative dialogue.\r\n\r\nStart by understanding the current project context",
-      "lastModified": "2026-08-26T20:51:12.729Z",
+      "contentPreview": "\r\n# Brainstorming Ideas Into Designs\r\n\r\nHelp turn ideas into fully formed designs and specs through natural collaborative dialogue.\r\n\r\nStart by classifying how much process the request needs, then wor",
+      "lastModified": "2026-08-26T21:58:35.375Z",
       "isUserOwned": false
     },
     {
@@ -10477,8 +10477,8 @@
       "category": "Data",
       "subcategory": "huggingface-gradio",
       "tags": [],
-      "contentPreview": "\r\n# Hugging Face Gradio\r\n\r\nBuild interactive web UIs and ML demos using Gradio — the Python library for wrapping any function in a shareable web interface.\r\n\r\n## Overview\r\n\r\nGradio provides two levels",
-      "lastModified": "2026-08-26T21:00:03.585Z",
+      "contentPreview": "\r\n# Gradio\r\n\r\nGradio is a Python library for building interactive web UIs and ML demos. This skill covers the core API, patterns, and examples.\r\n\r\n## Guides\r\n\r\nDetailed guides on specific topics (read",
+      "lastModified": "2026-08-26T21:58:34.269Z",
       "isUserOwned": false
     },
     {
@@ -11712,8 +11712,8 @@
         "architecture",
         "documentation"
       ],
-      "contentPreview": "\r\n# code-tour\r\n\r\nCreate CodeTour `.tour` files with real file and line anchors for onboarding, architecture walkthroughs, PR reviews, RCA walkthroughs, and guided code explanations.\r\n\r\n## Overview\r\n\r\n",
-      "lastModified": "2026-08-26T21:00:03.621Z",
+      "contentPreview": "\r\n# Code Tour Skill\r\n\r\nYou are creating a **CodeTour** — a persona-targeted, step-by-step walkthrough of a codebase\r\nthat links directly to files and line numbers. CodeTour files live in `.tours/` and",
+      "lastModified": "2026-08-26T21:58:33.269Z",
       "isUserOwned": false
     },
     {
