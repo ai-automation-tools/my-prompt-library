@@ -2,6 +2,12 @@
 name: skill-creator
 description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.
 license: Complete terms in LICENSE.txt
+upstream:
+  match: behind
+  repo: anthropics/skills
+  path: skills/skill-creator/SKILL.md
+  ref: 3b3fad96af16a10759d930941b4520ba0c40edae
+  checked: 2026-08-26
 ---
 
 # Skill Creator

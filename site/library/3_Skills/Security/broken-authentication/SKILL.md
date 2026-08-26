@@ -1,9 +1,15 @@
 ---
-name: 🛠️ Broken Authentication Testing
+title: "🛠️ Broken Authentication Testing"
+name: "broken-authentication"
 description: This skill should be used when the user asks to "test for broken authentication vulnerabilities", "assess session management security", "perform credential stuffing tests", "evaluate password policies", "test for session fixation", or "identify authentication bypass flaws". It provides comprehensive techniques for identifying authentication and session management weaknesses in web applications.
 metadata:
   author: zebbern
   version: "1.1"
+upstream:
+  match: prefix
+  repo: sickn33/antigravity-awesome-skills
+  path: broken-authentication/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Broken Authentication Testing

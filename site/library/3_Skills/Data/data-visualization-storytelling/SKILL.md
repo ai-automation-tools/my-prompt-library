@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Data"
 name: data-visualization-storytelling
 description: "Turn analytical results into clear visual narratives for technical and executive audiences. Use when: (1) building insight decks, (2) choosing charts, (3) explaining uncertainty. NOT for: deceptive or cherry-picked reporting."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Data Visualization Storytelling

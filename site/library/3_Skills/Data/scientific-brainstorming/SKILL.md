@@ -1,6 +1,12 @@
 ---
-name: 🔗 scientific-brainstorming
+title: "🔗 scientific-brainstorming"
+name: "scientific-brainstorming"
 description: "Research ideation partner. Generate hypotheses, explore interdisciplinary connections, challenge assumptions, develop methodologies, identify research gaps, for creative scientific problem-solving."
+upstream:
+  match: ambiguous
+  copies: 5
+  candidates: [hkphysics/scientific-agent-skills, k-dense-ai/scientific-agent-skills, microck/ordinary-claude-skills, ovachiever/droid-tings, thegovind/claude-scientific-skills]
+  checked: 2026-08-26
 ---
 
 # Scientific Brainstorming

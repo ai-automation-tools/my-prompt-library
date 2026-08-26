@@ -1,6 +1,12 @@
 ---
-name: 🛠️ product-strategist
+title: "🛠️ product-strategist"
+name: "product-strategist"
 description: Strategic product leadership toolkit for Head of Product including OKR cascade generation, market analysis, vision setting, and team scaling. Use for strategic planning, goal alignment, competitive analysis, and organizational design.
+upstream:
+  match: ambiguous
+  copies: 3
+  candidates: [microck/ordinary-claude-skills, ovachiever/droid-tings, questnova502/claude-skills-sync]
+  checked: 2026-08-26
 ---
 
 # Product Strategist

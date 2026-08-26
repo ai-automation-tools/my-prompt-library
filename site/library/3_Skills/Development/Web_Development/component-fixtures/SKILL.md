@@ -1,5 +1,6 @@
 ---
-name: "🧩 Component Fixtures"
+title: "🧩 Component Fixtures"
+name: "component-fixtures"
 description: Build isolated component fixtures for screenshot testing and visual debugging. Use when creating fixture-friendly UI components, stable rendering setups, or screenshot regression coverage.
 source: https://skillsmp.com/skills/microsoft-vscode-github-skills-component-fixtures-skill-md
 author: microsoft
@@ -7,6 +8,10 @@ repository: https://github.com/microsoft/vscode
 stars: 183825
 forks: 39187
 updated: 2026-04-01
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/microsoft-vscode-github-skills-component-fixtures-skill-md"
+  checked: 2026-08-26
 ---
 
 # Component Fixtures

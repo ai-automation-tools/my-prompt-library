@@ -1,9 +1,15 @@
 ---
-name: 🛠️ SQL Injection Testing
+title: "🛠️ SQL Injection Testing"
+name: "sql-injection-testing"
 description: This skill should be used when the user asks to "test for SQL injection vulnerabilities", "perform SQLi attacks", "bypass authentication using SQL injection", "extract database information through injection", "detect SQL injection flaws", or "exploit database query vulnerabilities". It provides comprehensive techniques for identifying, exploiting, and understanding SQL injection attack vectors across different database systems.
 metadata:
   author: zebbern
   version: "1.1"
+upstream:
+  match: ambiguous
+  copies: 7
+  candidates: [hainamchung/agent-assistant, jpropato/siba, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills, zebbern/claude-code-guide, zebbern/secops-cli-guides]
+  checked: 2026-08-26
 ---
 
 # SQL Injection Testing

@@ -1,6 +1,13 @@
 ---
-name: 🛠️ skill-creator
+title: "🛠️ skill-creator"
+name: "skill-creator"
 description: Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.
+upstream:
+  match: exact
+  repo: anthropics/skills
+  path: skills/skill-creator/SKILL.md
+  ref: 3b3fad96af16a10759d930941b4520ba0c40edae
+  checked: 2026-08-26
 ---
 
 # Skill Creator

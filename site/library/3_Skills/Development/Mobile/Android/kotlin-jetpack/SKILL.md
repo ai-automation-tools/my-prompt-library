@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: kotlin-jetpack
 description: "Kotlin Jetpack Compose for mobile app development. Use when: (1) building mobile applications, (2) need platform-specific features, (3) require native performance. NOT for: web applications or desktop software."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Kotlin Jetpack Compose

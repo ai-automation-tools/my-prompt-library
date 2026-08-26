@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Data"
 name: exploratory-data-analysis
 description: "Create a rigorous EDA plan and narrative from a dataset schema/sample. Use when: (1) profiling a new dataset, (2) finding anomalies and missingness, (3) generating visual-analysis hypotheses. NOT for: production ML deployment or ETL orchestration."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Exploratory Data Analysis

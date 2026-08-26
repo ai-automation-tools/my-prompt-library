@@ -1,5 +1,6 @@
 ---
-name: 🧠 mermaid-diagram-specialist
+title: "🧠 mermaid-diagram-specialist"
+name: "mermaid-diagram-specialist"
 category: tech
 description:
   Mermaid diagram specialist for creating flowcharts, sequence diagrams, ERDs,
@@ -10,6 +11,9 @@ usage:
 input:
   Process description, data model, architecture requirements, workflow steps
 output: Mermaid diagrams (flowchart, sequence, ERD, C4, state, etc.) in markdown
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Mermaid Diagram Specialist

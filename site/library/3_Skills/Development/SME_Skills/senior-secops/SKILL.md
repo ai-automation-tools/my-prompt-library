@@ -1,6 +1,12 @@
 ---
-name: 🛠️ senior-secops
+title: "🛠️ senior-secops"
+name: "senior-secops"
 description: Comprehensive SecOps skill for application security, vulnerability management, compliance, and secure development practices. Includes security scanning, vulnerability assessment, compliance checking, and security automation. Use when implementing security controls, conducting security audits, responding to vulnerabilities, or ensuring compliance requirements.
+upstream:
+  match: exact
+  repo: ovachiever/droid-tings
+  path: senior-secops/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Senior Secops

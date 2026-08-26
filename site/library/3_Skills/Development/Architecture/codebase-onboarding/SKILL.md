@@ -1,5 +1,6 @@
 ---
-name: "🗺️ Codebase Onboarding"
+title: "🗺️ Codebase Onboarding"
+name: "codebase-onboarding"
 description: Analyze a repository and generate onboarding documentation including architecture overviews, key file maps, setup guides, runbooks, and contribution guidance. Use when a codebase needs newcomer-friendly documentation.
 source: https://skillsmp.com/skills/openclaw-skills-skills-alirezarezvani-codebase-onboarding-skill-md
 author: openclaw
@@ -7,6 +8,10 @@ repository: https://github.com/openclaw/skills
 stars: 4312
 forks: 1182
 updated: 2026-03-13
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-alirezarezvani-codebase-onboarding-skill-md"
+  checked: 2026-08-26
 ---
 
 # Codebase Onboarding

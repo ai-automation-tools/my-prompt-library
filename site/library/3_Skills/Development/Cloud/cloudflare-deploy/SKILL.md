@@ -1,4 +1,6 @@
 ---
+name: "cloudflare-deploy"
+description: "Deploy applications and supporting infrastructure to Cloudflare using Workers, Pages, and related platform services."
 title: "cloudflare-deploy"
 tags: ["cloudflare", "deployment", "workers", "pages"]
 category: "Skills"
@@ -9,6 +11,10 @@ repository: "https://github.com/tech-leads-club/agent-skills"
 stars: 1630
 forks: 166
 updated: 2026-02-26
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/es/skills/tech-leads-club-agent-skills-packages-skills-catalog-skills-cloud-cloudflare-deploy-skill-md"
+  checked: 2026-08-26
 ---
 
 # cloudflare-deploy

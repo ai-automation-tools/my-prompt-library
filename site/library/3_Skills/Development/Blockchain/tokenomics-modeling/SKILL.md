@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: tokenomics-modeling
 description: "Build token supply, emission, and utility models with scenario analysis and anti-manipulation checks. Use when: (1) launch planning, (2) treasury runway analysis, (3) incentive simulations. NOT for: guaranteeing price outcomes."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Tokenomics Modeling

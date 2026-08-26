@@ -2,6 +2,11 @@
 name: feedback-mastery
 description: Navigate difficult conversations and deliver constructive feedback using structured frameworks. Covers the Preparation-Delivery-Follow-up model and Situation-Behavior-Impact (SBI) feedback technique. Use when preparing for difficult conversations, giving feedback, or managing conflicts.
 allowed-tools: Read, Glob, Grep
+upstream:
+  match: ambiguous
+  copies: 3
+  candidates: [cachemoney/agent-toolkit, softaworks/agent-toolkit, visualxintelligence/agent-toolkit]
+  checked: 2026-08-26
 ---
 
 # Feedback Conversations

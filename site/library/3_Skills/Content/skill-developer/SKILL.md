@@ -1,6 +1,11 @@
 ---
 name: skill-developer
 description: Create and manage Claude Code skills following Anthropic best practices. Use when creating new skills, modifying skill-rules.json, understanding trigger patterns, working with hooks, debugging skill activation, or implementing progressive disclosure. Covers skill structure, YAML frontmatter, trigger types (keywords, intent patterns, file paths, content patterns), enforcement levels (block, suggest, warn), hook mechanisms (UserPromptSubmit, PreToolUse), session tracking, and the 500-line rule.
+upstream:
+  match: ambiguous
+  copies: 14
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, chacha95/advanced-harness, diet103/claude-code-infrastructure-showcase, jpropato/siba, langfuse/langfuse, mamba-mental/agent-skill-manager, microck/ordinary-claude-skills, nilecui/skillsbase]
+  checked: 2026-08-26
 ---
 
 # Skill Developer Guide

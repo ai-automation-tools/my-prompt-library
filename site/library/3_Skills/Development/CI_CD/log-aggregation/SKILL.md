@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: log-aggregation
 description: "Implement centralized logging with ELK Stack or Splunk for search, correlation, and operations visibility. Use when: (1) unifying logs across systems, (2) debugging distributed issues, (3) building audit trails. NOT for: long-term archival strategy alone."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Log Aggregation

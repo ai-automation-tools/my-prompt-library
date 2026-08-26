@@ -1,6 +1,9 @@
 ---
 name: game-prototyping
 description: Plan and execute rapid game prototypes to validate mechanics, test assumptions, and find the fun before committing to full production. Use when building playable proofs-of-concept. Also trigger for "prototype", "game jam", "proof of concept", "find the fun", "playable demo", or "rapid prototype".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Game Prototyping — Find the Fun Fast

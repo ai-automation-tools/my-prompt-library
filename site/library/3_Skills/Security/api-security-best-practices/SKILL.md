@@ -1,6 +1,12 @@
 ---
-name: 🔒 api-security-best-practices
+title: "🔒 api-security-best-practices"
+name: "api-security-best-practices"
 description: "Implement secure API design patterns including authentication, authorization, input validation, rate limiting, and protection against common API vulnerabilities"
+upstream:
+  match: ambiguous
+  copies: 7
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, baotoq/agent-skills, hainamchung/agent-assistant, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
+  checked: 2026-08-26
 ---
 
 # API Security Best Practices

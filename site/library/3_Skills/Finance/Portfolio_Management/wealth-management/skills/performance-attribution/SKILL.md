@@ -1,6 +1,12 @@
 ---
-name: 🧠 performance-attribution
+title: "🧠 performance-attribution"
+name: "performance-attribution"
 description: "Decompose portfolio returns into explainable components to identify where value was added or lost. Use when the user asks about Brinson attribution, allocation vs selection effects, factor-based attribution, fixed-income attribution, or currency attribution. Also trigger when users mention 'what drove my returns', 'was it stock picking or sector bets', 'alpha decomposition', 'multi-period linking', 'interaction effect', 'active return breakdown', or ask why their portfolio outperformed or underperformed the benchmark."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: performance-attribution/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Performance Attribution

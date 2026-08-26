@@ -1,8 +1,16 @@
 ---
-name: "🤗 huggingface-gradio"
+title: "🤗 huggingface-gradio"
+name: "huggingface-gradio"
 description: Build Gradio web UIs and interactive ML demos in Python. Use when creating or editing Gradio apps, Interface wrappers, Blocks layouts, event listeners, chatbots, or deploying demos to Hugging Face Spaces.
 source: https://github.com/huggingface/skills
 installs: 42000+
+upstream:
+  match: behind
+  repo: huggingface/skills
+  path: skills/huggingface-gradio/SKILL.md
+  ref: 020194918dc4a27d5a5d9a154b6b56cc2bd21364
+  declared: "https://github.com/huggingface/skills"
+  checked: 2026-08-26
 ---
 
 # Hugging Face Gradio

@@ -4,6 +4,147 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-26 — Repository audit, security fixes, and upstream provenance
+
+A full audit of the repo after several months idle, then the first remediation pass.
+Findings and method: [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md).
+
+The headline is that the app was healthy — `tsc` clean, index deterministic, `main`
+deployable — but two security bugs were live in production and the content pipeline did not
+exist. Only 61 of 2,132 library files recorded where they came from, which is why "keep the
+skills up to date" had been intractable: you cannot diff against an upstream you cannot name.
+
+### Security
+
+**Path traversal in the skill-download endpoint — confirmed exploitable, now closed.**
+The endpoint guarded with `skillPath.startsWith('3_Skills/')` before calling
+`path.join(LIBRARY_PATH, skillPath)`. That check is satisfied by `3_Skills/../../db`, so
+`GET /api/skills/download/3_Skills%2F..%2F..%2Fdb` returned a 200 zip containing
+`db/postgres.ts` — unauthenticated, with no middleware on the route at all. Four more
+user-controlled sinks had the same shape, one of them an unauthenticated arbitrary file read.
+
+New `site/lib/safe-path.ts` exports `resolveInside(root, rel)`: resolve first, compare
+after, which is the only ordering that actually contains. All five sinks route through it.
+In `api/index.ts` the check moved *above* the GitHub/filesystem split, because GitHub
+normalises `..` inside `contents/` URLs too — guarding only the filesystem branch would have
+left the deployed path open. Re-tested with five payloads: all `400`, legitimate skill zips
+still `200`.
+
+**Session tokens were not cryptographically random.** They came from `Math.random()`, a
+non-cryptographic PRNG whose state is recoverable from observed output, and they are the
+only thing authenticating a 30-day cookie — no signature, no server-side secret. Now
+`randomBytes(32)`; ids use `randomBytes(6)`. Existing sessions must be purged
+(`DELETE FROM user_sessions;`) because they were minted by the old generator.
+
+**22 npm advisories to 0.** `npm audit fix` cleared 14, including two critical (`tar`,
+`protobufjs`). The remaining 8 all traced to `@vercel/node`, which has no fixed release —
+even 8.1.0 bundles vulnerable `undici` and `path-to-regexp`. But it was a devDependency
+imported for exactly two `import type` aliases and it never executes, since Vercel supplies
+the real runtime. Replaced with a 23-line `site/lib/vercel-types.ts` and removed.
+
+**Also removed, all verified unreferenced:** `@google/genai`, `better-sqlite3` and
+`@types/better-sqlite3` (superseded by the Postgres migration, still compiling a native
+module on every install). Dropping `@google/genai` exposed a dead `define` in
+`vite.config.ts` that inlined `process.env.GEMINI_API_KEY` into the client bundle — nothing
+read it and it was unset, so nothing leaked, but it went before someone set the variable.
+`server.ts` also stopped logging a user's email address on every My Library request.
+
+### Upstream provenance — the freshness system
+
+Attribution is by **content, not name**. Local skills were renamed on import
+(`anthropic-brand-guidelines` vs upstream `brand-guidelines`, `docx-official` vs `docx`), so
+directory matching identified only 72 of 347. Bodies survive renaming. Evidence comes from
+seven directly-cloned publishers, which yield a real commit sha, plus a ~110k-skill mirror
+whose paths encode the origin repo — that is what reaches the long tail of tiny publishers.
+
+**99 of 323 skills attributed (31%), 32 with a commit sha.** The other 224 are recorded
+honestly rather than guessed: 60 `ambiguous` (body present in three or more repos, so the
+candidates are listed instead of one being picked) and 164 `unknown`. Both are still
+stamped, because "we looked and could not tell" is a different fact from "nobody has
+checked", and it stops the next person repeating the exercise.
+
+Two rules earn most of the accuracy, and both were found by checking output rather than
+trusting it:
+
+- **First-party precedence.** A skill forked into forty repos is still its author's skill.
+  Without this, `pptx`, `docx`, `xlsx` and `claude-api` were all credited to random personal
+  dotfile repos that happened to sort first.
+- **Path resolution, not path trust.** Mirror-derived paths follow the mirror's layout, not
+  the origin repo's — it stores Anthropic's `claude-api` at `claude-api/SKILL.md` while the
+  repo has it at `skills/claude-api/SKILL.md`. Taking them at face value reported **72 live
+  files as deleted**; the real number is 6. The checker now fetches each repo's tree once and
+  locates skills by directory name, which is also fewer API calls than fetching per file.
+
+`check-upstream-drift.mjs` compares bodies with frontmatter stripped — local copies carry an
+emoji `name:` and now an `upstream:` block, so a raw file comparison would flag all ~320
+skills as drifted every week and the report would be worthless. A weekly workflow opens or
+updates **one rolling issue** and never edits library content: the curation is the product,
+and an auto-PR reflowing 300 files into the wrong categories would destroy it.
+
+**First run: 16 behind, 51 drifted, 26 current, 6 upstream-gone.** It found worse than hand
+inspection did — `code-tour` missing 91% of upstream, `huggingface-gradio` 86%,
+`brainstorming` 86%, `claude-api` 77% plus 42 support files.
+
+### Skill spec compliance
+
+23 skills had no `name` and no `description`, so they could not load as skills at all — a
+user downloaded the zip and got inert markdown. 171 more had a name the spec rejects,
+almost always a decorative emoji prefix, and 164 had a name that did not match their
+directory. **All 323 are now valid: 0 missing names, 0 missing descriptions, 0 invalid
+names.**
+
+The decorative form moved to `title:`, which is what the site renders anyway, and `name:`
+became the directory slug. Paired with that, `build-prompt-index.js` and `api/index.ts` now
+prefer `title` over `name` for skills — without that edit the site would have started
+showing bare slugs. `server.ts` already preferred `title`, so this closed one dev/prod
+divergence rather than adding another. Verified against the index before and after:
+**323 in, 323 out, 265 titles unchanged, 58 improved, 0 regressed.**
+
+Two bugs caught by checking the output, both now regression-tested:
+
+- `description:` followed by indented continuation lines is a real multi-line YAML value but
+  reads as empty. Treating it as missing and inserting a fresh `description:` orphaned the
+  continuation, made the file unparseable, and silently dropped that skill from the index.
+- An unquoted `name:` scalar that happens to contain quote characters lost its last
+  character when quotes were stripped unconditionally.
+
+**A correction to the audit's own claim:** moving the emoji out does *not* make skills
+byte-identical to upstream. The `upstream:` block is added deliberately, so a whole-file
+diff never matches again — measured 0 of 19 Anthropic skills. The drift checker strips
+frontmatter anyway, so none of its verdicts change. Spec compliance was the entire payoff,
+and it stands on its own.
+
+### New tooling
+
+| Script | Purpose |
+|:---|:---|
+| `scripts/attribute-upstream.mjs` | Stamp `upstream:` provenance by content matching. Idempotent |
+| `scripts/check-upstream-drift.mjs` | Compare every attributed skill against its upstream |
+| `scripts/fix-skill-frontmatter.mjs` | Enforce the Agent Skills spec without changing the UI |
+| `.github/workflows/upstream-drift.yml` | Weekly check, one rolling issue |
+| `site/lib/safe-path.ts` | Path containment guard |
+| Three `*.test.mjs` files | Self-checks — the repo had no tests at all before |
+
+### Documentation
+
+Removed the legacy tree: `docs/archive/` (17 superseded planning docs from March 2026),
+`docs/QUICK_REFERENCE.md` (it described a `prompts/` directory that no longer exists), and
+`docs/library-update-logs/` (five per-section changelogs, three of them empty, all using the
+pre-rename folder names). Everything is preserved in Git history. The two real entries from
+those logs are folded into this file.
+
+Fixed stale pre-rename path references across `CONTRIBUTING.md`, `templates/README.md`,
+`development/DEBUG_UI.md`, `features/API.md` and `features/LIBRARY-MODE-IMPLEMENTATION.md`,
+and rewrote `ARCHITECTURE.md`'s repo tree, which still described the layout from before the
+app moved under `site/`.
+
+_Touched: `site/lib/`, `site/api/index.ts`, `site/api/skill-packs.ts`, `site/server.ts`,
+`site/db/postgres.ts`, `site/vite.config.ts`, `site/package.json`,
+`site/scripts/build-prompt-index.js`, 323 `SKILL.md` files, `scripts/`,
+`.github/workflows/`, `CLAUDE.md`, `docs/`._
+
+---
+
 ## 2026-08-22 — Prompt list toolbar and grid extracted out of `App.tsx`
 
 The last big block on the [roadmap](ROADMAP.md)'s `App.tsx` de-bulk list. Behavior-preserving:
@@ -38,6 +179,18 @@ most recently modified prompts so the row is never empty.
 _Touched: `src/App.tsx`, `src/components/PromptGrid.tsx`,
 `src/components/PromptListToolbar.tsx`, `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`,
 `docs/features/FEATURED-PROMPTS.md`, `CLAUDE.md`._
+
+---
+
+## 2026-08-19 — Weekly trending-skills sweep
+
+Added 5 skills:
+
+- **discernment-nudge** (`3_Skills/AI_ML/Agent_Development/discernment-nudge`) — [anthropics/skills](https://github.com/anthropics/skills/blob/main/skills/discernment-nudge/SKILL.md)
+- **academy-guide** (`3_Skills/Platform_Integrations/academy-guide`) — [anthropics/skills](https://github.com/anthropics/skills/blob/main/skills/academy-guide/SKILL.md)
+- **text-to-cad** (`3_Skills/Development/text-to-cad`) — [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad)
+- **design-award-evaluation** (`3_Skills/Design/design-award-evaluation`) — SeanJ1ang/design-judge-skills *(upstream has since been deleted)*
+- **diagram-design** (`3_Skills/Design/diagram-design`) — [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)
 
 ---
 
@@ -79,7 +232,7 @@ _Touched: `src/App.tsx`, `src/components/TopBar.tsx`, `src/components/LibraryHer
 
 ## 2026-08-18 — Audit follow-through: rename drift, index correctness, App.tsx de-bulk
 
-Working through [audits/PROJECT-AUDIT-2026-06-24.md](audits/PROJECT-AUDIT-2026-06-24.md).
+Working through the June 2026 project audit (removed 2026-08-26; see Git history).
 The metadata items were mostly already done; verifying them surfaced four live bugs, all
 from the `Skills/` → `3_Skills/` folder rename never reaching the backend.
 
@@ -149,6 +302,18 @@ _Touched: `src/App.tsx`, `PromptEditorModal.tsx`, `SkillPacksView.tsx`, `routes/
 
 ---
 
+## 2026-03-28 — Agent frontmatter template compliance
+
+Enforced the agent template's frontmatter requirements (`title`, `tags`, `category`,
+`subcategory`) across `library/2_Agents/`, starting with 10 files in AI Engineering and MCP.
+Existing `name`, `description`, `tools` and `model` fields were preserved.
+
+The 2026-08-26 audit revisited this: 457 of 547 files in `2_Agents` still have no `name:` or
+`description:`, so they cannot load as subagents at all. See the roadmap for the open
+question of what that section should actually be.
+
+---
+
 ## 2026-03-25 — Performance pass + content expansion
 
 **Performance** (the library had grown to ~1,400 files and was freezing cold starts and the browser)
@@ -173,4 +338,6 @@ _Touched: `src/App.tsx`, `PromptEditorModal.tsx`, `SkillPacksView.tsx`, `routes/
 
 ---
 
-_Older history and superseded planning docs are under [archive/](archive/)._
+_Superseded planning docs from March-June 2026 were removed on 2026-08-26; they remain in
+Git history. The per-section `docs/library-update-logs/` tree was folded into this file at
+the same time._

@@ -1,0 +1,80 @@
+// Self-check for the frontmatter handling both upstream scripts depend on.
+// Run: node scripts/upstream.test.mjs
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+
+// Mirrors of the helpers in check-upstream-drift.mjs. Kept inline so the check
+// runs standalone; if these drift from the originals the assertions below are
+// what catches it.
+const splitFrontmatter = (raw) => {
+  const t = raw.replace(/^﻿/, "").replace(/\r\n/g, "\n");
+  if (!t.startsWith("---\n")) return { fm: "", body: t };
+  const end = t.indexOf("\n---", 3);
+  if (end === -1) return { fm: "", body: t };
+  return { fm: t.slice(4, end), body: t.slice(end + 4) };
+};
+
+const readUpstream = (fm) => {
+  const m = fm.match(/^upstream:\n((?:[ \t]+.*\n?)*)/m);
+  if (!m) return null;
+  const out = {};
+  for (const line of m[1].split("\n")) {
+    const kv = line.match(/^\s+([a-z_]+):\s*(.*)$/);
+    if (kv) out[kv[1]] = kv[2].trim().replace(/^["']|["']$/g, "");
+  }
+  return out;
+};
+
+const norm = (s) => s.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+
+// --- frontmatter splitting ---
+const doc = "---\nname: x\nupstream:\n  match: exact\n  repo: a/b\n  path: skills/x/SKILL.md\n---\n\n# Title\n\nbody\n";
+assert.equal(splitFrontmatter(doc).body.trim(), "# Title\n\nbody");
+assert.ok(splitFrontmatter(doc).fm.includes("upstream:"));
+
+// CRLF is the norm in this library — 2,131 of 2,132 files.
+assert.deepEqual(splitFrontmatter(doc.replace(/\n/g, "\r\n")), splitFrontmatter(doc));
+
+// A BOM must not stop the frontmatter being recognised.
+assert.ok(splitFrontmatter("﻿" + doc).fm.includes("name: x"));
+
+// No frontmatter at all: everything is body, nothing blows up.
+assert.equal(splitFrontmatter("# Just a heading\n").fm, "");
+assert.equal(readUpstream(""), null);
+
+// --- upstream block parsing ---
+const u = readUpstream(splitFrontmatter(doc).fm);
+assert.equal(u.match, "exact");
+assert.equal(u.repo, "a/b");
+assert.equal(u.path, "skills/x/SKILL.md");
+
+// The block must be read even when it is not the last key.
+const mid = "---\nupstream:\n  match: behind\n  repo: c/d\nname: y\n---\nbody\n";
+assert.equal(readUpstream(splitFrontmatter(mid).fm).repo, "c/d");
+
+// --- body comparison ignores frontmatter ---
+// This is the whole point: local copies carry an emoji name and an upstream
+// block, so comparing raw files would flag every skill as drifted forever.
+const local = "---\nname: \"🛠️ thing\"\nupstream:\n  match: exact\n---\n\n# Thing\n\nSame body.\n";
+const remote = "---\nname: thing\n---\n\n# Thing\n\nSame body.\n";
+assert.equal(norm(splitFrontmatter(local).body), norm(splitFrontmatter(remote).body));
+
+// A real content change must still register.
+const changed = remote.replace("Same body.", "Different body entirely.");
+assert.notEqual(norm(splitFrontmatter(local).body), norm(splitFrontmatter(changed).body));
+
+// --- stamping is idempotent ---
+// Re-running the backfill must replace the block, never stack a second one.
+const LIB = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1")),
+  "..", "site", "library", "3_Skills");
+if (fs.existsSync(LIB)) {
+  const sample = path.join(LIB, "AI_ML", "MCP", "mcp-builder", "SKILL.md");
+  if (fs.existsSync(sample)) {
+    const fm = splitFrontmatter(fs.readFileSync(sample, "utf8")).fm;
+    assert.equal((fm.match(/^upstream:$/gm) || []).length, 1, "exactly one upstream block");
+    assert.ok(readUpstream(fm).repo, "stamped file has a repo");
+  }
+}
+
+console.log("upstream: all checks passed");

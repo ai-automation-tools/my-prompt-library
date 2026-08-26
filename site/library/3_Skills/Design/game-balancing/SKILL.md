@@ -1,6 +1,9 @@
 ---
 name: game-balancing
 description: Balance game systems including difficulty curves, stat tuning, economy rates, matchmaking fairness, and player power progression. Use when tuning numbers and systems for fair, engaging gameplay. Also trigger for "game balance", "difficulty tuning", "stat balancing", "nerf", "buff", "power curve", or "difficulty curve".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Game Balancing — Tuning for Fair & Engaging Play

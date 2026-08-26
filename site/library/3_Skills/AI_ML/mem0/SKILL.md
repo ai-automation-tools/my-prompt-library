@@ -1,10 +1,15 @@
 ---
-name: "🧠 mem0"
+title: "🧠 mem0"
+name: "mem0"
 description: Integrates Mem0 Platform SDK for persistent memory in AI applications. Use when building agents or chatbots that need to remember user preferences, past interactions, or personalized context across sessions. Covers Python and TypeScript SDKs, plus LangChain, CrewAI, OpenAI Agents, LlamaIndex, AutoGen, and LangGraph integrations.
 source: https://github.com/mem0ai/mem0
 version: "3.0.0"
 license: Apache-2.0
 installs: 50800+
+upstream:
+  match: unknown
+  declared: "https://github.com/mem0ai/mem0"
+  checked: 2026-08-26
 ---
 
 # Mem0 — Persistent Memory for AI Applications

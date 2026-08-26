@@ -1,5 +1,6 @@
 ---
-name: "Rspack Tracing"
+title: "Rspack Tracing"
+name: "rspack-tracing"
 description: Diagnose Rspack build failures and performance bottlenecks using trace capture and analysis workflows.
 source: https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-rstackjs-agent-skills-rspack-tracing-skill-md
 author: NeverSight
@@ -7,6 +8,12 @@ repository: https://github.com/NeverSight/learn-skills.dev
 stars: 103
 forks: 24
 updated: 2026-02-19
+upstream:
+  match: prefix
+  repo: rstackjs/agent-skills
+  path: rspack-tracing/SKILL.md
+  declared: "https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-rstackjs-agent-skills-rspack-tracing-skill-md"
+  checked: 2026-08-26
 ---
 
 # Rspack Tracing & Performance Profiling

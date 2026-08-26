@@ -1,8 +1,12 @@
 ---
-name: 🍎 SwiftUI View Generator
+title: "🍎 SwiftUI View Generator"
+name: "swiftui-view-generator"
 description: Generate SwiftUI views with MVVM architecture, Combine, and iOS best practices.
 metadata:
   short-description: Generate SwiftUI views with MVVM architecture, Combine, and iOS best practices.
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # SwiftUI View Generator

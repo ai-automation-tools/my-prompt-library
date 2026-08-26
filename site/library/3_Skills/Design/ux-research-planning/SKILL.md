@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Design"
 name: ux-research-planning
 description: "Create UX research plans with methods, recruiting criteria, and bias controls. Use when: (1) discovery research, (2) usability planning, (3) triangulating qualitative/quantitative inputs. NOT for: deceptive user research."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # UX Research Planning

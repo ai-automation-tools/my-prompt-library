@@ -486,7 +486,7 @@ curl -X DELETE http://localhost:3010/api/prompts/prompt_123 \
 Copy a public prompt to user's personal library (requires authentication).
 
 **URL Parameters:**
-- `id`: Public prompt path (e.g., `Prompt_Library/Business/Marketing/market-research.md`)
+- `id`: Public prompt path (e.g., `4_Prompts/Business/Marketing/market-research.md`)
 
 **Request:** (no body)
 

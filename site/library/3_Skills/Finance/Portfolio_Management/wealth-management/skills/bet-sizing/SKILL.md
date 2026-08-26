@@ -1,6 +1,12 @@
 ---
-name: 🔌 bet-sizing
+title: "🔌 bet-sizing"
+name: "bet-sizing"
 description: "Determine how much capital to allocate to individual positions within a portfolio. Use when the user asks about position sizing, the Kelly criterion, fractional Kelly, risk budgeting, or conviction weighting. Also trigger when users mention 'how much to put in one stock', 'maximum position size', 'how concentrated should my portfolio be', 'number of holdings', 'VaR budget per position', 'how big a bet', or ask about scaling position sizes with volatility."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: bet-sizing/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Bet Sizing

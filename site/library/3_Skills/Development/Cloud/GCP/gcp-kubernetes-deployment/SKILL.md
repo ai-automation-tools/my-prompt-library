@@ -1,8 +1,12 @@
 ---
-name: 🚀 GCP Kubernetes (GKE) Deployment
+title: "🚀 GCP Kubernetes (GKE) Deployment"
+name: "gcp-kubernetes-deployment"
 description: Deploy containerized applications to Google Kubernetes Engine with CI/CD, monitoring, and auto-scaling.
 metadata:
   short-description: Deploy containerized applications to Google Kubernetes Engine with CI/CD, monitoring, and auto-scaling.
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # GCP Kubernetes (GKE) Deployment

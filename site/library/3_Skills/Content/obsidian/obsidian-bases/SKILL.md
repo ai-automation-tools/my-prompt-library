@@ -1,6 +1,12 @@
 ---
-name: 📝 obsidian-bases
+title: "📝 obsidian-bases"
+name: "obsidian-bases"
 description: Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.
+upstream:
+  match: exact
+  repo: zpankz/mcp-skillset
+  path: obsidian-bases/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Obsidian Bases Skill

@@ -1,4 +1,6 @@
 ---
+name: "n8n-workflow-patterns"
+description: "Proven architectural patterns for building n8n workflows instead of improvising node graphs from scratch."
 title: "n8n-workflow-patterns"
 tags: ["n8n", "automation", "workflow-design", "integrations"]
 category: "Skills"
@@ -9,6 +11,10 @@ repository: "https://github.com/czlonkowski/n8n-skills"
 stars: 4346
 forks: 768
 updated: 2026-04-13
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/czlonkowski-n8n-skills-skills-n8n-workflow-patterns-skill-md"
+  checked: 2026-08-26
 ---
 
 # n8n-workflow-patterns

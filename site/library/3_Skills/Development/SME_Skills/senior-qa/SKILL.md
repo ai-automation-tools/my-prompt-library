@@ -1,6 +1,12 @@
 ---
-name: 🛠️ senior-qa
+title: "🛠️ senior-qa"
+name: "senior-qa"
 description: Comprehensive QA and testing skill for quality assurance, test automation, and testing strategies for ReactJS, NextJS, NodeJS applications. Includes test suite generation, coverage analysis, E2E testing setup, and quality metrics. Use when designing test strategies, writing test cases, implementing test automation, performing manual testing, or analyzing test coverage.
+upstream:
+  match: exact
+  repo: ovachiever/droid-tings
+  path: senior-qa/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Senior Qa

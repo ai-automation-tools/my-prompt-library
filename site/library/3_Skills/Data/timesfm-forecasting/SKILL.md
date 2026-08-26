@@ -6,6 +6,11 @@ license: Apache-2.0 license
 metadata:
   skill-author: Clayton Young / Superior Byte Works, LLC (@borealBytes)
   skill-version: "1.0.0"
+upstream:
+  match: exact
+  repo: k-dense-ai/scientific-agent-skills
+  path: timesfm-forecasting/SKILL.md
+  checked: 2026-08-26
 ---
 
 # TimesFM Forecasting

@@ -1,6 +1,13 @@
 ---
-name: 🛠️ doc-coauthoring
+title: "🛠️ doc-coauthoring"
+name: "doc-coauthoring"
 description: Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.
+upstream:
+  match: exact
+  repo: anthropics/skills
+  path: skills/doc-coauthoring/SKILL.md
+  ref: 3b3fad96af16a10759d930941b4520ba0c40edae
+  checked: 2026-08-26
 ---
 
 # Doc Co-Authoring Workflow

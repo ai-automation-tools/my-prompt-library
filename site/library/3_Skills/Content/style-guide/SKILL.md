@@ -1,6 +1,9 @@
 ---
 name: style-guide
 description: "Create and enforce writing style guides covering voice, tone, terminology, formatting conventions, and editorial rules for consistent documentation. Use when establishing or applying writing standards across a team or project. Also trigger for 'style guide', 'voice and tone', 'writing standards', 'editorial guidelines', 'terminology glossary', 'content standards', or 'brand voice'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Style Guide — Voice, Tone & Editorial Standards

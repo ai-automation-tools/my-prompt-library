@@ -1,5 +1,6 @@
 ---
-name: "📐 Linear"
+title: "📐 Linear"
+name: "linear"
 description: Manage issues, projects, cycles, labels, and team workflows in Linear. Use when reading, creating, or updating Linear tickets through connected tools.
 source: https://skillsmp.com/skills/openai-plugins-plugins-linear-skills-linear-skill-md
 author: openai
@@ -7,6 +8,13 @@ repository: https://github.com/openai/plugins
 stars: 913
 forks: 106
 updated: 2026-04-21
+upstream:
+  match: behind
+  repo: openai/plugins
+  path: plugins/linear/skills/linear/SKILL.md
+  ref: 399942ed3d308496baae74f9d16cfa135557a28f
+  declared: "https://skillsmp.com/skills/openai-plugins-plugins-linear-skills-linear-skill-md"
+  checked: 2026-08-26
 ---
 
 # Linear

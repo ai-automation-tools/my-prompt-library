@@ -1,6 +1,9 @@
 ---
 name: level-design
 description: Design game levels, maps, and environments including layout, pacing, encounters, puzzles, and spatial flow. Use when planning or building individual levels, zones, or game spaces. Also trigger for "level layout", "map design", "zone design", "encounter design", "game world layout", or "dungeon design".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Level Design — Spaces, Flow & Pacing

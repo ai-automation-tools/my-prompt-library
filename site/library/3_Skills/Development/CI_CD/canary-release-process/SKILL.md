@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: canary-release-process
 description: "Design canary release processes with phased traffic shifting and automated health gates. Use when: (1) reducing blast radius, (2) validating releases progressively, (3) enforcing rollback thresholds. NOT for: all-at-once mandatory releases."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Canary Release Process

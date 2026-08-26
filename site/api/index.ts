@@ -223,10 +223,9 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
           const subcategory = pathParts.length > 2 ? pathParts[2] : null;
           
           // For Skills, use 'name' field instead of 'title'
-          const isSkill = section === SKILLS_SECTION;
-          const title = isSkill
-            ? (data.name || extractFirstHeading(content) || path.basename(file.path, '.md'))
-            : (data.title || extractFirstHeading(content) || path.basename(file.path, '.md'));
+          // `title` first for every section: `name` is the spec slug now.
+          const title = data.title || data.name
+            || extractFirstHeading(content) || path.basename(file.path, '.md');
           
           return {
             id: file.path,
@@ -299,10 +298,8 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
             const subcategory = pathParts.length > 2 ? pathParts[2] : null;
             
             // For Skills, use 'name' field instead of 'title'
-            const isSkill = section === SKILLS_SECTION;
-            const title = isSkill
-              ? (data.name || extractFirstHeading(content) || path.basename(file, '.md'))
-              : (data.title || extractFirstHeading(content) || path.basename(file, '.md'));
+            const title = data.title || data.name
+              || extractFirstHeading(content) || path.basename(file, '.md');
             
             results.push({
               // Ids are URL/path keys — always forward-slashed, even on Windows
@@ -573,10 +570,8 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
     const subcategory = pathParts.length > 2 ? pathParts[2] : null;
     
     // For Skills, use 'name' field instead of 'title'
-    const isSkill = section === SKILLS_SECTION;
-    const title = isSkill
-      ? (data.name || extractFirstHeading(content) || path.basename(promptId, ".md"))
-      : (data.title || extractFirstHeading(content) || path.basename(promptId, ".md"));
+    const title = data.title || data.name
+      || extractFirstHeading(content) || path.basename(promptId, ".md");
 
     const existingPrompts = await promptDb.findByUserId(req.user!.id);
     const normalizedTitle = title.trim().toLowerCase();

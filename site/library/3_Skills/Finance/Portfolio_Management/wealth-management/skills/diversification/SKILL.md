@@ -1,6 +1,12 @@
 ---
-name: 🧠 diversification
+title: "🧠 diversification"
+name: "diversification"
 description: "Build diversified portfolios using correlation analysis, efficient frontier construction, and factor-based diversification. Use when the user asks about portfolio variance, correlation effects, the efficient frontier, minimum variance portfolios, diversification ratios, or factor diversification. Also trigger when users mention 'don't put all eggs in one basket', 'how many stocks do I need', 'correlation breakdown in a crisis', 'are my holdings really diversified', 'risk contributions', or ask why diversification fails during market crashes."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: diversification/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Diversification

@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: container-orchestration
 description: "Plan and operate container orchestration using Kubernetes or Docker Swarm. Use when: (1) deploying containerized workloads, (2) scaling services reliably, (3) managing service discovery and rollout controls. NOT for: single-host local development only."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Container Orchestration

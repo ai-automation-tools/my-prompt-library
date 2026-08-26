@@ -1,6 +1,9 @@
 ---
 name: economy-design
 description: Design in-game economies including currencies, progression systems, loot tables, monetization, and resource flow. Use when building the economic backbone of a game. Also trigger for "game economy", "loot table", "drop rates", "currency system", "progression design", "monetization strategy", or "reward system".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Economy Design — Resources, Rewards & Progression

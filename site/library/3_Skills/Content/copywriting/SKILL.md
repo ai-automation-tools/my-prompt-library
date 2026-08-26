@@ -1,6 +1,9 @@
 ---
 name: copywriting
 description: "Write persuasive marketing copy including landing pages, product descriptions, email campaigns, CTAs, taglines, and brand messaging. Use when writing to persuade, convert, or sell rather than inform. Also trigger for 'landing page copy', 'product description', 'marketing copy', 'email campaign', 'CTA', 'tagline', 'ad copy', 'sales page', or 'conversion copy'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Copywriting — Persuasion, Conversion & Brand Voice

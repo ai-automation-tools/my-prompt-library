@@ -8,6 +8,10 @@ stars: 22900
 forks: 1400
 updated: 2026-08-19
 license: MIT
+upstream:
+  match: unknown
+  declared: "https://github.com/cathrynlavery/diagram-design"
+  checked: 2026-08-26
 ---
 
 # Diagram Design

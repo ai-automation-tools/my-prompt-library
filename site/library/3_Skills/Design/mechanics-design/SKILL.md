@@ -1,6 +1,9 @@
 ---
 name: mechanics-design
 description: Design and document core game mechanics, systems interactions, feedback loops, and emergent behavior. Use when defining how the game plays at a systems level. Also trigger for "game mechanics", "gameplay systems", "game loop", "game rules", "combat system", "crafting system", or "progression system".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Mechanics Design — Systems & Interactions

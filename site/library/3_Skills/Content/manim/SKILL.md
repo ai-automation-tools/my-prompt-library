@@ -1,5 +1,6 @@
 ---
-name: 🎬 manim
+title: "🎬 manim"
+name: "manim"
 description: Comprehensive guide for Manim Community - Python framework for creating mathematical animations and educational videos with programmatic control
 version: 1.0.0
 author: manim-community
@@ -7,6 +8,9 @@ repo: https://github.com/ManimCommunity/manim
 license: MIT
 tags: [Video, Python, Animation, Manim, Mathematical, Educational, Visualization, LaTeX, 3Blue1Brown]
 dependencies: [manim>=0.19.0, python>=3.8]
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Manim Community - Mathematical Animation Engine

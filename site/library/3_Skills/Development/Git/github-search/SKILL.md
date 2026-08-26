@@ -1,4 +1,6 @@
 ---
+name: "github-search"
+description: "Search GitHub code, repositories, issues, and pull requests with focused queries instead of broad manual browsing."
 title: "github-search"
 tags: ["github", "search", "code-search", "repositories"]
 category: "Skills"
@@ -9,6 +11,10 @@ repository: "https://github.com/parcadei/Continuous-Claude-v3"
 stars: 3717
 forks: 286
 updated: 2026-01-13
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/parcadei-continuous-claude-v3-claude-skills-github-search-skill-md"
+  checked: 2026-08-26
 ---
 
 # github-search

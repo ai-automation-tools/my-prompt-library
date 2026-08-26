@@ -1,7 +1,12 @@
 ---
-name: 🛠️ polymarket
+title: "🛠️ polymarket"
+name: "polymarket"
 description: Comprehensive Polymarket skill covering prediction markets, API, trading, market data, and real-time WebSocket data streaming. Build applications with Polymarket services, monitor live trades, and integrate market predictions.
 source: https://mcpmarket.com/tools/skills/polymarket-development-suite
+upstream:
+  match: unknown
+  declared: "https://mcpmarket.com/tools/skills/polymarket-development-suite"
+  checked: 2026-08-26
 ---
 
 # Polymarket Development Suite

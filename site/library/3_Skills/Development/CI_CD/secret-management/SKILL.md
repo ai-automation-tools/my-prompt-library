@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: secret-management
 description: "Design secure secret lifecycle workflows with Vault or AWS Secrets Manager. Use when: (1) rotating credentials, (2) minimizing secret sprawl, (3) enforcing least-privilege access. NOT for: storing plaintext secrets in repositories."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Secret Management

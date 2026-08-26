@@ -1,7 +1,13 @@
 ---
-name: 🛠️ agent-md-refactor
+title: "🛠️ agent-md-refactor"
+name: "agent-md-refactor"
 description: Refactor bloated AGENTS.md, CLAUDE.md, or similar agent instruction files to follow progressive disclosure principles. Splits monolithic files into organized, linked documentation.
 license: MIT
+upstream:
+  match: ambiguous
+  copies: 6
+  candidates: [cachemoney/agent-toolkit, dirnbauer/webconsulting-skills, dodatech/approved-skills, kilo-org/kilo-marketplace, pedronauck/skills, softaworks/agent-toolkit]
+  checked: 2026-08-26
 ---
 
 # Agent MD Refactor

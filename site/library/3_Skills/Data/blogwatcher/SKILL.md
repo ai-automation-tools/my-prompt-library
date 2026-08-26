@@ -1,9 +1,15 @@
 ---
+name: "blogwatcher"
+description: "Monitor blogs and RSS or Atom feeds with blogwatcher-cli."
 title: "blogwatcher"
 tags: ["rss", "blogs", "monitoring", "feeds"]
 category: "Skills"
 subcategory: "Data"
 source: "https://skillsmp.com/skills/nousresearch-hermes-agent-skills-research-blogwatcher-skill-md"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/nousresearch-hermes-agent-skills-research-blogwatcher-skill-md"
+  checked: 2026-08-26
 ---
 
 # blogwatcher

@@ -1,6 +1,12 @@
 ---
 name: brainstorming
 description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+upstream:
+  match: behind
+  repo: obra/superpowers
+  path: skills/brainstorming/SKILL.md
+  ref: b36e0829c6d0140e93cfef2ca599b1b07d4a7797
+  checked: 2026-08-26
 ---
 
 # Brainstorming Ideas Into Designs

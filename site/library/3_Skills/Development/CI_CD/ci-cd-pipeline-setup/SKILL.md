@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: ci-cd-pipeline-setup
 description: "Design and implement CI/CD pipelines across Jenkins, GitHub Actions, and GitLab CI. Use when: (1) automating build/test/deploy, (2) standardizing release workflows, (3) adding quality/security gates. NOT for: manual one-off deployments without version control."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # CI/CD Pipeline Setup

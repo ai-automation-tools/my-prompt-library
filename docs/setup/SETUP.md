@@ -271,8 +271,8 @@ npm run dev    # Check console for errors
 
 ## Next Steps
 
-- [**API Reference**](API.md) - Learn about available endpoints
-- [**Architecture**](ARCHITECTURE.md) - Understand system design
+- [**API Reference**](../features/API.md) - Learn about available endpoints
+- [**Architecture**](../ARCHITECTURE.md) - Understand system design
 - [**Deployment Guide**](DEPLOYMENT.md) - Advanced deployment options
 
 ---

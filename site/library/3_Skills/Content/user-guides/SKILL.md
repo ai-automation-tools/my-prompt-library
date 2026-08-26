@@ -1,6 +1,9 @@
 ---
 name: user-guides
 description: "Write end-user documentation including tutorials, how-to guides, walkthroughs, onboarding flows, and feature documentation. Use when creating documentation for non-technical or semi-technical end users. Also trigger for 'user guide', 'tutorial', 'how-to', 'walkthrough', 'onboarding docs', 'help article', 'user manual', or 'getting started guide'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # User Guides — Tutorials, How-Tos & Walkthroughs

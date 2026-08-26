@@ -17,9 +17,9 @@ This template is for traditional prompt engineering - creating reusable prompts 
 - Support for "featured" tag
 
 **Example Subcategories:**
-- Prompt_Library/Business/Marketing
-- Prompt_Library/Engineering/Code_Review
-- Prompt_Library/Writing/Content_Creation
+- 4_Prompts/Business/Marketing
+- 4_Prompts/Engineering/Code_Review
+- 4_Prompts/Writing/Content_Creation
 
 ---
 
@@ -38,9 +38,9 @@ This template documents how to configure and use AI coding assistants and agents
 - Troubleshooting section
 
 **Example Subcategories:**
-- Agent_Guides/Claude_Code/
-- Agent_Guides/Codex/
-- Agent_Guides/Cursor/
+- 1_Guides/Claude_Code/
+- 1_Guides/Codex/
+- 1_Guides/Cursor/
 
 ---
 
@@ -60,9 +60,9 @@ This template defines complete autonomous agents with their capabilities, workfl
 - Integration points with other agents
 
 **Example Categories:**
-- Agents/Git/
-- Agents/DevOps/
-- Agents/Security/
+- 2_Agents/Git/
+- 2_Agents/DevOps/
+- 2_Agents/Security/
 
 ---
 
@@ -82,9 +82,9 @@ This template documents the full system prompts used by AI platforms like v0.dev
 - Multiple interaction examples
 
 **Example Subcategories:**
-- System_Prompts/V0.Dev/
-- System_Prompts/Claude/
-- System_Prompts/ChatGPT/
+- 5_System_Prompts/V0.Dev/
+- 5_System_Prompts/Claude/
+- 5_System_Prompts/ChatGPT/
 
 ---
 
@@ -105,9 +105,9 @@ This template defines specific skills that agents can use - usually involving ex
 - Hooks configuration (if applicable)
 
 **Example Categories:**
-- Skills/Git/
-- Skills/Docker/
-- Skills/Cloud/
+- 3_Skills/Git/
+- 3_Skills/Docker/
+- 3_Skills/Cloud/
 
 ---
 
@@ -283,24 +283,24 @@ Templates follow these directory patterns:
 
 ```
 library/
-├── Prompt_Library/              # General AI prompts
+├── 4_Prompts/              # General AI prompts
 │   ├── [Category]/
 │   │   └── [Subcategory]/
 │   │       └── prompt-name.md
 │
-├── Agent_Guides/                # Agent configuration docs
+├── 1_Guides/                # Agent configuration docs
 │   └── [Agent_Platform]/
 │       └── guide-name.md
 │
-├── Agents/                      # Full agent definitions
+├── 2_Agents/                      # Full agent definitions
 │   └── [Category]/
 │       └── agent-name.md
 │
-├── System_Prompts/              # LLM system instructions
+├── 5_System_Prompts/              # LLM system instructions
 │   └── [Platform]/
 │       └── system-name.md
 │
-└── Skills/                      # Reusable agent skills
+└── 3_Skills/                      # Reusable agent skills
     └── [Category]/
         └── [skill-name]/
             └── SKILL.md

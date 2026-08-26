@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Design"
 name: design-system-governance
 description: "Define component standards, token policies, and contribution workflows for design systems. Use when: (1) scaling design consistency, (2) reducing UI drift, (3) documenting variants. NOT for: one-off mockups."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Design System Governance

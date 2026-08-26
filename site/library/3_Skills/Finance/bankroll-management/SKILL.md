@@ -1,6 +1,9 @@
 ---
 name: bankroll-management
 description: "Manage betting capital with staking plans, drawdown limits, risk-of-ruin calculations, and responsible gambling practices. Use when sizing a bankroll, choosing a staking strategy, setting stop-losses, or evaluating risk of ruin. Also trigger for 'bankroll', 'staking plan', 'risk of ruin', 'drawdown', 'stop loss', 'bet sizing', 'responsible gambling', or 'money management'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Bankroll Management — Capital Preservation & Risk Control

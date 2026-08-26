@@ -1,6 +1,13 @@
 ---
-name: "✨ brand-guidelines"
+title: "✨ brand-guidelines"
+name: "anthropic-brand-guidelines"
 description: Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.
+upstream:
+  match: exact
+  repo: anthropics/skills
+  path: skills/brand-guidelines/SKILL.md
+  ref: 3b3fad96af16a10759d930941b4520ba0c40edae
+  checked: 2026-08-26
 ---
 
 # Anthropic Brand Styling

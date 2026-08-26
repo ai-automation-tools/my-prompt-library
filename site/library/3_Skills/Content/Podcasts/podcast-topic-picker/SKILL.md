@@ -1,6 +1,10 @@
 ---
-name: 🛠️ podcast-topic-picker
+title: "🛠️ podcast-topic-picker"
+name: "podcast-topic-picker"
 description: Pick a random podcast topic from AX tasks and announce it to podcast debate agents. Use when the user wants to pick a new podcast topic, start a debate, activate a topic, or begin the next podcast discussion round.
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Podcast Topic Picker

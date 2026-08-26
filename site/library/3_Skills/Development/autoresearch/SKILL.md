@@ -1,7 +1,15 @@
 ---
-name: "🔬 autoresearch"
+title: "🔬 autoresearch"
+name: "autoresearch"
 description: Autonomously runs iterative experiment loops to optimize code against a measurable metric. Use when the user wants to improve execution time, memory usage, test pass rate, or any numeric performance goal across repeated experiments — NOT for one-shot bug fixes or simple code review.
 source: https://github.com/github/awesome-copilot
+upstream:
+  match: behind
+  repo: github/awesome-copilot
+  path: skills/autoresearch/SKILL.md
+  ref: 71f7c9b1dc5044287b62fc700efc034da4065f87
+  declared: "https://github.com/github/awesome-copilot"
+  checked: 2026-08-26
 ---
 
 # Autoresearch — Autonomous Code Optimization

@@ -1,7 +1,13 @@
 ---
-name: ✨ app-builder
+title: "✨ app-builder"
+name: "app-builder"
 description: Main application building orchestrator. Creates full-stack applications from natural language requests. Determines project type, selects tech stack, coordinates agents.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent
+upstream:
+  match: ambiguous
+  copies: 7
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, hainamchung/agent-assistant, kjibba/listo.family, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, vudovn/antigravity-kit, xfstudio/skills]
+  checked: 2026-08-26
 ---
 
 # App Builder - Application Building Orchestrator

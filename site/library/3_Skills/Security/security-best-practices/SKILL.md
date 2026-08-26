@@ -1,7 +1,13 @@
 ---
-name: 💻 "security-best-practices"
+title: "💻 \"security-best-practices\""
+name: "security-best-practices"
 description: "Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks."
 author: openai
+upstream:
+  match: exact
+  repo: openai/skills
+  path: security-best-practices/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Security Best Practices

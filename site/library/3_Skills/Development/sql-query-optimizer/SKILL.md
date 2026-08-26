@@ -1,6 +1,10 @@
 ---
-name: 🛠️ sql-query-optimizer
+title: "🛠️ sql-query-optimizer"
+name: "sql-query-optimizer"
 description: Optimize, analyze, and rewrite SQL queries for performance. Use this skill when asked to tune slow queries, add indexes, or explain query execution plans.
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # SQL Query Optimizer

@@ -1,7 +1,14 @@
 ---
-name: 🛠️ theme-factory
+title: "🛠️ theme-factory"
+name: "theme-factory"
 description: Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.
 license: Complete terms in LICENSE.txt
+upstream:
+  match: exact
+  repo: anthropics/skills
+  path: skills/theme-factory/SKILL.md
+  ref: 3b3fad96af16a10759d930941b4520ba0c40edae
+  checked: 2026-08-26
 ---
 
 

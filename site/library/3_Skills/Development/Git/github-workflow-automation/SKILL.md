@@ -1,6 +1,12 @@
 ---
-name: 🐙 github-workflow-automation
+title: "🐙 github-workflow-automation"
+name: "github-workflow-automation"
 description: "Automate GitHub workflows with AI assistance. Includes PR reviews, issue triage, CI/CD integration, and Git operations. Use when automating GitHub workflows, setting up PR review automation, creating GitHub Actions, or triaging issues."
+upstream:
+  match: ambiguous
+  copies: 7
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, hainamchung/agent-assistant, jpropato/siba, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
+  checked: 2026-08-26
 ---
 
 # 🔧 GitHub Workflow Automation

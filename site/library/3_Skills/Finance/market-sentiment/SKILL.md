@@ -1,6 +1,9 @@
 ---
 name: market-sentiment
 description: "Analyze betting market sentiment including line movement, sharp vs public money, steam moves, reverse line movement, and market signals. Use when reading line movement to determine where the smart money is going. Also trigger for 'line movement', 'sharp money', 'public money', 'steam move', 'reverse line movement', 'RLM', 'where the money is', or 'wiseguy action'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Market Sentiment — Line Movement, Sharp Money & Signals

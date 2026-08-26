@@ -1,4 +1,6 @@
 ---
+name: "self-improvement"
+description: "Capture corrections, command failures, tool surprises, missing capabilities, and better approaches as durable project learnings. Use this skill when a task reveals reusable knowledge that should prevent future mistakes or improve agent behavior."
 title: "Self Improvement"
 tags: ["learning", "memory", "agent-improvement", "postmortem"]
 category: "Skills"
@@ -8,6 +10,10 @@ source_author: "openclaw"
 source_repository: "openclaw/skills"
 source_stars: 4094
 source_updated: "2026-03-26"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-asterisk622-xiaoding-self-improving-agent-skill-md"
+  checked: 2026-08-26
 ---
 
 # Self Improvement

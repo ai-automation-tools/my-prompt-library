@@ -1,6 +1,9 @@
 ---
 name: ui-ux-design
 description: Design game user interfaces and user experience flows including HUD, menus, inventory screens, accessibility, and player feedback systems. Use when designing how the player interacts with game systems visually. Also trigger for "game UI", "game UX", "HUD design", "menu design", "inventory UI", "game accessibility", or "game interface".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # UI/UX Design — Interface & Player Experience

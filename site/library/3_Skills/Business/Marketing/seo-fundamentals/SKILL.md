@@ -1,7 +1,13 @@
 ---
-name: 🌐 seo-fundamentals
+title: "🌐 seo-fundamentals"
+name: "seo-fundamentals"
 description: SEO fundamentals, E-E-A-T, Core Web Vitals, and Google algorithm principles.
 allowed-tools: Read, Glob, Grep
+upstream:
+  match: ambiguous
+  copies: 8
+  candidates: [anorbert-cmyk/agentic-kit, automindtechnologie-jpg/ultimate-skill.md, congdon1207/agents.md, hainamchung/agent-assistant, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, vudovn/antigravity-kit, xfstudio/skills]
+  checked: 2026-08-26
 ---
 
 # SEO Fundamentals

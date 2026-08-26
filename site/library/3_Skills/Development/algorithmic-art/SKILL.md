@@ -1,6 +1,14 @@
 ---
-name: 💻 algorithmic-art
+title: "💻 algorithmic-art"
+name: "algorithmic-art"
 description: Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.
+upstream:
+  match: behind
+  repo: anthropics/skills
+  path: skills/algorithmic-art/SKILL.md
+  ref: 3b3fad96af16a10759d930941b4520ba0c40edae
+  similarity: 1
+  checked: 2026-08-26
 ---
 
 # algorithmic-art

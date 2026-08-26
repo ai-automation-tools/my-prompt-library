@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Data"
 name: model-evaluation
 description: "Evaluate model quality with task-appropriate metrics and systematic error analysis. Use when: (1) comparing models, (2) analyzing failures, (3) setting go/no-go thresholds. NOT for: production monitoring implementation."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Model Evaluation & Error Analysis

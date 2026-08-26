@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: react-native-core
 description: "Build cross-platform mobile apps with React Native. Use when: (1) need iOS + Android from single codebase, (2) team has JavaScript/React experience, (3) want hot-reload development. NOT for: games, AR/VR apps, or performance-critical native features."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # React Native Core Development

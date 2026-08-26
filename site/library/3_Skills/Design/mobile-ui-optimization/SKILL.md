@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Design"
 name: mobile-ui-optimization
 description: "Optimize mobile interfaces for touch ergonomics, performance perception, and small-screen hierarchy. Use when: (1) mobile redesigns, (2) conversion flow tuning, (3) thumb-zone improvements. NOT for: native performance profiling code."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Mobile UI Optimization

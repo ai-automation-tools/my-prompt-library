@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: sre-practices
 description: "Apply SRE practices including SLOs, error budgets, toil reduction, and incident learning. Use when: (1) improving reliability governance, (2) balancing feature velocity with stability, (3) structuring on-call and postmortems. NOT for: replacing product engineering roadmaps."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Site Reliability Engineering (SRE) Practices

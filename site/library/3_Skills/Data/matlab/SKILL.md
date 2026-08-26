@@ -5,6 +5,11 @@ license: For MATLAB (https://www.mathworks.com/pricing-licensing.html) and for O
 compatibility: Requires either MATLAB or Octave to be installed for testing, but not required for just generating scripts.
 metadata:
     skill-author: K-Dense Inc.
+upstream:
+  match: prefix
+  repo: k-dense-ai/scientific-agent-skills
+  path: matlab/SKILL.md
+  checked: 2026-08-26
 ---
 
 # MATLAB/Octave Scientific Computing

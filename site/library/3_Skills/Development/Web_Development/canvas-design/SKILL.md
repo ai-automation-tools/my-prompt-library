@@ -1,6 +1,14 @@
 ---
-name: 🛠️ canvas-design
+title: "🛠️ canvas-design"
+name: "canvas-design"
 description: Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.
+upstream:
+  match: behind
+  repo: anthropics/skills
+  path: skills/canvas-design/SKILL.md
+  ref: 3b3fad96af16a10759d930941b4520ba0c40edae
+  similarity: 1
+  checked: 2026-08-26
 ---
 
 # canvas-design

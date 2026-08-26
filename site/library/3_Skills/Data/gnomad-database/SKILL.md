@@ -1,5 +1,6 @@
 ---
-name: "🧬 gnomAD Database"
+title: "🧬 gnomAD Database"
+name: "gnomad-database"
 description: Query gnomAD for population allele frequencies, constraint metrics, and loss-of-function intolerance. Use when interpreting variants, filtering common alleles, or prioritizing genes in rare disease workflows.
 source: https://skillsmp.com/skills/k-dense-ai-claude-scientific-skills-scientific-skills-gnomad-database-skill-md
 author: K-Dense-AI
@@ -7,6 +8,10 @@ repository: https://github.com/K-Dense-AI/claude-scientific-skills
 stars: 16762
 forks: 1830
 updated: 2026-03-03
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/k-dense-ai-claude-scientific-skills-scientific-skills-gnomad-database-skill-md"
+  checked: 2026-08-26
 ---
 
 # gnomAD Database

@@ -1,7 +1,13 @@
 ---
-name: 🧠 scientific-critical-thinking
+title: "🧠 scientific-critical-thinking"
+name: "scientific-critical-thinking"
 description: "Evaluate research rigor. Assess methodology, experimental design, statistical validity, biases, confounding, evidence quality (GRADE, Cochrane ROB), for critical analysis of scientific claims."
 allowed-tools: [Read, Write, Edit, Bash]
+upstream:
+  match: ambiguous
+  copies: 4
+  candidates: [hkphysics/scientific-agent-skills, k-dense-ai/claude-scientific-skills, k-dense-ai/claude-scientific-writer, sonofmagic/weapp-tailwindcss]
+  checked: 2026-08-26
 ---
 
 # Scientific Critical Thinking

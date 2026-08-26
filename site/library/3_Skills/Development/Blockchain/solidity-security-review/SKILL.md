@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: solidity-security-review
 description: "Perform structured Solidity security reviews with known vuln classes and mitigations. Use when: (1) pre-audit review, (2) threat modeling contracts, (3) writing remediation guidance. NOT for: replacing formal audits."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Solidity Security Review

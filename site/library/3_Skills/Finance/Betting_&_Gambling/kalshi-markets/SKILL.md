@@ -1,5 +1,6 @@
 ---
-name: 📊 kalshi-markets
+title: "📊 kalshi-markets"
+name: "kalshi-markets"
 description: "Kalshi prediction market data (prices, odds, orderbooks, trades). Use for prediction markets, Kalshi, betting odds, election and sports betting, market forecasts. Provides real-time market data, event series information, and comprehensive trading analytics."
 version: 1.0.0
 brief_description: "Kalshi prediction markets and betting odds"
@@ -15,6 +16,10 @@ triggers:
     - "market.*(?:forecast|prediction)"
     - "what.*(?:odds|probability)"
 allowed-tools: Bash
+upstream:
+  match: unknown
+  declared: "https://mcpmarket.com/zh/tools/skills/kalshi-prediction-markets"
+  checked: 2026-08-26
 ---
 
 # Kalshi Prediction Markets

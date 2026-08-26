@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Design"
 name: ux-writing-microcopy
 description: "Craft concise, clear microcopy for onboarding, errors, confirmations, and empty states. Use when: (1) improving clarity, (2) reducing support tickets, (3) aligning voice/tone. NOT for: manipulative dark-pattern copy."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # UX Writing & Microcopy

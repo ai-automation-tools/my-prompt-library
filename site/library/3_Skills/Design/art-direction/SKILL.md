@@ -1,6 +1,9 @@
 ---
 name: art-direction
 description: Define the visual identity of a game including art style, color palettes, character design language, environment aesthetics, and asset pipelines. Use when establishing the look and feel of a game project. Also trigger for "art style", "visual style", "game aesthetics", "color palette", "character art", "pixel art", or "game graphics".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Art Direction — Visual Identity & Style

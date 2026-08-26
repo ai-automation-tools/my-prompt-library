@@ -1,9 +1,18 @@
 ---
+name: "code-tour"
+description: "Create CodeTour .tour files with real file and line anchors for onboarding, architecture walkthroughs, PR reviews, RCA walkthroughs, and guided code explanations."
 title: "code-tour"
 tags: ["development", "onboarding", "architecture", "documentation"]
 category: "Skills"
 subcategory: "Development"
 source: "https://skillsmp.com/skills/affaan-m-everything-claude-code-kiro-skills-code-tour-skill-md"
+upstream:
+  match: behind
+  repo: github/awesome-copilot
+  path: skills/code-tour/SKILL.md
+  ref: 71f7c9b1dc5044287b62fc700efc034da4065f87
+  declared: "https://skillsmp.com/skills/affaan-m-everything-claude-code-kiro-skills-code-tour-skill-md"
+  checked: 2026-08-26
 ---
 
 # code-tour

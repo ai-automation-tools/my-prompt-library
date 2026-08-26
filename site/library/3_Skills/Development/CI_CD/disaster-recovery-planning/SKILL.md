@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: disaster-recovery-planning
 description: "Create disaster recovery strategies with RTO/RPO targets, failover runbooks, and test plans. Use when: (1) defining business continuity controls, (2) preparing incident failover, (3) auditing resilience readiness. NOT for: production cutovers without rehearsal."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Disaster Recovery Planning

@@ -1,4 +1,6 @@
 ---
+name: "openclaw-action"
+description: "Set up CI security scanning for agent workspaces and skill repositories. Use this when a project needs pull request checks for exposed secrets, prompt injection markers, suspicious shell usage, or data exfiltration patterns in agent files."
 title: "OpenClaw Action"
 tags: ["github-actions", "agent-security", "secret-scanning", "prompt-injection", "ci"]
 category: "Skills"
@@ -8,6 +10,10 @@ source_author: "openclaw"
 source_repository: "openclaw/skills"
 source_stars: 4094
 source_updated: "2026-02-13"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-atlaspa-openclaw-action-skill-md"
+  checked: 2026-08-26
 ---
 
 # OpenClaw Action

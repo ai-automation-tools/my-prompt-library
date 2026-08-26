@@ -1,6 +1,9 @@
 ---
 name: proposal-writing
 description: "Write business proposals, RFP responses, statements of work, grant applications, and project pitches. Use when creating persuasive documents that secure funding, contracts, or approval. Also trigger for 'business proposal', 'RFP response', 'statement of work', 'SOW', 'grant proposal', 'project pitch', 'bid document', or 'proposal template'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Proposal Writing — Pitches, Bids & Persuasive Documents

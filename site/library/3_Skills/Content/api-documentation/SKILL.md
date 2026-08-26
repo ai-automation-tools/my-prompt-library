@@ -1,6 +1,9 @@
 ---
 name: api-documentation
 description: "Write API documentation including endpoint references, OpenAPI/Swagger specs, authentication guides, SDK quickstarts, and interactive code samples. Use when documenting REST APIs, GraphQL schemas, WebSocket interfaces, or SDK libraries. Also trigger for 'API docs', 'endpoint documentation', 'OpenAPI', 'Swagger', 'SDK documentation', 'API reference', or 'REST docs'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # API Documentation — References, Guides & Specs

@@ -1,6 +1,10 @@
 ---
-name: 🐙 github-actions-creator
+title: "🐙 github-actions-creator"
+name: "github-actions-creator"
 description: "Use when the user wants to create, generate, or set up a GitHub Actions workflow. Handles CI/CD pipelines, testing, deployment, linting, security scanning, release automation, Docker builds, scheduled tasks, and any custom workflow for any language or framework."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # GitHub Actions Creator

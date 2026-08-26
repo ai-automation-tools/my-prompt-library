@@ -1,8 +1,12 @@
 ---
-name: 🎨 Flutter Widget Builder
+title: "🎨 Flutter Widget Builder"
+name: "flutter-widget-builder"
 description: Build Flutter widgets using BLoC pattern, Material Design, and clean architecture principles.
 metadata:
   short-description: Build Flutter widgets using BLoC pattern, Material Design, and clean architecture principles.
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Flutter Widget Builder

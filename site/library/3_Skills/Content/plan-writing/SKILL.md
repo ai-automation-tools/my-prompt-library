@@ -2,6 +2,11 @@
 name: plan-writing
 description: Structured task planning with clear breakdowns, dependencies, and verification criteria. Use when implementing features, refactoring, or any multi-step work.
 allowed-tools: Read, Glob, Grep
+upstream:
+  match: ambiguous
+  copies: 7
+  candidates: [ag47-pt/website, automindtechnologie-jpg/ultimate-skill.md, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, vudovn/antigravity-kit, xfstudio/skills]
+  checked: 2026-08-26
 ---
 
 # Plan Writing

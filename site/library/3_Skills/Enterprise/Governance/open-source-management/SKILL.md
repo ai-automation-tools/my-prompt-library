@@ -1,4 +1,6 @@
 ---
+name: "open-source-management"
+description: "Use this skill to maintain healthy open source projects: contribution workflows, issue triage, governance, licensing, changelogs, releases, and community operations."
 title: "Open Source Management"
 tags: ["open-source", "governance", "maintainers", "releases", "community"]
 category: "Skills"
@@ -8,6 +10,10 @@ source_author: "AbsolutelySkilled"
 source_repository: "AbsolutelySkilled/AbsolutelySkilled"
 source_stars: 78
 source_updated: "2026-03-22"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/absolutelyskilled-absolutelyskilled-skills-open-source-management-skill-md"
+  checked: 2026-08-26
 ---
 
 # Open Source Management

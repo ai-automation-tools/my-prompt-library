@@ -75,11 +75,14 @@ function walkDir(dir, baseDir = LIBRARY_PATH) {
       const category = pathParts[1] || 'Uncategorized';
       const subcategory = pathParts.length > 2 ? pathParts[2] : null;
       
-      // For Skills, use 'name' field instead of 'title'
-      const isSkill = section === SKILLS_SECTION;
-      const title = isSkill 
-        ? (data.name || extractFirstHeading(content) || path.basename(file, '.md'))
-        : (data.title || extractFirstHeading(content) || path.basename(file, '.md'));
+      // Skills prefer `title` too. `name` is now the spec-required slug
+      // (lowercase-hyphen, matching the directory), so reading it here would
+      // show "mcp-builder" where the site used to show the decorated form.
+      // That decorated form lives in `title`; `name` stays the fallback.
+      const title = data.title
+        || data.name
+        || extractFirstHeading(content)
+        || path.basename(file, '.md');
       
       results.push({
         // Ids are URL/path keys — always forward-slashed, even on Windows

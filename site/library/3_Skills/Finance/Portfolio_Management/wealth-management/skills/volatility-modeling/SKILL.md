@@ -1,6 +1,12 @@
 ---
-name: 🛠️ volatility-modeling
+title: "🛠️ volatility-modeling"
+name: "volatility-modeling"
 description: "Model, forecast, and interpret volatility using time-series models and options-implied measures. Use when the user asks about EWMA, GARCH models, implied volatility, volatility surfaces, volatility term structure, or the VIX. Also trigger when users mention 'volatility smile', 'volatility skew', 'realized vs implied vol', 'volatility risk premium', 'vol clustering', 'mean-reverting volatility', 'options pricing inputs', 'RiskMetrics', 'decay factor', or ask how to forecast future volatility for risk management."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: volatility-modeling/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Volatility Modeling

@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Data"
 name: ml-experiment-design
 description: "Build reproducible ML experiment plans with hypotheses, metrics, and ablations. Use when: (1) planning experiments, (2) comparing variants, (3) defining acceptance thresholds. NOT for: long-running experiment execution."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # ML Experiment Design

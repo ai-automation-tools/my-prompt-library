@@ -1,6 +1,9 @@
 ---
 name: release-notes
 description: "Write release notes, changelogs, migration guides, deprecation notices, and version announcements that communicate changes clearly to users and developers. Use when shipping a new version, deprecating features, or guiding users through breaking changes. Also trigger for 'release notes', 'changelog', 'migration guide', 'breaking changes', 'deprecation notice', 'version update', 'what's new', or 'upgrade guide'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Release Notes — Changelogs, Migrations & Announcements

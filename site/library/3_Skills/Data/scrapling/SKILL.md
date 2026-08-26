@@ -1,9 +1,15 @@
 ---
+name: "scrapling"
+description: "Web scraping with Scrapling for HTTP fetching, dynamic browser automation, Cloudflare-aware stealth fetching, and spider crawling."
 title: "scrapling"
 tags: ["web-scraping", "browser", "crawler", "research"]
 category: "Skills"
 subcategory: "Data"
 source: "https://skillsmp.com/skills/nousresearch-hermes-agent-optional-skills-research-scrapling-skill-md"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/nousresearch-hermes-agent-optional-skills-research-scrapling-skill-md"
+  checked: 2026-08-26
 ---
 
 # scrapling

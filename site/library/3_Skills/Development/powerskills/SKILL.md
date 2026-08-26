@@ -1,9 +1,15 @@
 ---
+name: "powerskills"
+description: "Windows automation toolkit workflow for agents that need desktop control, Outlook access, Edge automation, or structured PowerShell-driven system actions."
 title: "powerskills"
 tags: ["windows", "automation", "powershell", "desktop"]
 category: "Skills"
 subcategory: "Development"
 source: "https://skillsmp.com/skills/openclaw-skills-skills-aloth-powerskills-skill-md"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-aloth-powerskills-skill-md"
+  checked: 2026-08-26
 ---
 
 # powerskills

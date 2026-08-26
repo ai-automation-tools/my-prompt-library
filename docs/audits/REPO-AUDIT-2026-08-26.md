@@ -7,7 +7,9 @@
 > Everything under **"This week — security"** is done and verified, except the one item
 > that is not a code change: **rotating the Neon password**. §2.1 traversal is closed
 > (exploit re-run, now `400`), §2.2 tokens use `randomBytes(32)`, §2.4 is at **0 npm
-> advisories** (was 22), §5.5's email log is gone. Items 6 onward are still open.
+> advisories** (was 22), §5.5's email log is gone. Freshness items 6, 7 and 8 are done
+> as well: provenance is stamped, all 323 skills are spec-valid, and a weekly drift check
+> ships. The resync work those enable (items 9-10) and everything under "Next" are open.
 > The findings below are preserved as written at audit time; see the action plan at the
 > end for what changed.
 
@@ -23,10 +25,10 @@ Three things are actually wrong, in this order:
 1. ~~**Two confirmed security bugs** — a working path traversal and session tokens generated
    with `Math.random()`.~~ **Fixed 2026-08-26** — see the action plan. The Neon password
    still needs rotating by hand.
-2. **No provenance on vendored content.** 2.9% of the library records where it came from.
-   Without that, "keep it up to date" is not a hard problem — it's an *impossible* one,
-   because nothing knows what upstream it belongs to. This is the root cause of the
-   concern that prompted the audit.
+2. ~~**No provenance on vendored content.** 2.9% of the library records where it came from.~~
+   **Addressed 2026-08-26** — every skill now carries an `upstream:` block, 99 of 323 with a
+   resolvable origin and the rest honestly marked `ambiguous` or `unknown`. A weekly job
+   reports what has drifted. The resync work itself remains.
 3. **Dev and prod have silently diverged.** `server.ts` and `api/index.ts` are two
    hand-maintained implementations of the same API and they no longer agree on routes or
    payload size.
@@ -40,11 +42,11 @@ Everything else is hygiene.
 | Area | State | Notes |
 |:---|:---|:---|
 | Build & typecheck | 🟢 Pass | `tsc --noEmit` clean; index rebuilds byte-identical except `buildTime` |
-| Content freshness | 🔴 Unmanaged | No sync mechanism, no provenance, measured drift on every sampled upstream |
+| Content freshness | 🟡 **Now measured** | 99/323 skills attributed, weekly drift check shipped. Resync work remains |
 | Security (code) | 🟢 **Fixed** | Traversal closed and re-tested; tokens now `randomBytes(32)`. Was: 2 confirmed vulns |
 | Security (deps) | 🟢 **0 advisories** | Was 22 (2 critical, 12 high). Three unused deps dropped along the way |
 | Dev/prod parity | 🟠 Diverged | Two API implementations, ~2,000 duplicated lines, different behavior |
-| Content quality | 🟠 Mixed | 23 skills won't load at all; 457/547 "agents" aren't agents |
+| Content quality | 🟡 **Skills fixed** | All 323 skills now spec-valid. 457/547 "agents" still aren't agents |
 | Tests / CI | 🔴 None | No test files, no `.github/`, nothing gates a merge |
 | Repo hygiene | 🟠 Bloated | 37 MB of `Legacy/` shipped; 5.8 MB of unindexed dead files; 6 stale branches |
 | Docs | 🟢 Good | ROADMAP / ARCHITECTURE / CHANGELOG all refreshed 2026-08-22 |
@@ -593,17 +595,71 @@ Two uncommitted changes, both pre-existing and both intentional-looking: a move 
 `lib/safe-path.test.mjs` passes · traversal re-tested with 5 payloads, all `400` ·
 skill zip, prompt list, skill-packs list and unauthenticated My Library all still behave.
 
-## This month — the freshness system
+## This month — the freshness system — ✅ 6, 7 and 8 DONE
 
-6. **Backfill `upstream:` frontmatter** across the vendored library. Nothing else in this
-   section is possible first. §1.6 step 1
-7. **Fix skill `name:` fields** — emoji → `title:`, `name` ← directory, backfill the 23
-   broken ones. Doubles as making 12 Anthropic skills byte-identical to upstream. §4.1
-8. **Write `check-upstream-drift.mjs`** plus the weekly issue-opening Action. §1.6 steps 2–3
-9. **Resync the 7 stale Anthropic skills**, starting with `claude-api` (75% missing, 42
-   files short). §1.2
-10. **Sweep deprecated model IDs** — 22 files on `claude-3-5-sonnet`, 20 on Claude 3.x, zero
-    on Claude 5. §1.4
+6. ✅ **Provenance stamped.** `scripts/attribute-upstream.mjs` matches on **content**, not
+   name — local skills were renamed on import, so directory matching identified only 72 of
+   347. Evidence comes from seven cloned publishers (which yield a real commit sha) plus a
+   ~110k-skill mirror whose paths encode the origin repo, which is what reaches the long
+   tail of tiny publishers.
+
+   **99 of 323 skills attributed (31%), 32 with a commit sha.** The other 224 are recorded
+   honestly rather than guessed: 60 `ambiguous` (body present in 3+ repos — the candidates
+   are listed instead of picking one) and 164 `unknown`. Both are still stamped, because
+   "we looked and could not tell" is a different fact from "nobody has checked".
+
+   Two rules earn most of the accuracy, and both were found by checking output rather than
+   trusting it:
+   - **First-party precedence.** A skill forked into forty repos is still its author's. Without
+     this, `pptx`/`docx`/`xlsx`/`claude-api` were all credited to random personal dotfile repos.
+   - **Path resolution, not path trust.** Mirror paths follow the mirror's layout, not the
+     origin's. Taking them at face value reported **72 live files as deleted**; the real
+     number is 6.
+
+7. ✅ **All 323 skills are now spec-valid** — 0 missing `name`, 0 missing `description`,
+   0 invalid names (was 23 / 23 / 171). The decorative emoji moved to `title:`, `name:` is
+   the directory slug, and the readers now prefer `title` (which also closes one dev/prod
+   divergence, since `server.ts` already did). Index before vs after: 323 → 323, **265
+   titles unchanged, 58 improved, 0 regressed.**
+
+   > Correction to what this section originally claimed: this does **not** make the files
+   > byte-identical to upstream. The `upstream:` block is added deliberately, so a whole-file
+   > diff never matches again (measured: 0 of 19 Anthropic skills). The drift checker strips
+   > frontmatter before comparing, so it never saw the emoji and none of its verdicts change.
+   > The payoff is spec compliance alone — which is enough, since 23 skills genuinely could
+   > not load.
+
+8. ✅ **`check-upstream-drift.mjs` + weekly Action.** Compares bodies with frontmatter
+   stripped — without that, all ~320 skills would report as drifted every week and the
+   report would be worthless. Skips `unknown`/`ambiguous` rather than guessing. Opens or
+   updates **one rolling issue** and never edits library content.
+
+   **First run: 16 behind, 51 drifted, 26 current, 6 upstream-gone.** It found worse than
+   this audit did by hand:
+
+   | skill | upstream | missing |
+   |:---|:---|---:|
+   | `Development/code-tour` | github/awesome-copilot | **91%** |
+   | `Data/huggingface-gradio` | huggingface/skills | **86%** |
+   | `Content/brainstorming` | obra/superpowers | **86%** |
+   | `AI_ML/huggingface-llm-trainer` | huggingface/skills | **84%** |
+   | `AI_ML/.../discernment-nudge` | anthropics/skills | 77% |
+   | `Development/API/claude-api` | anthropics/skills | 77% |
+
+9. ⬜ **Resync the stale skills** — now a worklist, not a research project. Start with the
+   table above. §1.2
+10. ⬜ **Sweep deprecated model IDs** — 22 files on `claude-3-5-sonnet`, 20 on Claude 3.x,
+    zero on Claude 5. §1.4
+
+### Also found while doing this
+
+- **12 duplicate groups the byte-level dedupe could not see**, because their names and
+  frontmatter differ while their content is identical — e.g. `anthropic-brand-guidelines/`
+  and `brand-guidelines/` are the same upstream file. On the deduplicated branch 2 groups
+  remain (`skill-creator`, `brand-guidelines`). Deleting them is a curation call, so they
+  are reported, not removed. §4.3
+- **`openclaw/skills` is not the only dead upstream.** 6 skills point at files their
+  publisher has since removed, including 3 from `openai/skills`.
 
 ## Next — structure
 

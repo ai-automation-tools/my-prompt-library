@@ -1,9 +1,15 @@
 ---
-name: 🛠️ Windows Privilege Escalation
+title: "🛠️ Windows Privilege Escalation"
+name: "windows-privilege-escalation"
 description: This skill should be used when the user asks to "escalate privileges on Windows," "find Windows privesc vectors," "enumerate Windows for privilege escalation," "exploit Windows misconfigurations," or "perform post-exploitation privilege escalation." It provides comprehensive guidance for discovering and exploiting privilege escalation vulnerabilities in Windows environments.
 metadata:
   author: zebbern
   version: "1.1"
+upstream:
+  match: ambiguous
+  copies: 6
+  candidates: [hainamchung/agent-assistant, jpropato/siba, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills, zebbern/claude-code-guide]
+  checked: 2026-08-26
 ---
 
 # Windows Privilege Escalation

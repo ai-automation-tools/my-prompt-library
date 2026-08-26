@@ -1,9 +1,15 @@
 ---
+name: "search-first"
+description: "Research-before-coding workflow. Search for existing tools, libraries, and patterns before writing custom code."
 title: "search-first"
 tags: ["research", "development", "libraries", "workflow"]
 category: "Skills"
 subcategory: "Development"
 source: "https://skillsmp.com/skills/affaan-m-everything-claude-code-kiro-skills-search-first-skill-md"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/affaan-m-everything-claude-code-kiro-skills-search-first-skill-md"
+  checked: 2026-08-26
 ---
 
 # search-first

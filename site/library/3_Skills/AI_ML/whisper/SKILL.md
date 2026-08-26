@@ -1,5 +1,6 @@
 ---
-name: "Whisper"
+title: "Whisper"
+name: "whisper"
 description: Speech-to-text, translation, and multilingual transcription workflows with OpenAI Whisper.
 source: https://skillsmp.com/skills/math-inc-opengauss-skills-mlops-models-whisper-skill-md
 author: Orchestra Research
@@ -7,6 +8,12 @@ repository: https://github.com/math-inc/OpenGauss
 stars: 1147
 forks: 96
 updated: 2026-03-19
+upstream:
+  match: prefix
+  repo: orchestra-research/ai-research-skills
+  path: whisper/SKILL.md
+  declared: "https://skillsmp.com/skills/math-inc-opengauss-skills-mlops-models-whisper-skill-md"
+  checked: 2026-08-26
 ---
 
 # Whisper - Robust Speech Recognition

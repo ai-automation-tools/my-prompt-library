@@ -8,6 +8,10 @@ stars: 1000
 forks: 157
 updated: 2026-08-19
 license: Apache-2.0
+upstream:
+  match: unknown
+  declared: "https://github.com/SeanJ1ang/design-judge-skills"
+  checked: 2026-08-26
 ---
 
 # Design Award Evaluation

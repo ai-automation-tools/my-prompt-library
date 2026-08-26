@@ -1,6 +1,9 @@
 ---
 name: technical-writing
 description: "Technical writing proficiency covering clarity principles, audience analysis, information structure, editing techniques, and style enforcement. Use when writing or improving any technical content — docs, specs, guides, or explanations. Also trigger for 'technical writing', 'write clearly', 'simplify this', 'rewrite for clarity', 'plain language', 'writing style', or 'editing pass'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Technical Writing — Clarity, Structure & Precision

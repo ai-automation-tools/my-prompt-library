@@ -1,6 +1,12 @@
 ---
-name: 🧪 analytics-tracking
+title: "🧪 analytics-tracking"
+name: "analytics-tracking"
 description: When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions "set up tracking," "GA4," "Google Analytics," "conversion tracking," "event tracking," "UTM parameters," "tag manager," "GTM," "analytics implementation," or "tracking plan." For A/B test measurement, see ab-test-setup.
+upstream:
+  match: ambiguous
+  copies: 6
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, bradycassidy/marketingskills, phrazzld/claude-config, sebas-aikon-intelligence/antigravity-awesome-skills, silvainfm/claude-skills, xfstudio/skills]
+  checked: 2026-08-26
 ---
 
 # Analytics Tracking

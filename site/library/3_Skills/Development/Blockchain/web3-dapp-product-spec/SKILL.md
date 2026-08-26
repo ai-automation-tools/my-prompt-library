@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: web3-dapp-product-spec
 description: "Write dApp product specs covering wallet UX, transaction states, and on/off-chain boundaries. Use when: (1) defining MVP scope, (2) reducing wallet-friction, (3) documenting user journeys. NOT for: direct frontend coding."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Web3 dApp Product Spec

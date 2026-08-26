@@ -1,6 +1,9 @@
 ---
 name: report-writing
 description: "Write business reports including executive summaries, status updates, postmortems, competitive analyses, data analyses, and quarterly reviews. Use when communicating findings, decisions, or status to stakeholders. Also trigger for 'executive summary', 'status report', 'postmortem', 'incident report', 'competitive analysis', 'quarterly review', 'business report', or 'data analysis report'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Report Writing — Analysis, Status & Decisions

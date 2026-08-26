@@ -1,6 +1,12 @@
 ---
-name: 🧠 investment-policy
+title: "🧠 investment-policy"
+name: "investment-policy"
 description: "Construct comprehensive Investment Policy Statements governing return objectives, risk tolerance, and portfolio constraints. Use when the user asks about building an IPS, setting return objectives, assessing risk tolerance, defining investment constraints, or establishing rebalancing and benchmark policies. Also trigger when users mention 'investment plan', 'policy portfolio', 'risk capacity vs willingness', 'spending rate for an endowment', 'foundation payout', 'manager selection criteria', or ask how to document their investment strategy."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: investment-policy/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Investment Policy Statement Construction

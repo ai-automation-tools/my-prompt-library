@@ -1,6 +1,9 @@
 ---
 name: knowledge-base
 description: "Build and organize knowledge bases, help centers, FAQ systems, and troubleshooting guides optimized for self-service support and search. Use when creating a structured support documentation system. Also trigger for 'knowledge base', 'help center', 'FAQ', 'troubleshooting guide', 'support docs', 'self-service support', 'help article', or 'support article'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Knowledge Base — Help Centers, FAQs & Troubleshooting

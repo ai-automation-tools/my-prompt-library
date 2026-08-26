@@ -1,9 +1,15 @@
 ---
-name: 🛠️ AWS Penetration Testing
+title: "🛠️ AWS Penetration Testing"
+name: "aws-penetration-testing"
 description: This skill should be used when the user asks to "pentest AWS", "test AWS security", "enumerate IAM", "exploit cloud infrastructure", "AWS privilege escalation", "S3 bucket testing", "metadata SSRF", "Lambda exploitation", or needs guidance on Amazon Web Services security assessment.
 metadata:
   author: zebbern
   version: "1.1"
+upstream:
+  match: ambiguous
+  copies: 6
+  candidates: [hainamchung/agent-assistant, jpropato/siba, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills, zebbern/claude-code-guide]
+  checked: 2026-08-26
 ---
 
 # AWS Penetration Testing

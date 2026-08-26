@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: smart-contract-architecture
 description: "Design secure smart contract architecture including modularity, permissions, and upgrade strategy. Use when: (1) planning protocol contracts, (2) defining trust boundaries, (3) minimizing attack surface. NOT for: unaudited mainnet deployment."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Smart Contract Architecture

@@ -1,6 +1,11 @@
 ---
 name: writing-clearly-and-concisely
 description: Use when writing prose humans will read—documentation, commit messages, error messages, explanations, reports, or UI text. Applies Strunk's timeless rules for clearer, stronger, more professional writing.
+upstream:
+  match: ambiguous
+  copies: 6
+  candidates: [cachemoney/agent-toolkit, freeacger/loom, jssee/agents, pedronauck/skills, softaworks/agent-toolkit, visualxintelligence/agent-toolkit]
+  checked: 2026-08-26
 ---
 
 # Writing Clearly and Concisely

@@ -1,4 +1,6 @@
 ---
+name: "bagman"
+description: "Secure key and secret handling for AI agents, especially agents that interact with wallets, private keys, API credentials, or systems where prompt injection could expose sensitive material."
 title: "Bagman"
 tags: ["secrets", "key-management", "wallets", "prompt-injection", "security"]
 category: "Skills"
@@ -8,6 +10,10 @@ source_author: "openclaw"
 source_repository: "openclaw/skills"
 source_stars: 4094
 source_updated: "2026-03-17"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-allprogramming9999-master-skills-skill-md"
+  checked: 2026-08-26
 ---
 
 # Bagman
