@@ -178,6 +178,7 @@ my-prompt-library/
 ├── scripts/                      # Repo utilities, outside the deploy root
 │   ├── attribute-upstream.mjs    # Stamp upstream provenance on skills
 │   ├── check-upstream-drift.mjs  # Weekly drift report
+│   ├── resync-upstream.mjs       # Pull a skill back level with its upstream
 │   └── fix-skill-frontmatter.mjs # Enforce the Agent Skills spec
 ├── docs/                         # Documentation (see docs/README.md)
 ├── .github/workflows/            # upstream-drift.yml

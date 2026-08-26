@@ -15,7 +15,7 @@ The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. `Legacy/` is excluded from the index |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `site/api/prompt-index.json` — **1,725** prompts, 1.06 MB (`npm run build:index`) |
-| Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 32 with a commit sha |
+| Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 33 with a commit sha. **32** are byte-identical to upstream, 10 are still `behind` |
 | `src/App.tsx` | **1,050 lines** (was 2,845), 25 `useState` hooks |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
 | Health | Live and production-ready. Everything below is content, maintainability, or polish |
@@ -34,25 +34,19 @@ The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-
 - [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (still a placeholder, so auth and
       My Library are dead locally). The dev server boots without it and serves the read-only
       Public Library.
-- [ ] **Resync the skills that are furthest behind.** No longer a research project — the
-      drift report names them. Worst first:
-
-      | skill | upstream | missing |
-      |:---|:---|---:|
-      | `Development/code-tour` | github/awesome-copilot | 91% |
-      | `Data/huggingface-gradio` | huggingface/skills | 86% |
-      | `Content/brainstorming` | obra/superpowers | 86% |
-      | `AI_ML/huggingface-llm-trainer` | huggingface/skills | 84% |
-      | `AI_ML/…/discernment-nudge` | anthropics/skills | 77% |
-      | `Development/API/claude-api` | anthropics/skills | 77% |
-
-      `claude-api` is also missing 42 support files. Full list:
+- [ ] **Resync the 10 skills still `behind`.** Same job, next tier: `autoresearch` (73%),
+      `interaction-design` (72%), `academy-guide` (71%), `python-design-patterns` (68%),
+      `x-twitter-scraper` (67%), `pptx` (60%), `find-skills` (55%), `skill-creator` (52%),
+      `golang-popular-libraries` (31%), `matlab` (30%). Read each diff before committing —
+      the resync overwrites the body, and a few of these may be deliberately trimmed rather
+      than stale. Full list:
       [audits/upstream-drift-2026-08-26.md](audits/upstream-drift-2026-08-26.md).
 - [ ] **Decide on 6 dead upstreams.** Those skills point at files their publisher has since
       removed, including 3 from `openai/skills`. Re-home them or mark them as forks we own.
-- [ ] **Sweep deprecated model IDs.** 22 files pin `claude-3-5-sonnet`, 20 more reference
-      Claude 3.x, 18 use `gpt-4o`, and **zero** mention the current Claude 5 family. This is
-      the most visible staleness to a visitor.
+- [ ] **Sweep deprecated model IDs.** 23 files pin `claude-3-5-sonnet`, 43 reference Claude
+      3.x at all, and 18 use `gpt-4o`. The Claude 5 family now appears in 47 files, but every
+      one of them is inside the resynced `Development/API/claude-api` tree — nothing else in
+      the library names a current model. This is the most visible staleness to a visitor.
 
 ---
 
@@ -85,7 +79,7 @@ biting. `server.ts` (552 lines) and `api/index.ts` (740) are hand-maintained twi
 - [ ] **Delete `library/Legacy/`.** 2,393 tracked files, 37 MB, excluded from the index by
       all three readers — roughly half the deploy root, entirely unreachable. It is fully
       preserved in Git history (`git checkout <sha> -- site/library/Legacy` brings it back).
-- [ ] **Code-split the bundle.** `dist/assets/index-*.js` is **975 KB** (265 KB gzipped) and
+- [ ] **Code-split the bundle.** `dist/assets/index-*.js` is **983 KB** (265 KB gzipped) and
       Vite warns on every build. Route/modal-level `React.lazy` on `SkillPacksView`,
       `PromptEditorModal` and the auth modals is the obvious first cut.
 - [ ] **Split or delete the two multi-MB bulk files.** `act-as-an-expert.md` (3.4 MB) and
@@ -147,7 +141,7 @@ biting. `server.ts` (552 lines) and `api/index.ts` (740) are hand-maintained twi
 
 | When | Task |
 |:---|:---|
-| Weekly (automated) | `upstream-drift.yml` runs Mondays 09:00 UTC and updates one rolling issue. Triage it — the job never edits content itself. |
+| Weekly (automated) | `upstream-drift.yml` runs Mondays 09:00 UTC and updates one rolling issue. Triage it — the job never edits content itself; `resync-upstream.mjs` is what repairs what it finds. |
 | Each deploy | The prompt index rebuilds automatically (`vercel-build` runs `build:index`). |
 | After adding content | Watch the build log for `[WARN] Failed to parse frontmatter` — those files are silently dropped from the library. |
 | After adding skills | Re-run `attribute-upstream.mjs --write` to stamp provenance on the new ones. It is idempotent. |
@@ -160,4 +154,7 @@ biting. `server.ts` (552 lines) and `api/index.ts` (740) are hand-maintained twi
 
 See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-26**: a full repository audit,
 two confirmed security vulnerabilities fixed, all 22 npm advisories cleared, upstream
-provenance stamped across the skills library, and a weekly drift check shipped.
+provenance stamped across the skills library, a weekly drift check shipped, and the six
+most-drifted skills — `code-tour`, `huggingface-gradio`, `brainstorming`,
+`huggingface-llm-trainer`, `discernment-nudge` and `claude-api` — pulled back level with
+their upstreams by the new `scripts/resync-upstream.mjs`.

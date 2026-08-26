@@ -5,9 +5,9 @@ Checked **99** attributed skills across **27** upstream repos. Skipped 163 `unkn
 | verdict | count | meaning |
 |:---|---:|:---|
 | `upstream-gone` | 6 | no SKILL.md of this name left in the upstream repo |
-| `behind` | 16 | local copy is missing more than 25% of upstream's content |
+| `behind` | 10 | local copy is missing more than 25% of upstream's content |
 | `drifted` | 51 | bodies differ, sizes comparable |
-| `current` | 26 | body identical to upstream |
+| `current` | 32 | body identical to upstream |
 
 ## upstream-gone (6)
 
@@ -20,16 +20,10 @@ Checked **99** attributed skills across **27** upstream repos. Skipped 163 `unkn
 | `Development/Git/git-context-controller/SKILL.md` | faugustdev/git-context-controller |  |
 | `Platform_Integrations/linear/SKILL.md` | openai/plugins |  |
 
-## behind (16)
+## behind (10)
 
 | skill | upstream | local | upstream | missing |
 |:---|:---|---:|---:|---:|
-| `Development/code-tour/SKILL.md` | [github/awesome-copilot/skills/code-tour/SKILL.md](https://github.com/github/awesome-copilot/blob/main/skills/code-tour/SKILL.md) | 295 | 3160 | 91% |
-| `Data/huggingface-gradio/SKILL.md` | [huggingface/skills/skills/huggingface-gradio/SKILL.md](https://github.com/huggingface/skills/blob/main/skills/huggingface-gradio/SKILL.md) | 445 | 3266 | 86% |
-| `Content/brainstorming/SKILL.md` | [obra/superpowers/skills/brainstorming/SKILL.md](https://github.com/obra/superpowers/blob/main/skills/brainstorming/SKILL.md) | 326 | 2286 | 86% |
-| `AI_ML/huggingface-llm-trainer/SKILL.md` | [huggingface/skills/skills/huggingface-llm-trainer/SKILL.md](https://github.com/huggingface/skills/blob/main/skills/huggingface-llm-trainer/SKILL.md) | 610 | 3909 | 84% |
-| `AI_ML/Agent_Development/discernment-nudge/SKILL.md` | [anthropics/skills/skills/discernment-nudge/SKILL.md](https://github.com/anthropics/skills/blob/main/skills/discernment-nudge/SKILL.md) | 351 | 1555 | 77% |
-| `Development/API/claude-api/SKILL.md` | [anthropics/skills/skills/claude-api/SKILL.md](https://github.com/anthropics/skills/blob/main/skills/claude-api/SKILL.md) | 2501 | 10923 | 77% |
 | `Development/autoresearch/SKILL.md` | [github/awesome-copilot/skills/autoresearch/SKILL.md](https://github.com/github/awesome-copilot/blob/main/skills/autoresearch/SKILL.md) | 392 | 1426 | 73% |
 | `Design/interaction-design/SKILL.md` | [wshobson/agents/plugins/ui-design/skills/interaction-design/SKILL.md](https://github.com/wshobson/agents/blob/main/plugins/ui-design/skills/interaction-design/SKILL.md) | 231 | 827 | 72% |
 | `Platform_Integrations/academy-guide/SKILL.md` | [anthropics/skills/skills/academy-guide/SKILL.md](https://github.com/anthropics/skills/blob/main/skills/academy-guide/SKILL.md) | 322 | 1100 | 71% |
@@ -97,19 +91,25 @@ Checked **99** attributed skills across **27** upstream repos. Skipped 163 `unkn
 | `Content/docx/SKILL.md` | [anthropics/skills/skills/docx/SKILL.md](https://github.com/anthropics/skills/blob/main/skills/docx/SKILL.md) | 2542 | 904 | 0% |
 | `Finance/Investing/trading-operations/skills/counterparty-risk/SKILL.md` | [joellewis/finance_skills/plugins/trading-operations/skills/counterparty-risk/SKILL.md](https://github.com/joellewis/finance_skills/blob/main/plugins/trading-operations/skills/counterparty-risk/SKILL.md) | 9308 | 2360 | 0% |
 
-<details><summary>26 current</summary>
+<details><summary>32 current</summary>
 
+- `AI_ML/Agent_Development/discernment-nudge/SKILL.md` — anthropics/skills
 - `AI_ML/Agent_Development/skill-creator/SKILL.md` — anthropics/skills
+- `AI_ML/huggingface-llm-trainer/SKILL.md` — huggingface/skills
 - `AI_ML/MCP/mcp-builder/SKILL.md` — anthropics/skills
 - `AI_ML/MCP/playwright/SKILL.md` — openai/skills
 - `Business/anthropic-brand-guidelines/SKILL.md` — anthropics/skills
 - `Business/brand-guidelines/SKILL.md` — anthropics/skills
 - `Business/Marketing/marketing-demand-acquisition/SKILL.md` — ovachiever/droid-tings
+- `Content/brainstorming/SKILL.md` — obra/superpowers
 - `Content/doc-coauthoring/SKILL.md` — anthropics/skills
 - `Content/obsidian/obsidian-bases/SKILL.md` — zpankz/mcp-skillset
 - `Content/pdf/SKILL.md` — anthropics/skills
+- `Data/huggingface-gradio/SKILL.md` — huggingface/skills
 - `Data/scientific-schematics/SKILL.md` — unerue/skills
 - `Data/scientific-writing/SKILL.md` — openlair/dr-claw
+- `Development/API/claude-api/SKILL.md` — anthropics/skills
+- `Development/code-tour/SKILL.md` — github/awesome-copilot
 - `Development/Git/gh-address-comments/SKILL.md` — openai/skills
 - `Development/Git/git-commit-helper/SKILL.md` — microck/ordinary-claude-skills
 - `Development/SME_Skills/senior-ml-engineer/SKILL.md` — ovachiever/droid-tings
