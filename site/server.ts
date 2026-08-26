@@ -12,10 +12,14 @@ import authRoutes from "./routes/auth.js";
 import skillPacksRoutes from "./routes/skill-packs.js";
 import { optionalAuth, authenticate } from "./middleware/auth.js";
 import { userDb, promptDb, sessionDb, initializeSchema } from "./db/postgres.js";
+import { resolveInside } from "./lib/safe-path.js";
 
 // Get the directory of this file (server.ts)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const LIBRARY_PATH = path.join(__dirname, "library");
+const SKILLS_SECTION = "3_Skills";
 
 async function startServer() {
   const app = express();
@@ -113,17 +117,11 @@ async function startServer() {
     // If requesting user's library, return from database
     if (libraryMode === 'my') {
       if (!req.user) {
-        console.log('[My Library] No user authenticated');
         return res.status(401).json({ error: 'Authentication required for My Library' });
       }
-      
-      console.log('[My Library] User:', req.user.id, req.user.email);
+
       const userPrompts = await promptDb.findByUserId(req.user.id);
-      console.log('[My Library] Found prompts:', userPrompts.length);
-      if (userPrompts.length > 0) {
-        console.log('[My Library] First prompt:', userPrompts[0].title, userPrompts[0].section);
-      }
-      
+
       const formattedPrompts = userPrompts.map(p => ({
         id: p.id,
         title: p.title,
@@ -136,7 +134,6 @@ async function startServer() {
         isUserOwned: true,
       }));
       
-      console.log('[My Library] Returning prompts:', formattedPrompts.length);
       return res.json(formattedPrompts);
     }
     
@@ -401,10 +398,14 @@ async function startServer() {
   app.post("/api/prompts/:id/copy-to-my-prompts", authenticate, async (req, res) => {
     try {
       const promptId = decodeURIComponent(req.params.id).replace(/\\/g, '/');
-      
+
       // Find the source prompt from public library
-      const sourceFilePath = path.join(__dirname, "library", promptId);
-      
+      const sourceFilePath = resolveInside(LIBRARY_PATH, promptId);
+
+      if (!sourceFilePath) {
+        return res.status(400).json({ error: "Invalid prompt path" });
+      }
+
       if (!fs.existsSync(sourceFilePath)) {
         return res.status(404).json({ error: "Prompt not found" });
       }
@@ -464,14 +465,16 @@ async function startServer() {
   app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
     try {
       const skillPath = decodeURIComponent(req.params.skillPath).replace(/\\/g, '/');
-      
-      // Validate that this is a Skills directory
-      if (!skillPath.startsWith('3_Skills/')) {
+
+      // Resolve first, then check containment — a raw startsWith() on skillPath
+      // is satisfied by "3_Skills/../../db" and hands out the whole repo.
+      const skillsRoot = path.join(LIBRARY_PATH, SKILLS_SECTION);
+      const fullPath = resolveInside(LIBRARY_PATH, skillPath);
+
+      if (!fullPath || !fullPath.startsWith(skillsRoot + path.sep)) {
         return res.status(400).json({ error: "Invalid skill path. Must be under 3_Skills/ directory." });
       }
 
-      const fullPath = path.join(__dirname, "library", skillPath);
-      
       if (!fs.existsSync(fullPath)) {
         return res.status(404).json({ error: "Skill directory not found" });
       }

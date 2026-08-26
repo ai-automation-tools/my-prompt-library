@@ -10,6 +10,7 @@ import archiver from "archiver";
 import authRoutes from "../routes/auth.js";
 import { optionalAuth, authenticate } from "../middleware/auth.js";
 import { promptDb, initializeSchema } from "../db/postgres.js";
+import { resolveInside } from "../lib/safe-path.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -395,8 +396,12 @@ app.get("/api/prompts/:id", optionalAuth, async (req, res) => {
       });
     } else {
       // Local filesystem mode
-      const filePath = path.join(LIBRARY_PATH, promptId);
-      
+      const filePath = resolveInside(LIBRARY_PATH, promptId);
+
+      if (!filePath) {
+        return res.status(400).json({ error: 'Invalid prompt path' });
+      }
+
       if (!fs.existsSync(filePath)) {
         return res.status(404).json({ error: 'Prompt not found' });
       }
@@ -546,8 +551,12 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
       data = parsed.data;
       content = parsed.content;  // Use parsed content (without frontmatter)
     } else {
-      const promptPath = path.join(LIBRARY_PATH, promptId);
-      
+      const promptPath = resolveInside(LIBRARY_PATH, promptId);
+
+      if (!promptPath) {
+        return res.status(400).json({ error: "Invalid prompt path" });
+      }
+
       if (!fs.existsSync(promptPath)) {
         return res.status(404).json({ error: "Prompt not found in public library" });
       }
@@ -613,9 +622,14 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
 app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
   try {
     const skillPath = decodeURIComponent(req.params.skillPath).replace(/\\/g, '/');
-    
-    // Validate that this is a Skills directory
-    if (!skillPath.startsWith('3_Skills/')) {
+
+    // Resolve first, then check containment — a raw startsWith() on skillPath is
+    // satisfied by "3_Skills/../../db" and hands out the whole bundle. Checked
+    // before the mode split because GitHub normalises ".." in contents URLs too.
+    const skillsRoot = path.join(LIBRARY_PATH, SKILLS_SECTION);
+    const resolvedSkillPath = resolveInside(LIBRARY_PATH, skillPath);
+
+    if (!resolvedSkillPath || !resolvedSkillPath.startsWith(skillsRoot + path.sep)) {
       return res.status(400).json({ error: "Invalid skill path. Must be under 3_Skills/ directory." });
     }
 
@@ -686,8 +700,8 @@ app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
 
     } else {
       // Filesystem mode (local development)
-      const fullPath = path.join(LIBRARY_PATH, skillPath);
-      
+      const fullPath = resolvedSkillPath;
+
       if (!fs.existsSync(fullPath)) {
         return res.status(404).json({ error: "Skill directory not found" });
       }

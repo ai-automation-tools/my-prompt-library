@@ -1,4 +1,13 @@
 import { Pool } from 'pg';
+import { randomBytes } from 'node:crypto';
+
+// Collision-resistant id. Not a secret — see newSessionToken() for those.
+const newId = (prefix: string) => `${prefix}_${Date.now()}_${randomBytes(6).toString('hex')}`;
+
+// Session tokens are the ONLY thing authenticating a 30-day cookie: there is no
+// signature and no server-side secret. Math.random() is a non-cryptographic PRNG
+// whose state is recoverable from observed output — never use it here.
+const newSessionToken = () => randomBytes(32).toString('base64url');
 
 export interface UserSkillPackInstall {
   user_id: string;
@@ -67,7 +76,7 @@ export interface Session {
 export const userDb = {
   create: async (email: string, password: string, name?: string): Promise<UserPublic> => {
     const pool = getPool();
-    const id = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const id = newId('user');
     const bcrypt = (await import('bcryptjs')).default;
     const passwordHash = bcrypt.hashSync(password, 10);
     
@@ -153,7 +162,7 @@ export const userDb = {
 export const promptDb = {
   create: async (userId: string, prompt: Omit<UserPrompt, 'id' | 'user_id' | 'created_at' | 'updated_at'>): Promise<UserPrompt> => {
     const pool = getPool();
-    const id = `prompt_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const id = newId('prompt');
     
     const result = await pool.query(
       `INSERT INTO user_prompts (id, user_id, title, section, category, subcategory, tags, content)
@@ -332,8 +341,8 @@ export const userSkillPackDb = {
 export const sessionDb = {
   create: async (userId: string, expiresInDays: number = 30): Promise<Session> => {
     const pool = getPool();
-    const id = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    const token = `${Math.random().toString(36).substr(2)}_${Date.now()}_${Math.random().toString(36).substr(2)}`;
+    const id = newId('session');
+    const token = newSessionToken();
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + expiresInDays);
     
