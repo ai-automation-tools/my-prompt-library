@@ -1,6 +1,11 @@
 ---
 name: 🛠️ currencies-and-fx
 description: "Analyze currency markets, exchange rate mechanics, and FX risk management for international portfolios. Use when the user asks about exchange rates, FX hedging, interest rate parity, carry trades, forward premiums, cross rates, or currency overlay programs. Also trigger when users mention 'strong dollar', 'weak euro', 'hedging foreign stocks', 'purchasing power parity', 'currency risk in my portfolio', 'EUR/USD', 'yen carry trade', or ask whether to hedge international investments."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: currencies-and-fx/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Currencies and FX

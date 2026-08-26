@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: dao-governance-design
 description: "Design DAO governance processes, voting systems, and proposal lifecycle controls. Use when: (1) setting governance rules, (2) reducing capture risk, (3) defining emergency powers. NOT for: legal governance compliance advice."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # DAO Governance Design

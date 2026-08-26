@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Data"
 name: model-selection
 description: "Recommend model families and validation strategy based on data, constraints, and objective. Use when: (1) choosing algorithms, (2) balancing bias/variance, (3) planning benchmark baselines. NOT for: final legal/compliance sign-off."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Model Selection Strategy

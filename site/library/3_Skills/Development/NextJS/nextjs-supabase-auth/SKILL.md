@@ -2,6 +2,12 @@
 name: nextjs-supabase-auth
 description: "Expert integration of Supabase Auth with Next.js App Router Use when: supabase auth next, authentication next.js, login supabase, auth middleware, protected route."
 source: vibeship-spawner-skills (Apache 2.0)
+upstream:
+  match: ambiguous
+  copies: 6
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, hainamchung/agent-assistant, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
+  declared: "vibeship-spawner-skills (Apache 2.0)"
+  checked: 2026-08-26
 ---
 
 # Next.js + Supabase Auth

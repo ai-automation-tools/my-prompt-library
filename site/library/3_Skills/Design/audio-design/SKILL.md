@@ -1,6 +1,9 @@
 ---
 name: audio-design
 description: Design game audio systems including music, sound effects, ambient soundscapes, adaptive audio, and audio implementation strategy. Use when planning the sonic identity of a game. Also trigger for "game music", "sound effects", "game audio", "soundtrack", "SFX design", "ambient sound", or "adaptive music".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Audio Design — Sound, Music & Sonic Identity

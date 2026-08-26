@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: swift-uikit
 description: "Swift UIKit iOS Development for mobile app development. Use when: (1) building mobile applications, (2) need platform-specific features, (3) require native performance. NOT for: web applications or desktop software."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Swift UIKit iOS Development

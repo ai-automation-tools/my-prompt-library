@@ -1,6 +1,11 @@
 ---
 name: 💻 senior-devops
 description: Comprehensive DevOps skill for CI/CD, infrastructure automation, containerization, and cloud platforms (AWS, GCP, Azure). Includes pipeline setup, infrastructure as code, deployment automation, and monitoring. Use when setting up pipelines, deploying applications, managing infrastructure, implementing monitoring, or optimizing deployment processes.
+upstream:
+  match: ambiguous
+  copies: 7
+  candidates: [aaaaqwq/agi-super-skills, aaaaqwq/claude-code-skills, atalovesyou/claude-skills-pack, john-markowsky/pm-bot, maslennikov-ig/claude-code-orchestrator-kit, ovachiever/droid-tings, questnova502/claude-skills-sync]
+  checked: 2026-08-26
 ---
 
 # Senior Devops

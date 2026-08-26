@@ -1,6 +1,11 @@
 ---
 name: 🛠️ senior-architect
 description: Comprehensive software architecture skill for designing scalable, maintainable systems using ReactJS, NextJS, NodeJS, Express, React Native, Swift, Kotlin, Flutter, Postgres, GraphQL, Go, Python. Includes architecture diagram generation, system design patterns, tech stack decision frameworks, and dependency analysis. Use when designing system architecture, making technical decisions, creating architecture diagrams, evaluating trade-offs, or defining integration patterns.
+upstream:
+  match: ambiguous
+  copies: 12
+  candidates: [atalovesyou/claude-skills-pack, automindtechnologie-jpg/ultimate-skill.md, dereknex/skills, jpropato/siba, maslennikov-ig/claude-code-orchestrator-kit, nilecui/skillsbase, ovachiever/droid-tings, poletron/custom-rules]
+  checked: 2026-08-26
 ---
 
 # Senior Architect

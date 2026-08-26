@@ -7,6 +7,11 @@ hooks:
       hooks:
         - type: command
           command: "echo \"[$(date)] Git Commit Helper: Analyzed git diff for commit message\" >> ~/.claude/git-commit-helper.log"
+upstream:
+  match: exact
+  repo: microck/ordinary-claude-skills
+  path: git-commit-helper/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Git Commit Helper

@@ -1,6 +1,9 @@
 ---
 name: arbitrage-scanner
 description: "Detect and evaluate arbitrage opportunities across sportsbooks and prediction markets. Calculate guaranteed-profit scenarios, middle bets, and cross-platform price discrepancies. Use when comparing odds across books, calculating arb percentages, evaluating middle opportunities, or building odds-comparison workflows. Also trigger for 'arb bet', 'sure bet', 'arbitrage', 'odds comparison', 'middle bet', 'risk-free bet', or 'line shopping'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Arbitrage Scanner — Cross-Market Profit Opportunities

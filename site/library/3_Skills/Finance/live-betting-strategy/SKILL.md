@@ -1,6 +1,9 @@
 ---
 name: live-betting-strategy
 description: "Strategies for in-play and live betting including momentum analysis, real-time odds evaluation, hedging mid-game, and situational edges during live events. Use when betting on events in progress, evaluating live odds movement, or identifying in-game value. Also trigger for 'live betting', 'in-play', 'in-game betting', 'cash out', 'live odds', 'momentum betting', or 'in-running'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Live Betting Strategy — In-Play Analysis & Execution

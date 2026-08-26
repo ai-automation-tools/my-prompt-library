@@ -1,6 +1,9 @@
 ---
 name: game-analytics
 description: Design telemetry systems, define KPIs, analyze player behavior data, and set up dashboards for data-driven game design decisions. Use when instrumenting a game for analytics or interpreting player data. Also trigger for "game telemetry", "player analytics", "game metrics", "KPIs", "player retention", "funnel analysis", or "player behavior".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Game Analytics — Telemetry, KPIs & Data-Driven Design

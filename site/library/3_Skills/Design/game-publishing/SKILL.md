@@ -1,6 +1,9 @@
 ---
 name: game-publishing
 description: Plan game launches including store page optimization, platform submission, marketing strategy, community building, pricing, and post-launch support. Use when preparing a game for release or managing a live game. Also trigger for "game launch", "Steam page", "app store listing", "game marketing", "game trailer", "wishlist", "game pricing", or "post-launch".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Game Publishing — Launch, Market & Sustain

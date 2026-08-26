@@ -1,6 +1,9 @@
 ---
 name: narrative-design
 description: Design game narratives including story structure, world-building, character arcs, dialogue systems, and environmental storytelling. Use when building the story layer of a game. Also trigger for "game story", "game lore", "world building", "dialogue tree", "character backstory", "game narrative", or "branching story".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Narrative Design — Story, World & Dialogue

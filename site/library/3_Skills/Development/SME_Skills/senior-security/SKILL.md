@@ -1,6 +1,11 @@
 ---
 name: 🛠️ senior-security
 description: Comprehensive security engineering skill for application security, penetration testing, security architecture, and compliance auditing. Includes security assessment tools, threat modeling, crypto implementation, and security automation. Use when designing security architecture, conducting penetration tests, implementing cryptography, or performing security audits.
+upstream:
+  match: exact
+  repo: ovachiever/droid-tings
+  path: senior-security/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Senior Security

@@ -1,6 +1,11 @@
 ---
 name: concise-planning
 description: Use when a user asks for a plan for a coding task, to generate a clear, actionable, and atomic checklist.
+upstream:
+  match: ambiguous
+  copies: 6
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, jpropato/siba, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
+  checked: 2026-08-26
 ---
 
 # Concise Planning

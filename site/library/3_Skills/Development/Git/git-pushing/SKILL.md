@@ -1,6 +1,11 @@
 ---
 name: 🐙 git-pushing
 description: Stage, commit, and push git changes with conventional commit messages. Use when user wants to commit and push changes, mentions pushing to remote, or asks to save and push their work. Also activates when user says "push changes", "commit and push", "push this", "push to github", or similar git workflow requests.
+upstream:
+  match: ambiguous
+  copies: 9
+  candidates: [hainamchung/agent-assistant, hongquandev/team-os, jpropato/siba, jst-well-dan/skill-box, mhattingpete/claude-skills-marketplace, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills]
+  checked: 2026-08-26
 ---
 
 # Git Push Workflow

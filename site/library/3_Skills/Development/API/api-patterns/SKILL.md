@@ -2,6 +2,11 @@
 name: 🔌 api-patterns
 description: API design principles and decision-making. REST vs GraphQL vs tRPC selection, response formats, versioning, pagination.
 allowed-tools: Read, Write, Edit, Glob, Grep
+upstream:
+  match: ambiguous
+  copies: 11
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, baotoq/agent-skills, baotoq/micro-commerce, congdon1207/agents.md, dokhacgiakhoa/antigravity-ide, kjibba/listo.family, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills]
+  checked: 2026-08-26
 ---
 
 # API Patterns

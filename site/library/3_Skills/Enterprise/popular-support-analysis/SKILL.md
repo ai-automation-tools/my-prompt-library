@@ -3,6 +3,9 @@ title: "Popular Support Analysis"
 tags: ["agent-skills"]
 category: "Skills"
 subcategory: "Enterprise"
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 ## Overview

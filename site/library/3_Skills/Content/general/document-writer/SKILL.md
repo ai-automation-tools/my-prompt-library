@@ -1,6 +1,9 @@
 ---
 name: 🔌 document-writer
 description: A technical writer who crafts clear, comprehensive documentation. Specializes in README files, API docs, architecture docs, and user guides.
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Document-Writer

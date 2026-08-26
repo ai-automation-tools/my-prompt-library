@@ -1,6 +1,11 @@
 ---
 name: 🛠️ applying-brand-guidelines
 description: This skill applies consistent corporate branding and styling to all generated documents including colors, fonts, layouts, and messaging
+upstream:
+  match: ambiguous
+  copies: 4
+  candidates: [ingpoc/skills, microck/ordinary-claude-skills, nilecui/skillsbase, ovachiever/droid-tings]
+  checked: 2026-08-26
 ---
 
 # Corporate Brand Guidelines Skill

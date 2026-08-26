@@ -7,6 +7,12 @@ repository: https://github.com/NeverSight/learn-skills.dev
 stars: 103
 forks: 24
 updated: 2026-03-22
+upstream:
+  match: prefix
+  repo: zainhas/togetherai-skills
+  path: together-gpu-clusters/SKILL.md
+  declared: "https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-zainhas-togetherai-skills-together-gpu-clusters-skill-md"
+  checked: 2026-08-26
 ---
 
 # Together GPU Clusters

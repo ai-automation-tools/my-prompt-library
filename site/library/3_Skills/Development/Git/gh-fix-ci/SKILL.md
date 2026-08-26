@@ -3,6 +3,12 @@ name: 💻 gh-fix-ci
 description: Inspect GitHub PR checks with gh, pull failing GitHub Actions logs, summarize failure context, then create a fix plan and implement after user approval. Use when a user asks to debug or fix failing PR CI/CD checks on GitHub Actions and wants a plan + code changes; for external checks (e.g., Buildkite), only report the details URL and mark them out of scope.
 metadata:
   short-description: Fix failing Github CI actions
+upstream:
+  match: behind
+  repo: openai/plugins
+  path: plugins/github/skills/gh-fix-ci/SKILL.md
+  ref: 399942ed3d308496baae74f9d16cfa135557a28f
+  checked: 2026-08-26
 ---
 
 # Gh Pr Checks Plan Fix

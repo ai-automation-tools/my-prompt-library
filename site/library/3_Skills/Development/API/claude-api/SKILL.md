@@ -2,6 +2,11 @@
 name: 💻 claude-api
 description: "Build apps with the Claude API or Anthropic SDK. TRIGGER when: code imports `anthropic`/`@anthropic-ai/sdk`/`claude_agent_sdk`, or user asks to use Claude API, Anthropic SDKs, or Agent SDK. DO NOT TRIGGER when: code imports `openai`/other AI SDK, general programming, or ML/data-science tasks."
 license: Complete terms in LICENSE.txt
+upstream:
+  match: exact
+  repo: anthropics/skills
+  path: claude-api/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Building LLM-Powered Applications with Claude

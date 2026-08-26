@@ -1,6 +1,11 @@
 ---
 name: 💻 senior-fullstack
 description: Comprehensive fullstack development skill for building complete web applications with React, Next.js, Node.js, GraphQL, and PostgreSQL. Includes project scaffolding, code quality analysis, architecture patterns, and complete tech stack guidance. Use when building new projects, analyzing code quality, implementing design patterns, or setting up development workflows.
+upstream:
+  match: ambiguous
+  copies: 9
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, hongquandev/team-os, jpropato/siba, ovachiever/droid-tings, poletron/custom-rules, questnova502/claude-skills-sync, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills]
+  checked: 2026-08-26
 ---
 
 # Senior Fullstack

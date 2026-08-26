@@ -1,6 +1,9 @@
 ---
 name: google-analytics
 description: Analyze Google Analytics data, review website performance metrics, identify traffic patterns, and suggest data-driven improvements. Use when the user asks about analytics, website metrics, traffic analysis, conversion rates, user behavior, or performance optimization.
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Google Analytics Analysis

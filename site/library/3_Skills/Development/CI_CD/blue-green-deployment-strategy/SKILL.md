@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: blue-green-deployment-strategy
 description: "Implement blue-green deployment workflows for low-downtime releases and fast rollback. Use when: (1) minimizing release risk, (2) validating new environments before cutover, (3) requiring near-instant rollback. NOT for: environments lacking duplicate capacity."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Blue-Green Deployment Strategy

@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Design"
 name: visual-design-direction
 description: "Create visual direction briefs for typography, color, hierarchy, and brand expression. Use when: (1) establishing look-and-feel, (2) rebranding, (3) evaluating visual consistency. NOT for: generating copyrighted clones."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Visual Design Direction

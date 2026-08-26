@@ -8,6 +8,10 @@ source_author: "openclaw"
 source_repository: "openclaw/skills"
 source_stars: 4094
 source_updated: "2026-03-17"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-allprogramming9999-master-skills-skill-md"
+  checked: 2026-08-26
 ---
 
 # Bagman

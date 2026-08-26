@@ -7,6 +7,10 @@ repository: https://github.com/openclaw/skills
 stars: 4001
 forks: 1095
 updated: 2026-01-24
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-bert-builder-tavily-skill-md"
+  checked: 2026-08-26
 ---
 
 # Tavily

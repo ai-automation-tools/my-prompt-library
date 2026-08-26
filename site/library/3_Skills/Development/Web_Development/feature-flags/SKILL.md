@@ -4,6 +4,10 @@ tags: ["react", "frontend", "testing", "flags"]
 category: "Skills"
 subcategory: "Development"
 source: "https://skillsmp.com/skills/facebook-react-claude-skills-feature-flags-skill-md"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/facebook-react-claude-skills-feature-flags-skill-md"
+  checked: 2026-08-26
 ---
 
 # feature-flags

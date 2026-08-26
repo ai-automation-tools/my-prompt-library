@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Data"
 name: feature-engineering
 description: "Design leakage-safe feature engineering strategies for tabular/time-series datasets. Use when: (1) preparing model-ready features, (2) selecting transformations and encodings, (3) documenting feature lineage. NOT for: model serving or infra provisioning."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Feature Engineering

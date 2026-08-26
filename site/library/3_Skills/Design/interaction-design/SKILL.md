@@ -5,6 +5,12 @@ category: "Skills"
 subcategory: "Design"
 name: interaction-design
 description: "Design interaction flows, states, and microinteractions for usability and feedback clarity. Use when: (1) defining flows, (2) state/error handling, (3) reducing cognitive load. NOT for: final code implementation."
+upstream:
+  match: behind
+  repo: wshobson/agents
+  path: plugins/ui-design/skills/interaction-design/SKILL.md
+  ref: 38e19c20d2b154510b0e624a2e3e186b19b5c527
+  checked: 2026-08-26
 ---
 
 # Interaction Design Patterns

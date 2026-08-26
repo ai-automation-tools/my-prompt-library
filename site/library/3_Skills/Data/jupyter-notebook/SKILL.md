@@ -7,6 +7,10 @@ repository: https://github.com/microsoft/ai-agents-for-beginners
 stars: 54211
 forks: 18781
 updated: 2026-02-18
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/microsoft-ai-agents-for-beginners-translations-en-agents-skills-jupyter-notebook-skill-md"
+  checked: 2026-08-26
 ---
 
 # Jupyter Notebook

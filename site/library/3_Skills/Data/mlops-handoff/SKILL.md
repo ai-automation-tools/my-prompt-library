@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Data"
 name: mlops-handoff
 description: "Create deployment-ready handoff docs: model card, inference contract, and monitoring requirements. Use when: (1) transferring from DS to engineering, (2) defining SLIs/SLOs, (3) documenting retraining triggers. NOT for: directly provisioning cloud infra."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # MLOps Handoff Specification

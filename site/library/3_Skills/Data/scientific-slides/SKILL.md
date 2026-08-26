@@ -2,6 +2,11 @@
 name: 🛠️ scientific-slides
 description: "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations, thesis defense slides, or any scientific talk. Provides slide structure, design templates, timing guidance, and visual validation. Works with PowerPoint and LaTeX Beamer."
 allowed-tools: [Read, Write, Edit, Bash]
+upstream:
+  match: ambiguous
+  copies: 3
+  candidates: [k-dense-ai/claude-scientific-writer, k-dense-ai/scientific-agent-skills, ovachiever/droid-tings]
+  checked: 2026-08-26
 ---
 
 # Scientific Slides

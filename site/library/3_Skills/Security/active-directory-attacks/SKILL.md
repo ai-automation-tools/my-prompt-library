@@ -4,6 +4,11 @@ description: This skill should be used when the user asks to "attack Active Dire
 metadata:
   author: zebbern
   version: "1.1"
+upstream:
+  match: ambiguous
+  copies: 7
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, hainamchung/agent-assistant, jpropato/siba, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills, zebbern/claude-code-guide]
+  checked: 2026-08-26
 ---
 
 # Active Directory Attacks

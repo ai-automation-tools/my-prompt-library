@@ -1,6 +1,11 @@
 ---
 name: 🧠 quantitative-valuation
 description: "Estimate intrinsic value of stocks and companies using DCF, dividend discount models, comparable multiples, and residual income. Use when the user asks about discounted cash flow, DCF models, WACC, terminal value, dividend discount models, comparable multiples, or sum-of-the-parts valuation. Also trigger when users mention 'what is this stock worth', 'fair value estimate', 'Gordon growth model', 'free cash flow valuation', 'cost of equity', 'sensitivity analysis', 'exit multiple', or ask whether a stock is overvalued or undervalued."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: quantitative-valuation/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Quantitative Valuation

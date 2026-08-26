@@ -7,6 +7,10 @@ repository: https://github.com/openclaw/skills
 stars: 4312
 forks: 1182
 updated: 2026-03-13
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-alirezarezvani-codebase-onboarding-skill-md"
+  checked: 2026-08-26
 ---
 
 # Codebase Onboarding

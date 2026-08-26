@@ -3,6 +3,9 @@ name: ⚛️ React Native Component Generator
 description: Generate React Native functional components with hooks, state management, and styling for mobile apps.
 metadata:
   short-description: Generate React Native functional components with hooks, state management, and styling for mobile apps.
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # React Native Component Generator

@@ -7,6 +7,13 @@ repository: https://github.com/anthropics/skills
 stars: 170400
 forks: 20300
 updated: 2026-08-19
+upstream:
+  match: behind
+  repo: anthropics/skills
+  path: skills/discernment-nudge/SKILL.md
+  ref: 3b3fad96af16a10759d930941b4520ba0c40edae
+  declared: "https://github.com/anthropics/skills/blob/main/skills/discernment-nudge/SKILL.md"
+  checked: 2026-08-26
 ---
 
 # Discernment Nudge

@@ -15,6 +15,10 @@ triggers:
     - "market.*(?:forecast|prediction)"
     - "what.*(?:odds|probability)"
 allowed-tools: Bash
+upstream:
+  match: unknown
+  declared: "https://mcpmarket.com/zh/tools/skills/kalshi-prediction-markets"
+  checked: 2026-08-26
 ---
 
 # Kalshi Prediction Markets

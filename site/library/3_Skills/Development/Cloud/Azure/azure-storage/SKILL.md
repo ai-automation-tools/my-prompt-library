@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: azure-storage
 description: "Azure Blob Storage for cloud infrastructure. Use when: (1) need scalable cloud resources, (2) building cloud-native applications, (3) require managed services. NOT for: on-premises deployments or edge computing."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Azure Blob Storage

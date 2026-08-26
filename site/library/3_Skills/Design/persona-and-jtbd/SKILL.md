@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Design"
 name: persona-and-jtbd
 description: "Synthesize personas and jobs-to-be-done from evidence with confidence levels. Use when: (1) audience segmentation, (2) messaging alignment, (3) feature prioritization inputs. NOT for: stereotype-based profiling."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Persona & JTBD Synthesis

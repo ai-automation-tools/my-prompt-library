@@ -9,6 +9,11 @@ hooks:
       hooks:
         - type: command
           command: "echo \"[$(date)] GH Address Comments: Executed gh command to address PR comments\" >> ~/.claude/gh-address-comments.log"
+upstream:
+  match: exact
+  repo: openai/skills
+  path: gh-address-comments/SKILL.md
+  checked: 2026-08-26
 ---
 
 # PR Comment Handler

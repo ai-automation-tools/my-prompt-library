@@ -4,6 +4,10 @@ tags: ["windows", "automation", "powershell", "desktop"]
 category: "Skills"
 subcategory: "Development"
 source: "https://skillsmp.com/skills/openclaw-skills-skills-aloth-powerskills-skill-md"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-aloth-powerskills-skill-md"
+  checked: 2026-08-26
 ---
 
 # powerskills

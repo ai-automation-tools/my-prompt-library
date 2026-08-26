@@ -3,6 +3,9 @@ title: "Popular Web Designs"
 tags: [design, css, html, ui, web-development, design-systems, templates]
 category: "Skills"
 subcategory: "Design"
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Popular Web Designs

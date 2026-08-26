@@ -1,6 +1,11 @@
 ---
 name: 📋 digital-assets
 description: "Analyze digital assets including cryptocurrency fundamentals, blockchain mechanics, DeFi protocols, and on-chain metrics. Use when the user asks about crypto investing, Bitcoin, Ethereum, staking yields, DeFi lending, impermanent loss, or on-chain valuation metrics. Also trigger when users mention 'blockchain', 'proof of stake', 'proof of work', 'smart contracts', 'NFTs', 'stablecoins', 'NVT ratio', 'TVL', 'crypto portfolio allocation', 'halving', or ask about risks and returns of cryptocurrency."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: digital-assets/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Digital Assets

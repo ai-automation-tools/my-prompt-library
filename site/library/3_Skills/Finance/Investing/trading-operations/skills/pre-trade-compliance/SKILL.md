@@ -1,6 +1,11 @@
 ---
 name: ✅ pre-trade-compliance
 description: "Guide the design and implementation of automated pre-trade compliance systems that validate orders before execution. Use when building a compliance rule engine for an RIA or broker-dealer, configuring hard blocks and soft blocks, maintaining restricted and watch lists including MNPI-driven restrictions, setting concentration limits at security/sector/issuer level, implementing position limits or short selling controls, enforcing wash sale detection or free-riding prevention or pattern day trader identification, applying client-specific ESG screens or legal constraints, designing compliance override workflows with authorization and documentation, backtesting compliance rules, or evaluating compliance check latency impact on execution quality."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: pre-trade-compliance/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Pre-Trade Compliance

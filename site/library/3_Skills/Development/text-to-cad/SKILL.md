@@ -8,6 +8,10 @@ stars: 13700
 forks: 1400
 updated: 2026-08-19
 license: MIT
+upstream:
+  match: unknown
+  declared: "https://github.com/earthtojake/text-to-cad"
+  checked: 2026-08-26
 ---
 
 # Text to CAD

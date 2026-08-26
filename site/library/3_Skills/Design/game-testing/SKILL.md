@@ -1,6 +1,9 @@
 ---
 name: game-testing
 description: Plan and execute game QA including functional testing, playtesting, performance testing, compatibility testing, and bug tracking workflows. Use when setting up quality assurance for a game project. Also trigger for "game QA", "playtest", "bug tracking", "game testing", "QA plan", "regression testing", or "compatibility testing".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Game Testing — QA, Playtesting & Quality

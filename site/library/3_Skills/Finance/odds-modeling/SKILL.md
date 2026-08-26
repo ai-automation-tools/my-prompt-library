@@ -1,6 +1,9 @@
 ---
 name: odds-modeling
 description: "Build predictive models for sports and event outcomes using statistical methods, ELO ratings, regression, Monte Carlo simulation, and machine learning. Use when creating power rankings, projecting game outcomes, estimating win probabilities, or building a quantitative edge. Also trigger for 'prediction model', 'ELO rating', 'power rankings', 'win probability', 'Monte Carlo', 'regression model', 'expected goals', or 'predictive analytics'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Odds Modeling — Predictive Models for Betting Markets

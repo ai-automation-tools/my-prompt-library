@@ -7,6 +7,10 @@ repository: https://github.com/openclaw/openclaw
 stars: 354023
 forks: 71530
 updated: 2026-03-11
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-openclaw-skills-gemini-skill-md"
+  checked: 2026-08-26
 ---
 
 # Gemini

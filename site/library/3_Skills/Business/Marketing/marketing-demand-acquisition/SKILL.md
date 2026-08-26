@@ -11,6 +11,11 @@ metadata:
   python-tools: calculate_cac.py
   tech-stack: HubSpot, LinkedIn-Ads, Google-Ads, Meta-Ads, SEO-tools
   target-market: B2B-SaaS, Series-A+
+upstream:
+  match: exact
+  repo: ovachiever/droid-tings
+  path: marketing-demand-acquisition/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Marketing Demand & Acquisition

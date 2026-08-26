@@ -1,6 +1,11 @@
 ---
 name: 🛠️ debt-management
 description: "Provide frameworks for managing and paying off personal debt effectively. Use when the user asks about debt payoff strategies (avalanche vs snowball), refinancing decisions, debt consolidation, debt-to-income ratios, or the opportunity cost of paying off debt vs investing. Also trigger when users mention 'which debt to pay first', 'should I refinance', 'credit card debt', 'student loan payoff', 'DTI for mortgage', 'balance transfer', 'good debt vs bad debt', or ask how to get out of debt faster."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: debt-management/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Debt Management

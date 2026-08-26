@@ -8,6 +8,10 @@ source_author: "openclaw"
 source_repository: "openclaw/skills"
 source_stars: 4094
 source_updated: "2026-03-26"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-asterisk622-xiaoding-self-improving-agent-skill-md"
+  checked: 2026-08-26
 ---
 
 # Self Improvement

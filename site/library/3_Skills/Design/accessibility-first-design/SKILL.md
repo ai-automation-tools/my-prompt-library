@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Design"
 name: accessibility-first-design
 description: "Apply WCAG-centered accessibility design checks and remediation plans. Use when: (1) inclusive UI design, (2) contrast/focus/text checks, (3) assistive-tech compatibility planning. NOT for: legal certification claims."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Accessibility-First Design

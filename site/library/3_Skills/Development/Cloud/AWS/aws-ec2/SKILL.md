@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: aws-ec2
 description: "AWS EC2 Compute for cloud infrastructure. Use when: (1) need scalable cloud resources, (2) building cloud-native applications, (3) require managed services. NOT for: on-premises deployments or edge computing."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # AWS EC2 Compute

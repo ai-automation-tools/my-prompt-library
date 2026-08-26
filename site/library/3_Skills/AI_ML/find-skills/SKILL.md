@@ -3,6 +3,13 @@ name: "🔍 find-skills"
 description: Helps users discover and install agent skills from the open ecosystem. Use when the user asks "how do I do X", "find a skill for X", "is there a skill that can...", or expresses interest in extending Claude's capabilities with a new skill or tool.
 source: https://github.com/vercel-labs/skills
 installs: 579000+
+upstream:
+  match: behind
+  repo: vercel-labs/skills
+  path: skills/find-skills/SKILL.md
+  ref: 435076e78988e1e6ec40d00b0b1d76bdbbc5419a
+  declared: "https://github.com/vercel-labs/skills"
+  checked: 2026-08-26
 ---
 
 # Find Skills

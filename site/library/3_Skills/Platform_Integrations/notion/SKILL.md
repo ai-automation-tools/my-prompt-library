@@ -7,6 +7,10 @@ repository: https://github.com/openclaw/openclaw
 stars: 357320
 forks: 72541
 updated: 2026-03-07
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-openclaw-skills-notion-skill-md"
+  checked: 2026-08-26
 ---
 
 # Notion

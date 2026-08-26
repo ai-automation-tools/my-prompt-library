@@ -1,6 +1,11 @@
 ---
 name: 💻 api-documentation-generator
 description: "Generate comprehensive, developer-friendly API documentation from code, including endpoints, parameters, examples, and best practices"
+upstream:
+  match: ambiguous
+  copies: 5
+  candidates: [hainamchung/agent-assistant, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
+  checked: 2026-08-26
 ---
 
 # API Documentation Generator

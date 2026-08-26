@@ -2,6 +2,13 @@
 name: "🏋️ huggingface-llm-trainer"
 description: Fine-tune language and vision models on Hugging Face cloud GPU infrastructure using TRL. Use when the user wants to run SFT, DPO, GRPO, or reward modeling training jobs on HuggingFace Jobs — NOT for local training or inference-only tasks. Requires a paid HuggingFace account (Pro/Team/Enterprise).
 source: https://github.com/huggingface/skills
+upstream:
+  match: behind
+  repo: huggingface/skills
+  path: skills/huggingface-llm-trainer/SKILL.md
+  ref: 020194918dc4a27d5a5d9a154b6b56cc2bd21364
+  declared: "https://github.com/huggingface/skills"
+  checked: 2026-08-26
 ---
 
 # Hugging Face LLM Trainer

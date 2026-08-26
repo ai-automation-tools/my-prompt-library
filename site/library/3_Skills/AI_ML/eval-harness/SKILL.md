@@ -7,6 +7,10 @@ repository: https://github.com/affaan-m/everything-claude-code
 stars: 160286
 forks: 24935
 updated: 2026-03-04
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/affaan-m-everything-claude-code-skills-eval-harness-skill-md"
+  checked: 2026-08-26
 ---
 
 # Eval Harness

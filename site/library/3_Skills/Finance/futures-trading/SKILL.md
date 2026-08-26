@@ -1,6 +1,9 @@
 ---
 name: futures-trading
 description: "Understand and trade futures contracts on commodities, indices, crypto, and event outcomes. Covers contract mechanics, margin, settlement, spreads, and risk. Use when analyzing futures markets, understanding contract specs, evaluating margin requirements, or building futures strategies. Also trigger for 'futures contract', 'commodities trading', 'futures margin', 'contract specs', 'futures spread', 'oil futures', 'crypto futures', or 'index futures'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Futures Trading — Contracts, Margin & Strategy

@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: expo
 description: "Expo React Native Framework for mobile app development. Use when: (1) building mobile applications, (2) need platform-specific features, (3) require native performance. NOT for: web applications or desktop software."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Expo React Native Framework

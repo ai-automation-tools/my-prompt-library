@@ -1,6 +1,9 @@
 ---
 name: game-design-document
 description: Create comprehensive Game Design Documents (GDDs) covering mechanics, systems, content, and technical requirements. Use when formalizing a game concept into a full design specification. Also trigger for "GDD", "design doc", "game spec", "write up the game design", or "document the game".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Game Design Document — Full Specification

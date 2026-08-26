@@ -8,6 +8,10 @@ source_author: "openclaw"
 source_repository: "openclaw/skills"
 source_stars: 4094
 source_updated: "2026-03-11"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-ayalili-stream-formatter-skill-md"
+  checked: 2026-08-26
 ---
 
 # Stream Formatter

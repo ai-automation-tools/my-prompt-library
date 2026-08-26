@@ -7,6 +7,12 @@ repository: https://github.com/NeverSight/learn-skills.dev
 stars: 103
 forks: 24
 updated: 2026-02-19
+upstream:
+  match: prefix
+  repo: silvainfm/claude-skills
+  path: polars/SKILL.md
+  declared: "https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-silvainfm-claude-skills-polars-skill-md"
+  checked: 2026-08-26
 ---
 
 # Polars

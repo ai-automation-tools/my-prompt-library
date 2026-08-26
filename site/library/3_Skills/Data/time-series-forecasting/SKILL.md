@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Data"
 name: time-series-forecasting
 description: "Create forecasting workflows including stationarity checks, seasonality handling, and backtesting. Use when: (1) demand/revenue forecasting, (2) trend/seasonality decomposition, (3) scenario projections. NOT for: high-frequency trading automation."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Time Series Forecasting

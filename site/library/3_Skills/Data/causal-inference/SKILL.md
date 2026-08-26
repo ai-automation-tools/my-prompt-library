@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Data"
 name: causal-inference
 description: "Frame causal questions and estimate treatment effects with assumption checks. Use when: (1) policy impact analysis, (2) A/B interpretation beyond correlation, (3) confounding diagnostics. NOT for: medical/legal conclusions without experts."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Causal Inference Analysis

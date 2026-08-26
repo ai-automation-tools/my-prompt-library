@@ -9,6 +9,10 @@ repository: "https://github.com/schpet/linear-cli"
 stars: 547
 forks: 59
 updated: 2026-04-02
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/schpet-linear-cli-skills-linear-cli-skill-md"
+  checked: 2026-08-26
 ---
 
 # linear-cli

@@ -1,6 +1,9 @@
 ---
 name: content-strategy
 description: "Plan documentation systems including information architecture, content audits, taxonomy design, content lifecycle management, and doc-as-code workflows. Use when organizing a documentation set, planning content structure, or designing navigation and discovery. Also trigger for 'information architecture', 'content audit', 'doc structure', 'taxonomy', 'content planning', 'documentation strategy', 'IA design', or 'sitemap'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Content Strategy — Architecture, Planning & Organization

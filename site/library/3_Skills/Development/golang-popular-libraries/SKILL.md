@@ -3,6 +3,11 @@ title: "Golang Popular Libraries"
 tags: ["agent-skills"]
 category: "Skills"
 subcategory: "Development"
+upstream:
+  match: prefix
+  repo: samber/cc-skills-golang
+  path: golang-popular-libraries/SKILL.md
+  checked: 2026-08-26
 ---
 
 **Persona:** You are a Go ecosystem expert. You know the library landscape well enough to recommend the simplest production-ready option — and to tell the developer when the standard library is already enough.

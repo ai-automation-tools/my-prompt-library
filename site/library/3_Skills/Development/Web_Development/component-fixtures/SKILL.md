@@ -7,6 +7,10 @@ repository: https://github.com/microsoft/vscode
 stars: 183825
 forks: 39187
 updated: 2026-04-01
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/microsoft-vscode-github-skills-component-fixtures-skill-md"
+  checked: 2026-08-26
 ---
 
 # Component Fixtures

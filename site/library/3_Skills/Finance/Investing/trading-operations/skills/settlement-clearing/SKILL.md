@@ -1,6 +1,11 @@
 ---
 name: 🐛 settlement-clearing
 description: "Guide the understanding and management of trade settlement and clearing processes. Use when designing settlement workflows for T+1 compliance, understanding DTC/NSCC/FICC clearing infrastructure, analyzing continuous net settlement (CNS) netting obligations, setting up institutional trade processing (affirmation, confirmation, allocation, matching), investigating settlement fails and designing fail reduction programs, implementing buy-in procedures under Reg SHO Rule 204, assessing corporate action impact on pending settlements, evaluating DVP/RVP mechanics for institutional deliveries, handling when-issued or as-of trades, or managing settlement bank relationships and intraday liquidity. Also covers FX funding gaps for cross-border T+1 settlement."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: settlement-clearing/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Settlement & Clearing

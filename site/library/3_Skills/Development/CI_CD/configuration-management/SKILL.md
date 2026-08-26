@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: configuration-management
 description: "Manage infrastructure and system configuration with Ansible, Chef, or Puppet. Use when: (1) enforcing desired state, (2) reducing configuration drift, (3) standardizing server provisioning. NOT for: unmanaged ad-hoc shell changes."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Configuration Management

@@ -4,6 +4,10 @@ tags: ["research", "academic", "papers", "science", "api"]
 category: "Skills"
 subcategory: "Data"
 source: "https://skillsmp.com/skills/nousresearch-hermes-agent-skills-research-arxiv-skill-md"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/nousresearch-hermes-agent-skills-research-arxiv-skill-md"
+  checked: 2026-08-26
 ---
 
 # arxiv

@@ -4,6 +4,9 @@ description: Instantly provision production-ready Postgres databases with Neon I
 allowed-tools: Read, Write, Bash, Grep, Glob
 model: sonnet
 user-invocable: true
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Neon Instagres - Instant Postgres Provisioning

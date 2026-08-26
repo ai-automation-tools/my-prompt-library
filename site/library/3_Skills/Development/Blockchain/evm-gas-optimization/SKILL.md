@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: evm-gas-optimization
 description: "Recommend gas optimization tactics with readability/security tradeoff notes and benchmarks. Use when: (1) reducing transaction costs, (2) profiling hotspots, (3) refactoring storage patterns. NOT for: unsafe micro-optimizations."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # EVM Gas Optimization

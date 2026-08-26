@@ -7,6 +7,13 @@ repository: https://github.com/openai/plugins
 stars: 913
 forks: 106
 updated: 2026-04-21
+upstream:
+  match: behind
+  repo: openai/plugins
+  path: plugins/linear/skills/linear/SKILL.md
+  ref: 399942ed3d308496baae74f9d16cfa135557a28f
+  declared: "https://skillsmp.com/skills/openai-plugins-plugins-linear-skills-linear-skill-md"
+  checked: 2026-08-26
 ---
 
 # Linear

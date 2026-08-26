@@ -4,6 +4,11 @@ description: This skill should be used when the user asks to "test for broken au
 metadata:
   author: zebbern
   version: "1.1"
+upstream:
+  match: prefix
+  repo: sickn33/antigravity-awesome-skills
+  path: broken-authentication/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Broken Authentication Testing

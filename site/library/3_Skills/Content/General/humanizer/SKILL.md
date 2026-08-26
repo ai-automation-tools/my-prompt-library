@@ -10,6 +10,11 @@ description: |
   inflated symbolism, promotional language, superficial -ing analyses, vague
   attributions, em dash overuse, rule of three, AI vocabulary words, negative
   parallelisms, and excessive conjunctive phrases.
+upstream:
+  match: ambiguous
+  copies: 22
+  candidates: [alexdcd/mafia-claude-skills, autohandai/community-skills, blader/humanizer, cachemoney/agent-toolkit, callstack/react-native-testing-library, christopher-buss/skills, connorads/dotfiles, dodatech/approved-skills]
+  checked: 2026-08-26
 ---
 
 # Humanizer: Remove AI Writing Patterns

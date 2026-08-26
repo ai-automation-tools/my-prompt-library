@@ -1,6 +1,9 @@
 ---
 name: sports-betting
 description: "Sports betting fundamentals including spreads, moneylines, totals, parlays, teasers, props, and futures. Use when analyzing sports betting markets, converting odds formats, evaluating bet types, or building a sports betting strategy. Also trigger for 'point spread', 'moneyline', 'over under', 'parlay', 'prop bet', 'teaser', 'sports odds', or 'sportsbook'."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Sports Betting — Lines, Markets & Bet Types

@@ -4,6 +4,11 @@ description: Lightweight WSI tile extraction and preprocessing. Use for basic sl
 license: Apache-2.0 license
 metadata:
     skill-author: K-Dense Inc.
+upstream:
+  match: ambiguous
+  copies: 3
+  candidates: [microck/ordinary-claude-skills, ovachiever/droid-tings, thegovind/claude-scientific-skills]
+  checked: 2026-08-26
 ---
 
 # Histolab

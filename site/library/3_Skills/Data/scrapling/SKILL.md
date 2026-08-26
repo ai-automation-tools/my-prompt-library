@@ -4,6 +4,10 @@ tags: ["web-scraping", "browser", "crawler", "research"]
 category: "Skills"
 subcategory: "Data"
 source: "https://skillsmp.com/skills/nousresearch-hermes-agent-optional-skills-research-scrapling-skill-md"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/nousresearch-hermes-agent-optional-skills-research-scrapling-skill-md"
+  checked: 2026-08-26
 ---
 
 # scrapling

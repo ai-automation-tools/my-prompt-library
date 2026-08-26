@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Data"
 name: ab-testing-statistics
 description: "Design and evaluate A/B tests with power, sample size, and robust metric interpretation. Use when: (1) planning controlled experiments, (2) reading p-values/effects, (3) sequential testing safeguards. NOT for: dark-pattern optimization."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # A/B Testing Statistics

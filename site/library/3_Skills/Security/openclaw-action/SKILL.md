@@ -8,6 +8,10 @@ source_author: "openclaw"
 source_repository: "openclaw/skills"
 source_stars: 4094
 source_updated: "2026-02-13"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-atlaspa-openclaw-action-skill-md"
+  checked: 2026-08-26
 ---
 
 # OpenClaw Action

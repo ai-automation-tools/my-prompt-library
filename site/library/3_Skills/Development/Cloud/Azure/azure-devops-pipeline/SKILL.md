@@ -3,6 +3,9 @@ name: 🔵 Azure DevOps CI/CD Pipeline
 description: Create Azure DevOps pipelines for building, testing, and deploying applications to Azure services.
 metadata:
   short-description: Create Azure DevOps pipelines for building, testing, and deploying applications to Azure services.
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Azure DevOps CI/CD Pipeline

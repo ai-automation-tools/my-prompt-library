@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: infrastructure-monitoring
 description: "Set up infrastructure monitoring with Prometheus and Grafana for metrics, alerting, and dashboards. Use when: (1) defining SLO-driven observability, (2) instrumenting services, (3) creating alert policies. NOT for: replacing incident response ownership."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Infrastructure Monitoring

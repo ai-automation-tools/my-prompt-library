@@ -1,6 +1,9 @@
 ---
 name: game-concept
 description: Brainstorm and develop game concepts, exploring genres, themes, target audiences, and unique selling points. Use when starting a new game project from scratch or pivoting an existing idea. Also trigger for "game idea", "what kind of game", "I want to make a game", "game pitch", or "explore game concepts".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Game Concept — Ideation & Vision

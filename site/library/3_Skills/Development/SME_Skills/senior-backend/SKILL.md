@@ -1,6 +1,11 @@
 ---
 name: 💻 senior-backend
 description: Comprehensive backend development skill for building scalable backend systems using NodeJS, Express, Go, Python, Postgres, GraphQL, REST APIs. Includes API scaffolding, database optimization, security implementation, and performance tuning. Use when designing APIs, optimizing database queries, implementing business logic, handling authentication/authorization, or reviewing backend code.
+upstream:
+  match: ambiguous
+  copies: 3
+  candidates: [ovachiever/droid-tings, questnova502/claude-skills-sync, ralphjohn29/my-claude-skills]
+  checked: 2026-08-26
 ---
 
 # Senior Backend

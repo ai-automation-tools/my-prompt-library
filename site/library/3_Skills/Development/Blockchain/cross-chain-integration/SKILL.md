@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: cross-chain-integration
 description: "Plan cross-chain architecture including bridge risks, messaging assumptions, and fallback behavior. Use when: (1) multi-chain product design, (2) bridge/vendor selection, (3) failure-mode planning. NOT for: bypassing bridge security constraints."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Cross-Chain Integration Planning

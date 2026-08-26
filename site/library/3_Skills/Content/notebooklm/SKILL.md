@@ -1,6 +1,11 @@
 ---
 name: notebooklm
 description: Use this skill to query your Google NotebookLM notebooks directly from Claude Code for source-grounded, citation-backed answers from Gemini. Browser automation, library management, persistent auth. Drastically reduced hallucinations through document-only responses.
+upstream:
+  match: ambiguous
+  copies: 13
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, crystal9114/notebooklm-skill, guanyang/antigravity-skills, guanyang/open-agent-hub, jpropato/siba, jst-well-dan/skill-box, microck/ordinary-claude-skills, pleaseprompto/notebooklm-skill]
+  checked: 2026-08-26
 ---
 
 # NotebookLM Research Assistant Skill

@@ -4,6 +4,10 @@ tags: ["history", "productivity", "analysis", "logs"]
 category: "Skills"
 subcategory: "Content"
 source: "https://skillsmp.com/skills/openclaw-openclaw-skills-session-logs-skill-md"
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-openclaw-skills-session-logs-skill-md"
+  checked: 2026-08-26
 ---
 
 # session-logs

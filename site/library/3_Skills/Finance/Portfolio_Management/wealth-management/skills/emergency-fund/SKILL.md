@@ -1,6 +1,11 @@
 ---
 name: 🧠 emergency-fund
 description: "Size and structure an emergency fund based on individual circumstances, income stability, and expense profile. Use when the user asks about emergency fund sizing, how many months of expenses to save, where to keep emergency savings, or tiered fund structures. Also trigger when users mention 'rainy day fund', 'how much cash should I keep', 'high-yield savings account', 'money market fund', 'freelancer cash reserve', 'variable income buffer', or ask what counts as an emergency expense."
+upstream:
+  match: exact
+  repo: joellewis/finance_skills
+  path: emergency-fund/SKILL.md
+  checked: 2026-08-26
 ---
 
 # Emergency Fund Planning

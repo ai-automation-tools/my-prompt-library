@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Development"
 name: defi-protocol-design
 description: "Design DeFi mechanisms (liquidity, incentives, risk controls) with economic and technical constraints. Use when: (1) tokenomics alignment, (2) AMM/lending design, (3) protocol parameter tuning plans. NOT for: investment advice."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # DeFi Protocol Design

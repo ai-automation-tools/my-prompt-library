@@ -7,6 +7,12 @@ repository: https://github.com/NeverSight/learn-skills.dev
 stars: 103
 forks: 24
 updated: 2026-03-22
+upstream:
+  match: prefix
+  repo: wojons/skills
+  path: testing-performance/SKILL.md
+  declared: "https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-wojons-skills-testing-performance-skill-md"
+  checked: 2026-08-26
 ---
 
 # Performance Testing

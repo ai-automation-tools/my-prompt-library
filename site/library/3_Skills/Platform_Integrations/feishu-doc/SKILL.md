@@ -7,6 +7,10 @@ repository: https://github.com/openclaw/skills
 stars: 3823
 forks: 1063
 updated: 2026-02-16
+upstream:
+  match: unknown
+  declared: "https://skillsmp.com/skills/openclaw-skills-skills-autogame-17-feishu-doc-skill-md"
+  checked: 2026-08-26
 ---
 
 # Feishu Doc

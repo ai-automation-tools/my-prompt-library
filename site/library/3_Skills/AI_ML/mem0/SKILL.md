@@ -5,6 +5,10 @@ source: https://github.com/mem0ai/mem0
 version: "3.0.0"
 license: Apache-2.0
 installs: 50800+
+upstream:
+  match: unknown
+  declared: "https://github.com/mem0ai/mem0"
+  checked: 2026-08-26
 ---
 
 # Mem0 — Persistent Memory for AI Applications

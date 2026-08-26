@@ -3,6 +3,9 @@ name: 🤖 Jetpack Compose Screen Builder
 description: Build Android screens using Jetpack Compose, ViewModel, and Material Design 3.
 metadata:
   short-description: Build Android screens using Jetpack Compose, ViewModel, and Material Design 3.
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Jetpack Compose Screen Builder

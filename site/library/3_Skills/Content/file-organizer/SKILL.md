@@ -1,6 +1,11 @@
 ---
 name: file-organizer
 description: Intelligently organizes files and folders by understanding context, finding duplicates, and suggesting better organizational structures. Use when user wants to clean up directories, organize downloads, remove duplicates, or restructure projects.
+upstream:
+  match: ambiguous
+  copies: 6
+  candidates: [automindtechnologie-jpg/ultimate-skill.md, jpropato/siba, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
+  checked: 2026-08-26
 ---
 
 # File Organizer

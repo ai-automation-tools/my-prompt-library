@@ -1,6 +1,9 @@
 ---
 name: multiplayer-design
 description: Design multiplayer systems including networking architecture, matchmaking, social features, anti-cheat, and multiplayer game modes. Use when adding online or local multiplayer to a game. Also trigger for "multiplayer", "online play", "co-op design", "PvP design", "matchmaking", "netcode", or "multiplayer architecture".
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Multiplayer Design — Networking, Social & Competition

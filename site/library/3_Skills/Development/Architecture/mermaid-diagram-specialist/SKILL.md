@@ -10,6 +10,9 @@ usage:
 input:
   Process description, data model, architecture requirements, workflow steps
 output: Mermaid diagrams (flowchart, sequence, ERD, C4, state, etc.) in markdown
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Mermaid Diagram Specialist

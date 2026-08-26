@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Design"
 name: information-architecture
 description: "Design navigation and content structure for findability and task completion. Use when: (1) reorganizing products, (2) reducing navigation friction, (3) sitemap planning. NOT for: visual polish-only tasks."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Information Architecture Design

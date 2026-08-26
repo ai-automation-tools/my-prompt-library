@@ -5,6 +5,9 @@ category: "Skills"
 subcategory: "Design"
 name: wireframing-spec
 description: "Produce low/mid-fidelity wireframe specifications and annotations for handoff. Use when: (1) early concepting, (2) comparing layout options, (3) PM/engineering alignment. NOT for: high-fidelity branding work."
+upstream:
+  match: unknown
+  checked: 2026-08-26
 ---
 
 # Wireframing Specification
