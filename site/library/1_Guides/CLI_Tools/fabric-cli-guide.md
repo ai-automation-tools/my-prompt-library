@@ -14,7 +14,7 @@ Fabric is an open-source framework for augmenting humans using AI. It provides a
 
 ### Basic Settings
 - **Agent Name:** Fabric CLI
-- **Model:** Anthropic Claude 3.5 Sonnet (recommended) or OpenAI GPT-4o
+- **Model:** Anthropic Claude Sonnet 5 (recommended) or OpenAI GPT-4o
 - **Temperature:** 0.0 - 0.7 (depending on the pattern)
 - **Context Window:** Model dependent (128k+ recommended for large inputs)
 

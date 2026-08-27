@@ -10,7 +10,7 @@ upstream:
   repo: k-dense-ai/scientific-agent-skills
   path: matlab/SKILL.md
   ref: 36d8f13a1e754618794bf42f417884940077b4ae
-  checked: 2026-08-26
+  checked: 2026-08-27
 ---
 
 # MATLAB and GNU Octave

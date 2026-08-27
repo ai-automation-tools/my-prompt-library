@@ -23,11 +23,11 @@ System prompts are passed via the explicit `system` parameter in the API payload
 4. Parse the JSON response to extract the text content.
 
 ## Example Interactions
-User runs: `curl https://api.anthropic.com/v1/messages -H "x-api-key: $ANTHROPIC_API_KEY" -H "anthropic-version: 2023-06-01" -H "content-type: application/json" -d '{"model": "claude-3-opus-20240229", "max_tokens": 1024, "messages": [{"role": "user", "content": "Hello, Claude!"}]}'`
+User runs: `curl https://api.anthropic.com/v1/messages -H "x-api-key: $ANTHROPIC_API_KEY" -H "anthropic-version: 2023-06-01" -H "content-type: application/json" -d '{"model": "claude-opus-5", "max_tokens": 1024, "messages": [{"role": "user", "content": "Hello, Claude!"}]}'`
 
 ## Best Practices
-- Use Claude 3.5 Sonnet for coding and speed-dependent tasks.
-- Use Claude 3 Opus for highly complex reasoning tasks.
+- Use Claude Sonnet 5 for coding and speed-dependent tasks.
+- Use Claude Opus 5 for highly complex reasoning tasks.
 - Implement robust error handling for API timeouts.
 
 ## Customization Options

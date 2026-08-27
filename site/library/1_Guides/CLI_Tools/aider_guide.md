@@ -70,7 +70,7 @@ aider --version
 aider file1.py file2.js
 
 # Start with files and specify model
-aider --model gpt-4o file1.py
+aider --model gpt-5.6-sol file1.py
 
 # Create new file
 aider new_file.py
@@ -98,7 +98,7 @@ aider --api-key openai=your-key-here
 ```
 
 **Supported models:**
-- `gpt-4o`, `gpt-4-turbo` (OpenAI)
+- `gpt-5.6-sol`, `gpt-4-turbo` (OpenAI)
 - `sonnet`, `opus`, `haiku` (Anthropic Claude)
 - `deepseek` (DeepSeek)
 - `gemini-pro` (Google)
@@ -416,7 +416,7 @@ Aider supports many LLM providers:
 
 ```bash
 export OPENAI_API_KEY=sk-...
-aider --model gpt-4o
+aider --model gpt-5.6-sol
 ```
 
 ### Anthropic Claude

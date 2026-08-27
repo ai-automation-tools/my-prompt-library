@@ -13,7 +13,7 @@ A comprehensive guide on leveraging awesome IDE extensions for maximum productiv
 ## Agent Configuration
 ### Basic Settings
 - **Agent Name:** AwesomeIDEBot
-- **Model:** claude-sonnet-3-5
+- **Model:** claude-sonnet-5
 - **Temperature:** 0.2
 - **Context Window:** 100k tokens
 

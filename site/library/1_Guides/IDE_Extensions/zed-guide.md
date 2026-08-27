@@ -14,7 +14,7 @@ This guide covers the setup and usage of AI features within the Zed IDE. Learn h
 
 ### Basic Settings
 - **Agent Name:** Zed Assistant
-- **Model:** claude-3-5-sonnet-20241022 (recommended)
+- **Model:** claude-sonnet-5 (recommended)
 - **Temperature:** 0.2
 - **Context Window:** 200,000 tokens
 

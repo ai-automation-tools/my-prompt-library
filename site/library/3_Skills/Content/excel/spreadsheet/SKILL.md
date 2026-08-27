@@ -4,7 +4,8 @@ name: "spreadsheet"
 description: "Use when tasks involve creating, editing, analyzing, or formatting spreadsheets (`.xlsx`, `.csv`, `.tsv`) using Python (`openpyxl`, `pandas`), especially when formulas, references, and formatting need to be preserved and verified."
 author: openai
 upstream:
-  match: exact
+  match: fork
+  note: upstream removed this file; we own this copy now
   repo: openai/skills
   path: xlsx-processing-openai/SKILL.md
   checked: 2026-08-26

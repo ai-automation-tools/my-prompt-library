@@ -8,13 +8,13 @@ subcategory: "API_Providers"
 # Anthropic API Guide
 
 ## Overview
-This guide covers how to integrate and build AI agents using the Anthropic API, specifically leveraging the Claude 3 family of models (Haiku, Sonnet, and Opus). It focuses on utilizing advanced features like Tool Use (Function Calling), System Prompts, and Vision capabilities.
+This guide covers how to integrate and build AI agents using the Anthropic API, specifically leveraging the Claude 5 family of models (Sonnet and Opus, plus Haiku 4.5). It focuses on utilizing advanced features like Tool Use (Function Calling), System Prompts, and Vision capabilities.
 
 ## Agent Configuration
 
 ### Basic Settings
 - **Agent Name:** Claude via API
-- **Model:** `claude-3-opus-20240229` (Complex reasoning), `claude-3-sonnet-20240229` (Balanced), `claude-3-haiku-20240307` (Fast/Efficient)
+- **Model:** `claude-opus-5` (Complex reasoning), `claude-sonnet-5` (Balanced), `claude-haiku-4-5` (Fast/Efficient)
 - **Temperature:** `0.0` for coding/factual tasks, `0.7` for creative tasks.
 - **Max Tokens:** Up to 4096 (can be extended with specific headers).
 
@@ -99,7 +99,7 @@ import anthropic
 
 client = anthropic.Anthropic()
 response = client.messages.create(
-    model="claude-3-haiku-20240307",
+    model="claude-haiku-4-5",
     max_tokens=1000,
     system="You are a pirate.",
     messages=[

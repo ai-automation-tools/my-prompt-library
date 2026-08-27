@@ -10,7 +10,7 @@ upstream:
   path: skills/find-skills/SKILL.md
   declared: "https://github.com/vercel-labs/skills"
   ref: 435076e78988e1e6ec40d00b0b1d76bdbbc5419a
-  checked: 2026-08-26
+  checked: 2026-08-27
 ---
 
 # Find Skills

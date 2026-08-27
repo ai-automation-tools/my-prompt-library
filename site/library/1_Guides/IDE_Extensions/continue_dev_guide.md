@@ -210,7 +210,7 @@ Continue creates `continue_config.yaml`:
 ```yaml
 models:
   - provider: openai
-    model: gpt-4o
+    model: gpt-5.6-sol
     apiKey: ${OPENAI_API_KEY}
   
   - provider: anthropic
@@ -365,7 +365,7 @@ models:
     usage: ["chat", "edit"]  # Use for chat and edit modes
   
   - provider: openai
-    model: gpt-4o
+    model: gpt-5.6-sol
     usage: ["autocomplete"]  # Use for autocomplete
   
   - provider: ollama
@@ -377,7 +377,7 @@ models:
 
 In Continue Chat:
 ```
-@model gpt-4o
+@model gpt-5.6-sol
 @model claude-sonnet-4
 ```
 

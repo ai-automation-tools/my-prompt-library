@@ -14,7 +14,7 @@ A comprehensive guide on integrating and utilizing the OpenAI API for building i
 
 ### Basic Settings
 - **Agent Name:** OpenAI Assistant
-- **Model:** gpt-4o
+- **Model:** gpt-5.6-sol
 - **Temperature:** 0.7
 - **Context Window:** 128k tokens
 

@@ -14,7 +14,7 @@ Cline is a versatile autonomous coding agent that runs inside your IDE (VS Code)
 
 ### Basic Settings
 - **Agent Name:** Cline
-- **Model:** claude-3-5-sonnet-20241022 (Recommended for balance of speed and complexity)
+- **Model:** claude-sonnet-5 (Recommended for balance of speed and complexity)
 - **Temperature:** 0.0
 - **Context Window:** Up to 200k tokens
 

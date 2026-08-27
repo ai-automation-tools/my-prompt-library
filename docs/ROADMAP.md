@@ -1,9 +1,10 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-08-26 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-08-27 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
-The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md).
+The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
+skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md).
 
 ---
 
@@ -15,7 +16,7 @@ The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. `Legacy/` is excluded from the index |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `site/api/prompt-index.json` — **1,725** prompts, 1.06 MB (`npm run build:index`) |
-| Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. **42** are byte-identical to upstream, **0** are `behind` — the remaining 51 are `drifted` (≤21%) |
+| Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own |
 | `src/App.tsx` | **1,050 lines** (was 2,845), 25 `useState` hooks |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
 | Health | Live and production-ready. Everything below is content, maintainability, or polish |
@@ -34,48 +35,44 @@ The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-
 - [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (still a placeholder, so auth and
       My Library are dead locally). The dev server boots without it and serves the read-only
       Public Library.
-- [ ] **Triage the 51 `drifted` skills.** With `behind` cleared, this is the whole remaining
-      backlog and it is a different shape: the worst is 21% (`rspack-tracing`), 30 of the 51
-      are under 5%, and 20 of those are the `wealth-management` set from one repo. Sizes are
+- [ ] **Triage the 52 `drifted` skills.** With `behind` cleared, this is the whole remaining
+      backlog and it is a different shape: the worst is 21% (`rspack-tracing`), 43 of the 52
+      are under 5%, and 23 of those are the `wealth-management` set from one repo. Sizes are
       comparable, so these are edits — a resync here is a judgment call per skill, not a
       mechanical catch-up. Current list:
-      [audits/upstream-drift-2026-08-26.md](audits/upstream-drift-2026-08-26.md).
-- [ ] **Nine skills carry a stale `match: behind` in their frontmatter** (`docx`, `xlsx`,
+      [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md).
+- [ ] **Seven skills carry a stale `match: behind` in their frontmatter** (`docx`, `xlsx`,
       `executing-plans`, `accessibility-compliance`, `algorithmic-art`,
-      `supabase-postgres-best-practices`, `gh-fix-ci`, `canvas-design`, `linear`). That field
-      is `attribute-upstream.mjs`'s attribution confidence, not the drift verdict, and the two
+      `supabase-postgres-best-practices`, `canvas-design`). That field is
+      `attribute-upstream.mjs`'s attribution confidence, not the drift verdict, and the two
       words colliding is exactly the kind of thing that reads as a live problem when it isn't.
-      Re-run the attributor over them, or rename the value.
-- [ ] **Decide on 6 dead upstreams.** Those skills point at files their publisher has since
-      removed, including 3 from `openai/skills`. Re-home them or mark them as forks we own.
-- [ ] **Sweep deprecated model IDs.** 23 files pin `claude-3-5-sonnet`, 43 reference Claude
-      3.x at all, and 18 use `gpt-4o`. The Claude 5 family now appears in 47 files, but every
-      one of them is inside the resynced `Development/API/claude-api` tree — nothing else in
-      the library names a current model. This is the most visible staleness to a visitor.
+      Re-run the attributor over them, or rename the value. (`gh-fix-ci` and `linear` left the
+      list when they were stamped `match: fork`.)
+- [ ] **Rewrite `1_Guides/API_Providers/openai_cli_guide.md`.** The model-ID sweep skipped
+      it: the guide is built around GPT-4o, with pricing, rate-limit and capability tables
+      that a find-and-replace would turn into confident wrong numbers. Everything else in
+      `1_Guides` and `2_Agents` now names a current model.
 
 ---
 
 ## Next — dev/prod parity
 
-The two API implementations have silently diverged, and that is the bug class that keeps
-biting. `server.ts` (552 lines) and `api/index.ts` (740) are hand-maintained twins; so are
-`routes/skill-packs.ts` (335) and `api/skill-packs.ts` (394).
+The two API implementations had silently diverged, and that was the bug class that kept
+biting. Collapsed 2026-08-27: `server.ts` is now a 71-line dev wrapper that imports the
+same Express app `api/index.ts` exports and adds Vite's HMR middleware; `routes/skill-packs.ts`
+is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 
-- [ ] **Collapse to one implementation.** Extract handler bodies into `api/handlers/*.ts`
-      and have `server.ts` mount them through a thin Express adapter — roughly 900
-      duplicated lines go away and divergence becomes structurally impossible.
-      *Lazier alternative:* run `vercel dev` locally and delete `server.ts` outright. Smaller
-      diff, but it costs the Vite HMR middleware, which is the only reason `server.ts` exists.
-- [ ] **`GET /api/prompts/:id` exists only in production.** `App.tsx` calls it on every
-      prompt click; locally it falls through to Vite and returns the SPA's HTML. The
-      frontend swallows the failure and reuses its cached copy.
-- [ ] **The dev server ships 15.5 MB per page load.** `server.ts` ignores the `lightweight`
-      query param that both `api/index.ts` and `App.tsx` rely on, so dev sends every prompt
-      at full length where prod sends a 1.06 MB index. This is also *why* the missing route
-      above is invisible.
-- [ ] **Add a CI gate.** One workflow, three steps: `npm ci` → `npm run lint` →
-      `npm run build:index` and fail if `git diff --exit-code` shows anything beyond
-      `buildTime`. That last check alone catches "edited the library, forgot to rebuild".
+- [x] ~~**Collapse to one implementation.**~~ ~880 duplicated lines deleted. Divergence is
+      now structurally impossible — there is one handler set. `npm run test:routes` pins the
+      route table in CI.
+- [x] ~~**`GET /api/prompts/:id` exists only in production.**~~ Dev serves it now.
+- [x] ~~**The dev server ships 15.5 MB per page load.**~~ Dev honours `lightweight` and the
+      prebuilt index: 1.28 MB against 9.3 MB for the full listing.
+- [x] ~~**Add a CI gate.**~~ Shipped: `.github/workflows/ci.yml` runs `npm ci` →
+      `npm run lint` → `npm run build:index` on every PR and fails if the rebuilt index
+      differs from the committed one. `buildTime` and `lastModified` are stripped before
+      comparing — both are timestamps that cannot match on a fresh checkout (see the
+      freshness item under *Later*); everything that encodes actual content is compared.
 
 ---
 
@@ -157,15 +154,14 @@ biting. `server.ts` (552 lines) and `api/index.ts` (740) are hand-maintained twi
 
 ## Done
 
-See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-26**: the `behind` tier is empty.
-The ten skills the drift report named — `autoresearch`, `interaction-design`, `academy-guide`,
-`python-design-patterns`, `x-twitter-scraper`, `pptx`, `find-skills`, `skill-creator`,
-`golang-popular-libraries` and `matlab` — are now byte-identical to their upstreams, taking
-`current` from 32 to 42 and `behind` from 10 to 0.
+See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-27**: the `behind` tier is empty —
+every skill the drift report named is level with its upstream — the six dead upstreams are
+marked as forks we own, deprecated model IDs are swept out of 35 guide and agent files, a CI
+gate guards the prompt index, and the dev/prod API split is collapsed onto one Express app
+(~880 duplicated lines gone, taking all three parity bugs with them).
 
-Earlier the same day: a full repository audit,
-two confirmed security vulnerabilities fixed, all 22 npm advisories cleared, upstream
-provenance stamped across the skills library, a weekly drift check shipped, and the six
-most-drifted skills — `code-tour`, `huggingface-gradio`, `brainstorming`,
-`huggingface-llm-trainer`, `discernment-nudge` and `claude-api` — pulled back level with
-their upstreams by the new `scripts/resync-upstream.mjs`.
+Earlier the same day: a full repository audit, two confirmed security vulnerabilities fixed,
+all 22 npm advisories cleared, upstream provenance stamped across the skills library, a weekly
+drift check shipped, and the six most-drifted skills — `code-tour`, `huggingface-gradio`,
+`brainstorming`, `huggingface-llm-trainer`, `discernment-nudge` and `claude-api` — pulled back
+level with their upstreams by the new `scripts/resync-upstream.mjs`.

@@ -622,7 +622,7 @@ response = model.generate_content("Hello")
 import anthropic
 client = anthropic.Anthropic()
 message = client.messages.create(
-    model="claude-3-5-sonnet-20241022",
+    model="claude-sonnet-5",
     messages=[{"role": "user", "content": "Hello"}]
 )
 

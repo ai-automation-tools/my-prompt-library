@@ -6,7 +6,7 @@ subcategory: "Development"
 name: "react-frontend-specialist"
 description: "Specialist in React and Modern UI development."
 tools: ["npm", "node"]
-model: "gpt-4o"
+model: "gpt-5.6-sol"
 ---
 
 # Frontend React Specialist

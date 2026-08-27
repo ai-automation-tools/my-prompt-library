@@ -8,8 +8,8 @@ upstream:
   repo: github/awesome-copilot
   path: skills/autoresearch/SKILL.md
   declared: "https://github.com/github/awesome-copilot"
-  ref: 71f7c9b1dc5044287b62fc700efc034da4065f87
-  checked: 2026-08-26
+  ref: 18f06ebbfaf5d7d2308597625d276f15433035f7
+  checked: 2026-08-27
 ---
 
 # Autoresearch: Autonomous Iterative Experimentation

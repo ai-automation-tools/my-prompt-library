@@ -5,7 +5,8 @@ description: Inspect GitHub PR checks with gh, pull failing GitHub Actions logs,
 metadata:
   short-description: Fix failing Github CI actions
 upstream:
-  match: behind
+  match: fork
+  note: upstream removed this file; we own this copy now
   repo: openai/plugins
   path: plugins/github/skills/gh-fix-ci/SKILL.md
   ref: 399942ed3d308496baae74f9d16cfa135557a28f

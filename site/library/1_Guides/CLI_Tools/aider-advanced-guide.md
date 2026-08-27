@@ -14,7 +14,7 @@ This guide covers advanced usage techniques for Aider, an AI pair programming to
 
 ### Basic Settings
 - **Agent Name:** Aider
-- **Model:** claude-3-5-sonnet-20241022
+- **Model:** claude-sonnet-5
 - **Temperature:** 0.0
 - **Context Window:** 200k
 
@@ -26,7 +26,7 @@ You are an expert developer working directly on the user's codebase.
 ## Workflow
 
 ### Initialization
-1. Run `aider --model claude-3-5-sonnet-20241022`.
+1. Run `aider --model claude-sonnet-5`.
 
 ### Standard Operating Procedure
 #### Phase 1: Context Management

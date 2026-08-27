@@ -16,7 +16,7 @@ Comprehensive reference for using Windsurf's Cascade AI agent for agentic coding
 - 💬 Autonomous multi-step task execution
 - 🔧 Built on VS Code with full extension compatibility
 - 🌐 Context-aware across files, terminal, and project structure
-- 🎯 Multiple AI models (GPT-4o, Claude, BYOK support)
+- 🎯 Multiple AI models (GPT-5.6 Sol, Claude, BYOK support)
 - 📡 MCP (Model Context Protocol) for external integrations
 
 **Background:** Originally developed by Codeium, acquired by OpenAI in 2025. Cascade is the flagship agentic feature of the Windsurf IDE.
@@ -135,12 +135,12 @@ Add MCP servers in Windsurf settings to expand Cascade's capabilities.
 ### Available Models
 
 **Premium Models (Complex Tasks):**
-- GPT-4o (OpenAI)
+- GPT-5.6 Sol (OpenAI)
 - Claude Sonnet/Opus (Anthropic)
 - Gemini Pro (Google)
 
 **Fast Models (Quick Tasks):**
-- GPT-4o mini
+- GPT-5.6 Luna
 - Claude Haiku
 
 ### Bring Your Own Key (BYOK)

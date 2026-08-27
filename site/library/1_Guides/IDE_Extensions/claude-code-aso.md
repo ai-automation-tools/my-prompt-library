@@ -12,7 +12,7 @@ App Store Optimization (ASO) Agent and Agent Skill System for Claude Code.
 
 ## Agent Configuration
 - **Agent Name:** Claude ASO
-- **Model:** claude-3-haiku
+- **Model:** claude-haiku-4-5
 
 ## System Prompt
 ```

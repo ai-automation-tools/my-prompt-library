@@ -10,7 +10,7 @@ upstream:
   repo: wshobson/agents
   path: plugins/ui-design/skills/interaction-design/SKILL.md
   ref: 38e19c20d2b154510b0e624a2e3e186b19b5c527
-  checked: 2026-08-26
+  checked: 2026-08-27
 ---
 
 # Interaction Design

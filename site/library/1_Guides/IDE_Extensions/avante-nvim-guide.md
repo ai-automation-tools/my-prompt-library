@@ -14,7 +14,7 @@ Avante.nvim is an AI-powered Neovim plugin designed to act as your intelligent c
 
 ### Basic Settings
 - **Agent Name:** Avante Assistant
-- **Model:** Anthropic Claude 3.5 Sonnet (default and highly recommended for coding)
+- **Model:** Anthropic Claude Sonnet 5 (default and highly recommended for coding)
 - **Temperature:** Managed by the plugin (typically low for coding)
 - **Context Window:** Relies on Claude's 200k context window
 

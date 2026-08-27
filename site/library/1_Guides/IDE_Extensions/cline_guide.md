@@ -32,7 +32,7 @@ Cline: "I will create a new file named `PrimaryButton.tsx` in the `src/component
 - Always review commands before allowing them to run.
 
 ## Customization Options
-- You can set custom API keys and switch between models like Claude 3.5 Sonnet and GPT-4o.
+- You can set custom API keys and switch between models like Claude Sonnet 5 and GPT-5.6 Sol.
 - Configure automatic formatting after code generation.
 
 ## Troubleshooting

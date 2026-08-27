@@ -14,7 +14,7 @@ upstream:
   path: plugins/python-development/skills/python-design-patterns/SKILL.md
   declared: "https://skillsmp.com/skills/wshobson-agents-plugins-python-development-skills-python-design-patterns-skill-md"
   ref: 38e19c20d2b154510b0e624a2e3e186b19b5c527
-  checked: 2026-08-26
+  checked: 2026-08-27
 ---
 
 # Python Design Patterns

@@ -13,7 +13,7 @@ OpenHands is an autonomous AI software engineer.
 ## Agent Configuration
 ### Basic Settings
 - **Agent Name:** OpenHands
-- **Model:** claude-3-5-sonnet
+- **Model:** claude-sonnet-5
 
 ### Tools & Permissions
 - Bash execution.

@@ -23,7 +23,7 @@ Guide to configuring Aider for terminal-based AI-assisted coding.
 ```json
 {
   "command": "aider",
-  "args": ["--model", "claude-3-5-sonnet-20240620", "--no-auto-commits"],
+  "args": ["--model", "claude-sonnet-5", "--no-auto-commits"],
   "task": "Add tests to src/app.py"
 }
 ```

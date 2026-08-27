@@ -19,5 +19,5 @@ Setting up Anthropic's Claude API.
 
 ## Example JSON Protocol
 ```json
-{"model": "claude-3-opus-20240229"}
+{"model": "claude-opus-5"}
 ```

@@ -13,7 +13,7 @@ This guide provides instructions on configuring an AI assistant to help users ma
 ## Agent Configuration
 ### Basic Settings
 - **Agent Name:** TerminalMaster
-- **Model:** gpt-4o
+- **Model:** gpt-5.6-sol
 - **Temperature:** 0.3
 - **Context Window:** 128k tokens
 

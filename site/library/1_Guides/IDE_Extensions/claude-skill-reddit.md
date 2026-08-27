@@ -12,7 +12,7 @@ Claude Code skills for Reddit automation.
 
 ## Agent Configuration
 - **Agent Name:** Reddit Automator
-- **Model:** claude-3-haiku
+- **Model:** claude-haiku-4-5
 
 ## System Prompt
 ```

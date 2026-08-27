@@ -13,7 +13,7 @@ upstream:
   path: skills/academy-guide/SKILL.md
   declared: "https://github.com/anthropics/skills/blob/main/skills/academy-guide/SKILL.md"
   ref: 3b3fad96af16a10759d930941b4520ba0c40edae
-  checked: 2026-08-26
+  checked: 2026-08-27
 ---
 
 # Claude Academy guide

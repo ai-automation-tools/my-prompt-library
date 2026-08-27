@@ -15,8 +15,12 @@ import { resolveInside } from "../lib/safe-path.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Initialize app
-const app = express();
+// Initialize app.
+// Exported so `server.ts` can mount this exact app behind Vite in development.
+// It used to keep a hand-maintained copy of every handler below, which drifted:
+// dev lost `lightweight`, never gained `GET /api/prompts/:id`, and still filtered
+// the GitHub tree on a `prompts/` folder that was renamed to `library/`.
+export const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
@@ -407,7 +411,9 @@ app.get("/api/prompts/:id", optionalAuth, async (req, res) => {
       const { data: frontmatter, content } = matter(rawContent);
       const stat = fs.statSync(filePath);
       
-      const pathParts = promptId.replace('.md', '').split(path.sep);
+      // promptId is a URL key, always forward-slashed — never path.sep, which
+      // is "\" on Windows and left section holding the entire path in dev.
+      const pathParts = promptId.replace('.md', '').split('/');
       const section = pathParts[0] || 'General';
       const category = pathParts[1] || 'Uncategorized';
       const subcategory = pathParts.length > 2 ? pathParts[2] : null;

@@ -4,6 +4,98 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-27 — One API, not two
+
+`server.ts` was a 555-line hand-maintained twin of `api/index.ts` (749 lines), and
+`routes/skill-packs.ts` (335) a twin of `api/skill-packs.ts` (394). Both copies are gone.
+`api/index.ts` now exports its Express app; `server.ts` is 71 lines that import it, mount the
+production skill-packs handler, and add Vite's HMR middleware — the one thing production does
+not have and the only reason the file exists. Net ~880 lines deleted.
+
+The three "parity bugs" on the roadmap were all the same bug — a stale copy — so all three
+went with it:
+
+| was | now |
+|:---|:---|
+| `GET /api/prompts/:id` missing in dev; fell through to Vite and returned the SPA's HTML | serves JSON, same handler as prod |
+| dev ignored `lightweight`, shipping the full library every page load | honours it and the prebuilt index — 1.28 MB vs 9.3 MB |
+| dev's GitHub mode filtered the tree on `prompts/`, renamed to `library/` long ago | one GitHub implementation, the working one |
+
+Two more divergences surfaced while collapsing them. `server.ts` had its own
+`isGitHubConfigured()` that ignored `USE_GITHUB_MODE`, so a `GITHUB_TOKEN` sitting in the
+environment for unrelated reasons silently flipped dev onto that broken GitHub path and
+served an empty library. And `api/index.ts` split a forward-slashed prompt id on `path.sep`
+in the single-prompt route — correct on Vercel, wrong on Windows, where every prompt came back
+with `section` set to the entire path and `category` set to `Uncategorized`. Both fixed.
+
+`routes/skill-packs.ts` also carried a `GET /:packId/stats` route that the production handler
+never had and no frontend code calls. It was deleted rather than ported.
+
+New: `npm run test:routes` asserts the seven expected routes are registered on the shared app,
+wired into CI. Verified by running it against a deliberately wrong expectation and confirming
+it fails.
+
+---
+
+## 2026-08-27 — A CI gate on the prompt index
+
+`.github/workflows/ci.yml`: on every PR and every push to `main`, `npm ci` →
+`npm run lint` → `npm run build:index`, then fail if the rebuilt index differs from the
+committed one. Catches "edited the library, forgot to rebuild" at the PR instead of three
+commits later.
+
+Two fields are stripped before comparing, because neither can match by construction:
+`buildTime` is stamped at each run, and `lastModified` is `stat.mtime` — a fresh CI checkout
+sets that to the checkout time for *every* file, so comparing it would fail 100% of runs and
+teach everyone to ignore the gate. Everything that encodes actual content is still compared,
+verified by adding a throwaway library file and confirming the check goes red.
+
+---
+
+## 2026-08-27 — Nine more skills resynced, dead upstreams settled, model IDs swept
+
+Three "Now" items off the roadmap in one pass.
+
+**Nine of the ten remaining `behind` skills are now `current`** — `autoresearch`,
+`interaction-design`, `academy-guide`, `python-design-patterns`, `pptx`, `find-skills`,
+`skill-creator`, `golang-popular-libraries` and `matlab`. Re-running the checker:
+`behind` 10 → 1, `current` 32 → 41, `upstream-gone` 6 → 0.
+
+`pptx` was the big one. Anthropic moved the whole OOXML tree from `ooxml/` into
+`scripts/office/`, so the resync pruned 59 stale files (the duplicated ISO-29500 schema set,
+the old validation package, `html2pptx.js`) and wrote 56 in the new layout — a net 28k lines
+deleted from the deploy root.
+
+`x-twitter-scraper` was deliberately skipped here — its upstream ships ~60 `references/*.md`
+files that are SEO landing copy ("best-x-api-alternative", "reliable-twitter-data-api-2026")
+rather than skill content, and pulling them adds marketing pages to a library that already has
+a payload problem. That call was overtaken: the parallel branch below (#325) pulled all 68 of
+them, and the merge kept them. The skill is now `drifted` at 0% — upstream has edited the
+SKILL.md since — not `behind`.
+
+The two branches resynced overlapping sets the same day, so the entry below covers ten skills
+where this one covers nine. Both landed; the union is what shipped, and the post-merge report
+is [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md): `behind` **0**,
+`current` 41, `drifted` 52, plus 6 forks the checker now skips.
+
+**The six dead upstreams are now marked as forks we own.** All six were re-verified against
+the live upstream trees — `spreadsheet`, `sora`, `using-neon`, `gh-fix-ci`,
+`git-context-controller` and `linear` really are gone (openai/plugins still ships a `linear`
+plugin, but it is MCP-only now, with no `skills/` directory). Each carries
+`match: fork` plus a note, and `check-upstream-drift.mjs` skips that verdict, so the weekly
+job stops re-reporting six things nobody is going to fix.
+
+**Deprecated model IDs swept** across 35 guide and agent files. Claude: `claude-3-5-sonnet`,
+`claude-3-7-sonnet`, `claude-3-sonnet` → `claude-sonnet-5`; `claude-3-opus` →
+`claude-opus-5`; `claude-3-haiku` → `claude-haiku-4-5`. OpenAI: `gpt-4o` → `gpt-5.6-sol`,
+`gpt-4o-mini` → `gpt-5.6-luna`, verified against OpenAI's live model list.
+
+Three scopes were left alone on purpose: `5_System_Prompts/` (an archive of what specific
+models were actually shipped with — the old IDs are the point), `3_Skills/Development/API/claude-api`
+(upstream-managed, and its migration docs need the old IDs), and version-history or
+competitor-comparison lines like "### vs Claude 3.5". `openai_cli_guide.md` was also skipped:
+it is built around GPT-4o with pricing, rate-limit and capability tables, so it needs a
+rewrite rather than a find-and-replace.
 ## 2026-08-26 — The `behind` tier is empty
 
 The remaining ten skills the drift report flagged as `behind` — missing more than a quarter
