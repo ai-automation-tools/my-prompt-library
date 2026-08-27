@@ -13,9 +13,9 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 | | |
 |:---|:---|
 | Stack | React 19 + TS + Vite 6 + Tailwind v4 · Express/Vercel serverless · Neon Postgres |
-| Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 38 MB, all of it reachable |
+| Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 27.3 MB, all of it reachable |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
-| Prompt index | `site/api/prompt-index.json` — **1,739** prompts, 1.05 MB (`npm run build:index`), LF-normalized and reproducible on Linux and Windows |
+| Prompt index | `site/api/prompt-index.json` — **3,088** prompts, 1.91 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own |
 | `src/App.tsx` | **1,082 lines** (was 2,845), 25 `useState` hooks |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
@@ -97,10 +97,17 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       dependency left that loads before anything renders, and `LazyMotion` + the `m` components
       would cut most of it — but `motion/react` is imported in 10 files, so this is a refactor,
       not a config change.
-- [ ] **Split or delete the two multi-MB bulk files.** `act-as-an-expert.md` (3.4 MB) and
-      `promptsdotchat-opensource.md` (2.5 MB) are skipped by the 500 KB index filter, so they
-      are unreachable in the app — yet they are 74% of `2_Agents`'s 7.9 MB and ship on every
-      deploy.
+- [x] ~~**Split or delete the two multi-MB bulk files.**~~ Split. Both were the
+      f/awesome-chatgpt-prompts corpus in `<details>` form, over the 500 KB index ceiling and
+      therefore unreachable, and `promptsdotchat-opensource.md` was 1,168 of its 1,169 prompts
+      already inside `act-as-an-expert.md`. The union is now **1,349 individual files** under
+      `4_Prompts/Awesome_ChatGPT/General/`. `2_Agents` 7.7 → **2.1 MB**; the library 30.3 →
+      **27.3 MB** while gaining 1,347 files.
+- [ ] **The listing payload is now the biggest thing on first load.** Every visit fetches the
+      whole lightweight index: **311 KB gzipped**, up from 159 KB, against 200 KB for all the
+      JS. That is proportional to going 1,739 → 3,088 prompts, not a regression in kind, but it
+      now outweighs the bundle. Server-side pagination, or serving `contentPreview` only for
+      the first page, is the fix.
 - [x] ~~**Add `.gitattributes` and normalize line endings.**~~ Done, and it was not cosmetic:
       the CI index gate could not pass on *any* PR, because `contentPreview` is embedded in
       `prompt-index.json` verbatim and carried `

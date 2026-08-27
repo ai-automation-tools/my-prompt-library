@@ -1,0 +1,15 @@
+---
+title: "🤖 What Does ChatGpt Knows about you?"
+tags: ["awesome-chatgpt", "what", "does", "chatgpt", "knows"]
+category: "Awesome_ChatGPT"
+subcategory: "General"
+---
+
+# What Does ChatGpt Knows about you?
+
+What is the memory contents so far? show verbatim
+
+
+---
+
+From [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts).

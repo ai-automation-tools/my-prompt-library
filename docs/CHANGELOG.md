@@ -4,6 +4,64 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-27 — 1,349 prompts that shipped on every deploy and nobody could open
+
+`2_Agents/Development/Other/` held two files over the index builder's 500 KB ceiling:
+`act-as-an-expert.md` (3.4 MB) and `promptsdotchat-opensource.md` (2.5 MB). Being skipped by
+the builder, neither was searchable, linkable, or openable — they were 5.8 MB of dead weight in
+every deploy.
+
+They are not what the filenames suggest. Both are the
+[f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) corpus in `<details>`
+form, and they are not duplicates of the 202-prompt `awesome-chatgpt.md` sitting next to them —
+they carry **1,377** and **1,169** distinct prompts. Only 27 of those exist anywhere else in
+the library.
+
+`promptsdotchat-opensource.md` turned out to be **1,168 of its 1,169 prompts already inside**
+`act-as-an-expert.md` — 2.5 MB of near-pure redundancy. The union is 1,378. Twenty titles
+appear in both with different bodies; in each case the longer one is the later revision, so
+that is the one kept.
+
+### What shipped
+
+1,378 minus 27 already-reachable minus 2 empty stubs = **1,349 files** under
+`4_Prompts/Awesome_ChatGPT/General/`, each with the frontmatter the rest of `4_Prompts` uses
+and tags derived from its title. Fifteen slug collisions were suffixed, and the slugs are all
+lowercase — two files differing only in case are one file on Windows and two on Linux, which is
+exactly how the index desynced last time.
+
+| | before | after |
+|:---|---:|---:|
+| `2_Agents` | 7.7 MB / 548 files | **2.1 MB** / 546 files |
+| `4_Prompts` | 1.3 MB / 561 files | 4.0 MB / 1,910 files |
+| `site/library` | 30.3 MB / 2,864 files | **27.3 MB** / 4,211 files |
+| prompt index | 1,739 prompts, 1.05 MB | **3,088** prompts, 1.91 MB |
+
+### 350 email addresses that were about to be published
+
+The upstream corpus credits contributors as `Contributed by [@handle](url)` — except **350 of
+its 648 handles are email addresses**, not GitHub usernames. Splitting naively would have put
+`[@someone@gmail.com](https://github.com/someone@gmail.com)` on a public site: a broken link,
+and someone's personal address republished at `prompts.mikesailab.com`.
+
+Attribution is emitted by handle only when the handle actually matches GitHub's username
+grammar — **712 files** carry a named credit; the rest credit the repository and no individual.
+Prompt bodies were scanned too: one email, `john.doe@defensetech.com`, plainly fictional. No
+key-shaped strings anywhere in the 1,349.
+
+### The cost, stated plainly
+
+The lightweight listing every visit fetches went **159 KB → 311 KB gzipped**. That is
+proportional to 78% more prompts rather than a regression in kind, but it now outweighs all the
+JS on the page (200 KB gzipped), which makes pagination the next payload item rather than the
+bundle. Filed on the roadmap.
+
+Verified against a running server: 1,349 prompts in the listing under `Awesome_ChatGPT`, the
+sidebar shows the category with its count, individual prompts resolve by id and render, and the
+console is clean.
+
+---
+
 ## 2026-08-27 — The CI gate could never have passed, and two reasons why
 
 The index gate shipped that morning failed on its first real PR, and the failure was honest:
