@@ -4,6 +4,21 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-27 — A CI gate on the prompt index
+
+`.github/workflows/ci.yml`: on every PR and every push to `main`, `npm ci` →
+`npm run lint` → `npm run build:index`, then fail if the rebuilt index differs from the
+committed one. Catches "edited the library, forgot to rebuild" at the PR instead of three
+commits later.
+
+Two fields are stripped before comparing, because neither can match by construction:
+`buildTime` is stamped at each run, and `lastModified` is `stat.mtime` — a fresh CI checkout
+sets that to the checkout time for *every* file, so comparing it would fail 100% of runs and
+teach everyone to ignore the gate. Everything that encodes actual content is still compared,
+verified by adding a throwaway library file and confirming the check goes red.
+
+---
+
 ## 2026-08-27 — Nine more skills resynced, dead upstreams settled, model IDs swept
 
 Three "Now" items off the roadmap in one pass.

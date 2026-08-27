@@ -65,9 +65,11 @@ biting. `server.ts` (552 lines) and `api/index.ts` (740) are hand-maintained twi
       query param that both `api/index.ts` and `App.tsx` rely on, so dev sends every prompt
       at full length where prod sends a 1.06 MB index. This is also *why* the missing route
       above is invisible.
-- [ ] **Add a CI gate.** One workflow, three steps: `npm ci` → `npm run lint` →
-      `npm run build:index` and fail if `git diff --exit-code` shows anything beyond
-      `buildTime`. That last check alone catches "edited the library, forgot to rebuild".
+- [x] ~~**Add a CI gate.**~~ Shipped: `.github/workflows/ci.yml` runs `npm ci` →
+      `npm run lint` → `npm run build:index` on every PR and fails if the rebuilt index
+      differs from the committed one. `buildTime` and `lastModified` are stripped before
+      comparing — both are timestamps that cannot match on a fresh checkout (see the
+      freshness item under *Later*); everything that encodes actual content is compared.
 
 ---
 

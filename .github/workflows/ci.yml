@@ -1,0 +1,62 @@
+name: CI
+
+# Type-check, and prove api/prompt-index.json still matches library/.
+# The index is committed but regenerated on every deploy (vercel-build runs
+# build:index), so a stale committed copy never reaches production — it just
+# makes every subsequent `git status` noisy and every diff misleading. This
+# catches "edited the library, forgot to rebuild" at the PR, not three commits
+# later.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site # the whole deployable app lives here
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - run: npm ci
+
+      - name: Type-check
+        run: npm run lint
+
+      # Two fields are timestamps that cannot match by construction, so they are
+      # stripped before comparing: buildTime is stamped at each run, and
+      # lastModified is `stat.mtime`, which a fresh checkout sets to the checkout
+      # time for every file. Everything that actually encodes library content —
+      # id, title, section, category, tags, contentPreview, promptCount — is
+      # compared, so an edited or added file still fails the gate.
+      # (Making lastModified mean something is a separate roadmap item.)
+      # jq is preinstalled on ubuntu-latest.
+      - name: Prompt index is current
+        run: |
+          set -euo pipefail
+          strip='del(.buildTime) | .prompts |= map(del(.lastModified))'
+          jq -S "$strip" api/prompt-index.json > /tmp/before.json
+          npm run build:index
+          jq -S "$strip" api/prompt-index.json > /tmp/after.json
+          if ! diff -u /tmp/before.json /tmp/after.json > /tmp/index.diff; then
+            echo "::error file=site/api/prompt-index.json::Stale prompt index — run 'npm run build:index' in site/ and commit the result"
+            head -50 /tmp/index.diff
+            exit 1
+          fi
+          echo "prompt index matches library/ ($(jq .promptCount api/prompt-index.json) prompts)"
