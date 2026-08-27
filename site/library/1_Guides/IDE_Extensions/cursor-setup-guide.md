@@ -13,7 +13,7 @@ A comprehensive guide for configuring and utilizing Cursor IDE for AI-assisted d
 Cursor is an AI-first IDE built on top of VS Code. This guide covers how to set up Cursor optimally for a productive development workflow, including system prompts and AI integrations.
 
 ## Agent Configuration
-- **Model Recommendation:** Claude 3.5 Sonnet for reasoning, GPT-4o for quick edits.
+- **Model Recommendation:** Claude Sonnet 5 for reasoning, GPT-4o for quick edits.
 - **Context Length:** Configure workspace context to include relevant directories.
 - **Privacy Mode:** Enable Local mode if working on proprietary code.
 

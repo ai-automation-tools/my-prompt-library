@@ -1,9 +1,10 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-08-26 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-08-27 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
-The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md).
+The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
+skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md).
 
 ---
 
@@ -15,7 +16,7 @@ The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. `Legacy/` is excluded from the index |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `site/api/prompt-index.json` — **1,725** prompts, 1.06 MB (`npm run build:index`) |
-| Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 33 with a commit sha. **32** are byte-identical to upstream, 10 are still `behind` |
+| Skills | **323**, all spec-valid. **99** carry a resolvable upstream. **41** are byte-identical to upstream, 1 is still `behind`, 6 are forks we own |
 | `src/App.tsx` | **1,050 lines** (was 2,845), 25 `useState` hooks |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
 | Health | Live and production-ready. Everything below is content, maintainability, or polish |
@@ -34,19 +35,15 @@ The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-
 - [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (still a placeholder, so auth and
       My Library are dead locally). The dev server boots without it and serves the read-only
       Public Library.
-- [ ] **Resync the 10 skills still `behind`.** Same job, next tier: `autoresearch` (73%),
-      `interaction-design` (72%), `academy-guide` (71%), `python-design-patterns` (68%),
-      `x-twitter-scraper` (67%), `pptx` (60%), `find-skills` (55%), `skill-creator` (52%),
-      `golang-popular-libraries` (31%), `matlab` (30%). Read each diff before committing —
-      the resync overwrites the body, and a few of these may be deliberately trimmed rather
-      than stale. Full list:
-      [audits/upstream-drift-2026-08-26.md](audits/upstream-drift-2026-08-26.md).
-- [ ] **Decide on 6 dead upstreams.** Those skills point at files their publisher has since
-      removed, including 3 from `openai/skills`. Re-home them or mark them as forks we own.
-- [ ] **Sweep deprecated model IDs.** 23 files pin `claude-3-5-sonnet`, 43 reference Claude
-      3.x at all, and 18 use `gpt-4o`. The Claude 5 family now appears in 47 files, but every
-      one of them is inside the resynced `Development/API/claude-api` tree — nothing else in
-      the library names a current model. This is the most visible staleness to a visitor.
+- [ ] **Decide whether to carry `x-twitter-scraper`.** The last `behind` skill (67% short).
+      Its upstream ships ~60 `references/*.md` files that are SEO landing copy, not skill
+      content, so the resync was deliberately skipped. Either accept the drift and mark it a
+      fork, or pull it and accept the payload. Full report:
+      [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md).
+- [ ] **Rewrite `1_Guides/API_Providers/openai_cli_guide.md`.** The model-ID sweep skipped
+      it: the guide is built around GPT-4o, with pricing, rate-limit and capability tables
+      that a find-and-replace would turn into confident wrong numbers. Everything else in
+      `1_Guides` and `2_Agents` now names a current model.
 
 ---
 
@@ -152,9 +149,7 @@ biting. `server.ts` (552 lines) and `api/index.ts` (740) are hand-maintained twi
 
 ## Done
 
-See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-26**: a full repository audit,
-two confirmed security vulnerabilities fixed, all 22 npm advisories cleared, upstream
-provenance stamped across the skills library, a weekly drift check shipped, and the six
-most-drifted skills — `code-tour`, `huggingface-gradio`, `brainstorming`,
-`huggingface-llm-trainer`, `discernment-nudge` and `claude-api` — pulled back level with
-their upstreams by the new `scripts/resync-upstream.mjs`.
+See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-27**: nine more skills pulled level
+with their upstreams (`behind` 10 → 1, `current` 32 → 41), the six dead upstreams re-verified
+and marked `match: fork` so the weekly drift job stops re-reporting them, and deprecated
+model IDs swept out of 35 guide and agent files.

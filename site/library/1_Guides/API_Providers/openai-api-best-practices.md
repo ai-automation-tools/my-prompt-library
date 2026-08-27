@@ -14,7 +14,7 @@ A guide covering best practices for integrating the OpenAI API.
 
 ### Basic Settings
 - **Agent Name:** API Integration Expert
-- **Model:** gpt-4o
+- **Model:** gpt-5.6-sol
 - **Temperature:** 0.3
 - **Context Window:** 128k
 
@@ -67,7 +67,7 @@ How do I make a basic chat completion call in Python?
 from openai import OpenAI
 client = OpenAI()
 response = client.chat.completions.create(
-  model="gpt-4o",
+  model="gpt-5.6-sol",
   messages=[{"role": "user", "content": "Hello"}]
 )
 ```

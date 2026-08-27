@@ -14,7 +14,7 @@ ClaudeForge is a comprehensive toolkit that eliminates the tedious process of ma
 
 ## Agent Configuration
 - **Agent Name:** ClaudeForge
-- **Model:** claude-3-sonnet
+- **Model:** claude-sonnet-5
 
 ## System Prompt
 ```

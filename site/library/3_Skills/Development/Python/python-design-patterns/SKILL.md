@@ -9,56 +9,91 @@ stars: 30813
 forks: 3381
 updated: 2026-01-30
 upstream:
-  match: behind
+  match: exact
   repo: wshobson/agents
   path: plugins/python-development/skills/python-design-patterns/SKILL.md
-  ref: 38e19c20d2b154510b0e624a2e3e186b19b5c527
   declared: "https://skillsmp.com/skills/wshobson-agents-plugins-python-development-skills-python-design-patterns-skill-md"
-  checked: 2026-08-26
+  ref: 38e19c20d2b154510b0e624a2e3e186b19b5c527
+  checked: 2026-08-27
 ---
 
 # Python Design Patterns
 
-Write Python that stays easy to understand, test, and modify as the codebase grows.
+Write maintainable Python code using fundamental design principles. These patterns help you build systems that are easy to understand, test, and modify.
 
-## When To Use
+## When to Use This Skill
 
-- Design a new Python module, service, or component
-- Refactor overly abstract or tangled code
-- Decide whether to introduce an abstraction
-- Choose between inheritance and composition
-- Reduce coupling and simplify responsibility boundaries
+- Designing new components or services
+- Refactoring complex or tangled code
+- Deciding whether to create an abstraction
+- Choosing between inheritance and composition
+- Evaluating code complexity and coupling
+- Planning modular architectures
 
-## Core Principles
+## Core Concepts
 
-### KISS
+### 1. KISS (Keep It Simple)
 
-Choose the simplest solution that satisfies the real requirement.
+Choose the simplest solution that works. Complexity must be justified by concrete requirements.
 
-### Single Responsibility Principle
+### 2. Single Responsibility (SRP)
 
-Each class or function should have one reason to change.
+Each unit should have one reason to change. Separate concerns into focused components.
 
-### Composition Over Inheritance
+### 3. Composition Over Inheritance
 
-Build behavior by combining focused objects instead of growing deep class hierarchies.
+Build behavior by combining objects, not extending classes.
 
-### Rule Of Three
+### 4. Rule of Three
 
-Wait for repeated need before introducing a reusable abstraction.
+Wait until you have three instances before abstracting. Duplication is often better than premature abstraction.
 
-## Decision Rules
+## Quick Start
 
-- Prefer plain functions and dictionaries before factories or registries
-- Add abstractions only when they remove real duplication or coupling
-- Split code when one unit mixes transport, validation, business logic, and persistence
-- Reject clever indirection unless it clearly improves maintainability
+```python
+# Simple beats clever
+# Instead of a factory/registry pattern:
+FORMATTERS = {"json": JsonFormatter, "csv": CsvFormatter}
 
-## Review Checklist
+def get_formatter(name: str) -> Formatter:
+    return FORMATTERS[name]()
+```
 
-- Is there a simpler implementation?
-- Does each unit have one reason to change?
-- Is inheritance solving a real problem, or just adding structure?
-- Has the code repeated enough times to justify abstraction?
-- Will another engineer understand the design quickly?
+## Detailed patterns and worked examples
 
+Detailed pattern documentation lives in `references/details.md`. Read that file when the navigation tier above is insufficient.
+
+## Best Practices Summary
+
+1. **Keep it simple** - Choose the simplest solution that works
+2. **Single responsibility** - Each unit has one reason to change
+3. **Separate concerns** - Distinct layers with clear purposes
+4. **Compose, don't inherit** - Combine objects for flexibility
+5. **Rule of three** - Wait before abstracting
+6. **Keep functions small** - 20-50 lines (varies by complexity), one purpose
+7. **Inject dependencies** - Constructor injection for testability
+8. **Delete before abstracting** - Remove dead code, then consider patterns
+9. **Test each layer** - Isolated tests for each concern
+10. **Explicit over clever** - Readable code beats elegant code
+
+## Troubleshooting
+
+**A class is growing and seems to have multiple responsibilities, but splitting it feels wrong.**
+Apply the "reason to change" test: list every change that could require editing this class. If the list has items from different domains (e.g., HTTP parsing AND business rules AND formatting), split it. If all changes stem from the same domain concern, the class may be appropriately sized.
+
+**Injecting all dependencies through the constructor is producing constructors with 7+ parameters.**
+This is a sign of too many responsibilities in one class, not a problem with dependency injection. Split the class into smaller units first, then each constructor naturally becomes smaller.
+
+**Composition is producing deeply nested wrapper objects that are hard to trace.**
+Keep the composition shallow (2-3 levels). If wrapping is the only mechanism, consider whether a Protocol-based approach or simple function composition would be cleaner than a chain of decorator objects.
+
+**The rule of three says not to abstract yet, but the duplication is causing bugs when one copy is updated but not the other.**
+Duplication that diverges in dangerous ways should be abstracted sooner. The rule of three is a heuristic, not a law. If the copies are already diverging incorrectly, extract immediately and add a test that exercises the shared behavior.
+
+**A service layer is importing from the API layer, breaking the dependency direction.**
+This is a layering violation. The service layer must not import from handlers. Introduce a shared types/models layer that both can import from, keeping the dependency arrow pointing downward (API → Service → Repository).
+
+## Related Skills
+
+- [python-testing-patterns](../python-testing-patterns/SKILL.md) — Test each layer in isolation using the dependency injection structure established here
+- [python-project-structure](../python-project-structure/SKILL.md) — Organize modules and directory layout so layer boundaries are explicit from the start

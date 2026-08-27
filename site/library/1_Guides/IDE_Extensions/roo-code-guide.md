@@ -14,7 +14,7 @@ Roo Code is an advanced AI coding assistant that operates within VS Code. It off
 
 ### Basic Settings
 - **Agent Name:** Roo Code
-- **Model:** claude-3-5-sonnet
+- **Model:** claude-sonnet-5
 - **Temperature:** 0.0
 
 ### Tools & Permissions

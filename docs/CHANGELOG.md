@@ -4,6 +4,46 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-27 — Nine more skills resynced, dead upstreams settled, model IDs swept
+
+Three "Now" items off the roadmap in one pass.
+
+**Nine of the ten remaining `behind` skills are now `current`** — `autoresearch`,
+`interaction-design`, `academy-guide`, `python-design-patterns`, `pptx`, `find-skills`,
+`skill-creator`, `golang-popular-libraries` and `matlab`. Re-running the checker:
+`behind` 10 → 1, `current` 32 → 41, `upstream-gone` 6 → 0.
+
+`pptx` was the big one. Anthropic moved the whole OOXML tree from `ooxml/` into
+`scripts/office/`, so the resync pruned 59 stale files (the duplicated ISO-29500 schema set,
+the old validation package, `html2pptx.js`) and wrote 56 in the new layout — a net 28k lines
+deleted from the deploy root.
+
+`x-twitter-scraper` was deliberately skipped. Its upstream ships ~60 `references/*.md` files
+that are SEO landing copy ("best-x-api-alternative", "reliable-twitter-data-api-2026") rather
+than skill content. Pulling them would add marketing pages to a library that already has a
+payload problem. It stays the sole `behind` entry until someone decides it is worth carrying.
+
+**The six dead upstreams are now marked as forks we own.** All six were re-verified against
+the live upstream trees — `spreadsheet`, `sora`, `using-neon`, `gh-fix-ci`,
+`git-context-controller` and `linear` really are gone (openai/plugins still ships a `linear`
+plugin, but it is MCP-only now, with no `skills/` directory). Each carries
+`match: fork` plus a note, and `check-upstream-drift.mjs` skips that verdict, so the weekly
+job stops re-reporting six things nobody is going to fix.
+
+**Deprecated model IDs swept** across 35 guide and agent files. Claude: `claude-3-5-sonnet`,
+`claude-3-7-sonnet`, `claude-3-sonnet` → `claude-sonnet-5`; `claude-3-opus` →
+`claude-opus-5`; `claude-3-haiku` → `claude-haiku-4-5`. OpenAI: `gpt-4o` → `gpt-5.6-sol`,
+`gpt-4o-mini` → `gpt-5.6-luna`, verified against OpenAI's live model list.
+
+Three scopes were left alone on purpose: `5_System_Prompts/` (an archive of what specific
+models were actually shipped with — the old IDs are the point), `3_Skills/Development/API/claude-api`
+(upstream-managed, and its migration docs need the old IDs), and version-history or
+competitor-comparison lines like "### vs Claude 3.5". `openai_cli_guide.md` was also skipped:
+it is built around GPT-4o with pricing, rate-limit and capability tables, so it needs a
+rewrite rather than a find-and-replace.
+
+---
+
 ## 2026-08-26 — The six most-drifted skills pulled back level with upstream
 
 The drift report shipped earlier the same day named 16 skills as `behind` — missing more

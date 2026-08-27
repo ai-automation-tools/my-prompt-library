@@ -14,7 +14,7 @@ Aider is an AI pair programming tool in your terminal. This guide covers how to 
 
 ### Basic Settings
 - **Agent Name:** Aider
-- **Model:** gpt-4o or claude-3-5-sonnet
+- **Model:** gpt-5.6-sol or claude-sonnet-5
 - **Temperature:** 0.0
 - **Context Window:** Depends on model
 
@@ -113,7 +113,7 @@ I will create `parse.py` to read the CSV file.
 
 ### Extend Functionality
 ```yaml
-model: claude-3-5-sonnet-20241022
+model: claude-sonnet-5
 dark-mode: true
 ```
 

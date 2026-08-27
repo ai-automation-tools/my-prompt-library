@@ -6,7 +6,7 @@ subcategory: "Development"
 name: "python-backend-expert"
 description: "An expert in building scalable Python backends."
 tools: ["python", "pip"]
-model: "gpt-4o"
+model: "gpt-5.6-sol"
 ---
 
 # Python Backend Expert

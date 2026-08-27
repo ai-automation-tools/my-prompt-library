@@ -14,7 +14,7 @@ Devika is an advanced AI software engineer that can understand high-level human 
 
 ### Basic Settings
 - **Agent Name:** Devika
-- **Model:** Anthropic Claude 3 (recommended), OpenAI GPT-4, or local models via Ollama.
+- **Model:** Anthropic Claude Sonnet 5 (recommended), OpenAI GPT-4, or local models via Ollama.
 - **Temperature:** Configurable via UI/CLI settings
 - **Context Window:** Dependent on the selected model
 

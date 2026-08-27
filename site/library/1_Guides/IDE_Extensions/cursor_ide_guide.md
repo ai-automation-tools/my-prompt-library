@@ -14,7 +14,7 @@ This guide covers the configuration and usage of the Cursor IDE extension design
 
 ### Basic Settings
 - **Agent Name:** Cursor
-- **Model:** claude-3-5-sonnet
+- **Model:** claude-sonnet-5
 - **Temperature:** 0.2
 - **Context Window:** 200k tokens
 

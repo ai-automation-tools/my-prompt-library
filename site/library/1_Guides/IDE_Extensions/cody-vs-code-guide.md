@@ -13,7 +13,7 @@ Sourcegraph Cody is an AI coding assistant.
 ## Agent Configuration
 ### Basic Settings
 - **Agent Name:** Cody
-- **Model:** Claude 3.5 Sonnet
+- **Model:** Claude Sonnet 5
 
 ### Tools & Permissions
 - Context access.

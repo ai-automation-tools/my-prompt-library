@@ -6,7 +6,7 @@ subcategory: "Development"
 name: test-driven-dev-agent
 description: "Use this agent to write tests."
 tools: [Read, Edit, Bash]
-model: claude-3-5-sonnet
+model: claude-sonnet-5
 ---
 
 # Test-Driven Development Agent

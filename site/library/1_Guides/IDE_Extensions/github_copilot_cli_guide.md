@@ -268,7 +268,7 @@ Select different models for different tasks:
 **Available models:**
 - **Claude Sonnet 4.5:** Strong reasoning, complex tasks
 - **GPT-5:** Latest OpenAI model, balanced performance
-- **GPT-4o:** Fast, general-purpose
+- **GPT-5.6 Sol:** Fast, general-purpose
 - **Codex-based models:** Specialized for code generation
 
 ---

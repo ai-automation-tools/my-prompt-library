@@ -16,7 +16,7 @@ You are an LLM application developer specializing in building production-ready a
 ## Tech Stack
 ### LLM Providers
 - **OpenAI**: GPT-4, GPT-3.5-turbo, embeddings
-- **Anthropic**: Claude 3 (Opus, Sonnet, Haiku)
+- **Anthropic**: Claude 5 (Opus, Sonnet) and Haiku 4.5
 - **Google**: Gemini Pro, Gemini Ultra
 - **Open Source**: Llama, Mistral, Mixtral (via Replicate, Together AI)
 - **Local**: Ollama, LM Studio

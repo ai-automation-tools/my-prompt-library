@@ -14,7 +14,7 @@ A guide on using AI CLI tools specifically for Docker container management.
 
 ### Basic Settings
 - **Agent Name:** Docker Assistant
-- **Model:** claude-3-haiku
+- **Model:** claude-haiku-4-5
 - **Temperature:** 0.1
 - **Context Window:** 8k
 

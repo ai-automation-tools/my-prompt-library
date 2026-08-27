@@ -78,20 +78,21 @@ const walk = (dir, match, out = []) => {
 };
 
 // ---------- collect targets ----------
-const targets = [], skipped = { unknown: 0, ambiguous: 0, none: 0 };
+const targets = [], skipped = { unknown: 0, ambiguous: 0, fork: 0, none: 0 };
 for (const f of walk(path.join(LIB, "3_Skills"), (n) => n === "SKILL.md")) {
   const { fm, body } = splitFrontmatter(fs.readFileSync(f, "utf8"));
   const u = readUpstream(fm);
   if (!u) { skipped.none++; continue; }
   if (u.match === "unknown") { skipped.unknown++; continue; }
   if (u.match === "ambiguous") { skipped.ambiguous++; continue; }
+  if (u.match === "fork") { skipped.fork++; continue; }  // upstream deleted the file; this copy is ours now
   if (!u.repo) { skipped.none++; continue; }
   const rel = path.relative(LIB, f).split(path.sep).join("/");
   targets.push({ file: rel, u, body, dirName: rel.split("/").slice(-2)[0] });
 }
 
 console.error(`attributed skills to check: ${targets.length}`);
-console.error(`skipping ${skipped.unknown} unknown, ${skipped.ambiguous} ambiguous, ${skipped.none} unstamped`);
+console.error(`skipping ${skipped.unknown} unknown, ${skipped.ambiguous} ambiguous, ${skipped.fork} fork, ${skipped.none} unstamped`);
 if (!TOKEN) console.error("no GITHUB_TOKEN — anonymous limit is 60/h, expect throttling");
 
 // ---------- one tree per repo ----------
@@ -174,7 +175,8 @@ const order = ["repo-gone", "upstream-gone", "behind", "drifted", "error", "curr
 
 const md = [`# Upstream drift — ${new Date().toISOString().slice(0, 10)}`, ""];
 md.push(`Checked **${rows.length}** attributed skills across **${repos.length}** upstream repos. ` +
-  `Skipped ${skipped.unknown} \`unknown\` and ${skipped.ambiguous} \`ambiguous\` — no single upstream to compare against.`);
+  `Skipped ${skipped.unknown} \`unknown\` and ${skipped.ambiguous} \`ambiguous\` — no single upstream to compare against — ` +
+  `and ${skipped.fork} \`fork\` whose upstream deleted the file.`);
 md.push("");
 md.push("| verdict | count | meaning |");
 md.push("|:---|---:|:---|");

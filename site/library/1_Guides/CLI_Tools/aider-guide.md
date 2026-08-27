@@ -14,7 +14,7 @@ Aider is a command-line AI pair programming tool that lets you edit code in your
 
 ### Basic Settings
 - **Agent Name:** Aider
-- **Model:** gpt-4o or claude-3-5-sonnet
+- **Model:** gpt-5.6-sol or claude-sonnet-5
 - **Temperature:** 0.0
 
 ### Tools & Permissions
