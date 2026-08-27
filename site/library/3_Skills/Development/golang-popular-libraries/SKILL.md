@@ -6,9 +6,10 @@ tags: ["agent-skills"]
 category: "Skills"
 subcategory: "Development"
 upstream:
-  match: prefix
+  match: exact
   repo: samber/cc-skills-golang
   path: golang-popular-libraries/SKILL.md
+  ref: 147c0679e2442fffd45e8f2275e9417f2991e6f5
   checked: 2026-08-26
 ---
 
@@ -33,7 +34,7 @@ When recommending libraries, prioritize:
 
 Find more libraries here: <https://github.com/avelino/awesome-go>
 
-This skill is not exhaustive. Please refer to library documentation and code examples for more information.
+This skill is not exhaustive. Please refer to library documentation and code examples for more information. When exploring a candidate library, → See `samber/cc-skills-golang@golang-pkg-go-dev` skill (`godig`) for docs, symbols, versions, importers, and known vulnerabilities — prefer it over Context7 for Go package facts. Once a candidate is added to your build, → See `samber/cc-skills-golang@golang-gopls` skill (`gopls`) to browse its actual resolved source and compare candidates side by side. Context7 remains a fallback for docs not indexed on pkg.go.dev.
 
 ## General Guidelines
 
@@ -41,7 +42,7 @@ When recommending libraries:
 
 1. **Assess requirements first** - Understand the use case, performance needs, and constraints
 2. **Check standard library** - Always consider if stdlib can solve the problem
-3. **Prioritize maturity** - MUST check maintenance status, license, and community adoption before recommending
+3. **Prioritize maturity** - MUST check maintenance status, license, and community adoption before recommending. Use a module's `imported-by` count on pkg.go.dev as a popularity and indirect quality signal — widely-imported libraries are more battle-tested and have stronger backward-compatibility pressure; → See `samber/cc-skills-golang@golang-pkg-go-dev` skill to count importers and compare alternatives
 4. **Consider complexity** - Simpler solutions are usually better in Go
 5. **Think about dependencies** - More dependencies = more attack surface and maintenance burden
 
@@ -58,7 +59,9 @@ Remember: The best library is often no library at all. Go's standard library is 
 ## Cross-References
 
 - → See `samber/cc-skills-golang@golang-dependency-management` skill for adding, auditing, and managing dependencies
+- → See `samber/cc-skills-golang@golang-pkg-go-dev` skill to vet a candidate library on pkg.go.dev — versions, importers, licenses, and known vulnerabilities — before adopting it
 - → See `samber/cc-skills-golang@golang-samber-do` skill for samber/do dependency injection details
+- → See `samber/cc-skills-golang@golang-samber-hot` skill for samber/hot in-memory caching details
 - → See `samber/cc-skills-golang@golang-samber-oops` skill for samber/oops error handling details
 - → See `samber/cc-skills-golang@golang-stretchr-testify` skill for testify testing details
 - → See `samber/cc-skills-golang@golang-grpc` skill for gRPC implementation details

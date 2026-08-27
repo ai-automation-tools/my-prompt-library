@@ -15,7 +15,7 @@ The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. `Legacy/` is excluded from the index |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `site/api/prompt-index.json` — **1,725** prompts, 1.06 MB (`npm run build:index`) |
-| Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 33 with a commit sha. **32** are byte-identical to upstream, 10 are still `behind` |
+| Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. **42** are byte-identical to upstream, **0** are `behind` — the remaining 51 are `drifted` (≤21%) |
 | `src/App.tsx` | **1,050 lines** (was 2,845), 25 `useState` hooks |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
 | Health | Live and production-ready. Everything below is content, maintainability, or polish |
@@ -34,13 +34,18 @@ The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-
 - [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (still a placeholder, so auth and
       My Library are dead locally). The dev server boots without it and serves the read-only
       Public Library.
-- [ ] **Resync the 10 skills still `behind`.** Same job, next tier: `autoresearch` (73%),
-      `interaction-design` (72%), `academy-guide` (71%), `python-design-patterns` (68%),
-      `x-twitter-scraper` (67%), `pptx` (60%), `find-skills` (55%), `skill-creator` (52%),
-      `golang-popular-libraries` (31%), `matlab` (30%). Read each diff before committing —
-      the resync overwrites the body, and a few of these may be deliberately trimmed rather
-      than stale. Full list:
+- [ ] **Triage the 51 `drifted` skills.** With `behind` cleared, this is the whole remaining
+      backlog and it is a different shape: the worst is 21% (`rspack-tracing`), 30 of the 51
+      are under 5%, and 20 of those are the `wealth-management` set from one repo. Sizes are
+      comparable, so these are edits — a resync here is a judgment call per skill, not a
+      mechanical catch-up. Current list:
       [audits/upstream-drift-2026-08-26.md](audits/upstream-drift-2026-08-26.md).
+- [ ] **Nine skills carry a stale `match: behind` in their frontmatter** (`docx`, `xlsx`,
+      `executing-plans`, `accessibility-compliance`, `algorithmic-art`,
+      `supabase-postgres-best-practices`, `gh-fix-ci`, `canvas-design`, `linear`). That field
+      is `attribute-upstream.mjs`'s attribution confidence, not the drift verdict, and the two
+      words colliding is exactly the kind of thing that reads as a live problem when it isn't.
+      Re-run the attributor over them, or rename the value.
 - [ ] **Decide on 6 dead upstreams.** Those skills point at files their publisher has since
       removed, including 3 from `openai/skills`. Re-home them or mark them as forks we own.
 - [ ] **Sweep deprecated model IDs.** 23 files pin `claude-3-5-sonnet`, 43 reference Claude
@@ -152,7 +157,13 @@ biting. `server.ts` (552 lines) and `api/index.ts` (740) are hand-maintained twi
 
 ## Done
 
-See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-26**: a full repository audit,
+See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-26**: the `behind` tier is empty.
+The ten skills the drift report named — `autoresearch`, `interaction-design`, `academy-guide`,
+`python-design-patterns`, `x-twitter-scraper`, `pptx`, `find-skills`, `skill-creator`,
+`golang-popular-libraries` and `matlab` — are now byte-identical to their upstreams, taking
+`current` from 32 to 42 and `behind` from 10 to 0.
+
+Earlier the same day: a full repository audit,
 two confirmed security vulnerabilities fixed, all 22 npm advisories cleared, upstream
 provenance stamped across the skills library, a weekly drift check shipped, and the six
 most-drifted skills — `code-tour`, `huggingface-gradio`, `brainstorming`,

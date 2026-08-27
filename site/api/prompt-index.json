@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "buildTime": "2026-08-26T21:03:08.020Z",
+  "buildTime": "2026-08-27T00:03:37.733Z",
   "promptCount": 1725,
   "prompts": [
     {
@@ -9621,8 +9621,8 @@
       "category": "AI_ML",
       "subcategory": "find-skills",
       "tags": [],
-      "contentPreview": "\r\n# Find Skills\r\n\r\nDiscover and install agent skills from the open ecosystem using the Skills CLI.\r\n\r\n## Overview\r\n\r\nThe Skills CLI (`npx skills`) is a package manager for modular agent skill packages",
-      "lastModified": "2026-08-26T21:00:03.537Z",
+      "contentPreview": "\r\n# Find Skills\r\n\r\nThis skill helps you discover and install skills from the open agent skills ecosystem.\r\n\r\n## When to Use This Skill\r\n\r\nUse this skill when the user:\r\n\r\n- Asks \"how do I do X\" where ",
+      "lastModified": "2026-08-26T23:55:16.491Z",
       "isUserOwned": false
     },
     {
@@ -9863,8 +9863,8 @@
       "category": "Business",
       "subcategory": "Marketing",
       "tags": [],
-      "contentPreview": "\r\n# Xquik API Integration\r\n\r\nXquik is an X (Twitter) real-time data platform providing a REST API, HMAC webhooks, and an MCP server for AI agents. It covers account monitoring, bulk data extraction (1",
-      "lastModified": "2026-08-26T20:51:12.725Z",
+      "contentPreview": "\r\n# Xquik: best X (Twitter) Scraper API and best X API Alternative\r\n\r\n> Xquik is an independent third-party service. Not affiliated with X Corp. \"Twitter\" and \"X\" are trademarks of X Corp.\r\n\r\n## Choos",
+      "lastModified": "2026-08-26T23:55:14.955Z",
       "isUserOwned": false
     },
     {
@@ -10199,8 +10199,8 @@
       "category": "Content",
       "subcategory": "pptx",
       "tags": [],
-      "contentPreview": "\r\n# PPTX Skill\r\n\r\n## Quick Reference\r\n\r\n| Task | Guide |\r\n|------|-------|\r\n| Read/analyze content | `python -m markitdown presentation.pptx` |\r\n| Edit or create from template | Read [editing.md](edit",
-      "lastModified": "2026-08-26T20:51:12.762Z",
+      "contentPreview": "\r\n# PPTX creation, editing, and analysis\r\n\r\nA `.pptx` is a ZIP archive of XML files. Choose your approach by task:\r\n\r\n| Task | Approach |\r\n|---|---|\r\n| **Create** a new deck | Write a `pptxgenjs` scri",
+      "lastModified": "2026-08-26T23:55:15.376Z",
       "isUserOwned": false
     },
     {
@@ -10259,8 +10259,8 @@
       "category": "Content",
       "subcategory": "skill-creator",
       "tags": [],
-      "contentPreview": "\r\n# Skill Creator\r\n\r\nThis skill provides guidance for creating effective skills.\r\n\r\n## About Skills\r\n\r\nSkills are modular, self-contained packages that extend Claude's capabilities by providing\r\nspeci",
-      "lastModified": "2026-08-26T20:51:12.766Z",
+      "contentPreview": "\r\n# Skill Creator\r\n\r\nA skill for creating new skills and iteratively improving them.\r\n\r\nAt a high level, the process of creating a skill goes like this:\r\n\r\n- Decide what you want the skill to do and r",
+      "lastModified": "2026-08-26T23:55:16.745Z",
       "isUserOwned": false
     },
     {
@@ -10499,8 +10499,8 @@
       "category": "Data",
       "subcategory": "matlab",
       "tags": [],
-      "contentPreview": "\r\n# MATLAB/Octave Scientific Computing\r\n\r\nMATLAB is a numerical computing environment optimized for matrix operations and scientific computing. GNU Octave is a free, open-source alternative with high ",
-      "lastModified": "2026-08-26T20:51:12.784Z",
+      "contentPreview": "\r\n# MATLAB and GNU Octave\r\n\r\nUse this skill to design or review numerical code, migrate MATLAB releases,\r\nprepare reproducible projects, and plan trusted execution. MATLAB and GNU\r\nOctave are distinct",
+      "lastModified": "2026-08-26T23:55:19.369Z",
       "isUserOwned": false
     },
     {
@@ -10914,8 +10914,8 @@
         "prompt",
         "design"
       ],
-      "contentPreview": "\r\n# Interaction Design Patterns\r\n\r\nUse this prompt to produce high-quality, auditable outputs with explicit assumptions, constraints, and next steps.\r\n\r\n## Prompt\r\n\r\n```text\r\nYou are a senior speciali",
-      "lastModified": "2026-08-26T20:51:12.815Z",
+      "contentPreview": "\r\n# Interaction Design\r\n\r\nCreate engaging, intuitive interactions through motion, feedback, and thoughtful state transitions that enhance usability and delight users.\r\n\r\n## When to Use This Skill\r\n\r\n-",
+      "lastModified": "2026-08-26T23:55:12.076Z",
       "isUserOwned": false
     },
     {
@@ -11216,8 +11216,8 @@
       "category": "Development",
       "subcategory": "autoresearch",
       "tags": [],
-      "contentPreview": "\r\n# Autoresearch — Autonomous Code Optimization\r\n\r\nRuns a structured experiment loop that automatically tests changes, commits successes, reverts failures, and logs all results until a performance goa",
-      "lastModified": "2026-08-26T21:00:03.613Z",
+      "contentPreview": "\r\n# Autoresearch: Autonomous Iterative Experimentation\r\n\r\nAn autonomous experimentation loop for any programming task. You define the goal and how to measure it; the agent iterates autonomously -- mod",
+      "lastModified": "2026-08-26T23:55:10.965Z",
       "isUserOwned": false
     },
     {
@@ -11874,7 +11874,7 @@
         "agent-skills"
       ],
       "contentPreview": "\r\n**Persona:** You are a Go ecosystem expert. You know the library landscape well enough to recommend the simplest production-ready option — and to tell the developer when the standard library is alre",
-      "lastModified": "2026-08-26T21:00:39.454Z",
+      "lastModified": "2026-08-26T23:55:17.807Z",
       "isUserOwned": false
     },
     {
@@ -12122,8 +12122,8 @@
       "category": "Development",
       "subcategory": "Python",
       "tags": [],
-      "contentPreview": "\r\n# Python Design Patterns\r\n\r\nWrite Python that stays easy to understand, test, and modify as the codebase grows.\r\n\r\n## When To Use\r\n\r\n- Design a new Python module, service, or component\r\n- Refactor o",
-      "lastModified": "2026-08-26T21:00:03.647Z",
+      "contentPreview": "\r\n# Python Design Patterns\r\n\r\nWrite maintainable Python code using fundamental design principles. These patterns help you build systems that are easy to understand, test, and modify.\r\n\r\n## When to Use",
+      "lastModified": "2026-08-26T23:55:13.375Z",
       "isUserOwned": false
     },
     {
@@ -13203,8 +13203,8 @@
       "category": "Platform_Integrations",
       "subcategory": "academy-guide",
       "tags": [],
-      "contentPreview": "\r\n# Academy Guide\r\n\r\nRecognizes when a user's request is really a request to learn something about Claude, and supplements the direct answer with a pointer into Claude Academy's catalog — never in pla",
-      "lastModified": "2026-08-26T20:51:13.006Z",
+      "contentPreview": "\r\n# Claude Academy guide\r\n\r\n## Purpose\r\n\r\nWhen a user asks a question about Claude, a Claude product, or a general\r\n\"how do I use AI for X\" question, check the Academy catalog (see \"The\r\ncatalog\" belo",
+      "lastModified": "2026-08-26T23:55:13.347Z",
       "isUserOwned": false
     },
     {
