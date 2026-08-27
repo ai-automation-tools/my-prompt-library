@@ -16,7 +16,7 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. `Legacy/` is excluded from the index |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `site/api/prompt-index.json` — **1,725** prompts, 1.06 MB (`npm run build:index`) |
-| Skills | **323**, all spec-valid. **99** carry a resolvable upstream. **41** are byte-identical to upstream, 1 is still `behind`, 6 are forks we own |
+| Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own |
 | `src/App.tsx` | **1,050 lines** (was 2,845), 25 `useState` hooks |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
 | Health | Live and production-ready. Everything below is content, maintainability, or polish |
@@ -35,11 +35,19 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 - [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (still a placeholder, so auth and
       My Library are dead locally). The dev server boots without it and serves the read-only
       Public Library.
-- [ ] **Decide whether to carry `x-twitter-scraper`.** The last `behind` skill (67% short).
-      Its upstream ships ~60 `references/*.md` files that are SEO landing copy, not skill
-      content, so the resync was deliberately skipped. Either accept the drift and mark it a
-      fork, or pull it and accept the payload. Full report:
+- [ ] **Triage the 52 `drifted` skills.** With `behind` cleared, this is the whole remaining
+      backlog and it is a different shape: the worst is 21% (`rspack-tracing`), 43 of the 52
+      are under 5%, and 23 of those are the `wealth-management` set from one repo. Sizes are
+      comparable, so these are edits — a resync here is a judgment call per skill, not a
+      mechanical catch-up. Current list:
       [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md).
+- [ ] **Seven skills carry a stale `match: behind` in their frontmatter** (`docx`, `xlsx`,
+      `executing-plans`, `accessibility-compliance`, `algorithmic-art`,
+      `supabase-postgres-best-practices`, `canvas-design`). That field is
+      `attribute-upstream.mjs`'s attribution confidence, not the drift verdict, and the two
+      words colliding is exactly the kind of thing that reads as a live problem when it isn't.
+      Re-run the attributor over them, or rename the value. (`gh-fix-ci` and `linear` left the
+      list when they were stamped `match: fork`.)
 - [ ] **Rewrite `1_Guides/API_Providers/openai_cli_guide.md`.** The model-ID sweep skipped
       it: the guide is built around GPT-4o, with pricing, rate-limit and capability tables
       that a find-and-replace would turn into confident wrong numbers. Everything else in
@@ -146,8 +154,14 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 
 ## Done
 
-See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-27**: nine more skills pulled level
-with their upstreams, the six dead upstreams marked as forks we own, deprecated model IDs
-swept out of 35 guide and agent files, a CI gate on the prompt index, and the dev/prod API
-split collapsed onto one Express app — ~880 duplicated lines gone, taking all three parity
-bugs with them.
+See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-27**: the `behind` tier is empty —
+every skill the drift report named is level with its upstream — the six dead upstreams are
+marked as forks we own, deprecated model IDs are swept out of 35 guide and agent files, a CI
+gate guards the prompt index, and the dev/prod API split is collapsed onto one Express app
+(~880 duplicated lines gone, taking all three parity bugs with them).
+
+Earlier the same day: a full repository audit, two confirmed security vulnerabilities fixed,
+all 22 npm advisories cleared, upstream provenance stamped across the skills library, a weekly
+drift check shipped, and the six most-drifted skills — `code-tour`, `huggingface-gradio`,
+`brainstorming`, `huggingface-llm-trainer`, `discernment-nudge` and `claude-api` — pulled back
+level with their upstreams by the new `scripts/resync-upstream.mjs`.

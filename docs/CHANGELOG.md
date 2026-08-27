@@ -66,10 +66,17 @@ Three "Now" items off the roadmap in one pass.
 the old validation package, `html2pptx.js`) and wrote 56 in the new layout — a net 28k lines
 deleted from the deploy root.
 
-`x-twitter-scraper` was deliberately skipped. Its upstream ships ~60 `references/*.md` files
-that are SEO landing copy ("best-x-api-alternative", "reliable-twitter-data-api-2026") rather
-than skill content. Pulling them would add marketing pages to a library that already has a
-payload problem. It stays the sole `behind` entry until someone decides it is worth carrying.
+`x-twitter-scraper` was deliberately skipped here — its upstream ships ~60 `references/*.md`
+files that are SEO landing copy ("best-x-api-alternative", "reliable-twitter-data-api-2026")
+rather than skill content, and pulling them adds marketing pages to a library that already has
+a payload problem. That call was overtaken: the parallel branch below (#325) pulled all 68 of
+them, and the merge kept them. The skill is now `drifted` at 0% — upstream has edited the
+SKILL.md since — not `behind`.
+
+The two branches resynced overlapping sets the same day, so the entry below covers ten skills
+where this one covers nine. Both landed; the union is what shipped, and the post-merge report
+is [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md): `behind` **0**,
+`current` 41, `drifted` 52, plus 6 forks the checker now skips.
 
 **The six dead upstreams are now marked as forks we own.** All six were re-verified against
 the live upstream trees — `spreadsheet`, `sora`, `using-neon`, `gh-fix-ci`,
@@ -89,6 +96,59 @@ models were actually shipped with — the old IDs are the point), `3_Skills/Deve
 competitor-comparison lines like "### vs Claude 3.5". `openai_cli_guide.md` was also skipped:
 it is built around GPT-4o with pricing, rate-limit and capability tables, so it needs a
 rewrite rather than a find-and-replace.
+## 2026-08-26 — The `behind` tier is empty
+
+The remaining ten skills the drift report flagged as `behind` — missing more than a quarter
+of their upstream's content — are now byte-identical to upstream. Verified by re-running
+`check-upstream-drift.mjs` against all 99 attributed skills: `behind` 10 → **0**, `current`
+32 → **42**. The verdict table no longer has a `behind` section to print.
+
+| skill | upstream | was missing |
+|:---|:---|---:|
+| `Development/autoresearch` | github/awesome-copilot | 73% |
+| `Design/interaction-design` | wshobson/agents | 72% |
+| `Platform_Integrations/academy-guide` | anthropics/skills | 71% |
+| `Development/Python/python-design-patterns` | wshobson/agents | 68% |
+| `Business/Marketing/x-twitter-scraper` | xquik-dev/x-twitter-scraper | 67% |
+| `Content/pptx` | anthropics/skills | 60% |
+| `AI_ML/find-skills` | vercel-labs/skills | 55% |
+| `Content/skill-creator` | anthropics/skills | 52% |
+| `Development/golang-popular-libraries` | samber/cc-skills-golang | 31% |
+| `Data/matlab` | k-dense-ai/scientific-agent-skills | 30% |
+
+**Three of them were shipping a support tree with no SKILL.md to go with it.**
+`x-twitter-scraper`, `golang-popular-libraries` and `matlab` gained 68, 4 and 20 support
+files respectively — `x-twitter-scraper` was a lone `SKILL.md` in a directory whose upstream
+carries 68 reference documents, so the skill named files that were never there.
+
+**`pptx` was the reverse: a support tree from a layout that no longer exists.** Anthropic
+folded the old sibling `ooxml` skill into pptx and moved its schemas from `ooxml/schemas/` to
+`scripts/office/schemas/`, its validators from `ooxml/scripts/validation/` to
+`scripts/office/validators/`, and dropped `html2pptx.js`, `inventory.py`, `rearrange.py` and
+`replace.py` entirely. 59 local files were orphans of the old shape; 56 replaced them. Every
+path the new `SKILL.md` references was checked to exist afterwards, and the same for
+`skill-creator`, whose `references/output-patterns.md`, `references/workflows.md` and
+`scripts/init_skill.py` are gone upstream and are referenced nowhere in the new body.
+
+**`matlab`'s references shrank and that is an improvement.** Upstream rewrote all eight from
+a generic MATLAB cheatsheet into R2026a-targeted guidance with `arguments` blocks, an
+artifact-selection table and explicit "never run an untrusted project" warnings — denser
+prose in fewer lines. The line count falls; the content does not.
+
+Frontmatter is untouched as always, except the `upstream:` block: `ref` now names the commit
+each skill was synced from and `checked` is today. Three skills gained a full 40-character
+commit sha they did not have (36 skills now carry one, up from 33).
+
+### The index diff is 20 lines, not 1,735
+
+`lastModified` in `api/prompt-index.json` is the file's mtime, so rebuilding the index in a
+fresh checkout rewrites it for all 1,725 prompts — churn that also makes the app's
+Newest/Oldest sort meaningless. The committed index keeps the previous `lastModified` for
+every file this change did not touch, so the diff is the ten resynced skills plus
+`buildTime`. Prompt count is unchanged at 1,725; skill count unchanged at 323.
+
+_Touched: 10 skill directories under `site/library/3_Skills/` (+105 files, −62, 34 changed),
+`site/api/prompt-index.json`, `docs/audits/upstream-drift-2026-08-26.md`, `docs/ROADMAP.md`._
 
 ---
 

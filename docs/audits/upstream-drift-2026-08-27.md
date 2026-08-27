@@ -4,17 +4,10 @@ Checked **93** attributed skills across **25** upstream repos. Skipped 163 `unkn
 
 | verdict | count | meaning |
 |:---|---:|:---|
-| `behind` | 1 | local copy is missing more than 25% of upstream's content |
-| `drifted` | 51 | bodies differ, sizes comparable |
+| `drifted` | 52 | bodies differ, sizes comparable |
 | `current` | 41 | body identical to upstream |
 
-## behind (1)
-
-| skill | upstream | local | upstream | missing |
-|:---|:---|---:|---:|---:|
-| `Business/Marketing/x-twitter-scraper/SKILL.md` | [xquik-dev/x-twitter-scraper/skills/x-twitter-scraper/SKILL.md](https://github.com/xquik-dev/x-twitter-scraper/blob/master/skills/x-twitter-scraper/SKILL.md) | 836 | 2308 | 64% |
-
-## drifted (51)
+## drifted (52)
 
 | skill | upstream | local | upstream | missing |
 |:---|:---|---:|---:|---:|
@@ -54,6 +47,7 @@ Checked **93** attributed skills across **25** upstream repos. Skipped 163 `unkn
 | `Finance/Portfolio_Management/wealth-management/skills/fixed-income-corporate/SKILL.md` | [joellewis/finance_skills/plugins/wealth-management/skills/fixed-income-corporate/SKILL.md](https://github.com/joellewis/finance_skills/blob/main/plugins/wealth-management/skills/fixed-income-corporate/SKILL.md) | 1015 | 959 | 0% |
 | `Finance/Portfolio_Management/wealth-management/skills/alternatives/SKILL.md` | [joellewis/finance_skills/plugins/wealth-management/skills/alternatives/SKILL.md](https://github.com/joellewis/finance_skills/blob/main/plugins/wealth-management/skills/alternatives/SKILL.md) | 1233 | 1137 | 0% |
 | `Finance/Portfolio_Management/wealth-management/skills/digital-assets/SKILL.md` | [joellewis/finance_skills/plugins/wealth-management/skills/digital-assets/SKILL.md](https://github.com/joellewis/finance_skills/blob/main/plugins/wealth-management/skills/digital-assets/SKILL.md) | 1322 | 1196 | 0% |
+| `Business/Marketing/x-twitter-scraper/SKILL.md` | [xquik-dev/x-twitter-scraper/skills/x-twitter-scraper/SKILL.md](https://github.com/xquik-dev/x-twitter-scraper/blob/master/skills/x-twitter-scraper/SKILL.md) | 2557 | 2308 | 0% |
 | `Finance/Portfolio_Management/wealth-management/skills/fund-vehicles/SKILL.md` | [joellewis/finance_skills/plugins/wealth-management/skills/fund-vehicles/SKILL.md](https://github.com/joellewis/finance_skills/blob/main/plugins/wealth-management/skills/fund-vehicles/SKILL.md) | 1269 | 1144 | 0% |
 | `Development/Cloud/together-gpu-clusters/SKILL.md` | [zainhas/togetherai-skills/skills/together-gpu-clusters/SKILL.md](https://github.com/zainhas/togetherai-skills/blob/main/skills/together-gpu-clusters/SKILL.md) | 702 | 611 | 0% |
 | `Finance/Portfolio_Management/wealth-management/skills/qualitative-valuation/SKILL.md` | [joellewis/finance_skills/plugins/wealth-management/skills/qualitative-valuation/SKILL.md](https://github.com/joellewis/finance_skills/blob/main/plugins/wealth-management/skills/qualitative-valuation/SKILL.md) | 1443 | 1219 | 0% |
