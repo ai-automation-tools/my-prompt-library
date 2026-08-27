@@ -51,6 +51,17 @@ committed index.
 
 It was the only case collision in `site/library/`; `3_Skills/packs/` is lowercase on purpose.
 
+### 3. The index was ordered by whatever the filesystem returned
+
+With the count finally matching, the gate still failed — on ordering. `fs.readdirSync` returns
+the filesystem's own order: case-insensitive alphabetical on NTFS, hash order on ext4. Same
+1,739 prompts, different array order, so the diff was every entry moving.
+
+`build-prompt-index.js` now sorts by `id`. Verified as a pure reordering: the set of prompt
+objects before and after is identical, 0 added and 0 removed. The app sorts client-side
+(default title-asc), so this order was never what anyone saw — it just made the committed file
+un-reproducible.
+
 ### Result
 
 `npm run build:index` twice in a row now produces a byte-identical index, and the gate's own

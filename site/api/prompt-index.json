@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "buildTime": "2026-08-27T04:01:52.710Z",
+  "buildTime": "2026-08-27T04:04:32.737Z",
   "promptCount": 1739,
   "prompts": [
     {
@@ -319,73 +319,6 @@
       ],
       "contentPreview": "\n# xAI API Guide\n\n## Overview\nThis guide provides an overview of the xAI API (Grok models), detailing its configuration, capabilities, and best practices.\n\n## Agent Configuration\nTo interact with the ",
       "lastModified": "2026-08-24T00:27:06.503Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "1_Guides/Claude_Code/claude-code-tips.md",
-      "title": "🤖 Claude Code Tips & Tricks",
-      "section": "1_Guides",
-      "category": "Claude_Code",
-      "subcategory": "claude-code-tips",
-      "tags": [
-        "guide",
-        "claude-code",
-        "tips",
-        "workflow"
-      ],
-      "contentPreview": "\n# Claude Code Tips & Tricks\n\nAdvanced tips for maximizing productivity with the Claude Code CLI.\n\n## Overview\nClaude Code is a command-line tool that allows Claude to read your codebase, write files,",
-      "lastModified": "2026-08-24T00:27:06.515Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "1_Guides/Claude_Code/claude_code_cli_guide.md",
-      "title": "💻 Claude Code CLI Guide",
-      "section": "1_Guides",
-      "category": "Claude_Code",
-      "subcategory": "claude_code_cli_guide",
-      "tags": [
-        "featured",
-        "claude-code",
-        "flags",
-        "cli",
-        "reference",
-        "options"
-      ],
-      "contentPreview": "\n<!-- Last Updated: 2026-04-18 - Synced with upstream v2.1.114 -->\n\n# Claude Code Agent Guide\n\nComprehensive reference for building and managing agents with Claude Code CLI.\n\n**Key Features:**\n- 🤖 Ag",
-      "lastModified": "2026-08-24T00:27:06.515Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "1_Guides/Claude_Code/flags-reference.md",
-      "title": "Claude Code CLI Flags Reference",
-      "section": "1_Guides",
-      "category": "Claude_Code",
-      "subcategory": "flags-reference",
-      "tags": [
-        "claude-code",
-        "flags",
-        "cli",
-        "reference",
-        "options"
-      ],
-      "contentPreview": "\n<!-- Last Updated: 2026-03-21 - Synced with upstream documentation -->\n\n# Claude Code CLI Flags Reference\n\nOfficial command-line flags available in Claude Code CLI.\n\n**Source**: [code.claude.com/docs",
-      "lastModified": "2026-08-24T00:27:06.516Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "1_Guides/Claude_Code/slash-commands.md",
-      "title": "Claude Code Slash Commands Reference",
-      "section": "1_Guides",
-      "category": "Claude_Code",
-      "subcategory": "slash-commands",
-      "tags": [
-        "claude-code",
-        "slash-commands",
-        "cli",
-        "reference"
-      ],
-      "contentPreview": "\n<!-- Last Updated: 2026-03-21 - Synced with upstream documentation -->\n\n# Claude Code Slash Commands Reference\n\nBuilt-in commands available in Claude Code CLI interactive mode.\n\n**Source**: [code.cla",
-      "lastModified": "2026-08-24T00:27:06.516Z",
       "isUserOwned": false
     },
     {
@@ -752,6 +685,73 @@
       ],
       "contentPreview": "\n# Yt-Dlp CLI Guide\n\n## Overview\nA feature-rich command-line audio/video downloader\n\n## Installation and Configuration\nThis section details how to install and configure the CLI tool.\n\n```bash\n# Detail",
       "lastModified": "2026-08-24T00:27:06.514Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "1_Guides/Claude_Code/claude-code-tips.md",
+      "title": "🤖 Claude Code Tips & Tricks",
+      "section": "1_Guides",
+      "category": "Claude_Code",
+      "subcategory": "claude-code-tips",
+      "tags": [
+        "guide",
+        "claude-code",
+        "tips",
+        "workflow"
+      ],
+      "contentPreview": "\n# Claude Code Tips & Tricks\n\nAdvanced tips for maximizing productivity with the Claude Code CLI.\n\n## Overview\nClaude Code is a command-line tool that allows Claude to read your codebase, write files,",
+      "lastModified": "2026-08-24T00:27:06.515Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "1_Guides/Claude_Code/claude_code_cli_guide.md",
+      "title": "💻 Claude Code CLI Guide",
+      "section": "1_Guides",
+      "category": "Claude_Code",
+      "subcategory": "claude_code_cli_guide",
+      "tags": [
+        "featured",
+        "claude-code",
+        "flags",
+        "cli",
+        "reference",
+        "options"
+      ],
+      "contentPreview": "\n<!-- Last Updated: 2026-04-18 - Synced with upstream v2.1.114 -->\n\n# Claude Code Agent Guide\n\nComprehensive reference for building and managing agents with Claude Code CLI.\n\n**Key Features:**\n- 🤖 Ag",
+      "lastModified": "2026-08-24T00:27:06.515Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "1_Guides/Claude_Code/flags-reference.md",
+      "title": "Claude Code CLI Flags Reference",
+      "section": "1_Guides",
+      "category": "Claude_Code",
+      "subcategory": "flags-reference",
+      "tags": [
+        "claude-code",
+        "flags",
+        "cli",
+        "reference",
+        "options"
+      ],
+      "contentPreview": "\n<!-- Last Updated: 2026-03-21 - Synced with upstream documentation -->\n\n# Claude Code CLI Flags Reference\n\nOfficial command-line flags available in Claude Code CLI.\n\n**Source**: [code.claude.com/docs",
+      "lastModified": "2026-08-24T00:27:06.516Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "1_Guides/Claude_Code/slash-commands.md",
+      "title": "Claude Code Slash Commands Reference",
+      "section": "1_Guides",
+      "category": "Claude_Code",
+      "subcategory": "slash-commands",
+      "tags": [
+        "claude-code",
+        "slash-commands",
+        "cli",
+        "reference"
+      ],
+      "contentPreview": "\n<!-- Last Updated: 2026-03-21 - Synced with upstream documentation -->\n\n# Claude Code Slash Commands Reference\n\nBuilt-in commands available in Claude Code CLI interactive mode.\n\n**Source**: [code.cla",
+      "lastModified": "2026-08-24T00:27:06.516Z",
       "isUserOwned": false
     },
     {
@@ -3315,21 +3315,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Business/competitor-analysis-agent.md",
-      "title": "🤖 Competitor Analysis Agent",
-      "section": "2_Agents",
-      "category": "Business",
-      "subcategory": "competitor-analysis-agent",
-      "tags": [
-        "agents",
-        "business",
-        "strategy"
-      ],
-      "contentPreview": "\n# Competitor Analysis Agent\n\n## Purpose\nAn agent that analyzes competitors based on provided URLs and generates a comprehensive SWOT analysis.\n\n## Description\nThis agent helps businesses understand t",
-      "lastModified": "2026-08-24T00:27:06.618Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Business/Customer_Support/customer-support-ticket-resolver.md",
       "title": "🤖 Customer Support Ticket Resolver",
       "section": "2_Agents",
@@ -3536,21 +3521,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Business/financial-auditor-agent.md",
-      "title": "Financial Auditor Agent",
-      "section": "2_Agents",
-      "category": "Business",
-      "subcategory": "financial-auditor-agent",
-      "tags": [
-        "finance",
-        "audit",
-        "business"
-      ],
-      "contentPreview": "\n# Financial Auditor Agent\n\n## Core Responsibilities\nReview financial statements, ledger entries, and transaction logs for accuracy, compliance, and potential anomalies.\n\n## Audit Preparation Checklis",
-      "lastModified": "2026-08-24T00:27:06.618Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Business/Freelance/gig-automation-prompts.md",
       "title": "🤖 AI Agent Prompts For Freelance Gig Automation V",
       "section": "2_Agents",
@@ -3665,23 +3635,6 @@
       ],
       "contentPreview": "\n# Product-Led Growth Expert\n\nAn AI agent designed to optimize user acquisition, retention, and monetization strategies by focusing on the product as the primary driver of growth.\n\n## Core Responsibil",
       "lastModified": "2026-08-24T00:27:06.606Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Business/market-research-analyst.md",
-      "title": "📊 Market Research Analyst",
-      "section": "2_Agents",
-      "category": "Business",
-      "subcategory": "market-research-analyst",
-      "tags": [
-        "agent",
-        "business",
-        "research",
-        "competitor-analysis",
-        "strategy"
-      ],
-      "contentPreview": "\n# Market Research Analyst\n\nThe Market Research Analyst is a strategic agent designed to gather, synthesize, and present actionable intelligence about industries, competitors, and consumer trends. It ",
-      "lastModified": "2026-08-24T00:27:06.619Z",
       "isUserOwned": false
     },
     {
@@ -4033,37 +3986,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Business/seo-analyst-agent.md",
-      "title": "🤖 SEO Analyst Agent",
-      "section": "2_Agents",
-      "category": "Business",
-      "subcategory": "seo-analyst-agent",
-      "tags": [
-        "agent",
-        "seo",
-        "marketing"
-      ],
-      "contentPreview": "\n# SEO Analyst Agent\n\nAn agent focused on analyzing web content, optimizing for search engines, and providing actionable SEO recommendations.\n\n## Core Responsibilities\n\nWhen invoked:\n1. Perform keywor",
-      "lastModified": "2026-08-24T00:27:06.619Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Business/seo-optimization-agent.md",
-      "title": "🤖 SEO Optimization Agent",
-      "section": "2_Agents",
-      "category": "Business",
-      "subcategory": "seo-optimization-agent",
-      "tags": [
-        "agent",
-        "seo",
-        "marketing",
-        "business"
-      ],
-      "contentPreview": "\n# SEO Optimization Agent\n\nSpecializes in SEO.\n\n## Core Responsibilities\nWhen invoked:\n1. Analyze content.\n",
-      "lastModified": "2026-08-27T02:24:01.436Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Business/Supply_Chain/supply-chain-optimization-agent.md",
       "title": "🤖 Supply Chain Optimization Agent",
       "section": "2_Agents",
@@ -4093,6 +4015,84 @@
       ],
       "contentPreview": "\n# Supply Chain Optimizer\n\n## Purpose\nAn AI agent prompt designed to analyze current inventory levels, demand forecasts, and logistics data to identify inefficiencies and propose optimization strategi",
       "lastModified": "2026-08-24T00:27:06.618Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Business/competitor-analysis-agent.md",
+      "title": "🤖 Competitor Analysis Agent",
+      "section": "2_Agents",
+      "category": "Business",
+      "subcategory": "competitor-analysis-agent",
+      "tags": [
+        "agents",
+        "business",
+        "strategy"
+      ],
+      "contentPreview": "\n# Competitor Analysis Agent\n\n## Purpose\nAn agent that analyzes competitors based on provided URLs and generates a comprehensive SWOT analysis.\n\n## Description\nThis agent helps businesses understand t",
+      "lastModified": "2026-08-24T00:27:06.618Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Business/financial-auditor-agent.md",
+      "title": "Financial Auditor Agent",
+      "section": "2_Agents",
+      "category": "Business",
+      "subcategory": "financial-auditor-agent",
+      "tags": [
+        "finance",
+        "audit",
+        "business"
+      ],
+      "contentPreview": "\n# Financial Auditor Agent\n\n## Core Responsibilities\nReview financial statements, ledger entries, and transaction logs for accuracy, compliance, and potential anomalies.\n\n## Audit Preparation Checklis",
+      "lastModified": "2026-08-24T00:27:06.618Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Business/market-research-analyst.md",
+      "title": "📊 Market Research Analyst",
+      "section": "2_Agents",
+      "category": "Business",
+      "subcategory": "market-research-analyst",
+      "tags": [
+        "agent",
+        "business",
+        "research",
+        "competitor-analysis",
+        "strategy"
+      ],
+      "contentPreview": "\n# Market Research Analyst\n\nThe Market Research Analyst is a strategic agent designed to gather, synthesize, and present actionable intelligence about industries, competitors, and consumer trends. It ",
+      "lastModified": "2026-08-24T00:27:06.619Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Business/seo-analyst-agent.md",
+      "title": "🤖 SEO Analyst Agent",
+      "section": "2_Agents",
+      "category": "Business",
+      "subcategory": "seo-analyst-agent",
+      "tags": [
+        "agent",
+        "seo",
+        "marketing"
+      ],
+      "contentPreview": "\n# SEO Analyst Agent\n\nAn agent focused on analyzing web content, optimizing for search engines, and providing actionable SEO recommendations.\n\n## Core Responsibilities\n\nWhen invoked:\n1. Perform keywor",
+      "lastModified": "2026-08-24T00:27:06.619Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Business/seo-optimization-agent.md",
+      "title": "🤖 SEO Optimization Agent",
+      "section": "2_Agents",
+      "category": "Business",
+      "subcategory": "seo-optimization-agent",
+      "tags": [
+        "agent",
+        "seo",
+        "marketing",
+        "business"
+      ],
+      "contentPreview": "\n# SEO Optimization Agent\n\nSpecializes in SEO.\n\n## Core Responsibilities\nWhen invoked:\n1. Analyze content.\n",
+      "lastModified": "2026-08-27T02:24:01.436Z",
       "isUserOwned": false
     },
     {
@@ -4173,21 +4173,6 @@
       ],
       "contentPreview": "\n# Voice Acting Coach\n\nCoach voice performance for clarity, emotional authenticity, consistency, and role-appropriate delivery.\n\n## Core Responsibilities\nWhen invoked:\n1. Diagnose performance strength",
       "lastModified": "2026-08-24T00:27:06.622Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Content/blog-writer-agent.md",
-      "title": "✍️ Blog Writer Agent",
-      "section": "2_Agents",
-      "category": "Content",
-      "subcategory": "blog-writer-agent",
-      "tags": [
-        "agent",
-        "content",
-        "writing"
-      ],
-      "contentPreview": "\n# ✍️ Blog Writer Agent\n\nAn agent specializing in long-form, SEO-optimized blog content.\n\n## Core Directives\n\n1. Always research the target keyword intent before drafting.\n2. Structure articles with c",
-      "lastModified": "2026-08-24T00:27:06.636Z",
       "isUserOwned": false
     },
     {
@@ -4309,37 +4294,6 @@
       ],
       "contentPreview": "\n# Professional Article Generator\n\n## Purpose\nCreate structured, professional articles with engaging titles, precise subheadings, and rich content.\n\n## Instructions\nYou are a professional content crea",
       "lastModified": "2026-08-24T00:27:06.626Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Content/copyeditor-agent.md",
-      "title": "📝 Copyeditor Agent",
-      "section": "2_Agents",
-      "category": "Content",
-      "subcategory": "copyeditor-agent",
-      "tags": [
-        "agent",
-        "content",
-        "editing"
-      ],
-      "contentPreview": "\n# 📝 Copyeditor Agent\n\nAn agent that reviews, refines, and proofreads written text.\n\n## Core Directives\n\n1. Correct grammatical errors, typos, and punctuation mistakes.\n2. Improve sentence flow and r",
-      "lastModified": "2026-08-24T00:27:06.637Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Content/copywriter.md",
-      "title": "🤖 Expert Copywriter",
-      "section": "2_Agents",
-      "category": "Content",
-      "subcategory": "copywriter",
-      "tags": [
-        "agent",
-        "copywriting",
-        "sales",
-        "content"
-      ],
-      "contentPreview": "\n# Expert Copywriter\n\nThe Expert Copywriter agent is a master of persuasive writing, consumer psychology, and direct response marketing. It crafts compelling sales pages, email sequences, and ad copy ",
-      "lastModified": "2026-08-24T00:27:06.637Z",
       "isUserOwned": false
     },
     {
@@ -4523,53 +4477,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Content/seo-specialist.md",
-      "title": "🤖 SEO Specialist",
-      "section": "2_Agents",
-      "category": "Content",
-      "subcategory": "seo-specialist",
-      "tags": [
-        "agent",
-        "seo",
-        "marketing",
-        "content"
-      ],
-      "contentPreview": "\n# SEO Specialist\n\nThe SEO Specialist agent is an expert in search engine optimization, keyword research, and on-page optimization. It helps improve the visibility of web content on search engines lik",
-      "lastModified": "2026-08-24T00:27:06.638Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Content/social-media-manager-agent.md",
-      "title": "📱 Social Media Manager",
-      "section": "2_Agents",
-      "category": "Content",
-      "subcategory": "social-media-manager-agent",
-      "tags": [
-        "agent",
-        "content",
-        "social"
-      ],
-      "contentPreview": "\n# 📱 Social Media Manager\n\nAn agent that crafts platform-specific social media posts.\n\n## Core Directives\n\n1. Tailor content length and tone to the specific platform (e.g., concise for X, professiona",
-      "lastModified": "2026-08-24T00:27:06.638Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Content/social-media-manager.md",
-      "title": "🤖 Social Media Manager",
-      "section": "2_Agents",
-      "category": "Content",
-      "subcategory": "social-media-manager",
-      "tags": [
-        "agent",
-        "social-media",
-        "marketing",
-        "content"
-      ],
-      "contentPreview": "\n# Social Media Manager\n\nThe Social Media Manager agent specializes in growing online communities, crafting engaging posts, and analyzing social metrics. It understands the nuances of different platfo",
-      "lastModified": "2026-08-24T00:27:06.639Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Content/Technical/documentation.md",
       "title": "🤖 Technical Documentation",
       "section": "2_Agents",
@@ -4614,51 +4521,6 @@
       ],
       "contentPreview": "# Technical White Paper Generator\n\n## Context\nYou are an expert technical writer specializing in AI/IT enterprise solutions. Your task is to create a comprehensive, authoritative white paper that esta",
       "lastModified": "2026-08-24T00:27:06.634Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Content/technical-blog-writer-agent.md",
-      "title": "🤖 Technical Blog Writer Agent",
-      "section": "2_Agents",
-      "category": "Content",
-      "subcategory": "technical-blog-writer-agent",
-      "tags": [
-        "agents",
-        "content",
-        "writing"
-      ],
-      "contentPreview": "\n# Technical Blog Writer Agent\n\n## Purpose\nAn agent specialized in writing technical blog posts from code snippets or rough notes.\n\n## Description\nTurns messy developer notes or raw code into engaging",
-      "lastModified": "2026-08-24T00:27:06.639Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Content/technical-writer-agent.md",
-      "title": "🤖 Technical Writer Agent",
-      "section": "2_Agents",
-      "category": "Content",
-      "subcategory": "technical-writer-agent",
-      "tags": [
-        "agent",
-        "writer",
-        "documentation"
-      ],
-      "contentPreview": "\n# Technical Writer Agent\n\nAn expert agent specializing in creating clear, concise, and comprehensive technical documentation for software projects.\n\n## Core Responsibilities\n\nWhen invoked:\n1. Analyze",
-      "lastModified": "2026-08-24T00:27:06.640Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Content/technical-writer.md",
-      "title": "🤖 Technical Writer",
-      "section": "2_Agents",
-      "category": "Content",
-      "subcategory": "technical-writer",
-      "tags": [
-        "agent",
-        "documentation",
-        "writing"
-      ],
-      "contentPreview": "\n# Technical Writer\n\n## Core Responsibilities\n1. Write API documentation\n\n## Documentation Checklist\n- [ ] API Reference\n\n## Content Strategy: Documentation\n### Information Architecture\n- Topic based ",
-      "lastModified": "2026-08-24T00:27:06.640Z",
       "isUserOwned": false
     },
     {
@@ -4732,18 +4594,141 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Development/api-mocking-agent.md",
-      "title": "🤖 API Mocking Agent",
+      "id": "2_Agents/Content/blog-writer-agent.md",
+      "title": "✍️ Blog Writer Agent",
       "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "api-mocking-agent",
+      "category": "Content",
+      "subcategory": "blog-writer-agent",
+      "tags": [
+        "agent",
+        "content",
+        "writing"
+      ],
+      "contentPreview": "\n# ✍️ Blog Writer Agent\n\nAn agent specializing in long-form, SEO-optimized blog content.\n\n## Core Directives\n\n1. Always research the target keyword intent before drafting.\n2. Structure articles with c",
+      "lastModified": "2026-08-24T00:27:06.636Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Content/copyeditor-agent.md",
+      "title": "📝 Copyeditor Agent",
+      "section": "2_Agents",
+      "category": "Content",
+      "subcategory": "copyeditor-agent",
+      "tags": [
+        "agent",
+        "content",
+        "editing"
+      ],
+      "contentPreview": "\n# 📝 Copyeditor Agent\n\nAn agent that reviews, refines, and proofreads written text.\n\n## Core Directives\n\n1. Correct grammatical errors, typos, and punctuation mistakes.\n2. Improve sentence flow and r",
+      "lastModified": "2026-08-24T00:27:06.637Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Content/copywriter.md",
+      "title": "🤖 Expert Copywriter",
+      "section": "2_Agents",
+      "category": "Content",
+      "subcategory": "copywriter",
+      "tags": [
+        "agent",
+        "copywriting",
+        "sales",
+        "content"
+      ],
+      "contentPreview": "\n# Expert Copywriter\n\nThe Expert Copywriter agent is a master of persuasive writing, consumer psychology, and direct response marketing. It crafts compelling sales pages, email sequences, and ad copy ",
+      "lastModified": "2026-08-24T00:27:06.637Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Content/seo-specialist.md",
+      "title": "🤖 SEO Specialist",
+      "section": "2_Agents",
+      "category": "Content",
+      "subcategory": "seo-specialist",
+      "tags": [
+        "agent",
+        "seo",
+        "marketing",
+        "content"
+      ],
+      "contentPreview": "\n# SEO Specialist\n\nThe SEO Specialist agent is an expert in search engine optimization, keyword research, and on-page optimization. It helps improve the visibility of web content on search engines lik",
+      "lastModified": "2026-08-24T00:27:06.638Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Content/social-media-manager-agent.md",
+      "title": "📱 Social Media Manager",
+      "section": "2_Agents",
+      "category": "Content",
+      "subcategory": "social-media-manager-agent",
+      "tags": [
+        "agent",
+        "content",
+        "social"
+      ],
+      "contentPreview": "\n# 📱 Social Media Manager\n\nAn agent that crafts platform-specific social media posts.\n\n## Core Directives\n\n1. Tailor content length and tone to the specific platform (e.g., concise for X, professiona",
+      "lastModified": "2026-08-24T00:27:06.638Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Content/social-media-manager.md",
+      "title": "🤖 Social Media Manager",
+      "section": "2_Agents",
+      "category": "Content",
+      "subcategory": "social-media-manager",
+      "tags": [
+        "agent",
+        "social-media",
+        "marketing",
+        "content"
+      ],
+      "contentPreview": "\n# Social Media Manager\n\nThe Social Media Manager agent specializes in growing online communities, crafting engaging posts, and analyzing social metrics. It understands the nuances of different platfo",
+      "lastModified": "2026-08-24T00:27:06.639Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Content/technical-blog-writer-agent.md",
+      "title": "🤖 Technical Blog Writer Agent",
+      "section": "2_Agents",
+      "category": "Content",
+      "subcategory": "technical-blog-writer-agent",
       "tags": [
         "agents",
-        "development",
-        "testing"
+        "content",
+        "writing"
       ],
-      "contentPreview": "\n# API Mocking Agent\n\n## Purpose\nThis agent reads OpenAPI specifications and generates robust mock servers for frontend development and testing.\n\n## Description\nThe API Mocking Agent accelerates devel",
-      "lastModified": "2026-08-24T00:27:06.763Z",
+      "contentPreview": "\n# Technical Blog Writer Agent\n\n## Purpose\nAn agent specialized in writing technical blog posts from code snippets or rough notes.\n\n## Description\nTurns messy developer notes or raw code into engaging",
+      "lastModified": "2026-08-24T00:27:06.639Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Content/technical-writer-agent.md",
+      "title": "🤖 Technical Writer Agent",
+      "section": "2_Agents",
+      "category": "Content",
+      "subcategory": "technical-writer-agent",
+      "tags": [
+        "agent",
+        "writer",
+        "documentation"
+      ],
+      "contentPreview": "\n# Technical Writer Agent\n\nAn expert agent specializing in creating clear, concise, and comprehensive technical documentation for software projects.\n\n## Core Responsibilities\n\nWhen invoked:\n1. Analyze",
+      "lastModified": "2026-08-24T00:27:06.640Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Content/technical-writer.md",
+      "title": "🤖 Technical Writer",
+      "section": "2_Agents",
+      "category": "Content",
+      "subcategory": "technical-writer",
+      "tags": [
+        "agent",
+        "documentation",
+        "writing"
+      ],
+      "contentPreview": "\n# Technical Writer\n\n## Core Responsibilities\n1. Write API documentation\n\n## Documentation Checklist\n- [ ] API Reference\n\n## Content Strategy: Documentation\n### Information Architecture\n- Topic based ",
+      "lastModified": "2026-08-24T00:27:06.640Z",
       "isUserOwned": false
     },
     {
@@ -5492,6 +5477,17 @@
       "isUserOwned": false
     },
     {
+      "id": "2_Agents/Development/Backend/CSharpExpert.md",
+      "title": "CSharpExpert",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "Backend",
+      "tags": [],
+      "contentPreview": "\nYou are an expert C#/.NET developer. You help with .NET tasks by giving clean, well-designed, error-free, fast, secure, readable, and maintainable code that follows .NET conventions. You also give in",
+      "lastModified": "2026-08-24T00:27:06.660Z",
+      "isUserOwned": false
+    },
+    {
       "id": "2_Agents/Development/Backend/angular-architect.md",
       "title": "angular-architect",
       "section": "2_Agents",
@@ -5566,17 +5562,6 @@
       "tags": [],
       "contentPreview": "\n# C# MCP Server Expert\n\nYou are a world-class expert in building Model Context Protocol (MCP) servers using the C# SDK. You have deep knowledge of the ModelContextProtocol NuGet packages, .NET depend",
       "lastModified": "2026-08-24T00:27:06.662Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/Backend/CSharpExpert.md",
-      "title": "CSharpExpert",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "Backend",
-      "tags": [],
-      "contentPreview": "\nYou are an expert C#/.NET developer. You help with .NET tasks by giving clean, well-designed, error-free, fast, secure, readable, and maintainable code that follows .NET conventions. You also give in",
-      "lastModified": "2026-08-24T00:27:06.660Z",
       "isUserOwned": false
     },
     {
@@ -6316,32 +6301,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Development/ci-cd-architect-agent.md",
-      "title": "🤖 CI/CD Architect",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "ci-cd-architect-agent",
-      "tags": [
-        "agent",
-        "cicd",
-        "devops"
-      ],
-      "contentPreview": "\n# CI/CD Architect\n\nAn AI agent designed to architect and optimize Continuous Integration and Continuous Deployment pipelines.\n\n\n## Core Responsibilities\n1. Design robust CI/CD workflows.\n2. Optimize ",
-      "lastModified": "2026-08-24T00:27:06.763Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/Claude_Code/configure-agent.md",
-      "title": "Prompt: Spawn and Configure a Sub-Agent (Task Tool)",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "Claude_Code",
-      "tags": [],
-      "contentPreview": "# Prompt: Spawn and Configure a Sub-Agent (Task Tool)\n\n**Use when:** You want Claude Code to delegate a scoped task to a new agent instance with its own instructions, tools, and context — running inde",
-      "lastModified": "2026-08-24T00:27:06.688Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Development/CLI_Assistant/cli-assistant.md",
       "title": "🤖 CLI Operations Assistant",
       "section": "2_Agents",
@@ -6376,81 +6335,14 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Development/cloud-infra-architect.md",
-      "title": "🤖 Cloud Infrastructure Architect",
+      "id": "2_Agents/Development/Claude_Code/configure-agent.md",
+      "title": "Prompt: Spawn and Configure a Sub-Agent (Task Tool)",
       "section": "2_Agents",
       "category": "Development",
-      "subcategory": "cloud-infra-architect",
-      "tags": [
-        "cloud",
-        "aws",
-        "terraform",
-        "infrastructure"
-      ],
-      "contentPreview": "\n# Cloud Infrastructure Architect\n\n## Purpose\nHelps developers design robust cloud infrastructure using IaC.\n\n## Instructions\nAct as a Cloud Infrastructure Architect. Provide secure, scalable, and cos",
-      "lastModified": "2026-08-27T02:25:18.611Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/cloud-migration-agent.md",
-      "title": "🤖 Cloud Migration",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "cloud-migration-agent",
-      "tags": [
-        "agent",
-        "cloud",
-        "devops"
-      ],
-      "contentPreview": "\n# Cloud Migration\n\nAn AI agent specialized in planning and executing cloud migration strategies.\n\n\n## Core Responsibilities\n1. Assess current infrastructure.\n2. Recommend target cloud architecture.\n3",
-      "lastModified": "2026-08-24T00:27:06.764Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/code-refactoring-agent.md",
-      "title": "🤖 Code Refactoring Agent",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "code-refactoring-agent",
-      "tags": [
-        "agent",
-        "refactoring",
-        "development"
-      ],
-      "contentPreview": "\n# Code Refactoring Agent\n\nSpecializes in refactoring.\n\n## Core Responsibilities\nWhen invoked:\n1. Analyze codebase.\n",
-      "lastModified": "2026-08-27T02:24:01.750Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/code-reviewer-agent.md",
-      "title": "🤖 Code Reviewer Agent",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "code-reviewer-agent",
-      "tags": [
-        "agents",
-        "code-review",
-        "development",
-        "qa"
-      ],
-      "contentPreview": "\n# Code Reviewer Agent\n\n## System Identity\n\n```xml\n<system_info>\nCode Reviewer Agent is an automated assistant designed to review pull requests and code changes.\nCode Reviewer Agent is designed to ide",
-      "lastModified": "2026-08-24T00:27:06.765Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/Codex/create-mcp-server.md",
-      "title": "🤖 Create An MCP Server",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "Codex",
-      "tags": [
-        "codex",
-        "mcp",
-        "server",
-        "tools"
-      ],
-      "contentPreview": "\n# Codex Prompt: Create a New MCP Server\n\nYou are an AI engineering assistant tasked with creating a **Model\nContext Protocol (MCP) server** that exposes tools to coding agents.\n\n## Objectives\n\n1.  Cr",
-      "lastModified": "2026-08-24T00:27:06.690Z",
+      "subcategory": "Claude_Code",
+      "tags": [],
+      "contentPreview": "# Prompt: Spawn and Configure a Sub-Agent (Task Tool)\n\n**Use when:** You want Claude Code to delegate a scoped task to a new agent instance with its own instructions, tools, and context — running inde",
+      "lastModified": "2026-08-24T00:27:06.688Z",
       "isUserOwned": false
     },
     {
@@ -6471,31 +6363,118 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Development/commit-guardian.md",
-      "title": "Commit Guardian",
+      "id": "2_Agents/Development/Codex/create-mcp-server.md",
+      "title": "🤖 Create An MCP Server",
       "section": "2_Agents",
       "category": "Development",
-      "subcategory": "commit-guardian",
-      "tags": [],
-      "contentPreview": "# Commit Guardian\n\nPre-commit verification agent that runs 10 automated checks before every git commit. If any check fails, the commit is blocked and the issue is reported for resolution.\n\n## Expertis",
-      "lastModified": "2026-08-24T00:27:06.765Z",
+      "subcategory": "Codex",
+      "tags": [
+        "codex",
+        "mcp",
+        "server",
+        "tools"
+      ],
+      "contentPreview": "\n# Codex Prompt: Create a New MCP Server\n\nYou are an AI engineering assistant tasked with creating a **Model\nContext Protocol (MCP) server** that exposes tools to coding agents.\n\n## Objectives\n\n1.  Cr",
+      "lastModified": "2026-08-24T00:27:06.690Z",
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Development/database-schema-architect.md",
-      "title": "🗄️ Database Schema Architect",
+      "id": "2_Agents/Development/DevOps/CI_CD/pipeline-architect.md",
+      "title": "🏗️ Pipeline Architect Agent",
       "section": "2_Agents",
       "category": "Development",
-      "subcategory": "database-schema-architect",
+      "subcategory": "DevOps",
       "tags": [
+        "devops",
+        "ci-cd",
         "agent",
-        "database",
-        "sql",
-        "architecture",
-        "development"
+        "automation",
+        "infrastructure"
       ],
-      "contentPreview": "\n# Database Schema Architect\n\nThe Database Schema Architect is an expert in data modeling, relational design, and database optimization. This agent specializes in taking high-level application require",
-      "lastModified": "2026-08-24T00:27:06.765Z",
+      "contentPreview": "\n# Pipeline Architect Agent\n\n## Purpose\nThe Pipeline Architect Agent assists in designing, configuring, and optimizing Continuous Integration and Continuous Deployment (CI/CD) pipelines. It provides e",
+      "lastModified": "2026-08-24T00:27:06.690Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/DevOps/ci-cd-architect.md",
+      "title": "🚀 CI/CD Architect",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "DevOps",
+      "tags": [
+        "devops",
+        "ci-cd",
+        "pipeline",
+        "automation"
+      ],
+      "contentPreview": "\n# 🚀 CI/CD Architect\n\n## Purpose\nAn AI agent acting as a senior DevOps engineer and CI/CD Architect, helping teams design, build, optimize, and secure their continuous integration and continuous depl",
+      "lastModified": "2026-08-24T00:27:06.690Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/DevOps/devops-automation-expert.md",
+      "title": "🤖 DevOps Automation Expert",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "DevOps",
+      "tags": [
+        "devops",
+        "automation",
+        "infrastructure",
+        "ci-cd"
+      ],
+      "contentPreview": "\n# DevOps Automation Expert\n\n## Purpose\nDesign robust CI/CD pipelines, automate infrastructure deployments, and ensure optimal system reliability and scalability.\n\n## Instructions\nYou are a highly ski",
+      "lastModified": "2026-08-24T00:27:06.691Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/DevOps/kubernetes-cluster-manager.md",
+      "title": "🤖 Kubernetes Cluster Manager",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "DevOps",
+      "tags": [
+        "kubernetes",
+        "k8s",
+        "devops",
+        "containers",
+        "orchestration"
+      ],
+      "contentPreview": "\n# Kubernetes Cluster Manager\n\n## Purpose\nHelp users design, deploy, and manage Kubernetes clusters. Provide guidance on best practices, troubleshooting, scaling, and maintaining secure container orch",
+      "lastModified": "2026-08-24T00:27:06.691Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/DevOps/kubernetes-orchestrator.md",
+      "title": "☸️ Kubernetes Orchestrator Agent",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "DevOps",
+      "tags": [
+        "kubernetes",
+        "k8s",
+        "devops",
+        "orchestration"
+      ],
+      "contentPreview": "\n# Kubernetes Orchestrator Agent\n\n## Core Responsibilities\nThis agent specializes in designing, deploying, and troubleshooting Kubernetes clusters and resources. It assists with writing manifests, Hel",
+      "lastModified": "2026-08-24T00:27:06.692Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/DevOps/terraform-expert.md",
+      "title": "🤖 Terraform Expert",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "DevOps",
+      "tags": [
+        "terraform",
+        "iac",
+        "infrastructure",
+        "devops",
+        "cloud"
+      ],
+      "contentPreview": "\n# Terraform Expert\n\n## Purpose\nDesign, implement, and optimize Infrastructure as Code (IaC) using Terraform for cloud environments like AWS, GCP, and Azure. Provide guidance on state management, modu",
+      "lastModified": "2026-08-24T00:27:06.692Z",
       "isUserOwned": false
     },
     {
@@ -6589,135 +6568,6 @@
       ],
       "contentPreview": "\n# Website Design Consultant\n\n## Purpose\nProvide detailed website design recommendations based on business needs and target audience, including layout, color scheme and user experience optimization.\n\n",
       "lastModified": "2026-08-24T00:27:06.695Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/DevOps/ci-cd-architect.md",
-      "title": "🚀 CI/CD Architect",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "DevOps",
-      "tags": [
-        "devops",
-        "ci-cd",
-        "pipeline",
-        "automation"
-      ],
-      "contentPreview": "\n# 🚀 CI/CD Architect\n\n## Purpose\nAn AI agent acting as a senior DevOps engineer and CI/CD Architect, helping teams design, build, optimize, and secure their continuous integration and continuous depl",
-      "lastModified": "2026-08-24T00:27:06.690Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/DevOps/CI_CD/pipeline-architect.md",
-      "title": "🏗️ Pipeline Architect Agent",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "DevOps",
-      "tags": [
-        "devops",
-        "ci-cd",
-        "agent",
-        "automation",
-        "infrastructure"
-      ],
-      "contentPreview": "\n# Pipeline Architect Agent\n\n## Purpose\nThe Pipeline Architect Agent assists in designing, configuring, and optimizing Continuous Integration and Continuous Deployment (CI/CD) pipelines. It provides e",
-      "lastModified": "2026-08-24T00:27:06.690Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/DevOps/devops-automation-expert.md",
-      "title": "🤖 DevOps Automation Expert",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "DevOps",
-      "tags": [
-        "devops",
-        "automation",
-        "infrastructure",
-        "ci-cd"
-      ],
-      "contentPreview": "\n# DevOps Automation Expert\n\n## Purpose\nDesign robust CI/CD pipelines, automate infrastructure deployments, and ensure optimal system reliability and scalability.\n\n## Instructions\nYou are a highly ski",
-      "lastModified": "2026-08-24T00:27:06.691Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/DevOps/kubernetes-cluster-manager.md",
-      "title": "🤖 Kubernetes Cluster Manager",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "DevOps",
-      "tags": [
-        "kubernetes",
-        "k8s",
-        "devops",
-        "containers",
-        "orchestration"
-      ],
-      "contentPreview": "\n# Kubernetes Cluster Manager\n\n## Purpose\nHelp users design, deploy, and manage Kubernetes clusters. Provide guidance on best practices, troubleshooting, scaling, and maintaining secure container orch",
-      "lastModified": "2026-08-24T00:27:06.691Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/DevOps/kubernetes-orchestrator.md",
-      "title": "☸️ Kubernetes Orchestrator Agent",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "DevOps",
-      "tags": [
-        "kubernetes",
-        "k8s",
-        "devops",
-        "orchestration"
-      ],
-      "contentPreview": "\n# Kubernetes Orchestrator Agent\n\n## Core Responsibilities\nThis agent specializes in designing, deploying, and troubleshooting Kubernetes clusters and resources. It assists with writing manifests, Hel",
-      "lastModified": "2026-08-24T00:27:06.692Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/DevOps/terraform-expert.md",
-      "title": "🤖 Terraform Expert",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "DevOps",
-      "tags": [
-        "terraform",
-        "iac",
-        "infrastructure",
-        "devops",
-        "cloud"
-      ],
-      "contentPreview": "\n# Terraform Expert\n\n## Purpose\nDesign, implement, and optimize Infrastructure as Code (IaC) using Terraform for cloud environments like AWS, GCP, and Azure. Provide guidance on state management, modu",
-      "lastModified": "2026-08-24T00:27:06.692Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/devops-engineer.md",
-      "title": "👨‍💻 DevOps Engineer",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "devops-engineer",
-      "tags": [
-        "devops",
-        "agent",
-        "infrastructure"
-      ],
-      "contentPreview": "\n# DevOps Engineer\n\n## Core Responsibilities\nManage infrastructure and deployments.\n\n## Core Infrastructure Checklist\n- Infrastructure as code\n- Monitoring\n- Alerts\n\n## CI/CD Pipelines\n- GitHub Action",
-      "lastModified": "2026-08-24T00:27:06.766Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/docker-expert-agent.md",
-      "title": "🤖 Docker Expert",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "docker-expert-agent",
-      "tags": [
-        "agent",
-        "docker",
-        "devops"
-      ],
-      "contentPreview": "\n# Docker Expert\n\nAn advanced AI agent specialized in Docker containerization, optimization, and best practices.\n\n\n## Core Responsibilities\n1. Generate optimized Dockerfiles.\n2. Analyze and improve ex",
-      "lastModified": "2026-08-24T00:27:06.766Z",
       "isUserOwned": false
     },
     {
@@ -6972,17 +6822,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Development/git-workflow-manager.md",
-      "title": "git-workflow-manager",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "git-workflow-manager",
-      "tags": [],
-      "contentPreview": "You are a senior Git workflow manager with expertise in designing and implementing efficient version control workflows. Your focus spans branching strategies, automation, merge conflict resolution, an",
-      "lastModified": "2026-08-24T00:27:06.766Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Development/Governance/engineering-decision-fallacy-finder.md",
       "title": "🤖 Engineering Decision Fallacy Finder",
       "section": "2_Agents",
@@ -7130,21 +6969,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Development/leonxlnx-agent.md",
-      "title": "🤖 Agentic Ai Prompt Research Agent",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "leonxlnx-agent",
-      "tags": [
-        "agent",
-        "ai",
-        "development"
-      ],
-      "contentPreview": "\n# Agentic Ai Prompt Research Agent\n\n## Core Responsibilities\nResearch into how agentic AI coding assistants work — reconstructed prompt patterns, agent coordination, and security classification\n\n## C",
-      "lastModified": "2026-08-24T00:27:06.767Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Development/Openclaw/ai-agent-partnership-weekly-operating-review.md",
       "title": "🤖 AI Agent Partnership Weekly Operating Review",
       "section": "2_Agents",
@@ -7213,52 +7037,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Development/piebald-ai-agent.md",
-      "title": "🤖 Claude Code System Prompts Agent",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "piebald-ai-agent",
-      "tags": [
-        "agent",
-        "ai",
-        "development"
-      ],
-      "contentPreview": "\n# Claude Code System Prompts Agent\n\n## Core Responsibilities\nAll parts of Claude Code's system prompt, 24 builtin tool descriptions, sub agent prompts (Plan/Explore/Task), utility prompts (CLAUDE.md,",
-      "lastModified": "2026-08-24T00:27:06.767Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/python-backend-engineer.md",
-      "title": "👨‍💻 Python Backend Engineer",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "python-backend-engineer",
-      "tags": [
-        "python",
-        "agent",
-        "backend"
-      ],
-      "contentPreview": "\n# Python Backend Engineer\n\n## Core Responsibilities\nBuild scalable Python backend systems.\n\n## Code Quality Checklist\n- Write tests\n- Profile code\n- Add type hints\n\n## API Development\n- Use dependenc",
-      "lastModified": "2026-08-24T00:27:06.767Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/python-backend-expert.md",
-      "title": "🤖 Python Backend Expert",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "python-backend-expert",
-      "tags": [
-        "python",
-        "backend",
-        "django",
-        "fastapi"
-      ],
-      "contentPreview": "\n# Python Backend Expert\n\n## Purpose\nDevelops, reviews, and optimizes Python backend applications.\n\n## Instructions\nAct as a Python backend expert. Follow PEP8, write clean tests, and optimize for per",
-      "lastModified": "2026-08-27T02:25:18.757Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Development/QA/qa-automation-engineer.md",
       "title": "🤖 QA Automation Engineer",
       "section": "2_Agents",
@@ -7273,82 +7051,6 @@
       ],
       "contentPreview": "\n# QA Automation Engineer\n\n## Purpose\nDesign robust and scalable automated test suites to ensure software reliability, performance, and security across the entire development lifecycle.\n\n## Instructio",
       "lastModified": "2026-08-24T00:27:06.758Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/react-frontend-engineer.md",
-      "title": "👨‍💻 React Frontend Engineer",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "react-frontend-engineer",
-      "tags": [
-        "react",
-        "agent",
-        "frontend"
-      ],
-      "contentPreview": "\n# React Frontend Engineer\n\n## Core Responsibilities\nBuild beautiful React interfaces.\n\n## UI Checklist\n- Component tests\n- Accessibility\n- Performance\n\n## State Management Patterns\n- Redux Toolkit\n- ",
-      "lastModified": "2026-08-24T00:27:06.768Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/react-frontend-expert.md",
-      "title": "🤖 React Frontend Expert",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "react-frontend-expert",
-      "tags": [
-        "agent",
-        "react",
-        "frontend"
-      ],
-      "contentPreview": "\n# React Frontend Expert\n\nA specialized agent for building, refactoring, and debugging modern React applications using hooks and functional components.\n\n## Core Responsibilities\n\nWhen invoked:\n1. Writ",
-      "lastModified": "2026-08-24T00:27:06.768Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/react-frontend-specialist.md",
-      "title": "🤖 Frontend React Specialist",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "react-frontend-specialist",
-      "tags": [
-        "react",
-        "frontend",
-        "typescript",
-        "ui"
-      ],
-      "contentPreview": "\n# Frontend React Specialist\n\n## Purpose\nCreates and refactors React components using best practices.\n\n## Instructions\nAct as a Senior Frontend React Developer. Use modern hooks, TypeScript, and funct",
-      "lastModified": "2026-08-27T02:25:18.904Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/repowise-dev-agent.md",
-      "title": "🤖 Claude Code Prompts Agent",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "repowise-dev-agent",
-      "tags": [
-        "agent",
-        "ai",
-        "development"
-      ],
-      "contentPreview": "\n# Claude Code Prompts Agent\n\n## Core Responsibilities\nIndependently authored prompt templates for AI coding agents — system prompts, tool prompts, agent delegation, memory management, and multi-agent",
-      "lastModified": "2026-08-24T00:27:06.769Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Development/rust-optimization-agent.md",
-      "title": "Rust Optimization Agent",
-      "section": "2_Agents",
-      "category": "Development",
-      "subcategory": "rust-optimization-agent",
-      "tags": [
-        "rust",
-        "optimization",
-        "performance"
-      ],
-      "contentPreview": "\n# Rust Optimization Agent\n\n## Core Responsibilities\nAnalyze and optimize Rust codebases for maximum performance, minimal memory footprint, and robust concurrency without compromising memory safety gu",
-      "lastModified": "2026-08-24T00:27:06.769Z",
       "isUserOwned": false
     },
     {
@@ -7520,6 +7222,304 @@
       "isUserOwned": false
     },
     {
+      "id": "2_Agents/Development/api-mocking-agent.md",
+      "title": "🤖 API Mocking Agent",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "api-mocking-agent",
+      "tags": [
+        "agents",
+        "development",
+        "testing"
+      ],
+      "contentPreview": "\n# API Mocking Agent\n\n## Purpose\nThis agent reads OpenAPI specifications and generates robust mock servers for frontend development and testing.\n\n## Description\nThe API Mocking Agent accelerates devel",
+      "lastModified": "2026-08-24T00:27:06.763Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/ci-cd-architect-agent.md",
+      "title": "🤖 CI/CD Architect",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "ci-cd-architect-agent",
+      "tags": [
+        "agent",
+        "cicd",
+        "devops"
+      ],
+      "contentPreview": "\n# CI/CD Architect\n\nAn AI agent designed to architect and optimize Continuous Integration and Continuous Deployment pipelines.\n\n\n## Core Responsibilities\n1. Design robust CI/CD workflows.\n2. Optimize ",
+      "lastModified": "2026-08-24T00:27:06.763Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/cloud-infra-architect.md",
+      "title": "🤖 Cloud Infrastructure Architect",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "cloud-infra-architect",
+      "tags": [
+        "cloud",
+        "aws",
+        "terraform",
+        "infrastructure"
+      ],
+      "contentPreview": "\n# Cloud Infrastructure Architect\n\n## Purpose\nHelps developers design robust cloud infrastructure using IaC.\n\n## Instructions\nAct as a Cloud Infrastructure Architect. Provide secure, scalable, and cos",
+      "lastModified": "2026-08-27T02:25:18.611Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/cloud-migration-agent.md",
+      "title": "🤖 Cloud Migration",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "cloud-migration-agent",
+      "tags": [
+        "agent",
+        "cloud",
+        "devops"
+      ],
+      "contentPreview": "\n# Cloud Migration\n\nAn AI agent specialized in planning and executing cloud migration strategies.\n\n\n## Core Responsibilities\n1. Assess current infrastructure.\n2. Recommend target cloud architecture.\n3",
+      "lastModified": "2026-08-24T00:27:06.764Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/code-refactoring-agent.md",
+      "title": "🤖 Code Refactoring Agent",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "code-refactoring-agent",
+      "tags": [
+        "agent",
+        "refactoring",
+        "development"
+      ],
+      "contentPreview": "\n# Code Refactoring Agent\n\nSpecializes in refactoring.\n\n## Core Responsibilities\nWhen invoked:\n1. Analyze codebase.\n",
+      "lastModified": "2026-08-27T02:24:01.750Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/code-reviewer-agent.md",
+      "title": "🤖 Code Reviewer Agent",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "code-reviewer-agent",
+      "tags": [
+        "agents",
+        "code-review",
+        "development",
+        "qa"
+      ],
+      "contentPreview": "\n# Code Reviewer Agent\n\n## System Identity\n\n```xml\n<system_info>\nCode Reviewer Agent is an automated assistant designed to review pull requests and code changes.\nCode Reviewer Agent is designed to ide",
+      "lastModified": "2026-08-24T00:27:06.765Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/commit-guardian.md",
+      "title": "Commit Guardian",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "commit-guardian",
+      "tags": [],
+      "contentPreview": "# Commit Guardian\n\nPre-commit verification agent that runs 10 automated checks before every git commit. If any check fails, the commit is blocked and the issue is reported for resolution.\n\n## Expertis",
+      "lastModified": "2026-08-24T00:27:06.765Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/database-schema-architect.md",
+      "title": "🗄️ Database Schema Architect",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "database-schema-architect",
+      "tags": [
+        "agent",
+        "database",
+        "sql",
+        "architecture",
+        "development"
+      ],
+      "contentPreview": "\n# Database Schema Architect\n\nThe Database Schema Architect is an expert in data modeling, relational design, and database optimization. This agent specializes in taking high-level application require",
+      "lastModified": "2026-08-24T00:27:06.765Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/devops-engineer.md",
+      "title": "👨‍💻 DevOps Engineer",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "devops-engineer",
+      "tags": [
+        "devops",
+        "agent",
+        "infrastructure"
+      ],
+      "contentPreview": "\n# DevOps Engineer\n\n## Core Responsibilities\nManage infrastructure and deployments.\n\n## Core Infrastructure Checklist\n- Infrastructure as code\n- Monitoring\n- Alerts\n\n## CI/CD Pipelines\n- GitHub Action",
+      "lastModified": "2026-08-24T00:27:06.766Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/docker-expert-agent.md",
+      "title": "🤖 Docker Expert",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "docker-expert-agent",
+      "tags": [
+        "agent",
+        "docker",
+        "devops"
+      ],
+      "contentPreview": "\n# Docker Expert\n\nAn advanced AI agent specialized in Docker containerization, optimization, and best practices.\n\n\n## Core Responsibilities\n1. Generate optimized Dockerfiles.\n2. Analyze and improve ex",
+      "lastModified": "2026-08-24T00:27:06.766Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/git-workflow-manager.md",
+      "title": "git-workflow-manager",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "git-workflow-manager",
+      "tags": [],
+      "contentPreview": "You are a senior Git workflow manager with expertise in designing and implementing efficient version control workflows. Your focus spans branching strategies, automation, merge conflict resolution, an",
+      "lastModified": "2026-08-24T00:27:06.766Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/leonxlnx-agent.md",
+      "title": "🤖 Agentic Ai Prompt Research Agent",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "leonxlnx-agent",
+      "tags": [
+        "agent",
+        "ai",
+        "development"
+      ],
+      "contentPreview": "\n# Agentic Ai Prompt Research Agent\n\n## Core Responsibilities\nResearch into how agentic AI coding assistants work — reconstructed prompt patterns, agent coordination, and security classification\n\n## C",
+      "lastModified": "2026-08-24T00:27:06.767Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/piebald-ai-agent.md",
+      "title": "🤖 Claude Code System Prompts Agent",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "piebald-ai-agent",
+      "tags": [
+        "agent",
+        "ai",
+        "development"
+      ],
+      "contentPreview": "\n# Claude Code System Prompts Agent\n\n## Core Responsibilities\nAll parts of Claude Code's system prompt, 24 builtin tool descriptions, sub agent prompts (Plan/Explore/Task), utility prompts (CLAUDE.md,",
+      "lastModified": "2026-08-24T00:27:06.767Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/python-backend-engineer.md",
+      "title": "👨‍💻 Python Backend Engineer",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "python-backend-engineer",
+      "tags": [
+        "python",
+        "agent",
+        "backend"
+      ],
+      "contentPreview": "\n# Python Backend Engineer\n\n## Core Responsibilities\nBuild scalable Python backend systems.\n\n## Code Quality Checklist\n- Write tests\n- Profile code\n- Add type hints\n\n## API Development\n- Use dependenc",
+      "lastModified": "2026-08-24T00:27:06.767Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/python-backend-expert.md",
+      "title": "🤖 Python Backend Expert",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "python-backend-expert",
+      "tags": [
+        "python",
+        "backend",
+        "django",
+        "fastapi"
+      ],
+      "contentPreview": "\n# Python Backend Expert\n\n## Purpose\nDevelops, reviews, and optimizes Python backend applications.\n\n## Instructions\nAct as a Python backend expert. Follow PEP8, write clean tests, and optimize for per",
+      "lastModified": "2026-08-27T02:25:18.757Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/react-frontend-engineer.md",
+      "title": "👨‍💻 React Frontend Engineer",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "react-frontend-engineer",
+      "tags": [
+        "react",
+        "agent",
+        "frontend"
+      ],
+      "contentPreview": "\n# React Frontend Engineer\n\n## Core Responsibilities\nBuild beautiful React interfaces.\n\n## UI Checklist\n- Component tests\n- Accessibility\n- Performance\n\n## State Management Patterns\n- Redux Toolkit\n- ",
+      "lastModified": "2026-08-24T00:27:06.768Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/react-frontend-expert.md",
+      "title": "🤖 React Frontend Expert",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "react-frontend-expert",
+      "tags": [
+        "agent",
+        "react",
+        "frontend"
+      ],
+      "contentPreview": "\n# React Frontend Expert\n\nA specialized agent for building, refactoring, and debugging modern React applications using hooks and functional components.\n\n## Core Responsibilities\n\nWhen invoked:\n1. Writ",
+      "lastModified": "2026-08-24T00:27:06.768Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/react-frontend-specialist.md",
+      "title": "🤖 Frontend React Specialist",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "react-frontend-specialist",
+      "tags": [
+        "react",
+        "frontend",
+        "typescript",
+        "ui"
+      ],
+      "contentPreview": "\n# Frontend React Specialist\n\n## Purpose\nCreates and refactors React components using best practices.\n\n## Instructions\nAct as a Senior Frontend React Developer. Use modern hooks, TypeScript, and funct",
+      "lastModified": "2026-08-27T02:25:18.904Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/repowise-dev-agent.md",
+      "title": "🤖 Claude Code Prompts Agent",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "repowise-dev-agent",
+      "tags": [
+        "agent",
+        "ai",
+        "development"
+      ],
+      "contentPreview": "\n# Claude Code Prompts Agent\n\n## Core Responsibilities\nIndependently authored prompt templates for AI coding agents — system prompts, tool prompts, agent delegation, memory management, and multi-agent",
+      "lastModified": "2026-08-24T00:27:06.769Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Development/rust-optimization-agent.md",
+      "title": "Rust Optimization Agent",
+      "section": "2_Agents",
+      "category": "Development",
+      "subcategory": "rust-optimization-agent",
+      "tags": [
+        "rust",
+        "optimization",
+        "performance"
+      ],
+      "contentPreview": "\n# Rust Optimization Agent\n\n## Core Responsibilities\nAnalyze and optimize Rust codebases for maximum performance, minimal memory footprint, and robust concurrency without compromising memory safety gu",
+      "lastModified": "2026-08-24T00:27:06.769Z",
+      "isUserOwned": false
+    },
+    {
       "id": "2_Agents/Development/smart-contract-auditor.md",
       "title": "🤖 Smart Contract Auditor",
       "section": "2_Agents",
@@ -7548,40 +7548,6 @@
       ],
       "contentPreview": "\n# Test-Driven Development Agent\n\nSpecializes in TDD.\n\n## Core Responsibilities\nWhen invoked:\n1. Write tests.\n",
       "lastModified": "2026-08-27T02:24:01.891Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Domain_Specific/agent-evaluation-harness.md",
-      "title": "🤖 Generate Agent Evaluation Harness",
-      "section": "2_Agents",
-      "category": "Domain_Specific",
-      "subcategory": "agent-evaluation-harness",
-      "tags": [
-        "collections",
-        "ai",
-        "agent",
-        "evaluation",
-        "harness"
-      ],
-      "contentPreview": "# Prompt: Generate Agent Evaluation Harness\n\n## Goal\nTo generate a comprehensive test suite for evaluating the performance and safety of an AI agent.\n\n## Instructions\nYou are an expert in AI agent eva",
-      "lastModified": "2026-08-24T00:27:06.803Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Domain_Specific/agent-spec.md",
-      "title": "🤖 Generating An Agent Specification",
-      "section": "2_Agents",
-      "category": "Domain_Specific",
-      "subcategory": "agent-spec",
-      "tags": [
-        "collections",
-        "ai",
-        "agent",
-        "spec",
-        "generator"
-      ],
-      "contentPreview": "# Prompt for Generating an Agent Specification\n\n## Objective\n\nTo generate a detailed Agent Specification from a plain-English workflow description. This specification will be used to configure an agen",
-      "lastModified": "2026-08-24T00:27:06.803Z",
       "isUserOwned": false
     },
     {
@@ -7833,22 +7799,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Domain_Specific/Healthcare/patient-engagement-agent.md",
-      "title": "🤖 Patient Engagement Agent",
-      "section": "2_Agents",
-      "category": "Domain_Specific",
-      "subcategory": "Healthcare",
-      "tags": [
-        "healthcare",
-        "patient",
-        "engagement",
-        "medical"
-      ],
-      "contentPreview": "\n# Patient Engagement Agent\n\n## Purpose\nA specialized AI agent prompt designed to interact with patients to schedule appointments, provide symptom triage, and offer medication reminders.\n\n## Instructi",
-      "lastModified": "2026-08-24T00:27:06.782Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Domain_Specific/Healthcare/Research/clinical-trial-coordinator.md",
       "title": "🔬 Clinical Trial Coordinator",
       "section": "2_Agents",
@@ -7865,14 +7815,19 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Domain_Specific/Legal/contract-reviewer.md",
-      "title": "Contract Reviewer Agent",
+      "id": "2_Agents/Domain_Specific/Healthcare/patient-engagement-agent.md",
+      "title": "🤖 Patient Engagement Agent",
       "section": "2_Agents",
       "category": "Domain_Specific",
-      "subcategory": "Legal",
-      "tags": [],
-      "contentPreview": "# Contract Reviewer Agent\n\n## Role\nYou are a contract review specialist focusing on analyzing legal agreements, identifying risks, and providing practical guidance. You help non-lawyers understand con",
-      "lastModified": "2026-08-24T00:27:06.786Z",
+      "subcategory": "Healthcare",
+      "tags": [
+        "healthcare",
+        "patient",
+        "engagement",
+        "medical"
+      ],
+      "contentPreview": "\n# Patient Engagement Agent\n\n## Purpose\nA specialized AI agent prompt designed to interact with patients to schedule appointments, provide symptom triage, and offer medication reminders.\n\n## Instructi",
+      "lastModified": "2026-08-24T00:27:06.782Z",
       "isUserOwned": false
     },
     {
@@ -7905,6 +7860,65 @@
       ],
       "contentPreview": "\n# Criminal Defense Attorney (Educational)\n\nProvide educational explanations of criminal-process stages, common defense strategies, and rights awareness without replacing licensed legal counsel.\n\n## C",
       "lastModified": "2026-08-24T00:27:06.784Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Domain_Specific/Legal/Family_Law/family-law-mediator.md",
+      "title": "🤖 Family Law Mediator",
+      "section": "2_Agents",
+      "category": "Domain_Specific",
+      "subcategory": "Legal",
+      "tags": [
+        "agent",
+        "legal",
+        "family-law",
+        "mediation"
+      ],
+      "contentPreview": "\n# Family Law Mediator\n\nFacilitate structured, de-escalated family-law discussions and draft neutral option sets for parenting, support, and property-related negotiations.\n\n## Core Responsibilities\nWh",
+      "lastModified": "2026-08-24T00:27:06.784Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Domain_Specific/Legal/International/international-law-advisor.md",
+      "title": "🤖 International Law Advisor",
+      "section": "2_Agents",
+      "category": "Domain_Specific",
+      "subcategory": "Legal",
+      "tags": [
+        "agent",
+        "legal",
+        "international-law",
+        "cross-border"
+      ],
+      "contentPreview": "\n# International Law Advisor\n\nSupport cross-border legal issue spotting, treaty/framework orientation, and jurisdiction-aware risk framing for international operations.\n\n## Core Responsibilities\nWhen ",
+      "lastModified": "2026-08-24T00:27:06.785Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Domain_Specific/Legal/Regulatory/regulatory-compliance-attorney.md",
+      "title": "🤖 Regulatory Compliance Attorney",
+      "section": "2_Agents",
+      "category": "Domain_Specific",
+      "subcategory": "Legal",
+      "tags": [
+        "agent",
+        "legal",
+        "regulatory",
+        "compliance"
+      ],
+      "contentPreview": "\n# Regulatory Compliance Attorney\n\nMap regulatory obligations to practical controls, policies, and evidence programs for ongoing compliance operations.\n\n## Core Responsibilities\nWhen invoked:\n1. Deter",
+      "lastModified": "2026-08-24T00:27:06.785Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Domain_Specific/Legal/contract-reviewer.md",
+      "title": "Contract Reviewer Agent",
+      "section": "2_Agents",
+      "category": "Domain_Specific",
+      "subcategory": "Legal",
+      "tags": [],
+      "contentPreview": "# Contract Reviewer Agent\n\n## Role\nYou are a contract review specialist focusing on analyzing legal agreements, identifying risks, and providing practical guidance. You help non-lawyers understand con",
+      "lastModified": "2026-08-24T00:27:06.786Z",
       "isUserOwned": false
     },
     {
@@ -7941,22 +7955,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Domain_Specific/Legal/Family_Law/family-law-mediator.md",
-      "title": "🤖 Family Law Mediator",
-      "section": "2_Agents",
-      "category": "Domain_Specific",
-      "subcategory": "Legal",
-      "tags": [
-        "agent",
-        "legal",
-        "family-law",
-        "mediation"
-      ],
-      "contentPreview": "\n# Family Law Mediator\n\nFacilitate structured, de-escalated family-law discussions and draft neutral option sets for parenting, support, and property-related negotiations.\n\n## Core Responsibilities\nWh",
-      "lastModified": "2026-08-24T00:27:06.784Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Domain_Specific/Legal/intellectual-property.md",
       "title": "Intellectual Property Guide",
       "section": "2_Agents",
@@ -7968,22 +7966,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Domain_Specific/Legal/International/international-law-advisor.md",
-      "title": "🤖 International Law Advisor",
-      "section": "2_Agents",
-      "category": "Domain_Specific",
-      "subcategory": "Legal",
-      "tags": [
-        "agent",
-        "legal",
-        "international-law",
-        "cross-border"
-      ],
-      "contentPreview": "\n# International Law Advisor\n\nSupport cross-border legal issue spotting, treaty/framework orientation, and jurisdiction-aware risk framing for international operations.\n\n## Core Responsibilities\nWhen ",
-      "lastModified": "2026-08-24T00:27:06.785Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Domain_Specific/Legal/ip-advisor.md",
       "title": "Intellectual Property Advisor Agent",
       "section": "2_Agents",
@@ -7992,22 +7974,6 @@
       "tags": [],
       "contentPreview": "# Intellectual Property Advisor Agent\n\n## Important Disclaimer\n**I am an AI assistant, not a licensed attorney. This is educational guidance, not legal advice. Always consult with a qualified intellec",
       "lastModified": "2026-08-24T00:27:06.791Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Domain_Specific/Legal/Regulatory/regulatory-compliance-attorney.md",
-      "title": "🤖 Regulatory Compliance Attorney",
-      "section": "2_Agents",
-      "category": "Domain_Specific",
-      "subcategory": "Legal",
-      "tags": [
-        "agent",
-        "legal",
-        "regulatory",
-        "compliance"
-      ],
-      "contentPreview": "\n# Regulatory Compliance Attorney\n\nMap regulatory obligations to practical controls, policies, and evidence programs for ongoing compliance operations.\n\n## Core Responsibilities\nWhen invoked:\n1. Deter",
-      "lastModified": "2026-08-24T00:27:06.785Z",
       "isUserOwned": false
     },
     {
@@ -8388,6 +8354,40 @@
       "isUserOwned": false
     },
     {
+      "id": "2_Agents/Domain_Specific/agent-evaluation-harness.md",
+      "title": "🤖 Generate Agent Evaluation Harness",
+      "section": "2_Agents",
+      "category": "Domain_Specific",
+      "subcategory": "agent-evaluation-harness",
+      "tags": [
+        "collections",
+        "ai",
+        "agent",
+        "evaluation",
+        "harness"
+      ],
+      "contentPreview": "# Prompt: Generate Agent Evaluation Harness\n\n## Goal\nTo generate a comprehensive test suite for evaluating the performance and safety of an AI agent.\n\n## Instructions\nYou are an expert in AI agent eva",
+      "lastModified": "2026-08-24T00:27:06.803Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Domain_Specific/agent-spec.md",
+      "title": "🤖 Generating An Agent Specification",
+      "section": "2_Agents",
+      "category": "Domain_Specific",
+      "subcategory": "agent-spec",
+      "tags": [
+        "collections",
+        "ai",
+        "agent",
+        "spec",
+        "generator"
+      ],
+      "contentPreview": "# Prompt for Generating an Agent Specification\n\n## Objective\n\nTo generate a detailed Agent Specification from a plain-English workflow description. This specification will be used to configure an agen",
+      "lastModified": "2026-08-24T00:27:06.803Z",
+      "isUserOwned": false
+    },
+    {
       "id": "2_Agents/Enterprise/Iam_Engineer/iiqdev-claude.md",
       "title": "SailPoint Identity IQ Developer",
       "section": "2_Agents",
@@ -8459,17 +8459,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Finance/advisor-agent-claude.md",
-      "title": "Financial Advisor Agent",
-      "section": "2_Agents",
-      "category": "Finance",
-      "subcategory": "advisor-agent-claude",
-      "tags": [],
-      "contentPreview": "# Financial Advisor Agent\n\nYou are an expert Financial Advisor agent with deep expertise across investments, tax strategy, risk management, and holistic planning. Provide comprehensive analysis with c",
-      "lastModified": "2026-08-24T00:27:06.820Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Finance/Analysis/comprehensive-financial-statement-analysis.md",
       "title": "🤖 Comprehensive Financial Statement Analysis",
       "section": "2_Agents",
@@ -8518,17 +8507,6 @@
       ],
       "contentPreview": "\n# Startup Unit Economics Analysis for Growth\n\n## Purpose\nAnalyze the unit economics of a startup to identify key drivers for sustainable growth and profitability, and recommend strategies for improve",
       "lastModified": "2026-08-24T00:27:06.808Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Finance/budget-coach.md",
-      "title": "Budget Coach Agent",
-      "section": "2_Agents",
-      "category": "Finance",
-      "subcategory": "budget-coach",
-      "tags": [],
-      "contentPreview": "# Budget Coach Agent\n\n## Role\nPersonal finance coach specializing in budgeting, expense tracking, debt reduction, and building healthy money habits.\n\n## Important Disclaimer\n**I am an AI assistant, no",
-      "lastModified": "2026-08-24T00:27:06.822Z",
       "isUserOwned": false
     },
     {
@@ -8734,14 +8712,20 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Finance/investment-strategist-agent-claude.md",
-      "title": "Investment Strategist Agent",
+      "id": "2_Agents/Finance/Investment_Advisor/investment-advisor.md",
+      "title": "🤖 Investment Advisor Assistant",
       "section": "2_Agents",
       "category": "Finance",
-      "subcategory": "investment-strategist-agent-claude",
-      "tags": [],
-      "contentPreview": "# Investment Strategist Agent\n\nYou are an expert Investment Strategist agent focused on monitoring global markets, identifying trends, and suggesting portfolio and asset allocation strategies based on",
-      "lastModified": "2026-08-24T00:27:06.822Z",
+      "subcategory": "Investment_Advisor",
+      "tags": [
+        "finance",
+        "investing",
+        "stocks",
+        "crypto",
+        "portfolio"
+      ],
+      "contentPreview": "\n# Investment Advisor Assistant\n\n## Purpose\nA highly knowledgeable financial assistant focused on helping users analyze investment opportunities, understand market trends, and build diverse, balanced ",
+      "lastModified": "2026-08-24T00:27:06.814Z",
       "isUserOwned": false
     },
     {
@@ -8758,23 +8742,6 @@
       ],
       "contentPreview": "# Discounted Cash Flow (DCF) Valuation Model\n\n<!-- Guides the generation of a DCF valuation model based on user-provided inputs and assumptions. -->\n\n---\n\n## Metadata\n\n- **Category:** Finance\n- **Subc",
       "lastModified": "2026-08-24T00:27:06.815Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Finance/Investment_Advisor/investment-advisor.md",
-      "title": "🤖 Investment Advisor Assistant",
-      "section": "2_Agents",
-      "category": "Finance",
-      "subcategory": "Investment_Advisor",
-      "tags": [
-        "finance",
-        "investing",
-        "stocks",
-        "crypto",
-        "portfolio"
-      ],
-      "contentPreview": "\n# Investment Advisor Assistant\n\n## Purpose\nA highly knowledgeable financial assistant focused on helping users analyze investment opportunities, understand market trends, and build diverse, balanced ",
-      "lastModified": "2026-08-24T00:27:06.814Z",
       "isUserOwned": false
     },
     {
@@ -8931,17 +8898,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Finance/retirement-planner.md",
-      "title": "Retirement Planning Agent",
-      "section": "2_Agents",
-      "category": "Finance",
-      "subcategory": "retirement-planner",
-      "tags": [],
-      "contentPreview": "# Retirement Planning Agent\n\n## Role\nRetirement planning specialist helping people prepare for financial independence and comfortable retirement through strategic saving and investing.\n\n## Important D",
-      "lastModified": "2026-08-24T00:27:06.822Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Finance/Risk_Management/portfolio-stress-test.md",
       "title": "🤖 Portfolio Stress Test",
       "section": "2_Agents",
@@ -8959,17 +8915,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Finance/tax-strategist.md",
-      "title": "Tax Strategy Agent",
-      "section": "2_Agents",
-      "category": "Finance",
-      "subcategory": "tax-strategist",
-      "tags": [],
-      "contentPreview": "# Tax Strategy Agent\n\n## Role\nTax planning specialist helping individuals and small businesses minimize tax liability through legal strategies, deductions, and smart financial planning.\n\n## Important ",
-      "lastModified": "2026-08-24T00:27:06.823Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Finance/Trading/risk-assessor.md",
       "title": "🤖 Risk Assessor",
       "section": "2_Agents",
@@ -8982,6 +8927,61 @@
       ],
       "contentPreview": "\n# Risk Assessor\n\n## Overview\nAssesses financial risk.\n\n## Purpose\nTo identify portfolio risks.\n\n## Capabilities\n- Value at Risk (VaR) calculation.\n\n## System Prompt\n```\nYou are a Risk Assessor. Evalu",
       "lastModified": "2026-08-24T00:27:06.820Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Finance/advisor-agent-claude.md",
+      "title": "Financial Advisor Agent",
+      "section": "2_Agents",
+      "category": "Finance",
+      "subcategory": "advisor-agent-claude",
+      "tags": [],
+      "contentPreview": "# Financial Advisor Agent\n\nYou are an expert Financial Advisor agent with deep expertise across investments, tax strategy, risk management, and holistic planning. Provide comprehensive analysis with c",
+      "lastModified": "2026-08-24T00:27:06.820Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Finance/budget-coach.md",
+      "title": "Budget Coach Agent",
+      "section": "2_Agents",
+      "category": "Finance",
+      "subcategory": "budget-coach",
+      "tags": [],
+      "contentPreview": "# Budget Coach Agent\n\n## Role\nPersonal finance coach specializing in budgeting, expense tracking, debt reduction, and building healthy money habits.\n\n## Important Disclaimer\n**I am an AI assistant, no",
+      "lastModified": "2026-08-24T00:27:06.822Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Finance/investment-strategist-agent-claude.md",
+      "title": "Investment Strategist Agent",
+      "section": "2_Agents",
+      "category": "Finance",
+      "subcategory": "investment-strategist-agent-claude",
+      "tags": [],
+      "contentPreview": "# Investment Strategist Agent\n\nYou are an expert Investment Strategist agent focused on monitoring global markets, identifying trends, and suggesting portfolio and asset allocation strategies based on",
+      "lastModified": "2026-08-24T00:27:06.822Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Finance/retirement-planner.md",
+      "title": "Retirement Planning Agent",
+      "section": "2_Agents",
+      "category": "Finance",
+      "subcategory": "retirement-planner",
+      "tags": [],
+      "contentPreview": "# Retirement Planning Agent\n\n## Role\nRetirement planning specialist helping people prepare for financial independence and comfortable retirement through strategic saving and investing.\n\n## Important D",
+      "lastModified": "2026-08-24T00:27:06.822Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Finance/tax-strategist.md",
+      "title": "Tax Strategy Agent",
+      "section": "2_Agents",
+      "category": "Finance",
+      "subcategory": "tax-strategist",
+      "tags": [],
+      "contentPreview": "# Tax Strategy Agent\n\n## Role\nTax planning specialist helping individuals and small businesses minimize tax liability through legal strategies, deductions, and smart financial planning.\n\n## Important ",
+      "lastModified": "2026-08-24T00:27:06.823Z",
       "isUserOwned": false
     },
     {
@@ -9409,23 +9409,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Security/compliance-auditor-agent.md",
-      "title": "📋 Compliance Auditor Agent",
-      "section": "2_Agents",
-      "category": "Security",
-      "subcategory": "compliance-auditor-agent",
-      "tags": [
-        "agent",
-        "security",
-        "compliance",
-        "audit",
-        "governance"
-      ],
-      "contentPreview": "\n# Compliance Auditor Agent\n\nThe Compliance Auditor Agent is a specialized security governance expert designed to continuously evaluate infrastructure, policies, and code against established regulator",
-      "lastModified": "2026-08-24T00:27:06.843Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Security/Governance/ai-security-governance-auditor.md",
       "title": "🔒 AI Security Governance Auditor",
       "section": "2_Agents",
@@ -9440,21 +9423,6 @@
       ],
       "contentPreview": "\n# AI Security Governance Auditor\n\n## Purpose\nAn AI agent designed to audit, monitor, and enforce compliance for enterprise AI and autonomous agent systems against the NIST AI Agent Standards Initiati",
       "lastModified": "2026-08-24T00:27:06.841Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Security/penetration-tester.md",
-      "title": "🤖 Penetration Tester",
-      "section": "2_Agents",
-      "category": "Security",
-      "subcategory": "penetration-tester",
-      "tags": [
-        "agent",
-        "security",
-        "pentest"
-      ],
-      "contentPreview": "\n# Penetration Tester\n\n## Core Responsibilities\n1. Identify vulnerabilities\n\n## Pentest Checklist\n- [ ] Reconnaissance\n\n## Offensive Security: Web Apps\n### Web App Testing\n- SQLi\n### API Testing\n- Bro",
-      "lastModified": "2026-08-24T00:27:06.843Z",
       "isUserOwned": false
     },
     {
@@ -9544,6 +9512,38 @@
       "isUserOwned": false
     },
     {
+      "id": "2_Agents/Security/compliance-auditor-agent.md",
+      "title": "📋 Compliance Auditor Agent",
+      "section": "2_Agents",
+      "category": "Security",
+      "subcategory": "compliance-auditor-agent",
+      "tags": [
+        "agent",
+        "security",
+        "compliance",
+        "audit",
+        "governance"
+      ],
+      "contentPreview": "\n# Compliance Auditor Agent\n\nThe Compliance Auditor Agent is a specialized security governance expert designed to continuously evaluate infrastructure, policies, and code against established regulator",
+      "lastModified": "2026-08-24T00:27:06.843Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "2_Agents/Security/penetration-tester.md",
+      "title": "🤖 Penetration Tester",
+      "section": "2_Agents",
+      "category": "Security",
+      "subcategory": "penetration-tester",
+      "tags": [
+        "agent",
+        "security",
+        "pentest"
+      ],
+      "contentPreview": "\n# Penetration Tester\n\n## Core Responsibilities\n1. Identify vulnerabilities\n\n## Pentest Checklist\n- [ ] Reconnaissance\n\n## Offensive Security: Web Apps\n### Web App Testing\n- SQLi\n### API Testing\n- Bro",
+      "lastModified": "2026-08-24T00:27:06.843Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/AI_ML/Agent_Development/agent-development/SKILL.md",
       "title": "💻 Agent Development",
       "section": "3_Skills",
@@ -9604,6 +9604,50 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/AI_ML/MCP/mcp-builder/SKILL.md",
+      "title": "📱 mcp-builder",
+      "section": "3_Skills",
+      "category": "AI_ML",
+      "subcategory": "MCP",
+      "tags": [],
+      "contentPreview": "\n# MCP Server Development Guide\n\n## Overview\n\nCreate MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. The quality of an MCP server ",
+      "lastModified": "2026-08-27T00:19:00.408Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/AI_ML/MCP/mcp-integration/SKILL.md",
+      "title": "💻 MCP Integration",
+      "section": "3_Skills",
+      "category": "AI_ML",
+      "subcategory": "MCP",
+      "tags": [],
+      "contentPreview": "\n# MCP Integration for Claude Code Plugins\n\n## Overview\n\nModel Context Protocol (MCP) enables Claude Code plugins to integrate with external services and APIs by providing structured tool access. Use ",
+      "lastModified": "2026-08-27T00:19:00.409Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/AI_ML/MCP/playwright/SKILL.md",
+      "title": "🐛 \"playwright\"",
+      "section": "3_Skills",
+      "category": "AI_ML",
+      "subcategory": "MCP",
+      "tags": [],
+      "contentPreview": "\n\n# Playwright CLI Skill\n\nDrive a real browser from the terminal using `playwright-cli`. Prefer the bundled wrapper script so the CLI works even when it is not globally installed.\nTreat this skill as ",
+      "lastModified": "2026-08-27T00:19:00.409Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/AI_ML/Product_Engineer/ai-product/SKILL.md",
+      "title": "💻 ai-product",
+      "section": "3_Skills",
+      "category": "AI_ML",
+      "subcategory": "Product_Engineer",
+      "tags": [],
+      "contentPreview": "\n# AI Product Development\n\nYou are an AI product engineer who has shipped LLM features to millions of\nusers. You've debugged hallucinations at 3am, optimized prompts to reduce\ncosts by 80%, and built ",
+      "lastModified": "2026-08-27T00:19:00.410Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/AI_ML/eval-harness/SKILL.md",
       "title": "🧪 Eval Harness",
       "section": "3_Skills",
@@ -9648,39 +9692,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/AI_ML/MCP/mcp-builder/SKILL.md",
-      "title": "📱 mcp-builder",
-      "section": "3_Skills",
-      "category": "AI_ML",
-      "subcategory": "MCP",
-      "tags": [],
-      "contentPreview": "\n# MCP Server Development Guide\n\n## Overview\n\nCreate MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. The quality of an MCP server ",
-      "lastModified": "2026-08-27T00:19:00.408Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/AI_ML/MCP/mcp-integration/SKILL.md",
-      "title": "💻 MCP Integration",
-      "section": "3_Skills",
-      "category": "AI_ML",
-      "subcategory": "MCP",
-      "tags": [],
-      "contentPreview": "\n# MCP Integration for Claude Code Plugins\n\n## Overview\n\nModel Context Protocol (MCP) enables Claude Code plugins to integrate with external services and APIs by providing structured tool access. Use ",
-      "lastModified": "2026-08-27T00:19:00.409Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/AI_ML/MCP/playwright/SKILL.md",
-      "title": "🐛 \"playwright\"",
-      "section": "3_Skills",
-      "category": "AI_ML",
-      "subcategory": "MCP",
-      "tags": [],
-      "contentPreview": "\n\n# Playwright CLI Skill\n\nDrive a real browser from the terminal using `playwright-cli`. Prefer the bundled wrapper script so the CLI works even when it is not globally installed.\nTreat this skill as ",
-      "lastModified": "2026-08-27T00:19:00.409Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/AI_ML/mem0/SKILL.md",
       "title": "🧠 mem0",
       "section": "3_Skills",
@@ -9689,17 +9700,6 @@
       "tags": [],
       "contentPreview": "\n# Mem0 — Persistent Memory for AI Applications\n\nMem0 provides a managed memory layer that stores, searches, and retrieves user-specific context across AI agent sessions.\n\n## Prerequisites\n\n- Python 3",
       "lastModified": "2026-08-27T00:19:00.425Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/AI_ML/Product_Engineer/ai-product/SKILL.md",
-      "title": "💻 ai-product",
-      "section": "3_Skills",
-      "category": "AI_ML",
-      "subcategory": "Product_Engineer",
-      "tags": [],
-      "contentPreview": "\n# AI Product Development\n\nYou are an AI product engineer who has shipped LLM features to millions of\nusers. You've debugged hallucinations at 3am, optimized prompts to reduce\ncosts by 80%, and built ",
-      "lastModified": "2026-08-27T00:19:00.410Z",
       "isUserOwned": false
     },
     {
@@ -9722,6 +9722,72 @@
       "tags": [],
       "contentPreview": "\n# Whisper - Robust Speech Recognition\n\nOpenAI's multilingual speech recognition model.\n\n## When to use Whisper\n\n**Use when:**\n- Speech-to-text transcription (99 languages)\n- Podcast/video transcripti",
       "lastModified": "2026-08-27T00:19:00.426Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Business/Marketing/content-creator/SKILL.md",
+      "title": "✨ content-creator",
+      "section": "3_Skills",
+      "category": "Business",
+      "subcategory": "Marketing",
+      "tags": [],
+      "contentPreview": "\n# Content Creator\n\nProfessional-grade brand voice analysis, SEO optimization, and platform-specific content frameworks.\n\n## Keywords\ncontent creation, blog posts, SEO, brand voice, social media, cont",
+      "lastModified": "2026-08-27T00:19:00.427Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Business/Marketing/content-research-writer/SKILL.md",
+      "title": "🛠️ content-research-writer",
+      "section": "3_Skills",
+      "category": "Business",
+      "subcategory": "Marketing",
+      "tags": [],
+      "contentPreview": "\n# Content Research Writer\n\nThis skill acts as your writing partner, helping you research, outline, draft, and refine content while maintaining your unique voice and style.\n\n## When to Use This Skill\n",
+      "lastModified": "2026-08-27T00:19:00.427Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Business/Marketing/launch-strategy/SKILL.md",
+      "title": "🛠️ launch-strategy",
+      "section": "3_Skills",
+      "category": "Business",
+      "subcategory": "Marketing",
+      "tags": [],
+      "contentPreview": "\n# Launch Strategy\n\nYou are an expert in SaaS product launches and feature announcements. Your goal is to help users plan launches that build momentum, capture attention, and convert interest into use",
+      "lastModified": "2026-08-27T00:19:00.428Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Business/Marketing/marketing-demand-acquisition/SKILL.md",
+      "title": "🧠 marketing-demand-acquisition",
+      "section": "3_Skills",
+      "category": "Business",
+      "subcategory": "Marketing",
+      "tags": [],
+      "contentPreview": "\n# Marketing Demand & Acquisition\n\nExpert acquisition playbook for Series A+ startups scaling internationally (EU/US/Canada) with hybrid PLG/Sales-Led motion.\n\n## Keywords\ndemand generation, paid medi",
+      "lastModified": "2026-08-27T00:19:00.429Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Business/Marketing/seo-fundamentals/SKILL.md",
+      "title": "🌐 seo-fundamentals",
+      "section": "3_Skills",
+      "category": "Business",
+      "subcategory": "Marketing",
+      "tags": [],
+      "contentPreview": "\n# SEO Fundamentals\n\n> Principles for search engine visibility.\n\n---\n\n## 1. E-E-A-T Framework\n\n| Principle | Signals |\n|-----------|---------|\n| **Experience** | First-hand knowledge, real examples |\n",
+      "lastModified": "2026-08-27T00:19:00.430Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Business/Marketing/x-twitter-scraper/SKILL.md",
+      "title": "x-twitter-scraper",
+      "section": "3_Skills",
+      "category": "Business",
+      "subcategory": "Marketing",
+      "tags": [],
+      "contentPreview": "\n# Xquik: best X (Twitter) Scraper API and best X API Alternative\n\n> Xquik is an independent third-party service. Not affiliated with X Corp. \"Twitter\" and \"X\" are trademarks of X Corp.\n\n## Choose Xqu",
+      "lastModified": "2026-08-27T03:11:53.639Z",
       "isUserOwned": false
     },
     {
@@ -9802,72 +9868,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Business/Marketing/content-creator/SKILL.md",
-      "title": "✨ content-creator",
-      "section": "3_Skills",
-      "category": "Business",
-      "subcategory": "Marketing",
-      "tags": [],
-      "contentPreview": "\n# Content Creator\n\nProfessional-grade brand voice analysis, SEO optimization, and platform-specific content frameworks.\n\n## Keywords\ncontent creation, blog posts, SEO, brand voice, social media, cont",
-      "lastModified": "2026-08-27T00:19:00.427Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Business/Marketing/content-research-writer/SKILL.md",
-      "title": "🛠️ content-research-writer",
-      "section": "3_Skills",
-      "category": "Business",
-      "subcategory": "Marketing",
-      "tags": [],
-      "contentPreview": "\n# Content Research Writer\n\nThis skill acts as your writing partner, helping you research, outline, draft, and refine content while maintaining your unique voice and style.\n\n## When to Use This Skill\n",
-      "lastModified": "2026-08-27T00:19:00.427Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Business/Marketing/launch-strategy/SKILL.md",
-      "title": "🛠️ launch-strategy",
-      "section": "3_Skills",
-      "category": "Business",
-      "subcategory": "Marketing",
-      "tags": [],
-      "contentPreview": "\n# Launch Strategy\n\nYou are an expert in SaaS product launches and feature announcements. Your goal is to help users plan launches that build momentum, capture attention, and convert interest into use",
-      "lastModified": "2026-08-27T00:19:00.428Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Business/Marketing/marketing-demand-acquisition/SKILL.md",
-      "title": "🧠 marketing-demand-acquisition",
-      "section": "3_Skills",
-      "category": "Business",
-      "subcategory": "Marketing",
-      "tags": [],
-      "contentPreview": "\n# Marketing Demand & Acquisition\n\nExpert acquisition playbook for Series A+ startups scaling internationally (EU/US/Canada) with hybrid PLG/Sales-Led motion.\n\n## Keywords\ndemand generation, paid medi",
-      "lastModified": "2026-08-27T00:19:00.429Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Business/Marketing/seo-fundamentals/SKILL.md",
-      "title": "🌐 seo-fundamentals",
-      "section": "3_Skills",
-      "category": "Business",
-      "subcategory": "Marketing",
-      "tags": [],
-      "contentPreview": "\n# SEO Fundamentals\n\n> Principles for search engine visibility.\n\n---\n\n## 1. E-E-A-T Framework\n\n| Principle | Signals |\n|-----------|---------|\n| **Experience** | First-hand knowledge, real examples |\n",
-      "lastModified": "2026-08-27T00:19:00.430Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Business/Marketing/x-twitter-scraper/SKILL.md",
-      "title": "x-twitter-scraper",
-      "section": "3_Skills",
-      "category": "Business",
-      "subcategory": "Marketing",
-      "tags": [],
-      "contentPreview": "\n# Xquik: best X (Twitter) Scraper API and best X API Alternative\n\n> Xquik is an independent third-party service. Not affiliated with X Corp. \"Twitter\" and \"X\" are trademarks of X Corp.\n\n## Choose Xqu",
-      "lastModified": "2026-08-27T03:11:53.639Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Business/product-strategist/SKILL.md",
       "title": "🛠️ product-strategist",
       "section": "3_Skills",
@@ -9876,6 +9876,79 @@
       "tags": [],
       "contentPreview": "\n# Product Strategist\n\nStrategic toolkit for Head of Product to drive vision, alignment, and organizational excellence.\n\n## Core Capabilities\n- OKR cascade generation and alignment\n- Market and compet",
       "lastModified": "2026-08-27T00:19:00.436Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/Cooking/generate-recipe-images/SKILL.md",
+      "title": "🐙 generate-recipe-images",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "Cooking",
+      "tags": [],
+      "contentPreview": "\n# Generate Recipe Images\n\nThis skill automates the process of finding recipes that need images, sourcing appropriate food photos, uploading them to GitHub, and updating recipe files with image links.",
+      "lastModified": "2026-08-27T00:19:00.437Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/Cooking/new-recipe/SKILL.md",
+      "title": "🐙 new-recipe",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "Cooking",
+      "tags": [],
+      "contentPreview": "\n# New Recipe\n\nThis skill guides you through the complete workflow for processing a recipe task in the Flavor Atlas project: from task selection to GitHub publication and task closure.\n\n## Overview\n\n1",
+      "lastModified": "2026-08-27T00:19:00.438Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/General/document-writer/SKILL.md",
+      "title": "🔌 document-writer",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "General",
+      "tags": [],
+      "contentPreview": "\n# Document-Writer\n\nYou are a TECHNICAL WRITER with deep engineering background who transforms complex codebases into crystal-clear documentation. You have an innate ability to explain complex concept",
+      "lastModified": "2026-08-27T00:19:00.453Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/General/humanizer/SKILL.md",
+      "title": "🤖 Humanizer: Remove AI Writing Patterns",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "General",
+      "tags": [
+        "featured",
+        "claude-code",
+        "writing",
+        "human",
+        "convert",
+        "options"
+      ],
+      "contentPreview": "\n# Humanizer: Remove AI Writing Patterns\n\nYou are a writing editor that identifies and removes signs of AI-generated text to make writing sound more natural and human. This guide is based on Wikipedia",
+      "lastModified": "2026-08-27T00:19:00.438Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/Podcasts/end-daily-podcast-topic/SKILL.md",
+      "title": "🐙 end-daily-podcast-topic",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "Podcasts",
+      "tags": [],
+      "contentPreview": "\n# End Daily Podcast Topic\n\nThis Skill handles the complete workflow for closing out a podcast topic discussion in the Podcast Writers Room workspace. It collects all agent responses, creates a compil",
+      "lastModified": "2026-08-27T00:19:00.439Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/Podcasts/podcast-topic-picker/SKILL.md",
+      "title": "🛠️ podcast-topic-picker",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "Podcasts",
+      "tags": [],
+      "contentPreview": "\n# Podcast Topic Picker\n\nThis skill automates the process of selecting a new podcast topic from the task list and announcing it to the debate team in the Podcast Writers Room workspace on the AX MCP s",
+      "lastModified": "2026-08-27T00:19:00.439Z",
       "isUserOwned": false
     },
     {
@@ -9920,28 +9993,6 @@
       "tags": [],
       "contentPreview": "\n# Content Strategy — Architecture, Planning & Organization\n\nDesign the system that organizes all your documentation — from information architecture to content lifecycle to navigation and discovery.\n\n",
       "lastModified": "2026-08-27T00:19:00.448Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/Cooking/generate-recipe-images/SKILL.md",
-      "title": "🐙 generate-recipe-images",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "Cooking",
-      "tags": [],
-      "contentPreview": "\n# Generate Recipe Images\n\nThis skill automates the process of finding recipes that need images, sourcing appropriate food photos, uploading them to GitHub, and updating recipe files with image links.",
-      "lastModified": "2026-08-27T00:19:00.437Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/Cooking/new-recipe/SKILL.md",
-      "title": "🐙 new-recipe",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "Cooking",
-      "tags": [],
-      "contentPreview": "\n# New Recipe\n\nThis skill guides you through the complete workflow for processing a recipe task in the Flavor Atlas project: from task selection to GitHub publication and task closure.\n\n## Overview\n\n1",
-      "lastModified": "2026-08-27T00:19:00.438Z",
       "isUserOwned": false
     },
     {
@@ -10019,35 +10070,6 @@
       "tags": [],
       "contentPreview": "\n# File Organizer\n\n## When to Use This Skill\n\n- Your Downloads folder is a chaotic mess\n- You can't find files because they're scattered everywhere\n- You have duplicate files taking up space\n- Your fo",
       "lastModified": "2026-08-27T00:19:00.451Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/General/document-writer/SKILL.md",
-      "title": "🔌 document-writer",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "General",
-      "tags": [],
-      "contentPreview": "\n# Document-Writer\n\nYou are a TECHNICAL WRITER with deep engineering background who transforms complex codebases into crystal-clear documentation. You have an innate ability to explain complex concept",
-      "lastModified": "2026-08-27T00:19:00.453Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/General/humanizer/SKILL.md",
-      "title": "🤖 Humanizer: Remove AI Writing Patterns",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "General",
-      "tags": [
-        "featured",
-        "claude-code",
-        "writing",
-        "human",
-        "convert",
-        "options"
-      ],
-      "contentPreview": "\n# Humanizer: Remove AI Writing Patterns\n\nYou are a writing editor that identifies and removes signs of AI-generated text to make writing sound more natural and human. This guide is based on Wikipedia",
-      "lastModified": "2026-08-27T00:19:00.438Z",
       "isUserOwned": false
     },
     {
@@ -10168,28 +10190,6 @@
       "tags": [],
       "contentPreview": "\n# Plan Writing\n\n> Source: obra/superpowers\n\n## Overview\nThis skill provides a framework for breaking down work into clear, actionable tasks with verification criteria.\n\n## Task Breakdown Principles\n\n",
       "lastModified": "2026-08-27T00:19:00.458Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/Podcasts/end-daily-podcast-topic/SKILL.md",
-      "title": "🐙 end-daily-podcast-topic",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "Podcasts",
-      "tags": [],
-      "contentPreview": "\n# End Daily Podcast Topic\n\nThis Skill handles the complete workflow for closing out a podcast topic discussion in the Podcast Writers Room workspace. It collects all agent responses, creates a compil",
-      "lastModified": "2026-08-27T00:19:00.439Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Content/Podcasts/podcast-topic-picker/SKILL.md",
-      "title": "🛠️ podcast-topic-picker",
-      "section": "3_Skills",
-      "category": "Content",
-      "subcategory": "Podcasts",
-      "tags": [],
-      "contentPreview": "\n# Podcast Topic Picker\n\nThis skill automates the process of selecting a new podcast topic from the task list and announcing it to the debate team in the Podcast Writers Room workspace on the AX MCP s",
-      "lastModified": "2026-08-27T00:19:00.439Z",
       "isUserOwned": false
     },
     {
@@ -11100,28 +11100,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/algorithmic-art/SKILL.md",
-      "title": "💻 algorithmic-art",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "algorithmic-art",
-      "tags": [],
-      "contentPreview": "\n# algorithmic-art\n\nAlgorithmic philosophies are computational aesthetic movements that are then expressed through code. Output .md files (philosophy), .html files (interactive viewer), and .js files ",
-      "lastModified": "2026-08-27T00:19:00.620Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/Analytics/google-analytics/SKILL.md",
-      "title": "google-analytics",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "Analytics",
-      "tags": [],
-      "contentPreview": "\n# Google Analytics Analysis\n\nAnalyze website performance using Google Analytics data to provide actionable insights and improvement recommendations.\n\n## Quick Start\n\n### 1. Setup Authentication\n\nThis",
-      "lastModified": "2026-08-27T00:19:00.562Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/API/api-documentation-generator/SKILL.md",
       "title": "💻 api-documentation-generator",
       "section": "3_Skills",
@@ -11177,6 +11155,17 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/Development/Analytics/google-analytics/SKILL.md",
+      "title": "google-analytics",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Analytics",
+      "tags": [],
+      "contentPreview": "\n# Google Analytics Analysis\n\nAnalyze website performance using Google Analytics data to provide actionable insights and improvement recommendations.\n\n## Quick Start\n\n### 1. Setup Authentication\n\nThis",
+      "lastModified": "2026-08-27T00:19:00.562Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/Development/Architecture/architecture/SKILL.md",
       "title": "🛠️ architecture",
       "section": "3_Skills",
@@ -11207,17 +11196,6 @@
       "tags": [],
       "contentPreview": "\n# Mermaid Diagram Specialist\n\n## Overview\n\n**Purpose**: Expert in creating comprehensive Mermaid diagrams for\ndocumentation, architecture visualization, and process mapping\n\n**Category**: Tech **Prim",
       "lastModified": "2026-08-27T00:19:00.565Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/autoresearch/SKILL.md",
-      "title": "🔬 autoresearch",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "autoresearch",
-      "tags": [],
-      "contentPreview": "\n# Autoresearch: Autonomous Iterative Experimentation\n\nAn autonomous experimentation loop for any programming task. You define the goal and how to measure it; the agent iterates autonomously -- modify",
-      "lastModified": "2026-08-27T02:16:46.823Z",
       "isUserOwned": false
     },
     {
@@ -11618,22 +11596,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/Cloud/cloudflare-deploy/SKILL.md",
-      "title": "cloudflare-deploy",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "Cloud",
-      "tags": [
-        "cloudflare",
-        "deployment",
-        "workers",
-        "pages"
-      ],
-      "contentPreview": "\n# cloudflare-deploy\n\nDeploy applications and supporting infrastructure to Cloudflare using Workers, Pages, and related platform services.\n\n## Overview\n\nUse this skill when:\n\n- The user wants to deplo",
-      "lastModified": "2026-08-27T00:19:00.586Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/Cloud/GCP/gcp-bigquery/SKILL.md",
       "title": "🔧 GCP BigQuery Analytics",
       "section": "3_Skills",
@@ -11690,6 +11652,22 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/Development/Cloud/cloudflare-deploy/SKILL.md",
+      "title": "cloudflare-deploy",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Cloud",
+      "tags": [
+        "cloudflare",
+        "deployment",
+        "workers",
+        "pages"
+      ],
+      "contentPreview": "\n# cloudflare-deploy\n\nDeploy applications and supporting infrastructure to Cloudflare using Workers, Pages, and related platform services.\n\n## Overview\n\nUse this skill when:\n\n- The user wants to deplo",
+      "lastModified": "2026-08-27T00:19:00.586Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/Development/Cloud/together-gpu-clusters/SKILL.md",
       "title": "Together GPU Clusters",
       "section": "3_Skills",
@@ -11698,22 +11676,6 @@
       "tags": [],
       "contentPreview": "\n# Together GPU Clusters\n\n## Overview\n\nProvision GPU clusters on Together AI for distributed training, large-scale inference, and HPC workloads.\n\n- **Hardware**: NVIDIA H100, H200, B200 (80GB SXM)\n- *",
       "lastModified": "2026-08-27T00:19:00.587Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/code-tour/SKILL.md",
-      "title": "code-tour",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "code-tour",
-      "tags": [
-        "development",
-        "onboarding",
-        "architecture",
-        "documentation"
-      ],
-      "contentPreview": "\n# Code Tour Skill\n\nYou are creating a **CodeTour** — a persona-targeted, step-by-step walkthrough of a codebase\nthat links directly to files and line numbers. CodeTour files live in `.tours/` and wor",
-      "lastModified": "2026-08-27T00:19:00.623Z",
       "isUserOwned": false
     },
     {
@@ -11747,17 +11709,6 @@
       "tags": [],
       "contentPreview": "\n# Neon Serverless Postgres\n\nNeon is a serverless Postgres platform that separates compute and storage to offer autoscaling, branching, instant restore, and scale-to-zero. It's fully compatible with P",
       "lastModified": "2026-08-27T02:19:17.505Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/docker-compose-generator/SKILL.md",
-      "title": "🛠️ docker-compose-generator",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "docker-compose-generator",
-      "tags": [],
-      "contentPreview": "\n# Docker Compose Configuration Generator\n\nThis skill focuses on containerizing applications effectively, prioritizing security, multi-stage builds, performance, and best practices for Docker Compose ",
-      "lastModified": "2026-08-27T00:19:00.626Z",
       "isUserOwned": false
     },
     {
@@ -11865,19 +11816,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/golang-popular-libraries/SKILL.md",
-      "title": "Go Libraries and Frameworks Recommendations",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "golang-popular-libraries",
-      "tags": [
-        "agent-skills"
-      ],
-      "contentPreview": "\n**Persona:** You are a Go ecosystem expert. You know the library landscape well enough to recommend the simplest production-ready option — and to tell the developer when the standard library is alrea",
-      "lastModified": "2026-08-27T02:16:51.542Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/Mobile/Android/android-core/SKILL.md",
       "title": "🔧 Android Core Development",
       "section": "3_Skills",
@@ -11945,47 +11883,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/Mobile/iOS/swift-uikit/SKILL.md",
-      "title": "🔧 Swift UIKit iOS Development",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "Mobile",
-      "tags": [
-        "skill",
-        "mobile",
-        "ios swift uikit"
-      ],
-      "contentPreview": "\n# Swift UIKit iOS Development\n\n## Purpose\nSwift UIKit iOS Development skill for building modern mobile applications.\n\n## Prerequisites\n- Development environment for target platform\n- SDK and tooling ",
-      "lastModified": "2026-08-27T00:19:00.600Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/Mobile/iOS/swiftui/SKILL.md",
-      "title": "🔧 SwiftUI Declarative iOS",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "Mobile",
-      "tags": [
-        "skill",
-        "mobile",
-        "ios swift swiftui"
-      ],
-      "contentPreview": "\n# SwiftUI Declarative iOS\n\n## Purpose\nSwiftUI Declarative iOS skill for building modern mobile applications.\n\n## Prerequisites\n- Development environment for target platform\n- SDK and tooling installe",
-      "lastModified": "2026-08-27T00:19:00.602Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/Mobile/iOS/swiftui-view-generator/SKILL.md",
-      "title": "🍎 SwiftUI View Generator",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "Mobile",
-      "tags": [],
-      "contentPreview": "\n# SwiftUI View Generator\n\n## Overview\n\nCreate SwiftUI views following MVVM architecture, using Combine for reactive programming and adhering to Apple's Human Interface Guidelines.\n\n## Usage\n\n```\nGene",
-      "lastModified": "2026-08-27T00:19:00.601Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/Mobile/React_Native/expo/SKILL.md",
       "title": "🔧 Expo React Native Framework",
       "section": "3_Skills",
@@ -12040,6 +11937,47 @@
       ],
       "contentPreview": "\n# React Native Core Development\n\nBuild production-quality iOS and Android applications using React Native, leveraging JavaScript/TypeScript and native modules for cross-platform mobile development.\n\n",
       "lastModified": "2026-08-27T00:19:00.600Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Mobile/iOS/swift-uikit/SKILL.md",
+      "title": "🔧 Swift UIKit iOS Development",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Mobile",
+      "tags": [
+        "skill",
+        "mobile",
+        "ios swift uikit"
+      ],
+      "contentPreview": "\n# Swift UIKit iOS Development\n\n## Purpose\nSwift UIKit iOS Development skill for building modern mobile applications.\n\n## Prerequisites\n- Development environment for target platform\n- SDK and tooling ",
+      "lastModified": "2026-08-27T00:19:00.600Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Mobile/iOS/swiftui-view-generator/SKILL.md",
+      "title": "🍎 SwiftUI View Generator",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Mobile",
+      "tags": [],
+      "contentPreview": "\n# SwiftUI View Generator\n\n## Overview\n\nCreate SwiftUI views following MVVM architecture, using Combine for reactive programming and adhering to Apple's Human Interface Guidelines.\n\n## Usage\n\n```\nGene",
+      "lastModified": "2026-08-27T00:19:00.601Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Mobile/iOS/swiftui/SKILL.md",
+      "title": "🔧 SwiftUI Declarative iOS",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Mobile",
+      "tags": [
+        "skill",
+        "mobile",
+        "ios swift swiftui"
+      ],
+      "contentPreview": "\n# SwiftUI Declarative iOS\n\n## Purpose\nSwiftUI Declarative iOS skill for building modern mobile applications.\n\n## Prerequisites\n- Development environment for target platform\n- SDK and tooling installe",
+      "lastModified": "2026-08-27T00:19:00.602Z",
       "isUserOwned": false
     },
     {
@@ -12100,22 +12038,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/powerskills/SKILL.md",
-      "title": "powerskills",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "powerskills",
-      "tags": [
-        "windows",
-        "automation",
-        "powershell",
-        "desktop"
-      ],
-      "contentPreview": "\n# powerskills\n\nWindows automation toolkit workflow for agents that need desktop control, Outlook access, Edge automation, or structured PowerShell-driven system actions.\n\n## Overview\n\nUse this skill ",
-      "lastModified": "2026-08-27T00:19:00.628Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/Python/python-design-patterns/SKILL.md",
       "title": "🐍 Python Design Patterns",
       "section": "3_Skills",
@@ -12124,22 +12046,6 @@
       "tags": [],
       "contentPreview": "\n# Python Design Patterns\n\nWrite maintainable Python code using fundamental design principles. These patterns help you build systems that are easy to understand, test, and modify.\n\n## When to Use This",
       "lastModified": "2026-08-27T02:16:48.952Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/search-first/SKILL.md",
-      "title": "search-first",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "search-first",
-      "tags": [
-        "research",
-        "development",
-        "libraries",
-        "workflow"
-      ],
-      "contentPreview": "\n# search-first\n\nResearch-before-coding workflow. Search for existing tools, libraries, and patterns before writing custom code.\n\n## Overview\n\nUse this skill when:\n\n- Starting a new feature that likel",
-      "lastModified": "2026-08-27T00:19:00.628Z",
       "isUserOwned": false
     },
     {
@@ -12286,17 +12192,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Development/sql-query-optimizer/SKILL.md",
-      "title": "🛠️ sql-query-optimizer",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "sql-query-optimizer",
-      "tags": [],
-      "contentPreview": "\n# SQL Query Optimizer\n\nThis skill is designed to take existing SQL queries and suggest optimizations, index strategies, and architectural improvements to ensure fast execution times and scalability.\n",
-      "lastModified": "2026-08-27T00:19:00.628Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Development/Testing/aflpp/SKILL.md",
       "title": "aflpp",
       "section": "3_Skills",
@@ -12321,28 +12216,6 @@
       "tags": [],
       "contentPreview": "\n# Performance Testing\n\nTest application speed, responsiveness, stability, and scalability under various load conditions.\n\n## When to use me\n\nUse this skill when:\n- Preparing for traffic spikes or sea",
       "lastModified": "2026-08-27T00:19:00.616Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/text-to-cad/SKILL.md",
-      "title": "text-to-cad",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "text-to-cad",
-      "tags": [],
-      "contentPreview": "\n# Text to CAD\n\nTurns a coding agent into a CAD/CAE/CAM-capable engineer, bridging natural-language part descriptions and fabrication-ready output formats.\n\n## Prerequisites\n\n- Python 3.11+\n- For G-co",
-      "lastModified": "2026-08-27T00:19:00.629Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Development/theme-factory/SKILL.md",
-      "title": "🛠️ theme-factory",
-      "section": "3_Skills",
-      "category": "Development",
-      "subcategory": "theme-factory",
-      "tags": [],
-      "contentPreview": "\n\n# Theme Factory Skill\n\nThis skill provides a curated collection of professional font and color themes themes, each with carefully selected color palettes and font pairings. Once a theme is chosen, i",
-      "lastModified": "2026-08-27T00:19:00.630Z",
       "isUserOwned": false
     },
     {
@@ -12436,6 +12309,133 @@
       "tags": [],
       "contentPreview": "\n# Web Application Testing\n\nTo test local web applications, write native Python Playwright scripts.\n\n**Helper Scripts Available**:\n- `scripts/with_server.py` - Manages server lifecycle (supports multi",
       "lastModified": "2026-08-27T00:19:00.620Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/algorithmic-art/SKILL.md",
+      "title": "💻 algorithmic-art",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "algorithmic-art",
+      "tags": [],
+      "contentPreview": "\n# algorithmic-art\n\nAlgorithmic philosophies are computational aesthetic movements that are then expressed through code. Output .md files (philosophy), .html files (interactive viewer), and .js files ",
+      "lastModified": "2026-08-27T00:19:00.620Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/autoresearch/SKILL.md",
+      "title": "🔬 autoresearch",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "autoresearch",
+      "tags": [],
+      "contentPreview": "\n# Autoresearch: Autonomous Iterative Experimentation\n\nAn autonomous experimentation loop for any programming task. You define the goal and how to measure it; the agent iterates autonomously -- modify",
+      "lastModified": "2026-08-27T02:16:46.823Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/code-tour/SKILL.md",
+      "title": "code-tour",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "code-tour",
+      "tags": [
+        "development",
+        "onboarding",
+        "architecture",
+        "documentation"
+      ],
+      "contentPreview": "\n# Code Tour Skill\n\nYou are creating a **CodeTour** — a persona-targeted, step-by-step walkthrough of a codebase\nthat links directly to files and line numbers. CodeTour files live in `.tours/` and wor",
+      "lastModified": "2026-08-27T00:19:00.623Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/docker-compose-generator/SKILL.md",
+      "title": "🛠️ docker-compose-generator",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "docker-compose-generator",
+      "tags": [],
+      "contentPreview": "\n# Docker Compose Configuration Generator\n\nThis skill focuses on containerizing applications effectively, prioritizing security, multi-stage builds, performance, and best practices for Docker Compose ",
+      "lastModified": "2026-08-27T00:19:00.626Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/golang-popular-libraries/SKILL.md",
+      "title": "Go Libraries and Frameworks Recommendations",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "golang-popular-libraries",
+      "tags": [
+        "agent-skills"
+      ],
+      "contentPreview": "\n**Persona:** You are a Go ecosystem expert. You know the library landscape well enough to recommend the simplest production-ready option — and to tell the developer when the standard library is alrea",
+      "lastModified": "2026-08-27T02:16:51.542Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/powerskills/SKILL.md",
+      "title": "powerskills",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "powerskills",
+      "tags": [
+        "windows",
+        "automation",
+        "powershell",
+        "desktop"
+      ],
+      "contentPreview": "\n# powerskills\n\nWindows automation toolkit workflow for agents that need desktop control, Outlook access, Edge automation, or structured PowerShell-driven system actions.\n\n## Overview\n\nUse this skill ",
+      "lastModified": "2026-08-27T00:19:00.628Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/search-first/SKILL.md",
+      "title": "search-first",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "search-first",
+      "tags": [
+        "research",
+        "development",
+        "libraries",
+        "workflow"
+      ],
+      "contentPreview": "\n# search-first\n\nResearch-before-coding workflow. Search for existing tools, libraries, and patterns before writing custom code.\n\n## Overview\n\nUse this skill when:\n\n- Starting a new feature that likel",
+      "lastModified": "2026-08-27T00:19:00.628Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/sql-query-optimizer/SKILL.md",
+      "title": "🛠️ sql-query-optimizer",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "sql-query-optimizer",
+      "tags": [],
+      "contentPreview": "\n# SQL Query Optimizer\n\nThis skill is designed to take existing SQL queries and suggest optimizations, index strategies, and architectural improvements to ensure fast execution times and scalability.\n",
+      "lastModified": "2026-08-27T00:19:00.628Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/text-to-cad/SKILL.md",
+      "title": "text-to-cad",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "text-to-cad",
+      "tags": [],
+      "contentPreview": "\n# Text to CAD\n\nTurns a coding agent into a CAD/CAE/CAM-capable engineer, bridging natural-language part descriptions and fabrication-ready output formats.\n\n## Prerequisites\n\n- Python 3.11+\n- For G-co",
+      "lastModified": "2026-08-27T00:19:00.629Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/theme-factory/SKILL.md",
+      "title": "🛠️ theme-factory",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "theme-factory",
+      "tags": [],
+      "contentPreview": "\n\n# Theme Factory Skill\n\nThis skill provides a curated collection of professional font and color themes themes, each with carefully selected color palettes and font pairings. Once a theme is chosen, i",
+      "lastModified": "2026-08-27T00:19:00.630Z",
       "isUserOwned": false
     },
     {
@@ -12592,28 +12592,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Finance/arbitrage-scanner/SKILL.md",
-      "title": "arbitrage-scanner",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "arbitrage-scanner",
-      "tags": [],
-      "contentPreview": "\n# Arbitrage Scanner — Cross-Market Profit Opportunities\n\nIdentify, calculate, and evaluate arbitrage opportunities where odds discrepancies across platforms guarantee profit regardless of outcome.\n\n#",
-      "lastModified": "2026-08-27T00:19:00.677Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Finance/bankroll-management/SKILL.md",
-      "title": "bankroll-management",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "bankroll-management",
-      "tags": [],
-      "contentPreview": "\n# Bankroll Management — Capital Preservation & Risk Control\n\nProtect your betting capital from variance, tilt, and ruin — the discipline layer that turns a positive-edge strategy into long-term profi",
-      "lastModified": "2026-08-27T00:19:00.677Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Finance/Betting_&_Gambling/footballbin-predictions/SKILL.md",
       "title": "🧠 footballbin-predictions",
       "section": "3_Skills",
@@ -12655,17 +12633,6 @@
       "tags": [],
       "contentPreview": "\n# Polymarket Development Suite\n\n🔗 **Source Link:** [PolyMarket Dev Suite - MCP Market](https://mcpmarket.com/tools/skills/polymarket-development-suite)\n\nComplete assistance with Polymarket developme",
       "lastModified": "2026-08-27T00:19:00.643Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Finance/futures-trading/SKILL.md",
-      "title": "futures-trading",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "futures-trading",
-      "tags": [],
-      "contentPreview": "\n# Futures Trading — Contracts, Margin & Strategy\n\nUnderstand futures contracts — from traditional commodities and financial indexes to crypto perpetuals and event futures — and how to trade them.\n\n##",
-      "lastModified": "2026-08-27T00:19:00.678Z",
       "isUserOwned": false
     },
     {
@@ -12776,39 +12743,6 @@
       "tags": [],
       "contentPreview": "\n# Trade Execution\n\n## Purpose\nGuide the design, evaluation, and monitoring of trade execution quality in securities trading. Covers best execution obligations, venue selection and market structure, s",
       "lastModified": "2026-08-27T00:19:00.652Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Finance/live-betting-strategy/SKILL.md",
-      "title": "live-betting-strategy",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "live-betting-strategy",
-      "tags": [],
-      "contentPreview": "\n# Live Betting Strategy — In-Play Analysis & Execution\n\nExploit the unique dynamics of live / in-play betting where odds update in real-time and new information creates windows of value.\n\n## When to ",
-      "lastModified": "2026-08-27T00:19:00.679Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Finance/market-sentiment/SKILL.md",
-      "title": "market-sentiment",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "market-sentiment",
-      "tags": [],
-      "contentPreview": "\n# Market Sentiment — Line Movement, Sharp Money & Signals\n\nRead betting market signals to identify where informed money is flowing — distinguish sharp action from public noise and use line movement a",
-      "lastModified": "2026-08-27T00:19:00.680Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Finance/odds-modeling/SKILL.md",
-      "title": "odds-modeling",
-      "section": "3_Skills",
-      "category": "Finance",
-      "subcategory": "odds-modeling",
-      "tags": [],
-      "contentPreview": "\n# Odds Modeling — Predictive Models for Betting Markets\n\nBuild quantitative models that convert raw data into probability estimates — the foundation for finding value in any betting market.\n\n## When ",
-      "lastModified": "2026-08-27T00:19:00.680Z",
       "isUserOwned": false
     },
     {
@@ -13186,6 +13120,72 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/Finance/arbitrage-scanner/SKILL.md",
+      "title": "arbitrage-scanner",
+      "section": "3_Skills",
+      "category": "Finance",
+      "subcategory": "arbitrage-scanner",
+      "tags": [],
+      "contentPreview": "\n# Arbitrage Scanner — Cross-Market Profit Opportunities\n\nIdentify, calculate, and evaluate arbitrage opportunities where odds discrepancies across platforms guarantee profit regardless of outcome.\n\n#",
+      "lastModified": "2026-08-27T00:19:00.677Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Finance/bankroll-management/SKILL.md",
+      "title": "bankroll-management",
+      "section": "3_Skills",
+      "category": "Finance",
+      "subcategory": "bankroll-management",
+      "tags": [],
+      "contentPreview": "\n# Bankroll Management — Capital Preservation & Risk Control\n\nProtect your betting capital from variance, tilt, and ruin — the discipline layer that turns a positive-edge strategy into long-term profi",
+      "lastModified": "2026-08-27T00:19:00.677Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Finance/futures-trading/SKILL.md",
+      "title": "futures-trading",
+      "section": "3_Skills",
+      "category": "Finance",
+      "subcategory": "futures-trading",
+      "tags": [],
+      "contentPreview": "\n# Futures Trading — Contracts, Margin & Strategy\n\nUnderstand futures contracts — from traditional commodities and financial indexes to crypto perpetuals and event futures — and how to trade them.\n\n##",
+      "lastModified": "2026-08-27T00:19:00.678Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Finance/live-betting-strategy/SKILL.md",
+      "title": "live-betting-strategy",
+      "section": "3_Skills",
+      "category": "Finance",
+      "subcategory": "live-betting-strategy",
+      "tags": [],
+      "contentPreview": "\n# Live Betting Strategy — In-Play Analysis & Execution\n\nExploit the unique dynamics of live / in-play betting where odds update in real-time and new information creates windows of value.\n\n## When to ",
+      "lastModified": "2026-08-27T00:19:00.679Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Finance/market-sentiment/SKILL.md",
+      "title": "market-sentiment",
+      "section": "3_Skills",
+      "category": "Finance",
+      "subcategory": "market-sentiment",
+      "tags": [],
+      "contentPreview": "\n# Market Sentiment — Line Movement, Sharp Money & Signals\n\nRead betting market signals to identify where informed money is flowing — distinguish sharp action from public noise and use line movement a",
+      "lastModified": "2026-08-27T00:19:00.680Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Finance/odds-modeling/SKILL.md",
+      "title": "odds-modeling",
+      "section": "3_Skills",
+      "category": "Finance",
+      "subcategory": "odds-modeling",
+      "tags": [],
+      "contentPreview": "\n# Odds Modeling — Predictive Models for Betting Markets\n\nBuild quantitative models that convert raw data into probability estimates — the foundation for finding value in any betting market.\n\n## When ",
+      "lastModified": "2026-08-27T00:19:00.680Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/Finance/sports-betting/SKILL.md",
       "title": "sports-betting",
       "section": "3_Skills",
@@ -13194,17 +13194,6 @@
       "tags": [],
       "contentPreview": "\n# Sports Betting — Lines, Markets & Bet Types\n\nUnderstand and navigate sports betting markets — from reading lines to identifying value across every major bet type.\n\n## When to Use This Skill\n\n**USE ",
       "lastModified": "2026-08-27T00:19:00.681Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Platform_Integrations/academy-guide/SKILL.md",
-      "title": "academy-guide",
-      "section": "3_Skills",
-      "category": "Platform_Integrations",
-      "subcategory": "academy-guide",
-      "tags": [],
-      "contentPreview": "\n# Claude Academy guide\n\n## Purpose\n\nWhen a user asks a question about Claude, a Claude product, or a general\n\"how do I use AI for X\" question, check the Academy catalog (see \"The\ncatalog\" below) for ",
-      "lastModified": "2026-08-27T02:16:48.905Z",
       "isUserOwned": false
     },
     {
@@ -13221,6 +13210,17 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/Platform_Integrations/academy-guide/SKILL.md",
+      "title": "academy-guide",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "academy-guide",
+      "tags": [],
+      "contentPreview": "\n# Claude Academy guide\n\n## Purpose\n\nWhen a user asks a question about Claude, a Claude product, or a general\n\"how do I use AI for X\" question, check the Academy catalog (see \"The\ncatalog\" below) for ",
+      "lastModified": "2026-08-27T02:16:48.905Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/Platform_Integrations/feishu-doc/SKILL.md",
       "title": "📄 Feishu Doc",
       "section": "3_Skills",
@@ -13229,17 +13229,6 @@
       "tags": [],
       "contentPreview": "\n# Feishu Doc\n\nUse this skill for structured document work in Feishu or Lark instead of treating those docs like generic web pages.\n\n## Prerequisites\n\n- Feishu/Lark app credentials configured in `conf",
       "lastModified": "2026-08-27T00:19:00.683Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Platform_Integrations/linear/SKILL.md",
-      "title": "📐 Linear",
-      "section": "3_Skills",
-      "category": "Platform_Integrations",
-      "subcategory": "linear",
-      "tags": [],
-      "contentPreview": "\n# Linear\n\nUse this skill for structured work inside Linear rather than ad hoc ticket editing.\n\n## Prerequisites\n\n- Linear tools or app connection must already be available\n- Confirm the correct works",
-      "lastModified": "2026-08-27T02:19:17.530Z",
       "isUserOwned": false
     },
     {
@@ -13256,6 +13245,17 @@
       ],
       "contentPreview": "\n# linear-cli\n\nManage Linear issues from the command line with a repeatable workflow for finding, updating, and progressing tickets.\n\n## Overview\n\nUse this skill when:\n\n- Working from Linear issue IDs",
       "lastModified": "2026-08-27T00:19:00.684Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/linear/SKILL.md",
+      "title": "📐 Linear",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "linear",
+      "tags": [],
+      "contentPreview": "\n# Linear\n\nUse this skill for structured work inside Linear rather than ad hoc ticket editing.\n\n## Prerequisites\n\n- Linear tools or app connection must already be available\n- Confirm the correct works",
+      "lastModified": "2026-08-27T02:19:17.530Z",
       "isUserOwned": false
     },
     {
@@ -13283,6 +13283,17 @@
       "tags": [],
       "contentPreview": "\n# Notion\n\nUse the Notion API for page management, structured data workflows, and block-level content updates.\n\n## When To Use\n\n- Create or update Notion pages\n- Query Notion databases or data sources",
       "lastModified": "2026-08-27T00:19:00.685Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Security/SIEM/siem-cve-workflow/SKILL.md",
+      "title": "🛠️ siem_cve_workflow",
+      "section": "3_Skills",
+      "category": "Security",
+      "subcategory": "SIEM",
+      "tags": [],
+      "contentPreview": "\n# SIEM CVE Workflow\n\nRun the full SIEM CVE pipeline: fetch critical vulnerabilities, normalize an alert, and coordinate all agents through detection, enrichment, correlation, and incident response.\n\n",
+      "lastModified": "2026-08-27T00:19:00.686Z",
       "isUserOwned": false
     },
     {
@@ -13405,17 +13416,6 @@
       "tags": [],
       "contentPreview": "\n# Threat Model Source Code Repo\n\nDeliver an actionable AppSec-grade threat model that is specific to the repository or a project path, not a generic checklist. Anchor every architectural claim to evi",
       "lastModified": "2026-08-27T00:19:00.692Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "3_Skills/Security/SIEM/siem-cve-workflow/SKILL.md",
-      "title": "🛠️ siem_cve_workflow",
-      "section": "3_Skills",
-      "category": "Security",
-      "subcategory": "SIEM",
-      "tags": [],
-      "contentPreview": "\n# SIEM CVE Workflow\n\nRun the full SIEM CVE pipeline: fetch critical vulnerabilities, normalize an alert, and coordinate all agents through detection, enrichment, correlation, and incident response.\n\n",
-      "lastModified": "2026-08-27T00:19:00.686Z",
       "isUserOwned": false
     },
     {
@@ -15190,22 +15190,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/AI_ML/english-translator-improver.md",
-      "title": "🌐 English Translator and Improver",
-      "section": "4_Prompts",
-      "category": "AI_ML",
-      "subcategory": "english-translator-improver",
-      "tags": [
-        "translation",
-        "english",
-        "improvement",
-        "language"
-      ],
-      "contentPreview": "\n# 🌐 English Translator and Improver\n\n## Purpose\nActs as an English translator, spelling corrector, and improver. It translates from any language and improves the English version.\n\n## Instructions\nI ",
-      "lastModified": "2026-08-24T00:27:07.790Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/AI_ML/Enterprise/Iam_Engineer/iiqengineer-claude.md",
       "title": "SailPoint IIQ Engineer Agent",
       "section": "4_Prompts",
@@ -15302,22 +15286,6 @@
       "tags": [],
       "contentPreview": "name: \"Writing editor\"\ndescription: Elevate your writing. Get clear, constructive feedback, from grammar to structure.\ninstruction: Purpose\nYour purpose is to assist me in editing my writing. I will s",
       "lastModified": "2026-08-24T00:27:07.667Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/AI_ML/linux-terminal.md",
-      "title": "🐧 Linux Terminal",
-      "section": "4_Prompts",
-      "category": "AI_ML",
-      "subcategory": "linux-terminal",
-      "tags": [
-        "linux",
-        "terminal",
-        "simulator",
-        "bash"
-      ],
-      "contentPreview": "\n# 🐧 Linux Terminal\n\n## Purpose\nSimulates a Linux terminal where the AI provides the terminal output for commands you enter.\n\n## Instructions\nI want you to act as a linux terminal. I will type comman",
-      "lastModified": "2026-08-24T00:27:07.790Z",
       "isUserOwned": false
     },
     {
@@ -15699,6 +15667,38 @@
       "isUserOwned": false
     },
     {
+      "id": "4_Prompts/AI_ML/english-translator-improver.md",
+      "title": "🌐 English Translator and Improver",
+      "section": "4_Prompts",
+      "category": "AI_ML",
+      "subcategory": "english-translator-improver",
+      "tags": [
+        "translation",
+        "english",
+        "improvement",
+        "language"
+      ],
+      "contentPreview": "\n# 🌐 English Translator and Improver\n\n## Purpose\nActs as an English translator, spelling corrector, and improver. It translates from any language and improves the English version.\n\n## Instructions\nI ",
+      "lastModified": "2026-08-24T00:27:07.790Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/AI_ML/linux-terminal.md",
+      "title": "🐧 Linux Terminal",
+      "section": "4_Prompts",
+      "category": "AI_ML",
+      "subcategory": "linux-terminal",
+      "tags": [
+        "linux",
+        "terminal",
+        "simulator",
+        "bash"
+      ],
+      "contentPreview": "\n# 🐧 Linux Terminal\n\n## Purpose\nSimulates a Linux terminal where the AI provides the terminal output for commands you enter.\n\n## Instructions\nI want you to act as a linux terminal. I will type comman",
+      "lastModified": "2026-08-24T00:27:07.790Z",
+      "isUserOwned": false
+    },
+    {
       "id": "4_Prompts/Automation/Blockchain/ethereum-developer-ai.md",
       "title": "📌 Ethereum Developer AI",
       "section": "4_Prompts",
@@ -15712,21 +15712,6 @@
       ],
       "contentPreview": "\n# Ethereum Developer AI\n\n## Purpose\nThis prompt sets up the AI to act as a specialized Ethereum Developer, providing targeted and context-aware responses.\n\n## Instructions\n\nImagine you are an experie",
       "lastModified": "2026-08-24T00:27:07.791Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Automation/ethereum-developer.md",
-      "title": "📌 Ethereum Developer",
-      "section": "4_Prompts",
-      "category": "Automation",
-      "subcategory": "ethereum-developer",
-      "tags": [
-        "development",
-        "coding",
-        "ethereum"
-      ],
-      "contentPreview": "\n# Ethereum Developer\n\n## Purpose\nActs as a Ethereum Developer to assist with relevant tasks.\n\n## Instructions\nImagine you are an experienced Ethereum developer tasked with creating a smart contract f",
-      "lastModified": "2026-08-24T00:27:07.799Z",
       "isUserOwned": false
     },
     {
@@ -15844,75 +15829,18 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/Business/accountant.md",
-      "title": "📌 Accountant Prompt",
+      "id": "4_Prompts/Automation/ethereum-developer.md",
+      "title": "📌 Ethereum Developer",
       "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "accountant",
+      "category": "Automation",
+      "subcategory": "ethereum-developer",
       "tags": [
-        "prompt",
-        "business",
-        "finance"
+        "development",
+        "coding",
+        "ethereum"
       ],
-      "contentPreview": "\n# Accountant Prompt\n\n## Purpose\nGet financial advice for a business.\n\n## Instructions\nI want you to act as an accountant and come up with creative ways to manage finances. You'll need to consider bud",
-      "lastModified": "2026-08-24T00:27:07.866Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Business/act-as-ethereum-developer.md",
-      "title": "💼 Act as Ethereum Developer",
-      "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "act-as-ethereum-developer",
-      "tags": [
-        "business",
-        "roleplay"
-      ],
-      "contentPreview": "\n# Act as Ethereum Developer\n\n## Purpose\nUse this prompt to have the AI act as a Ethereum Developer.\n\n## Instructions\nImagine you are an experienced Ethereum developer tasked with creating a smart con",
-      "lastModified": "2026-08-24T00:27:07.866Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Business/act-as-javascript-console.md",
-      "title": "💼 Act as JavaScript Console",
-      "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "act-as-javascript-console",
-      "tags": [
-        "business",
-        "roleplay"
-      ],
-      "contentPreview": "\n# Act as JavaScript Console\n\n## Purpose\nUse this prompt to have the AI act as a JavaScript Console.\n\n## Instructions\nI want you to act as a javascript console. I will type commands and you will reply",
-      "lastModified": "2026-08-24T00:27:07.867Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Business/act-as-job-interviewer.md",
-      "title": "💼 Act as Job Interviewer",
-      "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "act-as-job-interviewer",
-      "tags": [
-        "business",
-        "roleplay"
-      ],
-      "contentPreview": "\n# Act as Job Interviewer\n\n## Purpose\nUse this prompt to have the AI act as a Job Interviewer.\n\n## Instructions\nI want you to act as an interviewer. I will be the candidate and you will ask me the int",
-      "lastModified": "2026-08-24T00:27:07.867Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Business/advertiser.md",
-      "title": "📌 Advertiser",
-      "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "advertiser",
-      "tags": [
-        "business",
-        "consulting",
-        "strategy"
-      ],
-      "contentPreview": "\n# Advertiser\n\n## Purpose\nAdvertiser prompt.\n\n## Instructions\nI want you to act as an advertiser. You will create a campaign to promote a product or service of your choice. You will choose a target au",
-      "lastModified": "2026-08-24T00:27:07.868Z",
+      "contentPreview": "\n# Ethereum Developer\n\n## Purpose\nActs as a Ethereum Developer to assist with relevant tasks.\n\n## Instructions\nImagine you are an experienced Ethereum developer tasked with creating a smart contract f",
+      "lastModified": "2026-08-24T00:27:07.799Z",
       "isUserOwned": false
     },
     {
@@ -16597,52 +16525,6 @@
       ],
       "contentPreview": "\n# Digital Product Ideas\n\n## Purpose\nUse this prompt to brainstorm beginner-friendly digital product opportunities with clear customer pain points and practical go-to-market direction.\n\n## Instruction",
       "lastModified": "2026-08-24T00:27:07.820Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Business/it-architect.md",
-      "title": "📌 IT Architect",
-      "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "it-architect",
-      "tags": [
-        "business",
-        "consulting",
-        "strategy"
-      ],
-      "contentPreview": "\n# IT Architect\n\n## Purpose\nIT Architect prompt.\n\n## Instructions\nI want you to act as an IT Architect. I will provide some details about the functionality of an application or other digital product, ",
-      "lastModified": "2026-08-24T00:27:07.868Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Business/job-interviewer.md",
-      "title": "🤝 Job Interviewer",
-      "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "job-interviewer",
-      "tags": [
-        "interview",
-        "job",
-        "career",
-        "practice"
-      ],
-      "contentPreview": "\n# 🤝 Job Interviewer\n\n## Purpose\nSimulates a job interview where the AI asks you interview questions one by one.\n\n## Instructions\nI want you to act as an interviewer. I will be the candidate and you ",
-      "lastModified": "2026-08-24T00:27:07.868Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Business/logistician.md",
-      "title": "📌 Logistician Prompt",
-      "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "logistician",
-      "tags": [
-        "prompt",
-        "business",
-        "logistics"
-      ],
-      "contentPreview": "\n# Logistician Prompt\n\n## Purpose\nPlan logistics for an event.\n\n## Instructions\nI want you to act as a logistician. I will provide you with details on an upcoming event, such as the number of people a",
-      "lastModified": "2026-08-24T00:27:07.869Z",
       "isUserOwned": false
     },
     {
@@ -18045,22 +17927,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/Business/product-launch-announcement.md",
-      "title": "🚀 Product Launch Announcement",
-      "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "product-launch-announcement",
-      "tags": [
-        "business",
-        "marketing",
-        "product-launch",
-        "email"
-      ],
-      "contentPreview": "\n# Product Launch Announcement\n\n## Purpose\nTo generate a compelling and engaging email announcement for a new product launch, designed to drive excitement and conversions.\n\n## Instructions\nPlease writ",
-      "lastModified": "2026-08-24T00:27:07.870Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/Business/Productivity/batching-routine.md",
       "title": "📌 Task Batching System",
       "section": "4_Prompts",
@@ -18260,21 +18126,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/Business/startup-pitch-deck-outline.md",
-      "title": "📝 Startup Pitch Deck Outline",
-      "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "startup-pitch-deck-outline",
-      "tags": [
-        "prompts",
-        "business",
-        "startup"
-      ],
-      "contentPreview": "\n# Startup Pitch Deck Outline\n\n## Purpose\nGenerate a standard 10-15 slide pitch deck outline based on a company description.\n\n## Instructions\nProvide a brief description of the startup, its product, a",
-      "lastModified": "2026-08-24T00:27:07.870Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/Business/Strategy/competitor-analysis-framework.md",
       "title": "📌 Competitor Analysis Framework",
       "section": "4_Prompts",
@@ -18307,6 +18158,155 @@
       "isUserOwned": false
     },
     {
+      "id": "4_Prompts/Business/accountant.md",
+      "title": "📌 Accountant Prompt",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "accountant",
+      "tags": [
+        "prompt",
+        "business",
+        "finance"
+      ],
+      "contentPreview": "\n# Accountant Prompt\n\n## Purpose\nGet financial advice for a business.\n\n## Instructions\nI want you to act as an accountant and come up with creative ways to manage finances. You'll need to consider bud",
+      "lastModified": "2026-08-24T00:27:07.866Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/act-as-ethereum-developer.md",
+      "title": "💼 Act as Ethereum Developer",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "act-as-ethereum-developer",
+      "tags": [
+        "business",
+        "roleplay"
+      ],
+      "contentPreview": "\n# Act as Ethereum Developer\n\n## Purpose\nUse this prompt to have the AI act as a Ethereum Developer.\n\n## Instructions\nImagine you are an experienced Ethereum developer tasked with creating a smart con",
+      "lastModified": "2026-08-24T00:27:07.866Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/act-as-javascript-console.md",
+      "title": "💼 Act as JavaScript Console",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "act-as-javascript-console",
+      "tags": [
+        "business",
+        "roleplay"
+      ],
+      "contentPreview": "\n# Act as JavaScript Console\n\n## Purpose\nUse this prompt to have the AI act as a JavaScript Console.\n\n## Instructions\nI want you to act as a javascript console. I will type commands and you will reply",
+      "lastModified": "2026-08-24T00:27:07.867Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/act-as-job-interviewer.md",
+      "title": "💼 Act as Job Interviewer",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "act-as-job-interviewer",
+      "tags": [
+        "business",
+        "roleplay"
+      ],
+      "contentPreview": "\n# Act as Job Interviewer\n\n## Purpose\nUse this prompt to have the AI act as a Job Interviewer.\n\n## Instructions\nI want you to act as an interviewer. I will be the candidate and you will ask me the int",
+      "lastModified": "2026-08-24T00:27:07.867Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/advertiser.md",
+      "title": "📌 Advertiser",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "advertiser",
+      "tags": [
+        "business",
+        "consulting",
+        "strategy"
+      ],
+      "contentPreview": "\n# Advertiser\n\n## Purpose\nAdvertiser prompt.\n\n## Instructions\nI want you to act as an advertiser. You will create a campaign to promote a product or service of your choice. You will choose a target au",
+      "lastModified": "2026-08-24T00:27:07.868Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/it-architect.md",
+      "title": "📌 IT Architect",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "it-architect",
+      "tags": [
+        "business",
+        "consulting",
+        "strategy"
+      ],
+      "contentPreview": "\n# IT Architect\n\n## Purpose\nIT Architect prompt.\n\n## Instructions\nI want you to act as an IT Architect. I will provide some details about the functionality of an application or other digital product, ",
+      "lastModified": "2026-08-24T00:27:07.868Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/job-interviewer.md",
+      "title": "🤝 Job Interviewer",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "job-interviewer",
+      "tags": [
+        "interview",
+        "job",
+        "career",
+        "practice"
+      ],
+      "contentPreview": "\n# 🤝 Job Interviewer\n\n## Purpose\nSimulates a job interview where the AI asks you interview questions one by one.\n\n## Instructions\nI want you to act as an interviewer. I will be the candidate and you ",
+      "lastModified": "2026-08-24T00:27:07.868Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/logistician.md",
+      "title": "📌 Logistician Prompt",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "logistician",
+      "tags": [
+        "prompt",
+        "business",
+        "logistics"
+      ],
+      "contentPreview": "\n# Logistician Prompt\n\n## Purpose\nPlan logistics for an event.\n\n## Instructions\nI want you to act as a logistician. I will provide you with details on an upcoming event, such as the number of people a",
+      "lastModified": "2026-08-24T00:27:07.869Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/product-launch-announcement.md",
+      "title": "🚀 Product Launch Announcement",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "product-launch-announcement",
+      "tags": [
+        "business",
+        "marketing",
+        "product-launch",
+        "email"
+      ],
+      "contentPreview": "\n# Product Launch Announcement\n\n## Purpose\nTo generate a compelling and engaging email announcement for a new product launch, designed to drive excitement and conversions.\n\n## Instructions\nPlease writ",
+      "lastModified": "2026-08-24T00:27:07.870Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/startup-pitch-deck-outline.md",
+      "title": "📝 Startup Pitch Deck Outline",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "startup-pitch-deck-outline",
+      "tags": [
+        "prompts",
+        "business",
+        "startup"
+      ],
+      "contentPreview": "\n# Startup Pitch Deck Outline\n\n## Purpose\nGenerate a standard 10-15 slide pitch deck outline based on a company description.\n\n## Instructions\nProvide a brief description of the startup, its product, a",
+      "lastModified": "2026-08-24T00:27:07.870Z",
+      "isUserOwned": false
+    },
+    {
       "id": "4_Prompts/Business/travel-guide.md",
       "title": "📌 Travel Guide",
       "section": "4_Prompts",
@@ -18334,22 +18334,6 @@
       ],
       "contentPreview": "\n# Web Design Consultant Prompt\n\n## Purpose\nGet advice on web design for a business.\n\n## Instructions\nI want you to act as a web design consultant. I will provide you with details related to an organi",
       "lastModified": "2026-08-24T00:27:07.871Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Content/blog-post-outline-generator.md",
-      "title": "📝 Blog Post Outline Generator",
-      "section": "4_Prompts",
-      "category": "Content",
-      "subcategory": "blog-post-outline-generator",
-      "tags": [
-        "content",
-        "writing",
-        "blog",
-        "outline"
-      ],
-      "contentPreview": "\n# Blog Post Outline Generator\n\n## Purpose\nTo generate a structured and SEO-friendly outline for a blog post based on a given topic.\n\n## Instructions\nPlease create a comprehensive blog post outline fo",
-      "lastModified": "2026-08-24T00:27:07.893Z",
       "isUserOwned": false
     },
     {
@@ -18758,6 +18742,17 @@
       "isUserOwned": false
     },
     {
+      "id": "4_Prompts/Content/Create_Documentation/Startup_Document_Prompt_Library.md",
+      "title": "Startup Document Prompt Library",
+      "section": "4_Prompts",
+      "category": "Content",
+      "subcategory": "Create_Documentation",
+      "tags": [],
+      "contentPreview": "# Startup Document Prompt Library\n\n> Copy-ready LLM prompts for every document needed to build and formalize a web app into a profitable business. \n> Replace all `[bracketed placeholders]` with your s",
+      "lastModified": "2026-08-24T00:27:07.883Z",
+      "isUserOwned": false
+    },
+    {
       "id": "4_Prompts/Content/Create_Documentation/knowledge-base-setup.md",
       "title": "📝 Knowledge Base Setup",
       "section": "4_Prompts",
@@ -18787,17 +18782,6 @@
         "template"
       ],
       "contentPreview": "# Prompt Template\n\n## Title: [Prompt Title]\n\n### Category: [Category, e.g., AI, Engineering, Writing]\n\n### Purpose:\n[Briefly describe the purpose of the prompt and what it aims to achieve.]\n\n### Input",
-      "lastModified": "2026-08-24T00:27:07.883Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Content/Create_Documentation/Startup_Document_Prompt_Library.md",
-      "title": "Startup Document Prompt Library",
-      "section": "4_Prompts",
-      "category": "Content",
-      "subcategory": "Create_Documentation",
-      "tags": [],
-      "contentPreview": "# Startup Document Prompt Library\n\n> Copy-ready LLM prompts for every document needed to build and formalize a web app into a profitable business. \n> Replace all `[bracketed placeholders]` with your s",
       "lastModified": "2026-08-24T00:27:07.883Z",
       "isUserOwned": false
     },
@@ -19061,6 +19045,22 @@
       "isUserOwned": false
     },
     {
+      "id": "4_Prompts/Content/blog-post-outline-generator.md",
+      "title": "📝 Blog Post Outline Generator",
+      "section": "4_Prompts",
+      "category": "Content",
+      "subcategory": "blog-post-outline-generator",
+      "tags": [
+        "content",
+        "writing",
+        "blog",
+        "outline"
+      ],
+      "contentPreview": "\n# Blog Post Outline Generator\n\n## Purpose\nTo generate a structured and SEO-friendly outline for a blog post based on a given topic.\n\n## Instructions\nPlease create a comprehensive blog post outline fo",
+      "lastModified": "2026-08-24T00:27:07.893Z",
+      "isUserOwned": false
+    },
+    {
       "id": "4_Prompts/Data/Financial/alpha-vantage-prompts.md",
       "title": "Alpha Vantage MCP Prompts",
       "section": "4_Prompts",
@@ -19080,20 +19080,6 @@
       "tags": [],
       "contentPreview": "# Financial Modeling Prep MCP\n\nFinancial statements, company fundamentals, analyst data, ratios, earnings calendars, and market screening.\n\n---\n\n## 1. Company Profile & Overview\n\n> Get the full compan",
       "lastModified": "2026-08-24T00:27:07.894Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Development/Api_Design/python-debugger.md",
-      "title": "📌 Python Debugger",
-      "section": "4_Prompts",
-      "category": "Development",
-      "subcategory": "Api_Design",
-      "tags": [
-        "python",
-        "debugging"
-      ],
-      "contentPreview": "\n# Python Debugger\n\n## Purpose\nHelps find bugs in Python code.\n\n## Instructions\nReview this code: [code]\n\n## Output Format\nMarkdown list.\n\n## Example\n**Input:** print(x)\n**Output:** x is not defined.\n",
-      "lastModified": "2026-08-24T00:27:07.904Z",
       "isUserOwned": false
     },
     {
@@ -19316,6 +19302,20 @@
       ],
       "contentPreview": "\n# Supabase MCP Server Prompt Library\n\n## 1. Query Table Data\n```\nQuery all records from the \"users\" table in my Supabase database and return the first 50 results ordered by created_at descending. Inc",
       "lastModified": "2026-08-24T00:27:07.903Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Development/Api_Design/python-debugger.md",
+      "title": "📌 Python Debugger",
+      "section": "4_Prompts",
+      "category": "Development",
+      "subcategory": "Api_Design",
+      "tags": [
+        "python",
+        "debugging"
+      ],
+      "contentPreview": "\n# Python Debugger\n\n## Purpose\nHelps find bugs in Python code.\n\n## Instructions\nReview this code: [code]\n\n## Output Format\nMarkdown list.\n\n## Example\n**Input:** print(x)\n**Output:** x is not defined.\n",
+      "lastModified": "2026-08-24T00:27:07.904Z",
       "isUserOwned": false
     },
     {
@@ -19772,6 +19772,24 @@
       "isUserOwned": false
     },
     {
+      "id": "4_Prompts/Engineering/AX-Platform/ax_prompt_library.md",
+      "title": "🎯 AX MCP Server Prompts",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "AX-Platform",
+      "tags": [
+        "featured",
+        "ax-mcp",
+        "agents",
+        "automation",
+        "workflow",
+        "prompt-library"
+      ],
+      "contentPreview": "\n# AX Prompt Library\n\nConsolidated prompts extracted from the AX Platform prompt library.\n\n## Switch Workspace\n\n```\nOn the AX MCP server, switch to the Podcast workspace and confirm the active space.\n",
+      "lastModified": "2026-08-24T00:27:07.919Z",
+      "isUserOwned": false
+    },
+    {
       "id": "4_Prompts/Engineering/Api_Design/api-design-prompt.md",
       "title": "📌 API Design Specification (Based on IETF RFC 9110 and OpenAPI)",
       "section": "4_Prompts",
@@ -20070,24 +20088,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/Engineering/AX-Platform/ax_prompt_library.md",
-      "title": "🎯 AX MCP Server Prompts",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "AX-Platform",
-      "tags": [
-        "featured",
-        "ax-mcp",
-        "agents",
-        "automation",
-        "workflow",
-        "prompt-library"
-      ],
-      "contentPreview": "\n# AX Prompt Library\n\nConsolidated prompts extracted from the AX Platform prompt library.\n\n## Switch Workspace\n\n```\nOn the AX MCP server, switch to the Podcast workspace and confirm the active space.\n",
-      "lastModified": "2026-08-24T00:27:07.919Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/Engineering/Build_Apps/discord-automation-system.md",
       "title": "📌 Discord Automation System",
       "section": "4_Prompts",
@@ -20119,36 +20119,6 @@
       ],
       "contentPreview": "# Multi-Voice Podcast Generator\n\nBuild a podcast generation system with multiple AI voices, natural dialogue, and automated audio production.\n\n## Context\nGenerate podcast episodes with 6-7 distinct ch",
       "lastModified": "2026-08-24T00:27:07.928Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Engineering/code-review-checklist.md",
-      "title": "📝 Code Review Checklist Prompter",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "code-review-checklist",
-      "tags": [
-        "prompts",
-        "engineering",
-        "review"
-      ],
-      "contentPreview": "\n# Code Review Checklist Prompter\n\n## Purpose\nActs as a strict code reviewer, enforcing a specific checklist on submitted code.\n\n## Instructions\nPaste the code you want reviewed along with this prompt",
-      "lastModified": "2026-08-24T00:27:07.956Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Engineering/code-review.md",
-      "title": "💻 Code Review Prompt",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "code-review",
-      "tags": [
-        "code-review",
-        "prompt",
-        "engineering"
-      ],
-      "contentPreview": "\n# Code Review Prompt\n\n## Purpose\nReview code for quality, security, and performance.\n\n## Instructions\nAct as a senior engineer and review this code.\n\n## Output Format\nMarkdown list of issues and sugg",
-      "lastModified": "2026-08-24T00:27:07.957Z",
       "isUserOwned": false
     },
     {
@@ -20390,21 +20360,6 @@
       ],
       "contentPreview": "\n# Windows Startup Optimizer\n\n## Purpose\nCreate a PowerShell script to dramatically reduce Windows boot time by managing startup programs, services, and scheduled tasks that run at system startup.\n\n##",
       "lastModified": "2026-08-24T00:27:07.936Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Engineering/ethereum_developer.md",
-      "title": "📝 Ethereum Developer",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "ethereum_developer",
-      "tags": [
-        "prompt",
-        "engineering",
-        "ethereum developer"
-      ],
-      "contentPreview": "\n# Ethereum Developer\n\n## Purpose\nActing as a Ethereum Developer to assist with specific tasks and scenarios.\n\n## Instructions\nSimply paste the prompt below into your LLM. Replace any variables with y",
-      "lastModified": "2026-08-24T00:27:07.957Z",
       "isUserOwned": false
     },
     {
@@ -20809,51 +20764,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/Engineering/javascript-console.md",
-      "title": "📌 JavaScript Console",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "javascript-console",
-      "tags": [
-        "development",
-        "coding",
-        "javascript"
-      ],
-      "contentPreview": "\n# JavaScript Console\n\n## Purpose\nActs as a JavaScript Console to assist with relevant tasks.\n\n## Instructions\nI want you to act as a javascript console. I will type commands and you will reply with w",
-      "lastModified": "2026-08-24T00:27:07.957Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Engineering/job_interviewer.md",
-      "title": "📝 Job Interviewer",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "job_interviewer",
-      "tags": [
-        "prompt",
-        "engineering",
-        "job interviewer"
-      ],
-      "contentPreview": "\n# Job Interviewer\n\n## Purpose\nActing as a Job Interviewer to assist with specific tasks and scenarios.\n\n## Instructions\nSimply paste the prompt below into your LLM. Replace any variables with your sp",
-      "lastModified": "2026-08-24T00:27:07.957Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Engineering/linux-terminal.md",
-      "title": "📌 Linux Terminal",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "linux-terminal",
-      "tags": [
-        "development",
-        "coding",
-        "linux"
-      ],
-      "contentPreview": "\n# Linux Terminal\n\n## Purpose\nActs as a Linux Terminal to assist with relevant tasks.\n\n## Instructions\nI want you to act as a linux terminal. I will type commands and you will reply with what the term",
-      "lastModified": "2026-08-24T00:27:07.959Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/Engineering/Playwright/playwright-mcp-prompts.md",
       "title": "🎭 Playwright MCP Server Prompts",
       "section": "4_Prompts",
@@ -21016,37 +20926,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/Engineering/refactoring.md",
-      "title": "💻 Refactoring Prompt",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "refactoring",
-      "tags": [
-        "refactor",
-        "prompt",
-        "engineering"
-      ],
-      "contentPreview": "\n# Refactoring Prompt\n\n## Purpose\nRefactor code to improve readability and maintainability.\n\n## Instructions\nRefactor the provided code to adhere to SOLID principles and improve readability.\n\n## Outpu",
-      "lastModified": "2026-08-24T00:27:07.959Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Engineering/rust-memory-optimizer.md",
-      "title": "🦀 Rust Memory Optimizer",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "rust-memory-optimizer",
-      "tags": [
-        "rust",
-        "memory",
-        "optimization",
-        "performance"
-      ],
-      "contentPreview": "\n# Rust Memory Optimizer\n\n## Purpose\nThis prompt helps developers identify and resolve memory inefficiencies in Rust code, focusing on avoiding unnecessary allocations, utilizing borrowing effectively",
-      "lastModified": "2026-08-24T00:27:07.960Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/Engineering/Scripting/configuration-validation-script-generation.md",
       "title": "📌 Prompt: Configuration Validation Script Generation",
       "section": "4_Prompts",
@@ -21115,36 +20994,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/Engineering/unit-test-generator.md",
-      "title": "💻 Unit Test Generator Prompt",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "unit-test-generator",
-      "tags": [
-        "testing",
-        "prompt",
-        "engineering"
-      ],
-      "contentPreview": "\n# Unit Test Generator Prompt\n\n## Purpose\nGenerate comprehensive unit tests for a given function.\n\n## Instructions\nWrite unit tests using pytest for the following function. Cover edge cases.\n\n## Outpu",
-      "lastModified": "2026-08-24T00:27:07.960Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/Engineering/ux_ui_developer.md",
-      "title": "📝 UX_UI Developer",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "ux_ui_developer",
-      "tags": [
-        "prompt",
-        "engineering",
-        "ux_ui developer"
-      ],
-      "contentPreview": "\n# UX_UI Developer\n\n## Purpose\nActing as a UX_UI Developer to assist with specific tasks and scenarios.\n\n## Instructions\nSimply paste the prompt below into your LLM. Replace any variables with your sp",
-      "lastModified": "2026-08-24T00:27:07.960Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/Engineering/Version_Control/cicd-pipeline-design.md",
       "title": "📌 CI/CD Pipeline Design Prompt",
       "section": "4_Prompts",
@@ -21193,6 +21042,157 @@
       ],
       "contentPreview": "# Goal\nGenerate a clear, concise, and conventional commit message.\n\n# Inputs\n- **Diff:** The code changes to be committed.\n- **Commit Type:** The type of commit (e.g., feat, fix, docs, style, refactor",
       "lastModified": "2026-08-24T00:27:07.956Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Engineering/code-review-checklist.md",
+      "title": "📝 Code Review Checklist Prompter",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "code-review-checklist",
+      "tags": [
+        "prompts",
+        "engineering",
+        "review"
+      ],
+      "contentPreview": "\n# Code Review Checklist Prompter\n\n## Purpose\nActs as a strict code reviewer, enforcing a specific checklist on submitted code.\n\n## Instructions\nPaste the code you want reviewed along with this prompt",
+      "lastModified": "2026-08-24T00:27:07.956Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Engineering/code-review.md",
+      "title": "💻 Code Review Prompt",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "code-review",
+      "tags": [
+        "code-review",
+        "prompt",
+        "engineering"
+      ],
+      "contentPreview": "\n# Code Review Prompt\n\n## Purpose\nReview code for quality, security, and performance.\n\n## Instructions\nAct as a senior engineer and review this code.\n\n## Output Format\nMarkdown list of issues and sugg",
+      "lastModified": "2026-08-24T00:27:07.957Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Engineering/ethereum_developer.md",
+      "title": "📝 Ethereum Developer",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "ethereum_developer",
+      "tags": [
+        "prompt",
+        "engineering",
+        "ethereum developer"
+      ],
+      "contentPreview": "\n# Ethereum Developer\n\n## Purpose\nActing as a Ethereum Developer to assist with specific tasks and scenarios.\n\n## Instructions\nSimply paste the prompt below into your LLM. Replace any variables with y",
+      "lastModified": "2026-08-24T00:27:07.957Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Engineering/javascript-console.md",
+      "title": "📌 JavaScript Console",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "javascript-console",
+      "tags": [
+        "development",
+        "coding",
+        "javascript"
+      ],
+      "contentPreview": "\n# JavaScript Console\n\n## Purpose\nActs as a JavaScript Console to assist with relevant tasks.\n\n## Instructions\nI want you to act as a javascript console. I will type commands and you will reply with w",
+      "lastModified": "2026-08-24T00:27:07.957Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Engineering/job_interviewer.md",
+      "title": "📝 Job Interviewer",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "job_interviewer",
+      "tags": [
+        "prompt",
+        "engineering",
+        "job interviewer"
+      ],
+      "contentPreview": "\n# Job Interviewer\n\n## Purpose\nActing as a Job Interviewer to assist with specific tasks and scenarios.\n\n## Instructions\nSimply paste the prompt below into your LLM. Replace any variables with your sp",
+      "lastModified": "2026-08-24T00:27:07.957Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Engineering/linux-terminal.md",
+      "title": "📌 Linux Terminal",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "linux-terminal",
+      "tags": [
+        "development",
+        "coding",
+        "linux"
+      ],
+      "contentPreview": "\n# Linux Terminal\n\n## Purpose\nActs as a Linux Terminal to assist with relevant tasks.\n\n## Instructions\nI want you to act as a linux terminal. I will type commands and you will reply with what the term",
+      "lastModified": "2026-08-24T00:27:07.959Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Engineering/refactoring.md",
+      "title": "💻 Refactoring Prompt",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "refactoring",
+      "tags": [
+        "refactor",
+        "prompt",
+        "engineering"
+      ],
+      "contentPreview": "\n# Refactoring Prompt\n\n## Purpose\nRefactor code to improve readability and maintainability.\n\n## Instructions\nRefactor the provided code to adhere to SOLID principles and improve readability.\n\n## Outpu",
+      "lastModified": "2026-08-24T00:27:07.959Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Engineering/rust-memory-optimizer.md",
+      "title": "🦀 Rust Memory Optimizer",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "rust-memory-optimizer",
+      "tags": [
+        "rust",
+        "memory",
+        "optimization",
+        "performance"
+      ],
+      "contentPreview": "\n# Rust Memory Optimizer\n\n## Purpose\nThis prompt helps developers identify and resolve memory inefficiencies in Rust code, focusing on avoiding unnecessary allocations, utilizing borrowing effectively",
+      "lastModified": "2026-08-24T00:27:07.960Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Engineering/unit-test-generator.md",
+      "title": "💻 Unit Test Generator Prompt",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "unit-test-generator",
+      "tags": [
+        "testing",
+        "prompt",
+        "engineering"
+      ],
+      "contentPreview": "\n# Unit Test Generator Prompt\n\n## Purpose\nGenerate comprehensive unit tests for a given function.\n\n## Instructions\nWrite unit tests using pytest for the following function. Cover edge cases.\n\n## Outpu",
+      "lastModified": "2026-08-24T00:27:07.960Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Engineering/ux_ui_developer.md",
+      "title": "📝 UX_UI Developer",
+      "section": "4_Prompts",
+      "category": "Engineering",
+      "subcategory": "ux_ui_developer",
+      "tags": [
+        "prompt",
+        "engineering",
+        "ux_ui developer"
+      ],
+      "contentPreview": "\n# UX_UI Developer\n\n## Purpose\nActing as a UX_UI Developer to assist with specific tasks and scenarios.\n\n## Instructions\nSimply paste the prompt below into your LLM. Replace any variables with your sp",
+      "lastModified": "2026-08-24T00:27:07.960Z",
       "isUserOwned": false
     },
     {
@@ -21753,22 +21753,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/IT_Security/security-vulnerability-scanner.md",
-      "title": "🛡️ Security Vulnerability Scanner",
-      "section": "4_Prompts",
-      "category": "IT_Security",
-      "subcategory": "security-vulnerability-scanner",
-      "tags": [
-        "development",
-        "security",
-        "code-review",
-        "vulnerability"
-      ],
-      "contentPreview": "\n# Security Vulnerability Scanner\n\n## Purpose\nTo analyze a given snippet of code for common security vulnerabilities (e.g., SQL injection, XSS, insecure dependencies) and provide remediation advice.\n\n",
-      "lastModified": "2026-08-24T00:27:07.977Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/IT_Security/Threat_Modeling/exercise.md",
       "title": "📌 Threat Modeling Exercise",
       "section": "4_Prompts",
@@ -21783,6 +21767,22 @@
       ],
       "contentPreview": "# Prompt: Threat Modeling Exercise\n\n## Description\nThis prompt provides a template for conducting a threat modeling exercise for a web application. The exercise helps to identify, analyze, and mitigat",
       "lastModified": "2026-08-24T00:27:07.976Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/IT_Security/security-vulnerability-scanner.md",
+      "title": "🛡️ Security Vulnerability Scanner",
+      "section": "4_Prompts",
+      "category": "IT_Security",
+      "subcategory": "security-vulnerability-scanner",
+      "tags": [
+        "development",
+        "security",
+        "code-review",
+        "vulnerability"
+      ],
+      "contentPreview": "\n# Security Vulnerability Scanner\n\n## Purpose\nTo analyze a given snippet of code for common security vulnerabilities (e.g., SQL injection, XSS, insecure dependencies) and provide remediation advice.\n\n",
+      "lastModified": "2026-08-24T00:27:07.977Z",
       "isUserOwned": false
     },
     {
@@ -22040,22 +22040,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/Media/Images/midjourney-architectural-prompter.md",
-      "title": "🏛️ Midjourney Architectural Prompter",
-      "section": "4_Prompts",
-      "category": "Media",
-      "subcategory": "Images",
-      "tags": [
-        "midjourney",
-        "architecture",
-        "image-generation",
-        "design"
-      ],
-      "contentPreview": "\n# Midjourney Architectural Prompter\n\n## Purpose\nGenerates highly detailed and professional prompts for Midjourney to create realistic architectural visualizations, exterior designs, and interior spac",
-      "lastModified": "2026-08-24T00:27:07.990Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/Media/Images/Photography/cinematic-photography.md",
       "title": "📷 Cinematic Photography",
       "section": "4_Prompts",
@@ -22130,6 +22114,22 @@
         "prompt-generator"
       ],
       "contentPreview": "\n# Midjourney Prompt Generator\n\n## Purpose\nA prompt to use with ChatGPT or similar LLMs to act as a seasoned photographer and generate highly detailed and effective prompts for Midjourney.\n\n## Instruc",
+      "lastModified": "2026-08-24T00:27:07.990Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Media/Images/midjourney-architectural-prompter.md",
+      "title": "🏛️ Midjourney Architectural Prompter",
+      "section": "4_Prompts",
+      "category": "Media",
+      "subcategory": "Images",
+      "tags": [
+        "midjourney",
+        "architecture",
+        "image-generation",
+        "design"
+      ],
+      "contentPreview": "\n# Midjourney Architectural Prompter\n\n## Purpose\nGenerates highly detailed and professional prompts for Midjourney to create realistic architectural visualizations, exterior designs, and interior spac",
       "lastModified": "2026-08-24T00:27:07.990Z",
       "isUserOwned": false
     },
@@ -24476,6 +24476,17 @@
       "isUserOwned": false
     },
     {
+      "id": "5_System_Prompts/Misc/General/readme.md",
+      "title": "Other Agent Instructions",
+      "section": "5_System_Prompts",
+      "category": "Misc",
+      "subcategory": "General",
+      "tags": [],
+      "contentPreview": "# Other Agent Instructions\n\nGeneral-purpose and miscellaneous agent configurations.\n\n## 🎯 General Roles\n\nUtility agents, assistants, and general-purpose configurations.\n\n---\n\n## 📋 Available Agent In",
+      "lastModified": "2026-08-24T00:27:08.056Z",
+      "isUserOwned": false
+    },
+    {
       "id": "5_System_Prompts/Misc/chatglm4-20240821.md",
       "title": "📝 ChatGLM 4",
       "section": "5_System_Prompts",
@@ -24539,17 +24550,6 @@
       ],
       "contentPreview": "# ESTsoft-alan_20230920\n\nsource: onetop4458<https://github.com/jujumilk3/leaked-system-prompts/pull/10>\n\n- 이스트 소프트 앨런 어시스턴트 (GPT-4 기반 앨런 (내부 코드명 : Gepeto) 및 인터넷 접근이 가능한 기반 정보 탐색 앨런 으로 구성되어 있다.)\n<https",
       "lastModified": "2026-08-24T00:27:08.058Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "5_System_Prompts/Misc/General/readme.md",
-      "title": "Other Agent Instructions",
-      "section": "5_System_Prompts",
-      "category": "Misc",
-      "subcategory": "General",
-      "tags": [],
-      "contentPreview": "# Other Agent Instructions\n\nGeneral-purpose and miscellaneous agent configurations.\n\n## 🎯 General Roles\n\nUtility agents, assistants, and general-purpose configurations.\n\n---\n\n## 📋 Available Agent In",
-      "lastModified": "2026-08-24T00:27:08.056Z",
       "isUserOwned": false
     },
     {
