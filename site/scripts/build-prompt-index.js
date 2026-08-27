@@ -105,7 +105,13 @@ function walkDir(dir, baseDir = LIBRARY_PATH) {
 console.log('Building prompt index...');
 const startTime = Date.now();
 
-const prompts = walkDir(LIBRARY_PATH);
+// fs.readdirSync returns whatever order the filesystem hands back — case-
+// insensitive alphabetical on NTFS, hash order on ext4 — so the same library
+// produced a differently-ordered index on Windows than on a Linux CI runner and
+// the freshness gate failed on ordering alone. Sorting by id makes the file
+// reproducible anywhere. The app sorts client-side (default title-asc), so this
+// order is not what anyone sees.
+const prompts = walkDir(LIBRARY_PATH).sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
 const index = {
   version: 1,

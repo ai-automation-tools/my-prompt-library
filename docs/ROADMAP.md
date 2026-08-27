@@ -15,9 +15,9 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 | Stack | React 19 + TS + Vite 6 + Tailwind v4 · Express/Vercel serverless · Neon Postgres |
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 38 MB, all of it reachable |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
-| Prompt index | `site/api/prompt-index.json` — **1,739** prompts, 1.05 MB (`npm run build:index`) |
+| Prompt index | `site/api/prompt-index.json` — **1,739** prompts, 1.05 MB (`npm run build:index`), LF-normalized and reproducible on Linux and Windows |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own |
-| `src/App.tsx` | **1,050 lines** (was 2,845), 25 `useState` hooks |
+| `src/App.tsx` | **1,082 lines** (was 2,845), 25 `useState` hooks |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
 | Health | Live and production-ready. Everything below is content, maintainability, or polish |
 
@@ -87,16 +87,27 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       prompt under a different filename; **the other 14 were promoted into `5_System_Prompts/`**
       rather than deleted, which is why the index went 1,725 → 1,739. Everything else is in Git
       history (`git checkout <sha> -- site/library/Legacy`).
-- [ ] **Code-split the bundle.** `dist/assets/index-*.js` is **983 KB** (265 KB gzipped) and
-      Vite warns on every build. Route/modal-level `React.lazy` on `SkillPacksView`,
-      `PromptEditorModal` and the auth modals is the obvious first cut.
+- [x] ~~**Code-split the bundle.**~~ One 976 KB chunk became eight. First paint now costs
+      **706 KB / 200 KB gzipped** (was 976 / 265) and no chunk trips Vite's 500 KB warning.
+      `React.lazy` on `SkillPacksView`, `PromptDetail`, `PromptEditorModal` and the two auth
+      modals moves 184 KB of react-markdown off the critical path; `manualChunks` splits
+      React (397 KB) and motion (128 KB) into chunks that survive a content deploy in cache.
+      The remaining entry chunk is 181 KB.
+- [ ] **Defer `motion` if 128 KB on first paint is worth it.** It is the only sizeable
+      dependency left that loads before anything renders, and `LazyMotion` + the `m` components
+      would cut most of it — but `motion/react` is imported in 10 files, so this is a refactor,
+      not a config change.
 - [ ] **Split or delete the two multi-MB bulk files.** `act-as-an-expert.md` (3.4 MB) and
       `promptsdotchat-opensource.md` (2.5 MB) are skipped by the 500 KB index filter, so they
       are unreachable in the app — yet they are 74% of `2_Agents`'s 7.9 MB and ship on every
       deploy.
-- [ ] **Add `.gitattributes` and normalize line endings.** 2,131 of 2,132 content files are
-      CRLF with no `.gitattributes`, so every cross-machine edit risks a whole-file diff.
-      `*.md text eol=lf`, then normalize once.
+- [x] ~~**Add `.gitattributes` and normalize line endings.**~~ Done, and it was not cosmetic:
+      the CI index gate could not pass on *any* PR, because `contentPreview` is embedded in
+      `prompt-index.json` verbatim and carried `
+` when built on Windows against `
+` when
+      rebuilt on a Linux runner. `eol=lf` (not a bare `text=auto`) is what makes the two
+      checkouts agree. 647 files renormalized, verified line-endings-only.
 - [ ] **Prune merged branches.** Six are fully merged into `main`:
       `automation/add-skillsmp-skills-pr`, `codex/add-skillsmp-skills`,
       `roadmap/auto-2026-08-18`, `roadmap/auto-2026-08-22`, `skills/trending-2026-08-19`,

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
 import {
   FileText,
   LayoutGrid,
@@ -16,20 +16,31 @@ import {
   Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import PromptEditorModal from './components/PromptEditorModal';
-import LoginModal from './components/LoginModal';
-import SignupModal from './components/SignupModal';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { useAuth } from './contexts/AuthContext';
-import SkillPacksView from './components/SkillPacksView';
 import { type Prompt } from './components/PromptCard';
-import PromptDetail from './components/PromptDetail';
 import Sidebar, { type Theme, type SkillPackSummary } from './components/Sidebar';
 import TopBar from './components/TopBar';
 import LibraryHero from './components/LibraryHero';
 import PromptGrid, { PromptCardGrid, type PromptCardActions } from './components/PromptGrid';
 import PromptListToolbar from './components/PromptListToolbar';
 import { usePromptFilters } from './hooks/usePromptFilters';
+
+// Split out of the entry chunk: none of these render on first paint, and
+// PromptDetail/PromptEditorModal each pull in react-markdown + remark-gfm.
+// The three modals are only mounted while open, so opening one is what
+// fetches its chunk — mounting them closed would defeat the split.
+const SkillPacksView = lazy(() => import('./components/SkillPacksView'));
+const PromptDetail = lazy(() => import('./components/PromptDetail'));
+const PromptEditorModal = lazy(() => import('./components/PromptEditorModal'));
+const LoginModal = lazy(() => import('./components/LoginModal'));
+const SignupModal = lazy(() => import('./components/SignupModal'));
+
+const chunkSpinner = (
+  <div className="flex items-center justify-center h-64">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+  </div>
+);
 
 const PUBLIC_SHARE_ORIGIN = 'https://prompts.mikesailab.com';
 
@@ -105,6 +116,10 @@ export default function App() {
     if (section === 'prompt-library') return 'prompt-library';
     if (section === 'skills') return 'skills';
     if (section === 'system-prompts') return 'system-prompts';
+    // 'skill-packs' was missing here while the popstate handler below has it,
+    // so in-app navigation worked but a deep link or a refresh landed on
+    // Prompts instead.
+    if (section === 'skill-packs') return 'skill-packs';
     return 'prompt-library';
   });
   const [activeCategory, setActiveCategory] = useState<string | null>(() => {
@@ -213,6 +228,7 @@ export default function App() {
       activeTab === 'agents' ? 'agents' :
       activeTab === 'prompt-library' ? 'prompt-library' :
       activeTab === 'skills' ? 'skills' :
+      activeTab === 'skill-packs' ? 'skill-packs' :
       'system-prompts';
     url.searchParams.set('section', sectionParam);
     
@@ -881,12 +897,14 @@ source: My Prompt Library
 
                 {/* Skill Packs View */}
                 {activeTab === 'skill-packs' && (
-                  <SkillPacksView
-                    user={user}
-                    libraryMode={libraryMode}
-                    onRequireLogin={() => setIsLoginOpen(true)}
-                    onToast={showToast}
-                  />
+                  <Suspense fallback={chunkSpinner}>
+                    <SkillPacksView
+                      user={user}
+                      libraryMode={libraryMode}
+                      onRequireLogin={() => setIsLoginOpen(true)}
+                      onToast={showToast}
+                    />
+                  </Suspense>
                 )}
 
                 {/* All Prompts Section Header */}
@@ -963,21 +981,23 @@ source: My Prompt Library
 
             ) : selectedPrompt ? (
               /* Single Prompt Detail */
-              <PromptDetail
-                prompt={selectedPrompt}
-                libraryMode={libraryMode}
-                copyingToMyPromptsId={copyingToMyPromptsId}
-                copiedShareLink={copiedShareLink}
-                copied={copied}
-                onBack={handleBack}
-                onDownloadMarkdown={handleDownloadMarkdown}
-                onCopyShareLink={handleCopyShareLink}
-                onCopyToMyPrompts={handleCopyToMyPrompts}
-                onDeletePrompt={handleDeletePrompt}
-                onCopy={handleCopy}
-                onSubcategoryClick={handleSubcategoryClick}
-                onShowAllPrompts={handleShowAllPrompts}
-              />
+              <Suspense fallback={chunkSpinner}>
+                <PromptDetail
+                  prompt={selectedPrompt}
+                  libraryMode={libraryMode}
+                  copyingToMyPromptsId={copyingToMyPromptsId}
+                  copiedShareLink={copiedShareLink}
+                  copied={copied}
+                  onBack={handleBack}
+                  onDownloadMarkdown={handleDownloadMarkdown}
+                  onCopyShareLink={handleCopyShareLink}
+                  onCopyToMyPrompts={handleCopyToMyPrompts}
+                  onDeletePrompt={handleDeletePrompt}
+                  onCopy={handleCopy}
+                  onSubcategoryClick={handleSubcategoryClick}
+                  onShowAllPrompts={handleShowAllPrompts}
+                />
+              </Suspense>
 
             ) : (
               /* Empty state */
@@ -1013,38 +1033,50 @@ source: My Prompt Library
       </button>
 
       {/* Prompt Editor Modal */}
-      <PromptEditorModal
-        isOpen={isEditorOpen}
-        onClose={() => {
-          setIsEditorOpen(false);
-          setEditingPrompt(null);
-        }}
-        onSave={handleSavePrompt}
-        editingPrompt={editingPrompt}
-        defaultSection={activeSection}
-      />
+      {isEditorOpen && (
+        <Suspense fallback={null}>
+          <PromptEditorModal
+            isOpen={isEditorOpen}
+            onClose={() => {
+              setIsEditorOpen(false);
+              setEditingPrompt(null);
+            }}
+            onSave={handleSavePrompt}
+            editingPrompt={editingPrompt}
+            defaultSection={activeSection}
+          />
+        </Suspense>
+      )}
 
       {/* Toast Notifications */}
       <ToastContainer toasts={toasts} onClose={closeToast} />
 
       {/* Auth Modals */}
-      <LoginModal
-        isOpen={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
-        onSwitchToSignup={() => {
-          setIsLoginOpen(false);
-          setIsSignupOpen(true);
-        }}
-      />
+      {isLoginOpen && (
+        <Suspense fallback={null}>
+          <LoginModal
+            isOpen={isLoginOpen}
+            onClose={() => setIsLoginOpen(false)}
+            onSwitchToSignup={() => {
+              setIsLoginOpen(false);
+              setIsSignupOpen(true);
+            }}
+          />
+        </Suspense>
+      )}
 
-      <SignupModal
-        isOpen={isSignupOpen}
-        onClose={() => setIsSignupOpen(false)}
-        onSwitchToLogin={() => {
-          setIsSignupOpen(false);
-          setIsLoginOpen(true);
-        }}
-      />
+      {isSignupOpen && (
+        <Suspense fallback={null}>
+          <SignupModal
+            isOpen={isSignupOpen}
+            onClose={() => setIsSignupOpen(false)}
+            onSwitchToLogin={() => {
+              setIsSignupOpen(false);
+              setIsLoginOpen(true);
+            }}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

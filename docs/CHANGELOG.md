@@ -4,6 +4,131 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-27 — The CI gate could never have passed, and two reasons why
+
+The index gate shipped that morning failed on its first real PR, and the failure was honest:
+the committed `api/prompt-index.json` genuinely could not be reproduced by CI. Two independent
+causes, neither of them the gate's fault.
+
+### 1. Line endings — `.gitattributes`
+
+2,131 of 2,132 content files were CRLF, and the repo had no `.gitattributes`. The index embeds
+a 200-character `contentPreview` verbatim, so the copy built on Windows carried `
+` and the
+copy CI rebuilt from a Linux checkout carried `
+`. Every PR would have failed on the same
+diff no matter what it changed — the fastest way to teach a team to ignore a gate.
+
+`eol=lf` rather than a bare `text=auto` is the part that matters: it normalizes the *working
+tree* on Windows too, so the index is byte-reproducible on either platform. 647 files
+renormalized; each staged change was checked to be line-endings-only by comparing blobs with
+`
+` stripped from both sides.
+
+Four files had to be pulled back out of the sweep. The PNG/GIF "images" under
+`timesfm-forecasting` are Git LFS **pointer files**, and the LFS spec requires LF. Marking
+`*.png binary` correctly stopped git normalizing them — which meant `--renormalize` would have
+staged the CRLF working-tree bytes and quietly broken the pointers. Restored byte-for-byte.
+
+### 2. The same file tracked twice, under two spellings of one directory
+
+`document-writer/SKILL.md` was tracked at **both** `3_Skills/Content/General/` and
+`3_Skills/Content/general/` — same blob, two paths differing only in one capital letter. It has
+been that way since the `site/` restructure.
+
+On Windows those are one directory, so the checkout produces a single file and the local index
+has 1,739 prompts. On a case-sensitive Linux runner they are two files, so CI built **1,740**
+and failed against the committed 1,739. Nothing a Windows-only workflow could ever see.
+
+This is also what made the file look untracked. `git ls-files --error-unmatch` on the
+capital-G path said "did not match any file(s) known to git", `git status` never listed it, and
+`git add -f` exited 0 while staging nothing — from bash *and* PowerShell, with the file neither
+ignored, sparse-excluded, nor skip-worktree. Git was matching the working-tree file against the
+lowercase-g index entry and correctly concluding there was nothing to do. It went in via
+`hash-object` + `update-index`, and the lowercase duplicate was then dropped with
+`update-index --force-remove` — the capital-G spelling matches its `humanizer` sibling and the
+committed index.
+
+It was the only case collision in `site/library/`; `3_Skills/packs/` is lowercase on purpose.
+
+### 3. The index was ordered by whatever the filesystem returned
+
+With the count finally matching, the gate still failed — on ordering. `fs.readdirSync` returns
+the filesystem's own order: case-insensitive alphabetical on NTFS, hash order on ext4. Same
+1,739 prompts, different array order, so the diff was every entry moving.
+
+`build-prompt-index.js` now sorts by `id`. Verified as a pure reordering: the set of prompt
+objects before and after is identical, 0 added and 0 removed. The app sorts client-side
+(default title-asc), so this order was never what anyone saw — it just made the committed file
+un-reproducible.
+
+### Result
+
+`npm run build:index` twice in a row now produces a byte-identical index, and the gate's own
+comparison passes locally. Prompt count is unchanged at **1,739**; `lastModified` was carried
+over per id, so the diff is the previews rather than 1,739 fresh checkout timestamps.
+
+---
+
+## 2026-08-27 — One 976 KB chunk became eight
+
+First paint was a single `index-*.js` of **976 KB / 265 KB gzipped**, and Vite warned about it
+on every build. It is now **706 KB / 200 KB gzipped** across three files, and nothing trips the
+500 KB threshold.
+
+| chunk | size | gzip | when it loads |
+|:---|---:|---:|:---|
+| `react-vendor` | 396.7 KB | 118.8 KB | first paint |
+| `index` (app) | 180.9 KB | 39.0 KB | first paint |
+| `motion` | 128.3 KB | 42.7 KB | first paint |
+| markdown (shared) | 184.0 KB | 54.6 KB | opening a prompt or the editor |
+| `SkillPacksView` | 28.5 KB | 3.9 KB | opening Skill Packs |
+| `PromptEditorModal` | 17.6 KB | 2.9 KB | opening the editor |
+| `PromptDetail` | 15.9 KB | 2.6 KB | opening a prompt |
+| `SignupModal` / `LoginModal` | 14.8 / 9.3 KB | 2.5 / 1.8 KB | opening that modal |
+
+Two changes did it.
+
+**`React.lazy` on the five components that are never on screen at first paint** —
+`SkillPacksView`, `PromptDetail`, `PromptEditorModal`, `LoginModal`, `SignupModal`. The prize
+is not the components (each is 9–28 KB) but what two of them drag in: `react-markdown` +
+`remark-gfm` pull the whole unified/micromark stack, 184 KB that used to be in the entry chunk
+and is now a shared chunk fetched the first time you open a prompt.
+
+The three modals needed one extra step. They were always mounted and self-hid with
+`if (!isOpen) return null`, which would have fetched their chunks on page load and defeated the
+split, so App now mounts them only while open. Behaviour is identical — each already rendered
+nothing when closed, and the editor's form-init effect keys on the same flag.
+
+**`manualChunks` for React and motion.** They are ~475 KB of the entry and change only when we
+bump them, so they now live in their own chunks: editing a prompt no longer invalidates 400 KB
+of React in every visitor's cache.
+
+### What is left
+
+`motion` is the only sizeable thing still on the critical path at 128 KB. `LazyMotion` with the
+`m` components would cut most of it, but `motion/react` is imported in 10 files — a refactor,
+filed on the roadmap rather than smuggled in here. React itself is not going anywhere.
+
+### Two bugs the browser test found
+
+Verifying the split in a real browser (built bundle, `NODE_ENV=production`) turned up a
+pre-existing routing bug in two halves, both the same omission — `skill-packs` was never added
+to the tab↔URL mapping:
+
+- the `activeTab` initialiser had no `skill-packs` case, so a **deep link or refresh on
+  `?section=skill-packs` silently landed on Prompts**. In-app navigation worked, because the
+  `popstate` handler *does* have the case, which is why nobody noticed.
+- the URL-sync effect had no `skill-packs` case either, so its ternary chain fell through to
+  `'system-prompts'` — opening Skill Packs rewrote the address bar to a section you were not
+  looking at, and copying that URL sent someone else somewhere else.
+
+Both fixed. Confirmed against the built bundle: first paint fetches exactly three JS chunks,
+each lazy chunk arrives only on the interaction that needs it, markdown renders, and the
+console is clean.
+
+---
+
 ## 2026-08-27 — `library/Legacy/` deleted, 14 system prompts rescued from it
 
 2,393 files and 37 MB — half the library payload — shipped on every deploy while being

@@ -9,6 +9,21 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
+    build: {
+      rollupOptions: {
+        output: {
+          // React and motion are ~475 kB of the entry chunk and change only
+          // when we bump them, so keeping them out of the app chunk means a
+          // content edit no longer invalidates them in anyone's cache. It also
+          // puts every chunk under Vite's 500 kB warning threshold.
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return;
+            if (/[\/]node_modules[\/](react|react-dom|scheduler)[\/]/.test(id)) return 'react-vendor';
+            if (/[\/]node_modules[\/](motion|motion-dom|motion-utils|framer-motion)[\/]/.test(id)) return 'motion';
+          },
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

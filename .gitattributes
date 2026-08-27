@@ -1,0 +1,46 @@
+# Line endings are normalized to LF in the repository and in the working tree.
+#
+# There was no .gitattributes here, and 2,131 of 2,132 content files were CRLF.
+# That is fine until something derives content from the files: the CI gate
+# rebuilds api/prompt-index.json and compares it to the committed copy, and the
+# index embeds a 200-character contentPreview verbatim. Built on Windows it
+# carried \r\n, rebuilt on a Linux runner it carried \n, so the gate could never
+# pass. `eol=lf` (not just `text=auto`) is what makes the Windows checkout match
+# the Linux one, so the index is reproducible on either.
+
+*               text=auto eol=lf
+
+# Explicit for the types we actually carry, so a stray heuristic cannot flip one.
+*.md            text eol=lf
+*.MD            text eol=lf
+*.txt           text eol=lf
+*.py            text eol=lf
+*.sh            text eol=lf
+*.ts            text eol=lf
+*.tsx           text eol=lf
+*.js            text eol=lf
+*.mjs           text eol=lf
+*.json          text eol=lf
+*.css           text eol=lf
+*.html          text eol=lf
+*.svg           text eol=lf
+*.xml           text eol=lf
+*.xsd           text eol=lf
+*.yaml          text eol=lf
+*.yml           text eol=lf
+*.csv           text eol=lf
+*.tex           text eol=lf
+*.mplstyle      text eol=lf
+LICENSE         text eol=lf
+
+# Binary — never touch these.
+*.png           binary
+*.jpg           binary
+*.jpeg          binary
+*.gif           binary
+*.ico           binary
+*.ttf           binary
+*.woff          binary
+*.woff2         binary
+*.zip           binary
+*.pdf           binary
