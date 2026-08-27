@@ -4,6 +4,51 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-27 — The CI gate could never have passed, and two reasons why
+
+The index gate shipped that morning failed on its first real PR, and the failure was honest:
+the committed `api/prompt-index.json` genuinely could not be reproduced by CI. Two independent
+causes, neither of them the gate's fault.
+
+### 1. Line endings — `.gitattributes`
+
+2,131 of 2,132 content files were CRLF, and the repo had no `.gitattributes`. The index embeds
+a 200-character `contentPreview` verbatim, so the copy built on Windows carried `
+` and the
+copy CI rebuilt from a Linux checkout carried `
+`. Every PR would have failed on the same
+diff no matter what it changed — the fastest way to teach a team to ignore a gate.
+
+`eol=lf` rather than a bare `text=auto` is the part that matters: it normalizes the *working
+tree* on Windows too, so the index is byte-reproducible on either platform. 647 files
+renormalized; each staged change was checked to be line-endings-only by comparing blobs with
+`` stripped from both sides.
+
+Four files had to be pulled back out of the sweep. The PNG/GIF "images" under
+`timesfm-forecasting` are Git LFS **pointer files**, and the LFS spec requires LF. Marking
+`*.png binary` correctly stopped git normalizing them — which meant `--renormalize` would have
+staged the CRLF working-tree bytes and quietly broken the pointers. Restored byte-for-byte.
+
+### 2. A prompt in the index that was not in the repo
+
+`3_Skills/Content/General/document-writer/SKILL.md` was **untracked** but present in the
+committed index. Locally the file is on disk so the rebuild matched; CI checks out 1,738
+prompts and compares them against a committed 1,739. The file is real skill content, carries a
+provenance stamp from the 2026-08-26 attribution run, and was simply never `git add`ed. It is
+committed now, which makes the committed index true rather than true-on-one-machine.
+
+(Worth noting: `git add` — with `-f`, from both bash and PowerShell — exited 0 on that path and
+staged nothing, with the file neither ignored, sparse-excluded, nor skip-worktree. It went in
+via `hash-object` + `update-index`. Unexplained; the file is tracked and correct.)
+
+### Result
+
+`npm run build:index` twice in a row now produces a byte-identical index, and the gate's own
+comparison passes locally. Prompt count is unchanged at **1,739**; `lastModified` was carried
+over per id, so the diff is the previews rather than 1,739 fresh checkout timestamps.
+
+---
+
 ## 2026-08-27 — One 976 KB chunk became eight
 
 First paint was a single `index-*.js` of **976 KB / 265 KB gzipped**, and Vite warned about it
