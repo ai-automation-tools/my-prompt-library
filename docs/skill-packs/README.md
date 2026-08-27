@@ -29,7 +29,8 @@ Skill Packs are pre-configured bundles of related skills designed for specific u
 ### Backend
 
 **Local Development:**
-- **Express Routes:** `routes/skill-packs.ts`
+- **Handler:** `api/skill-packs.ts` — a Vercel function of its own (`vercel.json` routes
+  `/api/skill-packs/*` to it). Dev mounts the same handler; there is no separate Express router.
 - Used when running `npm run dev`
 
 **Production (Vercel):**

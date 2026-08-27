@@ -93,6 +93,16 @@ npm run dev
 # Visit http://localhost:3010
 ```
 
+### Checks
+
+```bash
+npm run lint          # tsc --noEmit
+npm run test:routes   # the API route table is intact
+npm run build:index   # rebuild api/prompt-index.json after editing library/
+```
+
+CI runs all three on every PR and fails if the committed prompt index is stale.
+
 ### Deploy to Vercel
 
 See [DEPLOYMENT.md](docs/setup/DEPLOYMENT.md) for complete deployment instructions.
@@ -168,7 +178,10 @@ my-prompt-library/
 │   ├── db/                   # Database layer (PostgreSQL)
 │   ├── routes/               # Auth routes
 │   ├── middleware/           # Auth middleware
-│   └── server.ts             # Local Express dev server (port 3010)
+│   ├── scripts/              # build-prompt-index.js, api-routes.test.mjs
+│   └── server.ts             # Dev wrapper around the same app api/ exports (port 3010)
+├── .github/workflows/ci.yml  # lint + route test + prompt-index freshness gate
+├── .gitattributes            # LF everywhere, in the repo and the working tree
 ├── docs/                     # Project documentation
 ├── scripts/                  # Utility scripts
 └── README.md
@@ -204,7 +217,8 @@ GITHUB_BRANCH=main
 - `PUT /api/auth/me` - Update profile
 
 ### Prompts
-- `GET /api/prompts?library=public|my` - List prompts
+- `GET /api/prompts?library=public|my` - List prompts (add `&lightweight=true` for previews only)
+- `GET /api/prompts/:id` - One prompt with its full body
 - `POST /api/prompts` - Create prompt (auth required)
 - `PUT /api/prompts/:id` - Update prompt (auth required)
 - `DELETE /api/prompts/:id` - Delete prompt (auth required)
@@ -216,6 +230,9 @@ GITHUB_BRANCH=main
 - `POST /api/skill-packs/:packId/add-to-library` - Add pack to My Library (auth + confirm)
 - `DELETE /api/skill-packs/:packId/remove-from-library` - Remove pack from My Library (auth + confirm)
 - `GET /api/skill-packs/:packId/download` - Download pack ZIP
+
+### Skills
+- `GET /api/skills/download/:skillPath` - Download a skill directory as a ZIP
 
 See [docs/features/API.md](docs/features/API.md) for detailed documentation.
 

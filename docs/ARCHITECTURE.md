@@ -51,13 +51,16 @@ The Prompt Library is a full-stack web application for managing and organizing p
                          │ HTTP (fetch)
 ┌────────────────────────▼────────────────────────────────────┐
 │                      API Layer                              │
-│              Express + Vercel Functions                     │
+│      One Express app — api/index.ts exports it, Vercel       │
+│      runs it as a function, server.ts imports it in dev      │
 │  ┌──────────────────────────────────────────────────────┐  │
-│  │  GET  /api/prompts          - List all prompts      │  │
+│  │  GET  /api/prompts          - List (?lightweight)   │  │
+│  │  GET  /api/prompts/:id      - One prompt, full body │  │
 │  │  POST /api/prompts          - Create new prompt     │  │
 │  │  PUT  /api/prompts/:id      - Update prompt         │  │
 │  │  DELETE /api/prompts/:id    - Delete prompt         │  │
-│  │  POST /api/prompts/:id/copy - Copy to My_Prompts    │  │
+│  │  POST /api/prompts/:id/copy - Copy to My Library    │  │
+│  │  GET  /api/skills/download/ - Skill directory ZIP   │  │
 │  └──────────────────────────────────────────────────────┘  │
 └────────────────────────┬────────────────────────────────────┘
                          │
@@ -66,12 +69,14 @@ The Prompt Library is a full-stack web application for managing and organizing p
          ▼                                ▼
 ┌─────────────────┐          ┌──────────────────────┐
 │  Local Storage  │          │   GitHub Storage     │
-│   (filesystem)  │          │   (GitHub API)       │
+│   (filesystem)  │          │  (USE_GITHUB_MODE)   │
 │                 │          │                      │
-│  prompts/       │          │  + Batching (50)     │
-│  ├─ My_Prompts  │          │  + Cache (5min)      │
-│  ├─ Collections │          │  + Rate Limiting     │
-│  └─ ...         │          │                      │
+│  library/       │          │  + Batching (50)     │
+│  ├─ 1_Guides    │          │  + Cache (5min)      │
+│  ├─ 2_Agents    │          │  + Rate Limiting     │
+│  ├─ 3_Skills    │          │                      │
+│  ├─ 4_Prompts   │          │                      │
+│  └─ 5_System_.. │          │                      │
 └─────────────────┘          └──────────────────────┘
 ```
 
@@ -158,7 +163,7 @@ my-prompt-library/
 │   │   ├── App.tsx               # App shell
 │   │   └── main.tsx              # Entry point
 │   ├── lib/                      # Shared helpers (safe-path, vercel-types)
-│   ├── routes/                   # Express routers (auth, skill-packs)
+│   ├── routes/                   # Express router (auth only)
 │   ├── middleware/auth.ts        # Cookie/bearer session middleware
 │   ├── db/postgres.ts            # Postgres layer
 │   ├── library/                  # Public Library content
@@ -167,8 +172,10 @@ my-prompt-library/
 │   │   ├── 3_Skills/             # One directory per skill, each with SKILL.md
 │   │   ├── 4_Prompts/
 │   │   └── 5_System_Prompts/
-│   ├── scripts/build-prompt-index.js
-│   ├── server.ts                 # Local Express dev server (port 3010)
+│   ├── scripts/build-prompt-index.js   # Walks library/, sorts by id, skips >500 KB
+│   ├── scripts/api-routes.test.mjs     # Pins the route table (npm run test:routes)
+│   ├── server.ts                 # 71-line dev wrapper: imports api/index.ts's app,
+│   │                             #   mounts api/skill-packs.ts, adds Vite HMR (:3010)
 │   ├── .env.example              # Config template (.env is not committed)
 │   ├── package.json
 │   ├── vercel.json
