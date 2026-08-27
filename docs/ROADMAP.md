@@ -13,9 +13,9 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 | | |
 |:---|:---|
 | Stack | React 19 + TS + Vite 6 + Tailwind v4 · Express/Vercel serverless · Neon Postgres |
-| Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. `Legacy/` is excluded from the index |
+| Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 38 MB, all of it reachable |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
-| Prompt index | `site/api/prompt-index.json` — **1,725** prompts, 1.06 MB (`npm run build:index`) |
+| Prompt index | `site/api/prompt-index.json` — **1,739** prompts, 1.05 MB (`npm run build:index`) |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own |
 | `src/App.tsx` | **1,050 lines** (was 2,845), 25 `useState` hooks |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
@@ -78,9 +78,15 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 
 ## Then — build, payload, hygiene
 
-- [ ] **Delete `library/Legacy/`.** 2,393 tracked files, 37 MB, excluded from the index by
-      all three readers — roughly half the deploy root, entirely unreachable. It is fully
-      preserved in Git history (`git checkout <sha> -- site/library/Legacy` brings it back).
+- [x] ~~**Delete `library/Legacy/`.**~~ Gone: 2,379 files, 37 MB, half the library payload.
+      Before deleting, every file was hashed against the live tree — 1,956 were byte-identical
+      duplicates and 404 were older revisions of a file that survived under the same name. The
+      33 with no counterpart at all split cleanly: 16 were support files their upstreams have
+      since deleted (`pptx`'s `html2pptx.js`, `skill-creator`'s `init_skill.py`, the per-language
+      `claude-api` stubs), and 17 were archived system prompts. Of those 17, three were the same
+      prompt under a different filename; **the other 14 were promoted into `5_System_Prompts/`**
+      rather than deleted, which is why the index went 1,725 → 1,739. Everything else is in Git
+      history (`git checkout <sha> -- site/library/Legacy`).
 - [ ] **Code-split the bundle.** `dist/assets/index-*.js` is **983 KB** (265 KB gzipped) and
       Vite warns on every build. Route/modal-level `React.lazy` on `SkillPacksView`,
       `PromptEditorModal` and the auth modals is the obvious first cut.

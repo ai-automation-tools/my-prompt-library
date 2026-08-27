@@ -166,8 +166,7 @@ my-prompt-library/
 │   │   ├── 2_Agents/
 │   │   ├── 3_Skills/             # One directory per skill, each with SKILL.md
 │   │   ├── 4_Prompts/
-│   │   ├── 5_System_Prompts/
-│   │   └── Legacy/               # Pre-rename trees; never indexed or served
+│   │   └── 5_System_Prompts/
 │   ├── scripts/build-prompt-index.js
 │   ├── server.ts                 # Local Express dev server (port 3010)
 │   ├── .env.example              # Config template (.env is not committed)

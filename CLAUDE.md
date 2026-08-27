@@ -66,9 +66,9 @@ site/
 
 ## Library structure (current — numbered)
 
-`library/1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`, plus
-`Legacy/` (old `*_OLD` trees, excluded from the index by `build-prompt-index.js`,
-`api/index.ts` and `server.ts`). The frontend tab ids
+`library/1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. (`Legacy/`,
+the pre-rename `*_OLD` trees, was deleted 2026-08-27; the readers still skip a folder by that
+name, so restoring it from history would not put it back in the index.) The frontend tab ids
 (`agent-guides`, `agents`, `skills`, `prompt-library`, `system-prompts`) map to these
 folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, run
 `npm run build:index` so `api/prompt-index.json` reflects it.

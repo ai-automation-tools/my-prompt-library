@@ -4,6 +4,42 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-27 — `library/Legacy/` deleted, 14 system prompts rescued from it
+
+2,393 files and 37 MB — half the library payload — shipped on every deploy while being
+excluded from the index by all three readers. Gone.
+
+The delete was not taken on faith. Every Legacy file was hashed against the live tree first:
+
+| | files | |
+|:---|---:|:---|
+| byte-identical to a live file | 1,956 | pure duplicates |
+| older revision of a file that survived under the same name | 404 | superseded |
+| no counterpart at all | 33 | needed a decision |
+
+Of the 33, sixteen were support files their upstreams have since deleted — `pptx`'s
+`html2pptx.js`, `inventory.py`, `rearrange.py` and `replace.py`, `skill-creator`'s
+`init_skill.py` and `output-patterns.md`, and the per-language `claude-api` stubs. The
+resyncs pruned those on purpose; Legacy was holding the corpses.
+
+The other seventeen were archived system prompts, and three of those turned out to be the
+same prompt under a different filename (`chatgpt-4o.md`, `codeium-windsurf-cascade.md`,
+`mistral-le-chat-pro.md` — 0.94–0.98 similarity to a live file after stripping frontmatter).
+**The remaining fourteen were real, unreachable content and were promoted into
+`5_System_Prompts/` instead of deleted:** Brave Leo, Cursor IDE Sonnet, DuckDuckGo's
+GPT-4o-mini, Gemini 1.5, Meta AI on WhatsApp, four OpenAI prompts (Assistants API, ChatGPT-4o,
+ChatGPT-5, Deep Research), Opera Aria, Roblox Studio Assistant, Snap My AI, Wrtn and xAI Grok.
+Four vendor folders are new: `Opera/`, `Roblox/`, `Snapchat/`, `Wrtn/`.
+
+That is why the index grew rather than shrank — **1,725 → 1,739 prompts** — and it confirms
+the delete removed nothing the app could reach. `site/library/` is 75 MB → **38 MB**.
+
+The `Legacy` guards in `build-prompt-index.js` and `api/index.ts` were left in place. They
+are three lines, and they mean a `git checkout <sha> -- site/library/Legacy` to consult the
+old tree does not silently double the index.
+
+---
+
 ## 2026-08-27 — One API, not two
 
 `server.ts` was a 555-line hand-maintained twin of `api/index.ts` (749 lines), and
