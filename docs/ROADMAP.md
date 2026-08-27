@@ -18,6 +18,8 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 | Prompt index | `site/api/prompt-index.json` — **3,088** prompts, 1.91 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own |
 | `src/App.tsx` | **1,082 lines** (was 2,845), 25 `useState` hooks |
+| CI | `.github/workflows/ci.yml` — lint, route table, prompt-index freshness. Green since 2026-08-27 |
+| Line endings | LF everywhere, enforced by `.gitattributes`; the index is byte-reproducible on Linux and Windows |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
 | Health | Live and production-ready. Everything below is content, maintainability, or polish |
 
@@ -115,11 +117,15 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 ` when
       rebuilt on a Linux runner. `eol=lf` (not a bare `text=auto`) is what makes the two
       checkouts agree. 647 files renormalized, verified line-endings-only.
-- [ ] **Prune merged branches.** Six are fully merged into `main`:
-      `automation/add-skillsmp-skills-pr`, `codex/add-skillsmp-skills`,
-      `roadmap/auto-2026-08-18`, `roadmap/auto-2026-08-22`, `skills/trending-2026-08-19`,
-      `mike_desktop`. Note `mike_desktop` is the documented working branch but is identical
-      to `main` — either resume using it or drop the convention from `CLAUDE.md`.
+- [ ] **Prune merged branches.** Thirteen are now fully merged into `main`:
+      `automation/add-skillsmp-skills-pr`, `chore/dedupe-skills`, `codex/add-skillsmp-skills`,
+      `feat/upstream-provenance`, `fix/library-content-in-lambda`, `fix/security-hardening`,
+      `main-backup-5_15_26`, `mike_desktop`, `roadmap/auto-2026-08-18`,
+      `roadmap/auto-2026-08-22`, `roadmap/auto-2026-08-26`, `roadmap/auto-2026-08-26b`,
+      `skills/trending-2026-08-19`. Two need a decision rather than a delete:
+      `mike_desktop` is the working branch `CLAUDE.md` documents but is identical to `main`
+      (resume it or drop the convention), and `main-backup-5_15_26` is a backup whose reason
+      for existing has expired.
 - [ ] **Guard against index drift locally.** `vercel-build` rebuilds the index so a stale
       copy never reaches production, but it makes `git status` noisy. Either stop committing
       `api/prompt-index.json` or add a pre-commit rebuild.
@@ -140,10 +146,11 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       `upstream.checked` and render a stale badge.
 
 ### Library structure
-- [ ] **Decide what `2_Agents` is.** 457 of 547 files have no `name:`/`description:`, so they
+- [ ] **Decide what `2_Agents` is.** 460 of 546 files have no `name:`/`description:`, so they
       cannot load as subagents — they are role-play prompts filed in the wrong section.
       Either move them to `4_Prompts` or rename the section "Agent Prompts" and stop implying
-      they are installable.
+      they are installable. (Splitting the bulk files already moved 1,349 prompts out of
+      `2_Agents` and into `4_Prompts`, which is the same argument applied to two files.)
 - [ ] **Resolve the remaining semantic duplicates.** The byte-level dedupe cannot see them
       because names and frontmatter differ: 2 skill groups share an upstream file
       (`skill-creator`, `brand-guidelines`), and `2_Agents` has 16 near-duplicate topic
@@ -178,13 +185,26 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 
 ## Done
 
-See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-27**: the `behind` tier is empty —
-every skill the drift report named is level with its upstream — the six dead upstreams are
-marked as forks we own, deprecated model IDs are swept out of 35 guide and agent files, a CI
-gate guards the prompt index, and the dev/prod API split is collapsed onto one Express app
-(~880 duplicated lines gone, taking all three parity bugs with them).
+See [CHANGELOG.md](CHANGELOG.md).
 
-Earlier the same day: a full repository audit, two confirmed security vulnerabilities fixed,
+**2026-08-27** was a payload and reproducibility day. `library/Legacy/` is gone — 2,393 files
+and 37 MB that no reader indexed — but not before hashing every file against the live tree and
+rescuing the 14 system prompts that existed nowhere else. The two multi-MB bulk files in
+`2_Agents` turned out to hold 1,349 prompts nobody could open, now split into individual files
+under `4_Prompts/Awesome_ChatGPT/`. The bundle went from one 976 KB chunk to eight, cutting
+first paint to 200 KB gzipped.
+
+And the CI gate shipped the day before turned out to be unpassable, for three separate reasons
+that only a Linux runner could see: CRLF line endings baked into `contentPreview`, the same
+file tracked under two spellings of one directory, and an index ordered by whatever the
+filesystem happened to return. All three are fixed and CI is green.
+
+Earlier that day: the `behind` tier emptied — every skill the drift report named is level with
+its upstream — the six dead upstreams marked as forks we own, deprecated model IDs swept out of
+35 guide and agent files, and the dev/prod API split collapsed onto one Express app (~880
+duplicated lines gone, taking all three parity bugs with them).
+
+**2026-08-26**: a full repository audit, two confirmed security vulnerabilities fixed,
 all 22 npm advisories cleared, upstream provenance stamped across the skills library, a weekly
 drift check shipped, and the six most-drifted skills — `code-tour`, `huggingface-gradio`,
 `brainstorming`, `huggingface-llm-trainer`, `discernment-nudge` and `claude-api` — pulled back

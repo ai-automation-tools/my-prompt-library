@@ -4,6 +4,41 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-27 — Docs caught up with the day
+
+Five changes landed today that made parts of the documentation wrong rather than merely
+incomplete, so this is a sweep rather than an addition.
+
+**`README.md`** — the API list was missing `GET /api/prompts/:id` (which exists, and is how
+every prompt detail loads), the `lightweight` query parameter, and the skill-download route.
+The project tree gained `.github/workflows/`, `.gitattributes` and `site/scripts/`. A short
+*Checks* section now names `lint`, `test:routes` and `build:index`, and says CI runs them.
+
+**`docs/ARCHITECTURE.md`** — the architecture diagram still drew the API layer as "Express +
+Vercel Functions", two things side by side, which stopped being true when the implementations
+were collapsed onto one app. Its storage box still showed the pre-rename `prompts/My_Prompts/
+Collections` tree. Both redrawn; `routes/` is described as auth-only now that the skill-packs
+router is gone.
+
+**`CLAUDE.md`** — `server.ts` is described as what it now is (a 71-line wrapper around the
+app `api/index.ts` exports) rather than "local Express dev server", which read as a second
+implementation. Three conventions were added, each one a bug this repo actually shipped:
+
+- LF only, because `contentPreview` is embedded in the index verbatim and CRLF makes it
+  unreproducible on Linux;
+- case-unique paths under `library/`, because two files differing only in case are one file on
+  Windows and two on Linux;
+- check what a bulk import is about to publish, because an upstream corpus put 350 contributor
+  email addresses one commit away from a public site.
+
+**`docs/skill-packs/README.md`** — pointed at `routes/skill-packs.ts`, deleted this morning.
+
+**`docs/ROADMAP.md`** — snapshot rows for CI and line endings; `2_Agents`'s unusable-subagent
+count refreshed 457/547 → 460/546; and the merged-branch list corrected from six to thirteen,
+with `mike_desktop` and `main-backup-5_15_26` called out as decisions rather than deletes.
+
+---
+
 ## 2026-08-27 — 1,349 prompts that shipped on every deploy and nobody could open
 
 `2_Agents/Development/Other/` held two files over the index builder's 500 KB ceiling:

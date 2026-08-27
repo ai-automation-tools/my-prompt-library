@@ -12,7 +12,9 @@ per-user **My Library** (PostgreSQL/Neon). Also serves **Skill Packs** (zipped s
 bundles) and a large **System Prompts** archive.
 
 - **Frontend:** React 19 + TypeScript + Vite 6 + Tailwind v4, Fuse.js search, lucide-react icons, `motion`.
-- **Backend:** Express (local dev via `server.ts`) and Vercel serverless (`api/index.ts`, `api/skill-packs.ts`).
+- **Backend:** one Express app in `api/index.ts`, run by Vercel as a serverless function and
+  by `server.ts` in dev. There is no second copy — `server.ts` imports it. `api/skill-packs.ts`
+  is a separate Vercel function (see `vercel.json`); dev mounts it onto the same app.
 - **Data:** Public Library = markdown files in `library/` (Git-versioned). User data = Postgres (Neon).
 - **Deploy:** Vercel. Working branch **`mike_desktop`**, deploy branch **`main`**. `vercel-build` rebuilds the prompt index.
 
@@ -31,7 +33,12 @@ npm run dev               # tsx server.ts → http://localhost:3010
 ```
 
 Other scripts: `npm run build` (build:index → tsc → vite build), `npm run build:index`
-(regenerates `api/prompt-index.json` from `library/`), `npm run lint` (`tsc --noEmit`).
+(regenerates `api/prompt-index.json` from `library/`), `npm run lint` (`tsc --noEmit`),
+`npm run test:routes` (asserts the shared Express app still exposes all seven API routes).
+
+CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → a rebuild of the
+prompt index, failing if the rebuilt index differs from the committed one. Rebuild and commit
+`api/prompt-index.json` whenever you touch `library/`.
 
 ## Layout
 
@@ -41,7 +48,7 @@ Paths below are relative to `site/`.
 ```
 site/
   src/                 React app
-    App.tsx            1,050 lines (was 2,845) — still the app shell + 24 useState hooks
+    App.tsx            1,082 lines (was 2,845) — still the app shell + 25 useState hooks
     hooks/             usePromptFilters (search, tags, sort, pagination)
     components/        TopBar, LibraryHero, Sidebar, ResourcesNav, PromptListToolbar,
                        PromptGrid (also exports PromptCardGrid + PromptCardActions),
@@ -49,19 +56,25 @@ site/
                        PromptEditorModal, SkillPacksView, Toast, EmptyState
     contexts/          AuthContext
     themes.css         16 themes
-  server.ts            Local Express dev server (port 3010)
+  server.ts            71-line dev wrapper: imports the app `api/index.ts` exports,
+                       mounts the prod skill-packs handler, adds Vite HMR (port 3010)
   api/index.ts         Vercel handler: prompts, auth, GitHub-mode public library
   api/skill-packs.ts   Vercel handler for skill packs (bundles library/3_Skills/**)
-  routes/, middleware/ auth.ts (bcrypt + cookie sessions)
+  routes/, middleware/ auth.ts (bcrypt + cookie sessions). No skill-packs router — dev runs
+                       the production api/skill-packs.ts handler.
   db/postgres.ts       Postgres layer (users, user_prompts, user_sessions, user_skill_pack_installs)
   library/             Public content, numbered sections (see below)
-  scripts/build-prompt-index.js   Walks library/ → api/prompt-index.json (site build step)
+  scripts/build-prompt-index.js   Walks library/ → api/prompt-index.json (site build step).
+                       Sorts by id and skips files over 500 KB.
+  scripts/api-routes.test.mjs     Pins the route table (npm run test:routes)
   package.json, vite.config.ts, tsconfig.json, vercel.json, index.html
 
 (repo root, outside the deploy root)
   scripts/             Utility scripts (add-frontmatter.mjs, prompt_generation/, *.py helpers)
   docs/                Documentation (see docs/README.md; analysis in docs/audits/)
   images/              README / branding assets
+  .github/workflows/ci.yml        lint + test:routes + prompt-index freshness gate
+  .gitattributes       Everything is LF, in the repo and the working tree
 ```
 
 ## Library structure (current — numbered)
@@ -83,6 +96,13 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
 - Auth = bcrypt hashes + cookie sessions (30-day). Secure cookies off in dev (`NODE_ENV`).
 - Parameterized SQL only (`db/postgres.ts`). Never expose `DATABASE_URL` client-side.
 - Never commit `.env*` (gitignored), `DATABASE_URL`, or GitHub tokens.
+- **LF only.** `.gitattributes` sets `eol=lf` repo-wide. `contentPreview` is embedded in
+  `api/prompt-index.json` verbatim, so a CRLF file makes the index unreproducible on Linux and
+  the CI gate fails.
+- **Lowercase, case-unique paths under `library/`.** Two files differing only in case are one
+  file on Windows and two on Linux; that desynced the index once already.
+- When bulk-importing content, check what you are about to publish: an upstream corpus put
+  350 contributor email addresses one commit away from a public site.
 - Match the existing file's style. `App.tsx` is huge — when touching the UI, prefer
   extracting into `src/components/` or `src/hooks/` over growing it back (see docs/ROADMAP.md).
 
