@@ -4,6 +4,39 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-27 — One API, not two
+
+`server.ts` was a 555-line hand-maintained twin of `api/index.ts` (749 lines), and
+`routes/skill-packs.ts` (335) a twin of `api/skill-packs.ts` (394). Both copies are gone.
+`api/index.ts` now exports its Express app; `server.ts` is 71 lines that import it, mount the
+production skill-packs handler, and add Vite's HMR middleware — the one thing production does
+not have and the only reason the file exists. Net ~880 lines deleted.
+
+The three "parity bugs" on the roadmap were all the same bug — a stale copy — so all three
+went with it:
+
+| was | now |
+|:---|:---|
+| `GET /api/prompts/:id` missing in dev; fell through to Vite and returned the SPA's HTML | serves JSON, same handler as prod |
+| dev ignored `lightweight`, shipping the full library every page load | honours it and the prebuilt index — 1.28 MB vs 9.3 MB |
+| dev's GitHub mode filtered the tree on `prompts/`, renamed to `library/` long ago | one GitHub implementation, the working one |
+
+Two more divergences surfaced while collapsing them. `server.ts` had its own
+`isGitHubConfigured()` that ignored `USE_GITHUB_MODE`, so a `GITHUB_TOKEN` sitting in the
+environment for unrelated reasons silently flipped dev onto that broken GitHub path and
+served an empty library. And `api/index.ts` split a forward-slashed prompt id on `path.sep`
+in the single-prompt route — correct on Vercel, wrong on Windows, where every prompt came back
+with `section` set to the entire path and `category` set to `Uncategorized`. Both fixed.
+
+`routes/skill-packs.ts` also carried a `GET /:packId/stats` route that the production handler
+never had and no frontend code calls. It was deleted rather than ported.
+
+New: `npm run test:routes` asserts the seven expected routes are registered on the shared app,
+wired into CI. Verified by running it against a deliberately wrong expectation and confirming
+it fails.
+
+---
+
 ## 2026-08-27 — A CI gate on the prompt index
 
 `.github/workflows/ci.yml`: on every PR and every push to `main`, `npm ci` →

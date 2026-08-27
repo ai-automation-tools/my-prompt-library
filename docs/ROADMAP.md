@@ -49,22 +49,17 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 
 ## Next — dev/prod parity
 
-The two API implementations have silently diverged, and that is the bug class that keeps
-biting. `server.ts` (552 lines) and `api/index.ts` (740) are hand-maintained twins; so are
-`routes/skill-packs.ts` (335) and `api/skill-packs.ts` (394).
+The two API implementations had silently diverged, and that was the bug class that kept
+biting. Collapsed 2026-08-27: `server.ts` is now a 71-line dev wrapper that imports the
+same Express app `api/index.ts` exports and adds Vite's HMR middleware; `routes/skill-packs.ts`
+is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 
-- [ ] **Collapse to one implementation.** Extract handler bodies into `api/handlers/*.ts`
-      and have `server.ts` mount them through a thin Express adapter — roughly 900
-      duplicated lines go away and divergence becomes structurally impossible.
-      *Lazier alternative:* run `vercel dev` locally and delete `server.ts` outright. Smaller
-      diff, but it costs the Vite HMR middleware, which is the only reason `server.ts` exists.
-- [ ] **`GET /api/prompts/:id` exists only in production.** `App.tsx` calls it on every
-      prompt click; locally it falls through to Vite and returns the SPA's HTML. The
-      frontend swallows the failure and reuses its cached copy.
-- [ ] **The dev server ships 15.5 MB per page load.** `server.ts` ignores the `lightweight`
-      query param that both `api/index.ts` and `App.tsx` rely on, so dev sends every prompt
-      at full length where prod sends a 1.06 MB index. This is also *why* the missing route
-      above is invisible.
+- [x] ~~**Collapse to one implementation.**~~ ~880 duplicated lines deleted. Divergence is
+      now structurally impossible — there is one handler set. `npm run test:routes` pins the
+      route table in CI.
+- [x] ~~**`GET /api/prompts/:id` exists only in production.**~~ Dev serves it now.
+- [x] ~~**The dev server ships 15.5 MB per page load.**~~ Dev honours `lightweight` and the
+      prebuilt index: 1.28 MB against 9.3 MB for the full listing.
 - [x] ~~**Add a CI gate.**~~ Shipped: `.github/workflows/ci.yml` runs `npm ci` →
       `npm run lint` → `npm run build:index` on every PR and fails if the rebuilt index
       differs from the committed one. `buildTime` and `lastModified` are stripped before
@@ -152,6 +147,7 @@ biting. `server.ts` (552 lines) and `api/index.ts` (740) are hand-maintained twi
 ## Done
 
 See [CHANGELOG.md](CHANGELOG.md). Most recently, **2026-08-27**: nine more skills pulled level
-with their upstreams (`behind` 10 → 1, `current` 32 → 41), the six dead upstreams re-verified
-and marked `match: fork` so the weekly drift job stops re-reporting them, and deprecated
-model IDs swept out of 35 guide and agent files.
+with their upstreams, the six dead upstreams marked as forks we own, deprecated model IDs
+swept out of 35 guide and agent files, a CI gate on the prompt index, and the dev/prod API
+split collapsed onto one Express app — ~880 duplicated lines gone, taking all three parity
+bugs with them.

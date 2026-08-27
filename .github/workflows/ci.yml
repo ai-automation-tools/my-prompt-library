@@ -39,6 +39,11 @@ jobs:
       - name: Type-check
         run: npm run lint
 
+      # server.ts and the Vercel function serve the same Express app; this pins
+      # the route table so a dropped handler fails here, not in the browser.
+      - name: API route table
+        run: npm run test:routes
+
       # Two fields are timestamps that cannot match by construction, so they are
       # stripped before comparing: buildTime is stamped at each run, and
       # lastModified is `stat.mtime`, which a fresh checkout sets to the checkout
