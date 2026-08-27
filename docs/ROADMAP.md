@@ -17,7 +17,7 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `site/api/prompt-index.json` — **1,739** prompts, 1.05 MB (`npm run build:index`) |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own |
-| `src/App.tsx` | **1,050 lines** (was 2,845), 25 `useState` hooks |
+| `src/App.tsx` | **1,082 lines** (was 2,845), 25 `useState` hooks |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
 | Health | Live and production-ready. Everything below is content, maintainability, or polish |
 
@@ -87,9 +87,16 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       prompt under a different filename; **the other 14 were promoted into `5_System_Prompts/`**
       rather than deleted, which is why the index went 1,725 → 1,739. Everything else is in Git
       history (`git checkout <sha> -- site/library/Legacy`).
-- [ ] **Code-split the bundle.** `dist/assets/index-*.js` is **983 KB** (265 KB gzipped) and
-      Vite warns on every build. Route/modal-level `React.lazy` on `SkillPacksView`,
-      `PromptEditorModal` and the auth modals is the obvious first cut.
+- [x] ~~**Code-split the bundle.**~~ One 976 KB chunk became eight. First paint now costs
+      **706 KB / 200 KB gzipped** (was 976 / 265) and no chunk trips Vite's 500 KB warning.
+      `React.lazy` on `SkillPacksView`, `PromptDetail`, `PromptEditorModal` and the two auth
+      modals moves 184 KB of react-markdown off the critical path; `manualChunks` splits
+      React (397 KB) and motion (128 KB) into chunks that survive a content deploy in cache.
+      The remaining entry chunk is 181 KB.
+- [ ] **Defer `motion` if 128 KB on first paint is worth it.** It is the only sizeable
+      dependency left that loads before anything renders, and `LazyMotion` + the `m` components
+      would cut most of it — but `motion/react` is imported in 10 files, so this is a refactor,
+      not a config change.
 - [ ] **Split or delete the two multi-MB bulk files.** `act-as-an-expert.md` (3.4 MB) and
       `promptsdotchat-opensource.md` (2.5 MB) are skipped by the 500 KB index filter, so they
       are unreachable in the app — yet they are 74% of `2_Agents`'s 7.9 MB and ship on every

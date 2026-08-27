@@ -4,6 +4,65 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-27 — One 976 KB chunk became eight
+
+First paint was a single `index-*.js` of **976 KB / 265 KB gzipped**, and Vite warned about it
+on every build. It is now **706 KB / 200 KB gzipped** across three files, and nothing trips the
+500 KB threshold.
+
+| chunk | size | gzip | when it loads |
+|:---|---:|---:|:---|
+| `react-vendor` | 396.7 KB | 118.8 KB | first paint |
+| `index` (app) | 180.9 KB | 39.0 KB | first paint |
+| `motion` | 128.3 KB | 42.7 KB | first paint |
+| markdown (shared) | 184.0 KB | 54.6 KB | opening a prompt or the editor |
+| `SkillPacksView` | 28.5 KB | 3.9 KB | opening Skill Packs |
+| `PromptEditorModal` | 17.6 KB | 2.9 KB | opening the editor |
+| `PromptDetail` | 15.9 KB | 2.6 KB | opening a prompt |
+| `SignupModal` / `LoginModal` | 14.8 / 9.3 KB | 2.5 / 1.8 KB | opening that modal |
+
+Two changes did it.
+
+**`React.lazy` on the five components that are never on screen at first paint** —
+`SkillPacksView`, `PromptDetail`, `PromptEditorModal`, `LoginModal`, `SignupModal`. The prize
+is not the components (each is 9–28 KB) but what two of them drag in: `react-markdown` +
+`remark-gfm` pull the whole unified/micromark stack, 184 KB that used to be in the entry chunk
+and is now a shared chunk fetched the first time you open a prompt.
+
+The three modals needed one extra step. They were always mounted and self-hid with
+`if (!isOpen) return null`, which would have fetched their chunks on page load and defeated the
+split, so App now mounts them only while open. Behaviour is identical — each already rendered
+nothing when closed, and the editor's form-init effect keys on the same flag.
+
+**`manualChunks` for React and motion.** They are ~475 KB of the entry and change only when we
+bump them, so they now live in their own chunks: editing a prompt no longer invalidates 400 KB
+of React in every visitor's cache.
+
+### What is left
+
+`motion` is the only sizeable thing still on the critical path at 128 KB. `LazyMotion` with the
+`m` components would cut most of it, but `motion/react` is imported in 10 files — a refactor,
+filed on the roadmap rather than smuggled in here. React itself is not going anywhere.
+
+### Two bugs the browser test found
+
+Verifying the split in a real browser (built bundle, `NODE_ENV=production`) turned up a
+pre-existing routing bug in two halves, both the same omission — `skill-packs` was never added
+to the tab↔URL mapping:
+
+- the `activeTab` initialiser had no `skill-packs` case, so a **deep link or refresh on
+  `?section=skill-packs` silently landed on Prompts**. In-app navigation worked, because the
+  `popstate` handler *does* have the case, which is why nobody noticed.
+- the URL-sync effect had no `skill-packs` case either, so its ternary chain fell through to
+  `'system-prompts'` — opening Skill Packs rewrote the address bar to a section you were not
+  looking at, and copying that URL sent someone else somewhere else.
+
+Both fixed. Confirmed against the built bundle: first paint fetches exactly three JS chunks,
+each lazy chunk arrives only on the interaction that needs it, markdown renders, and the
+console is clean.
+
+---
+
 ## 2026-08-27 — `library/Legacy/` deleted, 14 system prompts rescued from it
 
 2,393 files and 37 MB — half the library payload — shipped on every deploy while being
