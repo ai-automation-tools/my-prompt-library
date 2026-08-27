@@ -5,9 +5,8 @@ Checked **99** attributed skills across **27** upstream repos. Skipped 163 `unkn
 | verdict | count | meaning |
 |:---|---:|:---|
 | `upstream-gone` | 6 | no SKILL.md of this name left in the upstream repo |
-| `behind` | 10 | local copy is missing more than 25% of upstream's content |
 | `drifted` | 51 | bodies differ, sizes comparable |
-| `current` | 32 | body identical to upstream |
+| `current` | 42 | body identical to upstream |
 
 ## upstream-gone (6)
 
@@ -19,21 +18,6 @@ Checked **99** attributed skills across **27** upstream repos. Skipped 163 `unkn
 | `Development/Git/gh-fix-ci/SKILL.md` | openai/plugins |  |
 | `Development/Git/git-context-controller/SKILL.md` | faugustdev/git-context-controller |  |
 | `Platform_Integrations/linear/SKILL.md` | openai/plugins |  |
-
-## behind (10)
-
-| skill | upstream | local | upstream | missing |
-|:---|:---|---:|---:|---:|
-| `Development/autoresearch/SKILL.md` | [github/awesome-copilot/skills/autoresearch/SKILL.md](https://github.com/github/awesome-copilot/blob/main/skills/autoresearch/SKILL.md) | 392 | 1426 | 73% |
-| `Design/interaction-design/SKILL.md` | [wshobson/agents/plugins/ui-design/skills/interaction-design/SKILL.md](https://github.com/wshobson/agents/blob/main/plugins/ui-design/skills/interaction-design/SKILL.md) | 231 | 827 | 72% |
-| `Platform_Integrations/academy-guide/SKILL.md` | [anthropics/skills/skills/academy-guide/SKILL.md](https://github.com/anthropics/skills/blob/main/skills/academy-guide/SKILL.md) | 322 | 1100 | 71% |
-| `Development/Python/python-design-patterns/SKILL.md` | [wshobson/agents/plugins/python-development/skills/python-design-patterns/SKILL.md](https://github.com/wshobson/agents/blob/main/plugins/python-development/skills/python-design-patterns/SKILL.md) | 185 | 572 | 68% |
-| `Business/Marketing/x-twitter-scraper/SKILL.md` | [xquik-dev/x-twitter-scraper/skills/x-twitter-scraper/SKILL.md](https://github.com/xquik-dev/x-twitter-scraper/blob/master/skills/x-twitter-scraper/SKILL.md) | 836 | 2557 | 67% |
-| `Content/pptx/SKILL.md` | [anthropics/skills/skills/pptx/SKILL.md](https://github.com/anthropics/skills/blob/main/skills/pptx/SKILL.md) | 1191 | 3004 | 60% |
-| `AI_ML/find-skills/SKILL.md` | [vercel-labs/skills/skills/find-skills/SKILL.md](https://github.com/vercel-labs/skills/blob/main/skills/find-skills/SKILL.md) | 343 | 770 | 55% |
-| `Content/skill-creator/SKILL.md` | [anthropics/skills/skills/skill-creator/SKILL.md](https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md) | 2535 | 5320 | 52% |
-| `Development/golang-popular-libraries/SKILL.md` | [samber/cc-skills-golang/skills/golang-popular-libraries/SKILL.md](https://github.com/samber/cc-skills-golang/blob/main/skills/golang-popular-libraries/SKILL.md) | 373 | 537 | 31% |
-| `Data/matlab/SKILL.md` | [k-dense-ai/scientific-agent-skills/skills/matlab/SKILL.md](https://github.com/k-dense-ai/scientific-agent-skills/blob/main/skills/matlab/SKILL.md) | 1317 | 1871 | 30% |
 
 ## drifted (51)
 
@@ -91,27 +75,36 @@ Checked **99** attributed skills across **27** upstream repos. Skipped 163 `unkn
 | `Content/docx/SKILL.md` | [anthropics/skills/skills/docx/SKILL.md](https://github.com/anthropics/skills/blob/main/skills/docx/SKILL.md) | 2542 | 904 | 0% |
 | `Finance/Investing/trading-operations/skills/counterparty-risk/SKILL.md` | [joellewis/finance_skills/plugins/trading-operations/skills/counterparty-risk/SKILL.md](https://github.com/joellewis/finance_skills/blob/main/plugins/trading-operations/skills/counterparty-risk/SKILL.md) | 9308 | 2360 | 0% |
 
-<details><summary>32 current</summary>
+<details><summary>42 current</summary>
 
 - `AI_ML/Agent_Development/discernment-nudge/SKILL.md` — anthropics/skills
 - `AI_ML/Agent_Development/skill-creator/SKILL.md` — anthropics/skills
+- `AI_ML/find-skills/SKILL.md` — vercel-labs/skills
 - `AI_ML/huggingface-llm-trainer/SKILL.md` — huggingface/skills
 - `AI_ML/MCP/mcp-builder/SKILL.md` — anthropics/skills
 - `AI_ML/MCP/playwright/SKILL.md` — openai/skills
 - `Business/anthropic-brand-guidelines/SKILL.md` — anthropics/skills
 - `Business/brand-guidelines/SKILL.md` — anthropics/skills
 - `Business/Marketing/marketing-demand-acquisition/SKILL.md` — ovachiever/droid-tings
+- `Business/Marketing/x-twitter-scraper/SKILL.md` — xquik-dev/x-twitter-scraper
 - `Content/brainstorming/SKILL.md` — obra/superpowers
 - `Content/doc-coauthoring/SKILL.md` — anthropics/skills
 - `Content/obsidian/obsidian-bases/SKILL.md` — zpankz/mcp-skillset
 - `Content/pdf/SKILL.md` — anthropics/skills
+- `Content/pptx/SKILL.md` — anthropics/skills
+- `Content/skill-creator/SKILL.md` — anthropics/skills
 - `Data/huggingface-gradio/SKILL.md` — huggingface/skills
+- `Data/matlab/SKILL.md` — k-dense-ai/scientific-agent-skills
 - `Data/scientific-schematics/SKILL.md` — unerue/skills
 - `Data/scientific-writing/SKILL.md` — openlair/dr-claw
+- `Design/interaction-design/SKILL.md` — wshobson/agents
 - `Development/API/claude-api/SKILL.md` — anthropics/skills
+- `Development/autoresearch/SKILL.md` — github/awesome-copilot
 - `Development/code-tour/SKILL.md` — github/awesome-copilot
 - `Development/Git/gh-address-comments/SKILL.md` — openai/skills
 - `Development/Git/git-commit-helper/SKILL.md` — microck/ordinary-claude-skills
+- `Development/golang-popular-libraries/SKILL.md` — samber/cc-skills-golang
+- `Development/Python/python-design-patterns/SKILL.md` — wshobson/agents
 - `Development/SME_Skills/senior-ml-engineer/SKILL.md` — ovachiever/droid-tings
 - `Development/SME_Skills/senior-qa/SKILL.md` — ovachiever/droid-tings
 - `Development/SME_Skills/senior-secops/SKILL.md` — ovachiever/droid-tings
@@ -123,6 +116,7 @@ Checked **99** attributed skills across **27** upstream repos. Skipped 163 `unkn
 - `Enterprise/Communications/slack-gif-creator/SKILL.md` — anthropics/skills
 - `Finance/Investing/creating-financial-models/SKILL.md` — microck/ordinary-claude-skills
 - `Finance/Portfolio_Management/analyzing-financial-statements/SKILL.md` — microck/ordinary-claude-skills
+- `Platform_Integrations/academy-guide/SKILL.md` — anthropics/skills
 - `Security/security-best-practices/SKILL.md` — openai/skills
 - `Security/security-threat-model/SKILL.md` — openai/skills
 
