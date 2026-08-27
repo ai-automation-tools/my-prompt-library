@@ -22,24 +22,34 @@ diff no matter what it changed — the fastest way to teach a team to ignore a g
 `eol=lf` rather than a bare `text=auto` is the part that matters: it normalizes the *working
 tree* on Windows too, so the index is byte-reproducible on either platform. 647 files
 renormalized; each staged change was checked to be line-endings-only by comparing blobs with
-`` stripped from both sides.
+`
+` stripped from both sides.
 
 Four files had to be pulled back out of the sweep. The PNG/GIF "images" under
 `timesfm-forecasting` are Git LFS **pointer files**, and the LFS spec requires LF. Marking
 `*.png binary` correctly stopped git normalizing them — which meant `--renormalize` would have
 staged the CRLF working-tree bytes and quietly broken the pointers. Restored byte-for-byte.
 
-### 2. A prompt in the index that was not in the repo
+### 2. The same file tracked twice, under two spellings of one directory
 
-`3_Skills/Content/General/document-writer/SKILL.md` was **untracked** but present in the
-committed index. Locally the file is on disk so the rebuild matched; CI checks out 1,738
-prompts and compares them against a committed 1,739. The file is real skill content, carries a
-provenance stamp from the 2026-08-26 attribution run, and was simply never `git add`ed. It is
-committed now, which makes the committed index true rather than true-on-one-machine.
+`document-writer/SKILL.md` was tracked at **both** `3_Skills/Content/General/` and
+`3_Skills/Content/general/` — same blob, two paths differing only in one capital letter. It has
+been that way since the `site/` restructure.
 
-(Worth noting: `git add` — with `-f`, from both bash and PowerShell — exited 0 on that path and
-staged nothing, with the file neither ignored, sparse-excluded, nor skip-worktree. It went in
-via `hash-object` + `update-index`. Unexplained; the file is tracked and correct.)
+On Windows those are one directory, so the checkout produces a single file and the local index
+has 1,739 prompts. On a case-sensitive Linux runner they are two files, so CI built **1,740**
+and failed against the committed 1,739. Nothing a Windows-only workflow could ever see.
+
+This is also what made the file look untracked. `git ls-files --error-unmatch` on the
+capital-G path said "did not match any file(s) known to git", `git status` never listed it, and
+`git add -f` exited 0 while staging nothing — from bash *and* PowerShell, with the file neither
+ignored, sparse-excluded, nor skip-worktree. Git was matching the working-tree file against the
+lowercase-g index entry and correctly concluding there was nothing to do. It went in via
+`hash-object` + `update-index`, and the lowercase duplicate was then dropped with
+`update-index --force-remove` — the capital-G spelling matches its `humanizer` sibling and the
+committed index.
+
+It was the only case collision in `site/library/`; `3_Skills/packs/` is lowercase on purpose.
 
 ### Result
 
