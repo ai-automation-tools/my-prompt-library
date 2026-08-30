@@ -154,9 +154,14 @@ node scripts/check-upstream-drift.mjs      # what has drifted from upstream
 node scripts/resync-upstream.mjs <skill>   # pull that skill back level with upstream
 node scripts/attribute-upstream.mjs        # re-stamp provenance (see its header)
 node scripts/fix-skill-frontmatter.mjs     # enforce the Agent Skills spec
-node scripts/upstream.test.mjs             # self-checks
+node scripts/upstream.test.mjs             # self-checks (CI runs both)
 node scripts/skill-frontmatter.test.mjs
 ```
+
+Provenance vocabulary: `upstream.match` records *attribution confidence* — `exact`,
+`prefix`, `similar`, `ambiguous`, `unknown`, `fork`. It never records freshness.
+`behind` is a verdict `check-upstream-drift.mjs` assigns at run time and belongs
+only in its report; `upstream.test.mjs` fails if it ever lands in frontmatter.
 
 The app runs without `DATABASE_URL` — it serves the read-only Public Library, and auth plus
 My Library are disabled.

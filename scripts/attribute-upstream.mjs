@@ -20,6 +20,12 @@
  * which is different from "nobody has checked", and stops the next person
  * repeating this whole exercise.
  *
+ * `match:` records attribution confidence, never freshness: exact / prefix /
+ * similar / ambiguous / unknown / fork. `similar` was spelled `behind` until
+ * 2026-08-29, which collided with check-upstream-drift.mjs's *verdict* of the
+ * same name and made a confidence label read as a live problem. Freshness is
+ * the drift checker's word; do not reuse its vocabulary here.
+ *
  * Setup (the clones are large, so they live outside the repo):
  *   mkdir -p /tmp/upstream && cd /tmp/upstream
  *   for r in anthropics/skills huggingface/skills vercel-labs/skills \
@@ -86,7 +92,7 @@ const fmField = (fm, names) => {
 };
 // 8-word shingles, every other word. Only built for the ~1.3k directly-cloned
 // files: this is the tier that catches a skill which is genuinely the upstream
-// one but has fallen badly behind, which is exactly what we most want to find.
+// one but has been edited since, which is exactly what we most want to find.
 const shingles = (body) => {
   const w = norm(body).split(" ").filter(Boolean);
   const out = new Set();
@@ -237,7 +243,7 @@ for (const f of walk(path.join(LIB, "3_Skills"), (n) => n === "SKILL.md")) {
   // Last resort before giving up: a directly-cloned first-party publisher ships
   // a skill of exactly this directory name. Name alone is weak, but "a
   // first-party repo has this exact skill name" is strong enough to record as
-  // `behind` for a human to confirm.
+  // `similar` for a human to confirm.
   const dirName = rel.split("/").slice(-2)[0];
   const byName = dByName.get(dirName);
 
@@ -256,20 +262,20 @@ for (const f of walk(path.join(LIB, "3_Skills"), (n) => n === "SKILL.md")) {
   if (dByBody.has(bh)) out = { ...out, match: "exact", ...dByBody.get(bh) };
   else if (mByBody.has(bh)) out = { ...out, ...fromMirror(mByBody.get(bh), "exact") };
   else if (near && nearScore >= 0.35) {
-    out = { ...out, match: "behind", repo: near.repo, path: near.path, ref: near.ref,
+    out = { ...out, match: "similar", repo: near.repo, path: near.path, ref: near.ref,
             similarity: +nearScore.toFixed(2) };
   }
   else if (pk && dByPrefix.has(pk)) out = { ...out, match: "prefix", ...dByPrefix.get(pk) };
   else if (pk && mByPrefix.has(pk)) out = { ...out, ...fromMirror(mByPrefix.get(pk), "prefix") };
   else if (byName) {
-    out = { ...out, match: "behind", repo: byName.repo, path: byName.path, ref: byName.ref,
+    out = { ...out, match: "similar", repo: byName.repo, path: byName.path, ref: byName.ref,
             via: "name" };
   }
   else out = { ...out, match: "unknown" };
 
   // An ambiguous mirror verdict loses to a name hit on a first-party publisher.
   if (out.match === "ambiguous" && byName && FIRST_PARTY.test(byName.repo)) {
-    out = { ...out, match: "behind", repo: byName.repo, path: byName.path, ref: byName.ref,
+    out = { ...out, match: "similar", repo: byName.repo, path: byName.path, ref: byName.ref,
             via: "name", candidates: undefined, copies: undefined };
   }
 
@@ -280,10 +286,10 @@ if (OUT) fs.writeFileSync(OUT, JSON.stringify(results, null, 1));
 
 // ---------- report ----------
 const n = (m) => results.filter((r) => r.match === m).length;
-const confident = n("exact") + n("prefix") + n("behind");
+const confident = n("exact") + n("prefix") + n("similar");
 console.log(`skills:      ${results.length}`);
 console.log(`  exact:     ${String(n("exact")).padStart(3)}  body identical to a single upstream`);
-console.log(`  behind:    ${String(n("behind")).padStart(3)}  same skill, content has fallen behind`);
+console.log(`  similar:   ${String(n("similar")).padStart(3)}  same skill, body differs from upstream`);
 console.log(`  prefix:    ${String(n("prefix")).padStart(3)}  same opening, tail drifted`);
 console.log(`  ambiguous: ${String(n("ambiguous")).padStart(3)}  body in >=${AMBIGUOUS_AT} repos, origin undecidable`);
 console.log(`  unknown:   ${String(n("unknown")).padStart(3)}`);

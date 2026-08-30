@@ -16,8 +16,10 @@
  * located by directory name, which costs fewer API calls than per-file fetching
  * anyway.
  *
- * Skips `match: unknown` and `match: ambiguous` — there is no single upstream to
- * compare against, and guessing would produce confident nonsense.
+ * Skips `match: unknown`, `match: ambiguous` and `match: fork` — there is no
+ * single live upstream to compare against, and guessing would produce confident
+ * nonsense. `behind` here is a freshness *verdict* this script assigns; it is
+ * not an `upstream.match` value (attribute-upstream.mjs calls that `similar`).
  *
  * Reports, never edits. Curation is the product; an auto-merge that reflowed 300
  * files into the wrong categories would destroy it.

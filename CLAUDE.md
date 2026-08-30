@@ -36,9 +36,10 @@ Other scripts: `npm run build` (build:index → tsc → vite build), `npm run bu
 (regenerates `api/prompt-index.json` from `library/`), `npm run lint` (`tsc --noEmit`),
 `npm run test:routes` (asserts the shared Express app still exposes all seven API routes).
 
-CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → a rebuild of the
-prompt index, failing if the rebuilt index differs from the committed one. Rebuild and commit
-`api/prompt-index.json` whenever you touch `library/`.
+CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → the two repo-root
+provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →
+a rebuild of the prompt index, failing if the rebuilt index differs from the committed one.
+Rebuild and commit `api/prompt-index.json` whenever you touch `library/`.
 
 ## Layout
 
@@ -73,7 +74,8 @@ site/
   scripts/             Utility scripts (add-frontmatter.mjs, prompt_generation/, *.py helpers)
   docs/                Documentation (see docs/README.md; analysis in docs/audits/)
   images/              README / branding assets
-  .github/workflows/ci.yml        lint + test:routes + prompt-index freshness gate
+  .github/workflows/ci.yml        lint + test:routes + provenance self-checks +
+                                  prompt-index freshness gate
   .gitattributes       Everything is LF, in the repo and the working tree
 ```
 
