@@ -99,9 +99,12 @@ npm run dev
 npm run lint          # tsc --noEmit
 npm run test:routes   # the API route table is intact
 npm run build:index   # rebuild api/prompt-index.json after editing library/
+
+node scripts/upstream.test.mjs           # provenance frontmatter (run from the repo root)
+node scripts/skill-frontmatter.test.mjs  # Agent Skills spec compliance
 ```
 
-CI runs all three on every PR and fails if the committed prompt index is stale.
+CI runs all of these on every PR and fails if the committed prompt index is stale.
 
 ### Deploy to Vercel
 
@@ -180,7 +183,7 @@ my-prompt-library/
 │   ├── middleware/           # Auth middleware
 │   ├── scripts/              # build-prompt-index.js, api-routes.test.mjs
 │   └── server.ts             # Dev wrapper around the same app api/ exports (port 3010)
-├── .github/workflows/ci.yml  # lint + route test + prompt-index freshness gate
+├── .github/workflows/ci.yml  # lint + route test + provenance checks + index freshness
 ├── .gitattributes            # LF everywhere, in the repo and the working tree
 ├── docs/                     # Project documentation
 ├── scripts/                  # Utility scripts

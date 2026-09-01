@@ -44,6 +44,16 @@ jobs:
       - name: API route table
         run: npm run test:routes
 
+      # The provenance scripts live at the repo root, outside site/. They are
+      # dependency-free except for gray-matter, which npm ci above installed.
+      # The library walk in upstream.test.mjs is what pins the `match:`
+      # vocabulary, so a stray drift verdict in frontmatter fails here.
+      - name: Provenance self-checks
+        working-directory: .
+        run: |
+          node scripts/upstream.test.mjs
+          node scripts/skill-frontmatter.test.mjs
+
       # Two fields are timestamps that cannot match by construction, so they are
       # stripped before comparing: buildTime is stamped at each run, and
       # lastModified is `stat.mtime`, which a fresh checkout sets to the checkout

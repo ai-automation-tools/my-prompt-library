@@ -7,7 +7,7 @@ metadata:
   author: supabase
   version: "1.0.0"
 upstream:
-  match: behind
+  match: similar
   repo: openai/plugins
   path: plugins/supabase/skills/supabase-postgres-best-practices/SKILL.md
   ref: 399942ed3d308496baae74f9d16cfa135557a28f

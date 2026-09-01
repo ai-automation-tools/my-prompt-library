@@ -4,6 +4,51 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-29 — One word meaning two things in the provenance data
+
+Seven skills — `docx`, `xlsx`, `executing-plans`, `accessibility-compliance`,
+`algorithmic-art`, `supabase-postgres-best-practices` and `canvas-design` — carried
+`upstream.match: behind` in their frontmatter. Read straight, that says the library is
+running behind upstream on seven skills. It doesn't. `behind` was being spelled by two
+scripts with two unrelated meanings:
+
+- **`attribute-upstream.mjs`** stamps `match:` as *attribution confidence* — how sure we are
+  about where a file came from. Its `behind` meant "this is the same skill as that upstream
+  file, matched by 8-word shingle overlap or by an exact directory-name hit on a first-party
+  publisher, but the bodies are not byte-identical."
+- **`check-upstream-drift.mjs`** assigns `behind` as a *freshness verdict* at run time —
+  "the local copy is missing more than 25% of upstream's content." That tier has been empty
+  since 2026-08-27.
+
+The roadmap offered two ways out: re-run the attributor, or rename the value. Re-running it
+needs the ~110k-skill mirror clone and would have restamped the same seven files with the
+same colliding word, so the rename is the actual fix.
+
+**The attribution label is now `similar`.** Same semantics, same three code paths, no
+behaviour change: `check-upstream-drift.mjs` skips `unknown`, `ambiguous` and `fork` and
+checks everything else, so all seven are still tracked. The target count before and after is
+**93**, unchanged.
+
+**A guard, so it cannot come back.** `scripts/upstream.test.mjs` now walks all 323 skills and
+asserts every `upstream.match` value is one of `exact` / `prefix` / `similar` / `ambiguous` /
+`unknown` / `fork` — 322 are stamped, one is not. Reintroducing `match: behind` fails the
+assertion (verified by putting it back and watching it fail). Both root-level self-checks —
+`upstream.test.mjs` and `skill-frontmatter.test.mjs` — now run in CI as a *Provenance
+self-checks* step; they had existed but nothing executed them, because the workflow's
+`working-directory` is `site/` and they live at the repo root.
+
+Both script headers now state the rule outright: `match:` is confidence, never freshness, and
+the drift checker's verdict words do not belong in frontmatter.
+
+The prompt index is untouched — `upstream:` frontmatter is not part of `contentPreview`, and a
+rebuild confirmed the index is byte-identical apart from `buildTime`/`lastModified`.
+
+_Touched: `scripts/attribute-upstream.mjs`, `scripts/check-upstream-drift.mjs`,
+`scripts/upstream.test.mjs`, `.github/workflows/ci.yml`, seven `site/library/3_Skills/**/SKILL.md`,
+`docs/README.md`, `docs/ROADMAP.md`._
+
+---
+
 ## 2026-08-27 — Docs caught up with the day
 
 Five changes landed today that made parts of the documentation wrong rather than merely

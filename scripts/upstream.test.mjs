@@ -50,7 +50,7 @@ assert.equal(u.repo, "a/b");
 assert.equal(u.path, "skills/x/SKILL.md");
 
 // The block must be read even when it is not the last key.
-const mid = "---\nupstream:\n  match: behind\n  repo: c/d\nname: y\n---\nbody\n";
+const mid = "---\nupstream:\n  match: similar\n  repo: c/d\nname: y\n---\nbody\n";
 assert.equal(readUpstream(splitFrontmatter(mid).fm).repo, "c/d");
 
 // --- body comparison ignores frontmatter ---
@@ -89,7 +89,7 @@ const stampUpstream = (fm, { ref, checked }) =>
       .join("\n") + "\n";
   });
 
-const before = "name: \"🛠️ thing\"\ntags: [\"a\"]\nupstream:\n  match: behind\n" +
+const before = "name: \"🛠️ thing\"\ntags: [\"a\"]\nupstream:\n  match: similar\n" +
   "  repo: a/b\n  path: skills/thing/SKILL.md\n  ref: old\n  checked: 2020-01-01\n";
 const after = stampUpstream(before, { ref: "newsha", checked: "2026-08-26" });
 const su = readUpstream(after);
@@ -104,5 +104,34 @@ assert.ok(after.includes("tags: [\"a\"]"), "local curation outside the block is 
 
 // Idempotent: stamping the result again changes nothing.
 assert.equal(stampUpstream(after, { ref: "newsha", checked: "2026-08-26" }), after);
+
+// --- the `match:` vocabulary is attribution confidence, never a drift verdict ---
+// `behind` is check-upstream-drift.mjs's verdict for "missing >25% of upstream".
+// attribute-upstream.mjs used to stamp the same word as a confidence label, so
+// seven skills sat in the library looking like a live problem that was not one.
+// Renamed to `similar` on 2026-08-29; this assertion is what stops it coming back.
+{
+  const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^[/]([A-Za-z]:)/, "$1"));
+  const LIB = path.join(HERE, "..", "site", "library", "3_Skills");
+  const KNOWN = new Set(["exact", "prefix", "similar", "ambiguous", "unknown", "fork"]);
+  const walk = (dir, out = []) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) walk(p, out);
+      else if (e.name === "SKILL.md") out.push(p);
+    }
+    return out;
+  };
+  const bad = [];
+  let stamped = 0;
+  for (const f of walk(LIB)) {
+    const u = readUpstream(splitFrontmatter(fs.readFileSync(f, "utf8")).fm);
+    if (!u || !u.match) continue;
+    stamped++;
+    if (!KNOWN.has(u.match)) bad.push(path.relative(LIB, f) + ": match: " + u.match);
+  }
+  assert.deepEqual(bad, [], "every upstream.match must be a known attribution verdict");
+  console.log("  " + stamped + " stamped SKILL.md files, every match: value in the vocabulary");
+}
 
 console.log("upstream: all checks passed");
