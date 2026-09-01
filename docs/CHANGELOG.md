@@ -4,6 +4,42 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-08-31 — Two vocabularies stopped sharing the word `behind`
+
+Seven skills — `docx`, `xlsx`, `executing-plans`, `accessibility-compliance`,
+`algorithmic-art`, `supabase-postgres-best-practices` and `canvas-design` — carried
+`match: behind` in their `upstream:` frontmatter while the weekly drift report listed the
+`behind` tier as empty. Both statements were true. They are different fields.
+
+`check-upstream-drift.mjs` emits a **freshness verdict** (`current` / `drifted` / `behind` /
+`repo-gone` / `upstream-gone` / `error`), recomputed against the live upstream every Monday.
+`attribute-upstream.mjs` stamps an **attribution confidence** into `upstream.match` — how
+sure we are this is the origin at all — and `behind` was one of its tiers, meaning "matched
+by 8-word shingles rather than by bytes". Two of the seven were stamped with
+`similarity: 1`, and today's drift report puts both at 0% missing: as literal English the
+field was not merely ambiguous, it was wrong.
+
+**Renamed the tier `behind` → `similar`**, at the source. The two emission paths in
+`attribute-upstream.mjs` (shingle overlap ≥ 0.35, and a directory-name hit on a first-party
+publisher) now write `similar`, the summary line reads `similar: same skill, body differs`,
+and the seven stamped files were rewritten to match. `attribute-upstream.mjs`'s header now
+names the full `match:` vocabulary and says plainly that `behind`, `drifted` and `current`
+belong to the drift checker — the rename is worth nothing if the next tier lands back in
+the same collision.
+
+**Nothing downstream changed behaviour, which is the point.** `check-upstream-drift.mjs`
+branches on `unknown`, `ambiguous` and `fork` only, so `similar` is selected for checking
+exactly as `behind` was: 93 targets, skipping 163 unknown / 60 ambiguous / 6 fork — the
+same three numbers today's drift report prints. `resync-upstream.mjs` rewrites `match` to
+`exact` regardless of what it finds. The prompt index does not read frontmatter beyond
+`title`, `name` and `tags`, so `api/prompt-index.json` is byte-identical apart from
+timestamps and is deliberately not part of this commit.
+
+_Touched: `scripts/attribute-upstream.mjs`, `scripts/upstream.test.mjs`, 7 `SKILL.md` files
+under `site/library/3_Skills/`, `docs/ROADMAP.md`, `docs/README.md`._
+
+---
+
 ## 2026-08-27 — Docs caught up with the day
 
 Five changes landed today that made parts of the documentation wrong rather than merely

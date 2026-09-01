@@ -158,6 +158,12 @@ node scripts/upstream.test.mjs             # self-checks
 node scripts/skill-frontmatter.test.mjs
 ```
 
+Two of those write or read a verdict and they are **not** the same field. `upstream.match`
+in a `SKILL.md` is *attribution confidence* — `exact` | `prefix` | `similar` | `ambiguous` |
+`unknown` | `fork`, i.e. how sure we are which repo this came from. Freshness is never stored
+in the file: `check-upstream-drift.mjs` recomputes `current` / `drifted` / `behind` against
+the live upstream each week.
+
 The app runs without `DATABASE_URL` — it serves the read-only Public Library, and auth plus
 My Library are disabled.
 

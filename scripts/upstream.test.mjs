@@ -50,7 +50,7 @@ assert.equal(u.repo, "a/b");
 assert.equal(u.path, "skills/x/SKILL.md");
 
 // The block must be read even when it is not the last key.
-const mid = "---\nupstream:\n  match: behind\n  repo: c/d\nname: y\n---\nbody\n";
+const mid = "---\nupstream:\n  match: similar\n  repo: c/d\nname: y\n---\nbody\n";
 assert.equal(readUpstream(splitFrontmatter(mid).fm).repo, "c/d");
 
 // --- body comparison ignores frontmatter ---
@@ -89,7 +89,7 @@ const stampUpstream = (fm, { ref, checked }) =>
       .join("\n") + "\n";
   });
 
-const before = "name: \"🛠️ thing\"\ntags: [\"a\"]\nupstream:\n  match: behind\n" +
+const before = "name: \"🛠️ thing\"\ntags: [\"a\"]\nupstream:\n  match: similar\n" +
   "  repo: a/b\n  path: skills/thing/SKILL.md\n  ref: old\n  checked: 2020-01-01\n";
 const after = stampUpstream(before, { ref: "newsha", checked: "2026-08-26" });
 const su = readUpstream(after);

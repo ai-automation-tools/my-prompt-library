@@ -2,7 +2,7 @@
 name: executing-plans
 description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
 upstream:
-  match: behind
+  match: similar
   repo: obra/superpowers
   path: skills/executing-plans/SKILL.md
   ref: b36e0829c6d0140e93cfef2ca599b1b07d4a7797

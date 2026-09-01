@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-08-27 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-08-31 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
@@ -42,14 +42,9 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
       are under 5%, and 23 of those are the `wealth-management` set from one repo. Sizes are
       comparable, so these are edits — a resync here is a judgment call per skill, not a
       mechanical catch-up. Current list:
-      [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md).
-- [ ] **Seven skills carry a stale `match: behind` in their frontmatter** (`docx`, `xlsx`,
-      `executing-plans`, `accessibility-compliance`, `algorithmic-art`,
-      `supabase-postgres-best-practices`, `canvas-design`). That field is
-      `attribute-upstream.mjs`'s attribution confidence, not the drift verdict, and the two
-      words colliding is exactly the kind of thing that reads as a live problem when it isn't.
-      Re-run the attributor over them, or rename the value. (`gh-fix-ci` and `linear` left the
-      list when they were stamped `match: fork`.)
+      [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md) — still
+      current: the 2026-08-31 drift run reproduced it exactly (93 checked, 41 `current`,
+      52 `drifted`, 0 `behind`).
 - [ ] **Rewrite `1_Guides/API_Providers/openai_cli_guide.md`.** The model-ID sweep skipped
       it: the guide is built around GPT-4o, with pricing, rate-limit and capability tables
       that a find-and-replace would turn into confident wrong numbers. Everything else in
@@ -186,6 +181,13 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 ## Done
 
 See [CHANGELOG.md](CHANGELOG.md).
+
+**2026-08-31**: the `upstream.match` tier `behind` was renamed `similar`, ending a collision
+with `check-upstream-drift.mjs`'s freshness verdict of the same name. Seven skills had read
+as rotting for a fortnight when the field only ever recorded *how* their origin was matched —
+two of them by shingles that scored a similarity of 1. Renamed in `attribute-upstream.mjs`
+so it cannot be re-emitted, and in the seven stamped files. No downstream behaviour moved:
+the drift checker still selects the same 93 targets.
 
 **2026-08-27** was a payload and reproducibility day. `library/Legacy/` is gone — 2,393 files
 and 37 MB that no reader indexed — but not before hashing every file against the live tree and
