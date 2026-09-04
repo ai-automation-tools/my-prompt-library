@@ -28,6 +28,7 @@ Documentation for **my-prompt-library**, live at
 - **[PostgreSQL Migration](development/POSTGRES-MIGRATION-SUMMARY.md)** — SQLite → Postgres notes
 
 ### Planning & Status
+- **[Direction](DIRECTION.md)** — plain-language: what changed after the audit, and what the site becomes
 - **[Roadmap](ROADMAP.md)** — what's next
 - **[Changelog](CHANGELOG.md)** — shipped work, newest first
 - **[Repository Audit (2026-08-26)](audits/REPO-AUDIT-2026-08-26.md)** — whole-repo health check
@@ -40,6 +41,7 @@ Documentation for **my-prompt-library**, live at
 ```
 docs/
 ├── README.md                     # This file
+├── DIRECTION.md                  # Why the plan changed, in plain language
 ├── ROADMAP.md                    # What's next
 ├── CHANGELOG.md                  # Shipped work, newest first
 ├── ARCHITECTURE.md               # System design and repo layout
@@ -95,6 +97,8 @@ docs/
 **...understand the codebase** → [Architecture](ARCHITECTURE.md) → [API Reference](features/API.md)
 
 **...know what needs doing** → [Roadmap](ROADMAP.md) → [Repository Audit](audits/REPO-AUDIT-2026-08-26.md)
+
+**...understand why the plan looks like this** → [Direction](DIRECTION.md)
 
 **...troubleshoot** → [Debug Guide](development/DEBUG_UI.md)
 
