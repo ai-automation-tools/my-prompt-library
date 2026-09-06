@@ -1,36 +1,39 @@
 ---
-title: "OpenAI GPT-4 CLI Guide"
-tags: ["openai", "gpt-4", "cli", "reference", "api"]
+title: "OpenAI API & CLI Guide"
+tags: ["openai", "gpt-6", "gpt-5", "cli", "reference", "api", "codex", "responses-api"]
 category: "Agent_Guides"
 subcategory: "API_Providers"
 ---
-## CLI Sync Notes (March 2026)
+## CLI Sync Notes (September 2026)
 
-Distinguishes legacy API tooling from modern **Codex CLI** workflows.
+Two separate CLIs live under the OpenAI name — don't conflate them:
 
-### Notable March 2026 CLI updates
-- Codex CLI 0.116.0 updates include device-code sign-in, plugin/setup improvements, and hook/runtime refinements.
-- Ongoing app/CLI parity improvements (settings sync, thread search, quality/perf fixes).
+- **Codex CLI** is the agentic coding tool (`codex` in your terminal, this is what
+  runs autonomous edits against a repo). Current release line is **0.153.x**, with
+  `gpt-6-astra` now selectable from its bundled model picker.
+- **OpenAI CLI** (`openai`) is the thin command-line wrapper around the API itself —
+  responses, images, audio, files — described in this guide's CLI section below.
+  Older `openai` Python SDK versions installed a legacy CLI under the same command
+  name; if `openai --version` looks unfamiliar, check which one your shell resolves.
 
 ### Official references
-- https://developers.openai.com/codex/changelog
-- https://developers.openai.com/codex/cli/
-
-### Maintainer note
-- Keep OpenAI API examples, but treat Codex CLI docs/changelog as source of truth for terminal-agent behavior.
+- [developers.openai.com/api/docs](https://developers.openai.com/api/docs) — API reference, pricing, models
+- [developers.openai.com/api/docs/libraries/openai-cli](https://developers.openai.com/api/docs/libraries/openai-cli) — the CLI covered here
+- [learn.chatgpt.com/docs/codex](https://learn.chatgpt.com/docs/codex) — Codex CLI docs and changelog
 
 ---
-# OpenAI GPT-4 Agent Guide
+# OpenAI API & CLI Agent Guide
 
-Comprehensive reference for building and managing agents with OpenAI GPT-4 models via CLI and API.
+Reference for building and managing agents with current OpenAI models via the API,
+official SDKs, and the `openai` CLI.
 
 **Key Features:**
-- 🧠 State-of-the-art reasoning capabilities
-- 👁️ Vision support (GPT-4 Vision, GPT-4o)
-- 🎯 Function calling and JSON mode
-- 🔊 Audio input/output (GPT-4o Audio)
-- 📊 128K context window (GPT-4 Turbo, GPT-4o)
-- 🚀 Fast inference with GPT-4o mini
+- 🧠 Frontier reasoning (GPT-6 Astra, GPT-5.6, o-series)
+- 👁️ Vision and multimodal input across the current model lineup
+- 🎯 Function calling, structured outputs, and the Responses API's typed tool items
+- 🔊 Realtime and audio (speech, transcription, speech-to-speech translation)
+- 📊 Context windows up to ~1M tokens on the GPT-5.6/GPT-6 family
+- 🚀 Cost-tiered models (Luna/mini/nano) for high-volume work
 
 ---
 ## 1. Links & Resources
@@ -38,12 +41,12 @@ Comprehensive reference for building and managing agents with OpenAI GPT-4 model
 | Resource | Link |
 |----------|------|
 | **Official Website** | [openai.com](https://openai.com/) |
-| **API Documentation** | [platform.openai.com/docs](https://platform.openai.com/docs/api-reference) |
-| **Cookbook** | [github.com/openai/openai-cookbook](https://github.com/openai/openai-cookbook) |
-| **Model Cards** | [platform.openai.com/docs/models](https://platform.openai.com/docs/models) |
-| **Pricing** | [openai.com/pricing](https://openai.com/pricing) |
+| **API Documentation** | [developers.openai.com/api/docs](https://developers.openai.com/api/docs) |
+| **Model List** | [developers.openai.com/api/docs/models](https://developers.openai.com/api/docs/models) |
+| **Pricing** | [developers.openai.com/api/docs/pricing](https://developers.openai.com/api/docs/pricing) |
+| **Deprecations** | [developers.openai.com/api/docs/deprecations](https://developers.openai.com/api/docs/deprecations) |
 | **API Keys** | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
-| **Playground** | [platform.openai.com/playground](https://platform.openai.com/playground) |
+| **Rate & Usage Limits** | [platform.openai.com/settings/organization/limits](https://platform.openai.com/settings/organization/limits) |
 | **Status Page** | [status.openai.com](https://status.openai.com/) |
 
 ---
@@ -52,25 +55,31 @@ Comprehensive reference for building and managing agents with OpenAI GPT-4 model
 ### Install Official SDK
 
 ```bash
-# Python
+# Python (v3.x — HTTPX2-based client)
 pip install openai
 
 # Node.js
 npm install openai
 
 # Go
-go get github.com/sashabaranov/go-openai
+go get github.com/openai/openai-go
 ```
 
 ### Install Official CLI
 
 ```bash
-# Using pip
-pip install openai-cli
+# Homebrew
+brew install openai/tools/openai
+
+# Go 1.25+
+go install 'github.com/openai/openai-cli/cmd/openai@latest'
 
 # Verify installation
 openai --version
 ```
+
+> This is the API CLI. For the agentic coding tool, install Codex CLI separately:
+> `curl -fsSL https://chatgpt.com/codex/install.sh | sh` (macOS/Linux).
 
 ### API Key Setup
 
@@ -82,212 +91,224 @@ export OPENAI_API_KEY="sk-..."
 echo 'export OPENAI_API_KEY="sk-..."' >> ~/.bashrc
 source ~/.bashrc
 
-# Or use config file
-openai config set api-key sk-...
+# Admin operations (usage, project management) use a separate key
+export OPENAI_ADMIN_KEY="sk-admin-..."
 ```
 
 ### Using with cURL
 
 ```bash
-curl https://api.openai.com/v1/chat/completions \
+curl https://api.openai.com/v1/responses \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -d '{
-    "model": "gpt-4o",
-    "messages": [
-      {"role": "system", "content": "You are a helpful assistant."},
-      {"role": "user", "content": "Hello!"}
-    ]
+    "model": "gpt-5.6-sol",
+    "input": "You are a helpful assistant. Hello!"
   }'
 ```
 
 ---
 ## 3. Available Models
 
-### GPT-4 Family
+Model names and pricing change often enough that this table can go stale — check
+[developers.openai.com/api/docs/pricing](https://developers.openai.com/api/docs/pricing)
+before quoting a number to anyone. As of September 2026:
 
 | Model | Context | Description | Use Case |
 |-------|---------|-------------|----------|
-| `gpt-4o` | 128K | Multimodal (text, vision, audio) | General purpose, best overall |
-| `gpt-4o-mini` | 128K | Fast, cost-effective | High-volume tasks |
-| `gpt-4-turbo` | 128K | Latest GPT-4 Turbo | Complex reasoning |
-| `gpt-4` | 8K | Original GPT-4 | Legacy support |
-| `gpt-4-32k` | 32K | Extended context (deprecated) | Long documents |
-| `o1-preview` | 128K | Advanced reasoning | Research, complex problems |
-| `o1-mini` | 128K | Fast reasoning | STEM, coding |
+| `gpt-6-astra` | ~1.05M | Most capable, end-to-end complex work | Hardest reasoning + agentic tasks |
+| `gpt-5.6-sol` | ~1.05M | Flagship for professional/complex tasks | General purpose, best overall |
+| `gpt-5.6-terra` | ~1.05M | Balanced capability and cost | Everyday production workloads |
+| `gpt-5.6-luna` | ~1.05M | Cost-optimized | High-volume, latency-sensitive tasks |
+| `gpt-5-mini` | 128K | Small, fast GPT-5 variant | Budget-conscious general use |
+| `o3` | 128K | Reasoning model | Complex multi-step problems |
+| `o3-mini` | 128K | Fast reasoning | STEM, coding |
+| `gpt-4o` | 128K | Prior-generation multimodal flagship | Legacy compatibility |
+| `gpt-4o-mini` | 128K | Prior-generation budget model | Legacy compatibility |
 
-### Model Comparison
+### Pricing (per 1M tokens, September 2026 — verify before relying on it)
 
-**gpt-4o** (Recommended):
-- Fastest GPT-4 level model
-- Multimodal: text + vision + audio
-- 128K context window
-- $2.50/$10.00 per 1M tokens (input/output)
+| Model | Input | Output |
+|-------|-------|--------|
+| gpt-6-astra | $10.00 | $50.00 |
+| gpt-5.6-sol | $4.00 (promotional through Nov 2026) | $20.00 |
+| gpt-5.6-terra | $2.00 | $12.00 |
+| gpt-5.6-luna | $0.20 | $1.20 |
+| gpt-5-mini | $0.25 | $2.00 |
+| o3 | $2.00 | $8.00 |
+| o3-mini | $1.10 | $4.40 |
+| gpt-4o | $2.50 | $10.00 |
+| gpt-4o-mini | $0.15 | $0.60 |
 
-**gpt-4o-mini** (Budget):
-- 60% cheaper than GPT-3.5 Turbo
-- Fast inference
-- Good for simple tasks
-- $0.15/$0.60 per 1M tokens
-
-**o1-preview** (Reasoning):
-- Extended thinking time
-- Best for complex problems
-- No streaming
-- $15.00/$60.00 per 1M tokens
+Batch mode is roughly half price; requests past ~272K tokens of context bill at a
+premium; cached input on repeated prompt prefixes bills far below standard input
+rates. Exact modifiers are on the pricing page above.
 
 ---
 ## 4. CLI Commands
 
-### Chat Completion
+The current `openai` CLI is built around the **Responses API**, not the older
+`chat.completions` object model.
+
+### Text Responses
 
 ```bash
-# Basic chat
-openai api chat.completions.create \
-  -m gpt-4o \
-  -g user "Hello, GPT-4!"
+# Basic response
+openai responses create \
+  --model gpt-5.6-sol \
+  --input "Hello!"
 
-# With system message
-openai api chat.completions.create \
-  -m gpt-4o \
-  -g system "You are a Python expert" \
-  -g user "Explain list comprehensions"
-
-# Streaming response
-openai api chat.completions.create \
-  -m gpt-4o \
-  -g user "Write a story" \
-  --stream
-
-# Set temperature
-openai api chat.completions.create \
-  -m gpt-4o \
-  -g user "Be creative" \
-  --temperature 0.8
+# With instructions (system-level guidance)
+openai responses create \
+  --model gpt-5.6-sol \
+  --instructions "You are a Python expert" \
+  --input "Explain list comprehensions"
 ```
 
-### Image Analysis (Vision)
+### Image Generation
 
 ```bash
-# Analyze image from URL
-openai api chat.completions.create \
-  -m gpt-4o \
-  -g user "What's in this image? https://example.com/image.jpg"
-
-# Analyze local image (base64)
-openai api chat.completions.create \
-  -m gpt-4o \
-  -g user "Describe this: data:image/jpeg;base64,$(base64 -i photo.jpg)"
-```
-
-### Image Generation (DALL-E)
-
-```bash
-# Generate image
-openai api images.generate \
-  -m dall-e-3 \
-  -p "A serene landscape with mountains" \
+openai images generate \
+  --model gpt-image-2 \
+  --prompt "A serene landscape with mountains" \
   --size 1024x1024 \
-  --quality standard
-
-# Edit image
-openai api images.edit \
-  -p "Add a rainbow" \
-  -i original.png \
-  -m mask.png
-
-# Create variation
-openai api images.create-variation \
-  -i original.png \
-  -n 2
+  --transform \
+  --output landscape.png
 ```
 
-### Audio Transcription (Whisper)
+### Audio: Speech and Transcription
 
 ```bash
-# Transcribe audio
-openai api audio.transcriptions.create \
-  -m whisper-1 \
-  -f audio.mp3
+# Text-to-speech
+openai audio:speech create \
+  --model gpt-4o-mini-tts \
+  --voice marin \
+  --input "Hello, world!" \
+  --output output.mp3
 
-# With translation to English
-openai api audio.translations.create \
-  -m whisper-1 \
-  -f spanish_audio.mp3
+# Transcription (plain text, SRT/VTT, or speaker-labeled diarization)
+openai audio:transcriptions create \
+  --model gpt-4o-transcribe \
+  --file audio.mp3
 ```
 
-### Text-to-Speech
+### Files
 
 ```bash
-# Generate speech
-openai api audio.speech.create \
-  -m tts-1 \
-  -i "Hello, world!" \
-  --voice alloy \
-  -o output.mp3
-
-# High quality
-openai api audio.speech.create \
-  -m tts-1-hd \
-  -i "Premium quality speech" \
-  --voice nova \
-  -o premium.mp3
-```
-
-### Embeddings
-
-```bash
-# Generate embeddings
-openai api embeddings.create \
-  -m text-embedding-3-small \
-  -i "Your text here"
-```
-
-### Fine-tuning
-
-```bash
-# Upload training data
-openai api files.create \
-  -f training_data.jsonl \
-  -p fine-tune
-
-# Create fine-tuning job
-openai api fine_tuning.jobs.create \
-  -m gpt-4o-mini-2024-07-18 \
-  -t file-abc123
-
-# List fine-tuning jobs
-openai api fine_tuning.jobs.list
-
-# Retrieve job status
-openai api fine_tuning.jobs.retrieve \
-  -i ftjob-abc123
-
-# Cancel job
-openai api fine_tuning.jobs.cancel \
-  -i ftjob-abc123
-```
-
-### Moderation
-
-```bash
-# Check content
-openai api moderations.create \
-  -i "Text to check for policy violations"
+openai files create --file training_data.jsonl --purpose fine-tune
+openai files list
 ```
 
 ---
 ## 5. Python SDK Examples
 
-### Basic Chat
+### Basic Response
 
 ```python
 from openai import OpenAI
 
 client = OpenAI()
 
+response = client.responses.create(
+    model="gpt-5.6-sol",
+    instructions="You are a helpful assistant.",
+    input="Hello!"
+)
+
+print(response.output_text)
+```
+
+### Streaming
+
+```python
+stream = client.responses.create(
+    model="gpt-5.6-sol",
+    input="Count to 10",
+    stream=True
+)
+
+for event in stream:
+    if event.type == "response.output_text.delta":
+        print(event.delta, end="")
+```
+
+### Function Calling (Tools)
+
+```python
+tools = [
+    {
+        "type": "function",
+        "name": "get_weather",
+        "description": "Get current weather",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "location": {"type": "string"},
+                "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]}
+            },
+            "required": ["location"]
+        }
+    }
+]
+
+response = client.responses.create(
+    model="gpt-5.6-sol",
+    input="What's the weather in Tokyo?",
+    tools=tools
+)
+
+for item in response.output:
+    if item.type == "function_call":
+        # Execute the function and send the result back as a function_call_output item
+        pass
+```
+
+### Structured Outputs
+
+```python
+from pydantic import BaseModel
+
+class UserInfo(BaseModel):
+    name: str
+    age: int
+    occupation: str
+
+response = client.responses.parse(
+    model="gpt-5.6-sol",
+    input="John Doe, 30, engineer",
+    text_format=UserInfo
+)
+
+user = response.output_parsed
+print(user.name)  # "John Doe"
+```
+
+### Vision
+
+```python
+response = client.responses.create(
+    model="gpt-5.6-sol",
+    input=[
+        {
+            "role": "user",
+            "content": [
+                {"type": "input_text", "text": "What's in this image?"},
+                {"type": "input_image", "image_url": "https://example.com/image.jpg"}
+            ]
+        }
+    ]
+)
+```
+
+### Chat Completions (still supported, existing code only)
+
+OpenAI has said Chat Completions remains supported indefinitely, but new
+integrations should build on the Responses API above — it carries reasoning items
+and tool calls in one typed output array instead of a flat `choices` list.
+
+```python
 response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-5.6-sol",
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Hello!"}
@@ -297,125 +318,22 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-### Streaming
-
-```python
-stream = client.chat.completions.create(
-    model="gpt-4o",
-    messages=[{"role": "user", "content": "Count to 10"}],
-    stream=True
-)
-
-for chunk in stream:
-    if chunk.choices[0].delta.content:
-        print(chunk.choices[0].delta.content, end="")
-```
-
-### Function Calling
-
-```python
-tools = [
-    {
-        "type": "function",
-        "function": {
-            "name": "get_weather",
-            "description": "Get current weather",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "location": {"type": "string"},
-                    "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]}
-                },
-                "required": ["location"]
-            }
-        }
-    }
-]
-
-response = client.chat.completions.create(
-    model="gpt-4o",
-    messages=[{"role": "user", "content": "What's the weather in Tokyo?"}],
-    tools=tools,
-    tool_choice="auto"
-)
-
-# Handle tool call
-if response.choices[0].message.tool_calls:
-    tool_call = response.choices[0].message.tool_calls[0]
-    # Execute function and send result back
-```
-
-### JSON Mode
-
-```python
-response = client.chat.completions.create(
-    model="gpt-4o",
-    messages=[
-        {"role": "system", "content": "Extract user info as JSON"},
-        {"role": "user", "content": "John Doe, 30, engineer"}
-    ],
-    response_format={"type": "json_object"}
-)
-
-print(response.choices[0].message.content)
-# Output: {"name": "John Doe", "age": 30, "occupation": "engineer"}
-```
-
-### Vision
-
-```python
-response = client.chat.completions.create(
-    model="gpt-4o",
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": "What's in this image?"},
-                {
-                    "type": "image_url",
-                    "image_url": {"url": "https://example.com/image.jpg"}
-                }
-            ]
-        }
-    ]
-)
-```
-
-### Audio (GPT-4o Audio)
-
-```python
-# Coming soon - audio input/output capabilities
-response = client.chat.completions.create(
-    model="gpt-4o-audio-preview",
-    modalities=["text", "audio"],
-    audio={"voice": "alloy", "format": "wav"},
-    messages=[
-        {"role": "user", "content": "Tell me a joke"}
-    ]
-)
-```
-
 ---
-## 6. API Parameters
+## 6. API Parameters (Responses API)
 
-### Chat Completion Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `model` | string | required | Model ID |
-| `messages` | array | required | Conversation history |
-| `temperature` | float | 1.0 | Sampling temperature (0-2) |
-| `max_tokens` | int | inf | Max tokens to generate |
-| `top_p` | float | 1.0 | Nucleus sampling |
-| `frequency_penalty` | float | 0.0 | Reduce repetition (-2.0 to 2.0) |
-| `presence_penalty` | float | 0.0 | Encourage diversity (-2.0 to 2.0) |
-| `stop` | string/array | null | Stop sequences |
-| `stream` | boolean | false | Enable streaming |
-| `tools` | array | null | Function definitions |
-| `tool_choice` | string/object | auto | Tool selection strategy |
-| `response_format` | object | text | Output format (text/json_object) |
-| `seed` | int | null | Reproducibility seed |
-| `logit_bias` | object | null | Token probability adjustments |
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `model` | string | Model ID |
+| `input` | string/array | Prompt text or typed input items |
+| `instructions` | string | System-level guidance (replaces the old `system` message) |
+| `tools` | array | Function/tool definitions |
+| `tool_choice` | string/object | Tool selection strategy |
+| `text_format` / `response_format` | object | Structured output schema |
+| `reasoning` | object | `{"effort": "low"\|"medium"\|"high"}` on reasoning-capable models |
+| `stream` | boolean | Enable streaming |
+| `previous_response_id` | string | Chain a response onto prior turns without resending history |
+| `max_output_tokens` | int | Max tokens to generate |
+| `temperature` | float | Sampling temperature (0-2); ignored by pure reasoning models |
 
 ---
 ## 7. Best Practices
@@ -430,29 +348,21 @@ response = client.chat.completions.create(
 | Creative writing | 0.7 - 1.0 |
 | Brainstorming | 1.0 - 1.5 |
 
-### Context Management
+### Reasoning Effort
+
+On `o3`, `gpt-6-astra`, and other reasoning-capable models, set effort instead of
+(or alongside) temperature:
 
 ```python
-MAX_TOKENS = 120000  # Leave headroom for response
-
-def estimate_tokens(text):
-    """Rough estimate: 1 token ≈ 4 characters"""
-    return len(text) // 4
-
-def trim_conversation(messages, max_tokens=MAX_TOKENS):
-    """Keep conversation within limits"""
-    total = sum(estimate_tokens(m["content"]) for m in messages)
-    
-    while total > max_tokens and len(messages) > 2:
-        # Remove oldest non-system message
-        for i, msg in enumerate(messages):
-            if msg["role"] != "system":
-                removed = messages.pop(i)
-                total -= estimate_tokens(removed["content"])
-                break
-    
-    return messages
+response = client.responses.create(
+    model="gpt-6-astra",
+    input="Design a database schema for a multi-tenant SaaS app",
+    reasoning={"effort": "high"}
+)
 ```
+
+Use `low` for latency-sensitive, well-specified tasks; `high` for open-ended or
+high-stakes problems where you can afford to wait longer.
 
 ### Error Handling
 
@@ -460,13 +370,10 @@ def trim_conversation(messages, max_tokens=MAX_TOKENS):
 from openai import OpenAIError, RateLimitError, APITimeoutError
 import time
 
-def chat_with_retry(messages, max_retries=3):
+def call_with_retry(prompt, max_retries=3):
     for attempt in range(max_retries):
         try:
-            return client.chat.completions.create(
-                model="gpt-4o",
-                messages=messages
-            )
+            return client.responses.create(model="gpt-5.6-sol", input=prompt)
         except RateLimitError:
             if attempt < max_retries - 1:
                 wait = 2 ** attempt
@@ -486,95 +393,45 @@ def chat_with_retry(messages, max_retries=3):
 ```
 
 ---
-## 8. Rate Limits & Pricing
+## 8. Rate Limits
 
-### Rate Limits (Tier 3 example)
-
-| Model | RPM | TPM | Batch Queue |
-|-------|-----|-----|-------------|
-| gpt-4o | 5,000 | 800,000 | 1,400,000 |
-| gpt-4o-mini | 5,000 | 2,000,000 | 15,000,000 |
-| gpt-4-turbo | 5,000 | 300,000 | 600,000 |
-
-### Pricing (per 1M tokens)
-
-| Model | Input | Output | Context |
-|-------|-------|--------|---------|
-| gpt-4o | $2.50 | $10.00 | 128K |
-| gpt-4o-mini | $0.15 | $0.60 | 128K |
-| gpt-4-turbo | $10.00 | $30.00 | 128K |
-| gpt-4 | $30.00 | $60.00 | 8K |
-| o1-preview | $15.00 | $60.00 | 128K |
-| o1-mini | $3.00 | $12.00 | 128K |
-
-**Batch API:** 50% discount for async processing
+Rate limits are set per organization by usage tier and change as OpenAI adjusts
+them, so no fixed numbers belong in a reference doc. Check your actual limits at
+[platform.openai.com/settings/organization/limits](https://platform.openai.com/settings/organization/limits) —
+it lists RPM/TPM per model for your account, and the API returns
+`x-ratelimit-*` response headers on every call so you can track usage without
+guessing.
 
 ---
 ## 9. Advanced Features
 
-### Structured Outputs
+### Multi-turn Without Resending History
 
 ```python
-from pydantic import BaseModel
+first = client.responses.create(model="gpt-5.6-sol", input="Remember the number 42")
 
-class UserInfo(BaseModel):
-    name: str
-    age: int
-    occupation: str
-
-response = client.beta.chat.completions.parse(
-    model="gpt-4o",
-    messages=[
-        {"role": "user", "content": "John Doe, 30, engineer"}
-    ],
-    response_format=UserInfo
+second = client.responses.create(
+    model="gpt-5.6-sol",
+    previous_response_id=first.id,
+    input="What number did I tell you?"
 )
-
-user = response.choices[0].message.parsed
-print(user.name)  # "John Doe"
 ```
 
 ### Batch Processing
 
 ```python
-# Create batch file
+# Create batch file (Responses API batch entries)
 with open("batch.jsonl", "w") as f:
-    f.write('{"custom_id": "req-1", "method": "POST", "url": "/v1/chat/completions", "body": {"model": "gpt-4o", "messages": [{"role": "user", "content": "Hello"}]}}\n')
+    f.write('{"custom_id": "req-1", "method": "POST", "url": "/v1/responses", "body": {"model": "gpt-5.6-terra", "input": "Hello"}}\n')
 
-# Upload and submit
 batch_file = client.files.create(file=open("batch.jsonl", "rb"), purpose="batch")
 batch = client.batches.create(
     input_file_id=batch_file.id,
-    endpoint="/v1/chat/completions",
+    endpoint="/v1/responses",
     completion_window="24h"
 )
 
-# Check status
 status = client.batches.retrieve(batch.id)
-```
-
-### Assistants API
-
-```bash
-# Create assistant
-openai api assistants.create \
-  --model gpt-4o \
-  --name "Code Helper" \
-  --instructions "You are a coding assistant"
-
-# Create thread
-openai api threads.create
-
-# Add message
-openai api threads.messages.create \
-  --thread-id thread_abc123 \
-  --role user \
-  --content "Explain recursion"
-
-# Run assistant
-openai api threads.runs.create \
-  --thread-id thread_abc123 \
-  --assistant-id asst_abc123
 ```
 
 ---
@@ -584,23 +441,20 @@ openai api threads.runs.create \
 
 **Invalid API Key:**
 ```bash
-# Verify key
-openai api models.list
+openai models list
 ```
 
 **Context Length Exceeded:**
 ```python
-# Use tiktoken for accurate counting
 import tiktoken
 
-enc = tiktoken.encoding_for_model("gpt-4o")
+enc = tiktoken.encoding_for_model("gpt-4o")  # tiktoken has not added GPT-5/6 encodings; gpt-4o is the closest stand-in
 tokens = enc.encode("Your text here")
 print(f"Token count: {len(tokens)}")
 ```
 
 **Rate Limit:**
 ```python
-# Implement exponential backoff
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 @retry(
@@ -608,15 +462,14 @@ from tenacity import retry, stop_after_attempt, wait_exponential
     wait=wait_exponential(multiplier=1, min=4, max=10)
 )
 def call_api():
-    return client.chat.completions.create(...)
+    return client.responses.create(...)
 ```
 
 **Model Not Found:**
 ```python
-# List available models
 models = client.models.list()
 for model in models.data:
-    if "gpt-4" in model.id:
+    if "gpt" in model.id:
         print(model.id)
 ```
 
@@ -630,76 +483,57 @@ for model in models.data:
 echo "OPENAI_API_KEY=sk-..." >> .env
 echo ".env" >> .gitignore
 
-# Use environment variables
-export OPENAI_API_KEY=$(cat .env | grep OPENAI_API_KEY | cut -d '=' -f2)
+# Load from a secrets manager or .env loader rather than shelling out to cat/grep
 ```
 
-### Content Filtering
+### Content Moderation
 
 ```python
-# Check content before processing
-moderation = client.moderations.create(input="User content here")
+moderation = client.moderations.create(
+    model="omni-moderation-latest",
+    input="User content here"
+)
 
 if moderation.results[0].flagged:
     print("Content violates policies")
-    # Handle appropriately
 else:
-    # Proceed with API call
-    pass
+    pass  # proceed with the request
 ```
 
 ### Prompt Injection Protection
 
-```python
-# Sanitize user input
-def sanitize(text):
-    # Remove potential prompt injection
-    forbidden = ["ignore previous", "new instructions", "system:"]
-    for phrase in forbidden:
-        if phrase.lower() in text.lower():
-            raise ValueError("Potential prompt injection detected")
-    return text
-
-user_input = sanitize(user_message)
-```
+Simple keyword blocklists (`"ignore previous instructions"`, etc.) are trivial to
+evade with paraphrasing or encoding. Treat untrusted input as data, not
+instructions: keep it out of the `instructions` field, and use the model's own
+judgment plus tool-permission scoping rather than string matching as your actual
+defense.
 
 ---
-## 12. Migration Guide
+## 12. Migration Notes
 
-### From GPT-3.5 to GPT-4o
-
-```python
-# Old (GPT-3.5)
-response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[...]
-)
-
-# New (GPT-4o) - same API
-response = client.chat.completions.create(
-    model="gpt-4o",  # Just change the model
-    messages=[...]
-)
-```
-
-### From Legacy Completions to Chat
+### From Chat Completions to the Responses API
 
 ```python
-# Old (Completions API - deprecated)
-response = client.completions.create(
-    model="text-davinci-003",
-    prompt="Say hello"
-)
-
-# New (Chat API)
+# Old (Chat Completions)
 response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-5.6-sol",
     messages=[{"role": "user", "content": "Say hello"}]
 )
+print(response.choices[0].message.content)
+
+# New (Responses API)
+response = client.responses.create(
+    model="gpt-5.6-sol",
+    input="Say hello"
+)
+print(response.output_text)
 ```
 
+Chat Completions keeps working — this is a recommendation for new code, not a
+forced migration.
+
 ---
-**Last Updated:** 2026-03-24  
+**Last Updated:** 2026-09-05
 **API Version:** v1
 
 *Part of the [my_agents](../../) repository*

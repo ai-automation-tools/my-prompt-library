@@ -4,6 +4,42 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-09-05 — Rewrote the OpenAI CLI guide against current docs
+
+`1_Guides/API_Providers/openai_cli_guide.md` was the one file the GPT-4o model-ID
+sweep had deliberately skipped, because a find-and-replace on a guide built around
+GPT-4o pricing, rate limits, and CLI syntax would have produced confident wrong
+numbers rather than fixing anything.
+
+**What changed, checked against OpenAI's own docs rather than guessed:**
+
+- **The CLI itself was wrong, not just the model names.** The old guide invented
+  `pip install openai-cli` and an `openai api chat.completions.create -m ...` syntax
+  that doesn't match any current or past official tool. The real `openai` CLI installs
+  via Homebrew or `go install`, and is built around the Responses API
+  (`openai responses create`, `openai images generate`, `openai audio:speech create`).
+  Codex CLI (the agentic coding tool, `codex`) is a separate binary and is now called
+  out as such, instead of being blended into the same "CLI" section.
+- **Responses API replaces Chat Completions as the primary SDK example.** OpenAI's own
+  guidance is that new integrations build on Responses; Chat Completions remains
+  supported, so its examples stayed in as a labeled legacy-compatible section rather
+  than being deleted.
+- **Models and pricing now name the current lineup** — GPT-6 Astra, GPT-5.6
+  Sol/Terra/Luna, o3/o3-mini — sourced from `developers.openai.com/api/docs/pricing`
+  and `/models`, with a note that these numbers move and to check the live page
+  before quoting one.
+- **The fixed "Tier 3" rate-limit table is gone.** Rate limits are per-organization
+  and change independently of this doc, so it now points at the account's own limits
+  page and the `x-ratelimit-*` response headers instead of a table that was already
+  guesswork in the original.
+
+_Touched: `site/library/1_Guides/API_Providers/openai_cli_guide.md`,
+`site/api/prompt-index.json` (rebuild — only this file's title/tags/contentPreview
+changed; the rest of the diff is `lastModified`/`buildTime` mtime churn from a fresh
+worktree checkout), `docs/ROADMAP.md`._
+
+---
+
 ## 2026-08-29 — One word meaning two things in the provenance data
 
 Seven skills — `docx`, `xlsx`, `executing-plans`, `accessibility-compliance`,

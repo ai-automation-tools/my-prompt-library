@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-08-29 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-09-05 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
@@ -51,10 +51,17 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
       in frontmatter reads as a live drift problem. Completed **2026-08-29** — see the
       changelog. Re-running the attributor stays possible but needs the ~110k-skill mirror
       clone, and it would have restamped the same seven with the same colliding word.
-- [ ] **Rewrite `1_Guides/API_Providers/openai_cli_guide.md`.** The model-ID sweep skipped
-      it: the guide is built around GPT-4o, with pricing, rate-limit and capability tables
-      that a find-and-replace would turn into confident wrong numbers. Everything else in
-      `1_Guides` and `2_Agents` now names a current model.
+- [x] ~~**Rewrite `1_Guides/API_Providers/openai_cli_guide.md`.**~~ The model-ID sweep had
+      skipped it because a find-and-replace on a GPT-4o-era guide would have produced
+      confident wrong pricing and rate-limit numbers. Rewrote it against OpenAI's current
+      docs instead: the CLI section now covers the real `openai` CLI (Responses API,
+      `openai responses create`) rather than the invented `pip install openai-cli` /
+      `openai api chat.completions.create` syntax the old version had, model and pricing
+      tables now name the current lineup (GPT-6 Astra, GPT-5.6 Sol/Terra/Luna, o3), and the
+      fixed "Tier 3" rate-limit table was replaced with a pointer to the per-account limits
+      page since those numbers vary by usage tier and go stale fast. Chat Completions
+      examples are kept as a legacy-compatible section, not deleted, since OpenAI still
+      supports it. Completed **2026-09-05**.
 
 ---
 
