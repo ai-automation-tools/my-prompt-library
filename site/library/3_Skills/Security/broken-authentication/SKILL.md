@@ -6,11 +6,26 @@ metadata:
   author: zebbern
   version: "1.1"
 upstream:
-  match: prefix
+  match: exact
   repo: sickn33/antigravity-awesome-skills
   path: broken-authentication/SKILL.md
-  checked: 2026-08-26
+  ref: 78acbe3f333315cfdd887c81a11aa1ffe42f8e64
+  checked: 2026-09-08
 ---
+
+> **⚠️ AUTHORIZED USE ONLY**
+> This skill is for educational purposes or authorized security assessments only.
+> You must have explicit, written permission from the system owner before using this tool.
+> Misuse of this tool is illegal and strictly prohibited.
+
+> **Mandatory confirmation gate**
+> Before running any command that probes, exploits, changes, persists on, extracts data from, or attempts credential access against a target:
+> 1. Ask the user to state the exact target URL, IP, account, or resource.
+> 2. Ask the user to confirm written authorization and the permitted scope.
+> 3. Show the exact command(s) and explain their expected effect.
+> 4. Wait for explicit confirmation in the current conversation.
+>
+> Without that confirmation, remain read-only and provide defensive guidance only. Prefer a sandbox, disposable VM, or controlled lab.
 
 # Broken Authentication Testing
 
@@ -480,3 +495,6 @@ https://target.com/reset?token=a1b2c3d4e5f6&email=admin@example.com
 | Session analysis inconclusive | Collect 1000+ tokens; use statistical tools; check for timestamps; compare accounts |
 | MFA cannot be bypassed | Document as secure; test backup/recovery mechanisms; check MFA fatigue; verify enrollment |
 | Account lockout prevents testing | Request multiple test accounts; test threshold first; use slower timing |
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.

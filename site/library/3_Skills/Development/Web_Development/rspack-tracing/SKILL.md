@@ -9,11 +9,12 @@ stars: 103
 forks: 24
 updated: 2026-02-19
 upstream:
-  match: prefix
+  match: exact
   repo: rstackjs/agent-skills
   path: rspack-tracing/SKILL.md
   declared: "https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-rstackjs-agent-skills-rspack-tracing-skill-md"
-  checked: 2026-08-26
+  ref: cab916aa6b32a5084b28c10bdc9e4885a12dc1cc
+  checked: 2026-09-08
 ---
 
 # Rspack Tracing & Performance Profiling
@@ -21,10 +22,11 @@ upstream:
 ## When to Use This Skill
 
 Use this skill when you need to:
-1. Diagnose why an Rspack build is slow.
-2. Understand which plugins or loaders are taking the most time.
-3. Analyze a user-provided Rspack trace file.
-4. Guide a user to capture a performance profile.
+
+1.  Diagnose why an Rspack build is slow.
+2.  Understand which plugins or loaders are taking the most time.
+3.  Analyze a user-provided Rspack trace file.
+4.  Guide a user to capture a performance profile.
 
 ## Workflow
 
@@ -33,17 +35,23 @@ Use this skill when you need to:
 First, ask the user to run their build with tracing enabled.
 
 ```bash
+# Set environment variables for logging to a file
 RSPACK_PROFILE=TRACE RSPACK_TRACE_LAYER=logger RSPACK_TRACE_OUTPUT=./trace.json pnpm build
 ```
 
 This will generate a trace file in a timestamped directory like `.rspack-profile-{timestamp}-{pid}/trace.json`.
 
-### 2. Quick Diagnosis for Crashes or Errors
+See [references/tracing-guide.md](references/tracing-guide.md) for more details on configuration.
 
-If the user wants to identify which stage a crash or error occurred in, use `tail` to quickly view the last events without running the full analysis:
+### 2. Quick Diagnosis for Crashes/Errors
+
+If the user wants to identify **which stage a crash or error occurred in**, use `tail` to quickly view the last events without running the full analysis:
 
 ```bash
+# Navigate to the generated profile directory
 cd .rspack-profile-*/
+
+# View the last 20 events to see where the build failed
 tail -n 20 trace.json
 ```
 
@@ -51,29 +59,31 @@ The last events will show the span names and targets where the build stopped, he
 
 ### 3. Full Performance Analysis
 
-For detailed performance profiling, ask the user to run the bundled analysis script on the generated trace file.
+For detailed performance profiling (not just crash diagnosis), ask the user whether to run the bundled [`scripts/analyze_trace.mjs`](scripts/analyze_trace.mjs) on the generated trace file. If they agree, resolve it relative to the Skill root while keeping the working directory in the user's project, then run:
 
 ```bash
+# Navigate to the generated profile directory
 cd .rspack-profile-*/
-node ${CLAUDE_PLUGIN_ROOT}/skills/tracing/scripts/analyze_trace.js trace.json
+
+# Run the analysis script
+node "<skill-root>/scripts/analyze_trace.mjs" trace.json
 ```
 
 ### 4. Interpret Results
 
-Use the analysis output to identify bottlenecks, then map slow spans to likely loaders, plugins, or config hotspots.
+Use the output from the script to identify bottlenecks.
+Consult [references/bottlenecks.md](references/bottlenecks.md) to map span names to actionable fixes.
 
 ### 5. Locate Slow Plugins
 
 Based on the "Top Slowest Hooks" from the analysis script:
 
-1. Identify the hook, for example `hook:CompilationOptimizeChunks`.
-2. Inspect `rspack.config.js` or `rsbuild.config.ts`.
-3. Map the hook to plugins and their sources.
-4. Output the paths, lines, and columns of the suspected plugin source code.
+1.  **Identify the Hook**: Note the hook name (e.g., `hook:CompilationOptimizeChunks`).
+2.  **Inspect Configuration**: Read `rspack.config.js` or `rsbuild.config.ts`.
+3.  **Map Hook to Plugin**: Look for plugins and their sources that tap into that specific hook.
+4.  **Output**: Output the paths, lines and columns of the suspected plugin source code.
 
-## Common Scenarios and Quick Fixes
+## Common Scenarios & Quick Fixes
 
-- Capture a trace before proposing performance fixes.
-- Check the last events first for crash diagnosis.
-- Compare repeated traces before and after configuration changes.
-- Look for expensive loaders, duplicate plugins, and chunk optimization hotspots.
+- [Bottleneck Reference](references/bottlenecks.md): Mapping spans to concepts.
+- [Tracing Guide](references/tracing-guide.md): Detailed usage of `RSPACK_PROFILE`.

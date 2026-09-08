@@ -7,11 +7,11 @@ metadata:
   author: supabase
   version: "1.0.0"
 upstream:
-  match: similar
+  match: exact
   repo: openai/plugins
   path: plugins/supabase/skills/supabase-postgres-best-practices/SKILL.md
-  ref: 399942ed3d308496baae74f9d16cfa135557a28f
-  checked: 2026-08-26
+  ref: d416fd5a43426019986b1e489506db3db66dee3d
+  checked: 2026-09-08
 ---
 
 # Supabase Postgres Best Practices
@@ -46,9 +46,9 @@ Reference these guidelines when:
 Read individual rule files for detailed explanations and SQL examples:
 
 ```
-rules/query-missing-indexes.md
-rules/schema-partial-indexes.md
-rules/_sections.md
+references/query-missing-indexes.md
+references/query-partial-indexes.md
+references/_sections.md
 ```
 
 Each rule file contains:
@@ -59,6 +59,10 @@ Each rule file contains:
 - Additional context and references
 - Supabase-specific notes (when applicable)
 
-## Full Compiled Document
+## References
 
-For the complete guide with all rules expanded: `AGENTS.md`
+- https://www.postgresql.org/docs/current/
+- https://supabase.com/docs
+- https://wiki.postgresql.org/wiki/Performance_Optimization
+- https://supabase.com/docs/guides/database/overview
+- https://supabase.com/docs/guides/auth/row-level-security
