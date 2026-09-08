@@ -19,7 +19,7 @@ import {
   BookOpen,
   type LucideIcon
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -206,7 +206,7 @@ export default function ResourcesNav() {
 
             <AnimatePresence>
               {isOpen && (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
@@ -253,7 +253,7 @@ export default function ResourcesNav() {
 
                         <AnimatePresence>
                           {isSubOpen && (
-                            <motion.div
+                            <m.div
                               initial={{ opacity: 0, x: -8 }}
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -8 }}
@@ -278,13 +278,13 @@ export default function ResourcesNav() {
                                   </a>
                                 );
                               })}
-                            </motion.div>
+                            </m.div>
                           )}
                         </AnimatePresence>
                       </div>
                     );
                   })}
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>

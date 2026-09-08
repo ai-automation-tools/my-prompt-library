@@ -14,7 +14,7 @@ import {
   ChevronDown,
   Layers
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import type { Prompt } from './PromptCard';
@@ -246,7 +246,7 @@ export default function Sidebar({
 
                 <AnimatePresence>
                   {expandedCategories[cat] && (
-                    <motion.div
+                    <m.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -264,7 +264,7 @@ export default function Sidebar({
                           </div>
                         ))}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
@@ -310,7 +310,7 @@ export default function Sidebar({
 
               <AnimatePresence>
                 {expandedCategories[cat] && (
-                  <motion.div
+                  <m.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -347,7 +347,7 @@ export default function Sidebar({
                         </button>
                       ))}
                     </div>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>
@@ -373,7 +373,7 @@ export default function Sidebar({
 
             <AnimatePresence>
               {themeMenuOpen && (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
@@ -396,7 +396,7 @@ export default function Sidebar({
                       {t.name}
                     </button>
                   ))}
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>

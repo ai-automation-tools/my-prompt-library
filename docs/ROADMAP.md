@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-09-05 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-09-07 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
@@ -17,7 +17,7 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `site/api/prompt-index.json` — **3,088** prompts, 1.91 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own. `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
-| `src/App.tsx` | **1,082 lines** (was 2,845), 25 `useState` hooks |
+| `src/App.tsx` | **1,084 lines** (was 2,845), 25 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
 | Line endings | LF everywhere, enforced by `.gitattributes`; the index is byte-reproducible on Linux and Windows |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
@@ -103,10 +103,16 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       modals moves 184 KB of react-markdown off the critical path; `manualChunks` splits
       React (397 KB) and motion (128 KB) into chunks that survive a content deploy in cache.
       The remaining entry chunk is 181 KB.
-- [ ] **Defer `motion` if 128 KB on first paint is worth it.** It is the only sizeable
-      dependency left that loads before anything renders, and `LazyMotion` + the `m` components
-      would cut most of it — but `motion/react` is imported in 10 files, so this is a refactor,
-      not a config change.
+- [x] ~~**Defer `motion` if 128 KB on first paint is worth it.**~~ Switched all 10 files off the
+      `motion` component onto `m` + a single `<LazyMotion features={domAnimation} strict>` wrap
+      in `App.tsx`. The app only ever used enter/exit animations and `whileTap`, so `domAnimation`
+      covers it — no `drag`, `layout`, or motion-value hooks anywhere. `strict` mode means a
+      missed `motion.` usage now fails at runtime, not silently ships. The `motion` output chunk
+      dropped from 128 KB to **81.82 KB** (gzip 29.18 KB) purely from tree-shaking unused
+      gesture/drag/layout code that the full `motion` component always pulls in — it did not
+      become an async chunk, because `motion-dom` ships as one flat ES module, so there's no
+      internal boundary for Rollup to split `domAnimation` away from `m`/`AnimatePresence`; the
+      whole package still loads together. Completed **2026-09-07**.
 - [x] ~~**Split or delete the two multi-MB bulk files.**~~ Split. Both were the
       f/awesome-chatgpt-prompts corpus in `<details>` form, over the 500 KB index ceiling and
       therefore unreachable, and `promptsdotchat-opensource.md` was 1,168 of its 1,169 prompts

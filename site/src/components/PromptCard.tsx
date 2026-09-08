@@ -14,7 +14,7 @@ import {
   Download,
   FolderPlus
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -87,7 +87,7 @@ const PromptCard = memo(function PromptCard({
   const isFavorite = favorites.includes(prompt.id);
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, delay: Math.min(index * 0.01, 0.3), ease: [0.4, 0, 0.2, 1] }}
@@ -236,7 +236,7 @@ const PromptCard = memo(function PromptCard({
           {prompt.content.substring(0, 160)}...
         </p>
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 

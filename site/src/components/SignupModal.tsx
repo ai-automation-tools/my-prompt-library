@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { X, Mail, Lock, User, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -58,7 +58,7 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }: Signup
     <AnimatePresence>
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
         {/* Backdrop */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -67,7 +67,7 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }: Signup
         />
 
         {/* Modal */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -94,14 +94,14 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }: Signup
 
           {/* Error message */}
           {error && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 flex items-start gap-2"
             >
               <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
               <p className="text-sm text-red-400">{error}</p>
-            </motion.div>
+            </m.div>
           )}
 
           {/* Form */}
@@ -165,7 +165,7 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }: Signup
               {password && (
                 <div className="mt-2 flex items-center gap-2">
                   <div className="flex-1 h-1.5 bg-[var(--glass-bg)] rounded-full overflow-hidden">
-                    <motion.div
+                    <m.div
                       initial={{ width: 0 }}
                       animate={{
                         width: passwordStrength === 'weak' ? '33%' : passwordStrength === 'medium' ? '66%' : '100%'
@@ -237,7 +237,7 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }: Signup
               </button>
             </p>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </AnimatePresence>
   );

@@ -4,6 +4,40 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-09-07 — Shrank the `motion` bundle with LazyMotion
+
+`motion` was the only sizeable dependency still loading before first paint — a 128 KB chunk
+pulled in by the full `motion.div` component, which unconditionally bundles drag, layout
+projection, and gesture-tracking code whether or not a component uses it. This app doesn't:
+a repo-wide check turned up no `drag`, `layout`/`layoutId`, or motion-value hooks (`useMotionValue`,
+`useTransform`, `useScroll`, `useSpring`) anywhere — every usage is a plain enter/exit animation
+or `whileTap`.
+
+**What changed:**
+
+- All 10 files importing `motion` from `motion/react` (`App.tsx` and 9 components) now import
+  `m` instead, and `App.tsx` wraps its returned tree in a single
+  `<LazyMotion features={domAnimation} strict>`. `strict` mode throws at runtime if any
+  `motion.*` usage is missed, rather than silently double-shipping the animation engine.
+- The `motion` output chunk dropped from **128 KB to 81.82 KB** (gzip 29.18 KB) — tree-shaking
+  the drag/layout/gesture code the full `motion` component always carries.
+- It did **not** become an async, deferred chunk. `motion-dom` ships as a single flat ES module
+  with no internal split between its core and `domAnimation`'s feature set, so there's nothing
+  for a dynamic `import()` to carve off — `m`, `AnimatePresence`, and `domAnimation` all live in
+  the same file and load together. The win here is bytes shipped, not load timing.
+
+**Verified with:** `npm run lint` (clean), `npm run build` (chunk sizes above, no errors), and a
+Playwright smoke pass against `npm run dev` — loaded the homepage, opened a prompt card
+(`PromptDetail`, lazy-loaded) and the Login modal (`LoginModal`, lazy-loaded, also behind
+`AnimatePresence`) and confirmed no new console errors beyond the pre-existing `401` on
+`/api/auth/me` (expected with no `DATABASE_URL` configured).
+
+_Touched: `site/src/App.tsx`, `site/src/components/{Toast,ResourcesNav,Sidebar,SignupModal,
+PromptDetail,PromptEditorModal,PromptCard,EmptyState,LoginModal}.tsx`, `docs/ROADMAP.md`,
+`CLAUDE.md`._
+
+---
+
 ## 2026-09-05 — Rewrote the OpenAI CLI guide against current docs
 
 `1_Guides/API_Providers/openai_cli_guide.md` was the one file the GPT-4o model-ID

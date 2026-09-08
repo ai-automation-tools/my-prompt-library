@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import type { Prompt } from './PromptCard';
@@ -61,7 +61,7 @@ export default function PromptDetail({
   onShowAllPrompts
 }: PromptDetailProps) {
   return (
-    <motion.div
+    <m.div
       key={`prompt-${prompt.id}`}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
@@ -87,7 +87,7 @@ export default function PromptDetail({
           </div>
           <div className="flex gap-2 flex-wrap justify-end">
             {/* Download Button */}
-            <motion.button
+            <m.button
               whileTap={{ scale: 0.95 }}
               onClick={() => onDownloadMarkdown(prompt)}
               className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
@@ -95,10 +95,10 @@ export default function PromptDetail({
             >
               <Download className="w-3.5 h-3.5" />
               Download
-            </motion.button>
+            </m.button>
 
             {/* Share Button (Email) */}
-            <motion.button
+            <m.button
               whileTap={{ scale: 0.95 }}
               onClick={() => {
                 const subject = encodeURIComponent(`Prompt: ${prompt.title}`);
@@ -110,9 +110,9 @@ export default function PromptDetail({
             >
               <Share2 className="w-3.5 h-3.5" />
               Email
-            </motion.button>
+            </m.button>
 
-            <motion.button
+            <m.button
               whileTap={{ scale: 0.95 }}
               onClick={() => onCopyShareLink(prompt)}
               className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
@@ -120,11 +120,11 @@ export default function PromptDetail({
             >
               {copiedShareLink ? <Check className="w-3.5 h-3.5" /> : <Share2 className="w-3.5 h-3.5" />}
               {copiedShareLink ? 'Link Copied' : 'Copy Link'}
-            </motion.button>
+            </m.button>
 
             {/* Only show "Save to My Prompts" button if in Public Library */}
             {libraryMode === 'public' && (
-              <motion.button
+              <m.button
                 whileTap={{ scale: 0.95 }}
                 onClick={() => onCopyToMyPrompts(prompt)}
                 disabled={copyingToMyPromptsId === prompt.id}
@@ -133,12 +133,12 @@ export default function PromptDetail({
               >
                 <FolderPlus className="w-3.5 h-3.5" />
                 {copyingToMyPromptsId === prompt.id ? 'Saving...' : 'Save to My Library'}
-              </motion.button>
+              </m.button>
             )}
 
             {/* Only show "Remove from My Library" button if in My Library */}
             {libraryMode === 'my' && (
-              <motion.button
+              <m.button
                 whileTap={{ scale: 0.95 }}
                 onClick={() => onDeletePrompt(prompt.id)}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 bg-red-500/10 border-red-500/40 text-red-400 hover:bg-red-500 hover:text-white"
@@ -146,9 +146,9 @@ export default function PromptDetail({
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 Remove from My Library
-              </motion.button>
+              </m.button>
             )}
-            <motion.button
+            <m.button
               whileTap={{ scale: 0.95 }}
               onClick={() => onCopy(prompt.content, prompt.id)}
               className={cn(
@@ -161,7 +161,7 @@ export default function PromptDetail({
             >
               {copied === prompt.id ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
               Copy
-            </motion.button>
+            </m.button>
           </div>
         </div>
 
@@ -233,6 +233,6 @@ export default function PromptDetail({
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

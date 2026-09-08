@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { X, Save, Eye, Code } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 
 interface Prompt {
   id?: string;
@@ -124,7 +124,7 @@ export default function PromptEditorModal({
     <AnimatePresence>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         {/* Backdrop */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -133,7 +133,7 @@ export default function PromptEditorModal({
         />
 
         {/* Modal */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -322,7 +322,7 @@ export default function PromptEditorModal({
               </button>
             </div>
           </form>
-        </motion.div>
+        </m.div>
       </div>
     </AnimatePresence>
   );

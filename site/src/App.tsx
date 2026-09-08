@@ -15,7 +15,7 @@ import {
   Share2,
   Check
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { LazyMotion, domAnimation, m, AnimatePresence } from 'motion/react';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { useAuth } from './contexts/AuthContext';
 import { type Prompt } from './components/PromptCard';
@@ -744,11 +744,12 @@ source: My Prompt Library
   ]);
 
   return (
+    <LazyMotion features={domAnimation} strict>
     <div className="flex h-screen overflow-hidden font-[var(--font-sans)]">
       {/* Mobile sidebar overlay */}
       <AnimatePresence>
         {isSidebarOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -849,7 +850,7 @@ source: My Prompt Library
           <AnimatePresence mode="wait">
             {/* All Prompts Grid */}
             {showAllPrompts ? (
-              <motion.div
+              <m.div
                 key="all-prompts"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -875,7 +876,7 @@ source: My Prompt Library
 
                 {/* Featured Section */}
                 {activeTab !== 'skill-packs' && libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.1 }}
@@ -892,7 +893,7 @@ source: My Prompt Library
                       actions={promptCardActions}
                       columns="featured"
                     />
-                  </motion.div>
+                  </m.div>
                 )}
 
                 {/* Skill Packs View */}
@@ -934,11 +935,11 @@ source: My Prompt Library
                     actions={promptCardActions}
                   />
                 )}
-              </motion.div>
+              </m.div>
 
             ) : selectedSubcategory && subcategoryPrompts.length > 0 ? (
               /* Subcategory Grid */
-              <motion.div
+              <m.div
                 key={`subcat-${selectedSubcategory.category}-${selectedSubcategory.subcategory}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -965,7 +966,7 @@ source: My Prompt Library
                       <p className="label mt-2">{subcategoryPrompts.length} prompts</p>
                     </div>
                   </div>
-                  <motion.button
+                  <m.button
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleCopySubsectionLink(selectedSubcategory.category, selectedSubcategory.subcategory)}
                     className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
@@ -973,11 +974,11 @@ source: My Prompt Library
                   >
                     {copiedShareLink ? <Check className="w-3.5 h-3.5" /> : <Share2 className="w-3.5 h-3.5" />}
                     {copiedShareLink ? 'Link Copied' : 'Copy Section Link'}
-                  </motion.button>
+                  </m.button>
                 </div>
 
                 <PromptCardGrid prompts={subcategoryPrompts} actions={promptCardActions} />
-              </motion.div>
+              </m.div>
 
             ) : selectedPrompt ? (
               /* Single Prompt Detail */
@@ -1001,7 +1002,7 @@ source: My Prompt Library
 
             ) : (
               /* Empty state */
-              <motion.div
+              <m.div
                 key="empty"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -1017,7 +1018,7 @@ source: My Prompt Library
                   <p className="heading-display text-xl font-bold text-[var(--text-tertiary)]">System Ready</p>
                   <p className="text-[0.8rem] font-medium text-[var(--text-tertiary)] opacity-60">Select a category or subcategory to begin</p>
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>
@@ -1078,5 +1079,6 @@ source: My Prompt Library
         </Suspense>
       )}
     </div>
+    </LazyMotion>
   );
 }

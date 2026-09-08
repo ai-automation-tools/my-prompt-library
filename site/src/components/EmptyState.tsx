@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { Library, Sparkles, Copy, Plus } from 'lucide-react';
 
 interface EmptyStateProps {
@@ -11,7 +11,7 @@ interface EmptyStateProps {
 export default function EmptyState({ type, onLogin, onSignup, onBrowsePublic }: EmptyStateProps) {
   if (type === 'not-authenticated') {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col items-center justify-center py-20 text-center max-w-2xl mx-auto"
@@ -59,13 +59,13 @@ export default function EmptyState({ type, onLogin, onSignup, onBrowsePublic }: 
           <Sparkles className="w-4 h-4" />
           Browse Public Library Instead
         </button>
-      </motion.div>
+      </m.div>
     );
   }
 
   // No prompts in My Library
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="flex flex-col items-center justify-center py-20 text-center max-w-2xl mx-auto"
@@ -132,6 +132,6 @@ export default function EmptyState({ type, onLogin, onSignup, onBrowsePublic }: 
           Browse Public Library
         </span>
       </button>
-    </motion.div>
+    </m.div>
   );
 }
