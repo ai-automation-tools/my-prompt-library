@@ -220,7 +220,9 @@ GITHUB_BRANCH=main
 - `PUT /api/auth/me` - Update profile
 
 ### Prompts
-- `GET /api/prompts?library=public|my` - List prompts (add `&lightweight=true` for previews only)
+- `GET /api/prompts?library=public|my` - List prompts (add `&lightweight=true` for metadata only —
+  no body text at all for the public library)
+- `POST /api/prompts/previews` - Card blurbs for a batch of ids (`{ ids: string[] }`, 200 max)
 - `GET /api/prompts/:id` - One prompt with its full body
 - `POST /api/prompts` - Create prompt (auth required)
 - `PUT /api/prompts/:id` - Update prompt (auth required)

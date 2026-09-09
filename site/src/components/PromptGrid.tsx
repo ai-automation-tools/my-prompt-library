@@ -6,6 +6,7 @@
 import { Sparkles } from 'lucide-react';
 import PromptCard, { type Prompt } from './PromptCard';
 import EmptyState from './EmptyState';
+import { usePromptPreviews } from '../hooks/usePromptPreviews';
 
 /**
  * The card-level props every prompt grid drills down to `PromptCard`. Bundled so
@@ -23,7 +24,8 @@ export interface PromptCardActions {
   onEditPrompt: (prompt: Prompt) => void;
   onDeletePrompt: (promptId: string) => void;
   onDownloadMarkdown: (prompt: Prompt) => void;
-  onCopy: (content: string, promptId: string) => void;
+  /** Takes the prompt, not its text: the card only holds a blurb. */
+  onCopy: (prompt: Prompt) => void;
 }
 
 interface PromptCardGridProps {
@@ -33,8 +35,16 @@ interface PromptCardGridProps {
   columns?: 'featured' | 'default';
 }
 
-/** Responsive grid of `PromptCard`s — the markup shared by all three lists. */
+/**
+ * Responsive grid of `PromptCard`s — the markup shared by all three lists.
+ *
+ * Card blurbs are fetched here rather than passed in: every list renders through
+ * this component, so one `usePromptPreviews` call covers featured, the paginated
+ * list and the subcategory list without drilling a preview map through `actions`.
+ */
 export function PromptCardGrid({ prompts, actions, columns = 'default' }: PromptCardGridProps) {
+  const promptsWithPreviews = usePromptPreviews(prompts);
+
   return (
     <div
       className={
@@ -43,7 +53,7 @@ export function PromptCardGrid({ prompts, actions, columns = 'default' }: Prompt
           : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'
       }
     >
-      {prompts.map((prompt, i) => (
+      {promptsWithPreviews.map((prompt, i) => (
         <PromptCard
           key={prompt.id}
           prompt={prompt}

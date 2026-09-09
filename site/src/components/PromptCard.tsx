@@ -66,7 +66,7 @@ interface PromptCardProps {
   onEditPrompt?: (prompt: Prompt) => void;
   onDeletePrompt?: (promptId: string) => void;
   onDownloadMarkdown: (prompt: Prompt) => void;
-  onCopy: (content: string, promptId: string) => void;
+  onCopy: (prompt: Prompt) => void;
 }
 
 const PromptCard = memo(function PromptCard({
@@ -176,7 +176,7 @@ const PromptCard = memo(function PromptCard({
         <button
           onClick={(e) => {
             e.stopPropagation();
-            onCopy(prompt.content, prompt.id);
+            onCopy(prompt);
           }}
           className={cn(
             "p-2 rounded-[var(--radius-sm)] transition-all duration-300 border backdrop-blur-sm",

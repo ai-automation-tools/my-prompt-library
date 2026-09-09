@@ -55,6 +55,24 @@ try {
   console.warn('[INDEX] Failed to load prebuilt index:', err);
 }
 
+// How many characters of a prompt body a card blurb gets. Mirrors the same
+// constant in scripts/build-prompt-index.js, which bakes `contentPreview` in.
+const PREVIEW_LENGTH = 200;
+
+// id → contentPreview, built once from the prebuilt index.
+// The listing no longer ships previews (they were 632 KB of its 2.2 MB, and only
+// the ~50 cards on screen ever render one), so POST /api/prompts/previews serves
+// them per page out of this map.
+let previewIndex: Map<string, string> | null = null;
+const getPreviewIndex = (): Map<string, string> => {
+  if (!previewIndex) {
+    previewIndex = new Map(
+      (prebuiltIndex?.prompts ?? []).map((p: any) => [p.id, p.contentPreview ?? '']),
+    );
+  }
+  return previewIndex;
+};
+
 // Helper function to generate safe filename
 const generateFilename = (title: string) => {
   return title
@@ -134,7 +152,10 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
       category: p.category,
       subcategory: p.subcategory,
       tags: p.tags,
-      content: lightweight ? p.content.substring(0, 200) : p.content, // Truncate in lightweight mode
+      // My Library keeps its inline preview where the public listing dropped one:
+      // this is one user's own prompts, not 3,088, so the bytes are not worth a
+      // round trip — and /api/prompts/previews only knows about library files.
+      content: lightweight ? p.content.substring(0, PREVIEW_LENGTH) : p.content,
       lastModified: p.updated_at,
       isUserOwned: true,
     }));
@@ -151,9 +172,13 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
   // Use prebuilt index for lightweight public library requests
   if (libraryMode === 'public' && lightweight && prebuiltIndex) {
     console.log('[INDEX] Using prebuilt index for lightweight request');
-    const indexedPrompts = prebuiltIndex.prompts.map((p: any) => ({
+    // Previews are deliberately left out: nothing the client does with the whole
+    // listing (search, tag/category filters, sort, pagination) reads `content`,
+    // and shipping all 3,088 of them cost more gzipped than the entire JS bundle.
+    // Cards fetch the ~50 they actually render from /api/prompts/previews.
+    const indexedPrompts = prebuiltIndex.prompts.map(({ contentPreview, ...p }: any) => ({
       ...p,
-      content: p.contentPreview, // Use preview for lightweight mode
+      content: '',
     }));
     
     // Cache it for subsequent requests
@@ -238,7 +263,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
             category,
             subcategory,
             tags: data.tags || [],
-            content: lightweight ? content.substring(0, 200) : content,  // Truncate in lightweight mode
+            content: lightweight ? '' : content, // Lightweight drops the body; cards fetch previews
             lastModified: contentData.sha,
             isUserOwned: false,
           };
@@ -313,7 +338,7 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
               category,
               subcategory,
               tags: data.tags || [],
-              content: lightweight ? content.substring(0, 200) : content,  // Truncate in lightweight mode
+              content: lightweight ? '' : content, // Lightweight drops the body; cards fetch previews
               lastModified: stat.mtime.toISOString(),
               isUserOwned: false,
             });
@@ -337,6 +362,49 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
     console.error("Error listing prompts:", error);
     res.json([]);
   }
+});
+
+// Card blurbs for a batch of library ids.
+//
+// POST rather than GET because ids are library paths ~70 characters long and a
+// page asks for 50 of them at once — well past what is safe in a query string.
+// Returns { [id]: preview }; ids it cannot resolve are simply absent, so one bad
+// id never fails the batch.
+const MAX_PREVIEW_IDS = 200;
+
+app.post("/api/prompts/previews", (req, res) => {
+  const requested: unknown = req.body?.ids;
+  if (!Array.isArray(requested)) {
+    return res.status(400).json({ error: 'Expected { ids: string[] }' });
+  }
+
+  const previews = getPreviewIndex();
+  const out: Record<string, string> = {};
+
+  for (const id of requested.slice(0, MAX_PREVIEW_IDS)) {
+    if (typeof id !== 'string') continue;
+
+    const indexed = previews.get(id);
+    if (indexed !== undefined) {
+      out[id] = indexed;
+      continue;
+    }
+
+    // Not in the prebuilt index (stale index, or none was built). Fall back to
+    // the file — `resolveInside` is what keeps "../../.env" out of this.
+    if (!id.endsWith('.md')) continue;
+    const filePath = resolveInside(LIBRARY_PATH, id);
+    if (!filePath || !fs.existsSync(filePath)) continue;
+
+    try {
+      const { content } = matter(fs.readFileSync(filePath, 'utf-8'));
+      out[id] = content.substring(0, PREVIEW_LENGTH);
+    } catch {
+      // Malformed frontmatter — the file has no preview, same as the indexer.
+    }
+  }
+
+  res.json(out);
 });
 
 // Get single prompt with full content

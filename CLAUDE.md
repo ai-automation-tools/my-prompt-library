@@ -34,7 +34,7 @@ npm run dev               # tsx server.ts → http://localhost:3010
 
 Other scripts: `npm run build` (build:index → tsc → vite build), `npm run build:index`
 (regenerates `api/prompt-index.json` from `library/`), `npm run lint` (`tsc --noEmit`),
-`npm run test:routes` (asserts the shared Express app still exposes all seven API routes).
+`npm run test:routes` (asserts the shared Express app still exposes all eight API routes).
 
 CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → the two repo-root
 provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →
@@ -49,8 +49,10 @@ Paths below are relative to `site/`.
 ```
 site/
   src/                 React app
-    App.tsx            1,084 lines (was 2,845) — still the app shell + 25 useState hooks
+    App.tsx            1,083 lines (was 2,845) — still the app shell + 24 useState hooks
     hooks/             usePromptFilters (search, tags, sort, pagination)
+                       usePromptPreviews (batched card blurbs — the listing has no body text)
+                       usePromptContent (copy state + fetching a prompt's real body)
     components/        TopBar, LibraryHero, Sidebar, ResourcesNav, PromptListToolbar,
                        PromptGrid (also exports PromptCardGrid + PromptCardActions),
                        PromptCard, PromptDetail, LoginModal, SignupModal,
@@ -59,7 +61,10 @@ site/
     themes.css         16 themes
   server.ts            71-line dev wrapper: imports the app `api/index.ts` exports,
                        mounts the prod skill-packs handler, adds Vite HMR (port 3010)
-  api/index.ts         Vercel handler: prompts, auth, GitHub-mode public library
+  api/index.ts         Vercel handler: prompts, auth, GitHub-mode public library.
+                       `?lightweight=true` returns metadata only — a listing prompt's
+                       `content` is NOT the prompt. Card blurbs come from
+                       POST /api/prompts/previews, full bodies from GET /api/prompts/:id.
   api/skill-packs.ts   Vercel handler for skill packs (bundles library/3_Skills/**)
   routes/, middleware/ auth.ts (bcrypt + cookie sessions). No skill-packs router — dev runs
                        the production api/skill-packs.ts handler.

@@ -4,6 +4,75 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-09-08 — Stopped shipping 3,088 card blurbs to render 50
+
+The listing response had quietly become the largest thing on first load — **338 KB gzipped**,
+against 200 KB for the entire JS bundle. 632 KB of its 2.2 MB raw was `contentPreview`: a
+200-character excerpt of every prompt in the library. Nothing that operates on the whole
+listing reads it. Search matches title, tags, category and subcategory (`usePromptFilters`
+never had `content` among its Fuse keys); sort uses title and `lastModified`; the category
+tree and tag facets are built from metadata. The only consumer is the blurb under a card
+title — and at most ~50 cards are on screen.
+
+**What changed:**
+
+- `GET /api/prompts?lightweight=true` no longer carries body text for the public library,
+  in any of its three source paths (prebuilt index, local filesystem walk, GitHub mode).
+  The response went **338 KB → 117.6 KB gzipped**, with all 3,088 prompts and every metadata
+  field intact.
+- New `POST /api/prompts/previews` takes `{ ids: string[] }` and returns `{ [id]: preview }`,
+  served out of a Map built once from the prebuilt index, falling back to reading the file for
+  ids the index does not have. POST rather than GET because 50 library paths do not fit in a
+  query string. Ids are capped at 200 per request, restricted to `.md`, and resolved through
+  the existing `resolveInside` traversal guard; unresolvable ids are omitted rather than
+  failing the batch.
+- New `src/hooks/usePromptPreviews.ts` fills blurbs in for whatever is on screen. It is called
+  once inside `PromptCardGrid` — the component all three lists (featured, paginated,
+  subcategory) render through — so no preview map is drilled through `PromptCardActions`. Its
+  cache and in-flight map are module-level, because those three grids mount together and would
+  otherwise request the same ids two and three times over. A page costs ~4 KB gzipped, paging
+  back to a visited page costs nothing.
+- **My Library keeps its inline previews.** It is one user's own prompts rather than 3,088, and
+  the previews endpoint only knows about library files.
+
+**Three bugs fixed on the way, all the same root cause** — callers treating the listing's
+truncated `content` as the real body:
+
+- **Card → Copy** put the 200-character preview on the clipboard, not the prompt.
+- **Card → Download** wrote that same preview into the `.md` file.
+- **Card → Edit** seeded the editor with it, so saving a My Library prompt from a card
+  **truncated it to 200 characters**. That one was silent data loss.
+
+All three now resolve the body through one `fetchFullContent` helper hitting
+`GET /api/prompts/:id`. `PromptDetail` was never affected — `handlePromptClick` already
+fetched. The card copy path hands `navigator.clipboard.write` a `ClipboardItem` wrapping the
+pending fetch, because Safari drops the user-gesture clipboard permission across an `await`.
+
+The search placeholder no longer claims to search "content" — it never did, and now there is
+no content in the listing to search.
+
+**Verified with:** `npm run lint` (clean), `npm run test:routes` (8 routes, up from 7),
+`npm run build` (clean; entry chunk 181 → 184 KB). Against `npm run dev`: the listing returns
+3,088 prompts across all five sections at 117.6 KB gzipped with zero non-empty `content`
+fields; a 50-id preview batch returns all 50 at 4.2 KB gzipped. Nine traversal payloads
+(`../../.env`, `..\..\.env.md`, `/etc/passwd.md`, `3_Skills/../../.env.md`, …) all return `{}`;
+a non-array body returns 400; a 400-id request returns 200. In Playwright: all 54 first-paint
+cards render blurbs from two batched requests, paging forward fetches one more and paging back
+fetches none, search still filters, the subcategory list of 1,349 cards fills from seven
+chunked batches, and clicking Copy issues a `GET /api/prompts/<id>` for the full body and
+reports success.
+
+The new card-action logic went into `src/hooks/usePromptContent.ts` rather than into
+`App.tsx`, which ends the day at **1,083 lines and 24 `useState` hooks** — one line and one
+hook below where it started.
+
+_Touched: `site/api/index.ts`, `site/src/hooks/{usePromptPreviews,usePromptContent}.ts` (both
+new), `site/src/components/{PromptGrid,PromptCard,LibraryHero}.tsx`, `site/src/App.tsx`,
+`site/scripts/api-routes.test.mjs`, `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`,
+`docs/features/API.md`, `README.md`, `CLAUDE.md`._
+
+---
+
 ## 2026-09-07 — Shrank the `motion` bundle with LazyMotion
 
 `motion` was the only sizeable dependency still loading before first paint — a 128 KB chunk

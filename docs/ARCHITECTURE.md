@@ -55,6 +55,7 @@ The Prompt Library is a full-stack web application for managing and organizing p
 │      runs it as a function, server.ts imports it in dev      │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │  GET  /api/prompts          - List (?lightweight)   │  │
+│  │  POST /api/prompts/previews - Card blurbs by id     │  │
 │  │  GET  /api/prompts/:id      - One prompt, full body │  │
 │  │  POST /api/prompts          - Create new prompt     │  │
 │  │  PUT  /api/prompts/:id      - Update prompt         │  │
@@ -85,6 +86,12 @@ The Prompt Library is a full-stack web application for managing and organizing p
 ## Data Flow
 
 ### 1. List Prompts (`GET /api/prompts`)
+
+With `?lightweight=true` the public listing is **metadata only** — `content` comes back as an
+empty string. Search, tags, sort and pagination all run client-side off that metadata and never
+needed the body; card blurbs are fetched per page from `POST /api/prompts/previews`, and the
+real body from `GET /api/prompts/:id`. Treating a listing prompt's `content` as the prompt is
+the bug that hit copy, download and edit before 2026-09-08.
 
 ```
 User Request
@@ -159,7 +166,7 @@ my-prompt-library/
 │   ├── src/
 │   │   ├── components/           # React components
 │   │   ├── contexts/             # AuthContext
-│   │   ├── hooks/                # usePromptFilters
+│   │   ├── hooks/                # usePromptFilters, usePromptPreviews, usePromptContent
 │   │   ├── App.tsx               # App shell
 │   │   └── main.tsx              # Entry point
 │   ├── lib/                      # Shared helpers (safe-path, vercel-types)

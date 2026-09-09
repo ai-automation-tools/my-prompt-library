@@ -23,7 +23,10 @@ export default function LibraryHero({ title, searchQuery, onSearchChange }: Libr
           {title}
         </h1>
 
-        {/* Search Bar */}
+        {/* Search Bar. The placeholder does not say "content": search has only
+            ever matched title, tags, category and subcategory (see
+            usePromptFilters), and the listing no longer carries body text at
+            all, so the old wording promised a search the app cannot run. */}
         <div className="relative max-w-2xl">
           <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
             <Search className="w-5 h-5 text-[var(--text-tertiary)]" />
@@ -32,7 +35,7 @@ export default function LibraryHero({ title, searchQuery, onSearchChange }: Libr
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Search prompts by title, content, tags, or category..."
+            placeholder="Search prompts by title, tags, or category..."
             className="w-full pl-12 pr-4 py-3.5 rounded-[var(--radius-lg)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all duration-300"
           />
         </div>

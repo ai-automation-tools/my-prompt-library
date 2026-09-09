@@ -25,6 +25,7 @@ import LibraryHero from './components/LibraryHero';
 import PromptGrid, { PromptCardGrid, type PromptCardActions } from './components/PromptGrid';
 import PromptListToolbar from './components/PromptListToolbar';
 import { usePromptFilters } from './hooks/usePromptFilters';
+import { usePromptContent } from './hooks/usePromptContent';
 
 // Split out of the entry chunk: none of these render on first paint, and
 // PromptDetail/PromptEditorModal each pull in react-markdown + remark-gfm.
@@ -105,7 +106,6 @@ export default function App() {
   const [theme, setTheme] = useState<Theme>('mikesailab');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [copied, setCopied] = useState<string | null>(null);
   const [copiedShareLink, setCopiedShareLink] = useState(false);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts' | 'skill-packs'>(() => {
@@ -171,6 +171,10 @@ export default function App() {
   const closeToast = useCallback((id: string) => {
     setToasts(prev => prev.filter(toast => toast.id !== id));
   }, []);
+
+  // Copy-button state plus the "go get the real body" helpers the card actions
+  // need, since a listing prompt carries only a blurb. See usePromptContent.
+  const { copied, copyContent, copyPrompt, fetchFullContent } = usePromptContent(showToast);
 
   // Persist favorites and recently viewed to localStorage
   useEffect(() => {
@@ -452,13 +456,6 @@ export default function App() {
     }
   }, [selectedPrompt, selectedSubcategory, activeCategory, handleShowAllPrompts, handleSubcategoryClick]);
 
-  const handleCopy = useCallback((content: string, promptId: string) => {
-    navigator.clipboard.writeText(content);
-    setCopied(promptId);
-    setTimeout(() => setCopied(null), 2000);
-    showToast('success', 'Copied to clipboard');
-  }, [showToast]);
-
   const handleCopyShareLink = useCallback(async (prompt: Prompt) => {
     if (prompt.isUserOwned) {
       showToast('info', 'Direct links are only available for public library items');
@@ -568,7 +565,7 @@ source: My Prompt Library
 ---
 
 `;
-      const content = frontmatter + prompt.content;
+      const content = frontmatter + (await fetchFullContent(prompt));
       const blob = new Blob([content], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -580,7 +577,7 @@ source: My Prompt Library
       URL.revokeObjectURL(url);
       showToast('success', prompt.section === '3_Skills' ? 'Skill downloaded as markdown!' : 'Prompt downloaded!');
     }
-  }, [showToast]);
+  }, [showToast, fetchFullContent]);
 
   const toggleFavorite = useCallback((promptId: string, e?: React.MouseEvent) => {
     if (e) {
@@ -692,10 +689,12 @@ source: My Prompt Library
     }
   }, [refreshPrompts, selectedPrompt, showToast]);
 
-  const handleEditPrompt = useCallback((prompt: Prompt) => {
-    setEditingPrompt(prompt);
+  const handleEditPrompt = useCallback(async (prompt: Prompt) => {
+    // Seeding the editor from the listing copy would load the 200-character
+    // preview and save it back over the real prompt.
+    setEditingPrompt({ ...prompt, content: await fetchFullContent(prompt) });
     setIsEditorOpen(true);
-  }, []);
+  }, [fetchFullContent]);
 
   const handleNewPrompt = useCallback(() => {
     if (!user) {
@@ -728,7 +727,7 @@ source: My Prompt Library
     onEditPrompt: handleEditPrompt,
     onDeletePrompt: handleDeletePrompt,
     onDownloadMarkdown: handleDownloadMarkdown,
-    onCopy: handleCopy,
+    onCopy: copyPrompt,
   }), [
     libraryMode,
     copyingToMyPromptsId,
@@ -740,7 +739,7 @@ source: My Prompt Library
     handleEditPrompt,
     handleDeletePrompt,
     handleDownloadMarkdown,
-    handleCopy,
+    copyPrompt,
   ]);
 
   return (
@@ -994,7 +993,7 @@ source: My Prompt Library
                   onCopyShareLink={handleCopyShareLink}
                   onCopyToMyPrompts={handleCopyToMyPrompts}
                   onDeletePrompt={handleDeletePrompt}
-                  onCopy={handleCopy}
+                  onCopy={copyContent}
                   onSubcategoryClick={handleSubcategoryClick}
                   onShowAllPrompts={handleShowAllPrompts}
                 />

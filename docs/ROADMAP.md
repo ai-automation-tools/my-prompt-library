@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-09-07 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-09-08 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
@@ -15,9 +15,9 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 | Stack | React 19 + TS + Vite 6 + Tailwind v4 · Express/Vercel serverless · Neon Postgres |
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 27.3 MB, all of it reachable |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
-| Prompt index | `site/api/prompt-index.json` — **3,088** prompts, 1.91 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows |
+| Prompt index | `site/api/prompt-index.json` — **3,088** prompts, 1.91 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own. `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
-| `src/App.tsx` | **1,084 lines** (was 2,845), 25 `useState` hooks |
+| `src/App.tsx` | **1,083 lines** (was 2,845), 24 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
 | Line endings | LF everywhere, enforced by `.gitattributes`; the index is byte-reproducible on Linux and Windows |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
@@ -119,11 +119,20 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       already inside `act-as-an-expert.md`. The union is now **1,349 individual files** under
       `4_Prompts/Awesome_ChatGPT/General/`. `2_Agents` 7.7 → **2.1 MB**; the library 30.3 →
       **27.3 MB** while gaining 1,347 files.
-- [ ] **The listing payload is now the biggest thing on first load.** Every visit fetches the
-      whole lightweight index: **311 KB gzipped**, up from 159 KB, against 200 KB for all the
-      JS. That is proportional to going 1,739 → 3,088 prompts, not a regression in kind, but it
-      now outweighs the bundle. Server-side pagination, or serving `contentPreview` only for
-      the first page, is the fix.
+- [x] ~~**The listing payload is now the biggest thing on first load.**~~ Fixed by deleting the
+      previews from it rather than paginating. 632 KB of the 2.2 MB response was a 200-character
+      excerpt of every prompt, and **nothing that operates on the whole listing reads it** —
+      `usePromptFilters` never had `content` among its Fuse keys, sort uses title and
+      `lastModified`, the category tree and tag facets are metadata. Only the blurb under a card
+      title consumes it, and at most ~50 cards are on screen. Server-side pagination was the
+      wrong shape here: search, tags and sort are all client-side over the full set, so paginating
+      the source would have broken them. The listing is now **117.6 KB gzipped** (from 338 KB,
+      measured — the 311 KB in the old note was an estimate), and a new
+      `POST /api/prompts/previews` serves blurbs a page at a time for ~4 KB. Three latent bugs
+      came out with it: card Copy and card Download were emitting the 200-character preview
+      instead of the prompt, and card Edit seeded the editor with it, so saving a My Library
+      prompt from a card truncated it — silent data loss. All three now fetch the real body.
+      Completed **2026-09-08** — see the changelog.
 - [x] ~~**Add `.gitattributes` and normalize line endings.**~~ Done, and it was not cosmetic:
       the CI index gate could not pass on *any* PR, because `contentPreview` is embedded in
       `prompt-index.json` verbatim and carried `

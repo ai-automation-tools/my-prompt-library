@@ -263,10 +263,15 @@ List prompts based on library mode.
 - All prompts have `isUserOwned: true`
 
 **Lightweight Mode (`?lightweight=true`):**
-- Returns only metadata with 200-character content preview
-- **95% smaller payload** (~500KB vs ~13MB for full content)
-- Recommended for initial page loads
-- Use `GET /api/prompts/:id` to fetch full content on demand
+- Returns metadata only. `content` is an empty string for the public library — no body
+  text of any kind, not even a preview (changed 2026-09-08; it used to carry 200
+  characters per prompt, which was 632 KB of the response and 221 KB of it gzipped).
+  My Library still returns a 200-character preview inline, since that is one user's own
+  prompts rather than the whole library.
+- **117.6 KB gzipped** for all 3,088 public prompts, against 338 KB before.
+- Recommended for initial page loads.
+- Use `POST /api/prompts/previews` for card blurbs, and `GET /api/prompts/:id` for the
+  full body. Never treat a lightweight `content` as the real prompt — it isn't one.
 
 **Response (200 OK):**
 ```json
@@ -298,6 +303,48 @@ curl http://localhost:3010/api/prompts?library=public
 # My library (requires auth)
 curl http://localhost:3010/api/prompts?library=my \
   -b cookies.txt
+```
+
+---
+
+### POST /api/prompts/previews
+
+Get card blurbs for a batch of public library ids. This is what fills in the excerpt under a
+card title now that the listing no longer ships one.
+
+**Authentication:** None.
+
+**Request:**
+```json
+{ "ids": ["1_Guides/API_Providers/anthropic-api-guide.md", "4_Prompts/Business/x.md"] }
+```
+
+**Response (200 OK):** a map of id → first 200 characters of the body.
+```json
+{
+  "1_Guides/API_Providers/anthropic-api-guide.md": "\n# Anthropic API Guide\n\n## Overview\n..."
+}
+```
+
+**Behavior:**
+- Served from a Map built once out of `api/prompt-index.json`; ids the index does not have
+  fall back to reading the file.
+- **Capped at 200 ids per request** — extra ids are dropped, not rejected. The client
+  (`src/hooks/usePromptPreviews.ts`) chunks to match.
+- Ids that do not resolve are **omitted from the response** rather than failing the batch.
+  Non-`.md` ids and anything that escapes `library/` (checked with `resolveInside`) resolve
+  to nothing.
+- Only public library files. User-owned prompts are not here — My Library's listing carries
+  its previews inline.
+
+**Errors:**
+- `400 Bad Request`: body is not `{ ids: [...] }`
+
+**Example:**
+```bash
+curl -X POST http://localhost:3010/api/prompts/previews \
+  -H "Content-Type: application/json" \
+  -d '{"ids":["1_Guides/API_Providers/anthropic-api-guide.md"]}'
 ```
 
 ---
@@ -861,10 +908,17 @@ npm run build:index
 
 **Recommended Pattern:**
 ```javascript
-// 1. Load list with lightweight mode
+// 1. Load the list with lightweight mode — metadata only, no body text
 const list = await fetch('/api/prompts?library=public&lightweight=true');
 
-// 2. Load full content on demand
+// 2. Blurbs for the cards actually on screen (~50), batched
+const previews = await fetch('/api/prompts/previews', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ ids: visiblePrompts.map(p => p.id) }),
+});
+
+// 3. Full content on demand — opening, copying, downloading or editing a prompt
 const full = await fetch(`/api/prompts/${encodeURIComponent(promptId)}`);
 ```
 
@@ -963,6 +1017,13 @@ Download the pack as ZIP.
 ---
 
 ## Changelog
+
+### v1.3.0 (September 2026)
+- **New Endpoint:** `POST /api/prompts/previews` — batched card blurbs, 200 ids max
+- **Payload:** lightweight public listings no longer carry body text at all
+  (338 KB → 117.6 KB gzipped)
+- A lightweight `content` is no longer a usable prompt body under any mode — copy,
+  download and edit all go to `GET /api/prompts/:id`
 
 ### v1.2.0 (April 2026)
 - Added skill pack library-mode endpoint behavior (`public` vs `my`)
