@@ -268,7 +268,9 @@ List prompts based on library mode.
   characters per prompt, which was 632 KB of the response and 221 KB of it gzipped).
   My Library still returns a 200-character preview inline, since that is one user's own
   prompts rather than the whole library.
-- **117.6 KB gzipped** for all 3,088 public prompts, against 338 KB before.
+- **117.6 KB gzipped** for all 3,088 public prompts, against 338 KB before. (The library
+  is 3,142 prompts as of 2026-09-12; the measurement above is from the 2026-09-08 change and
+  scales roughly with prompt count.)
 - Recommended for initial page loads.
 - Use `POST /api/prompts/previews` for card blurbs, and `GET /api/prompts/:id` for the
   full body. Never treat a lightweight `content` as the real prompt — it isn't one.

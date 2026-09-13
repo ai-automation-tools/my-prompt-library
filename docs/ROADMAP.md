@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-09-08 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-09-12 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
@@ -13,9 +13,9 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 | | |
 |:---|:---|
 | Stack | React 19 + TS + Vite 6 + Tailwind v4 · Express/Vercel serverless · Neon Postgres |
-| Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 27.3 MB, all of it reachable |
+| Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 27.7 MB, all of it reachable |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
-| Prompt index | `site/api/prompt-index.json` — **3,088** prompts, 1.91 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
+| Prompt index | `site/api/prompt-index.json` — **3,142** prompts, 1.94 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own. `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
 | `src/App.tsx` | **1,083 lines** (was 2,845), 24 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
@@ -167,6 +167,14 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 - [ ] **Surface freshness in the UI.** `lastModified` in the index is the *filesystem mtime*,
       so every prompt on the live site claims it changed on the last checkout. Swap it for
       `upstream.checked` and render a stale badge.
+      *Scoping note (2026-09-12):* `api/prompt-index.json` carries no `upstream` data at all —
+      `build-prompt-index.js` reads only `title`, `tags` and the path — so this needs an index
+      schema change before any UI work, and the CI freshness gate has to learn the new field.
+      It also only answers for the ~99 skills with a resolvable upstream; the other ~3,040
+      prompts need a separate decision about what a freshness badge even means for them.
+      Sourcing `lastModified` from `git log -1 --format=%cI` would fix all 3,142 at once and
+      would let CI stop stripping the field, but Vercel builds from a shallow clone, so that
+      needs a preview deploy to confirm and is **Mike's call, not an agent's**.
 
 ### Library structure
 - [ ] **Decide what `2_Agents` is.** 460 of 546 files have no `name:`/`description:`, so they
@@ -178,9 +186,27 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       because names and frontmatter differ: 2 skill groups share an upstream file
       (`skill-creator`, `brand-guidelines`), and `2_Agents` has 16 near-duplicate topic
       groups — including **five** C# agents with no stated difference between them.
-- [ ] Expand thin categories: Healthcare, Education, Legal/Compliance, E-commerce,
-      Personal Productivity.
-- [ ] Long-tail: Data Science, Blockchain/Web3, Design, industry verticals.
+- [x] ~~Expand thin categories: Healthcare, Education, Legal/Compliance, E-commerce,
+      Personal Productivity.~~ 54 prompts written across the five, taking the library
+      3,088 → **3,142**. Healthcare was the real gap — `4_Prompts` had *zero* files on the
+      subject, so it gets a new `Domain_Specific/Healthcare/` with 16 across
+      `Clinical_Documentation`, `Patient_Communication`, `Operations` and `Compliance`.
+      (`2_Agents/Domain_Specific/Healthcare/` already existed with 5 agent definitions;
+      these are prompts and live in the prompt section, so the two do not collide.)
+      Education 5 → 17, Legal/Compliance 22 → 30 with a new `Employment` subfolder,
+      E-commerce 12 → 22, Personal Productivity 13 → 21. Everything went into the existing
+      folders rather than new top-level categories, so nothing was restructured and the
+      "decide what `2_Agents` is" question above stays open and untouched. Written in the
+      `Domain_Specific/Legal` house style — Purpose, Instructions with named inputs,
+      Output Format, Related Prompts, Reputable Sources — not the generic
+      "provide a step-by-step implementation plan" filler that the older bulk `Business`
+      files use. No `featured` tags added: the featured row is section-wide and sorts on
+      `lastModified`, so 54 new files would have taken it over. Completed **2026-09-12**
+      — see the changelog.
+- [ ] Long-tail: Data Science, Blockchain/Web3, Design, industry verticals. Note that
+      `4_Prompts/Development` (1 file) and `4_Prompts/Data` (2 files) are now the thinnest
+      categories in the section by a wide margin — thinner than anything in the item above
+      was before this pass.
 
 ### Features
 - [ ] Finish the `App.tsx` de-bulk — lift the remaining URL/routing state (`activeTab`,

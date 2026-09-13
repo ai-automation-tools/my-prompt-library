@@ -4,6 +4,68 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-09-12 — Filled the five thin categories, starting with the one that had nothing
+
+`docs/ROADMAP.md` listed five thin categories. Counting them first changed the shape of the
+job: **Healthcare had zero files in `4_Prompts`**, Education had five, and Legal/Compliance
+had twenty-two and was not actually thin — it was buried two levels deep under
+`Domain_Specific/`, which is a different problem. 54 new prompts, library **3,088 → 3,142**.
+
+**What landed:**
+
+- **Healthcare — new, 0 → 16.** `4_Prompts/Domain_Specific/Healthcare/` across four
+  subcategories: `Clinical_Documentation` (SOAP note, discharge summary, referral letter,
+  SBAR handoff), `Patient_Communication` (plain-language explainer, medication sheet,
+  pre-procedure prep, reminder sequence), `Operations` (prior authorization, denial appeal,
+  coding review, schedule optimizer), `Compliance` (Security Rule risk assessment, Safe Harbor
+  de-identification, BAA review, breach notification plan).
+- **Education — 5 → 17.** `K12` gains a rubric builder, conference prep, IEP goal writer and
+  behavior support plan; `Higher_Ed` a Socratic tutor, outcomes mapper and feedback writer;
+  `Curriculum` backward design, standards alignment, reading-level adaptation, formative
+  assessment and multiple-choice item writing.
+- **Legal/Compliance — 22 → 30.** `Regulatory` was the thin part at two files: EU AI Act
+  readiness, SOX control narrative, AML/KYC review, records retention. Plus two contract
+  reviewers and a new `Employment` subfolder.
+- **E-commerce — 12 → 22** and **Personal Productivity — 13 → 21**.
+
+**Placement was deliberately boring.** Everything went into folders that already exist.
+Healthcare sits under `Domain_Specific/` because that is where Education and Legal already
+live, so it needed no new top-level category and no restructuring. The open roadmap question
+about what `2_Agents` is stays open and untouched. `2_Agents/Domain_Specific/Healthcare/`
+already held five agent *definitions*; these are prompts, in the prompt section, and the two
+do not collide.
+
+**Written in the `Domain_Specific/Legal` house style**, not the other one. The older bulk
+`Business/` files follow a template that says "Provide: step-by-step implementation plan,
+templates and examples, tools and integrations needed" regardless of topic — that is a prompt
+about being helpful, not a prompt about e-commerce. Every new file names its inputs, states
+what the model must *not* infer, and ends with an output format. Healthcare and Legal files
+carry a disclaimer, and every Healthcare file says not to paste PHI into a service without a
+Business Associate Agreement.
+
+**No `featured` tags.** The featured row filters section-wide on the `featured` tag and sorts
+by `lastModified`; 54 new files would have taken it over.
+
+**Verified with:** `npm run lint` (clean), `npm run test:routes` (8 routes), `npm run build`
+(clean; chunk sizes unchanged). `npm run build:index` reported 3,142 prompts with **no
+`[WARN] Failed to parse frontmatter`** — a malformed frontmatter block silently drops a file
+from the library, so that warning line is the real test for content work. Against `npm run
+dev`: the listing returns all 3,142 with 16 Healthcare prompts under `4_Prompts` and 5 under
+`2_Agents`, `Business/Ecommerce` at 22 and `Business/Productivity` at 21; a 26-id
+`POST /api/prompts/previews` batch covering the new files returned 26 non-empty blurbs; and
+`GET /api/prompts/:id` returned a full 2,510-character body for a new Healthcare file. All 54
+files are LF.
+
+**The index diff is large and mostly noise.** `lastModified` comes from filesystem mtime and
+this work was done in a fresh worktree, so rebuilding restamped all 3,088 pre-existing entries.
+Roughly 3,090 of the changed lines are that churn; the real change is the 54 new entries. CI
+strips `lastModified` before comparing, so the freshness gate is unaffected.
+
+_Touched: `site/library/4_Prompts/` (54 new files), `site/api/prompt-index.json`,
+`docs/ROADMAP.md`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-09-08 — Stopped shipping 3,088 card blurbs to render 50
 
 The listing response had quietly become the largest thing on first load — **338 KB gzipped**,
