@@ -6,27 +6,13 @@ upstream:
   match: exact
   repo: joellewis/finance_skills
   path: fixed-income-sovereign/SKILL.md
-  checked: 2026-08-26
+  ref: 5c498eacf7057e31238c4c5a8012a1afe9ec7c8a
+  checked: 2026-09-16
 ---
 
 # Fixed Income — Sovereign
 
-## Purpose
-Analyze government bonds including US Treasuries and sovereign debt. This skill covers bond pricing, yield curve construction, duration and convexity analytics, TIPS mechanics, forward rate derivation, and auction processes critical for interest rate risk management.
-
-## Layer
-2 — Asset Classes
-
-## Direction
-both
-
-## When to Use
-- User asks about government bonds, Treasuries, or sovereign debt
-- User asks about yield curves, spot rates, or forward rates
-- User asks about interest rate risk, duration, or convexity
-- User asks about TIPS, breakeven inflation, or real yields
-- User asks about bond pricing or yield to maturity calculations
-- User asks about key rate duration or yield curve shape analysis
+Scope: US Treasuries and rates analytics. Sovereign *credit* risk — emerging market debt, default analysis, country risk spreads — is out of scope for this skill.
 
 ## Core Concepts
 
@@ -140,10 +126,17 @@ Duration alone would estimate -2.195%; the convexity correction reduces the esti
 - Clean price vs dirty price (accrued interest) — quoted prices exclude accrued interest, but settlement requires paying it
 
 ## Cross-References
-- **time-value-of-money** (core plugin, Layer 0): discounting and present value fundamentals
-- **fixed-income-corporate** (wealth-management plugin, Layer 2): credit spreads over the sovereign curve
-- **fixed-income-municipal** (wealth-management plugin, Layer 2): muni-to-Treasury yield ratios
-- **asset-allocation** (wealth-management plugin, Layer 3): bonds as an asset class in portfolio construction
+- **time-value-of-money** (core plugin): discounting and present value fundamentals
+- **fixed-income-corporate** (wealth-management plugin): credit spreads over the sovereign curve
+- **fixed-income-municipal** (wealth-management plugin): muni-to-Treasury yield ratios
+- **asset-allocation** (wealth-management plugin): bonds as an asset class in portfolio construction
 
-## Reference Implementation
-See `scripts/fixed_income_sovereign.py` for computational helpers.
+## Running the Script
+
+```bash
+uv run scripts/fixed_income_sovereign.py            # run the demo (uses PEP 723 inline deps)
+uv run scripts/fixed_income_sovereign.py --verify   # check demo outputs against the worked examples (exit 1 on mismatch)
+python3 scripts/fixed_income_sovereign.py            # alternative (requires: pip install numpy scipy)
+```
+
+The demo prints the calculations covered above; its values match the worked examples in this skill. Run `--help` for a list of the classes and functions. For programmatic use, import the module rather than running it — the demo only executes under `python fixed_income_sovereign.py`.

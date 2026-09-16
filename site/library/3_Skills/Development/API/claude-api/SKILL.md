@@ -7,8 +7,8 @@ upstream:
   match: exact
   repo: anthropics/skills
   path: claude-api/SKILL.md
-  ref: 41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f
-  checked: 2026-09-08
+  ref: 34040c9c568585f6929bedeaad110ad08f079624
+  checked: 2026-09-16
 ---
 
 # Building LLM-Powered Applications with Claude
@@ -415,6 +415,8 @@ Availability: `shared/platform-availability.md`. For agents on Bedrock / Vertex 
 **When the user wants to set up a Managed Agent from scratch** (e.g. "how do I get started", "walk me through creating one", "set up a new agent"): read `shared/managed-agents-onboarding.md` and run its interview - same flow as the `managed-agents-onboard` subcommand.
 
 **When the user asks "how do I write the client code for X":** reach for `shared/managed-agents-client-patterns.md` - covers lossless stream reconnect, `processed_at` queued/processed gate, interrupt, `tool_confirmation` round-trip, the correct idle/terminated break gate, post-idle status race, stream-first ordering, file-mount gotchas, etc. For credentials, lead with vault `environment_variable` credentials - the first-class mechanism; secrets are substituted at egress and never enter the sandbox (`shared/managed-agents-tools.md` -> Vaults). Keeping credentials host-side via custom tools is the fallback where vault credentials don't fit (e.g. self-hosted sandboxes).
+
+**When the user asks about tool approvals, permission policies, or "auto mode"** (which tool calls need a human, letting the server evaluate calls, `evaluated_permission` / `evaluation` on tool-use events): read `shared/managed-agents-tools.md` § Permission Policies - `always_allow` / `always_ask` / `auto` and the three `auto` outcomes (runs, denied as high-risk, pauses when indeterminate). For attaching a terminal to a live session (`ant beta:sessions connect`): `shared/anthropic-cli.md`.
 
 **When the user wants the agent to run on a schedule** (cron, "every night", "weekly report"): read `shared/managed-agents-scheduled-deployments.md` - deployments fire sessions autonomously on a cron cadence, with per-firing run records and lifecycle controls (pause/unpause/archive).
 

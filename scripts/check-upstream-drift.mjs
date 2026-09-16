@@ -21,6 +21,11 @@
  * nonsense. `behind` here is a freshness *verdict* this script assigns; it is
  * not an `upstream.match` value (attribute-upstream.mjs calls that `similar`).
  *
+ * The verdict is set from the share of upstream's lines this copy does not
+ * contain, not from the ratio of the two word counts. The ratio was the wrong
+ * instrument: it goes to 1 whenever the local copy is the larger file, so an
+ * upstream rewrite into tighter prose read as a perfect match. See `absentFrom`.
+ *
  * Reports, never edits. Curation is the product; an auto-merge that reflowed 300
  * files into the wrong categories would destroy it.
  *
@@ -46,6 +51,28 @@ if (TOKEN) api.Authorization = `Bearer ${TOKEN}`;
 const norm = (s) => s.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
 const sha1 = (s) => crypto.createHash("sha1").update(s).digest("hex");
 const words = (s) => norm(s).split(" ").filter(Boolean).length;
+
+// Content divergence, measured on normalized non-empty lines rather than on the
+// two word counts. A size ratio cannot tell a rewrite from a match: when upstream
+// restructures a skill into denser prose the local copy stays larger, the ratio
+// reads >= 1, and the file sorts to the bottom of the report as "0% missing" —
+// which is how the most-diverged skills in the library hid for three weeks.
+// Two directions, because they need different decisions: `missing` is upstream
+// content this copy does not have (a resync candidate), `extra` is local content
+// upstream does not have (curation we would destroy by resyncing).
+const lines = (s) => s.split("\n").map(norm).filter(Boolean);
+const absentFrom = (a, b) => {
+  if (!a.length) return 0;
+  const have = new Map();
+  for (const l of b) have.set(l, (have.get(l) || 0) + 1);
+  let unmatched = 0;
+  for (const l of a) {
+    const n = have.get(l) || 0;
+    if (n > 0) have.set(l, n - 1);
+    else unmatched++;
+  }
+  return unmatched / a.length;
+};
 
 const splitFrontmatter = (raw) => {
   const t = raw.replace(/^﻿/, "").replace(/\r\n/g, "\n");
@@ -157,9 +184,12 @@ for (const t of targets) {
   const lw = words(t.body), uw = words(up.body);
   const moved = resolved !== t.u.path;
   if (sha1(norm(t.body)) === sha1(norm(up.body))) {
-    rows.push({ ...t, resolved, moved, verdict: "current", lw, uw });
+    rows.push({ ...t, resolved, moved, verdict: "current", lw, uw, missing: 0, extra: 0 });
   } else {
-    rows.push({ ...t, resolved, moved, lw, uw, verdict: uw && lw / uw < 0.75 ? "behind" : "drifted" });
+    const ll = lines(t.body), ul = lines(up.body);
+    const missing = absentFrom(ul, ll), extra = absentFrom(ll, ul);
+    rows.push({ ...t, resolved, moved, lw, uw, missing, extra,
+      verdict: missing >= 0.25 ? "behind" : "drifted" });
   }
 }
 
@@ -168,8 +198,8 @@ const by = (v) => rows.filter((r) => r.verdict === v);
 const MEAN = {
   "repo-gone": "the whole upstream repo 404s",
   "upstream-gone": "no SKILL.md of this name left in the upstream repo",
-  behind: "local copy is missing more than 25% of upstream's content",
-  drifted: "bodies differ, sizes comparable",
+  behind: "a quarter or more of upstream's lines are not in this copy",
+  drifted: "bodies differ, but this copy holds over 75% of upstream's lines",
   error: "could not be fetched",
   current: "body identical to upstream",
 };
@@ -190,12 +220,12 @@ for (const v of ["repo-gone", "upstream-gone", "behind", "drifted", "error"]) {
   if (!list.length) continue;
   md.push(`## ${v} (${list.length})`, "");
   if (v === "behind" || v === "drifted") {
-    md.push("| skill | upstream | local | upstream | missing |");
-    md.push("|:---|:---|---:|---:|---:|");
-    for (const r of list.sort((a, b) => a.lw / (a.uw || 1) - b.lw / (b.uw || 1))) {
+    md.push("| skill | upstream | missing | extra | local words | upstream words |");
+    md.push("|:---|:---|---:|---:|---:|---:|");
+    for (const r of list.sort((a, b) => b.missing - a.missing)) {
       const link = `[${r.u.repo}/${r.resolved}](https://github.com/${r.u.repo}/blob/${trees.get(r.u.repo).branch}/${r.resolved})`;
-      const pct = r.uw ? Math.max(0, Math.round((1 - r.lw / r.uw) * 100)) : 0;
-      md.push(`| \`${r.file.replace(/^3_Skills\//, "")}\` | ${link} | ${r.lw} | ${r.uw} | ${pct}% |`);
+      const pc = (x) => `${Math.round(x * 100)}%`;
+      md.push(`| \`${r.file.replace(/^3_Skills\//, "")}\` | ${link} | ${pc(r.missing)} | ${pc(r.extra)} | ${r.lw} | ${r.uw} |`);
     }
   } else {
     md.push("| skill | upstream | detail |");

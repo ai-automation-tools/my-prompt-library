@@ -9,11 +9,12 @@ stars: 103
 forks: 24
 updated: 2026-03-22
 upstream:
-  match: prefix
+  match: exact
   repo: wojons/skills
   path: testing-performance/SKILL.md
   declared: "https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-wojons-skills-testing-performance-skill-md"
-  checked: 2026-08-26
+  ref: 5fe7152c66604a967e53ce3aa4882d3fce00072f
+  checked: 2026-09-16
 ---
 
 # Performance Testing
@@ -47,11 +48,11 @@ Use this skill when:
 # Load testing tools
 npx autocannon -c 100 -d 60 https://app.example.com
 wrk -t12 -c400 -d30s https://app.example.com
-k6 run script.js
+k6 run script.js                     # Grafana k6
 jmeter -n -t testplan.jmx -l results.jtl
 
 # Performance monitoring
-npm run test:perf
+npm run test:perf                   # Custom performance suite
 lighthouse https://app.example.com --output json
 webpagetest test https://app.example.com
 
@@ -67,24 +68,24 @@ go test -bench=. -benchmem
 
 ## Output format
 
-```text
+```
 Performance Test Results:
-------------------------------
+──────────────────────────────
 Load Test (100 concurrent users, 5 minutes):
-  Average Response Time: 245ms (< 500ms target)
-  95th Percentile: 412ms
-  Throughput: 1,234 req/sec
-  Error Rate: 0.1% (< 1% target)
-  CPU Usage: 85% (approaching limit)
+  ✅ Average Response Time: 245ms (< 500ms target)
+  ✅ 95th Percentile: 412ms
+  ✅ Throughput: 1,234 req/sec
+  ✅ Error Rate: 0.1% (< 1% target)
+  ⚠️ CPU Usage: 85% (approaching limit)
 
 Stress Test (Breaking Point):
-  System fails at 850 concurrent users
-  Database connection pool exhausted at 800 users
-  Graceful degradation observed
+  ❌ System fails at 850 concurrent users
+  ⚠️ Database connection pool exhausted at 800 users
+  ✅ Graceful degradation observed
 
 Memory Usage (24-hour endurance):
-  Memory leak detected: +2MB/hour
-  OutOfMemory after 18 hours
+  ⚠️ Memory leak detected: +2MB/hour
+  ❌ OutOfMemory after 18 hours
 
 Summary: Meets most performance targets, needs memory leak fix
 ```

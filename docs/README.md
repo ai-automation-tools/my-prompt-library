@@ -32,7 +32,10 @@ Documentation for **my-prompt-library**, live at
 - **[Roadmap](ROADMAP.md)** — what's next
 - **[Changelog](CHANGELOG.md)** — shipped work, newest first
 - **[Repository Audit (2026-08-26)](audits/REPO-AUDIT-2026-08-26.md)** — whole-repo health check
-- **[Upstream Drift Baseline](audits/upstream-drift-2026-08-26.md)** — first drift report
+- **[Upstream Drift (latest)](audits/upstream-drift-2026-09-16.md)** — current state: all 93
+  tracked skills byte-identical to upstream
+- **[Upstream Drift Baseline](audits/upstream-drift-2026-08-26.md)** — the first drift report,
+  kept for comparison ([2026-08-27](audits/upstream-drift-2026-08-27.md) is the second)
 
 ---
 
@@ -49,7 +52,9 @@ docs/
 │
 ├── audits/                       # Point-in-time health checks
 │   ├── REPO-AUDIT-2026-08-26.md
-│   └── upstream-drift-2026-08-26.md
+│   ├── upstream-drift-2026-08-26.md
+│   ├── upstream-drift-2026-08-27.md
+│   └── upstream-drift-2026-09-16.md
 │
 ├── setup/
 │   ├── SETUP.md                  # Local dev setup

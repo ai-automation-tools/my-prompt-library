@@ -9,11 +9,12 @@ stars: 103
 forks: 24
 updated: 2026-02-19
 upstream:
-  match: prefix
+  match: exact
   repo: silvainfm/claude-skills
   path: polars/SKILL.md
   declared: "https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-silvainfm-claude-skills-polars-skill-md"
-  checked: 2026-08-26
+  ref: 0af9d5be25b46fae67fac66e5101db720d63b370
+  checked: 2026-09-16
 ---
 
 # Polars
@@ -504,5 +505,6 @@ except Exception as e:
 
 ## Resources
 
+- **references/api_reference.md**: Detailed Polars API documentation and examples
 - Official docs: https://docs.pola.rs/
 - API reference: https://docs.pola.rs/api/python/stable/reference/

@@ -1,10 +1,10 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-09-12 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-09-16 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
-skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md).
+skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-2026-09-16.md).
 
 ---
 
@@ -16,7 +16,7 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 27.7 MB, all of it reachable |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `site/api/prompt-index.json` — **3,142** prompts, 1.94 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
-| Skills | **323**, all spec-valid. **99** carry a resolvable upstream, 36 with a commit sha. Of the 93 still tracked: **41** are byte-identical, **0** are `behind`, 52 are `drifted` (≤21%). The other 6 are forks we own. `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
+| Skills | **323**, all spec-valid. **99** carry a resolvable upstream. Of the 93 still tracked, **all 93 are byte-identical to upstream** — `behind` and `drifted` are both empty as of 2026-09-16, and every one now carries the commit sha it was synced from. The other 6 are forks we own. `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
 | `src/App.tsx` | **1,083 lines** (was 2,845), 24 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
 | Line endings | LF everywhere, enforced by `.gitattributes`; the index is byte-reproducible on Linux and Windows |
@@ -37,12 +37,30 @@ skill drift from [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-202
 - [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (still a placeholder, so auth and
       My Library are dead locally). The dev server boots without it and serves the read-only
       Public Library.
-- [ ] **Triage the 52 `drifted` skills.** With `behind` cleared, this is the whole remaining
-      backlog and it is a different shape: the worst is 21% (`rspack-tracing`), 43 of the 52
-      are under 5%, and 23 of those are the `wealth-management` set from one repo. Sizes are
-      comparable, so these are edits — a resync here is a judgment call per skill, not a
-      mechanical catch-up. Current list:
-      [audits/upstream-drift-2026-08-27.md](audits/upstream-drift-2026-08-27.md).
+- [x] ~~**Triage the `drifted` skills.**~~ Cleared, but the triage started by throwing out the
+      ranking it was supposed to work from. The report's `missing` column was
+      `max(0, 1 - local_words / upstream_words)`, so it read 0% whenever the local copy was the
+      larger file — and an upstream that rewrites a skill into tighter prose *is* the case where
+      the local copy is larger. Every genuinely rotten file sorted to the bottom of the table as
+      a perfect match. `counterparty-risk` sat there at "0% missing" with a local body four
+      times upstream's length and not one section in common; the roadmap's own "the worst is 21%"
+      was reading the instrument, not the library. `check-upstream-drift.mjs` now compares
+      normalized lines in both directions — `missing` (upstream lines this copy lacks) and
+      `extra` (local lines upstream lacks) — and `behind` is set from `missing >= 25%` rather
+      than from a size ratio. On the corrected ranking the supposedly-empty `behind` tier held
+      **nine** skills at 28–96% missing, and the real backlog was 46, not 52.
+      All 46 then resynced, in three passes: the 9 `behind`; the 26 `joellewis/finance_skills`
+      skills, which one upstream pass had restructured identically (the `Purpose`/`Layer`/
+      `Direction`/`When to Use` preamble dropped in favour of `Worked Examples`, `Common
+      Pitfalls` and `Cross-References`), brought to a single sha; and the last 11 one at a time.
+      **All 93 tracked skills are now byte-identical to upstream.** Three judgment calls worth
+      keeping: `frontend-design` was resynced `--keep-extra` because upstream ships no
+      `LICENSE.txt` and dropping one from a vendored copy is not a freshness decision;
+      `timesfm-forecasting` looked like it would lose 2,000 words until upstream turned out to
+      have moved them into four `references/` files the resync mirrors; and `docx`/`xlsx` prune
+      looked alarming at 55 stale files but upstream had only moved `ooxml/schemas/` to
+      `scripts/office/schemas/`. Completed **2026-09-16** — see the changelog and
+      [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-2026-09-16.md).
 - [x] ~~**Seven skills carry a stale `match: behind` in their frontmatter.**~~ Renamed the
       value rather than re-running the attributor, because the collision was the defect: the
       attributor's `behind` meant "same skill, body differs" (attribution confidence) while
@@ -158,6 +176,18 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 ## Later — content, structure, features
 
 ### Content provenance
+- [ ] **Decide whether `description:` is curation or upstream content.** `resync-upstream.mjs`
+      preserves the whole local frontmatter block and rewrites only `upstream:`, on the reasoning
+      that `title`, `tags` and `category` are this library's own work. That is right for those
+      three and wrong for `description`, which upstream maintains too and which is the field a
+      skill actually triggers on. After 2026-09-16 all 93 bodies are level with upstream while
+      some descriptions are a year old: `counterparty-risk` still advertises the old flat
+      structure, not the three workflows its body now has, and says nothing about the
+      `margin-operations` / `settlement-clearing` split upstream added. The drift checker cannot
+      see it either — it strips frontmatter before comparing, deliberately, because `title`
+      carries a decorated emoji that would report all 323 skills as drifted every week. So this
+      needs both halves: resync taking `description` from upstream (or diffing it), and the
+      checker reporting it separately from the body.
 - [ ] **Raise attribution coverage above 31%.** 60 skills are `ambiguous` (the body exists in
       three or more mirror repos, so no single origin is provable) and 164 are `unknown`.
       The mirror only indexes `SKILL.md`; matching support files would help.

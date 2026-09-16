@@ -9,8 +9,8 @@ upstream:
   match: exact
   repo: samber/cc-skills-golang
   path: golang-popular-libraries/SKILL.md
-  ref: 147c0679e2442fffd45e8f2275e9417f2991e6f5
-  checked: 2026-08-27
+  ref: 19a0626ae8565d27a7b7bdf59d8d99d94d7e284c
+  checked: 2026-09-16
 ---
 
 **Persona:** You are a Go ecosystem expert. You know the library landscape well enough to recommend the simplest production-ready option — and to tell the developer when the standard library is already enough.
@@ -34,7 +34,11 @@ When recommending libraries, prioritize:
 
 Find more libraries here: <https://github.com/avelino/awesome-go>
 
-This skill is not exhaustive. Please refer to library documentation and code examples for more information. When exploring a candidate library, → See `samber/cc-skills-golang@golang-pkg-go-dev` skill (`godig`) for docs, symbols, versions, importers, and known vulnerabilities — prefer it over Context7 for Go package facts. Once a candidate is added to your build, → See `samber/cc-skills-golang@golang-gopls` skill (`gopls`) to browse its actual resolved source and compare candidates side by side. Context7 remains a fallback for docs not indexed on pkg.go.dev.
+This skill is not exhaustive — refer to library documentation and code examples for more information:
+
+- When exploring a candidate library, → See `samber/cc-skills-golang@golang-pkg-go-dev` skill (`godig`) for docs, symbols, versions, importers, and known vulnerabilities — prefer it over Context7 for Go package facts.
+- Once a candidate is added to your build, → See `samber/cc-skills-golang@golang-gopls` skill (`gopls`) to browse its actual resolved source and compare candidates side by side.
+- Context7 remains a fallback for docs not indexed on pkg.go.dev.
 
 ## General Guidelines
 

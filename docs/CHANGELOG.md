@@ -4,6 +4,95 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-09-16 — The drift report was ranking rewrites as perfect matches
+
+The roadmap said the `behind` tier had been empty since 2026-08-27 and the worst remaining drift
+was 21%. Both numbers came from the same broken measurement.
+
+`check-upstream-drift.mjs` reported a `missing` column computed as
+`max(0, 1 - local_words / upstream_words)`. That clamp is the bug. It only measures *shortfall*,
+so it reads 0% for any skill where the local copy is the larger file — and "the local copy is
+larger" is exactly what an upstream rewrite into tighter prose looks like. The files that had
+rotted furthest sorted to the bottom of the table looking perfect.
+`Finance/Investing/trading-operations/skills/counterparty-risk` sat at **0% missing** with a
+local body four times upstream's length and not a single section in common: upstream had
+reorganized it into three named workflows (assessing a counterparty, responding to credit
+deterioration, executing a close-out) while the local copy still carried the old flat
+`Purpose`/`Layer`/`Direction` prose. `Content/xlsx` was worse than drifted — it had two `# ` H1s,
+two concatenated documents in one file, and the report called it a 0% match.
+
+**The fix, then the backlog.** The checker now compares normalized non-empty lines in both
+directions and reports two numbers instead of one: `missing` (upstream lines this copy does not
+have — a resync candidate) and `extra` (local lines upstream does not have — curation a resync
+would destroy). The `behind` verdict comes from `missing >= 25%`, not from a size ratio. On the
+corrected ranking:
+
+| | before the fix | after the fix |
+|:---|---:|---:|
+| `behind` | 0 | **9** (28–96% missing) |
+| `drifted` | 46 | 37 |
+| `current` | 47 | 47 |
+
+**Then all 46 were resynced, in three passes.** The nine `behind` first. Then the 26
+`joellewis/finance_skills` skills, which turned out to be one upstream pass applied uniformly —
+the `Purpose`/`Layer`/`Direction`/`When to Use` preamble dropped (that information now lives in
+`description:`) in favour of `Worked Examples`, `Common Pitfalls` and `Cross-References` — so
+they were brought to a single sha (`5c498ea`) rather than decided one at a time. Then the last
+11 individually. **All 93 tracked skills are now byte-identical to their upstreams**; `behind`
+and `drifted` are both empty for the first time on a measurement that can actually see a
+rewrite.
+
+**Three calls worth recording, because each one nearly went the other way:**
+
+- **`frontend-design` was resynced with `--keep-extra`.** A plain resync would have pruned its
+  `LICENSE.txt`, which upstream does not ship. Deleting a license file from a vendored copy is
+  not a freshness decision.
+- **`timesfm-forecasting` looked like it would lose 2,000 words** — upstream had collapsed four
+  sections (output/config, workflows, performance tuning, examples and validation) into a
+  four-line list. It had moved them into `references/`, which the resync mirrors, so nothing was
+  lost. Worth checking rather than assuming; the reverse case is real.
+- **`docx` and `xlsx` reported 55 and 5 stale files.** Upstream had moved `ooxml/schemas/` to
+  `scripts/office/schemas/` and `scripts/validation/` to `scripts/office/validators/`. A move,
+  not a deletion. `xlsx`'s `recalc.py` moved to `scripts/recalc.py`, which is where its new
+  SKILL.md points.
+
+**Two things fell out of it.**
+
+`Data/timesfm-forecasting` had four **Git LFS pointer files** vendored as content — 131-byte
+text stubs reading `version https://git-lfs.github.com/spec/v1` where a PNG and a GIF should be.
+The resync fetched the real bytes (verified against the `size` the pointers themselves declared),
+so the skill's example images work now. A sweep confirms zero LFS pointers remain anywhere under
+`library/`.
+
+`npm run lint` broke, because the resync pulled a vendored `.ts` sample
+(`together-gpu-clusters/scripts/manage_cluster.ts`) into the app's typecheck, which failed on a
+`together-ai` import the app does not depend on. `tsconfig.json` already carried two hand-added
+per-skill excludes for exactly this, which is the wrong shape — every new vendored `.ts` breaks
+CI until someone appends a line. Replaced with `library/**/*`. Nothing in `src/`, `api/`,
+`server.ts`, `routes/`, `middleware/` or `db/` imports from `library/`; it is read as data at
+runtime, so the app's typechecker has no business in it.
+
+**Verified with:** `npm run lint` (clean), `npm run test:routes` (8 routes),
+`scripts/upstream.test.mjs` (322 stamped files, vocabulary intact),
+`scripts/skill-frontmatter.test.mjs` (323 files parse, names match directories), `npm run build`
+(clean, chunk sizes unchanged). `npm run build:index` rebuilt at the same **3,142** prompts with
+no `[WARN] Failed to parse frontmatter`. A link check across all 46 touched skills resolved every
+relative path in their `SKILL.md` — 0 unresolved. Every rewritten text file is LF; the four
+binaries are byte-identical to upstream and `.gitattributes` marks them `binary`, not `eol=lf`.
+Against `npm run dev`: the listing returns 3,142; `GET /api/prompts/:id` returns the *new* bodies
+(`xlsx` 7,556 chars opening on "Requirements for every output", `counterparty-risk` 16,316 on
+`Core Concepts`/`Worked Examples`/`Cross-References`); `POST /api/prompts/previews` returns
+non-empty blurbs for them; and `GET /api/skills/download/:path` still produces valid zips for the
+reorganized trees (`docx` 72 entries, `xlsx` 63 including `scripts/recalc.py`,
+`timesfm-forecasting` 40).
+
+**Left open:** `description:` is still local-only. `resync-upstream.mjs` preserves the whole
+frontmatter block, which is right for `title`/`tags`/`category` and wrong for `description` —
+upstream maintains that field too, and it is what a skill triggers on. All 93 bodies are level
+while some descriptions are a year stale. Filed on the roadmap under *Content provenance*.
+
+---
+
 ## 2026-09-12 — Filled the five thin categories, starting with the one that had nothing
 
 `docs/ROADMAP.md` listed five thin categories. Counting them first changed the shape of the

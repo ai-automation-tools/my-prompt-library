@@ -100,6 +100,10 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
 ## Conventions
 
 - React 19 functional components + hooks; strict TS, no `any`. Tailwind utility-first.
+- `library/**/*` is excluded from `tsconfig.json`. Vendored skills ship their own `.ts`/`.py`
+  sample code that imports packages the app does not depend on, so type-checking it just breaks
+  `npm run lint` on the next content resync. The app never imports from `library/` — it reads it
+  as data at runtime.
 - Auth = bcrypt hashes + cookie sessions (30-day). Secure cookies off in dev (`NODE_ENV`).
 - Parameterized SQL only (`db/postgres.ts`). Never expose `DATABASE_URL` client-side.
 - Never commit `.env*` (gitignored), `DATABASE_URL`, or GitHub tokens.

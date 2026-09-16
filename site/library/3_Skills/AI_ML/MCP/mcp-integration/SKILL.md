@@ -7,7 +7,8 @@ upstream:
   match: exact
   repo: anthropics/claude-plugins-official
   path: mcp-integration/SKILL.md
-  checked: 2026-08-26
+  ref: b1aabc22ac9995a458838f479272fc3a3453a567
+  checked: 2026-09-16
 ---
 
 # MCP Integration for Claude Code Plugins
@@ -105,9 +106,9 @@ Connect to hosted MCP servers with OAuth support. Best for cloud services.
 **Configuration:**
 ```json
 {
-  "asana": {
+  "hosted-service": {
     "type": "sse",
-    "url": "https://mcp.asana.com/sse"
+    "url": "https://mcp.example.com/sse"
   }
 }
 ```

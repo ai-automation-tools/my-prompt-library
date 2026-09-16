@@ -106,7 +106,8 @@ assert.ok(after.includes("tags: [\"a\"]"), "local curation outside the block is 
 assert.equal(stampUpstream(after, { ref: "newsha", checked: "2026-08-26" }), after);
 
 // --- the `match:` vocabulary is attribution confidence, never a drift verdict ---
-// `behind` is check-upstream-drift.mjs's verdict for "missing >25% of upstream".
+// `behind` is check-upstream-drift.mjs's verdict for "a quarter or more of
+// upstream's lines are absent from this copy".
 // attribute-upstream.mjs used to stamp the same word as a confidence label, so
 // seven skills sat in the library looking like a live problem that was not one.
 // Renamed to `similar` on 2026-08-29; this assertion is what stops it coming back.
