@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-09-16 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-09-19 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
@@ -13,9 +13,9 @@ skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-202
 | | |
 |:---|:---|
 | Stack | React 19 + TS + Vite 6 + Tailwind v4 · Express/Vercel serverless · Neon Postgres |
-| Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 27.7 MB, all of it reachable |
+| Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 28.3 MB, all of it reachable |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
-| Prompt index | `site/api/prompt-index.json` — **3,142** prompts, 1.94 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
+| Prompt index | `site/api/prompt-index.json` — **3,200** prompts, 1.98 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream. Of the 93 still tracked, **all 93 are byte-identical to upstream** — `behind` and `drifted` are both empty as of 2026-09-16, and every one now carries the commit sha it was synced from. The other 6 are forks we own. `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
 | `src/App.tsx` | **1,083 lines** (was 2,845), 24 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
@@ -200,9 +200,9 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       *Scoping note (2026-09-12):* `api/prompt-index.json` carries no `upstream` data at all —
       `build-prompt-index.js` reads only `title`, `tags` and the path — so this needs an index
       schema change before any UI work, and the CI freshness gate has to learn the new field.
-      It also only answers for the ~99 skills with a resolvable upstream; the other ~3,040
+      It also only answers for the ~99 skills with a resolvable upstream; the other ~3,100
       prompts need a separate decision about what a freshness badge even means for them.
-      Sourcing `lastModified` from `git log -1 --format=%cI` would fix all 3,142 at once and
+      Sourcing `lastModified` from `git log -1 --format=%cI` would fix all 3,200 at once and
       would let CI stop stripping the field, but Vercel builds from a shallow clone, so that
       needs a preview deploy to confirm and is **Mike's call, not an agent's**.
 
@@ -233,10 +233,32 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       files use. No `featured` tags added: the featured row is section-wide and sorts on
       `lastModified`, so 54 new files would have taken it over. Completed **2026-09-12**
       — see the changelog.
-- [ ] Long-tail: Data Science, Blockchain/Web3, Design, industry verticals. Note that
-      `4_Prompts/Development` (1 file) and `4_Prompts/Data` (2 files) are now the thinnest
-      categories in the section by a wide margin — thinner than anything in the item above
-      was before this pass.
+- [x] ~~Long-tail: Data Science, Blockchain/Web3, Design, industry verticals.~~ 58 prompts
+      written across all four, taking the library 3,142 → **3,200**. The item's own note —
+      that `4_Prompts/Development` (1 file) and `4_Prompts/Data` (2 files) were the thinnest
+      categories in the section — decided the placement, so three of the four topics landed
+      in a category that already existed and was starving: Data Science went to
+      `4_Prompts/Data/` (2 → **20**, new `Analysis`, `Data_Engineering`, `Machine_Learning`
+      and `Visualization` subfolders) and Blockchain/Web3 to
+      `4_Prompts/Development/Blockchain/` (1 → **13**). Putting Blockchain under
+      `Development` rather than `Engineering` was deliberate: `Engineering` is the crowded
+      general software category and already carries three copies of one `ethereum-developer`
+      role-play, so filing twelve specialist prompts there would have deepened a duplication
+      problem the roadmap already tracks, while `Development` was the near-empty category
+      the item asked about. Design is the one **new top-level category** —
+      `4_Prompts/Design/` with 16 across `UX_Research`, `UI_Design`, `Design_Systems` and
+      `Accessibility` — created because nothing in `4_Prompts` covered product design
+      (`Media/` is imagery, `Engineering/` has two stray files) and `3_Skills/Design` already
+      establishes the name. Industry verticals went into the existing `Domain_Specific/`
+      alongside Education, Healthcare and Legal: `Real_Estate` and `Manufacturing`, 6 each.
+      Written in the `Domain_Specific/Legal` house style — Purpose, Instructions with named
+      inputs and what the model must *not* infer, Output Format, Related Prompts, Reputable
+      Sources — with disclaimers on the files that touch legal, financial or safety
+      consequences (all of Blockchain's value-at-risk prompts, all of Real_Estate, and the
+      Manufacturing safety ones). No `featured` tags, for the same reason as the last pass.
+      `4_Prompts/Development/Api_Design/python-debugger.md`, a four-line stub, was left
+      alone: rewriting it is a different job from filling a category. Completed
+      **2026-09-19** — see the changelog.
 
 ### Features
 - [ ] Finish the `App.tsx` de-bulk — lift the remaining URL/routing state (`activeTab`,
