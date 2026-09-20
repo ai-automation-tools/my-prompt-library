@@ -4,6 +4,98 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-09-19 — The long-tail pass, and two starving categories it could feed
+
+`docs/ROADMAP.md` asked for four long-tail topics — Data Science, Blockchain/Web3, Design,
+industry verticals — and carried a note underneath saying `4_Prompts/Development` had one
+file and `4_Prompts/Data` had two, making them the thinnest categories in the section by a
+wide margin. Those two facts answer each other, so three of the four topics went into a
+category that already existed and was empty rather than into a new one. 58 new prompts,
+library **3,142 → 3,200**.
+
+**What landed:**
+
+- **Data Science — `4_Prompts/Data`, 2 → 20.** Four new subfolders. `Analysis` (EDA plan,
+  analytical SQL reviewer, cohort retention, A/B test interpreter, metric definition writer),
+  `Data_Engineering` (dbt model reviewer, data quality checks, pipeline postmortem, schema
+  migration), `Machine_Learning` (feature engineering with the leakage question up front,
+  model evaluation, model card, training data audit, baseline selection),
+  `Visualization` (chart type selection, dashboard spec, executive narrative, accessible
+  chart review).
+- **Blockchain/Web3 — `4_Prompts/Development/Blockchain`, 12 new, category 1 → 13.** Contract
+  security review, gas optimization, ERC-20 and ERC-721 specs, a Foundry test suite generator,
+  upgradeable proxy review, wallet integration, subgraph schema, DAO proposal drafting,
+  tokenomics review, bridge and oracle risk, on-chain forensics.
+- **Design — `4_Prompts/Design`, new, 16.** `UX_Research` (interview guide, usability test
+  plan, synthesis, jobs-to-be-done analysis), `UI_Design` (wireframe spec, critique
+  facilitation, empty-state and error copy, responsive layout), `Design_Systems` (token
+  naming, component API, contribution review, iconography), `Accessibility` (WCAG audit,
+  screen reader flow, contrast remediation, form review).
+- **Industry verticals — `Domain_Specific`, 12 new, 63 → 75.** `Real_Estate` (listing copy
+  with fair-housing constraints, CMA, lease abstract, investment underwriting, tenant notices,
+  acquisition diligence) and `Manufacturing` (8D root cause, SOP writing, supplier audit,
+  preventive maintenance, SMED changeover, incident and near-miss reporting), 6 each.
+
+**Two placement calls worth recording.**
+
+**Blockchain went under `Development`, not `Engineering`.** `Engineering` is the crowded
+general software category — 88 files, and it already carries the same `ethereum-developer`
+role-play under three different paths. Filing twelve specialist web3 prompts there would have
+deepened a duplication problem the roadmap tracks separately, and would have left
+`Development` sitting at the one file the item complained about. `Development` had no
+identity to protect; it has one now.
+
+**`Design` is the one new top-level category, and it was not avoidable.** The previous content
+pass made a point of adding nothing top-level, and that was right then, because every topic had
+an existing home. This one does not: `Media/` is imagery and social, `Engineering/` holds two
+stray design files (`website-design-consultant`, `ux_ui_developer`), and nothing in
+`4_Prompts` covered product design. `3_Skills` already has a `Design` category, so the name
+is the library's own vocabulary rather than an invention.
+
+**House style, not the bulk-file template.** Every file names its inputs, states what the model
+must *not* infer, and ends with an output format, `Related Prompts` and `Reputable Sources` —
+the `Domain_Specific/Legal` shape, not the "provide a step-by-step implementation plan"
+filler the older `Business/` files share. Disclaimers are on the files where getting it wrong
+has a legal, financial or physical consequence: the Blockchain prompts that touch value at
+risk, all six Real_Estate files, and the Manufacturing safety ones. Several prompts carry a
+refusal built in — the listing writer enumerates the fair-housing phrasings it will not
+produce and says why; the incident report forbids "operator error" as a finding and
+"retrain the operator" as a sole corrective action.
+
+**No `featured` tags,** for the same reason as last time: the featured row filters section-wide
+and sorts on `lastModified`, so 58 new files would have taken it over.
+
+**Left alone deliberately:** `4_Prompts/Development/Api_Design/python-debugger.md`, a
+four-line stub that is now one file in a thirteen-file category. Rewriting it is a different
+job from filling a category, and it is not what the roadmap item asked for.
+
+**Verified with:** `npm run lint` (clean), `npm run test:routes` (8 routes present),
+`npm run build` (clean; the one esbuild CSS warning is pre-existing and unrelated, and chunk
+sizes are unchanged). `npm run build:index` reported 3,200 prompts with **no
+`[WARN] Failed to parse frontmatter`** — a malformed block silently drops a file from the
+library, so that warning line is the real test for content work. All 58 files are LF and
+lowercase-pathed, and a link check confirmed all 58 `Related Prompts` cross-links resolve to
+files that exist. Against `npm run dev` on the read-only public library: the listing returns
+3,200 with all 58 new files present at the right `category`/`subcategory`, and with `content`
+still empty for every one of them — the 2026-09-08 guarantee holds for the new files too;
+`POST /api/prompts/previews` returned real blurbs for a Blockchain and a Manufacturing file;
+and `GET /api/prompts/:id` returned the full 2,600-byte body for a new Design file.
+
+**Not verified:** how the new `Design` top-level category renders in the sidebar and category
+tree. That list is built client-side from the index, which is correct and was checked in the
+API response, but nothing here exercised the UI — that needs a browser or a Vercel preview.
+
+**The index diff is large and mostly noise,** as on the last content pass. `lastModified` comes
+from filesystem mtime and this was built in a fresh worktree, so rebuilding restamped all 3,142
+pre-existing entries; roughly 3,140 of the changed lines are that churn and the real change is
+the 58 new entries. CI strips `lastModified` before comparing, so the freshness gate is
+unaffected.
+
+_Touched: `site/library/4_Prompts/` (58 new files), `site/api/prompt-index.json`,
+`docs/ROADMAP.md`, `docs/CHANGELOG.md`, `docs/features/API.md`._
+
+---
+
 ## 2026-09-16 — The drift report was ranking rewrites as perfect matches
 
 The roadmap said the `behind` tier had been empty since 2026-08-27 and the worst remaining drift
