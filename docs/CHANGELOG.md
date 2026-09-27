@@ -4,6 +4,44 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-09-27 — `executing-plans` resynced after upstream rewrote it
+
+The 2026-09-21 drift check (issue #339) listed one `behind` skill:
+`3_Skills/Content/executing-plans`, 99% missing — 323 local words against 3,311 upstream.
+It was `current` when resynced on 2026-09-08; `obra/superpowers` has since rewritten the skill
+from a short load-review-execute checklist into a full inline-execution procedure (task loop,
+completion contract, ledgered "rulings", one whole-branch review at the end).
+
+**What landed:**
+
+- **`SKILL.md` body** replaced with upstream @ `8ca22db`, and the `upstream:` block restamped.
+  `name` and `description` are unchanged, and the skill still sits under `Content/` — it is
+  the same skill, grown, not a different one.
+- **`scripts/task-start` and `scripts/task-done`** are new, mirrored from upstream (LF, 80
+  lines between them).
+
+**One caveat, inherited from upstream.** `task-start` shells out to
+`../../subagent-driven-development/scripts/task-brief`, a sibling superpowers skill this
+library does not carry. The scripts are shipped as upstream wrote them and will not run
+standalone; the old body already leaned on `superpowers:*` siblings the same way, so this is
+the existing shape rather than a new break.
+
+**The index without the churn.** A fresh worktree stamps every file's mtime at checkout, so
+the rebuild rewrote `lastModified` for all 3,200 prompts. Every entry whose content was
+otherwise identical got its committed `lastModified` back, leaving a three-line index diff:
+`buildTime` and the one entry's `contentPreview` and `lastModified`. Newest/Oldest sort is
+untouched for everything else.
+
+**Verified with:** `npm run build:index` (3,200 prompts, no `[WARN] Failed to parse
+frontmatter`), `npm run lint` (clean), `npm run test:routes` (8 routes present),
+`npm run build` (clean). Against `npm run dev`: the public listing returns 3,200, the skill
+is listed under `Content`, and `GET /api/prompts/:id` serves the new body.
+
+_Touched: `site/library/3_Skills/Content/executing-plans/` (SKILL.md, 2 new scripts),
+`site/api/prompt-index.json`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-09-19 — The long-tail pass, and two starving categories it could feed
 
 `docs/ROADMAP.md` asked for four long-tail topics — Data Science, Blockchain/Web3, Design,
