@@ -197,8 +197,9 @@ between them — and only then expand into the thin categories.
 
 **Every item can answer "where did this come from, and when was it last checked."** Cards show a
 real freshness date and a stale badge when appropriate. Today `lastModified` is the filesystem
-timestamp, which means every prompt on the live site claims it changed on the last deploy — a
-date that's technically present and completely meaningless. It gets replaced with the upstream
+timestamp of whichever machine last rebuilt that entry — since 2026-09-28 a rebuild carries it
+forward for unchanged files instead of restamping everything at checkout, but it is still an
+mtime, not a fact about the content. It gets replaced with the upstream
 check date, which is a fact.
 
 **Nothing ships that a visitor can't open.** No unreachable megabytes, no files above the index
