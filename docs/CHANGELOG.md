@@ -4,6 +4,46 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-09-28 — Rebuilding the prompt index no longer rewrites it
+
+`lastModified` in `api/prompt-index.json` is each file's mtime, and a checkout stamps every
+file's mtime with the checkout time. So any `npm run build` or `npm run build:index` on a
+fresh clone rewrote `lastModified` for all 3,200 prompts, plus `buildTime` — a whole-file diff
+on a library nobody had touched, and every prompt claiming it changed today. The last three
+content PRs each put the committed timestamps back by hand. The roadmap item offered two
+fixes, and both were wrong for this: a pre-commit rebuild would *produce* that churn on every
+commit, and not committing the index would take the CI freshness gate with it.
+
+**What changed:**
+
+- **`build-prompt-index.js` carries timestamps forward.** Before writing, it reads the
+  previous index. An entry keeps its old `lastModified` when every other field is unchanged
+  *and* its file has no uncommitted edits (`git diff HEAD`, run inside `library/`). The git
+  check is what catches an edit below the 200-character preview, which changes no field of the
+  entry. `buildTime` is kept too when the whole prompt list comes out identical. Rebuilding an
+  untouched library now leaves the file byte-identical — on a fresh worktree, on CI, on Vercel.
+  Without git the check falls back to the metadata comparison alone.
+- **The CI gate compares the whole file.** It used to strip `buildTime` and `lastModified`
+  with `jq` because they could not match on a fresh checkout. They can now, so the step is a
+  plain `git diff --exit-code` after the rebuild.
+
+**Behaviour change on the live site.** Vercel's `vercel-build` rebuilds the index from a clean
+checkout, so production now serves the committed `lastModified` values instead of the deploy
+time. Newest/Oldest sort, and the featured row's fallback in a section with no `featured` tags,
+will order by when each entry was last rebuilt with a real change rather than by checkout order.
+It is still an mtime, not a content fact — that is the *Surface freshness* item.
+
+**Verified with:** `npm run lint`, `npm run test:routes` and `npm run build` (all clean), and
+`git status` after the build showing the index untouched in a fresh worktree. A body-only edit
+below the preview changes exactly that entry's `lastModified` and `buildTime`; a title edit
+with git unavailable (`GIT_DIR` pointed nowhere) still changes that entry and nothing else.
+
+_Touched: `site/scripts/build-prompt-index.js`, `.github/workflows/ci.yml`, `CLAUDE.md`,
+`docs/ARCHITECTURE.md`, `docs/DIRECTION.md`, `docs/features/API.md`, `docs/ROADMAP.md`,
+`docs/CHANGELOG.md`._
+
+---
+
 ## 2026-09-27 — `executing-plans` resynced after upstream rewrote it
 
 The 2026-09-21 drift check (issue #339) listed one `behind` skill:

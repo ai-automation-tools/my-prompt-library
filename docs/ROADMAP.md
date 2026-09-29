@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-09-19 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-09-28 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
@@ -15,7 +15,7 @@ skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-202
 | Stack | React 19 + TS + Vite 6 + Tailwind v4 · Express/Vercel serverless · Neon Postgres |
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 28.3 MB, all of it reachable |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
-| Prompt index | `site/api/prompt-index.json` — **3,200** prompts, 1.98 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
+| Prompt index | `site/api/prompt-index.json` — **3,200** prompts, 1.98 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows; rebuilding an unchanged library leaves it byte-identical. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream. Of the 93 still tracked, **all 93 are byte-identical to upstream** — `behind` and `drifted` are both empty as of 2026-09-16, and every one now carries the commit sha it was synced from. The other 6 are forks we own. `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
 | `src/App.tsx` | **1,083 lines** (was 2,845), 24 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
@@ -98,9 +98,8 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       prebuilt index: 1.28 MB against 9.3 MB for the full listing.
 - [x] ~~**Add a CI gate.**~~ Shipped: `.github/workflows/ci.yml` runs `npm ci` →
       `npm run lint` → `npm run build:index` on every PR and fails if the rebuilt index
-      differs from the committed one. `buildTime` and `lastModified` are stripped before
-      comparing — both are timestamps that cannot match on a fresh checkout (see the
-      freshness item under *Later*); everything that encodes actual content is compared.
+      differs from the committed one. Since 2026-09-28 the comparison is byte-exact: the rebuild
+      carries unchanged entries' timestamps forward, so nothing has to be stripped.
 
 ---
 
@@ -167,9 +166,15 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       `mike_desktop` is the working branch `CLAUDE.md` documents but is identical to `main`
       (resume it or drop the convention), and `main-backup-5_15_26` is a backup whose reason
       for existing has expired.
-- [ ] **Guard against index drift locally.** `vercel-build` rebuilds the index so a stale
-      copy never reaches production, but it makes `git status` noisy. Either stop committing
-      `api/prompt-index.json` or add a pre-commit rebuild.
+- [x] ~~**Guard against index drift locally.**~~ Fixed at the source rather than by either
+      proposed route. The noise was `lastModified` (file mtime) and `buildTime` being restamped
+      for all 3,200 prompts on every rebuild from a fresh checkout. `build-prompt-index.js` now
+      carries both forward from the previous index for any entry whose metadata is unchanged and
+      whose file has no uncommitted edits, so rebuilding an untouched library is byte-identical
+      and `git status` stays clean. A pre-commit rebuild would have produced the churn on every
+      commit; not committing the index would have removed the CI gate. The gate itself now
+      compares the whole file instead of stripping the two timestamps. Completed
+      **2026-09-28** — see the changelog.
 
 ---
 
@@ -194,8 +199,9 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 - [ ] **Extend provenance beyond skills.** `2_Agents`, `4_Prompts` and `5_System_Prompts`
       have no `upstream:` stamping at all — the tooling is section-agnostic, it just has not
       been pointed at them.
-- [ ] **Surface freshness in the UI.** `lastModified` in the index is the *filesystem mtime*,
-      so every prompt on the live site claims it changed on the last checkout. Swap it for
+- [ ] **Surface freshness in the UI.** `lastModified` in the index is the *filesystem mtime*
+      of whichever machine last rebuilt that entry with a real change. (Until 2026-09-28 it was
+      the checkout time for every prompt; the builder now carries unchanged entries forward.) Swap it for
       `upstream.checked` and render a stale badge.
       *Scoping note (2026-09-12):* `api/prompt-index.json` carries no `upstream` data at all —
       `build-prompt-index.js` reads only `title`, `tags` and the path — so this needs an index

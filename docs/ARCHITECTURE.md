@@ -179,7 +179,7 @@ my-prompt-library/
 │   │   ├── 3_Skills/             # One directory per skill, each with SKILL.md
 │   │   ├── 4_Prompts/
 │   │   └── 5_System_Prompts/
-│   ├── scripts/build-prompt-index.js   # Walks library/, sorts by id, skips >500 KB
+│   ├── scripts/build-prompt-index.js   # Walks library/, sorts by id, skips >500 KB, keeps unchanged timestamps
 │   ├── scripts/api-routes.test.mjs     # Pins the route table (npm run test:routes)
 │   ├── server.ts                 # 71-line dev wrapper: imports api/index.ts's app,
 │   │                             #   mounts api/skill-packs.ts, adds Vite HMR (:3010)

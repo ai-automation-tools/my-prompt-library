@@ -879,6 +879,12 @@ npm run build:index
 }
 ```
 
+**Timestamps:** `lastModified` is the file's mtime *when that entry last changed*. A rebuild
+reuses the previous index's value for any entry whose metadata is unchanged and whose file has no
+uncommitted edits (`git diff HEAD`), and keeps `buildTime` too if nothing changed at all — so
+rebuilding an untouched library, including on a fresh checkout or on Vercel, reproduces the
+committed file byte for byte. CI relies on that.
+
 **Performance Impact:**
 - **Cold start time:** 2-5s → <100ms (50x faster)
 - **Payload size:** 13MB → 700KB for lightweight mode
