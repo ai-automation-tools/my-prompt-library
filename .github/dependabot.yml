@@ -1,0 +1,27 @@
+# Dependency updates (2026-09-29). Minor/patch bumps arrive as one grouped PR per
+# ecosystem per week; major versions are ignored -- Dependabot security alerts still
+# fire for any version. The weekly Routine PR Sweep (Wed + Sun) merges the grouped PRs
+# when CI is green. Merging main deploys to Vercel.
+# The requirements.txt files under site/library/ are prompt-library content (skill
+# scripts), not app dependencies, so pip is deliberately not listed.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/site"
+    schedule: { interval: weekly, day: monday }
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule: { interval: weekly, day: monday }
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      actions:
+        patterns: ["*"]
