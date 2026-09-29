@@ -38,7 +38,7 @@ Other scripts: `npm run build` (build:index → tsc → vite build), `npm run bu
 
 CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → the two repo-root
 provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →
-a rebuild of the prompt index, failing if the rebuilt index differs from the committed one.
+a rebuild of the prompt index, failing if the rebuilt file is not byte-identical to the committed one.
 Rebuild and commit `api/prompt-index.json` whenever you touch `library/`.
 
 ## Layout
@@ -71,7 +71,9 @@ site/
   db/postgres.ts       Postgres layer (users, user_prompts, user_sessions, user_skill_pack_installs)
   library/             Public content, numbered sections (see below)
   scripts/build-prompt-index.js   Walks library/ → api/prompt-index.json (site build step).
-                       Sorts by id and skips files over 500 KB.
+                       Sorts by id and skips files over 500 KB. Carries `lastModified` and
+                       `buildTime` forward for unchanged entries, so rebuilding an untouched
+                       library leaves the file byte-identical.
   scripts/api-routes.test.mjs     Pins the route table (npm run test:routes)
   package.json, vite.config.ts, tsconfig.json, vercel.json, index.html
 
