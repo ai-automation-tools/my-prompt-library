@@ -18,7 +18,7 @@ Complete setup instructions for local development and production deployment.
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/michaelschecht/my-prompt-library.git
+git clone https://github.com/ai-automation-tools/my-prompt-library.git
 cd my-prompt-library
 ```
 
@@ -277,4 +277,4 @@ npm run dev    # Check console for errors
 
 ---
 
-**Need help?** Open an issue on [GitHub](https://github.com/michaelschecht/my-prompt-library/issues)
+**Need help?** Open an issue on [GitHub](https://github.com/ai-automation-tools/my-prompt-library/issues)
