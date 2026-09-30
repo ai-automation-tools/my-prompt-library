@@ -205,7 +205,7 @@ utility-first), run `npm run lint` and `npm run build`, and open a PR describing
 
 - **Main README:** [../README.md](../README.md)
 - **Agent guide:** [../CLAUDE.md](../CLAUDE.md)
-- **Repository:** [github.com/michaelschecht/my-prompt-library](https://github.com/michaelschecht/my-prompt-library)
+- **Repository:** [github.com/ai-automation-tools/my-prompt-library](https://github.com/ai-automation-tools/my-prompt-library)
 - **Live site:** [prompts.mikesailab.com](https://prompts.mikesailab.com)
 
 ---
