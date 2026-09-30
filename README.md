@@ -17,9 +17,9 @@
 <p align="center">
   <a href="https://prompts.mikesailab.com">View Demo</a>
   ·
-  <a href="https://github.com/michaelschecht/my-prompt-library/issues">Report Bug</a>
+  <a href="https://github.com/ai-automation-tools/my-prompt-library/issues">Report Bug</a>
   ·
-  <a href="https://github.com/michaelschecht/my-prompt-library/issues">Request Feature</a>
+  <a href="https://github.com/ai-automation-tools/my-prompt-library/issues">Request Feature</a>
 </p>
 
 <p align="center">
@@ -77,7 +77,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/michaelschecht/my-prompt-library.git
+git clone https://github.com/ai-automation-tools/my-prompt-library.git
 cd my-prompt-library/site
 
 # Install dependencies
@@ -277,7 +277,7 @@ Apache License 2.0 - See LICENSE file for details.
 
 ## Support
 
-- **Issues:** [GitHub Issues](https://github.com/michaelschecht/my-prompt-library/issues)
+- **Issues:** [GitHub Issues](https://github.com/ai-automation-tools/my-prompt-library/issues)
 - **Documentation:** [docs/](docs/)
 - **Email:** mikeschecht@gmail.com
 
