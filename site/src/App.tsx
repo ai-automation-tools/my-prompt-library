@@ -26,6 +26,7 @@ import PromptGrid, { PromptCardGrid, type PromptCardActions } from './components
 import PromptListToolbar from './components/PromptListToolbar';
 import { usePromptFilters } from './hooks/usePromptFilters';
 import { usePromptContent } from './hooks/usePromptContent';
+import { useLibraryRoute, slugifyPromptPath } from './hooks/useLibraryRoute';
 
 // Split out of the entry chunk: none of these render on first paint, and
 // PromptDetail/PromptEditorModal each pull in react-markdown + remark-gfm.
@@ -55,16 +56,6 @@ function getSectionParamForPromptSection(section: string): string {
         : section === '5_System_Prompts'
           ? 'system-prompts'
           : 'prompt-library';
-}
-
-function slugifyPromptPath(promptId: string): string {
-  return promptId
-    .replace(/\\/g, '/')
-    .replace(/\.md$/i, '')
-    .replace(/^library\//i, '')
-    .split('/')
-    .filter(Boolean)
-    .join('/');
 }
 
 // Helper functions to map between tab names and folder names
@@ -108,32 +99,6 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [copiedShareLink, setCopiedShareLink] = useState(false);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts' | 'skill-packs'>(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const section = urlParams.get('section');
-    if (section === 'agent-guides') return 'agent-guides';
-    if (section === 'agents') return 'agents';
-    if (section === 'prompt-library') return 'prompt-library';
-    if (section === 'skills') return 'skills';
-    if (section === 'system-prompts') return 'system-prompts';
-    // 'skill-packs' was missing here while the popstate handler below has it,
-    // so in-app navigation worked but a deep link or a refresh landed on
-    // Prompts instead.
-    if (section === 'skill-packs') return 'skill-packs';
-    return 'prompt-library';
-  });
-  const [activeCategory, setActiveCategory] = useState<string | null>(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('category');
-  });
-  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('subcategory');
-  });
-  const [promptPathParam, setPromptPathParam] = useState<string | null>(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('prompt');
-  });
   const [skillPacks, setSkillPacks] = useState<SkillPackSummary[]>([]);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editingPrompt, setEditingPrompt] = useState<Prompt | null>(null);
@@ -193,69 +158,17 @@ export default function App() {
     window.history.replaceState({}, '', url.toString());
   }, [libraryMode]);
 
-  useEffect(() => {
-    const handlePopState = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const section = urlParams.get('section');
-      const library = urlParams.get('library');
-      const category = urlParams.get('category');
-      const subcategory = urlParams.get('subcategory');
-      const prompt = urlParams.get('prompt');
-
-      if (section === 'agent-guides') setActiveTab('agent-guides');
-      else if (section === 'agents') setActiveTab('agents');
-      else if (section === 'skills') setActiveTab('skills');
-      else if (section === 'system-prompts') setActiveTab('system-prompts');
-      else if (section === 'skill-packs') setActiveTab('skill-packs');
-      else setActiveTab('prompt-library');
-
-      if (library === 'public' || library === 'my') setLibraryMode(library);
-      setActiveCategory(category);
-      setActiveSubcategory(subcategory);
-      setPromptPathParam(prompt);
-
-      if (!prompt) {
-        setSelectedPrompt(null);
-      }
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
-
-  // Update URL when navigation state changes
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    
-    const sectionParam = 
-      activeTab === 'agent-guides' ? 'agent-guides' :
-      activeTab === 'agents' ? 'agents' :
-      activeTab === 'prompt-library' ? 'prompt-library' :
-      activeTab === 'skills' ? 'skills' :
-      activeTab === 'skill-packs' ? 'skill-packs' :
-      'system-prompts';
-    url.searchParams.set('section', sectionParam);
-    
-    if (activeCategory) {
-      url.searchParams.set('category', activeCategory);
-    } else {
-      url.searchParams.delete('category');
-    }
-    
-    if (activeSubcategory) {
-      url.searchParams.set('subcategory', activeSubcategory);
-    } else {
-      url.searchParams.delete('subcategory');
-    }
-
-    if (selectedPrompt && !selectedPrompt.isUserOwned) {
-      url.searchParams.set('prompt', slugifyPromptPath(selectedPrompt.id));
-    } else {
-      url.searchParams.delete('prompt');
-    }
-    
-    window.history.replaceState({}, '', url.toString());
-  }, [activeTab, activeCategory, activeSubcategory, selectedPrompt]);
+  // Section / category / subcategory / ?prompt= — seeded from and written back to the URL.
+  const {
+    activeTab,
+    setActiveTab,
+    activeCategory,
+    setActiveCategory,
+    activeSubcategory,
+    setActiveSubcategory,
+    promptPathParam,
+    setPromptPathParam,
+  } = useLibraryRoute({ selectedPrompt, setSelectedPrompt, setLibraryMode });
 
   useEffect(() => {
     if (authLoading) {

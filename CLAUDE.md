@@ -49,10 +49,11 @@ Paths below are relative to `site/`.
 ```
 site/
   src/                 React app
-    App.tsx            1,083 lines (was 2,845) — still the app shell + 24 useState hooks
+    App.tsx            996 lines (was 2,845) — still the app shell + 19 useState hooks
     hooks/             usePromptFilters (search, tags, sort, pagination)
                        usePromptPreviews (batched card blurbs — the listing has no body text)
                        usePromptContent (copy state + fetching a prompt's real body)
+                       useLibraryRoute (section/category/subcategory/?prompt= URL state)
     components/        TopBar, LibraryHero, Sidebar, ResourcesNav, PromptListToolbar,
                        PromptGrid (also exports PromptCardGrid + PromptCardActions),
                        PromptCard, PromptDetail, LoginModal, SignupModal,
