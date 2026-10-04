@@ -166,7 +166,8 @@ my-prompt-library/
 │   ├── src/
 │   │   ├── components/           # React components
 │   │   ├── contexts/             # AuthContext
-│   │   ├── hooks/                # usePromptFilters, usePromptPreviews, usePromptContent
+│   │   ├── hooks/                # usePromptFilters, usePromptPreviews, usePromptContent,
+│   │   │                         #   useLibraryRoute (URL-backed navigation state)
 │   │   ├── App.tsx               # App shell
 │   │   └── main.tsx              # Entry point
 │   ├── lib/                      # Shared helpers (safe-path, vercel-types)
@@ -208,7 +209,7 @@ my-prompt-library/
 ### Frontend Components
 
 ```
-App.tsx                       app shell, data fetching, routing state
+App.tsx                       app shell, data fetching (routing state: hooks/useLibraryRoute)
 ├── Sidebar                   library-mode switcher, section select, categories, theme picker
 ├── TopBar                    mobile menu trigger, ResourcesNav, auth buttons
 │   └── ResourcesNav          data-driven external-link menus

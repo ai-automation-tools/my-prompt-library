@@ -4,6 +4,40 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-03 — URL routing state moves out of `App.tsx`
+
+The last big block of state in the shell was navigation: the section tab, category,
+subcategory and `?prompt=` deep link, each seeded from the query string, re-read on
+back/forward, and written back on every change. It now lives in `src/hooks/useLibraryRoute.ts`.
+No behaviour change intended.
+
+**What changed:**
+
+- **`useLibraryRoute`** owns `activeTab`, `activeCategory`, `activeSubcategory` and
+  `promptPathParam`, the `popstate` listener and the `replaceState` write-back. It takes
+  `selectedPrompt` and the `setSelectedPrompt` / `setLibraryMode` setters, because back/forward
+  can clear the open prompt and switch library.
+- **One section parser.** `?section=` was decoded by two hand-written if-chains, the initial
+  state and the popstate handler, and they had drifted before (`skill-packs` was missing from
+  one, so a refresh on Skill Packs landed on Prompts). Both now call one `parseSection` over a
+  single tab list, and the write-back sets `section` to the tab id directly instead of through a
+  ternary that mapped every value to itself.
+- **Stays in `App.tsx`:** `libraryMode` (own localStorage persistence), resolving a `?prompt=`
+  path to a prompt (needs the loaded listing and `handlePromptClick`), and the explicit
+  `pushState` in "show all".
+- `App.tsx` 1,083 → **996 lines**, 23 → 19 `useState` hooks.
+
+**Verified with:** `npm run lint`, `npm run test:routes` and `npm run build`, all clean. On the
+dev server (no database): a `?prompt=` deep link to a skill opened it and filled in
+`section=skills&category=AI_ML`; browser back and forward between it and a System Prompts URL
+restored each view; an unknown `section` fell back to Prompts; `section=skill-packs` loaded on
+Skill Packs.
+
+_Touched: `site/src/hooks/useLibraryRoute.ts` (new), `site/src/App.tsx`, `CLAUDE.md`,
+`docs/ARCHITECTURE.md`, `docs/DIRECTION.md`, `docs/ROADMAP.md`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-09-28 — Rebuilding the prompt index no longer rewrites it
 
 `lastModified` in `api/prompt-index.json` is each file's mtime, and a checkout stamps every
