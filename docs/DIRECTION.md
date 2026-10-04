@@ -232,7 +232,7 @@ two-library model (curated public library in Git, personal library in Postgres) 
 category tree is the same, and defending it is why the sync tooling is advisory rather than
 automatic.
 
-The `App.tsx` de-bulk is still on the list too, just no longer at the top of it: 2,845 → 1,082
-lines, with the routing state the last big block to lift out. That was the old plan's main
+The `App.tsx` de-bulk is still on the list too, just no longer at the top of it: 2,845 → 996
+lines; the routing state, the last big block, moved into `useLibraryRoute` on 2026-10-03. That was the old plan's main
 event. It's now correctly filed as maintainability work — worth doing, never the thing that was
 actually wrong.

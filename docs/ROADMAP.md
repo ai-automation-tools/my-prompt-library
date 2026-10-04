@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-09-28 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-10-03 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
@@ -17,7 +17,7 @@ skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-202
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `site/api/prompt-index.json` — **3,200** prompts, 1.98 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows; rebuilding an unchanged library leaves it byte-identical. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
 | Skills | **323**, all spec-valid. **99** carry a resolvable upstream. Of the 93 still tracked, **all 93 are byte-identical to upstream** — `behind` and `drifted` are both empty as of 2026-09-16, and every one now carries the commit sha it was synced from. The other 6 are forks we own. `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
-| `src/App.tsx` | **1,083 lines** (was 2,845), 24 `useState` hooks |
+| `src/App.tsx` | **996 lines** (was 2,845), 19 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
 | Line endings | LF everywhere, enforced by `.gitattributes`; the index is byte-reproducible on Linux and Windows |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
@@ -267,9 +267,16 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       **2026-09-19** — see the changelog.
 
 ### Features
-- [ ] Finish the `App.tsx` de-bulk — lift the remaining URL/routing state (`activeTab`,
-      `activeCategory`, `activeSubcategory`, `promptPathParam` and their `history.pushState`
-      effects) into a `useLibraryRoute` hook. Largest remaining block of state in the shell.
+- [x] ~~Finish the `App.tsx` de-bulk — lift the remaining URL/routing state into a
+      `useLibraryRoute` hook.~~ `src/hooks/useLibraryRoute.ts` now owns `activeTab`,
+      `activeCategory`, `activeSubcategory` and `promptPathParam`, the popstate listener and the
+      URL write-back. The section tab was parsed from `?section=` by two hand-written if-chains
+      (initial state and popstate) that had already drifted once — `skill-packs` was missing from
+      one — and is now one `parseSection` over a single tab list. `App.tsx` 1,083 → **996 lines**,
+      23 → 19 `useState` hooks (the snapshot's "24" was one high). `libraryMode` and the
+      `?prompt=` → prompt resolution stay in `App.tsx`: the first has its own persistence, the
+      second needs the loaded listing and `handlePromptClick`. Completed **2026-10-03** — see
+      the changelog.
 - [ ] Lazy-mount the 16-theme picker so it is not in every render tree.
 - [ ] Role-based "starter pack" collections.
 - [ ] User ratings / feedback on prompts.
