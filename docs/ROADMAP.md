@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-10-03 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-10-05 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
@@ -37,6 +37,22 @@ skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-202
 - [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (still a placeholder, so auth and
       My Library are dead locally). The dev server boots without it and serves the read-only
       Public Library.
+- [x] ~~**Redact published contacts and sample credentials; add LICENSE.**~~ Three
+      teammates' work and personal emails were listed as recipients in two agent files and one
+      skill, and served on the live site; three Neon doc-sample connection strings sat in the
+      vendored `using-neon` reference. All replaced with placeholders. The README had claimed
+      Apache 2.0 with no `LICENSE` file; added it plus a `NOTICE` for vendored library content.
+      History not rewritten. Completed **2026-10-05** — see the changelog.
+- [x] ~~**Auth had no abuse controls.**~~ Login (20 / 15 min, failures only) and signup
+      (5 / 15 min) are now rate-limited per IP in `site/middleware/rate-limit.ts`; signup
+      validates email shape and enforces 8+ chars (login still accepts the old 6-char accounts);
+      bcrypt's 72-byte truncation is capped at the input; `helmet` sets response headers with
+      CSP off; `trust proxy` is 1 so `req.ip` is the client, not Vercel. The limiter store is
+      in-memory and therefore per warm instance — good enough against a single scripted
+      client, not against a distributed one. Completed **2026-10-05** — see the changelog.
+- [x] ~~**No community files.**~~ Root `SECURITY.md` (private advisory reporting, scope),
+      `CODE_OF_CONDUCT.md`, a short root `CONTRIBUTING.md` pointing at the full one in `docs/`,
+      a PR template and two issue templates. Completed **2026-10-05**.
 - [x] ~~**Triage the `drifted` skills.**~~ Cleared, but the triage started by throwing out the
       ranking it was supposed to work from. The report's `missing` column was
       `max(0, 1 - local_words / upstream_words)`, so it read 0% whenever the local copy was the
@@ -157,15 +173,13 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 ` when
       rebuilt on a Linux runner. `eol=lf` (not a bare `text=auto`) is what makes the two
       checkouts agree. 647 files renormalized, verified line-endings-only.
-- [ ] **Prune merged branches.** Thirteen are now fully merged into `main`:
-      `automation/add-skillsmp-skills-pr`, `chore/dedupe-skills`, `codex/add-skillsmp-skills`,
-      `feat/upstream-provenance`, `fix/library-content-in-lambda`, `fix/security-hardening`,
-      `main-backup-5_15_26`, `mike_desktop`, `roadmap/auto-2026-08-18`,
-      `roadmap/auto-2026-08-22`, `roadmap/auto-2026-08-26`, `roadmap/auto-2026-08-26b`,
-      `skills/trending-2026-08-19`. Two need a decision rather than a delete:
-      `mike_desktop` is the working branch `CLAUDE.md` documents but is identical to `main`
-      (resume it or drop the convention), and `main-backup-5_15_26` is a backup whose reason
-      for existing has expired.
+- [x] ~~**Prune merged branches.**~~ 19 remote branches deleted on **2026-10-05**: the 13
+      the audit listed as ancestors of `main` (including `main-backup-5_15_26`, every commit of
+      which is in `main`), plus 4 squash-merged `roadmap/*` PR branches and 2 newer auto branches
+      that had since merged. Kept: `mike_desktop` (working branch, now ahead of `main`),
+      `content/auto-2026-10-05` (open PR #357), `roadmap/auto-2026-08-31` (PR #332 was closed
+      without merging, so its one commit is not in `main` — delete it or recover it, Mike's call),
+      and the dependabot branches, which dependabot manages.
 - [x] ~~**Guard against index drift locally.**~~ Fixed at the source rather than by either
       proposed route. The noise was `lastModified` (file mtime) and `buildTime` being restamped
       for all 3,200 prompts on every rebuild from a fresh checkout. `build-prompt-index.js` now
