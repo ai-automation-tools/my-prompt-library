@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { m, AnimatePresence } from 'motion/react';
-import { X, Mail, Lock, User, AlertCircle, CheckCircle } from 'lucide-react';
+import { m } from 'motion/react';
+import { AlertCircle, ArrowRight, CheckCircle2, Lock, Mail, UserRound } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { Button, Modal, ModalHeader, Notice } from './ui/primitives';
 
 interface SignupModalProps {
   isOpen: boolean;
@@ -18,35 +19,33 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }: Signup
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const passwordStrength = password.length >= 8 ? 'strong' : password.length >= 6 ? 'medium' : 'weak';
+  const strength = password.length >= 12 ? 3 : password.length >= 8 ? 2 : password.length > 0 ? 1 : 0;
+  const strengthLabel = ['', 'Too short', 'Good', 'Strong'][strength];
+  const strengthColor = ['transparent', 'var(--danger)', 'var(--warn)', 'var(--ok)'][strength];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    // Validation
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-
     if (password.length < 8) {
       setError('Password must be at least 8 characters');
       return;
     }
 
     setIsLoading(true);
-
     try {
       await signup(email, password, name || undefined);
       onClose();
-      // Reset form
       setName('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
-    } catch (err: any) {
-      setError(err.message || 'Signup failed. Please try again.');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Signup failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -54,191 +53,111 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin }: Signup
 
   if (!isOpen) return null;
 
+  const field = 'mb-1.5 block text-[13px] font-medium text-[var(--fg-2)]';
+  const iconCls = 'pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--fg-4)]';
+
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-        {/* Backdrop */}
-        <m.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        />
+    <Modal onClose={onClose} size="sm" labelledBy="signup-title">
+      <ModalHeader id="signup-title" eyebrow="Account" title="Create your account" description="A personal library for saved and authored prompts." onClose={onClose} />
 
-        {/* Modal */}
-        <m.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ duration: 0.2 }}
-          className="relative w-full max-w-md glass-card rounded-[var(--radius-xl)] p-8 shadow-2xl"
-        >
-          {/* Close button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-[var(--glass-bg-hover)] transition-colors"
-          >
-            <X className="w-5 h-5 text-[var(--text-tertiary)]" />
-          </button>
+      <form onSubmit={handleSubmit} className="space-y-4 px-6 py-5">
+        {error && (
+          <Notice>
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{error}</span>
+          </Notice>
+        )}
 
-          {/* Header */}
-          <div className="mb-6">
-            <h2 className="heading-display text-2xl font-bold text-[var(--text-primary)] mb-2">
-              Create Account
-            </h2>
-            <p className="text-sm text-[var(--text-tertiary)]">
-              Join to start building your prompt library
-            </p>
+        <div>
+          <label htmlFor="name" className={field}>
+            Name <span className="font-normal text-[var(--fg-4)]">(optional)</span>
+          </label>
+          <div className="relative">
+            <UserRound className={iconCls} />
+            <input id="name" type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Ada Lovelace" autoComplete="name" autoFocus className="input pl-10" />
           </div>
+        </div>
 
-          {/* Error message */}
-          {error && (
-            <m.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 flex items-start gap-2"
-            >
-              <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
-              <p className="text-sm text-red-400">{error}</p>
-            </m.div>
+        <div>
+          <label htmlFor="signup-email" className={field}>
+            Email
+          </label>
+          <div className="relative">
+            <Mail className={iconCls} />
+            <input id="signup-email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" required className="input pl-10" />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="signup-password" className={field}>
+            Password
+          </label>
+          <div className="relative">
+            <Lock className={iconCls} />
+            <input
+              id="signup-password"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="At least 8 characters"
+              autoComplete="new-password"
+              required
+              minLength={8}
+              className="input pl-10"
+            />
+          </div>
+          {password && (
+            <div className="mt-2 flex items-center gap-2.5">
+              <div className="flex flex-1 gap-1">
+                {[1, 2, 3].map(step => (
+                  <m.span
+                    key={step}
+                    initial={false}
+                    animate={{ background: step <= strength ? strengthColor : 'var(--line-2)' }}
+                    className="h-1 flex-1 rounded-full"
+                  />
+                ))}
+              </div>
+              <span className="mono text-[10.5px] text-[var(--fg-4)]">{strengthLabel}</span>
+            </div>
           )}
+        </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Name (optional) */}
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
-                Name <span className="text-[var(--text-tertiary)] font-normal">(optional)</span>
-              </label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)]" />
-                <input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="John Doe"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all"
-                />
-              </div>
-            </div>
-
-            {/* Email */}
-            <div>
-              <label htmlFor="signup-email" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
-                Email
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)]" />
-                <input
-                  id="signup-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all"
-                />
-              </div>
-            </div>
-
-            {/* Password */}
-            <div>
-              <label htmlFor="signup-password" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)]" />
-                <input
-                  id="signup-password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  minLength={8}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all"
-                />
-              </div>
-              {/* Password strength indicator */}
-              {password && (
-                <div className="mt-2 flex items-center gap-2">
-                  <div className="flex-1 h-1.5 bg-[var(--glass-bg)] rounded-full overflow-hidden">
-                    <m.div
-                      initial={{ width: 0 }}
-                      animate={{
-                        width: passwordStrength === 'weak' ? '33%' : passwordStrength === 'medium' ? '66%' : '100%'
-                      }}
-                      className={`h-full transition-all ${
-                        passwordStrength === 'weak' ? 'bg-red-500' :
-                        passwordStrength === 'medium' ? 'bg-yellow-500' :
-                        'bg-green-500'
-                      }`}
-                    />
-                  </div>
-                  <span className="text-xs font-medium text-[var(--text-tertiary)]">
-                    {passwordStrength === 'weak' ? 'Weak' : passwordStrength === 'medium' ? 'Medium' : 'Strong'}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Confirm Password */}
-            <div>
-              <label htmlFor="confirm-password" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
-                Confirm Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)]" />
-                <input
-                  id="confirm-password"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  minLength={8}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all"
-                />
-                {confirmPassword && password === confirmPassword && (
-                  <CheckCircle className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-green-500" />
-                )}
-              </div>
-            </div>
-
-            {/* Submit button */}
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full py-3 px-4 rounded-lg bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_20px_var(--accent-glow)]"
-            >
-              {isLoading ? 'Creating account...' : 'Create Account'}
-            </button>
-          </form>
-
-          {/* Divider */}
-          <div className="my-6 flex items-center gap-3">
-            <div className="flex-1 h-px bg-[var(--glass-border)]" />
-            <span className="text-xs text-[var(--text-tertiary)] uppercase tracking-wider">or</span>
-            <div className="flex-1 h-px bg-[var(--glass-border)]" />
+        <div>
+          <label htmlFor="confirm-password" className={field}>
+            Confirm password
+          </label>
+          <div className="relative">
+            <Lock className={iconCls} />
+            <input
+              id="confirm-password"
+              type="password"
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
+              placeholder="••••••••"
+              autoComplete="new-password"
+              required
+              minLength={8}
+              className="input pl-10 pr-10"
+            />
+            {confirmPassword && password === confirmPassword && (
+              <CheckCircle2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--ok)]" aria-label="Passwords match" />
+            )}
           </div>
+        </div>
 
-          {/* Login link */}
-          <div className="text-center">
-            <p className="text-sm text-[var(--text-tertiary)]">
-              Already have an account?{' '}
-              <button
-                type="button"
-                onClick={onSwitchToLogin}
-                className="text-[var(--accent)] hover:text-[var(--accent-secondary)] font-semibold transition-colors"
-              >
-                Sign in
-              </button>
-            </p>
-          </div>
-        </m.div>
-      </div>
-    </AnimatePresence>
+        <Button type="submit" variant="primary" disabled={isLoading} className="mt-2 w-full">
+          {isLoading ? 'Creating account…' : 'Create account'}
+          {!isLoading && <ArrowRight className="h-4 w-4" />}
+        </Button>
+
+        <p className="pt-1 text-center text-[13px] text-[var(--fg-4)]">
+          Already have an account?{' '}
+          <button type="button" onClick={onSwitchToLogin} className="font-medium text-[var(--accent)] transition-colors hover:text-[var(--fg)]">
+            Sign in
+          </button>
+        </p>
+      </form>
+    </Modal>
   );
 }
