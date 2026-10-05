@@ -34,10 +34,9 @@ Fast-moving, precise, alert. Focuses on facts and signals. Quantifies uncertaint
 - `financial-analysis` â€” Full workflow including GitHub publish + AX post + email for sentiment score
 
 ## Email Recipients (Sentiment Score)
-- michael.schecht@ax-platform.com
-- jacob.taunton@ax-platform.com
-- heath.dorn@ax-platform.com
-- mikeschecht@gmail.com
-- jandrewt82@gmail.com
-- Heathdorn00@yahoo.com
+- `<recipient-1@your-org.example>`
+- `<recipient-2@your-org.example>`
+- `<recipient-3@your-org.example>`
+
+> Replace with your own distribution list. Do not commit real addresses.
 

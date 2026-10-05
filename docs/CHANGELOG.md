@@ -4,6 +4,29 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-05 — Redact published contacts and sample credentials; add LICENSE
+
+A pre-publicity pass over the library found two things a public repo should not carry.
+
+- **Three teammates' email addresses, including personal gmail and yahoo accounts,** were
+  listed as notification recipients in `2_Agents/Platform_Agents/Financial/market-agent.md`,
+  `2_Agents/Platform_Agents/Ax-Platform_Dev/ax-platform-developer.md` and
+  `3_Skills/Finance/Portfolio_Management/financial-analysis/SKILL.md`, and served on the live
+  site. Replaced with `<recipient-N@your-org.example>` placeholders and a note not to commit
+  real addresses.
+- **Three Neon connection strings with embedded passwords** in the vendored `using-neon`
+  skill's REST API reference (`branches.md`, `projects.md`). They are Neon's own doc samples,
+  not live credentials, but they match every secret scanner's pattern and have been in history
+  since the first import. Passwords replaced with `npg_REDACTED_EXAMPLE` in all six places.
+  History was not rewritten.
+- **`LICENSE` did not exist.** The README had claimed Apache 2.0 since the start, but without
+  the file the code was all-rights-reserved by default. Added the Apache 2.0 text at the repo
+  root, plus a `NOTICE` explaining that vendored skills under `site/library/` carry their own
+  licenses (Apache-2.0 and MIT, each next to its `SKILL.md`) and that the Awesome ChatGPT prompts
+  are CC0. The README license section now says the same.
+
+`api/prompt-index.json` rebuilt: only the five touched entries' `lastModified` changed.
+
 ## 2026-10-04 — An upstream worklist for the app
 
 `docs/UPSTREAMS.md` lists what the app assumes about Neon and `pg`, the GitHub REST API (GitHub

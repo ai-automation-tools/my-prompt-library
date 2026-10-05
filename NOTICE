@@ -1,0 +1,16 @@
+my-prompt-library
+Copyright 2026 Michael Schecht
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+This repository bundles third-party content under site/library/ that is
+NOT covered by the repository license. Each vendored skill keeps its own
+LICENSE file next to its SKILL.md (Apache-2.0 and MIT at the time of
+writing) and carries an `upstream:` block in its frontmatter naming the
+source repository and path. Provenance tooling and the full upstream list
+live in docs/UPSTREAMS.md. Content with no upstream stamp is original to
+this library or of unknown origin; treat the latter as all-rights-reserved
+by its author until attributed.
+
+Prompts under site/library/4_Prompts/Awesome_ChatGPT/ derive from
+f/awesome-chatgpt-prompts (CC0 1.0).

@@ -34,9 +34,9 @@ Key value props:
 - Produce business, application, and website reports
 
 ## Contacts
-- Jacob Taunton: jacob.taunton@ax-platform.com
-- Michael Schecht: michael.schecht@ax-platform.com
-- Heath Dorn: heath.dorn@ax-platform.com
+- Team lead: <team-lead@your-org.example>
+- Project owner: <owner@your-org.example>
+- Engineering contact: <engineer@your-org.example>
 
 ## Git Config
 - **Branches:** `docs/*`, `feat/*`, `fix/*`, `chore/*` â†’ merge to `dev`

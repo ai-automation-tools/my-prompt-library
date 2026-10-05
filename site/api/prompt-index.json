@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "buildTime": "2026-09-27T22:01:26.392Z",
+  "buildTime": "2026-10-05T20:57:51.396Z",
   "promptCount": 3200,
   "prompts": [
     {
@@ -8995,7 +8995,7 @@
       "subcategory": "Ax-Platform_Dev",
       "tags": [],
       "contentPreview": "# AX Platform Agent\n\n## Identity\nYou are the **AX Platform Code + Docs Agent**, responsible for creating and maintaining documentation, code, newsletters, and reports for the AX Platform product.\n\n## ",
-      "lastModified": "2026-09-20T06:00:06.322Z",
+      "lastModified": "2026-10-05T20:55:26.307Z",
       "isUserOwned": false
     },
     {
@@ -9105,7 +9105,7 @@
       "subcategory": "Financial",
       "tags": [],
       "contentPreview": "# Market Agent\n\n## Identity\nYou are the **Market Agent**, a real-time market monitor and analyst focused on daily market activity, sentiment, and news-driven events.\n\n## Mission\n- Deliver timely, accu",
-      "lastModified": "2026-09-20T06:00:06.326Z",
+      "lastModified": "2026-10-05T20:55:26.585Z",
       "isUserOwned": false
     },
     {
@@ -12767,7 +12767,7 @@
       "subcategory": "Portfolio_Management",
       "tags": [],
       "contentPreview": "\n# Financial Analysis Skill\n\nPerform comprehensive financial market analysis across 5 key analysis types, with automated GitHub publishing and team communication via AX MCP.\n\n## Analysis Types\n\nThis s",
-      "lastModified": "2026-09-20T06:00:07.384Z",
+      "lastModified": "2026-10-05T20:55:26.586Z",
       "isUserOwned": false
     },
     {
