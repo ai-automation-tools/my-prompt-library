@@ -4,6 +4,50 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-05 — Auth abuse controls, community files, branch prune, drift resync
+
+Second pass of the same pre-publicity sweep.
+
+**Auth.** `site/routes/auth.ts` accepted any string as an email and any 6+ characters as a
+password, with no limit on how often a client could try. Now:
+
+- `POST /api/auth/login` is limited to 20 attempts per IP per 15 minutes (successes don't
+  count); `POST /api/auth/signup` to 5 per IP per 15 minutes. `express-rate-limit`, in-memory
+  store, so on Vercel the count is per warm function instance. `app.set('trust proxy', 1)`
+  makes `req.ip` the client behind Vercel's proxy instead of the proxy itself.
+- Signup validates email shape (one `@`, no whitespace, ≤254 chars), requires 8–72 character
+  passwords (72 because bcrypt silently ignores the rest), and caps `name` at 100. Login checks
+  shape and the 72 cap only, so accounts created under the old 6-char rule still sign in. The
+  signup modal's client-side minimum moved to 8 to match.
+- `PUT /api/auth/me` rejects non-string or oversized `name` / `avatar_url`.
+- `helmet` with CSP and HSTS off (Vite's inline preloads and Google Fonts would break under a
+  default CSP; Vercel sets HSTS at the edge). JSON bodies capped at 1 MB.
+
+Verified against the dev server: bad email and short password return 400 with the right
+message; the 21st failed login in a window returns 429; `X-Powered-By` is gone and the
+nosniff / frame / referrer headers are present.
+
+**Community files.** Root `SECURITY.md`, `CODE_OF_CONDUCT.md`, a short `CONTRIBUTING.md`
+that points at the full guide in `docs/`, `.github/PULL_REQUEST_TEMPLATE.md`, and
+`bug_report` / `content_issue` issue templates with a config that routes security reports
+to private advisories.
+
+**Branches.** 19 merged remote branches deleted (see the roadmap entry for the exact list
+and the three kept on purpose).
+
+**Drift.** Today's drift run had 2 `behind` and 3 `drifted`. Resynced all five:
+`x-twitter-scraper` (upstream dropped 63 reference files; we followed), `timesfm-forecasting`
+(upstream deleted the generated `examples/*/output/` artifacts), `claude-api` (92 files from
+Anthropic's current tree), `brainstorming` and `matlab`. **All 93 tracked skills are current
+again.** The check needs `GITHUB_TOKEN` to run locally; anonymously it rate-limits at 60
+requests and reports every skill as `error`.
+
+`api/prompt-index.json` rebuilt. `npm run lint`, `test:routes`, `upstream.test.mjs` and
+`skill-frontmatter.test.mjs` all pass.
+
+**Still open:** the Neon password rotation and `DELETE FROM user_sessions;` need the Neon
+console and are not something this pass could do.
+
 ## 2026-10-05 — Redact published contacts and sample credentials; add LICENSE
 
 A pre-publicity pass over the library found two things a public repo should not carry.

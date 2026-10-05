@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cookieParser from "cookie-parser";
+import helmet from "helmet";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -21,7 +22,21 @@ const __dirname = dirname(__filename);
 // dev lost `lightweight`, never gained `GET /api/prompts/:id`, and still filtered
 // the GitHub tree on a `prompts/` folder that was renamed to `library/`.
 export const app = express();
-app.use(express.json());
+
+// Vercel terminates TLS and forwards the client IP in X-Forwarded-For; one hop
+// is exactly what we trust. Rate limiting keys on req.ip, so without this every
+// request would look like it came from the proxy.
+app.set('trust proxy', 1);
+
+// Response headers only: no CSP, because Vite's build emits inline module
+// preloads and the themes pull from Google Fonts, and in production the static
+// assets never pass through Express anyway. HSTS is left to Vercel, which sets
+// it on the edge for custom domains.
+app.use(helmet({ contentSecurityPolicy: false, strictTransportSecurity: false }));
+
+// Prompt bodies are user content and some library prompts run long, but nothing
+// legitimate approaches a megabyte.
+app.use(express.json({ limit: '1mb' }));
 app.use(cookieParser());
 
 // Debug middleware
