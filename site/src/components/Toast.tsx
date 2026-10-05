@@ -5,7 +5,7 @@
 
 import { useEffect } from 'react';
 import { m, AnimatePresence } from 'motion/react';
-import { CheckCircle, XCircle, Info, AlertCircle, X } from 'lucide-react';
+import { CheckCircle2, XCircle, Info, AlertTriangle, X } from 'lucide-react';
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -17,60 +17,52 @@ export interface ToastProps {
   onClose: (id: string) => void;
 }
 
-const toastConfig = {
-  success: {
-    icon: CheckCircle,
-    color: 'text-green-400',
-    bg: 'bg-green-500/10',
-    border: 'border-green-500/30'
-  },
-  error: {
-    icon: XCircle,
-    color: 'text-red-400',
-    bg: 'bg-red-500/10',
-    border: 'border-red-500/30'
-  },
-  info: {
-    icon: Info,
-    color: 'text-blue-400',
-    bg: 'bg-blue-500/10',
-    border: 'border-blue-500/30'
-  },
-  warning: {
-    icon: AlertCircle,
-    color: 'text-yellow-400',
-    bg: 'bg-yellow-500/10',
-    border: 'border-yellow-500/30'
-  }
+const TOAST_CONFIG: Record<ToastType, { icon: typeof Info; color: string }> = {
+  success: { icon: CheckCircle2, color: 'var(--ok)' },
+  error: { icon: XCircle, color: 'var(--danger)' },
+  info: { icon: Info, color: 'var(--accent)' },
+  warning: { icon: AlertTriangle, color: 'var(--warn)' },
 };
 
-export function Toast({ id, type, message, duration = 3000, onClose }: ToastProps) {
-  const config = toastConfig[type];
-  const Icon = config.icon;
+export function Toast({ id, type, message, duration = 3200, onClose }: ToastProps) {
+  const { icon: Icon, color } = TOAST_CONFIG[type];
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onClose(id);
-    }, duration);
-
+    const timer = setTimeout(() => onClose(id), duration);
     return () => clearTimeout(timer);
   }, [id, duration, onClose]);
 
   return (
     <m.div
-      initial={{ opacity: 0, y: 50, scale: 0.95 }}
+      layout
+      role={type === 'error' ? 'alert' : 'status'}
+      initial={{ opacity: 0, y: 16, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, x: 100, scale: 0.95 }}
-      className={`flex items-center gap-3 px-4 py-3 rounded-lg border backdrop-blur-sm shadow-lg ${config.bg} ${config.border} min-w-[300px] max-w-[500px]`}
+      exit={{ opacity: 0, x: 24, scale: 0.96 }}
+      transition={{ type: 'spring', stiffness: 480, damping: 36 }}
+      className="popover relative flex w-[min(360px,calc(100vw-2rem))] items-start gap-3 overflow-hidden px-3.5 py-3"
+      style={{ ['--c' as string]: color }}
     >
-      <Icon className={`w-5 h-5 flex-shrink-0 ${config.color}`} />
-      <p className="flex-1 text-sm text-white font-medium">{message}</p>
+      <span className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px]" style={{ background: 'color-mix(in srgb, var(--c) 14%, transparent)', color }}>
+        <Icon className="h-3.5 w-3.5" />
+      </span>
+      <p className="flex-1 pt-0.5 text-[13.5px] leading-snug text-[var(--fg)]">{message}</p>
       <button
+        type="button"
         onClick={() => onClose(id)}
-        className="p-1 rounded hover:bg-white/10 transition-colors"
+        aria-label="Dismiss"
+        className="icon-btn -mr-1.5 -mt-1 h-7 w-7"
       >
-        <X className="w-4 h-4 text-white/60" />
+        <X className="h-3.5 w-3.5" />
       </button>
+      <m.span
+        aria-hidden="true"
+        initial={{ scaleX: 1 }}
+        animate={{ scaleX: 0 }}
+        transition={{ duration: duration / 1000, ease: 'linear' }}
+        className="absolute bottom-0 left-0 h-[2px] w-full origin-left"
+        style={{ background: color, opacity: 0.7 }}
+      />
     </m.div>
   );
 }
@@ -82,10 +74,12 @@ export interface ToastContainerProps {
 
 export function ToastContainer({ toasts, onClose }: ToastContainerProps) {
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2">
+    <div className="pointer-events-none fixed bottom-5 right-5 z-[130] flex flex-col items-end gap-2">
       <AnimatePresence>
         {toasts.map(toast => (
-          <Toast key={toast.id} {...toast} onClose={onClose} />
+          <div key={toast.id} className="pointer-events-auto">
+            <Toast {...toast} onClose={onClose} />
+          </div>
         ))}
       </AnimatePresence>
     </div>
