@@ -67,8 +67,9 @@ site/
                        `content` is NOT the prompt. Card blurbs come from
                        POST /api/prompts/previews, full bodies from GET /api/prompts/:id.
   api/skill-packs.ts   Vercel handler for skill packs (bundles library/3_Skills/**)
-  routes/, middleware/ auth.ts (bcrypt + cookie sessions). No skill-packs router — dev runs
-                       the production api/skill-packs.ts handler.
+  routes/, middleware/ auth.ts (bcrypt + cookie sessions), rate-limit.ts (per-IP login/signup
+                       limiters, in-memory so per Vercel instance). No skill-packs router — dev
+                       runs the production api/skill-packs.ts handler.
   db/postgres.ts       Postgres layer (users, user_prompts, user_sessions, user_skill_pack_installs)
   library/             Public content, numbered sections (see below)
   scripts/build-prompt-index.js   Walks library/ → api/prompt-index.json (site build step).
@@ -108,6 +109,8 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
   `npm run lint` on the next content resync. The app never imports from `library/` — it reads it
   as data at runtime.
 - Auth = bcrypt hashes + cookie sessions (30-day). Secure cookies off in dev (`NODE_ENV`).
+- Login/signup are rate-limited and validated in `routes/auth.ts`. `app.set('trust proxy', 1)`
+  is what makes `req.ip` the client on Vercel; don't remove it. `helmet` runs with CSP off.
 - Parameterized SQL only (`db/postgres.ts`). Never expose `DATABASE_URL` client-side.
 - Never commit `.env*` (gitignored), `DATABASE_URL`, or GitHub tokens.
 - **LF only.** `.gitattributes` sets `eol=lf` repo-wide. `contentPreview` is embedded in

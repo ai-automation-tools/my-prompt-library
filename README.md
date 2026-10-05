@@ -271,7 +271,9 @@ This is a personal project, but suggestions and feedback are welcome!
 
 ## License
 
-Apache License 2.0 - See LICENSE file for details.
+The application code is licensed under the [Apache License 2.0](LICENSE).
+
+Content under `site/library/` is a mix of original work and vendored third-party skills and prompts. Vendored skills keep their own `LICENSE` file and an `upstream:` frontmatter block naming the source; see [NOTICE](NOTICE) and [docs/UPSTREAMS.md](docs/UPSTREAMS.md). Those files are governed by their own licenses, not by this repository's.
 
 ---
 
