@@ -166,11 +166,11 @@ description: "[One-sentence description]"
 
 Each template references real examples from the library:
 
-- **Prompt Library:** `library/Prompt_Library/Ai_Development/Prompt_Engineering/prompt-generator.md`
-- **Agent Guides:** `library/Agent_Guides/Claude_Code/flags-reference.md`
-- **Agents:** `library/Agents/Git/git-workflow-manager.md`
-- **System Prompts:** `library/System_Prompts/V0.Dev/v0.md`
-- **Skills:** `library/Skills/Git/gh-address-comments/SKILL.md`
+- **Prompt Library:** `site/library/4_Prompts/Ai_Development/Prompt_Engineering/prompt-generator.md`
+- **Agent Guides:** `site/library/1_Guides/Claude_Code/flags-reference.md`
+- **Agents:** `site/library/2_Agents/Git/git-workflow-manager.md`
+- **System Prompts:** `site/library/5_System_Prompts/V0.Dev/v0.md`
+- **Skills:** `site/library/3_Skills/Git/gh-address-comments/SKILL.md`
 
 ## Standards Enforced
 

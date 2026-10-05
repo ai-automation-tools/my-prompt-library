@@ -45,7 +45,7 @@ source. `—` means never checked.
 | Vite, @vitejs/plugin-react | `^6.2.0`, `^5.2.0` | github.com/vitejs/vite/blob/main/packages/vite/CHANGELOG.md | — |
 | Tailwind CSS v4, @tailwindcss/vite | `^4.1.14`, `^4.3.3` | github.com/tailwindlabs/tailwindcss/releases | — |
 | TypeScript | `~5.9.3` | devblogs.microsoft.com/typescript | — |
-| bcryptjs, cookie-parser | `^3.0.3`, `^1.4.7` (auth path) | each package's GitHub releases | — |
+| bcryptjs, cookie-parser, express-rate-limit, helmet | `^3.0.3`, `^1.4.7`, `^8.7.0`, `^8.3.0` (auth path; the limiter and headers sit in front of it) | each package's GitHub releases | — |
 | fuse.js, react-markdown, remark-gfm, gray-matter, archiver, motion, lucide-react, dotenv | see `package.json` | each package's GitHub releases | — |
 
 Flag breaking majors, EOL runtimes, and security advisories only. Routine bumps are
