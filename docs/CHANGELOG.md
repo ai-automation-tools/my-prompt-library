@@ -4,6 +4,14 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-04 — An upstream worklist for the app
+
+`docs/UPSTREAMS.md` lists what the app assumes about Neon and `pg`, the GitHub REST API (GitHub
+mode), Google Fonts, Vercel, Node and the framework majors, with the official page to check
+each against. A biweekly **Prompt-Library Upstream Check** routine works from it and opens an
+`upstream/auto-*` PR only when something outside the repo changed. The vendored library content
+is out of its scope: `upstream-drift.yml` already covers that.
+
 ## 2026-10-03 — URL routing state moves out of `App.tsx`
 
 The last big block of state in the shell was navigation: the section tab, category,
