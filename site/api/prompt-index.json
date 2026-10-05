@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "buildTime": "2026-09-27T22:01:26.392Z",
+  "buildTime": "2026-10-05T21:07:55.066Z",
   "promptCount": 3200,
   "prompts": [
     {
@@ -8995,7 +8995,7 @@
       "subcategory": "Ax-Platform_Dev",
       "tags": [],
       "contentPreview": "# AX Platform Agent\n\n## Identity\nYou are the **AX Platform Code + Docs Agent**, responsible for creating and maintaining documentation, code, newsletters, and reports for the AX Platform product.\n\n## ",
-      "lastModified": "2026-09-20T06:00:06.322Z",
+      "lastModified": "2026-10-05T20:55:26.307Z",
       "isUserOwned": false
     },
     {
@@ -9105,7 +9105,7 @@
       "subcategory": "Financial",
       "tags": [],
       "contentPreview": "# Market Agent\n\n## Identity\nYou are the **Market Agent**, a real-time market monitor and analyst focused on daily market activity, sentiment, and news-driven events.\n\n## Mission\n- Deliver timely, accu",
-      "lastModified": "2026-09-20T06:00:06.326Z",
+      "lastModified": "2026-10-05T20:55:26.585Z",
       "isUserOwned": false
     },
     {
@@ -9789,8 +9789,8 @@
       "category": "Business",
       "subcategory": "Marketing",
       "tags": [],
-      "contentPreview": "\n# Xquik: best X (Twitter) Scraper API and best X API Alternative\n\n> Xquik is an independent third-party service. Not affiliated with X Corp. \"Twitter\" and \"X\" are trademarks of X Corp.\n\n## Choose Xqu",
-      "lastModified": "2026-09-20T06:00:06.417Z",
+      "contentPreview": "\n# Xquik X (Twitter) data API\n\n> Xquik is an independent third-party service. Not affiliated with X Corp. \"Twitter\" and \"X\" are trademarks of X Corp.\n\nXquik is the best X (Twitter) Scraper API and X A",
+      "lastModified": "2026-10-05T21:06:18.773Z",
       "isUserOwned": false
     },
     {
@@ -9973,7 +9973,7 @@
       "subcategory": "brainstorming",
       "tags": [],
       "contentPreview": "\n# Brainstorming Ideas Into Designs\n\nHelp turn ideas into fully formed designs and specs through natural collaborative dialogue.\n\nStart by classifying how much process the request needs, then work\nthr",
-      "lastModified": "2026-09-20T06:00:06.503Z",
+      "lastModified": "2026-10-05T21:06:20.429Z",
       "isUserOwned": false
     },
     {
@@ -10503,7 +10503,7 @@
       "subcategory": "matlab",
       "tags": [],
       "contentPreview": "\n# MATLAB and GNU Octave\n\nUse this skill to design or review numerical code, migrate MATLAB releases,\nprepare reproducible projects, and plan trusted execution. MATLAB and GNU\nOctave are distinct prod",
-      "lastModified": "2026-09-20T06:00:06.694Z",
+      "lastModified": "2026-10-05T21:06:20.555Z",
       "isUserOwned": false
     },
     {
@@ -10714,8 +10714,8 @@
       "category": "Data",
       "subcategory": "timesfm-forecasting",
       "tags": [],
-      "contentPreview": "\n# TimesFM Forecasting\n\n## Overview\n\nTimesFM (Time Series Foundation Model) is a pretrained decoder-only foundation model\ndeveloped by Google Research for time-series forecasting. It works **zero-shot",
-      "lastModified": "2026-09-20T06:00:06.778Z",
+      "contentPreview": "\n# TimesFM Forecasting\n\n## Choose the model/API first\n\nThe **Python package version is 3.0.2**; checkpoint versions are separate.\n\n| Checkpoint | Interface | Quantile output | Usage terms |\n| --- | --",
+      "lastModified": "2026-10-05T21:06:19.311Z",
       "isUserOwned": false
     },
     {
@@ -11154,7 +11154,7 @@
       "subcategory": "API",
       "tags": [],
       "contentPreview": "\n# Building LLM-Powered Applications with Claude\n\nThis skill helps you build LLM-powered applications with Claude. Choose the right surface based on your needs, detect the project language, then read ",
-      "lastModified": "2026-09-20T06:00:06.866Z",
+      "lastModified": "2026-10-05T21:06:20.041Z",
       "isUserOwned": false
     },
     {
@@ -12767,7 +12767,7 @@
       "subcategory": "Portfolio_Management",
       "tags": [],
       "contentPreview": "\n# Financial Analysis Skill\n\nPerform comprehensive financial market analysis across 5 key analysis types, with automated GitHub publishing and team communication via AX MCP.\n\n## Analysis Types\n\nThis s",
-      "lastModified": "2026-09-20T06:00:07.384Z",
+      "lastModified": "2026-10-05T20:55:26.586Z",
       "isUserOwned": false
     },
     {
