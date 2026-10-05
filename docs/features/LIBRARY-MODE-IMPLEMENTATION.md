@@ -1,5 +1,11 @@
 # Library Mode Implementation Progress
 
+> **Note (2026-10-05):** Phase 2 below planned a filesystem `library/My_Prompts/` tree. That
+> never shipped: My Library lives in Postgres (`user_prompts`, see
+> [POSTGRES-MIGRATION-SUMMARY.md](../development/POSTGRES-MIGRATION-SUMMARY.md)), and sections
+> are the numbered folders (`1_Guides` … `5_System_Prompts`), not `Prompt_Library` /
+> `Agent_Instructions`. Phase 1 is accurate.
+>
 > **Note (2026-04-29):** This document reflects an earlier implementation phase. For current behavior (prompt creation flow, My Library removal actions, and skill-pack add/remove + mode filtering), see the 2026-04-29 entry in `docs/CHANGELOG.md` and `docs/features/API.md`.
 
 ## ✅ Phase 1 Complete: Foundation & UI Switching

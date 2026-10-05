@@ -142,7 +142,7 @@ User clicks "Add to My Prompts"
 Frontend
     ↓ fetch('/api/prompts/:id/copy-to-my-prompts', { method: 'POST' })
 API Layer
-    ↓ Validate source section (Collections/System_Prompts/Agent_Guides)
+    ↓ Validate source section (one of 1_Guides … 5_System_Prompts)
     ↓ Check destination doesn't exist
     ├─ Local Mode → fs.copyFileSync()
     └─ GitHub Mode → GitHub API (read + write)
@@ -171,8 +171,9 @@ my-prompt-library/
 │   │   ├── App.tsx               # App shell
 │   │   └── main.tsx              # Entry point
 │   ├── lib/                      # Shared helpers (safe-path, vercel-types)
-│   ├── routes/                   # Express router (auth only)
+│   ├── routes/                   # Express router (auth only; validates input, applies limiters)
 │   ├── middleware/auth.ts        # Cookie/bearer session middleware
+│   ├── middleware/rate-limit.ts  # Per-IP login/signup limiters (in-memory, per instance)
 │   ├── db/postgres.ts            # Postgres layer
 │   ├── library/                  # Public Library content
 │   │   ├── 1_Guides/
@@ -339,13 +340,21 @@ const USE_GITHUB_MODE = process.env.USE_GITHUB_MODE === 'true';
 ### API Security
 
 **Current:**
-- Read-only GitHub token (no write permissions needed for read operations)
-- No authentication on API endpoints (public read)
+- Public library reads are unauthenticated; every write (`POST`/`PUT`/`DELETE /api/prompts`,
+  skill-pack add/remove, profile update) requires a session.
+- Sessions are 256-bit CSPRNG tokens in `httpOnly`, `sameSite=lax` cookies (`secure` in
+  production). `sameSite=lax` is what stands in for CSRF protection: a cross-site form POST
+  does not carry the cookie.
+- `POST /api/auth/login` and `/signup` are rate-limited per IP (`middleware/rate-limit.ts`);
+  inputs are shape- and length-checked in `routes/auth.ts`. See `docs/features/API.md`.
+- `helmet` sets the standard response headers. CSP is off on purpose (Vite's inline module
+  preloads and Google Fonts), HSTS is Vercel's.
+- `app.set('trust proxy', 1)` so `req.ip` is the client, not Vercel's edge.
+- Read-only GitHub token in GitHub mode.
 
 **Future considerations:**
-- Add authentication for write operations
-- Rate limiting per IP/user
-- CSRF protection for mutations
+- A shared rate-limit store (Upstash/Redis) if abuse ever shows up across instances.
+- Email verification on signup.
 
 ### File Path Validation
 
