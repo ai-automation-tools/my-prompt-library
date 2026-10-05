@@ -9,15 +9,15 @@ Fast guide to creating your first skill pack.
 List all available skills:
 
 ```bash
-find library/Skills -name "SKILL.md" -type f | sort
+find library/3_Skills -name "SKILL.md" -type f | sort
 ```
 
 Or browse specific categories:
 
 ```bash
-ls -R library/Skills/Development/
-ls -R library/Skills/Finance/
-ls -R library/Skills/Security/
+ls -R library/3_Skills/Development/
+ls -R library/3_Skills/Finance/
+ls -R library/3_Skills/Security/
 ```
 
 ---
@@ -25,14 +25,14 @@ ls -R library/Skills/Security/
 ## 2. Copy Template
 
 ```bash
-cp docs/skill-packs/PACK-TEMPLATE.json library/Skills/packs/my-pack.json
+cp docs/skill-packs/PACK-TEMPLATE.json library/3_Skills/packs/my-pack.json
 ```
 
 ---
 
 ## 3. Edit Manifest
 
-Open `library/Skills/packs/my-pack.json` and fill in:
+Open `library/3_Skills/packs/my-pack.json` and fill in:
 
 **Required Changes:**
 - `name` - Your pack's display name
@@ -46,7 +46,7 @@ Open `library/Skills/packs/my-pack.json` and fill in:
 **Skill Entry Format:**
 ```json
 {
-  "path": "library/Skills/Category/skill-folder/SKILL.md",
+  "path": "library/3_Skills/Category/skill-folder/SKILL.md",
   "name": "Skill Display Name",
   "description": "What it does"
 }
@@ -65,8 +65,8 @@ Make sure all skill paths exist:
 
 ```bash
 # Test each skill path
-cat library/Skills/Git/gh-address-comments/SKILL.md
-cat library/Skills/Development/API/backend-api-design/SKILL.md
+cat library/3_Skills/Git/gh-address-comments/SKILL.md
+cat library/3_Skills/Development/API/backend-api-design/SKILL.md
 ```
 
 ---
@@ -75,7 +75,7 @@ cat library/Skills/Development/API/backend-api-design/SKILL.md
 
 ```bash
 # Check for syntax errors
-node -e "console.log(JSON.parse(require('fs').readFileSync('library/Skills/packs/my-pack.json')))"
+node -e "console.log(JSON.parse(require('fs').readFileSync('library/3_Skills/packs/my-pack.json')))"
 ```
 
 If successful, you'll see your pack object printed.
@@ -101,7 +101,7 @@ open http://localhost:3010
 ## 7. Commit and Deploy
 
 ```bash
-git add library/Skills/packs/my-pack.json
+git add library/3_Skills/packs/my-pack.json
 git commit -m "Add [Pack Name] skill pack"
 git push origin main
 ```
@@ -140,8 +140,8 @@ Use existing: Development, Finance, Productivity, Engineering, Business, Securit
 
 ## Common Mistakes
 
-❌ **Wrong Path:** `library/Skills/Git/gh-address-comments`  
-✅ **Correct:** `library/Skills/Git/gh-address-comments/SKILL.md`
+❌ **Wrong Path:** `library/3_Skills/Git/gh-address-comments`  
+✅ **Correct:** `library/3_Skills/Git/gh-address-comments/SKILL.md`
 
 ❌ **Invalid JSON:** Missing comma, trailing comma, unquoted strings  
 ✅ **Valid:** Run node validation command above
@@ -167,12 +167,12 @@ Minimal working pack:
   "category": "Development",
   "skills": [
     {
-      "path": "library/Skills/Git/gh-address-comments/SKILL.md",
+      "path": "library/3_Skills/Git/gh-address-comments/SKILL.md",
       "name": "GitHub PR Comment Handler",
       "description": "Address review comments on PRs"
     },
     {
-      "path": "library/Skills/Git/git-commit-helper/SKILL.md",
+      "path": "library/3_Skills/Git/git-commit-helper/SKILL.md",
       "name": "Git Commit Helper",
       "description": "Write clear conventional commits"
     }

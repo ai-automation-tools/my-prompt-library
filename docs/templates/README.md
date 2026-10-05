@@ -124,7 +124,7 @@ This template defines specific skills that agents can use - usually involving ex
    - 3-6 tags recommended
 
 3. **`category`** - Top-level category (quoted string)
-   - Example: `"Prompt_Library"`, `"Agents"`, `"Skills"`
+   - Example: `"4_Prompts"`, `"2_Agents"`, `"3_Skills"`
    - Must match folder structure
 
 4. **`subcategory`** - Second-level category (quoted string)
@@ -167,7 +167,7 @@ subcategory: "Business"
 
 1. **Copy the appropriate template:**
    ```bash
-   cp docs/templates/prompt-library-template.md library/Prompt_Library/[Category]/[Subcategory]/your-prompt-name.md
+   cp docs/templates/prompt-library-template.md site/library/4_Prompts/[Category]/[Subcategory]/your-prompt-name.md
    ```
 
 2. **Update the frontmatter:**
@@ -193,7 +193,7 @@ subcategory: "Business"
 
 1. **Copy the agent guides template:**
    ```bash
-   cp docs/templates/agent-guides-template.md library/Agent_Guides/[Platform]/guide-name.md
+   cp docs/templates/agent-guides-template.md site/library/1_Guides/[Platform]/guide-name.md
    ```
 
 2. **Update the content:**
@@ -205,7 +205,7 @@ subcategory: "Business"
 
 1. **Copy the agents template:**
    ```bash
-   cp docs/templates/agents-template.md library/Agents/[Category]/agent-name.md
+   cp docs/templates/agents-template.md site/library/2_Agents/[Category]/agent-name.md
    ```
 
 2. **Update the frontmatter:**
@@ -224,8 +224,8 @@ subcategory: "Business"
 
 1. **Create skill directory:**
    ```bash
-   mkdir -p library/Skills/[Category]/[skill-name]
-   cp docs/templates/skills-template.md library/Skills/[Category]/[skill-name]/SKILL.md
+   mkdir -p site/library/3_Skills/[Category]/[skill-name]
+   cp docs/templates/skills-template.md site/library/3_Skills/[Category]/[skill-name]/SKILL.md
    ```
 
 2. **Update the frontmatter:**
@@ -313,19 +313,19 @@ library/
 Browse these existing prompts to see templates in action:
 
 **Prompt Library:**
-- `library/Prompt_Library/Ai_Development/Prompt_Engineering/prompt-generator.md`
+- `site/library/4_Prompts/Ai_Development/Prompt_Engineering/prompt-generator.md`
 
 **Agent Guides:**
-- `library/Agent_Guides/Claude_Code/flags-reference.md`
+- `site/library/1_Guides/Claude_Code/flags-reference.md`
 
 **Agents:**
-- `library/Agents/Git/git-workflow-manager.md`
+- `site/library/2_Agents/Git/git-workflow-manager.md`
 
 **System Prompts:**
-- `library/System_Prompts/V0.Dev/v0.md`
+- `site/library/5_System_Prompts/V0.Dev/v0.md`
 
 **Skills:**
-- `library/Skills/Git/gh-address-comments/SKILL.md`
+- `site/library/3_Skills/Git/gh-address-comments/SKILL.md`
 
 ---
 

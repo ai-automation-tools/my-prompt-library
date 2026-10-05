@@ -77,7 +77,7 @@ window.localStorage.getItem('prompt-recently-viewed')
 # Make sure prompts folder exists and has content
 ls -la prompts/
 
-# Should show folders: My_Prompts, Collections, System_Prompts, Agent_Guides, Skills
+# Should show folders: 1_Guides, 2_Agents, 3_Skills, 4_Prompts, 5_System_Prompts
 
 # Check if markdown files exist
 find prompts/ -name "*.md" | head -20
@@ -170,7 +170,7 @@ When working correctly, you should see:
   content: "...",
   lastModified: "2026-03-14T..."
 }
-🔍 DEBUG: Sections: ["Skills", "My_Prompts", "Collections", "System_Prompts", "Agent_Guides"]
+🔍 DEBUG: Sections: ["1_Guides", "2_Agents", "3_Skills", "4_Prompts", "5_System_Prompts"]
 ```
 
 ## Visual Debugging
@@ -196,7 +196,7 @@ Look at the screen:
 
 ```bash
 # 1. Verify repo state
-cd /home/mike/.openclaw/workspace/projects/my-prompt-library/repo
+cd my-prompt-library/site
 git status
 git pull origin mike_desktop
 
@@ -219,7 +219,7 @@ curl http://localhost:3010/api/prompts | jq '. | length'
 Run this and share the output:
 
 ```bash
-cd /home/mike/.openclaw/workspace/projects/my-prompt-library/repo
+cd my-prompt-library/site
 
 echo "=== Environment ==="
 node --version

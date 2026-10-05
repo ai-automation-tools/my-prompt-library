@@ -47,6 +47,16 @@ curl -H "Authorization: Bearer abc123_1710610234567_xyz789" \
 
 ## Authentication Endpoints
 
+**Rate limits (since 2026-10-05).** `POST /api/auth/login` allows 20 failed attempts per IP
+per 15 minutes (successful logins don't count); `POST /api/auth/signup` allows 5 requests per
+IP per 15 minutes. Over the limit the response is `429 Too Many Requests` with
+`{ "error": "..." }` and `RateLimit-*` headers. The counter is in-memory, so on Vercel it is
+per warm function instance.
+
+**Input rules.** `email` is trimmed and must look like an address (one `@`, no whitespace,
+at most 254 chars). `password` is 8–72 characters on signup; login only checks the 72 cap, so
+accounts created under the old 6-character rule still work. `name` is trimmed, at most 100 chars.
+
 ### POST /api/auth/signup
 
 Create a new user account.
@@ -82,8 +92,9 @@ auth_token=abc123_1710610234567_xyz789; HttpOnly; Path=/; Max-Age=2592000
 
 **Errors:**
 - `400 Bad Request`: Missing email or password
-- `400 Bad Request`: Password too short (min 6 characters)
+- `400 Bad Request`: Invalid email, password outside 8–72 characters, or name over 100
 - `409 Conflict`: Email already exists
+- `429 Too Many Requests`: More than 5 signups from this IP in 15 minutes
 
 **Example:**
 ```bash
@@ -126,8 +137,9 @@ Login with existing credentials.
 ```
 
 **Errors:**
-- `400 Bad Request`: Missing email or password
+- `400 Bad Request`: Missing or malformed email or password
 - `401 Unauthorized`: Invalid email or password
+- `429 Too Many Requests`: More than 20 failed logins from this IP in 15 minutes
 
 **Example:**
 ```bash
@@ -281,7 +293,7 @@ List prompts based on library mode.
   {
     "id": "prompt_1710610123456_xyz789",
     "title": "SEO Blog Post Generator",
-    "section": "Prompt_Library",
+    "section": "4_Prompts",
     "category": "Writing",
     "subcategory": "Technical",
     "tags": ["seo", "blog", "content"],
@@ -363,9 +375,9 @@ Get a single prompt with full content by ID.
 **Response (200 OK):**
 ```json
 {
-  "id": "library/Agents/Developer/General/devops-engineer.md",
+  "id": "2_Agents/Developer/General/devops-engineer.md",
   "title": "⚙️ DevOps Engineer",
-  "section": "Agents",
+  "section": "2_Agents",
   "category": "Developer",
   "subcategory": "General",
   "tags": ["featured", "devops", "infrastructure"],
@@ -405,7 +417,7 @@ Create a new prompt in user's library (requires authentication).
 ```json
 {
   "title": "My Custom Prompt",
-  "section": "Prompt_Library",
+  "section": "4_Prompts",
   "category": "Business",
   "subcategory": "Marketing",  // optional
   "tags": ["custom", "marketing"],  // optional
@@ -418,7 +430,7 @@ Create a new prompt in user's library (requires authentication).
 {
   "id": "prompt_1710610456789_abc123",
   "title": "My Custom Prompt",
-  "section": "Prompt_Library",
+  "section": "4_Prompts",
   "category": "Business",
   "subcategory": "Marketing",
   "tags": ["custom", "marketing"],
@@ -440,7 +452,7 @@ curl -X POST http://localhost:3010/api/prompts \
   -b cookies.txt \
   -d '{
     "title": "My Prompt",
-    "section": "Prompt_Library",
+    "section": "4_Prompts",
     "category": "Business",
     "subcategory": "Marketing",
     "tags": ["custom"],
@@ -461,7 +473,7 @@ Update an existing prompt (requires authentication).
 ```json
 {
   "title": "Updated Title",  // optional
-  "section": "Agent_Instructions",  // optional
+  "section": "2_Agents",  // optional
   "category": "Development",  // optional
   "subcategory": "Python",  // optional
   "tags": ["updated", "python"],  // optional
@@ -474,7 +486,7 @@ Update an existing prompt (requires authentication).
 {
   "id": "prompt_1710610456789_abc123",
   "title": "Updated Title",
-  "section": "Agent_Instructions",
+  "section": "2_Agents",
   "category": "Development",
   "subcategory": "Python",
   "tags": ["updated", "python"],
@@ -544,7 +556,7 @@ Copy a public prompt to user's personal library (requires authentication).
 {
   "id": "prompt_1710610789012_def456",
   "title": "Market Research Plan",
-  "section": "Prompt_Library",
+  "section": "4_Prompts",
   "category": "Business",
   "subcategory": "Marketing",
   "tags": ["research", "business"],
@@ -799,7 +811,7 @@ curl -X POST http://localhost:3010/api/prompts \
   -b cookies.txt \
   -d '{
     "title": "Test Prompt",
-    "section": "Prompt_Library",
+    "section": "4_Prompts",
     "category": "Business",
     "content": "Test content"
   }'
@@ -865,9 +877,9 @@ npm run build:index
   "promptCount": 1151,
   "prompts": [
     {
-      "id": "library/path/to/prompt.md",
+      "id": "4_Prompts/path/to/prompt.md",
       "title": "Prompt Title",
-      "section": "Agents",
+      "section": "2_Agents",
       "category": "Developer",
       "subcategory": "General",
       "tags": ["featured", "tag1"],
