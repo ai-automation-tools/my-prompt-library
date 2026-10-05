@@ -4,87 +4,42 @@
  */
 
 import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
-import {
-  FileText,
-  LayoutGrid,
-  Sparkles,
-  ArrowLeft,
-  Plus,
-  Home,
-  ChevronRight as BreadcrumbArrow,
-  Share2,
-  Check
-} from 'lucide-react';
+import { ArrowLeft, Check, LayoutGrid, Link2, Plus, Sparkles } from 'lucide-react';
 import { LazyMotion, domAnimation, m, AnimatePresence } from 'motion/react';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { useAuth } from './contexts/AuthContext';
 import { type Prompt } from './components/PromptCard';
-import Sidebar, { type Theme, type SkillPackSummary } from './components/Sidebar';
-import TopBar from './components/TopBar';
+import Sidebar, { type SkillPackSummary } from './components/Sidebar';
+import TopBar, { type Crumb } from './components/TopBar';
 import LibraryHero from './components/LibraryHero';
+import AmbientBackground from './components/AmbientBackground';
 import PromptGrid, { PromptCardGrid, type PromptCardActions } from './components/PromptGrid';
 import PromptListToolbar from './components/PromptListToolbar';
+import { Button } from './components/ui/primitives';
 import { usePromptFilters } from './hooks/usePromptFilters';
 import { usePromptContent } from './hooks/usePromptContent';
-import { useLibraryRoute, slugifyPromptPath } from './hooks/useLibraryRoute';
+import { useLibraryRoute, slugifyPromptPath, type LibraryTab } from './hooks/useLibraryRoute';
+import { getSection, getSectionFolder, getSectionDisplayName, getTabForFolder, humanize } from './lib/sections';
+import { readStoredTheme, THEME_STORAGE_KEY, type Theme } from './lib/themes';
 
 // Split out of the entry chunk: none of these render on first paint, and
 // PromptDetail/PromptEditorModal each pull in react-markdown + remark-gfm.
-// The three modals are only mounted while open, so opening one is what
-// fetches its chunk — mounting them closed would defeat the split.
+// The modals and the palette are only mounted while open, so opening one is
+// what fetches its chunk — mounting them closed would defeat the split.
 const SkillPacksView = lazy(() => import('./components/SkillPacksView'));
 const PromptDetail = lazy(() => import('./components/PromptDetail'));
 const PromptEditorModal = lazy(() => import('./components/PromptEditorModal'));
 const LoginModal = lazy(() => import('./components/LoginModal'));
 const SignupModal = lazy(() => import('./components/SignupModal'));
+const CommandPalette = lazy(() => import('./components/CommandPalette'));
 
 const chunkSpinner = (
-  <div className="flex items-center justify-center h-64">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+  <div className="flex h-64 items-center justify-center">
+    <div className="spinner" />
   </div>
 );
 
 const PUBLIC_SHARE_ORIGIN = 'https://prompts.mikesailab.com';
-
-function getSectionParamForPromptSection(section: string): string {
-  return section === '1_Guides'
-    ? 'agent-guides'
-    : section === '2_Agents'
-      ? 'agents'
-      : section === '3_Skills'
-        ? 'skills'
-        : section === '5_System_Prompts'
-          ? 'system-prompts'
-          : 'prompt-library';
-}
-
-// Helper functions to map between tab names and folder names
-const getSectionFolder = (tab: string): string => {
-  switch(tab) {
-    case 'guides': return '1_Guides';
-    case 'agents': return '2_Agents';
-    case 'skills': return '3_Skills';
-    case 'prompts': return '4_Prompts';
-    case 'system-prompts': return '5_System_Prompts';
-    // Legacy tab names for backward compatibility
-    case 'agent-guides': return '1_Guides';
-    case 'prompt-library': return '4_Prompts';
-    default: return '';
-  }
-};
-
-const getSectionDisplayName = (tab: string): string => {
-  switch(tab) {
-    case 'guides':
-    case 'agent-guides': return 'Guides';
-    case 'agents': return 'Agents';
-    case 'skills': return 'Skills';
-    case 'prompts':
-    case 'prompt-library': return 'Prompts';
-    case 'system-prompts': return 'System Prompts';
-    default: return 'Library';
-  }
-};
 
 export default function App() {
   const { user, logout, isLoading: authLoading } = useAuth();
@@ -92,11 +47,13 @@ export default function App() {
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
-  const [theme, setTheme] = useState<Theme>('mikesailab');
+  const [theme, setTheme] = useState<Theme>(readStoredTheme);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // Open on desktop, closed (a drawer) on phones.
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => window.innerWidth >= 768);
   const [copiedShareLink, setCopiedShareLink] = useState(false);
   const [copyingToMyPromptsId, setCopyingToMyPromptsId] = useState<string | null>(null);
   const [skillPacks, setSkillPacks] = useState<SkillPackSummary[]>([]);
@@ -200,6 +157,10 @@ export default function App() {
     if (activeTab !== 'skill-packs') {
       return;
     }
+    if (libraryMode === 'my' && !user) {
+      setSkillPacks([]);
+      return;
+    }
 
     fetch(`/api/skill-packs?library=${libraryMode}`, { credentials: 'include' })
       .then(async res => {
@@ -214,11 +175,36 @@ export default function App() {
         console.error('Failed to fetch skill packs:', err);
         setSkillPacks([]);
       });
-  }, [activeTab, libraryMode]);
+  }, [activeTab, libraryMode, user]);
 
+  // Theme: applied to <html> (themes.css keys off it) and remembered. The
+  // inline script in index.html reads the same key before first paint.
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      /* storage unavailable */
+    }
   }, [theme]);
+
+  // Section accent: themes.css maps data-section → --section-c.
+  const section = getSection(activeTab);
+  useEffect(() => {
+    document.documentElement.setAttribute('data-section', section.slug);
+  }, [section.slug]);
+
+  // ⌘K / Ctrl+K opens the command palette from anywhere.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsPaletteOpen(open => !open);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   const activeSection = getSectionFolder(activeTab) || '4_Prompts';
 
@@ -249,6 +235,32 @@ export default function App() {
     selectedPrompt,
     libraryMode,
   });
+
+  /** Prompt count per section, for the sidebar badges. */
+  const sectionCounts = useMemo(() => {
+    const counts: Partial<Record<LibraryTab, number>> = {};
+    for (const p of prompts) {
+      const tab = getTabForFolder(p.section);
+      counts[tab] = (counts[tab] ?? 0) + 1;
+    }
+    if (activeTab === 'skill-packs') counts['skill-packs'] = skillPacks.length;
+    return counts;
+  }, [prompts, skillPacks.length, activeTab]);
+
+  const heroStats = useMemo(() => {
+    if (activeTab === 'skill-packs') {
+      return [
+        { label: 'Packs', value: skillPacks.length },
+        { label: 'Categories', value: new Set(skillPacks.map(p => p.category)).size },
+        { label: 'Skills', value: skillPacks.reduce((n, p) => n + p.skillCount, 0) },
+      ];
+    }
+    return [
+      { label: 'Prompts', value: sectionPrompts.length },
+      { label: 'Categories', value: Object.keys(categories).length },
+      { label: 'Tags', value: allTags.length },
+    ];
+  }, [activeTab, skillPacks, sectionPrompts.length, categories, allTags.length]);
 
   const subcategoryPrompts = useMemo(() => {
     if (!selectedSubcategory) return [];
@@ -292,6 +304,7 @@ export default function App() {
     
     setActiveCategory(category);
     setActiveSubcategory(subcategory === 'ALL' ? null : subcategory);
+    if (window.innerWidth < 768) setIsSidebarOpen(false);
   }, []);
 
   const toggleCategory = useCallback((cat: string) => {
@@ -378,7 +391,7 @@ export default function App() {
     const shareUrl = new URL(PUBLIC_SHARE_ORIGIN);
     shareUrl.searchParams.set('library', 'public');
     shareUrl.searchParams.set('prompt', slugifyPromptPath(prompt.id));
-    shareUrl.searchParams.set('section', getSectionParamForPromptSection(prompt.section));
+    shareUrl.searchParams.set('section', getTabForFolder(prompt.section));
     shareUrl.searchParams.set('category', prompt.category);
     if (prompt.subcategory) shareUrl.searchParams.set('subcategory', prompt.subcategory);
     else shareUrl.searchParams.delete('subcategory');
@@ -392,13 +405,7 @@ export default function App() {
   const handleCopySubsectionLink = useCallback(async (category: string, subcategory: string | 'ALL') => {
     const shareUrl = new URL(PUBLIC_SHARE_ORIGIN);
     shareUrl.searchParams.set('library', 'public');
-    shareUrl.searchParams.set('section',
-      activeTab === 'agent-guides' ? 'agent-guides' :
-      activeTab === 'agents' ? 'agents' :
-      activeTab === 'skills' ? 'skills' :
-      activeTab === 'system-prompts' ? 'system-prompts' :
-      'prompt-library'
-    );
+    shareUrl.searchParams.set('section', getSection(activeTab).id);
     shareUrl.searchParams.set('category', category);
     if (subcategory !== 'ALL') shareUrl.searchParams.set('subcategory', subcategory);
     else shareUrl.searchParams.delete('subcategory');
@@ -424,7 +431,7 @@ export default function App() {
     });
 
     if (matchingPrompt) {
-      const nextTab = getSectionParamForPromptSection(matchingPrompt.section) as typeof activeTab;
+      const nextTab = getTabForFolder(matchingPrompt.section);
 
       if (activeTab !== nextTab) setActiveTab(nextTab);
       if (libraryMode !== 'public') setLibraryMode('public');
@@ -628,6 +635,23 @@ source: My Prompt Library
     setIsEditorOpen(true);
   }, [user, showToast, libraryMode, activeTab]);
 
+  /** Palette → prompt: switch library/section to wherever it lives, then open it. */
+  const openPromptFromPalette = useCallback((prompt: Prompt) => {
+    if (prompt.isUserOwned) {
+      if (libraryMode !== 'my') setLibraryMode('my');
+    } else {
+      if (libraryMode !== 'public') setLibraryMode('public');
+      const tab = getTabForFolder(prompt.section);
+      if (tab !== activeTab) setActiveTab(tab);
+    }
+    void handlePromptClick(prompt);
+  }, [libraryMode, activeTab, handlePromptClick]);
+
+  const openSectionFromPalette = useCallback((tab: LibraryTab) => {
+    setActiveTab(tab);
+    handleShowAllPrompts();
+  }, [handleShowAllPrompts]);
+
   /** Card-level props shared by the featured, all-prompts and subcategory grids. */
   const promptCardActions: PromptCardActions = useMemo(() => ({
     libraryMode,
@@ -655,9 +679,32 @@ source: My Prompt Library
     copyPrompt,
   ]);
 
+  /** Breadcrumb trail for the top bar: library › section › category › subcategory › prompt. */
+  const crumbs = useMemo<Crumb[]>(() => {
+    const trail: Crumb[] = [
+      { label: libraryMode === 'my' ? 'My Library' : 'Public Library', onClick: handleShowAllPrompts },
+      { label: getSectionDisplayName(activeTab), onClick: handleShowAllPrompts },
+    ];
+    if (selectedSubcategory) {
+      trail.push({ label: humanize(selectedSubcategory.category), onClick: () => handleSubcategoryClick(selectedSubcategory.category, 'ALL') });
+      if (selectedSubcategory.subcategory !== 'ALL') trail.push({ label: humanize(selectedSubcategory.subcategory) });
+    } else if (selectedPrompt) {
+      if (selectedPrompt.category) {
+        trail.push({ label: humanize(selectedPrompt.category), onClick: () => handleSubcategoryClick(selectedPrompt.category, 'ALL') });
+      }
+      trail.push({ label: selectedPrompt.title });
+    }
+    return trail;
+  }, [libraryMode, activeTab, selectedSubcategory, selectedPrompt, handleShowAllPrompts, handleSubcategoryClick]);
+
+  const showFeatured =
+    activeTab !== 'skill-packs' && libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0;
+
   return (
     <LazyMotion features={domAnimation} strict>
-    <div className="flex h-screen overflow-hidden font-[var(--font-sans)]">
+    <div className="relative flex h-screen overflow-hidden">
+      <AmbientBackground />
+
       {/* Mobile sidebar overlay */}
       <AnimatePresence>
         {isSidebarOpen && (
@@ -665,7 +712,7 @@ source: My Prompt Library
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
             onClick={() => setIsSidebarOpen(false)}
           />
         )}
@@ -679,6 +726,7 @@ source: My Prompt Library
         setLibraryMode={setLibraryMode}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        sectionCounts={sectionCounts}
         skillPacks={skillPacks}
         categories={categories}
         sectionPrompts={sectionPrompts}
@@ -693,119 +741,79 @@ source: My Prompt Library
       />
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col h-full overflow-hidden relative">
-        {/* Top Bar: mobile menu trigger, resources nav, auth controls */}
+      <main className="relative z-10 flex h-full min-w-0 flex-1 flex-col overflow-hidden">
         <TopBar
           user={user}
-          onOpenSidebar={() => setIsSidebarOpen(true)}
+          sidebarOpen={isSidebarOpen}
+          onToggleSidebar={() => setIsSidebarOpen(open => !open)}
+          crumbs={crumbs}
+          onOpenPalette={() => setIsPaletteOpen(true)}
+          onNewPrompt={handleNewPrompt}
           onLogin={() => setIsLoginOpen(true)}
           onSignup={() => setIsSignupOpen(true)}
           onLogout={logout}
         />
 
         {/* Content Area */}
-        <div className="flex-1 overflow-y-auto px-4 md:px-6 pb-6">
+        <div className="flex-1 overflow-y-auto px-4 pb-24 md:px-8 md:pb-12">
+          <div className="mx-auto w-full max-w-[1440px]">
           {/* Hero Section */}
           {!selectedPrompt && !selectedSubcategory && (
             <LibraryHero
-              title={getSectionDisplayName(activeTab)}
+              section={section}
+              libraryMode={libraryMode}
+              stats={heroStats}
               searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
+              onSearchChange={activeTab === 'skill-packs' ? undefined : setSearchQuery}
             />
-          )}
-
-          {/* Breadcrumbs */}
-          {(selectedPrompt || selectedSubcategory) && (
-            <div className="mb-4 mt-4 flex items-center gap-2 text-xs text-[var(--text-tertiary)]">
-              <button
-                onClick={handleShowAllPrompts}
-                className="flex items-center gap-1 hover:text-[var(--accent)] transition-colors"
-              >
-                <Home className="w-3.5 h-3.5" />
-                <span>{getSectionDisplayName(activeTab)}</span>
-              </button>
-              {selectedSubcategory && (
-                <>
-                  <BreadcrumbArrow className="w-3.5 h-3.5" />
-                  <button
-                    onClick={() => {
-                      setSelectedSubcategory(null);
-                      setShowAllPrompts(false);
-                    }}
-                    className="hover:text-[var(--accent)] transition-colors"
-                  >
-                    {selectedSubcategory.category.replace(/_/g, ' ')}
-                  </button>
-                  {selectedSubcategory.subcategory !== 'ALL' && (
-                    <>
-                      <BreadcrumbArrow className="w-3.5 h-3.5" />
-                      <span>{selectedSubcategory.subcategory.replace(/_/g, ' ')}</span>
-                    </>
-                  )}
-                </>
-              )}
-              {selectedPrompt && (
-                <>
-                  <BreadcrumbArrow className="w-3.5 h-3.5" />
-                  {selectedPrompt.category && (
-                    <>
-                      <span>{selectedPrompt.category.replace(/_/g, ' ')}</span>
-                      <BreadcrumbArrow className="w-3.5 h-3.5" />
-                    </>
-                  )}
-                  <span className="text-[var(--text-primary)] font-medium">{selectedPrompt.title}</span>
-                </>
-              )}
-            </div>
           )}
 
           <AnimatePresence mode="wait">
             {/* All Prompts Grid */}
             {showAllPrompts ? (
               <m.div
-                key="all-prompts"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                key={`all-${activeTab}-${libraryMode}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
                 className="w-full"
               >
-                <PromptListToolbar
-                  title={getSectionDisplayName(activeTab)}
-                  totalCount={sortedPrompts.length}
-                  sectionCount={sectionPrompts.length}
-                  categoryCount={Object.keys(categories).length}
-                  favoritePrompts={favoritePrompts}
-                  recentlyViewedPrompts={recentlyViewedPrompts}
-                  onPromptSelect={handlePromptClick}
-                  allTags={allTags}
-                  selectedTags={selectedTags}
-                  onTagToggle={handleTagToggle}
-                  onClearTags={clearTags}
-                  sortOption={sortOption}
-                  onSortChange={setSortOption}
-                />
+                {activeTab !== 'skill-packs' && (
+                  <PromptListToolbar
+                    totalCount={sortedPrompts.length}
+                    favoritePrompts={favoritePrompts}
+                    recentlyViewedPrompts={recentlyViewedPrompts}
+                    onPromptSelect={handlePromptClick}
+                    allTags={allTags}
+                    selectedTags={selectedTags}
+                    onTagToggle={handleTagToggle}
+                    onClearTags={clearTags}
+                    sortOption={sortOption}
+                    onSortChange={setSortOption}
+                  />
+                )}
 
                 {/* Featured Section */}
-                {activeTab !== 'skill-packs' && libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
-                  <m.div
-                    initial={{ opacity: 0, y: 20 }}
+                {showFeatured && (
+                  <m.section
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.1 }}
-                    className="mb-10"
+                    transition={{ duration: 0.4, delay: 0.05 }}
+                    className="mb-9"
+                    aria-labelledby="featured-heading"
                   >
-                    <div className="flex items-center gap-3 mb-5">
-                      <Sparkles className="w-5 h-5 text-[var(--accent)]" />
-                      <h3 className="heading-display text-lg font-bold tracking-tight text-[var(--text-primary)]">
-                        Featured Prompts
-                      </h3>
+                    <div className="mb-3.5 flex items-center gap-2.5">
+                      <span className="glyph h-7 w-7 rounded-[7px]">
+                        <Sparkles className="h-3.5 w-3.5" />
+                      </span>
+                      <h2 id="featured-heading" className="text-[15px] font-semibold tracking-tight text-[var(--fg)]">
+                        Featured
+                      </h2>
+                      <span className="eyebrow ml-1 hidden sm:inline">Picked and favourites</span>
                     </div>
-                    <PromptCardGrid
-                      prompts={featuredPrompts}
-                      actions={promptCardActions}
-                      columns="featured"
-                    />
-                  </m.div>
+                    <PromptCardGrid prompts={featuredPrompts} actions={promptCardActions} columns="featured" />
+                  </m.section>
                 )}
 
                 {/* Skill Packs View */}
@@ -815,18 +823,21 @@ source: My Prompt Library
                       user={user}
                       libraryMode={libraryMode}
                       onRequireLogin={() => setIsLoginOpen(true)}
+                      onBrowsePublic={() => setLibraryMode('public')}
                       onToast={showToast}
                     />
                   </Suspense>
                 )}
 
                 {/* All Prompts Section Header */}
-                {activeTab !== 'skill-packs' && libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0 && (
-                  <div className="flex items-center gap-3 mb-5">
-                    <LayoutGrid className="w-5 h-5 text-[var(--text-secondary)]" />
-                    <h3 className="heading-display text-lg font-bold tracking-tight text-[var(--text-primary)]">
-                      All
-                    </h3>
+                {showFeatured && (
+                  <div className="mb-3.5 flex items-center gap-2.5">
+                    <span className="grid h-7 w-7 place-items-center rounded-[7px] border border-[var(--line)] bg-[var(--surface)] text-[var(--fg-3)]">
+                      <LayoutGrid className="h-3.5 w-3.5" />
+                    </span>
+                    <h2 className="text-[15px] font-semibold tracking-tight text-[var(--fg)]">
+                      All {getSectionDisplayName(activeTab).toLowerCase()}
+                    </h2>
                   </div>
                 )}
 
@@ -853,40 +864,40 @@ source: My Prompt Library
               /* Subcategory Grid */
               <m.div
                 key={`subcat-${selectedSubcategory.category}-${selectedSubcategory.subcategory}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="w-full"
+                transition={{ duration: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
+                className="w-full pt-6"
               >
-                <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
-                  <div className="flex items-center gap-4">
-                    <button
-                      onClick={handleShowAllPrompts}
-                      className="p-2 rounded-[var(--radius-sm)] hover:bg-[var(--glass-bg-hover)] transition-colors"
-                    >
-                      <ArrowLeft className="w-4 h-4 text-[var(--text-tertiary)]" />
+                <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+                  <div className="flex min-w-0 items-start gap-3">
+                    <button type="button" onClick={handleShowAllPrompts} className="icon-btn icon-btn-framed mt-0.5 h-9 w-9 shrink-0" aria-label="Back to all">
+                      <ArrowLeft className="h-4 w-4" />
                     </button>
-                    <div>
-                      <h2 className="heading-display text-2xl font-bold tracking-tight text-[var(--text-primary)]">
-                        {selectedSubcategory.category.replace(/_/g, ' ')}
-                        <span className="text-[var(--text-tertiary)] mx-2">/</span>
-                        <span className="text-[var(--accent)]">
-                          {selectedSubcategory.subcategory === 'ALL' ? 'All' : selectedSubcategory.subcategory.replace(/_/g, ' ')}
-                        </span>
-                      </h2>
-                      <p className="label mt-2">{subcategoryPrompts.length} prompts</p>
+                    <div className="min-w-0">
+                      <p className="eyebrow mb-1.5">{getSectionDisplayName(activeTab)}</p>
+                      <h1 className="text-[1.5rem] font-semibold leading-tight tracking-[-0.02em] text-[var(--fg)] md:text-[1.85rem]">
+                        {humanize(selectedSubcategory.category)}
+                        {selectedSubcategory.subcategory !== 'ALL' && (
+                          <>
+                            <span className="mx-2 text-[var(--fg-5)]">/</span>
+                            <span className="text-[var(--c)]">{humanize(selectedSubcategory.subcategory)}</span>
+                          </>
+                        )}
+                      </h1>
+                      <p className="mono mt-1.5 text-[11px] text-[var(--fg-4)]">
+                        {subcategoryPrompts.length.toLocaleString()} {subcategoryPrompts.length === 1 ? 'prompt' : 'prompts'}
+                      </p>
                     </div>
                   </div>
-                  <m.button
-                    whileTap={{ scale: 0.95 }}
+                  <Button
+                    size="sm"
                     onClick={() => handleCopySubsectionLink(selectedSubcategory.category, selectedSubcategory.subcategory)}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300 border shrink-0 glass border-[var(--glass-border)] hover:border-[var(--accent)] hover:shadow-[0_0_24px_var(--accent-glow-subtle)]"
-                    title="Copy subsection link"
+                    icon={copiedShareLink ? <Check className="h-3.5 w-3.5 text-[var(--ok)]" /> : <Link2 className="h-3.5 w-3.5" />}
                   >
-                    {copiedShareLink ? <Check className="w-3.5 h-3.5" /> : <Share2 className="w-3.5 h-3.5" />}
-                    {copiedShareLink ? 'Link Copied' : 'Copy Section Link'}
-                  </m.button>
+                    {copiedShareLink ? 'Link copied' : 'Copy section link'}
+                  </Button>
                 </div>
 
                 <PromptCardGrid prompts={subcategoryPrompts} actions={promptCardActions} />
@@ -918,32 +929,35 @@ source: My Prompt Library
                 key="empty"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="h-full flex flex-col items-center justify-center text-center space-y-8"
+                className="flex min-h-[60vh] flex-col items-center justify-center text-center"
               >
-                <div className="relative">
-                  <div className="w-28 h-28 rounded-full border-2 border-dashed border-[var(--glass-border)] flex items-center justify-center animate-[spin_30s_linear_infinite]">
-                    <FileText className="w-10 h-10 text-[var(--text-tertiary)]" />
-                  </div>
-                  <div className="absolute inset-0 rounded-full bg-[var(--accent-glow-subtle)] blur-[40px] pointer-events-none" />
-                </div>
-                <div className="space-y-2">
-                  <p className="heading-display text-xl font-bold text-[var(--text-tertiary)]">System Ready</p>
-                  <p className="text-[0.8rem] font-medium text-[var(--text-tertiary)] opacity-60">Select a category or subcategory to begin</p>
-                </div>
+                <span className="glyph mb-4 h-12 w-12 rounded-[12px]">
+                  <LayoutGrid className="h-5 w-5" />
+                </span>
+                <p className="text-lg font-semibold text-[var(--fg)]">Nothing here</p>
+                <p className="mt-1.5 max-w-sm text-[14px] text-[var(--fg-3)]">
+                  This category has no prompts in the current library. Pick another one from the sidebar.
+                </p>
+                <Button size="sm" className="mt-5" onClick={handleShowAllPrompts}>
+                  Back to all {getSectionDisplayName(activeTab).toLowerCase()}
+                </Button>
               </m.div>
             )}
           </AnimatePresence>
+          </div>
         </div>
       </main>
 
-      {/* Floating Action Button */}
-      <button
+      {/* Floating "new prompt" — phones only; the top bar carries it elsewhere. */}
+      <m.button
+        type="button"
+        whileTap={{ scale: 0.94 }}
         onClick={handleNewPrompt}
-        className="fixed bottom-8 right-8 w-16 h-16 bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white rounded-full shadow-lg hover:shadow-[0_0_40px_var(--accent-glow)] transition-all duration-300 flex items-center justify-center z-40 group"
-        title="Create new prompt"
+        className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[var(--accent)] text-[var(--accent-ink)] shadow-[0_12px_32px_-8px_var(--glow)] sm:hidden"
+        aria-label="New prompt"
       >
-        <Plus className="w-7 h-7 group-hover:rotate-90 transition-transform duration-300" />
-      </button>
+        <Plus className="h-6 w-6" />
+      </m.button>
 
       {/* Prompt Editor Modal */}
       {isEditorOpen && (
@@ -957,6 +971,21 @@ source: My Prompt Library
             onSave={handleSavePrompt}
             editingPrompt={editingPrompt}
             defaultSection={activeSection}
+          />
+        </Suspense>
+      )}
+
+      {/* Command palette */}
+      {isPaletteOpen && (
+        <Suspense fallback={null}>
+          <CommandPalette
+            prompts={prompts}
+            recentPrompts={recentlyViewedPrompts}
+            onClose={() => setIsPaletteOpen(false)}
+            onSelectPrompt={openPromptFromPalette}
+            onSelectSection={openSectionFromPalette}
+            onNewPrompt={handleNewPrompt}
+            onSetTheme={setTheme}
           />
         </Suspense>
       )}

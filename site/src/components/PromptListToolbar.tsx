@@ -3,92 +3,114 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useState } from 'react';
-import { ChevronDown, ChevronRight, FileText, Star, Tag } from 'lucide-react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-import { type Prompt } from './PromptCard';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { ArrowDownAZ, ArrowUpZA, CalendarArrowDown, CalendarArrowUp, ChevronDown, Clock, Star, Tag, X } from 'lucide-react';
+import { AnimatePresence, m } from 'motion/react';
+import { cn } from '../lib/cn';
+import { humanize } from '../lib/sections';
+import { type Prompt, extractEmoji } from './PromptCard';
 import { type SortOption } from '../hooks/usePromptFilters';
+import { Chip } from './ui/primitives';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+type OpenDropdown = 'favorites' | 'recent' | 'tags' | 'sort' | null;
 
-type OpenDropdown = 'favorites' | 'recent' | 'tags' | null;
+const SORT_OPTIONS: { id: SortOption; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
+  { id: 'title-asc', label: 'Title A–Z', icon: ArrowDownAZ },
+  { id: 'title-desc', label: 'Title Z–A', icon: ArrowUpZA },
+  { id: 'modified-desc', label: 'Newest first', icon: CalendarArrowDown },
+  { id: 'modified-asc', label: 'Oldest first', icon: CalendarArrowUp },
+];
 
-/** Shared shell for the three pill-shaped filter dropdowns. */
-function FilterDropdown({
+/** A pill that opens a popover panel beneath it. */
+function Dropdown({
   icon,
   label,
   count,
+  active,
   isOpen,
   onToggle,
-  panelClassName,
+  align = 'left',
+  width = 'w-72',
   children,
 }: {
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   count?: number;
+  active?: boolean;
   isOpen: boolean;
   onToggle: () => void;
-  panelClassName: string;
-  children: React.ReactNode;
+  align?: 'left' | 'right';
+  width?: string;
+  children: ReactNode;
 }) {
   return (
-    <div className="relative filter-dropdown">
+    <div className="filter-dropdown relative">
       <button
+        type="button"
         onClick={onToggle}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] transition-colors text-xs"
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+        className={cn(
+          'btn btn-outline btn-sm gap-1.5',
+          (isOpen || active) && 'border-[color-mix(in_srgb,var(--accent)_45%,var(--line-2))] text-[var(--fg)]',
+        )}
       >
         {icon}
-        <span className="font-semibold text-[var(--text-secondary)]">{label}</span>
-        {count !== undefined && <span className="font-bold text-[var(--accent)]">({count})</span>}
-        {isOpen ? (
-          <ChevronDown className="w-3 h-3 text-[var(--text-tertiary)]" />
-        ) : (
-          <ChevronRight className="w-3 h-3 text-[var(--text-tertiary)]" />
+        <span>{label}</span>
+        {count !== undefined && count > 0 && (
+          <span className="mono rounded-[4px] bg-[var(--tint-2)] px-1.5 py-0.5 text-[10.5px] leading-none text-[var(--accent)]">
+            {count}
+          </span>
         )}
+        <ChevronDown className={cn('h-3 w-3 text-[var(--fg-4)] transition-transform', isOpen && 'rotate-180')} />
       </button>
-      {isOpen && <div className={panelClassName}>{children}</div>}
+      <AnimatePresence>
+        {isOpen && (
+          <m.div
+            initial={{ opacity: 0, y: -4, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -4, scale: 0.98 }}
+            transition={{ duration: 0.16, ease: [0.2, 0.7, 0.2, 1] }}
+            className={cn('popover absolute top-full z-50 mt-2 p-2', width, align === 'right' ? 'right-0' : 'left-0')}
+          >
+            {children}
+          </m.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
 /** The title/category rows inside the favorites and recently-viewed panels. */
-function PromptPickerList({
-  prompts,
-  onSelect,
-}: {
-  prompts: Prompt[];
-  onSelect: (prompt: Prompt) => void;
-}) {
+function PromptPickerList({ prompts, onSelect }: { prompts: Prompt[]; onSelect: (prompt: Prompt) => void }) {
   return (
-    <div className="space-y-1 max-h-80 overflow-y-auto custom-scrollbar">
-      {prompts.map(prompt => (
-        <button
-          key={prompt.id}
-          onClick={() => onSelect(prompt)}
-          className="w-full text-left px-3 py-2 rounded-md hover:bg-[var(--glass-bg-hover)] transition-colors group"
-        >
-          <p className="text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--accent)] truncate">
-            {prompt.title}
-          </p>
-          <p className="text-xs text-[var(--text-tertiary)] truncate mt-0.5">
-            {prompt.category?.replace(/_/g, ' ')}
-          </p>
-        </button>
-      ))}
+    <div className="max-h-80 space-y-0.5 overflow-y-auto">
+      {prompts.map(prompt => {
+        const { emoji, title } = extractEmoji(prompt.title);
+        return (
+          <button
+            key={prompt.id}
+            type="button"
+            onClick={() => onSelect(prompt)}
+            className="group flex w-full items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 text-left transition-colors hover:bg-[var(--surface-2)]"
+          >
+            <span className="grid h-6 w-6 shrink-0 place-items-center rounded-[6px] bg-[var(--surface)] text-[12px]">
+              {emoji ?? <span className="h-1.5 w-1.5 rounded-full bg-[var(--c)]" />}
+            </span>
+            <span className="min-w-0">
+              <span className="block truncate text-[13px] font-medium text-[var(--fg-2)] group-hover:text-[var(--fg)]">{title}</span>
+              <span className="mono block truncate text-[10.5px] text-[var(--fg-5)]">{humanize(prompt.category)}</span>
+            </span>
+          </button>
+        );
+      })}
     </div>
   );
 }
 
 interface PromptListToolbarProps {
-  title: string;
   /** Prompts matching the current filters, across all pages. */
   totalCount: number;
-  /** Every prompt in the active section, before filtering. */
-  sectionCount: number;
-  categoryCount: number;
   favoritePrompts: Prompt[];
   recentlyViewedPrompts: Prompt[];
   onPromptSelect: (prompt: Prompt) => void;
@@ -101,16 +123,12 @@ interface PromptListToolbarProps {
 }
 
 /**
- * The header row above the prompt list: section title and counts, the total /
- * categories stat badges, the favorites / recent / tag filter dropdowns, and the
- * sort `<select>`. Owns only which dropdown is open; every filter value it edits
- * lives in `usePromptFilters`.
+ * The row above the prompt list: result count, the favorites / recent / tag
+ * filters and the sort menu. Owns only which dropdown is open; every value it
+ * edits lives in `usePromptFilters`.
  */
 export default function PromptListToolbar({
-  title,
   totalCount,
-  sectionCount,
-  categoryCount,
   favoritePrompts,
   recentlyViewedPrompts,
   onPromptSelect,
@@ -122,144 +140,155 @@ export default function PromptListToolbar({
   onSortChange,
 }: PromptListToolbarProps) {
   const [openDropdown, setOpenDropdown] = useState<OpenDropdown>(null);
+  const [tagQuery, setTagQuery] = useState('');
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  // Close the open dropdown on any click outside the pills.
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest('.filter-dropdown')) {
-        setOpenDropdown(null);
-      }
+    if (!openDropdown) return;
+    const onClick = (e: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpenDropdown(null);
     };
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpenDropdown(null);
+    };
+    document.addEventListener('mousedown', onClick);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onClick);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [openDropdown]);
 
-  const toggle = (name: Exclude<OpenDropdown, null>) =>
-    setOpenDropdown(prev => (prev === name ? null : name));
-
-  const hasFilters =
-    favoritePrompts.length > 0 || recentlyViewedPrompts.length > 0 || allTags.length > 0;
+  const toggle = (name: Exclude<OpenDropdown, null>) => setOpenDropdown(prev => (prev === name ? null : name));
+  const currentSort = SORT_OPTIONS.find(s => s.id === sortOption) ?? SORT_OPTIONS[0];
+  const SortIcon = currentSort.icon;
+  const visibleTags = tagQuery ? allTags.filter(t => t.toLowerCase().includes(tagQuery.toLowerCase())) : allTags;
 
   return (
-    <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-      <div className="flex items-center gap-3 flex-wrap">
-        <div>
-          <h2 className="heading-display text-xl font-bold tracking-tight text-[var(--text-primary)]">
-            {title}
-          </h2>
-          <p className="label mt-2">{totalCount} prompts</p>
-        </div>
+    <div ref={rootRef} className="mb-5 flex flex-wrap items-center gap-2">
+      <p className="mr-2 text-[13px] text-[var(--fg-3)]">
+        <span className="font-semibold tabular-nums text-[var(--fg)]">{totalCount.toLocaleString()}</span>{' '}
+        {totalCount === 1 ? 'result' : 'results'}
+      </p>
 
-        {/* Stat badges */}
-        <div className="flex items-center gap-2">
-          <div className="glass rounded-[var(--radius-sm)] px-3 py-1.5 text-center">
-            <span className="text-sm font-bold text-[var(--accent)]">{sectionCount}</span>
-            <span className="text-xs text-[var(--text-tertiary)] ml-1">Total</span>
-          </div>
-          <div className="glass rounded-[var(--radius-sm)] px-3 py-1.5 text-center">
-            <span className="text-sm font-bold text-[var(--text-primary)]">{categoryCount}</span>
-            <span className="text-xs text-[var(--text-tertiary)] ml-1">Categories</span>
-          </div>
-        </div>
-
-        {/* Filter Buttons */}
-        {hasFilters && (
-          <div className="flex flex-wrap gap-2">
-            {favoritePrompts.length > 0 && (
-              <FilterDropdown
-                icon={<Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />}
-                label="Favorites"
-                count={favoritePrompts.length}
-                isOpen={openDropdown === 'favorites'}
-                onToggle={() => toggle('favorites')}
-                panelClassName="absolute top-full left-0 mt-2 z-50 w-72 dropdown-solid rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]"
-              >
-                <PromptPickerList
-                  prompts={favoritePrompts}
-                  onSelect={prompt => {
-                    onPromptSelect(prompt);
-                    setOpenDropdown(null);
-                  }}
-                />
-              </FilterDropdown>
-            )}
-
-            {recentlyViewedPrompts.length > 0 && (
-              <FilterDropdown
-                icon={<FileText className="w-3 h-3 text-[var(--text-tertiary)]" />}
-                label="Recent"
-                count={recentlyViewedPrompts.length}
-                isOpen={openDropdown === 'recent'}
-                onToggle={() => toggle('recent')}
-                panelClassName="absolute top-full left-0 mt-2 z-50 w-72 dropdown-solid rounded-[var(--radius-md)] p-3 shadow-xl border border-[var(--glass-border)]"
-              >
-                <PromptPickerList
-                  prompts={recentlyViewedPrompts}
-                  onSelect={prompt => {
-                    onPromptSelect(prompt);
-                    setOpenDropdown(null);
-                  }}
-                />
-              </FilterDropdown>
-            )}
-
-            {allTags.length > 0 && (
-              <FilterDropdown
-                icon={<Tag className="w-3 h-3 text-[var(--text-tertiary)]" />}
-                label="Tags"
-                count={selectedTags.length > 0 ? selectedTags.length : undefined}
-                isOpen={openDropdown === 'tags'}
-                onToggle={() => toggle('tags')}
-                panelClassName="absolute top-full left-0 mt-2 z-50 w-96 dropdown-solid rounded-[var(--radius-md)] p-4 shadow-xl border border-[var(--glass-border)]"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-[var(--text-secondary)] uppercase">
-                    Select Tags
-                  </span>
-                  {selectedTags.length > 0 && (
-                    <button
-                      onClick={onClearTags}
-                      className="text-xs px-2 py-1 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
-                    >
-                      Clear All
-                    </button>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-2 max-h-80 overflow-y-auto custom-scrollbar">
-                  {allTags.map(tag => (
-                    <button
-                      key={tag}
-                      onClick={() => onTagToggle(tag)}
-                      className={cn(
-                        'px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-colors',
-                        selectedTags.includes(tag)
-                          ? 'bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]'
-                          : 'bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-tertiary)] hover:bg-[var(--glass-bg-hover)] hover:text-[var(--text-primary)]'
-                      )}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </FilterDropdown>
-            )}
-          </div>
-        )}
-      </div>
-
-      <div className="relative">
-        <select
-          value={sortOption}
-          onChange={e => onSortChange(e.target.value as SortOption)}
-          className="py-2 pl-3 pr-8 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.75rem] font-medium tracking-wider uppercase text-[var(--text-secondary)] cursor-pointer appearance-none transition-all duration-300 hover:border-[var(--accent)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)]"
+      {favoritePrompts.length > 0 && (
+        <Dropdown
+          icon={<Star className="h-3.5 w-3.5 fill-[var(--warn)] text-[var(--warn)]" />}
+          label="Favorites"
+          count={favoritePrompts.length}
+          isOpen={openDropdown === 'favorites'}
+          onToggle={() => toggle('favorites')}
         >
-          <option value="title-asc">Title (A-Z)</option>
-          <option value="title-desc">Title (Z-A)</option>
-          <option value="modified-desc">Newest</option>
-          <option value="modified-asc">Oldest</option>
-        </select>
-        <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)] pointer-events-none" />
+          <PromptPickerList
+            prompts={favoritePrompts}
+            onSelect={p => {
+              onPromptSelect(p);
+              setOpenDropdown(null);
+            }}
+          />
+        </Dropdown>
+      )}
+
+      {recentlyViewedPrompts.length > 0 && (
+        <Dropdown
+          icon={<Clock className="h-3.5 w-3.5 text-[var(--fg-4)]" />}
+          label="Recent"
+          isOpen={openDropdown === 'recent'}
+          onToggle={() => toggle('recent')}
+        >
+          <PromptPickerList
+            prompts={recentlyViewedPrompts}
+            onSelect={p => {
+              onPromptSelect(p);
+              setOpenDropdown(null);
+            }}
+          />
+        </Dropdown>
+      )}
+
+      {allTags.length > 0 && (
+        <Dropdown
+          icon={<Tag className="h-3.5 w-3.5 text-[var(--fg-4)]" />}
+          label="Tags"
+          count={selectedTags.length}
+          active={selectedTags.length > 0}
+          isOpen={openDropdown === 'tags'}
+          onToggle={() => toggle('tags')}
+          width="w-[380px] max-w-[calc(100vw-2rem)]"
+        >
+          <div className="mb-2 flex items-center gap-2">
+            <input
+              type="text"
+              value={tagQuery}
+              onChange={e => setTagQuery(e.target.value)}
+              placeholder={`Filter ${allTags.length} tags`}
+              aria-label="Filter tags"
+              className="input h-8 text-[12.5px]"
+            />
+            {selectedTags.length > 0 && (
+              <button type="button" onClick={onClearTags} className="btn btn-ghost btn-sm shrink-0 text-[var(--danger)]">
+                Clear
+              </button>
+            )}
+          </div>
+          <div className="flex max-h-72 flex-wrap gap-1.5 overflow-y-auto">
+            {visibleTags.map(tag => (
+              <Chip key={tag} active={selectedTags.includes(tag)} onClick={() => onTagToggle(tag)}>
+                {tag}
+              </Chip>
+            ))}
+            {visibleTags.length === 0 && <p className="px-1 py-3 text-[12.5px] text-[var(--fg-5)]">No tags match.</p>}
+          </div>
+        </Dropdown>
+      )}
+
+      {/* Active tag filters, inline */}
+      {selectedTags.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1.5">
+          {selectedTags.map(tag => (
+            <Chip key={tag} active onClick={() => onTagToggle(tag)} aria-label={`Remove tag ${tag}`}>
+              {tag}
+              <X className="h-3 w-3" />
+            </Chip>
+          ))}
+        </div>
+      )}
+
+      <div className="ml-auto">
+        <Dropdown
+          icon={<SortIcon className="h-3.5 w-3.5 text-[var(--fg-4)]" />}
+          label={currentSort.label}
+          isOpen={openDropdown === 'sort'}
+          onToggle={() => toggle('sort')}
+          align="right"
+          width="w-48"
+        >
+          <div role="menu" className="space-y-0.5">
+            {SORT_OPTIONS.map(opt => {
+              const Icon = opt.icon;
+              const active = opt.id === sortOption;
+              return (
+                <button
+                  key={opt.id}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={active}
+                  onClick={() => {
+                    onSortChange(opt.id);
+                    setOpenDropdown(null);
+                  }}
+                  className={cn(
+                    'flex w-full items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 text-left text-[13px] transition-colors',
+                    active ? 'bg-[var(--tint)] text-[var(--fg)]' : 'text-[var(--fg-3)] hover:bg-[var(--surface-2)] hover:text-[var(--fg)]',
+                  )}
+                >
+                  <Icon className={cn('h-3.5 w-3.5', active ? 'text-[var(--accent)]' : 'text-[var(--fg-4)]')} />
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
+        </Dropdown>
       </div>
     </div>
   );

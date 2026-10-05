@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { m, AnimatePresence } from 'motion/react';
-import { X, Mail, Lock, AlertCircle } from 'lucide-react';
+import { AlertCircle, ArrowRight, Lock, Mail } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { Button, Modal, ModalHeader, Notice } from './ui/primitives';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -24,11 +24,10 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }: LoginM
     try {
       await login(email, password);
       onClose();
-      // Reset form
       setEmail('');
       setPassword('');
-    } catch (err: any) {
-      setError(err.message || 'Login failed. Please try again.');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -37,128 +36,69 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }: LoginM
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-        {/* Backdrop */}
-        <m.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        />
+    <Modal onClose={onClose} size="sm" labelledBy="login-title">
+      <ModalHeader id="login-title" eyebrow="Account" title="Welcome back" description="Sign in to reach your personal library." onClose={onClose} />
 
-        {/* Modal */}
-        <m.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ duration: 0.2 }}
-          className="relative w-full max-w-md glass-card rounded-[var(--radius-xl)] p-8 shadow-2xl"
-        >
-          {/* Close button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-[var(--glass-bg-hover)] transition-colors"
-          >
-            <X className="w-5 h-5 text-[var(--text-tertiary)]" />
+      <form onSubmit={handleSubmit} className="space-y-4 px-6 py-5">
+        {error && (
+          <Notice>
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{error}</span>
+          </Notice>
+        )}
+
+        <div>
+          <label htmlFor="email" className="mb-1.5 block text-[13px] font-medium text-[var(--fg-2)]">
+            Email
+          </label>
+          <div className="relative">
+            <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--fg-4)]" />
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              autoComplete="email"
+              required
+              autoFocus
+              className="input pl-10"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="password" className="mb-1.5 block text-[13px] font-medium text-[var(--fg-2)]">
+            Password
+          </label>
+          <div className="relative">
+            <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--fg-4)]" />
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="••••••••"
+              autoComplete="current-password"
+              required
+              minLength={6}
+              className="input pl-10"
+            />
+          </div>
+        </div>
+
+        <Button type="submit" variant="primary" disabled={isLoading} className="mt-2 w-full">
+          {isLoading ? 'Signing in…' : 'Sign in'}
+          {!isLoading && <ArrowRight className="h-4 w-4" />}
+        </Button>
+
+        <p className="pt-1 text-center text-[13px] text-[var(--fg-4)]">
+          No account yet?{' '}
+          <button type="button" onClick={onSwitchToSignup} className="font-medium text-[var(--accent)] transition-colors hover:text-[var(--fg)]">
+            Create one
           </button>
-
-          {/* Header */}
-          <div className="mb-6">
-            <h2 className="heading-display text-2xl font-bold text-[var(--text-primary)] mb-2">
-              Welcome Back
-            </h2>
-            <p className="text-sm text-[var(--text-tertiary)]">
-              Sign in to access your prompt library
-            </p>
-          </div>
-
-          {/* Error message */}
-          {error && (
-            <m.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 flex items-start gap-2"
-            >
-              <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
-              <p className="text-sm text-red-400">{error}</p>
-            </m.div>
-          )}
-
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
-                Email
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)]" />
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all"
-                />
-              </div>
-            </div>
-
-            {/* Password */}
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)]" />
-                <input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  minLength={6}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)] transition-all"
-                />
-              </div>
-            </div>
-
-            {/* Submit button */}
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full py-3 px-4 rounded-lg bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_20px_var(--accent-glow)]"
-            >
-              {isLoading ? 'Signing in...' : 'Sign In'}
-            </button>
-          </form>
-
-          {/* Divider */}
-          <div className="my-6 flex items-center gap-3">
-            <div className="flex-1 h-px bg-[var(--glass-border)]" />
-            <span className="text-xs text-[var(--text-tertiary)] uppercase tracking-wider">or</span>
-            <div className="flex-1 h-px bg-[var(--glass-border)]" />
-          </div>
-
-          {/* Sign up link */}
-          <div className="text-center">
-            <p className="text-sm text-[var(--text-tertiary)]">
-              Don't have an account?{' '}
-              <button
-                type="button"
-                onClick={onSwitchToSignup}
-                className="text-[var(--accent)] hover:text-[var(--accent-secondary)] font-semibold transition-colors"
-              >
-                Sign up
-              </button>
-            </p>
-          </div>
-        </m.div>
-      </div>
-    </AnimatePresence>
+        </p>
+      </form>
+    </Modal>
   );
 }

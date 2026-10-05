@@ -1,5 +1,6 @@
 import { m } from 'motion/react';
-import { Library, Sparkles, Copy, Plus } from 'lucide-react';
+import { Copy, Library, LogIn, Plus, Sparkles, UserPlus } from 'lucide-react';
+import { Button } from './ui/primitives';
 
 interface EmptyStateProps {
   type: 'not-authenticated' | 'no-prompts';
@@ -8,130 +9,102 @@ interface EmptyStateProps {
   onBrowsePublic?: () => void;
 }
 
+function Orb({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative mb-7">
+      <div className="absolute inset-0 rounded-full bg-[var(--glow-soft)] blur-2xl" />
+      <div className="relative grid h-24 w-24 place-items-center rounded-full border border-[var(--line-2)] bg-[var(--surface)]">
+        <div className="absolute inset-[-6px] rounded-full border border-dashed border-[var(--line-2)] opacity-70 [animation:spin_40s_linear_infinite]" />
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export default function EmptyState({ type, onLogin, onSignup, onBrowsePublic }: EmptyStateProps) {
   if (type === 'not-authenticated') {
     return (
       <m.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col items-center justify-center py-20 text-center max-w-2xl mx-auto"
+        transition={{ duration: 0.4, ease: [0.2, 0.7, 0.2, 1] }}
+        className="mx-auto flex max-w-xl flex-col items-center justify-center py-16 text-center"
       >
-        {/* Icon */}
-        <div className="relative mb-8">
-          <div className="w-32 h-32 rounded-full border-2 border-dashed border-[var(--glass-border)] flex items-center justify-center animate-[spin_30s_linear_infinite]">
-            <Library className="w-14 h-14 text-[var(--text-tertiary)]" />
-          </div>
-          <div className="absolute inset-0 rounded-full bg-[var(--accent-glow-subtle)] blur-[60px] pointer-events-none" />
-        </div>
-
-        {/* Title */}
-        <h2 className="heading-display text-3xl font-bold text-[var(--text-primary)] mb-4">
-          Sign In Required
-        </h2>
-
-        {/* Description */}
-        <p className="text-base text-[var(--text-tertiary)] mb-8 max-w-md leading-relaxed">
-          Create an account or sign in to build your personal prompt library. 
-          Save prompts from the public library and create your own custom prompts.
+        <Orb>
+          <Library className="h-9 w-9 text-[var(--accent)]" />
+        </Orb>
+        <p className="eyebrow mb-2">My Library</p>
+        <h2 className="text-2xl font-semibold tracking-tight text-[var(--fg)]">Sign in to build your library</h2>
+        <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-[var(--fg-3)]">
+          Save prompts from the public library, write your own, and keep them in one place — synced to your account.
         </p>
-
-        {/* Actions */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={onSignup}
-            className="px-6 py-3 rounded-lg bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white font-semibold transition-all shadow-[0_4px_20px_var(--accent-glow)] hover:shadow-[0_6px_28px_var(--accent-glow)]"
-          >
-            Create Account
-          </button>
-          <button
-            onClick={onLogin}
-            className="px-6 py-3 rounded-lg glass-subtle border border-[var(--glass-border)] hover:border-[var(--accent)] text-[var(--text-primary)] font-semibold transition-all"
-          >
-            Sign In
-          </button>
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-2">
+          <Button variant="primary" onClick={onSignup} icon={<UserPlus className="h-4 w-4" />}>
+            Create account
+          </Button>
+          <Button variant="outline" onClick={onLogin} icon={<LogIn className="h-4 w-4" />}>
+            Log in
+          </Button>
         </div>
-
-        {/* Secondary action */}
         <button
+          type="button"
           onClick={onBrowsePublic}
-          className="mt-6 flex items-center gap-2 text-sm text-[var(--text-tertiary)] hover:text-[var(--accent)] transition-colors"
+          className="mt-5 inline-flex items-center gap-1.5 text-[13px] text-[var(--fg-4)] transition-colors hover:text-[var(--accent)]"
         >
-          <Sparkles className="w-4 h-4" />
-          Browse Public Library Instead
+          <Sparkles className="h-3.5 w-3.5" />
+          Browse the public library instead
         </button>
       </m.div>
     );
   }
 
-  // No prompts in My Library
   return (
     <m.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col items-center justify-center py-20 text-center max-w-2xl mx-auto"
+      transition={{ duration: 0.4, ease: [0.2, 0.7, 0.2, 1] }}
+      className="mx-auto flex max-w-xl flex-col items-center justify-center py-16 text-center"
     >
-      {/* Icon */}
-      <div className="relative mb-8">
-        <div className="w-32 h-32 rounded-full glass-card border-2 border-[var(--glass-border)] flex items-center justify-center">
-          <Library className="w-14 h-14 text-[var(--text-tertiary)]" />
-        </div>
-        <div className="absolute -top-2 -right-2 w-12 h-12 rounded-full bg-[var(--accent)] flex items-center justify-center shadow-[0_4px_20px_var(--accent-glow)]">
-          <Plus className="w-6 h-6 text-white" />
-        </div>
-      </div>
-
-      {/* Title */}
-      <h2 className="heading-display text-3xl font-bold text-[var(--text-primary)] mb-4">
-        Your Library is Empty
-      </h2>
-
-      {/* Description */}
-      <p className="text-base text-[var(--text-tertiary)] mb-8 max-w-md leading-relaxed">
-        Start building your personal prompt collection! Browse the public library and copy prompts you like, 
-        or create your own from scratch.
+      <Orb>
+        <Library className="h-9 w-9 text-[var(--fg-3)]" />
+        <span className="absolute -right-1 -top-1 grid h-8 w-8 place-items-center rounded-full bg-[var(--accent)] text-[var(--accent-ink)] shadow-[0_6px_20px_var(--glow)]">
+          <Plus className="h-4 w-4" />
+        </span>
+      </Orb>
+      <p className="eyebrow mb-2">My Library</p>
+      <h2 className="text-2xl font-semibold tracking-tight text-[var(--fg)]">Your library is empty</h2>
+      <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-[var(--fg-3)]">
+        Two ways to fill it. Both take a click.
       </p>
 
-      {/* Steps */}
-      <div className="w-full max-w-lg mb-8">
-        <div className="glass rounded-[var(--radius-lg)] p-6 space-y-4">
-          <div className="flex items-start gap-4 text-left">
-            <div className="w-8 h-8 rounded-full bg-[var(--accent-glow-subtle)] border border-[var(--accent)]/50 flex items-center justify-center shrink-0">
-              <Copy className="w-4 h-4 text-[var(--accent)]" />
-            </div>
+      <div className="mt-7 grid w-full gap-2 sm:grid-cols-2">
+        {[
+          {
+            icon: Copy,
+            title: 'Save from the public library',
+            body: 'Open any prompt and choose “Save to My Library”, or use the save button on a card.',
+          },
+          {
+            icon: Plus,
+            title: 'Write your own',
+            body: 'Use “New prompt” in the top bar. Markdown, tags and categories are all supported.',
+          },
+        ].map(({ icon: Icon, title, body }) => (
+          <div key={title} className="surface flex items-start gap-3 p-4 text-left">
+            <span className="glyph h-8 w-8 rounded-[8px]" style={{ ['--c' as string]: 'var(--accent)' }}>
+              <Icon className="h-4 w-4" />
+            </span>
             <div>
-              <h3 className="font-semibold text-[var(--text-primary)] mb-1">Copy from Public Library</h3>
-              <p className="text-sm text-[var(--text-tertiary)]">
-                Browse the public library and click "Copy to My Library" on any prompt
-              </p>
+              <h3 className="text-[14px] font-semibold text-[var(--fg)]">{title}</h3>
+              <p className="mt-1 text-[13px] leading-relaxed text-[var(--fg-3)]">{body}</p>
             </div>
           </div>
-
-          <div className="h-px bg-[var(--glass-border)]" />
-
-          <div className="flex items-start gap-4 text-left">
-            <div className="w-8 h-8 rounded-full bg-[var(--accent-glow-subtle)] border border-[var(--accent)]/50 flex items-center justify-center shrink-0">
-              <Plus className="w-4 h-4 text-[var(--accent)]" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-[var(--text-primary)] mb-1">Create Your Own</h3>
-              <p className="text-sm text-[var(--text-tertiary)]">
-                Click the + button in the bottom right to create a custom prompt
-              </p>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
 
-      {/* Action */}
-      <button
-        onClick={onBrowsePublic}
-        className="px-6 py-3 rounded-lg bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white font-semibold transition-all shadow-[0_4px_20px_var(--accent-glow)] hover:shadow-[0_6px_28px_var(--accent-glow)]"
-      >
-        <span className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4" />
-          Browse Public Library
-        </span>
-      </button>
+      <Button variant="primary" onClick={onBrowsePublic} icon={<Sparkles className="h-4 w-4" />} className="mt-7">
+        Browse the public library
+      </Button>
     </m.div>
   );
 }

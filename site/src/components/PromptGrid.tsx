@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, SearchX } from 'lucide-react';
 import PromptCard, { type Prompt } from './PromptCard';
 import EmptyState from './EmptyState';
 import { usePromptPreviews } from '../hooks/usePromptPreviews';
+import { Button } from './ui/primitives';
 
 /**
  * The card-level props every prompt grid drills down to `PromptCard`. Bundled so
@@ -31,9 +32,14 @@ export interface PromptCardActions {
 interface PromptCardGridProps {
   prompts: Prompt[];
   actions: PromptCardActions;
-  /** Featured uses a 4-up grid at `lg`; the main lists step 3 → 4. */
+  /** Featured uses a 4-up grid at `lg`; the main lists step 2 → 3 → 4. */
   columns?: 'featured' | 'default';
 }
+
+const GRID_CLASS = {
+  featured: 'grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-4',
+  default: 'grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4',
+} as const;
 
 /**
  * Responsive grid of `PromptCard`s — the markup shared by all three lists.
@@ -46,13 +52,7 @@ export function PromptCardGrid({ prompts, actions, columns = 'default' }: Prompt
   const promptsWithPreviews = usePromptPreviews(prompts);
 
   return (
-    <div
-      className={
-        columns === 'featured'
-          ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'
-          : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'
-      }
-    >
+    <div className={GRID_CLASS[columns]}>
       {promptsWithPreviews.map((prompt, i) => (
         <PromptCard
           key={prompt.id}
@@ -75,18 +75,27 @@ export function PromptCardGrid({ prompts, actions, columns = 'default' }: Prompt
   );
 }
 
-/** Six pulsing card skeletons shown while the prompt list is in flight. */
-function LoadingSkeleton() {
+/** Eight shimmering card skeletons shown while the prompt list is in flight. */
+export function LoadingSkeleton({ count = 8 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {[...Array(6)].map((_, i) => (
-        <div key={i} className="glass-card rounded-[var(--radius-lg)] p-6 animate-pulse">
-          <div className="h-4 bg-[var(--glass-bg)] rounded w-3/4 mb-4"></div>
-          <div className="h-3 bg-[var(--glass-bg)] rounded w-1/2 mb-6"></div>
-          <div className="space-y-2">
-            <div className="h-2 bg-[var(--glass-bg)] rounded"></div>
-            <div className="h-2 bg-[var(--glass-bg)] rounded w-5/6"></div>
-            <div className="h-2 bg-[var(--glass-bg)] rounded w-4/6"></div>
+    <div className={GRID_CLASS.default} aria-busy="true" aria-label="Loading prompts">
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className="surface flex flex-col gap-3 p-4" style={{ animationDelay: `${i * 60}ms` }}>
+          <div className="flex items-center gap-3">
+            <div className="skeleton h-9 w-9 rounded-[9px]" />
+            <div className="flex-1 space-y-2">
+              <div className="skeleton h-3 w-3/4" />
+              <div className="skeleton h-2 w-1/2" />
+            </div>
+          </div>
+          <div className="space-y-1.5 pt-1">
+            <div className="skeleton h-2.5 w-full" />
+            <div className="skeleton h-2.5 w-5/6" />
+            <div className="skeleton h-2.5 w-3/5" />
+          </div>
+          <div className="flex gap-1.5 pt-1">
+            <div className="skeleton h-5 w-12" />
+            <div className="skeleton h-5 w-16" />
           </div>
         </div>
       ))}
@@ -97,12 +106,19 @@ function LoadingSkeleton() {
 function NoResults({ searchQuery }: { searchQuery: string }) {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center">
-      <Sparkles className="w-16 h-16 text-[var(--text-tertiary)] mb-4" />
-      <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No prompts found</h3>
-      <p className="text-[var(--text-tertiary)] mb-6 max-w-md">
-        {searchQuery
-          ? `No prompts match "${searchQuery}". Try a different search term.`
-          : 'Get started by creating your first prompt!'}
+      <span className="glyph mb-4 h-12 w-12 rounded-[12px]">
+        <SearchX className="h-5 w-5" />
+      </span>
+      <h3 className="text-lg font-semibold text-[var(--fg)]">No prompts found</h3>
+      <p className="mt-1.5 max-w-sm text-[14px] text-[var(--fg-3)]">
+        {searchQuery ? (
+          <>
+            Nothing matches <span className="text-[var(--fg)]">“{searchQuery}”</span>. Try another term, or search the whole
+            library with the command palette.
+          </>
+        ) : (
+          'Nothing here yet — try another section.'
+        )}
       </p>
     </div>
   );
@@ -155,12 +171,7 @@ export default function PromptGrid({
       return isAuthenticated ? (
         <EmptyState type="no-prompts" onBrowsePublic={onBrowsePublic} />
       ) : (
-        <EmptyState
-          type="not-authenticated"
-          onLogin={onLogin}
-          onSignup={onSignup}
-          onBrowsePublic={onBrowsePublic}
-        />
+        <EmptyState type="not-authenticated" onLogin={onLogin} onSignup={onSignup} onBrowsePublic={onBrowsePublic} />
       );
     }
     return <NoResults searchQuery={searchQuery} />;
@@ -171,26 +182,19 @@ export default function PromptGrid({
       <PromptCardGrid prompts={prompts} actions={actions} />
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-6 mt-8">
-          <button
-            onClick={onPreviousPage}
-            disabled={currentPage === 1}
-            className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--accent)] border-2 border-[var(--accent)] text-white font-bold shadow-lg hover:shadow-[0_0_24px_var(--accent-glow)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:scale-105 transition-all duration-200"
-          >
-            ← Previous
-          </button>
-          <span className="text-sm font-medium text-[var(--text-secondary)] px-4">
-            Page {currentPage} of {totalPages}{' '}
-            <span className="text-[var(--text-tertiary)]">({totalCount} total)</span>
+        <nav className="mt-8 flex items-center justify-center gap-3" aria-label="Pagination">
+          <Button variant="outline" size="sm" onClick={onPreviousPage} disabled={currentPage === 1} icon={<ChevronLeft className="h-3.5 w-3.5" />}>
+            Previous
+          </Button>
+          <span className="mono text-[12px] text-[var(--fg-4)]">
+            Page <span className="text-[var(--fg)]">{currentPage}</span> of {totalPages}
+            <span className="hidden sm:inline"> · {totalCount.toLocaleString()} total</span>
           </span>
-          <button
-            onClick={onNextPage}
-            disabled={currentPage === totalPages}
-            className="px-6 py-3 rounded-[var(--radius-md)] bg-[var(--accent)] border-2 border-[var(--accent)] text-white font-bold shadow-lg hover:shadow-[0_0_24px_var(--accent-glow)] disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:scale-105 transition-all duration-200"
-          >
-            Next →
-          </button>
-        </div>
+          <Button variant="outline" size="sm" onClick={onNextPage} disabled={currentPage === totalPages}>
+            Next
+            <ChevronRight className="h-3.5 w-3.5" />
+          </Button>
+        </nav>
       )}
     </>
   );
