@@ -49,17 +49,28 @@ Paths below are relative to `site/`.
 ```
 site/
   src/                 React app
-    App.tsx            996 lines (was 2,845) — still the app shell + 19 useState hooks
+    App.tsx            ~1,050 lines — the app shell: state, data fetching, handlers, layout
     hooks/             usePromptFilters (search, tags, sort, pagination)
                        usePromptPreviews (batched card blurbs — the listing has no body text)
                        usePromptContent (copy state + fetching a prompt's real body)
                        useLibraryRoute (section/category/subcategory/?prompt= URL state)
-    components/        TopBar, LibraryHero, Sidebar, ResourcesNav, PromptListToolbar,
-                       PromptGrid (also exports PromptCardGrid + PromptCardActions),
-                       PromptCard, PromptDetail, LoginModal, SignupModal,
-                       PromptEditorModal, SkillPacksView, Toast, EmptyState
+    lib/               cn (clsx + tailwind-merge), sections (the six sections: tab id, folder,
+                       label, icon, accent, blurb — every tab switch reads from here),
+                       themes (the 16 theme ids + picker swatches + localStorage key)
+    components/        TopBar (breadcrumbs, ⌘K trigger, Resources menu, New prompt, account),
+                       Sidebar (library switch, section nav, category tree, ThemePicker),
+                       CommandPalette (⌘K: prompts / sections / actions / themes),
+                       AmbientBackground (constellation canvas + glow, tinted by the tokens),
+                       LibraryHero (title, blurb, CountUp stats, in-section search),
+                       PromptListToolbar, PromptGrid (also exports PromptCardGrid,
+                       PromptCardActions, LoadingSkeleton), PromptCard (spotlight card),
+                       PromptDetail, SkillPacksView, EmptyState, Toast, ResourcesNav,
+                       ThemePicker, LoginModal, SignupModal, PromptEditorModal
+    components/ui/     primitives (Button, IconButton, Chip, Tag, Kbd, Modal*, Notice), CountUp
     contexts/          AuthContext
-    themes.css         16 themes
+    index.css          Design tokens on :root (org palette), base + component classes
+                       (.btn, .input, .chip, .spot, .popover, .surface …) in Tailwind layers
+    themes.css         16 [data-theme] overrides of those tokens + per-section accent (--c)
   server.ts            71-line dev wrapper: imports the app `api/index.ts` exports,
                        mounts the prod skill-packs handler, adds Vite HMR (port 3010)
   api/index.ts         Vercel handler: prompts, auth, GitHub-mode public library.
@@ -104,6 +115,16 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
 ## Conventions
 
 - React 19 functional components + hooks; strict TS, no `any`. Tailwind utility-first.
+- **Design system.** Colours are tokens on `:root` in `src/index.css` (`--bg`, `--surface`,
+  `--line`, `--fg`…`--fg-5`, `--accent`, `--c`), the same vocabulary as ai-automation-tools.dev:
+  `#060606` ground, zinc surfaces, sky-400 accent, Inter + JetBrains Mono, 12/8/6px radii.
+  Use the tokens (`text-[var(--fg-3)]`), never a raw Tailwind palette colour, so all 16 themes
+  stay correct. `--c` is the current section's accent (rose/cyan/violet/amber/emerald/teal,
+  set from `data-section` on `<html>`); cards, glyphs and tonal buttons tint from it.
+  Shared controls are classes in `@layer components` (`.btn`, `.input`, `.chip`, `.spot`)
+  wrapped by `components/ui/primitives.tsx`; reach for those before writing a new button.
+- Motion: `motion/react` with `LazyMotion` + `m.*` (never `motion.*`, it defeats the split).
+  Every animation must collapse under `prefers-reduced-motion` — index.css does this globally.
 - `library/**/*` is excluded from `tsconfig.json`. Vendored skills ship their own `.ts`/`.py`
   sample code that imports packages the app does not depend on, so type-checking it just breaks
   `npm run lint` on the next content resync. The app never imports from `library/` — it reads it

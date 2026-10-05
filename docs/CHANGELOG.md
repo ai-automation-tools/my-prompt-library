@@ -4,6 +4,40 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-05 — UI redesign
+
+The React app was rebuilt onto the org design vocabulary that ai-automation-tools.dev and the
+other sites share, so the library reads as a sibling of them. Routing, data fetching, the
+hooks and the API are untouched; the change is `src/index.css`, `src/themes.css`,
+`index.html` and every component.
+
+- **Tokens.** `#060606` ground with a 24px dot grid, zinc surfaces, sky-400 accent, Inter for
+  text and JetBrains Mono for eyebrows / tags / keys, 12/8/6px radii. Every colour is a custom
+  property on `:root`; the 16 themes are `:root[data-theme]` overrides of those properties and
+  nothing else (`themes.css` was regenerated onto the new names). The theme now persists in
+  `localStorage` and is applied before first paint.
+- **Per-section accent.** Each section has a hue (prompts rose, agents cyan, guides violet,
+  system prompts amber, skills emerald, skill packs teal — the per-tool accents on the org
+  landing page), exposed as `--c` from `data-section` on `<html>`. Cards, glyphs, tonal
+  buttons and the hero title tint from it; themes other than the default and Light collapse it
+  to their own accent so a monochrome theme stays monochrome.
+- **Navigation.** The sidebar's `<select>` of sections is a proper nav list with icons, live
+  counts and an animated active indicator; the category tree gained a filter box. The top bar
+  carries breadcrumbs, a ⌘K search trigger, one Resources mega-menu (replacing five pill
+  dropdowns), "New prompt" and an account menu. New **command palette** (⌘K / Ctrl+K)
+  searches every loaded prompt, jumps between sections, creates a prompt and switches theme
+  from the keyboard.
+- **Cards.** Spotlight cards (cursor-tracked ring and wash in `--c`), a plain-text blurb
+  instead of raw markdown, shimmer skeletons while previews load, and an action row that
+  reveals on hover (always visible on touch). Stagger-in on mount.
+- **Visuals.** An ambient constellation canvas tinted by the tokens sits behind the app
+  (pauses when hidden, static under `prefers-reduced-motion`); the hero counters count up.
+- **Everything else** restyled onto the tokens: hero, toolbar (sort is a menu, tags filterable),
+  detail page (metadata rail, word count, grouped actions), Skill Packs (was on raw `gray-*`
+  classes that ignored the theme), modals on one shared shell, toasts with a progress bar,
+  empty states. My Library → Skill Packs while signed out shows the sign-in state instead
+  of a 401.
+
 ## 2026-10-05 — Documentation refresh
 
 A sweep of `docs/` and the root README for anything the last two months of changes had left
