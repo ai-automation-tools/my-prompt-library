@@ -402,12 +402,10 @@ This score aggregates multiple sentiment indicators using the CNN Fear & Greed I
 **Email Requirements**:
 - **Subject**: `Market Sentiment Score - [Today's Date]`
 - **Recipients**:
-  - Michael Schecht: michael.schecht@ax-platform.com
-  - Jacob Taunton: jacob.taunton@ax-platform.com
-  - Heath Dorn: heath.dorn@ax-platform.com
-  - Michael Schecht (Personal): mikeschecht@gmail.com
-  - Jacob Taunton (Personal): jandrewt82@gmail.com
-  - Heath Dorn (Personal): Heathdorn00@yahoo.com
+  - `<recipient-1@your-org.example>`
+  - `<recipient-2@your-org.example>`
+  - `<recipient-3@your-org.example>`
+  - (Replace with your own distribution list; do not commit real addresses.)
 
 - **Email Body**:
 ```
