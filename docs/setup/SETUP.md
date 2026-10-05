@@ -6,7 +6,7 @@ Complete setup instructions for local development and production deployment.
 
 ## Prerequisites
 
-- **Node.js** 18+ ([download](https://nodejs.org/))
+- **Node.js** 22 ([download](https://nodejs.org/)) — CI pins 22; 20 works
 - **npm** or **yarn**
 - **PostgreSQL database** (Neon recommended for free tier)
 - **Git** ([download](https://git-scm.com/))
@@ -19,7 +19,14 @@ Complete setup instructions for local development and production deployment.
 
 ```bash
 git clone https://github.com/ai-automation-tools/my-prompt-library.git
-cd my-prompt-library
+cd my-prompt-library/site
+```
+
+Everything that runs — `package.json`, `api/`, `library/`, `server.ts` — lives under `site/`.
+All `npm` commands below are run from there.
+
+```bash
+# (you are now in site/)
 ```
 
 ### 2. Install Dependencies
@@ -41,7 +48,7 @@ postgresql://neondb_owner:npg_xxxxx@ep-xxxxx.neon.tech/neondb?sslmode=require
 
 ### 4. Configure Environment Variables
 
-Create `.env` file in the project root:
+Create `.env` under `site/` (copy `site/.env.example`):
 
 ```bash
 # Required: PostgreSQL Database
@@ -68,6 +75,9 @@ The database schema will initialize automatically on first run.
 ---
 
 ## Production Deployment (Vercel)
+
+> Set the Vercel project's **Root Directory** to `site`. Without it the build cannot find
+> `package.json`. Full steps in [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ### 1. Create Vercel Account
 

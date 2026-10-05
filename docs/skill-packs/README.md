@@ -95,7 +95,7 @@ library/3_Skills/packs/
   "category": "Category",
   "skills": [
     {
-      "path": "library/Skills/Category/skill-name/SKILL.md",
+      "path": "library/3_Skills/Category/skill-name/SKILL.md",
       "name": "Skill Name",
       "description": "What this skill does"
     }
@@ -142,7 +142,7 @@ library/3_Skills/packs/
 
 ### Step 1: Create Pack Manifest
 
-Create a new JSON file in `library/Skills/packs/`:
+Create a new JSON file in `library/3_Skills/packs/`:
 
 ```bash
 cd library/3_Skills/packs
@@ -212,7 +212,7 @@ npm run dev
 ### Step 5: Commit and Deploy
 
 ```bash
-git add library/Skills/packs/my-new-pack.json
+git add library/3_Skills/packs/my-new-pack.json
 git commit -m "Add My New Pack skill pack"
 git push origin main
 ```
@@ -229,7 +229,7 @@ Edit the JSON file directly:
 
 ```bash
 # Open pack file
-nano library/Skills/packs/developer-essentials-pack.json
+nano library/3_Skills/packs/developer-essentials-pack.json
 ```
 
 Common updates:
@@ -242,13 +242,13 @@ Common updates:
 
 1. Find the skill path:
 ```bash
-find library/Skills -name "SKILL.md" | grep "skill-name"
+find library/3_Skills -name "SKILL.md" | grep "skill-name"
 ```
 
 2. Add to `skills` array:
 ```json
 {
-  "path": "library/Skills/Category/new-skill/SKILL.md",
+  "path": "library/3_Skills/Category/new-skill/SKILL.md",
   "name": "New Skill Name",
   "description": "What it does"
 }
@@ -383,7 +383,7 @@ npm run dev
 
 **Check:**
 1. JSON syntax is valid
-2. File is in `library/Skills/packs/` directory
+2. File is in `library/3_Skills/packs/` directory
 3. File ends with `.json`
 4. File is committed to git
 5. Dev server restarted

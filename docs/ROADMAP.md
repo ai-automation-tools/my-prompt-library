@@ -20,8 +20,8 @@ skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-202
 | `src/App.tsx` | **996 lines** (was 2,845), 19 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
 | Line endings | LF everywhere, enforced by `.gitattributes`; the index is byte-reproducible on Linux and Windows |
-| Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG |
-| Health | Live and production-ready. Everything below is content, maintainability, or polish |
+| Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG; login/signup rate-limited and validated; `helmet` headers; `LICENSE`/`NOTICE`/`SECURITY.md` in place (2026-10-05). Neon password rotation still pending |
+| Health | Live and production-ready. Everything below is content, maintainability, or polish, plus the one operational item in **Now** |
 
 > Counts come from `api/prompt-index.json` (`promptCount`) and the drift report, not from
 > hand-maintained numbers here.

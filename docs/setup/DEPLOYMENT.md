@@ -13,6 +13,13 @@
    - Sign up at https://vercel.com
    - Install Vercel CLI: `npm i -g vercel`
 
+3. **Project settings**
+   - **Root Directory:** `site` (the deployable app lives there; the repo root holds docs and
+     utility scripts only)
+   - **Production branch:** `main`. Work happens on `mike_desktop` and lands via PR.
+   - Build command: the default `npm run build` runs `vercel-build`, which regenerates
+     `api/prompt-index.json` before `vite build`.
+
 ### Environment Variables
 
 Add these to your Vercel project (Settings → Environment Variables):
@@ -35,7 +42,7 @@ GITHUB_BRANCH=main
 
 1. **Connect to Vercel**
    ```bash
-   cd ~/.openclaw/workspace/projects/my-prompt-library/repo
+   cd my-prompt-library/site
    vercel login
    vercel link
    ```

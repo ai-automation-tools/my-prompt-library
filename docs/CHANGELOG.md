@@ -4,6 +4,37 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-05 — Documentation refresh
+
+A sweep of `docs/` and the root README for anything the last two months of changes had left
+behind. No code.
+
+- **Setup and deployment** still said `cd my-prompt-library && npm install` and "create
+  `.env` in the project root". Both now say `site/`, and `DEPLOYMENT.md` names the Vercel
+  Root Directory, production branch and what `vercel-build` does. A leftover `~/.openclaw/…`
+  path in the deploy and debug guides is gone. Node prerequisite 18+ → 22 (what CI pins).
+- **API reference** documents the login/signup rate limits, the input rules and the new 400 /
+  429 responses, and its sample `id` / `section` values are the numbered folders
+  (`2_Agents`, `4_Prompts`) instead of the pre-rename `library/Agents/…`, `Prompt_Library`,
+  `Agent_Instructions`.
+- **Templates, contributing guide, skill-pack guides, debug guide** — every `library/Skills/`,
+  `library/Agents/`, `library/Prompt_Library/`, `library/Agent_Guides/` path and section
+  example moved to the numbered layout.
+- **Architecture** lists `middleware/rate-limit.ts`, and its security section no longer
+  says "no authentication on API endpoints" with rate limiting as a future idea; it describes
+  what is actually there (session-gated writes, `sameSite=lax` as the CSRF stand-in, limiters,
+  `helmet`, `trust proxy`).
+- **Library-mode design doc** carries a note that its Phase 2 filesystem `My_Prompts/` plan
+  was superseded by Postgres.
+- **docs/README** links the new root policy files (LICENSE, NOTICE, SECURITY, CODE_OF_CONDUCT,
+  CONTRIBUTING) and its status paragraph is current. **ROADMAP** snapshot's Security row and
+  **UPSTREAMS** framework table include the two new auth dependencies. Root README structure
+  and endpoint list match.
+
+Left alone on purpose: `DIRECTION.md` (dated narrative), `FEATURED-PROMPTS.md` (content
+tracking, last updated 2026-03-25), the audit reports, and `category:` frontmatter examples
+such as `"Agent_Guides"`, which the `1_Guides` files really do still use.
+
 ## 2026-10-05 — Auth abuse controls, community files, branch prune, drift resync
 
 Second pass of the same pre-publicity sweep.

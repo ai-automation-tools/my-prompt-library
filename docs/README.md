@@ -27,6 +27,13 @@ Documentation for **my-prompt-library**, live at
 - **[Debug Guide](development/DEBUG_UI.md)** — troubleshooting
 - **[PostgreSQL Migration](development/POSTGRES-MIGRATION-SUMMARY.md)** — SQLite → Postgres notes
 
+### Project policies (repo root)
+- **[LICENSE](../LICENSE)** — Apache 2.0 for the application code
+- **[NOTICE](../NOTICE)** — vendored library content keeps its own licenses
+- **[SECURITY.md](../SECURITY.md)** — how to report a vulnerability, what is in scope
+- **[CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md)**
+- **[CONTRIBUTING.md](../CONTRIBUTING.md)** — the short version; the full guide is [here](CONTRIBUTING.md)
+
 ### Planning & Status
 - **[Direction](DIRECTION.md)** — plain-language: what changed after the audit, and what the site becomes
 - **[Roadmap](ROADMAP.md)** — what's next
@@ -179,9 +186,12 @@ My Library are disabled.
 
 ## 📊 Project Status
 
-Production-ready and live. Security is clean as of 2026-08-26 (0 npm advisories, path
-traversal closed, CSPRNG session tokens). The open work is content freshness, dev/prod
-parity, and payload size — see [ROADMAP.md](ROADMAP.md).
+Production-ready and live. Security as of 2026-10-05: 0 npm advisories, path traversal
+closed, CSPRNG session tokens, per-IP rate limits on login and signup, input validation,
+`helmet` headers, no personal contact details or sample credentials in the library, and a
+`LICENSE` that matches what the README claims. The one open security item is operational —
+rotating the Neon password that was scrubbed from history — see [ROADMAP.md](ROADMAP.md).
+Dev/prod parity and payload size are done; the open work is content.
 
 A weekly GitHub Action (`.github/workflows/upstream-drift.yml`) reports which vendored
 skills have fallen behind their upstream. It never edits content; it updates one rolling

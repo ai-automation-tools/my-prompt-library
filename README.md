@@ -180,11 +180,13 @@ my-prompt-library/
 │   │   └── 5_System_Prompts/
 │   ├── db/                   # Database layer (PostgreSQL)
 │   ├── routes/               # Auth routes
-│   ├── middleware/           # Auth middleware
+│   ├── middleware/           # Session middleware + per-IP login/signup limiters
 │   ├── scripts/              # build-prompt-index.js, api-routes.test.mjs
 │   └── server.ts             # Dev wrapper around the same app api/ exports (port 3010)
 ├── .github/workflows/ci.yml  # lint + route test + provenance checks + index freshness
 ├── .gitattributes            # LF everywhere, in the repo and the working tree
+├── LICENSE, NOTICE           # Apache 2.0 for the app; vendored content keeps its own
+├── SECURITY.md, CODE_OF_CONDUCT.md, CONTRIBUTING.md
 ├── docs/                     # Project documentation
 ├── scripts/                  # Utility scripts
 └── README.md
@@ -213,8 +215,8 @@ GITHUB_BRANCH=main
 ## API Endpoints
 
 ### Authentication
-- `POST /api/auth/signup` - Create account
-- `POST /api/auth/login` - Login
+- `POST /api/auth/signup` - Create account (5 per IP / 15 min; 8–72 char password)
+- `POST /api/auth/login` - Login (20 failed attempts per IP / 15 min)
 - `POST /api/auth/logout` - Logout
 - `GET /api/auth/me` - Get current user
 - `PUT /api/auth/me` - Update profile
