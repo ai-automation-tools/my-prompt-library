@@ -4,6 +4,19 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-05 — Two prompts for the thinnest Business folders
+
+`Business/Supply_Chain` and `Business/Strategy` each held a single prompt. Each gets a second:
+
+- **Single-Source Risk and Dual-Sourcing Plan** ranks the parts one supplier can stop you
+  from shipping, picks a treatment per item (second source, buffer stock, redesign or accept
+  the risk), and prices it against the outage cost avoided.
+- **Strategic Bet Pre-Mortem** assumes a decision has already failed, writes three distinct
+  failure stories, and ends with kill and pivot criteria set before anyone is attached to the
+  outcome.
+
+`api/prompt-index.json` is rebuilt to match.
+
 ## 2026-10-04 — An upstream worklist for the app
 
 `docs/UPSTREAMS.md` lists what the app assumes about Neon and `pg`, the GitHub REST API (GitHub

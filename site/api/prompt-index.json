@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "buildTime": "2026-09-27T22:01:26.392Z",
-  "promptCount": 3200,
+  "buildTime": "2026-10-05T21:01:58.857Z",
+  "promptCount": 3202,
   "prompts": [
     {
       "id": "1_Guides/API_Providers/anthropic-api-guide.md",
@@ -40167,6 +40167,40 @@
       ],
       "contentPreview": "\n# Competitor Analysis Framework\n\n## Purpose\nGenerates a structured, comprehensive competitive analysis based on minimal input about a competitor, helping businesses identify strategic gaps.\n\n## Instr",
       "lastModified": "2026-09-20T06:00:08.585Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/Strategy/strategic-bet-pre-mortem.md",
+      "title": "🧭 Strategic Bet Pre-Mortem",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "Strategy",
+      "tags": [
+        "strategy",
+        "pre-mortem",
+        "risk",
+        "decision-making",
+        "planning"
+      ],
+      "contentPreview": "\n# Strategic Bet Pre-Mortem\n\n## Purpose\nStress-test a strategic decision before committing to it by assuming it has already failed, then working backwards to the causes, early warnings, and cheap miti",
+      "lastModified": "2026-10-05T21:01:43.666Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Business/Supply_Chain/single-source-risk-and-dual-sourcing-plan.md",
+      "title": "🚚 Single-Source Risk and Dual-Sourcing Plan",
+      "section": "4_Prompts",
+      "category": "Business",
+      "subcategory": "Supply_Chain",
+      "tags": [
+        "supply-chain",
+        "sourcing",
+        "risk",
+        "procurement",
+        "resilience"
+      ],
+      "contentPreview": "\n# Single-Source Risk and Dual-Sourcing Plan\n\n## Purpose\nFind the parts and services that one supplier can stop you from shipping, then decide which are worth a second source and how to qualify one wi",
+      "lastModified": "2026-10-05T21:01:35.067Z",
       "isUserOwned": false
     },
     {
