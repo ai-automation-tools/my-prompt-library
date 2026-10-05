@@ -3,11 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
-import { X, Save, Eye, Code } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { AlertCircle, Code2, Eye, Save, X } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { m, AnimatePresence } from 'motion/react';
+import { LayoutGroup, m } from 'motion/react';
+import { cn } from '../lib/cn';
+import { SECTIONS } from '../lib/sections';
+import { Button, Modal, ModalFooter, ModalHeader, Notice } from './ui/primitives';
 
 interface Prompt {
   id?: string;
@@ -27,13 +30,9 @@ interface PromptEditorModalProps {
   defaultSection?: string;
 }
 
-export default function PromptEditorModal({
-  isOpen,
-  onClose,
-  onSave,
-  editingPrompt,
-  defaultSection = '4_Prompts'
-}: PromptEditorModalProps) {
+const LABEL = 'mb-1.5 block text-[13px] font-medium text-[var(--fg-2)]';
+
+export default function PromptEditorModal({ isOpen, onClose, onSave, editingPrompt, defaultSection = '4_Prompts' }: PromptEditorModalProps) {
   const [title, setTitle] = useState('');
   const [section, setSection] = useState(defaultSection);
   const [category, setCategory] = useState('');
@@ -41,7 +40,7 @@ export default function PromptEditorModal({
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [content, setContent] = useState('');
-  const [showPreview, setShowPreview] = useState(false);
+  const [mode, setMode] = useState<'write' | 'preview'>('write');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -55,7 +54,6 @@ export default function PromptEditorModal({
       setTags(editingPrompt.tags || []);
       setContent(editingPrompt.content);
     } else {
-      // Reset form for new prompt
       setTitle('');
       setSection(defaultSection);
       setCategory('');
@@ -64,42 +62,34 @@ export default function PromptEditorModal({
       setTagInput('');
       setContent('');
     }
+    setMode('write');
     setError('');
   }, [editingPrompt, defaultSection, isOpen]);
 
-  const handleAddTag = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && tagInput.trim()) {
-      e.preventDefault();
-      if (!tags.includes(tagInput.trim())) {
-        setTags([...tags, tagInput.trim()]);
-      }
-      setTagInput('');
-    }
+  const commitTag = () => {
+    const value = tagInput.trim().replace(/,+$/, '');
+    if (value && !tags.includes(value)) setTags([...tags, value]);
+    setTagInput('');
   };
 
-  const handleRemoveTag = (tagToRemove: string) => {
-    setTags(tags.filter(tag => tag !== tagToRemove));
+  const handleTagKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      commitTag();
+    } else if (e.key === 'Backspace' && !tagInput && tags.length) {
+      setTags(tags.slice(0, -1));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    if (!title.trim()) {
-      setError('Title is required');
-      return;
-    }
-    if (!category.trim()) {
-      setError('Category is required');
-      return;
-    }
-    if (!content.trim()) {
-      setError('Content is required');
-      return;
-    }
+    if (!title.trim()) return setError('Title is required');
+    if (!category.trim()) return setError('Category is required');
+    if (!content.trim()) return setError('Content is required');
 
     setSaving(true);
-
     try {
       await onSave({
         id: editingPrompt?.id,
@@ -108,11 +98,11 @@ export default function PromptEditorModal({
         category: category.trim(),
         subcategory: subcategory.trim() || null,
         tags,
-        content: content.trim()
+        content: content.trim(),
       });
       onClose();
-    } catch (err: any) {
-      setError(err.message || 'Failed to save prompt');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to save prompt');
     } finally {
       setSaving(false);
     }
@@ -120,210 +110,151 @@ export default function PromptEditorModal({
 
   if (!isOpen) return null;
 
-  return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        {/* Backdrop */}
-        <m.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-          onClick={onClose}
-        />
+  const words = content.trim() ? content.trim().split(/\s+/).length : 0;
 
-        {/* Modal */}
-        <m.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-5xl max-h-[90vh] bg-[var(--bg-secondary)] border border-[var(--glass-border)] rounded-[var(--radius-lg)] shadow-2xl flex flex-col overflow-hidden"
-        >
-          {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-[var(--glass-border)]">
-            <h2 className="text-2xl font-bold text-[var(--text-primary)]">
-              {editingPrompt ? 'Edit Prompt' : 'Create New Prompt'}
-            </h2>
-            <button
-              onClick={onClose}
-              className="p-2 rounded-lg hover:bg-[var(--glass-bg-hover)] transition-colors"
-            >
-              <X className="w-5 h-5 text-[var(--text-tertiary)]" />
-            </button>
+  return (
+    <Modal onClose={onClose} size="lg" labelledBy="editor-title">
+      <ModalHeader
+        id="editor-title"
+        eyebrow={editingPrompt ? 'Editing' : 'My Library'}
+        title={editingPrompt ? 'Edit prompt' : 'New prompt'}
+        description="Markdown body, plus the metadata the library files on."
+        onClose={onClose}
+      />
+
+      <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col">
+        <div className="min-h-0 flex-1 space-y-5 overflow-y-auto px-6 py-5">
+          {error && (
+            <Notice>
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>{error}</span>
+            </Notice>
+          )}
+
+          <div className="grid gap-4 sm:grid-cols-[1fr_220px]">
+            <div>
+              <label htmlFor="prompt-title" className={LABEL}>
+                Title <span className="text-[var(--danger)]">*</span>
+              </label>
+              <input id="prompt-title" type="text" value={title} onChange={e => setTitle(e.target.value)} className="input" placeholder="A short, specific name" required autoFocus />
+            </div>
+            <div>
+              <label htmlFor="prompt-section" className={LABEL}>
+                Section <span className="text-[var(--danger)]">*</span>
+              </label>
+              <select id="prompt-section" value={section} onChange={e => setSection(e.target.value)} className="input" disabled={!!editingPrompt}>
+                {SECTIONS.filter(s => s.folder).map(s => (
+                  <option key={s.id} value={s.folder}>
+                    {s.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="flex-1 flex flex-col overflow-hidden">
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              {/* Error Message */}
-              {error && (
-                <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
-                  {error}
-                </div>
-              )}
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label htmlFor="prompt-category" className={LABEL}>
+                Category <span className="text-[var(--danger)]">*</span>
+              </label>
+              <input id="prompt-category" type="text" value={category} onChange={e => setCategory(e.target.value)} className="input" placeholder="e.g. Development, Writing" disabled={!!editingPrompt} required />
+            </div>
+            <div>
+              <label htmlFor="prompt-subcategory" className={LABEL}>
+                Subcategory
+              </label>
+              <input id="prompt-subcategory" type="text" value={subcategory} onChange={e => setSubcategory(e.target.value)} className="input" placeholder="Optional" disabled={!!editingPrompt} />
+            </div>
+          </div>
 
-              {/* Basic Info */}
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-2">
-                    Title *
-                  </label>
-                  <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent)] transition-colors"
-                    placeholder="Enter prompt title"
-                    required
-                  />
-                </div>
+          <div>
+            <label htmlFor="prompt-tags" className={LABEL}>
+              Tags
+            </label>
+            <div
+              className="input flex h-auto min-h-[38px] flex-wrap items-center gap-1.5 py-1.5 focus-within:border-[var(--accent)] focus-within:shadow-[0_0_0_3px_var(--tint-2)]"
+              onClick={e => (e.currentTarget.querySelector('input') as HTMLInputElement | null)?.focus()}
+            >
+              {tags.map(tag => (
+                <span key={tag} className="chip chip-active h-[22px] pr-1">
+                  {tag}
+                  <button type="button" onClick={() => setTags(tags.filter(t => t !== tag))} aria-label={`Remove tag ${tag}`} className="grid h-4 w-4 place-items-center rounded hover:bg-[color-mix(in_srgb,var(--fg)_12%,transparent)]">
+                    <X className="h-3 w-3" />
+                  </button>
+                </span>
+              ))}
+              <input
+                id="prompt-tags"
+                type="text"
+                value={tagInput}
+                onChange={e => setTagInput(e.target.value)}
+                onKeyDown={handleTagKey}
+                onBlur={commitTag}
+                placeholder={tags.length ? '' : 'Type a tag, press Enter'}
+                className="min-w-[140px] flex-1 bg-transparent text-[13.5px] outline-none placeholder:text-[var(--fg-4)]"
+              />
+            </div>
+          </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-2">
-                    Section *
-                  </label>
-                  <select
-                    value={section}
-                    onChange={(e) => setSection(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent)] transition-colors"
-                    disabled={!!editingPrompt}
-                  >
-                    <option value="1_Guides">Guides</option>
-                    <option value="2_Agents">Agents</option>
-                    <option value="3_Skills">Skills</option>
-                    <option value="4_Prompts">Prompts</option>
-                    <option value="5_System_Prompts">System Prompts</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-2">
-                    Category *
-                  </label>
-                  <input
-                    type="text"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent)] transition-colors"
-                    placeholder="e.g., IT, Business, Writing"
-                    disabled={!!editingPrompt}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-2">
-                    Subcategory
-                  </label>
-                  <input
-                    type="text"
-                    value={subcategory}
-                    onChange={(e) => setSubcategory(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent)] transition-colors"
-                    placeholder="Optional subcategory"
-                    disabled={!!editingPrompt}
-                  />
-                </div>
-              </div>
-
-              {/* Tags */}
-              <div>
-                <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-2">
-                  Tags
-                </label>
-                <div className="flex flex-wrap gap-2 mb-2">
-                  {tags.map(tag => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--accent-glow-subtle)] text-[var(--accent)] rounded-full text-sm"
-                    >
-                      {tag}
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveTag(tag)}
-                        className="hover:text-[var(--accent-secondary)]"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </span>
+          <div>
+            <div className="mb-1.5 flex items-center justify-between">
+              <label htmlFor="prompt-content" className={cn(LABEL, 'mb-0')}>
+                Content <span className="text-[var(--danger)]">*</span> <span className="font-normal text-[var(--fg-4)]">· Markdown</span>
+              </label>
+              <LayoutGroup id="editor-mode">
+                <div className="segmented" role="group" aria-label="Editor mode">
+                  {(
+                    [
+                      { id: 'write', label: 'Write', icon: Code2 },
+                      { id: 'preview', label: 'Preview', icon: Eye },
+                    ] as const
+                  ).map(({ id, label, icon: Icon }) => (
+                    <button key={id} type="button" aria-pressed={mode === id} onClick={() => setMode(id)} className="!h-7 !px-2.5 !text-[12px]">
+                      {mode === id && <m.span layoutId="editor-mode-thumb" className="segmented-thumb" transition={{ type: 'spring', stiffness: 500, damping: 40 }} />}
+                      <Icon className="h-3.5 w-3.5" />
+                      {label}
+                    </button>
                   ))}
                 </div>
-                <input
-                  type="text"
-                  value={tagInput}
-                  onChange={(e) => setTagInput(e.target.value)}
-                  onKeyDown={handleAddTag}
-                  className="w-full px-4 py-2.5 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent)] transition-colors"
-                  placeholder="Type and press Enter to add tags"
-                />
-              </div>
+              </LayoutGroup>
+            </div>
 
-              {/* Content Editor/Preview Toggle */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-semibold text-[var(--text-secondary)]">
-                    Content * (Markdown)
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() => setShowPreview(!showPreview)}
-                    className="flex items-center gap-2 px-3 py-1.5 text-sm bg-[var(--glass-bg)] hover:bg-[var(--glass-bg-hover)] border border-[var(--glass-border)] rounded-lg text-[var(--text-secondary)] transition-colors"
-                  >
-                    {showPreview ? (
-                      <>
-                        <Code className="w-4 h-4" />
-                        Edit
-                      </>
-                    ) : (
-                      <>
-                        <Eye className="w-4 h-4" />
-                        Preview
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                {showPreview ? (
-                  <div className="min-h-[400px] p-4 bg-[var(--bg-tertiary)] border border-[var(--glass-border)] rounded-lg overflow-auto">
-                    <div className="markdown-body prose prose-invert max-w-none">
-                      <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>
-                    </div>
+            {mode === 'preview' ? (
+              <div className="surface min-h-[380px] p-5">
+                {content.trim() ? (
+                  <div className="markdown-body">
+                    <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>
                   </div>
                 ) : (
-                  <textarea
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    className="w-full min-h-[400px] px-4 py-3 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg text-[var(--text-primary)] font-mono text-sm focus:outline-none focus:border-[var(--accent)] transition-colors resize-y"
-                    placeholder="Write your prompt content here in Markdown..."
-                    required
-                  />
+                  <p className="text-[13.5px] text-[var(--fg-4)]">Nothing to preview yet.</p>
                 )}
               </div>
-            </div>
+            ) : (
+              <textarea
+                id="prompt-content"
+                value={content}
+                onChange={e => setContent(e.target.value)}
+                className="input mono min-h-[380px] text-[13px] leading-relaxed"
+                placeholder="# Role&#10;&#10;You are…"
+                required
+                spellCheck={false}
+              />
+            )}
+            <p className="mono mt-1.5 text-right text-[10.5px] text-[var(--fg-5)]">
+              {words.toLocaleString()} words · {content.length.toLocaleString()} chars
+            </p>
+          </div>
+        </div>
 
-            {/* Footer */}
-            <div className="flex items-center justify-end gap-3 p-6 border-t border-[var(--glass-border)]">
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-6 py-2.5 rounded-lg text-[var(--text-secondary)] hover:bg-[var(--glass-bg-hover)] transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                disabled={saving}
-                className="flex items-center gap-2 px-6 py-2.5 bg-[var(--accent)] hover:bg-[var(--accent-secondary)] text-white rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Save className="w-4 h-4" />
-                {saving ? 'Saving...' : (editingPrompt ? 'Update' : 'Create')}
-              </button>
-            </div>
-          </form>
-        </m.div>
-      </div>
-    </AnimatePresence>
+        <ModalFooter>
+          <Button variant="ghost" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button type="submit" variant="primary" disabled={saving} icon={<Save className="h-4 w-4" />}>
+            {saving ? 'Saving…' : editingPrompt ? 'Save changes' : 'Create prompt'}
+          </Button>
+        </ModalFooter>
+      </form>
+    </Modal>
   );
 }

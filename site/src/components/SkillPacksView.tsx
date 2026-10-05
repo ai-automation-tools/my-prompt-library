@@ -1,7 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState, type MouseEvent as ReactMouseEvent } from 'react';
+import { AnimatePresence, m } from 'motion/react';
+import { ArrowLeft, ArrowRight, Download, Info, Package, PackageMinus, PackagePlus, Tag, Wrench } from 'lucide-react';
+import { cn } from '../lib/cn';
+import { humanize } from '../lib/sections';
+import { Button } from './ui/primitives';
+import { LoadingSkeleton } from './PromptGrid';
+import EmptyState from './EmptyState';
 
 type ToastType = 'success' | 'error' | 'warning' | 'info';
-import { Package, Download, ArrowLeft, Tag, Wrench, Info } from 'lucide-react';
 
 interface SkillPackSummary {
   id: string;
@@ -46,18 +52,52 @@ interface SkillPacksViewProps {
   user: { id: string } | null;
   libraryMode: 'public' | 'my';
   onRequireLogin: () => void;
+  onBrowsePublic?: () => void;
   onToast: (type: ToastType, message: string) => void;
 }
 
-export default function SkillPacksView({ user, libraryMode, onRequireLogin, onToast }: SkillPacksViewProps) {
+function trackSpotlight(e: ReactMouseEvent<HTMLElement>) {
+  const el = e.currentTarget;
+  const rect = el.getBoundingClientRect();
+  el.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+  el.style.setProperty('--my', `${e.clientY - rect.top}px`);
+}
+
+export default function SkillPacksView({ user, libraryMode, onRequireLogin, onBrowsePublic, onToast }: SkillPacksViewProps) {
   const [packs, setPacks] = useState<SkillPackSummary[]>([]);
   const [selectedPack, setSelectedPack] = useState<SkillPackDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
   const [addingPackId, setAddingPackId] = useState<string | null>(null);
   const [removingPackId, setRemovingPackId] = useState<string | null>(null);
+
+  const fetchPacks = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await fetch(`/api/skill-packs?library=${libraryMode}`, { credentials: 'include' });
+      if (!response.ok) throw new Error(`Failed to fetch skill packs (${response.status})`);
+      const data = await response.json();
+      setPacks(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error('Fetch error:', err);
+      setError(err instanceof Error ? err.message : 'Failed to load packs');
+    } finally {
+      setLoading(false);
+    }
+  }, [libraryMode]);
+
+  const needsLogin = libraryMode === 'my' && !user;
+
+  useEffect(() => {
+    if (needsLogin) {
+      setPacks([]);
+      setLoading(false);
+      return;
+    }
+    void fetchPacks();
+  }, [fetchPacks, needsLogin]);
 
   const handleAddPackToLibrary = async (packId: string) => {
     if (!user) {
@@ -65,15 +105,8 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onTo
       onRequireLogin();
       return;
     }
-
     const pack = packs.find(p => p.id === packId);
-    const confirmed = window.confirm(
-      `Add skill pack${pack ? ` "${pack.name}"` : ''} to My Library?`
-    );
-
-    if (!confirmed) {
-      return;
-    }
+    if (!window.confirm(`Add skill pack${pack ? ` "${pack.name}"` : ''} to My Library?`)) return;
 
     try {
       setAddingPackId(packId);
@@ -83,14 +116,10 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onTo
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ confirm: true }),
       });
-
       const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data?.error || 'Failed to add pack to library');
-      }
-
+      if (!response.ok) throw new Error(data?.error || 'Failed to add pack to library');
       onToast('success', data?.message || 'Skill pack added to My Library');
-      fetchPacks();
+      void fetchPacks();
     } catch (err) {
       onToast('error', err instanceof Error ? err.message : 'Failed to add pack to library');
     } finally {
@@ -98,20 +127,14 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onTo
     }
   };
 
-
   const handleRemovePackFromLibrary = async (packId: string) => {
     if (!user) {
       onToast('info', 'Sign in to manage your skill packs');
       onRequireLogin();
       return;
     }
-
     const pack = packs.find(p => p.id === packId);
-    const confirmed = window.confirm(
-      `Remove skill pack${pack ? ` "${pack.name}"` : ''} from My Library?`
-    );
-
-    if (!confirmed) return;
+    if (!window.confirm(`Remove skill pack${pack ? ` "${pack.name}"` : ''} from My Library?`)) return;
 
     try {
       setRemovingPackId(packId);
@@ -121,41 +144,15 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onTo
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ confirm: true }),
       });
-
       const data = await response.json();
       if (!response.ok) throw new Error(data?.error || 'Failed to remove pack from library');
-
       onToast('success', data?.message || 'Skill pack removed from My Library');
-      if (selectedPack?.id === packId) {
-        setSelectedPack(null);
-      }
-      fetchPacks();
+      if (selectedPack?.id === packId) setSelectedPack(null);
+      void fetchPacks();
     } catch (err) {
       onToast('error', err instanceof Error ? err.message : 'Failed to remove pack from library');
     } finally {
       setRemovingPackId(null);
-    }
-  };
-  useEffect(() => {
-    fetchPacks();
-  }, [libraryMode]);
-
-  const fetchPacks = async () => {
-    try {
-      setLoading(true);
-      const url = `/api/skill-packs?library=${libraryMode}`;
-      console.log('Fetching skill packs from:', url);
-      const response = await fetch(url, { credentials: 'include' });
-      console.log('Response status:', response.status);
-      if (!response.ok) throw new Error(`Failed to fetch skill packs (${response.status})`);
-      const data = await response.json();
-      console.log('Fetched packs:', data.length);
-      setPacks(data);
-    } catch (err) {
-      console.error('Fetch error:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load packs');
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -164,38 +161,19 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onTo
       setDetailLoading(true);
       const response = await fetch(`/api/skill-packs/${encodeURIComponent(packId)}`);
       if (!response.ok) throw new Error('Failed to fetch pack details');
-      const data = await response.json();
-      setSelectedPack(data);
+      setSelectedPack(await response.json());
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load pack details');
+      onToast('error', err instanceof Error ? err.message : 'Failed to load pack details');
     } finally {
       setDetailLoading(false);
     }
   };
 
-  const handlePackClick = (packId: string) => {
-    fetchPackDetail(packId);
-  };
-
-  const handleBack = () => {
-    setSelectedPack(null);
-  };
-
   const handleDownloadPack = async (packId: string) => {
     try {
-      // Request download from backend
-      const response = await fetch(`/api/skill-packs/${encodeURIComponent(packId)}/download`, {
-        method: 'GET',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to download pack');
-      }
-
-      // Get the blob
+      const response = await fetch(`/api/skill-packs/${encodeURIComponent(packId)}/download`);
+      if (!response.ok) throw new Error('Failed to download pack');
       const blob = await response.blob();
-      
-      // Create download link
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -204,341 +182,280 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onTo
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
+      onToast('success', 'Skill pack downloaded');
     } catch (err) {
       console.error('Download error:', err);
-      alert('Failed to download pack. Please try again.');
+      onToast('error', 'Failed to download pack. Please try again.');
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
+  const libraryAction = (packId: string, size: 'sm' | 'md' = 'sm') =>
+    libraryMode === 'public' ? (
+      <Button size={size} variant="tonal" onClick={e => { e.stopPropagation(); void handleAddPackToLibrary(packId); }} disabled={addingPackId === packId} icon={<PackagePlus className="h-3.5 w-3.5" />}>
+        {addingPackId === packId ? 'Adding…' : 'Add to My Library'}
+      </Button>
+    ) : (
+      <Button size={size} variant="danger" onClick={e => { e.stopPropagation(); void handleRemovePackFromLibrary(packId); }} disabled={removingPackId === packId} icon={<PackageMinus className="h-3.5 w-3.5" />}>
+        {removingPackId === packId ? 'Removing…' : 'Remove'}
+      </Button>
     );
+
+  // My Library needs an account; say so instead of surfacing the 401.
+  if (needsLogin) {
+    return <EmptyState type="not-authenticated" onLogin={onRequireLogin} onSignup={onRequireLogin} onBrowsePublic={onBrowsePublic} />;
   }
+
+  if (loading) return <LoadingSkeleton count={6} />;
 
   if (error) {
     return (
-      <div className="text-center py-12">
-        <p className="text-red-500 dark:text-red-400">{error}</p>
-        <button
-          onClick={fetchPacks}
-          className="mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
-        >
+      <div className="flex flex-col items-center py-16 text-center">
+        <p className="text-[14px] text-[var(--danger)]">{error}</p>
+        <Button className="mt-4" onClick={() => void fetchPacks()}>
           Retry
-        </button>
+        </Button>
       </div>
     );
   }
 
-  // Pack detail view
-  if (selectedPack) {
-    return (
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="mb-6">
-          <button
-            onClick={handleBack}
-            className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Skill Packs
+  return (
+    <AnimatePresence mode="wait">
+      {selectedPack ? (
+        <m.div
+          key={`pack-${selectedPack.id}`}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
+          className="mx-auto max-w-5xl pt-2"
+        >
+          <button type="button" onClick={() => setSelectedPack(null)} className="btn btn-ghost btn-sm -ml-2 mb-5">
+            <ArrowLeft className="h-3.5 w-3.5" />
+            All skill packs
           </button>
 
-          <div className="flex items-start gap-4">
-            <div className="text-6xl">{selectedPack.icon}</div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                {selectedPack.name}
-              </h1>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                {selectedPack.description}
-              </p>
-              <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-500">
-                <span className="flex items-center gap-1">
-                  <Wrench className="w-4 h-4" />
+          <div className="flex flex-col gap-5 md:flex-row md:items-start">
+            <span className="glyph h-16 w-16 rounded-[14px] text-[2rem]">{selectedPack.icon}</span>
+            <div className="min-w-0 flex-1">
+              <p className="eyebrow mb-1.5">{humanize(selectedPack.category)}</p>
+              <h1 className="text-[1.75rem] font-semibold leading-tight tracking-[-0.02em] text-[var(--fg)]">{selectedPack.name}</h1>
+              <p className="mt-2 max-w-2xl text-[14.5px] leading-relaxed text-[var(--fg-3)]">{selectedPack.description}</p>
+              <div className="mono mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11.5px] text-[var(--fg-4)]">
+                <span className="inline-flex items-center gap-1.5">
+                  <Wrench className="h-3.5 w-3.5" />
                   {selectedPack.skillCount} skills
                 </span>
                 <span>v{selectedPack.version}</span>
                 <span>{selectedPack.author}</span>
               </div>
+              {selectedPack.tags.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {selectedPack.tags.map(tag => (
+                    <span key={tag} className="chip">
+                      <Tag className="h-2.5 w-2.5" />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Tags */}
-          {selectedPack.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-4">
-              {selectedPack.tags.map(tag => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Download Button */}
-        <div className="mb-8 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          {/* Download panel */}
+          <div className="surface mt-7 flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                Download this pack
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Get all {selectedPack.skillCount} skills as a ZIP file with complete documentation
+              <h3 className="text-[15px] font-semibold text-[var(--fg)]">Get this pack</h3>
+              <p className="mt-0.5 text-[13.5px] text-[var(--fg-3)]">
+                All {selectedPack.skillCount} skills as one zip, with their sample code and docs.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              {libraryMode === 'public' && (
-                <button
-                  onClick={() => handleAddPackToLibrary(selectedPack.id)}
-                  disabled={addingPackId === selectedPack.id}
-                  className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-60 transition-colors flex items-center gap-2 font-medium"
-                >
-                  <Package className="w-5 h-5" />
-                  {addingPackId === selectedPack.id ? 'Adding...' : 'Add to My Library'}
-                </button>
-              )}
-              {libraryMode === 'my' && (
-                <button
-                  onClick={() => handleRemovePackFromLibrary(selectedPack.id)}
-                  disabled={removingPackId === selectedPack.id}
-                  className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-60 transition-colors flex items-center gap-2 font-medium"
-                >
-                  <Package className="w-5 h-5" />
-                  {removingPackId === selectedPack.id ? 'Removing...' : 'Remove from My Library'}
-                </button>
-              )}
-              <button 
-                onClick={() => handleDownloadPack(selectedPack.id)}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium"
-              >
-                <Download className="w-5 h-5" />
-                Download ZIP
-              </button>
+            <div className="flex flex-wrap gap-2">
+              {libraryAction(selectedPack.id, 'md')}
+              <Button variant="primary" onClick={() => void handleDownloadPack(selectedPack.id)} icon={<Download className="h-4 w-4" />}>
+                Download zip
+              </Button>
             </div>
           </div>
-        </div>
 
-        {/* Use Cases */}
-        {selectedPack.use_cases.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Use Cases</h2>
-            <ul className="space-y-2">
-              {selectedPack.use_cases.map((useCase, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1">•</span>
-                  {useCase}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Prerequisites */}
-        {(selectedPack.prerequisites.required_tools.length > 0 ||
-          selectedPack.prerequisites.optional_tools.length > 0 ||
-          selectedPack.prerequisites.recommended_knowledge.length > 0) && (
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Prerequisites</h2>
-            <div className="space-y-4">
-              {selectedPack.prerequisites.required_tools.length > 0 && (
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Required Tools</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedPack.prerequisites.required_tools.map(tool => (
-                      <span
-                        key={tool}
-                        className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-md text-sm font-mono"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {selectedPack.prerequisites.optional_tools.length > 0 && (
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Optional Tools</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedPack.prerequisites.optional_tools.map(tool => (
-                      <span
-                        key={tool}
-                        className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-mono"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {selectedPack.prerequisites.recommended_knowledge.length > 0 && (
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Recommended Knowledge</h3>
-                  <ul className="space-y-1">
-                    {selectedPack.prerequisites.recommended_knowledge.map((knowledge, idx) => (
-                      <li key={idx} className="text-gray-700 dark:text-gray-300 text-sm">
-                        • {knowledge}
+          <div className="mt-7 grid gap-6 lg:grid-cols-12">
+            <div className="space-y-7 lg:col-span-8">
+              {selectedPack.use_cases.length > 0 && (
+                <section>
+                  <h2 className="eyebrow mb-3">Use cases</h2>
+                  <ul className="space-y-2">
+                    {selectedPack.use_cases.map((useCase, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-[14px] text-[var(--fg-2)]">
+                        <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--c)]" />
+                        {useCase}
                       </li>
                     ))}
                   </ul>
-                </div>
+                </section>
               )}
-            </div>
-          </div>
-        )}
 
-        {/* Skills List */}
-        <div className="mb-8">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-            Included Skills ({selectedPack.skillCount})
-          </h2>
-          <div className="space-y-3">
-            {selectedPack.skills.map((skill, idx) => (
-              <div
-                key={idx}
-                className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center text-primary font-semibold text-sm">
-                    {idx + 1}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                      {skill.metadata?.name || skill.name}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-                      {skill.metadata?.description || skill.description}
-                    </p>
-                    {skill.metadata?.tags && skill.metadata.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1">
-                        {skill.metadata.tags.slice(0, 3).map(tag => (
-                          <span
-                            key={tag}
-                            className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs"
-                          >
-                            {tag}
+              <section>
+                <h2 className="eyebrow mb-3">Included skills · {selectedPack.skillCount}</h2>
+                <ol className="space-y-2">
+                  {selectedPack.skills.map((skill, idx) => (
+                    <li key={skill.path || idx} className="surface flex items-start gap-3.5 p-4">
+                      <span className="mono grid h-7 w-7 shrink-0 place-items-center rounded-[7px] bg-[color-mix(in_srgb,var(--c)_12%,transparent)] text-[11px] text-[var(--c)]">
+                        {idx + 1}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-[14px] font-semibold text-[var(--fg)]">{skill.metadata?.name || skill.name}</h3>
+                        <p className="mt-1 text-[13px] leading-relaxed text-[var(--fg-3)]">{skill.metadata?.description || skill.description}</p>
+                        {skill.metadata?.tags && skill.metadata.tags.length > 0 && (
+                          <div className="mt-2 flex flex-wrap gap-1">
+                            {skill.metadata.tags.slice(0, 4).map(tag => (
+                              <span key={tag} className="chip h-[20px] text-[10px]">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            </div>
+
+            <aside className="space-y-4 lg:col-span-4">
+              {(selectedPack.prerequisites.required_tools.length > 0 ||
+                selectedPack.prerequisites.optional_tools.length > 0 ||
+                selectedPack.prerequisites.recommended_knowledge.length > 0) && (
+                <div className="surface p-5">
+                  <h2 className="eyebrow mb-3">Prerequisites</h2>
+                  {selectedPack.prerequisites.required_tools.length > 0 && (
+                    <div className="mb-4">
+                      <p className="mb-1.5 text-[12.5px] font-medium text-[var(--fg-2)]">Required tools</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedPack.prerequisites.required_tools.map(tool => (
+                          <span key={tool} className="chip" style={{ color: 'var(--warn)', borderColor: 'color-mix(in srgb, var(--warn) 35%, transparent)' }}>
+                            {tool}
                           </span>
                         ))}
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
+                  {selectedPack.prerequisites.optional_tools.length > 0 && (
+                    <div className="mb-4">
+                      <p className="mb-1.5 text-[12.5px] font-medium text-[var(--fg-2)]">Optional tools</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedPack.prerequisites.optional_tools.map(tool => (
+                          <span key={tool} className="chip">
+                            {tool}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {selectedPack.prerequisites.recommended_knowledge.length > 0 && (
+                    <div>
+                      <p className="mb-1.5 text-[12.5px] font-medium text-[var(--fg-2)]">Good to know</p>
+                      <ul className="space-y-1 text-[13px] text-[var(--fg-3)]">
+                        {selectedPack.prerequisites.recommended_knowledge.map((k, idx) => (
+                          <li key={idx} className="flex gap-2">
+                            <span className="text-[var(--fg-5)]">·</span>
+                            {k}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
+
+              {selectedPack.installation_notes && (
+                <div className="surface p-5" style={{ borderColor: 'color-mix(in srgb, var(--warn) 30%, var(--line))' }}>
+                  <h2 className="mb-2 flex items-center gap-2 text-[13px] font-semibold text-[var(--fg)]">
+                    <Info className="h-4 w-4 text-[var(--warn)]" />
+                    Installation notes
+                  </h2>
+                  <p className="text-[13px] leading-relaxed text-[var(--fg-3)]">{selectedPack.installation_notes}</p>
+                </div>
+              )}
+            </aside>
+          </div>
+        </m.div>
+      ) : (
+        <m.div key="packs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+          {detailLoading && (
+            <div className="mb-4 flex items-center gap-2 text-[13px] text-[var(--fg-4)]">
+              <span className="spinner h-4 w-4 border" /> Loading pack…
+            </div>
+          )}
+          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-3">
+            {packs.map((pack, i) => (
+              <m.article
+                key={pack.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: Math.min(i * 0.03, 0.4), ease: [0.2, 0.7, 0.2, 1] }}
+                onMouseMove={trackSpotlight}
+                onClick={() => void fetchPackDetail(pack.id)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    void fetchPackDetail(pack.id);
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`Open ${pack.name}`}
+                className="spot group flex cursor-pointer flex-col"
+              >
+                <div className="flex flex-1 flex-col gap-3 p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="glyph h-11 w-11 rounded-[11px] text-[22px]">{pack.icon}</span>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-[var(--fg)] transition-colors group-hover:text-[color-mix(in_srgb,var(--c)_70%,var(--fg))]">
+                        {pack.name}
+                      </h3>
+                      <p className="mono mt-1 flex items-center gap-1.5 text-[10.5px] uppercase tracking-[0.1em] text-[var(--fg-4)]">
+                        <Wrench className="h-3 w-3" />
+                        {pack.skillCount} skills · v{pack.version}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="line-clamp-3 text-[13px] leading-relaxed text-[var(--fg-3)]">{pack.description}</p>
+                  {pack.tags.length > 0 && (
+                    <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
+                      {pack.tags.slice(0, 3).map(tag => (
+                        <span key={tag} className="chip h-[22px]">
+                          {tag}
+                        </span>
+                      ))}
+                      {pack.tags.length > 3 && <span className="chip h-[22px] border-dashed">+{pack.tags.length - 3}</span>}
+                    </div>
+                  )}
+                </div>
+                <div className="flex items-center justify-between gap-2 border-t border-[var(--line)] px-3 py-2">
+                  {libraryAction(pack.id)}
+                  <span className={cn('inline-flex items-center gap-1 text-[12px] text-[var(--fg-4)] transition-all group-hover:text-[var(--c)]')}>
+                    Details
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </m.article>
             ))}
           </div>
-        </div>
 
-        {/* Installation Notes */}
-        {selectedPack.installation_notes && (
-          <div className="mb-8 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
-            <div className="flex items-start gap-2">
-              <Info className="w-5 h-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Installation Notes</h3>
-                <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  {selectedPack.installation_notes}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  // Packs grid view
-  return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{libraryMode === 'my' ? 'My Skill Packs' : 'Skill Packs'}</h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Curated collections of skills for specific domains and workflows
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {packs.map(pack => (
-          <div
-            key={pack.id}
-            onClick={() => handlePackClick(pack.id)}
-            className="group cursor-pointer p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-lg transition-all"
-          >
-            {/* Icon and Title */}
-            <div className="flex items-start gap-4 mb-4">
-              <div className="text-5xl">{pack.icon}</div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors mb-1">
-                  {pack.name}
-                </h3>
-                <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-500">
-                  <Wrench className="w-4 h-4" />
-                  {pack.skillCount} skills
-                </div>
-              </div>
-            </div>
-
-            {/* Description */}
-            <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
-              {pack.description}
-            </p>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {pack.tags.slice(0, 3).map(tag => (
-                <span
-                  key={tag}
-                  className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded text-xs"
-                >
-                  {tag}
-                </span>
-              ))}
-              {pack.tags.length > 3 && (
-                <span className="px-2 py-1 text-gray-500 dark:text-gray-500 text-xs">
-                  +{pack.tags.length - 3} more
-                </span>
-              )}
-            </div>
-
-            {/* Footer */}
-            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500 gap-2">
-              <span>v{pack.version}</span>
-              {libraryMode === 'public' ? (
-                <button
-                  onClick={(e) => { e.stopPropagation(); handleAddPackToLibrary(pack.id); }}
-                  disabled={addingPackId === pack.id}
-                  className="text-[11px] px-2 py-1 rounded bg-green-600 text-white hover:bg-green-700 disabled:opacity-60 transition-colors"
-                >
-                  {addingPackId === pack.id ? 'Adding...' : 'Add'}
-                </button>
-              ) : (
-                <button
-                  onClick={(e) => { e.stopPropagation(); handleRemovePackFromLibrary(pack.id); }}
-                  disabled={removingPackId === pack.id}
-                  className="text-[11px] px-2 py-1 rounded bg-red-600 text-white hover:bg-red-700 disabled:opacity-60 transition-colors"
-                >
-                  {removingPackId === pack.id ? 'Removing...' : 'Remove'}
-                </button>
-              )}
-              <span className="flex items-center gap-1 text-primary group-hover:translate-x-1 transition-transform">
-                View Details
-                <span>→</span>
+          {packs.length === 0 && (
+            <div className="flex flex-col items-center py-20 text-center">
+              <span className="glyph mb-4 h-12 w-12 rounded-[12px]">
+                <Package className="h-5 w-5" />
               </span>
+              <h3 className="text-lg font-semibold text-[var(--fg)]">
+                {libraryMode === 'my' ? 'No skill packs in My Library yet' : 'No skill packs available'}
+              </h3>
+              <p className="mt-1.5 max-w-sm text-[14px] text-[var(--fg-3)]">
+                {libraryMode === 'my' ? 'Add one from the public library and it will show up here.' : 'Check back soon.'}
+              </p>
             </div>
-          </div>
-        ))}
-      </div>
-
-      {packs.length === 0 && !loading && (
-        <div className="text-center py-12 text-gray-500 dark:text-gray-500">
-          <Package className="w-16 h-16 mx-auto mb-4 opacity-50" />
-          <p>{libraryMode === 'my' ? 'No skill packs in My Library yet' : 'No skill packs available'}</p>
-        </div>
+          )}
+        </m.div>
       )}
-    </div>
+    </AnimatePresence>
   );
 }

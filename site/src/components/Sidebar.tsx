@@ -3,46 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useRef, useEffect } from 'react';
-import {
-  Sparkles,
-  X,
-  BookOpen,
-  Library,
-  Package,
-  FolderOpen,
-  ChevronDown,
-  Layers
-} from 'lucide-react';
-import { m, AnimatePresence } from 'motion/react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { useMemo, useState } from 'react';
+import { BookOpen, ChevronDown, FolderOpen, Layers, Library, Package, Search, X } from 'lucide-react';
+import { AnimatePresence, LayoutGroup, m } from 'motion/react';
+import { cn } from '../lib/cn';
+import { SECTIONS, humanize } from '../lib/sections';
+import type { Theme } from '../lib/themes';
+import type { LibraryTab } from '../hooks/useLibraryRoute';
 import type { Prompt } from './PromptCard';
+import ThemePicker from './ThemePicker';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-export type Theme = 'mikesailab' | 'light' | 'retro-wave' | 'emerald-glass' | 'obsidian-cyan' | 'carbon-ember' | 'midnight-violet' | 'solar-flare' | 'sahara-gold' | 'void-black' | 'frosted-steel' | 'terminal-hacker' | 'github-dark-pro' | 'react-modern' | 'dark-pro' | 'nordic-night';
-
-export const THEMES: { id: Theme; name: string; icon: string }[] = [
-  { id: 'mikesailab', name: 'Mikes AI Lab', icon: '🟦' },
-  { id: 'retro-wave', name: 'Retro Wave', icon: '⚡' },
-  { id: 'obsidian-cyan', name: 'Obsidian Cyan', icon: '💎' },
-  { id: 'carbon-ember', name: 'Carbon Ember', icon: '🔥' },
-  { id: 'midnight-violet', name: 'Midnight Violet', icon: '🌙' },
-  { id: 'emerald-glass', name: 'Emerald Glass', icon: '🌿' },
-  { id: 'solar-flare', name: 'Solar Flare', icon: '☄️' },
-  { id: 'sahara-gold', name: 'Sahara Gold', icon: '🏜️' },
-  { id: 'terminal-hacker', name: 'Terminal Hacker', icon: '💻' },
-  { id: 'github-dark-pro', name: 'GitHub Dark Pro', icon: '🐙' },
-  { id: 'void-black', name: 'Void Black', icon: '🖤' },
-  { id: 'frosted-steel', name: 'Frosted Steel', icon: '🔩' },
-  { id: 'react-modern', name: 'React Modern', icon: '⚛️' },
-  { id: 'dark-pro', name: 'Dark Pro', icon: '🎯' },
-  { id: 'nordic-night', name: 'Nordic Night', icon: '🌨️' },
-  { id: 'light', name: 'Light', icon: '☀️' },
-];
+export type { Theme } from '../lib/themes';
 
 export interface SkillPackSummary {
   id: string;
@@ -63,8 +34,10 @@ interface SidebarProps {
   setIsSidebarOpen: (open: boolean) => void;
   libraryMode: 'public' | 'my';
   setLibraryMode: (mode: 'public' | 'my') => void;
-  activeTab: 'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts' | 'skill-packs';
-  setActiveTab: (tab: 'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts' | 'skill-packs') => void;
+  activeTab: LibraryTab;
+  setActiveTab: (tab: LibraryTab) => void;
+  /** Prompt count per section, for the nav badges. */
+  sectionCounts: Partial<Record<LibraryTab, number>>;
   skillPacks: SkillPackSummary[];
   categories: Record<string, Set<string>>;
   sectionPrompts: Prompt[];
@@ -78,6 +51,19 @@ interface SidebarProps {
   setTheme: (theme: Theme) => void;
 }
 
+export const SIDEBAR_WIDTH = 272;
+
+/** The brand mark: a small framed glyph in the accent. */
+function BrandMark() {
+  return (
+    <span className="glyph h-8 w-8 rounded-[8px]" style={{ ['--c' as string]: 'var(--accent)' }}>
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2.5l2.4 5.2 5.6.8-4.1 4 1 5.6L12 15.4l-4.9 2.7 1-5.6-4.1-4 5.6-.8z" />
+      </svg>
+    </span>
+  );
+}
+
 export default function Sidebar({
   isSidebarOpen,
   setIsSidebarOpen,
@@ -85,6 +71,7 @@ export default function Sidebar({
   setLibraryMode,
   activeTab,
   setActiveTab,
+  sectionCounts,
   skillPacks,
   categories,
   sectionPrompts,
@@ -95,313 +82,361 @@ export default function Sidebar({
   handleSubcategoryClick,
   handleShowAllPrompts,
   theme,
-  setTheme
+  setTheme,
 }: SidebarProps) {
-  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
-  const themeRef = useRef<HTMLDivElement>(null);
+  const [categoryFilter, setCategoryFilter] = useState('');
 
-  // Close theme menu on outside click
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (themeRef.current && !themeRef.current.contains(e.target as Node)) {
-        setThemeMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const p of sectionPrompts) counts[p.category] = (counts[p.category] ?? 0) + 1;
+    return counts;
+  }, [sectionPrompts]);
+
+  const packsByCategory = useMemo(() => {
+    const map: Record<string, SkillPackSummary[]> = {};
+    for (const pack of skillPacks) (map[pack.category] ??= []).push(pack);
+    return Object.entries(map).sort(([a], [b]) => a.localeCompare(b));
+  }, [skillPacks]);
+
+  const categoryNames = useMemo(() => {
+    const names = Object.keys(categories).sort();
+    const q = categoryFilter.trim().toLowerCase();
+    return q ? names.filter(n => n.toLowerCase().includes(q)) : names;
+  }, [categories, categoryFilter]);
+
+  const showCategoryFilter = Object.keys(categories).length > 8;
 
   return (
     <aside
       className={cn(
-        "fixed inset-y-0 left-0 z-50 w-[280px] transform transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:relative md:translate-x-0",
-        !isSidebarOpen && "-translate-x-full md:hidden"
+        'fixed inset-y-0 left-0 z-50 flex h-full shrink-0 flex-col overflow-hidden',
+        'border-r border-[var(--line)] bg-[var(--bg-2)]',
+        'transition-[transform,width] duration-500 ease-[cubic-bezier(.2,.7,.2,1)]',
+        'md:relative md:translate-x-0',
+        'w-[272px]',
+        isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:w-0 md:border-r-0',
       )}
+      aria-label="Library navigation"
     >
-      <div className="flex flex-col h-full m-3 rounded-[var(--radius-xl)] overflow-hidden sidebar-solid">
-        {/* Sidebar header */}
-        <div className="p-6 pb-4">
-          <div className="flex items-center justify-between mb-6">
-            <button
-              onClick={() => {
-                setActiveTab('prompt-library');
-                handleShowAllPrompts();
-              }}
-              className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer"
-            >
-              <div className="w-8 h-8 rounded-[var(--radius-sm)] bg-[var(--accent-glow-subtle)] border border-[var(--glass-border)] flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-[var(--accent)]" />
-              </div>
-              <span className="heading-display text-sm font-bold text-[var(--text-primary)]">Prompt Library</span>
-            </button>
-            <button
-              onClick={() => setIsSidebarOpen(false)}
-              className="p-1.5 rounded-lg hover:bg-[var(--glass-bg-hover)] transition-colors md:hidden"
-            >
-              <X className="w-4 h-4 text-[var(--text-tertiary)]" />
-            </button>
-          </div>
-        </div>
-
-        {/* Library Mode Switcher */}
-        <div className="px-6 pb-4">
-          <div className="flex items-center gap-2 p-1 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)]">
-            <button
-              onClick={() => setLibraryMode('public')}
-              className={cn(
-                "flex-1 py-2 px-3 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300",
-                libraryMode === 'public'
-                  ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                  : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
-              )}
-            >
-              <div className="flex items-center justify-center gap-1.5">
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>Public</span>
-              </div>
-            </button>
-            <button
-              onClick={() => setLibraryMode('my')}
-              className={cn(
-                "flex-1 py-2 px-3 rounded-[var(--radius-sm)] text-[0.7rem] font-semibold tracking-wider uppercase transition-all duration-300",
-                libraryMode === 'my'
-                  ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                  : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
-              )}
-            >
-              <div className="flex items-center justify-center gap-1.5">
-                <Library className="w-3.5 h-3.5" />
-                <span>My Library</span>
-              </div>
-            </button>
-          </div>
-        </div>
-
-        {/* Navigation dropdown */}
-        <div className="px-6 pb-4">
-          <select
-            value={activeTab}
-            onChange={(e) => {
-              setActiveTab(e.target.value as SidebarProps['activeTab']);
+      <div className="flex h-full flex-col" style={{ width: SIDEBAR_WIDTH }}>
+        {/* Brand */}
+        <div className="flex h-14 shrink-0 items-center gap-3 border-b border-[var(--line)] px-4">
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab('prompt-library');
               handleShowAllPrompts();
             }}
-            className="w-full py-3 px-4 rounded-[var(--radius-sm)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[0.75rem] font-semibold tracking-wider uppercase text-[var(--text-primary)] cursor-pointer transition-all duration-300 hover:bg-[var(--glass-bg-hover)] hover:border-[var(--accent)] focus:outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-glow-subtle)]"
+            className="flex min-w-0 flex-1 items-center gap-2.5 rounded-[var(--r-md)] text-left transition-opacity hover:opacity-85"
           >
-            <option value="prompt-library">📚 Prompt Library</option>
-            <option value="agents">👤 Agents</option>
-            <option value="agent-guides">📖 Agent Guides</option>
-            <option value="system-prompts">⚙️ System Prompts</option>
-            <option value="skills">🛠️ Skills</option>
-            <option value="skill-packs">📦 Skill Packs</option>
-          </select>
+            <BrandMark />
+            <span className="min-w-0">
+              <span className="block truncate text-[13.5px] font-semibold tracking-tight text-[var(--fg)]">
+                Prompt Library
+              </span>
+              <span className="eyebrow block text-[9.5px] tracking-[0.16em]">Mike's AI Lab</span>
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsSidebarOpen(false)}
+            className="icon-btn md:hidden"
+            aria-label="Close navigation"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
 
-        {/* Category list */}
-        <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-1">
-          {activeTab === 'skill-packs' ? (
-            Object.entries(
-              skillPacks.reduce<Record<string, SkillPackSummary[]>>((acc, pack) => {
-                if (!acc[pack.category]) acc[pack.category] = [];
-                acc[pack.category].push(pack);
-                return acc;
-              }, {})
-            ).sort(([a], [b]) => a.localeCompare(b)).map(([cat, packs]) => (
-              <div key={cat}>
-                <button
-                  onClick={() => setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }))}
-                  className={cn(
-                    "w-full flex items-center justify-between px-3 py-2.5 rounded-[var(--radius-sm)] transition-all duration-300 group",
-                    expandedCategories[cat]
-                      ? "bg-[var(--accent-glow-subtle)]"
-                      : "hover:bg-[var(--glass-bg-hover)]"
-                  )}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Package className={cn(
-                      "w-3.5 h-3.5 transition-colors",
-                      expandedCategories[cat] ? "text-[var(--accent)]" : "text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]"
-                    )} />
-                    <span className={cn(
-                      "text-[0.8rem] font-semibold tracking-tight transition-colors",
-                      expandedCategories[cat] ? "text-[var(--accent)]" : "text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]"
-                    )}>
-                      {cat.replace(/_/g, ' ')}
-                    </span>
-                    <span className={cn(
-                      "text-[0.65rem] px-1.5 py-0.5 rounded-full transition-colors",
-                      expandedCategories[cat]
-                        ? "bg-[var(--accent-glow-subtle)] text-[var(--accent)]"
-                        : "bg-[var(--glass-bg)] text-[var(--text-tertiary)]"
-                    )}>
-                      {packs.length}
-                    </span>
-                  </div>
-                  <ChevronDown className={cn(
-                    "w-3.5 h-3.5 transition-all duration-300",
-                    expandedCategories[cat]
-                      ? "text-[var(--accent)] rotate-0"
-                      : "text-[var(--text-tertiary)] -rotate-90"
-                  )} />
-                </button>
-
-                <AnimatePresence>
-                  {expandedCategories[cat] && (
-                    <m.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="ml-3 pl-3 border-l border-[var(--glass-border)] mt-1 mb-2 space-y-0.5">
-                        {packs.sort((a, b) => a.name.localeCompare(b.name)).map(pack => (
-                          <div
-                            key={pack.id}
-                            className="w-full flex items-center gap-2 px-3 py-2 rounded-[10px] text-[var(--text-tertiary)]"
-                          >
-                            <Package className="w-3 h-3" />
-                            <span className="text-[0.72rem] font-semibold">{pack.name}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </m.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))
-          ) : (Object.keys(categories).sort().map(cat => (
-            <div key={cat}>
-              <button
-                onClick={() => toggleCategory(cat)}
-                className={cn(
-                  "w-full flex items-center justify-between px-3 py-2.5 rounded-[var(--radius-sm)] transition-all duration-300 group",
-                  expandedCategories[cat]
-                    ? "bg-[var(--accent-glow-subtle)]"
-                    : "hover:bg-[var(--glass-bg-hover)]"
-                )}
-              >
-                <div className="flex items-center gap-2.5">
-                  <FolderOpen className={cn(
-                    "w-3.5 h-3.5 transition-colors",
-                    expandedCategories[cat] ? "text-[var(--accent)]" : "text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]"
-                  )} />
-                  <span className={cn(
-                    "text-[0.8rem] font-semibold tracking-tight transition-colors",
-                    expandedCategories[cat] ? "text-[var(--accent)]" : "text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]"
-                  )}>
-                    {cat.replace(/_/g, ' ')}
-                  </span>
-                  <span className={cn(
-                    "text-[0.65rem] px-1.5 py-0.5 rounded-full transition-colors",
-                    expandedCategories[cat] 
-                      ? "bg-[var(--accent-glow-subtle)] text-[var(--accent)]"
-                      : "bg-[var(--glass-bg)] text-[var(--text-tertiary)]"
-                  )}>
-                    {sectionPrompts.filter(p => p.category === cat).length}
-                  </span>
-                </div>
-                <ChevronDown className={cn(
-                  "w-3.5 h-3.5 transition-all duration-300",
-                  expandedCategories[cat]
-                    ? "text-[var(--accent)] rotate-0"
-                    : "text-[var(--text-tertiary)] -rotate-90"
-                )} />
-              </button>
-
-              <AnimatePresence>
-                {expandedCategories[cat] && (
-                  <m.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <div className="ml-3 pl-3 border-l border-[var(--glass-border)] mt-1 mb-2 space-y-0.5">
-                      <button
-                        onClick={() => handleSubcategoryClick(cat, 'ALL')}
-                        className={cn(
-                          "w-full flex items-center gap-2 px-3 py-2 rounded-[10px] transition-all duration-200",
-                          selectedSubcategory?.category === cat && selectedSubcategory?.subcategory === 'ALL'
-                            ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                            : "text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] hover:bg-[var(--glass-bg-hover)]"
-                        )}
-                      >
-                        <Layers className="w-3 h-3" />
-                        <span className="text-[0.72rem] font-semibold">All</span>
-                      </button>
-
-                      {Array.from(categories[cat] || []).sort().map(subcat => (
-                        <button
-                          key={subcat}
-                          onClick={() => handleSubcategoryClick(cat, subcat)}
-                          className={cn(
-                            "w-full flex items-center gap-2 px-3 py-2 rounded-[10px] transition-all duration-200 text-left",
-                            selectedSubcategory?.category === cat && selectedSubcategory?.subcategory === subcat
-                              ? "bg-[var(--accent-glow-subtle)] text-[var(--accent)]"
-                              : "text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] hover:bg-[var(--glass-bg-hover)]"
-                          )}
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-current opacity-50 shrink-0" />
-                          <span className="text-[0.72rem] font-medium truncate">{subcat.replace(/_/g, ' ')}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </m.div>
-                )}
-              </AnimatePresence>
+        {/* Library switch */}
+        <div className="px-3 pt-3">
+          <LayoutGroup id="library-mode">
+            <div className="segmented w-full" role="group" aria-label="Library">
+              {(
+                [
+                  { id: 'public', label: 'Public', icon: BookOpen },
+                  { id: 'my', label: 'My Library', icon: Library },
+                ] as const
+              ).map(({ id, label, icon: Icon }) => {
+                const active = libraryMode === id;
+                return (
+                  <button key={id} type="button" aria-pressed={active} onClick={() => setLibraryMode(id)}>
+                    {active && (
+                      <m.span
+                        layoutId="library-mode-thumb"
+                        className="segmented-thumb"
+                        transition={{ type: 'spring', stiffness: 500, damping: 40 }}
+                      />
+                    )}
+                    <Icon className="h-3.5 w-3.5" />
+                    {label}
+                  </button>
+                );
+              })}
             </div>
-          )))}
+          </LayoutGroup>
         </div>
 
-        {/* Theme selector at bottom */}
-        <div className="p-4 border-t border-[var(--glass-border)]" ref={themeRef}>
-          <div className="relative">
-            <button
-              onClick={() => setThemeMenuOpen(!themeMenuOpen)}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-[var(--radius-sm)] hover:bg-[var(--glass-bg-hover)] transition-all"
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="text-sm">{THEMES.find(t => t.id === theme)?.icon}</span>
-                <span className="text-[0.75rem] font-medium text-[var(--text-secondary)]">{THEMES.find(t => t.id === theme)?.name}</span>
-              </div>
-              <ChevronDown className={cn(
-                "w-3.5 h-3.5 text-[var(--text-tertiary)] transition-transform duration-300",
-                themeMenuOpen && "rotate-180"
-              )} />
-            </button>
-
-            <AnimatePresence>
-              {themeMenuOpen && (
-                <m.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute bottom-full left-0 right-0 mb-2 rounded-[var(--radius-md)] bg-[var(--sidebar-bg)] backdrop-blur-xl border border-[var(--glass-border)] p-1.5 z-[9999] max-h-[320px] overflow-y-auto shadow-2xl"
-                  style={{ backgroundColor: 'var(--sidebar-bg)' }}
-                >
-                  {THEMES.map(t => (
+        {/* Sections */}
+        <nav className="px-3 pt-4" aria-label="Sections">
+          <p className="eyebrow mb-2 px-2">Browse</p>
+          <LayoutGroup id="sections">
+            <ul className="space-y-0.5">
+              {SECTIONS.map(section => {
+                const Icon = section.icon;
+                const active = activeTab === section.id;
+                const count = sectionCounts[section.id];
+                return (
+                  <li key={section.id}>
                     <button
-                      key={t.id}
-                      onClick={() => { setTheme(t.id); setThemeMenuOpen(false); }}
+                      type="button"
+                      aria-current={active ? 'page' : undefined}
+                      onClick={() => {
+                        setActiveTab(section.id);
+                        handleShowAllPrompts();
+                        if (window.innerWidth < 768) setIsSidebarOpen(false);
+                      }}
+                      style={{ ['--c' as string]: section.accent }}
                       className={cn(
-                        "flex items-center gap-2.5 w-full px-3 py-2.5 rounded-[10px] text-[0.72rem] font-medium transition-all",
-                        theme === t.id
-                          ? "bg-[var(--accent)] text-white shadow-[0_2px_12px_var(--accent-glow)]"
-                          : "text-[var(--text-secondary)] hover:bg-[var(--glass-bg-hover)] hover:text-[var(--text-primary)]"
+                        'group relative flex w-full items-center gap-2.5 rounded-[var(--r-md)] px-2 py-[7px] text-left text-[13.5px] transition-colors',
+                        active ? 'text-[var(--fg)]' : 'text-[var(--fg-3)] hover:text-[var(--fg)]',
                       )}
                     >
-                      <span className="text-sm">{t.icon}</span>
-                      {t.name}
+                      {active && (
+                        <m.span
+                          layoutId="section-active"
+                          className="absolute inset-0 rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--surface-2)]"
+                          transition={{ type: 'spring', stiffness: 500, damping: 42 }}
+                        />
+                      )}
+                      {active && (
+                        <m.span
+                          layoutId="section-active-bar"
+                          className="absolute left-0 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-r-full"
+                          style={{ background: 'var(--c)', boxShadow: '0 0 10px var(--c)' }}
+                          transition={{ type: 'spring', stiffness: 500, damping: 42 }}
+                        />
+                      )}
+                      <span
+                        className={cn(
+                          'relative grid h-6 w-6 place-items-center rounded-[6px] transition-colors',
+                          active
+                            ? 'bg-[color-mix(in_srgb,var(--c)_14%,transparent)] text-[var(--c)]'
+                            : 'text-[var(--fg-4)] group-hover:text-[var(--c)]',
+                        )}
+                      >
+                        <Icon className="h-[15px] w-[15px]" />
+                      </span>
+                      <span className="relative flex-1 truncate font-medium">{section.label}</span>
+                      {count !== undefined && (
+                        <span className="mono relative text-[10.5px] tabular-nums text-[var(--fg-5)] group-hover:text-[var(--fg-4)]">
+                          {count.toLocaleString()}
+                        </span>
+                      )}
                     </button>
-                  ))}
-                </m.div>
-              )}
-            </AnimatePresence>
+                  </li>
+                );
+              })}
+            </ul>
+          </LayoutGroup>
+        </nav>
+
+        {/* Categories */}
+        <div className="mt-4 flex min-h-0 flex-1 flex-col border-t border-[var(--line)]">
+          <div className="flex items-center justify-between px-5 pb-1.5 pt-3.5">
+            <p className="eyebrow">{activeTab === 'skill-packs' ? 'Pack categories' : 'Categories'}</p>
+            <span className="mono text-[10.5px] text-[var(--fg-5)]">
+              {activeTab === 'skill-packs' ? packsByCategory.length : Object.keys(categories).length}
+            </span>
           </div>
+
+          {showCategoryFilter && activeTab !== 'skill-packs' && (
+            <div className="relative px-3 pb-2">
+              <Search className="pointer-events-none absolute left-5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--fg-4)]" />
+              <input
+                type="text"
+                value={categoryFilter}
+                onChange={e => setCategoryFilter(e.target.value)}
+                placeholder="Filter categories"
+                aria-label="Filter categories"
+                className="input h-8 pl-8 text-[12.5px]"
+              />
+            </div>
+          )}
+
+          <div className="min-h-0 flex-1 space-y-0.5 overflow-y-auto px-3 pb-3">
+            {activeTab === 'skill-packs'
+              ? packsByCategory.map(([cat, packs]) => {
+                  const expanded = !!expandedCategories[cat];
+                  return (
+                    <div key={cat}>
+                      <CategoryRow
+                        icon={Package}
+                        label={humanize(cat)}
+                        count={packs.length}
+                        expanded={expanded}
+                        onClick={() => setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }))}
+                      />
+                      <Collapse open={expanded}>
+                        {packs
+                          .slice()
+                          .sort((a, b) => a.name.localeCompare(b.name))
+                          .map(pack => (
+                            <div
+                              key={pack.id}
+                              className="flex items-center gap-2 px-2.5 py-1.5 text-[12.5px] text-[var(--fg-4)]"
+                            >
+                              <span className="text-sm leading-none">{pack.icon}</span>
+                              <span className="truncate">{pack.name}</span>
+                            </div>
+                          ))}
+                      </Collapse>
+                    </div>
+                  );
+                })
+              : categoryNames.map(cat => {
+                  const expanded = !!expandedCategories[cat];
+                  const subcategories = Array.from(categories[cat] ?? []).sort();
+                  return (
+                    <div key={cat}>
+                      <CategoryRow
+                        icon={FolderOpen}
+                        label={humanize(cat)}
+                        count={categoryCounts[cat] ?? 0}
+                        expanded={expanded}
+                        active={selectedSubcategory?.category === cat}
+                        onClick={() => toggleCategory(cat)}
+                      />
+                      <Collapse open={expanded}>
+                        <SubcategoryRow
+                          icon={Layers}
+                          label="All"
+                          active={selectedSubcategory?.category === cat && selectedSubcategory.subcategory === 'ALL'}
+                          onClick={() => handleSubcategoryClick(cat, 'ALL')}
+                        />
+                        {subcategories.map(sub => (
+                          <SubcategoryRow
+                            key={sub}
+                            label={humanize(sub)}
+                            active={selectedSubcategory?.category === cat && selectedSubcategory.subcategory === sub}
+                            onClick={() => handleSubcategoryClick(cat, sub)}
+                          />
+                        ))}
+                      </Collapse>
+                    </div>
+                  );
+                })}
+            {activeTab !== 'skill-packs' && categoryNames.length === 0 && (
+              <p className="px-2 py-6 text-center text-[12.5px] text-[var(--fg-5)]">
+                {categoryFilter ? 'No categories match.' : 'No categories yet.'}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="shrink-0 border-t border-[var(--line)] p-2.5">
+          <ThemePicker theme={theme} setTheme={setTheme} />
         </div>
       </div>
     </aside>
+  );
+}
+
+function CategoryRow({
+  icon: Icon,
+  label,
+  count,
+  expanded,
+  active,
+  onClick,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  count: number;
+  expanded: boolean;
+  active?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-expanded={expanded}
+      className={cn(
+        'group flex w-full items-center gap-2 rounded-[var(--r-md)] px-2 py-[6px] text-left text-[13px] transition-colors',
+        expanded || active
+          ? 'bg-[var(--surface)] text-[var(--fg)]'
+          : 'text-[var(--fg-3)] hover:bg-[var(--surface)] hover:text-[var(--fg)]',
+      )}
+    >
+      <Icon
+        className={cn(
+          'h-3.5 w-3.5 shrink-0 transition-colors',
+          expanded || active ? 'text-[var(--c)]' : 'text-[var(--fg-4)] group-hover:text-[var(--fg-3)]',
+        )}
+      />
+      <span className="flex-1 truncate font-medium">{label}</span>
+      <span className="mono text-[10.5px] tabular-nums text-[var(--fg-5)]">{count}</span>
+      <ChevronDown
+        className={cn(
+          'h-3.5 w-3.5 shrink-0 text-[var(--fg-5)] transition-transform duration-300',
+          !expanded && '-rotate-90',
+        )}
+      />
+    </button>
+  );
+}
+
+function SubcategoryRow({
+  icon: Icon,
+  label,
+  active,
+  onClick,
+}: {
+  icon?: React.ComponentType<{ className?: string }>;
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-current={active ? 'true' : undefined}
+      className={cn(
+        'flex w-full items-center gap-2 rounded-[6px] px-2.5 py-[5px] text-left text-[12.5px] transition-colors',
+        active
+          ? 'bg-[color-mix(in_srgb,var(--c)_12%,transparent)] text-[var(--fg)]'
+          : 'text-[var(--fg-4)] hover:bg-[var(--surface)] hover:text-[var(--fg-2)]',
+      )}
+    >
+      {Icon ? (
+        <Icon className={cn('h-3 w-3 shrink-0', active ? 'text-[var(--c)]' : 'text-[var(--fg-5)]')} />
+      ) : (
+        <span
+          className={cn('h-1.5 w-1.5 shrink-0 rounded-full', active ? 'bg-[var(--c)]' : 'bg-[var(--fg-5)]')}
+          style={active ? { boxShadow: '0 0 8px var(--c)' } : undefined}
+        />
+      )}
+      <span className="truncate">{label}</span>
+    </button>
+  );
+}
+
+function Collapse({ open, children }: { open: boolean; children: React.ReactNode }) {
+  return (
+    <AnimatePresence initial={false}>
+      {open && (
+        <m.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.25, ease: [0.2, 0.7, 0.2, 1] }}
+          className="overflow-hidden"
+        >
+          <div className="mb-1.5 ml-[15px] mt-0.5 space-y-0.5 border-l border-[var(--line)] pl-2">{children}</div>
+        </m.div>
+      )}
+    </AnimatePresence>
   );
 }
