@@ -101,6 +101,17 @@ skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-202
 
 ## Next — dev/prod parity
 
+- [ ] **Move off Node 22 before it reaches end of life on 2027-04-30.** CI pins
+      `node-version: "22"` and `@types/node` is `^22`; `site/package.json` has no `engines`
+      pin, so Vercel runs whatever the project setting says. Node 24 is LTS to 2028-04-30 and
+      is Vercel's default for new projects; Vercel still offers 24.x, 22.x and 20.x. Source:
+      https://github.com/nodejs/Release/blob/main/schedule.json,
+      https://vercel.com/docs/functions/runtimes/node-js/node-js-versions. Where:
+      `.github/workflows/ci.yml`, `.github/workflows/upstream-drift.yml`, `@types/node`,
+      Vercel project Node setting (🔒 Needs Mike for the dashboard change; the workflow files
+      are a hold path). Done when: CI is green on Node 24, `@types/node` is `^24`, and the
+      Vercel project runs 24.x.
+
 The two API implementations had silently diverged, and that was the bug class that kept
 biting. Collapsed 2026-08-27: `server.ts` is now a 71-line dev wrapper that imports the
 same Express app `api/index.ts` exports and adds Vite's HMR middleware; `routes/skill-packs.ts`
