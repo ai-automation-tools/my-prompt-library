@@ -4,6 +4,32 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-10 — `x-twitter-scraper` resynced after another upstream rewrite
+
+The newest drift comment on issue #339 (2026-10-05) listed two `behind` skills,
+`x-twitter-scraper` and `timesfm-forecasting`. Both had already been resynced in #358 later
+that same day, after the check ran. Re-running `resync-upstream.mjs` on them today:
+
+- **`timesfm-forecasting`**: body and all 21 files identical to upstream @ `92ace75`. Only the
+  `checked:` date would have moved, so nothing was committed.
+- **`x-twitter-scraper`**: `xquik-dev/x-twitter-scraper` rewrote it again after #358
+  (`6790d40` → `588529e`). `SKILL.md` is now organised into Request contract / Capabilities /
+  Inputs / Outputs / Prices and limits / Consent rules tables, and a new **AI analysis**
+  route family (sentiment, brand, news, market signals, viral score, classify, at 2 credits
+  per post) was added to `references/reads.md` and the pricing table. `extractions.md` and
+  `writes.md` were restructured into tables. Same skill, same scope, so it stays in
+  `Business/Marketing`. `name`, `description` and the rest of the local frontmatter are
+  unchanged; only `upstream.ref` and `upstream.checked` moved.
+
+Scanned the incoming files for email addresses and CRLF line endings: none. The index rebuild
+changed one entry's `lastModified` and the `buildTime`, nothing else.
+
+_Touched: `site/library/3_Skills/Business/Marketing/x-twitter-scraper/` (SKILL.md,
+`references/compare-faq.md`, `extractions.md`, `reads.md`, `writes.md`),
+`site/api/prompt-index.json`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-05 — UI redesign
 
 The React app was rebuilt onto the org design vocabulary that ai-automation-tools.dev and the
