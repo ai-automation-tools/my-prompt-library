@@ -4,12 +4,6 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
-## 2026-10-09 — Upstream check
-
-First pass over `UPSTREAMS.md`. Nothing the code depends on has been removed or deprecated.
-`UPSTREAMS.md` described the wrong fonts (Outfit / DM Sans via CSS `@import`); the app loads
-Inter and JetBrains Mono through `<link>` tags in `index.html`, and the row says so now.
-Node 22 reaches end of life on 2027-04-30; moving to 24 is queued on the roadmap.
 ## 2026-10-10 — `x-twitter-scraper` resynced after another upstream rewrite
 
 The newest drift comment on issue #339 (2026-10-05) listed two `behind` skills,
@@ -35,6 +29,13 @@ _Touched: `site/library/3_Skills/Business/Marketing/x-twitter-scraper/` (SKILL.m
 `site/api/prompt-index.json`, `docs/CHANGELOG.md`._
 
 ---
+
+## 2026-10-09 — Upstream check
+
+First pass over `UPSTREAMS.md`. Nothing the code depends on has been removed or deprecated.
+`UPSTREAMS.md` described the wrong fonts (Outfit / DM Sans via CSS `@import`); the app loads
+Inter and JetBrains Mono through `<link>` tags in `index.html`, and the row says so now.
+Node 22 reaches end of life on 2027-04-30; moving to 24 is queued on the roadmap.
 
 ## 2026-10-05 — UI redesign
 
