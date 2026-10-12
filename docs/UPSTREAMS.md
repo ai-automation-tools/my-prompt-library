@@ -19,22 +19,22 @@ source. `—` means never checked.
 
 | Upstream | What the code assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Neon Postgres via `pg`** | `pg` `^8.23.0`; one `Pool` from `DATABASE_URL`, `max: 10`, `ssl: { rejectUnauthorized: false }` in production; parameterized queries only | `site/db/postgres.ts` | neon.com/docs/changelog; neon.com/docs/connect/connect-securely; github.com/brianc/node-postgres/blob/master/CHANGELOG.md | — |
-| **GitHub REST API** *(GitHub mode, `USE_GITHUB_MODE=true`)* | `Authorization: token <GITHUB_TOKEN>`, `Accept: application/vnd.github.v3+json`, no `X-GitHub-Api-Version` header. Calls `GET /repos/{o}/{r}/git/ref/heads/{branch}`, `GET /repos/{o}/{r}/git/trees/{sha}?recursive=1`, `GET /repos/{o}/{r}/contents/{path}?ref={branch}` | `site/api/index.ts` | docs.github.com/en/rest/about-the-rest-api/api-versions; github.blog/changelog (label: api) | — |
+| **Neon Postgres via `pg`** | `pg` `^8.23.0`; one `Pool` from `DATABASE_URL`, `max: 10`, `ssl: { rejectUnauthorized: false }` in production; parameterized queries only | `site/db/postgres.ts` | neon.com/docs/changelog; neon.com/docs/connect/connect-securely; github.com/brianc/node-postgres/blob/master/CHANGELOG.md | 2026-10-09 |
+| **GitHub REST API** *(GitHub mode, `USE_GITHUB_MODE=true`)* | `Authorization: token <GITHUB_TOKEN>`, `Accept: application/vnd.github.v3+json`, no `X-GitHub-Api-Version` header. Calls `GET /repos/{o}/{r}/git/ref/heads/{branch}`, `GET /repos/{o}/{r}/git/trees/{sha}?recursive=1`, `GET /repos/{o}/{r}/contents/{path}?ref={branch}` | `site/api/index.ts` | docs.github.com/en/rest/about-the-rest-api/api-versions; github.blog/changelog (label: api) | 2026-10-09 |
 
 ## Static assets
 
 | Upstream | What the code assumes | Code | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Google Fonts** | `fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=DM+Sans:ital,opsz,wght@…&display=swap` via CSS `@import` | `site/src/index.css` | developers.google.com/fonts/docs/css2 | — |
+| **Google Fonts** | `fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap` via a `<link>` in `index.html` (preconnect to `fonts.googleapis.com` and `fonts.gstatic.com`) | `site/index.html` | developers.google.com/fonts/docs/css2 | — |
 
 ## Hosting and runtime
 
 | Upstream | What the code assumes | Where | Check at | Last checked |
 |:---|:---|:---|:---|:---|
-| **Vercel** | `vercel.json` `version: 2`; `functions["api/skill-packs.ts"].includeFiles: "library/3_Skills/**"`; rewrites `/api/skill-packs/:path*` → `/api/skill-packs`, `/api/(.*)` → `/api`, everything else → `/index.html`; `vercel-build` script; Node functions on default runtime settings (no `engines` pin) | `site/vercel.json`, `site/package.json`, `site/api/*.ts` | vercel.com/changelog; vercel.com/docs/functions/runtimes/node-js/node-js-versions; vercel.com/docs/project-configuration | — |
-| **Node.js** | No `engines` field, so Vercel's project default picks the runtime; CI pins `node-version: "22"`; `@types/node` `^22` | `site/package.json`, `.github/workflows/ci.yml`, `.github/workflows/upstream-drift.yml` | nodejs.org/en/about/previous-releases (EOL dates) | — |
-| **GitHub Actions** | `actions/checkout@v4`, `actions/setup-node@v4`, `ubuntu-latest`, `gh` CLI preinstalled on the runner | `.github/workflows/*.yml` | github.com/actions/checkout/releases; github.com/actions/setup-node/releases; github.blog/changelog (label: actions) | — |
+| **Vercel** | `vercel.json` `version: 2`; `functions["api/skill-packs.ts"].includeFiles: "library/3_Skills/**"`; rewrites `/api/skill-packs/:path*` → `/api/skill-packs`, `/api/(.*)` → `/api`, everything else → `/index.html`; `vercel-build` script; Node functions on default runtime settings (no `engines` pin) | `site/vercel.json`, `site/package.json`, `site/api/*.ts` | vercel.com/changelog; vercel.com/docs/functions/runtimes/node-js/node-js-versions; vercel.com/docs/project-configuration | 2026-10-09 |
+| **Node.js** | No `engines` field, so Vercel's project default picks the runtime; CI pins `node-version: "22"`; `@types/node` `^22` | `site/package.json`, `.github/workflows/ci.yml`, `.github/workflows/upstream-drift.yml` | nodejs.org/en/about/previous-releases (EOL dates) | 2026-10-09 |
+| **GitHub Actions** | `actions/checkout@v4`, `actions/setup-node@v4`, `ubuntu-latest`, `gh` CLI preinstalled on the runner | `.github/workflows/*.yml` | github.com/actions/checkout/releases; github.com/actions/setup-node/releases; github.blog/changelog (label: actions) | 2026-10-09 |
 
 ## Framework majors
 
