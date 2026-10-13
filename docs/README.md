@@ -1,7 +1,7 @@
 # Documentation
 
 Documentation for **my-prompt-library**, live at
-[prompts.mikesailab.com](https://prompts.mikesailab.com).
+[my-prompt-library.ai-automation-tools.dev](https://my-prompt-library.ai-automation-tools.dev).
 
 ---
 
@@ -216,7 +216,7 @@ utility-first), run `npm run lint` and `npm run build`, and open a PR describing
 - **Main README:** [../README.md](../README.md)
 - **Agent guide:** [../CLAUDE.md](../CLAUDE.md)
 - **Repository:** [github.com/ai-automation-tools/my-prompt-library](https://github.com/ai-automation-tools/my-prompt-library)
-- **Live site:** [prompts.mikesailab.com](https://prompts.mikesailab.com)
+- **Live site:** [my-prompt-library.ai-automation-tools.dev](https://my-prompt-library.ai-automation-tools.dev)
 
 ---
 

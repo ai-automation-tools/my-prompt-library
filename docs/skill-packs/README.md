@@ -410,7 +410,7 @@ npm run dev
 ### Get All Packs
 
 ```bash
-curl https://prompts.mikesailab.com/api/skill-packs
+curl https://my-prompt-library.ai-automation-tools.dev/api/skill-packs
 ```
 
 Response:
@@ -432,13 +432,13 @@ Response:
 ### Get Pack Details
 
 ```bash
-curl https://prompts.mikesailab.com/api/skill-packs/developer-essentials-pack
+curl https://my-prompt-library.ai-automation-tools.dev/api/skill-packs/developer-essentials-pack
 ```
 
 ### Download Pack
 
 ```bash
-curl -O https://prompts.mikesailab.com/api/skill-packs/developer-essentials-pack/download
+curl -O https://my-prompt-library.ai-automation-tools.dev/api/skill-packs/developer-essentials-pack/download
 ```
 
 ---

@@ -167,6 +167,51 @@
 }
 
 @layer components {
+  /* ===== Source bar (org convention: top of every ai-automation-tools.dev site) ===== */
+
+  .src-bar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 16px;
+    height: 34px;
+    padding: 0 16px;
+    position: relative;
+    z-index: 20;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+  }
+
+  .src-note {
+    margin: 0;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--fg-4);
+  }
+
+  .src-note strong {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .src-link {
+    margin-left: auto;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--fg-3);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .src-link:hover {
+    color: var(--fg);
+  }
+
   /* ===== Type helpers ===== */
 
   .eyebrow {
