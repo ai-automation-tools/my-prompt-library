@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "buildTime": "2026-10-11T06:01:49.983Z",
-  "promptCount": 3200,
+  "buildTime": "2026-10-12T21:03:50.496Z",
+  "promptCount": 3202,
   "prompts": [
     {
       "id": "1_Guides/API_Providers/anthropic-api-guide.md",
@@ -44915,6 +44915,23 @@
       "isUserOwned": false
     },
     {
+      "id": "4_Prompts/Finance/Budgets/zero-based-budget-rebuild.md",
+      "title": "💵 Zero-Based Budget Rebuild",
+      "section": "4_Prompts",
+      "category": "Finance",
+      "subcategory": "Budgets",
+      "tags": [
+        "budgeting",
+        "zero-based",
+        "cost-review",
+        "planning",
+        "finance"
+      ],
+      "contentPreview": "\n# Zero-Based Budget Rebuild\n\n## Purpose\nRebuild a department or household budget from zero instead of last year's number plus a percentage, so every line has to justify itself against a purpose.\n\n## ",
+      "lastModified": "2026-10-12T21:03:41.892Z",
+      "isUserOwned": false
+    },
+    {
       "id": "4_Prompts/Finance/Crypto/rotation-and-dominance-report.md",
       "title": "₿ ₿ Crypto Rotation & Dominance Report",
       "section": "4_Prompts",
@@ -45130,6 +45147,23 @@
       ],
       "contentPreview": "\n# AI Agent Real-Time Fraud Analysis\n\n## Purpose\nDeploy an AI agent to analyze financial transaction patterns and detect behavioral anomalies to proactively block fraudulent activity. This prompt leve",
       "lastModified": "2026-09-20T06:00:08.690Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/IT_Security/Governance/access-recertification-campaign.md",
+      "title": "🔐 Access Recertification Campaign Planner",
+      "section": "4_Prompts",
+      "category": "IT_Security",
+      "subcategory": "Governance",
+      "tags": [
+        "access-review",
+        "recertification",
+        "least-privilege",
+        "audit",
+        "governance"
+      ],
+      "contentPreview": "\n# Access Recertification Campaign Planner\n\n## Purpose\nPlan a periodic user-access review that reviewers can actually complete, so approvals reflect a real decision and not a bulk click-through.\n\n## I",
+      "lastModified": "2026-10-12T21:03:41.931Z",
       "isUserOwned": false
     },
     {
