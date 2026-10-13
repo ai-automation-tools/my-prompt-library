@@ -24,6 +24,19 @@ _Touched: `site/index.html`, `site/src/App.tsx`, `site/src/index.css`,
 
 ---
 
+## 2026-10-12 — Two new prompts in thin folders
+
+- **Zero-Based Budget Rebuild** (`4_Prompts/Finance/Budgets/zero-based-budget-rebuild.md`):
+  rebuilds a budget from drivers instead of last year's number, classifies lines as
+  committed, driven or discretionary, and ranks discretionary spend against a target.
+- **Access Recertification Campaign Planner**
+  (`4_Prompts/IT_Security/Governance/access-recertification-campaign.md`): plans a user-access
+  review with risk tiers, reviewer packets, escalation defaults and audit evidence.
+
+`api/prompt-index.json` rebuilt (3,202 prompts).
+
+---
+
 ## 2026-10-10 — `x-twitter-scraper` resynced after another upstream rewrite
 
 The newest drift comment on issue #339 (2026-10-05) listed two `behind` skills,
