@@ -177,6 +177,8 @@ const PromptCard = memo(function PromptCard({
           'flex items-center gap-1 border-t border-[var(--line)] px-2.5 py-2',
           'translate-y-0 opacity-100 transition-all duration-300 md:translate-y-1 md:opacity-0',
           'md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100',
+          // Touch tablets are md+ but can't hover, so keep the actions visible there too.
+          '[@media(hover:none)]:translate-y-0 [@media(hover:none)]:opacity-100',
         )}
       >
         <span className="mono mr-auto pl-1 text-[10.5px] text-[var(--fg-5)]">

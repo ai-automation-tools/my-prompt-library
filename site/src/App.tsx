@@ -703,7 +703,7 @@ source: My Prompt Library
 
   return (
     <LazyMotion features={domAnimation} strict>
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="app-shell flex flex-col overflow-hidden">
     <SourceBar />
     <div className="relative flex min-h-0 flex-1 overflow-hidden">
       <AmbientBackground />
