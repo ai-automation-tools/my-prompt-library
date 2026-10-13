@@ -1,23 +1,8 @@
 {
   "version": 1,
-  "buildTime": "2026-10-13T02:30:34.687Z",
-  "promptCount": 3202,
+  "buildTime": "2026-10-13T22:11:16.574Z",
+  "promptCount": 3200,
   "prompts": [
-    {
-      "id": "1_Guides/API_Providers/anthropic-api-guide.md",
-      "title": "📚 Anthropic API Guide",
-      "section": "1_Guides",
-      "category": "API_Providers",
-      "subcategory": "anthropic-api-guide",
-      "tags": [
-        "api",
-        "anthropic",
-        "setup"
-      ],
-      "contentPreview": "\n# Anthropic API Guide\n\n## Overview\nSetting up Anthropic's Claude API.\n\n## Setup Instructions\n1. Get API key.\n2. Set `ANTHROPIC_API_KEY`.\n\n## Integration Points\n- REST API.\n\n## Example JSON Protocol\n`",
-      "lastModified": "2026-09-20T06:00:05.966Z",
-      "isUserOwned": false
-    },
     {
       "id": "1_Guides/API_Providers/anthropic_api_guide.md",
       "title": "💻 Anthropic API Guide",
@@ -30,8 +15,8 @@
         "api",
         "claude"
       ],
-      "contentPreview": "\n# Anthropic API Guide\n\n## Overview\nThis guide covers how to integrate and build AI agents using the Anthropic API, specifically leveraging the Claude 5 family of models (Sonnet and Opus, plus Haiku 4",
-      "lastModified": "2026-09-20T06:00:05.968Z",
+      "contentPreview": "\n# Anthropic API Guide\n\n## Overview\nThis guide covers how to integrate and build AI agents using the Anthropic API, specifically leveraging the current Claude 5 family (Fable 5.1, Opus 5.5, Sonnet 5.5",
+      "lastModified": "2026-10-13T22:10:02.093Z",
       "isUserOwned": false
     },
     {
@@ -223,21 +208,7 @@
         "api"
       ],
       "contentPreview": "\n# OpenAI API Best Practices Guide\n\n## Overview\nA guide covering best practices for integrating the OpenAI API.\n\n## Agent Configuration\n\n### Basic Settings\n- **Agent Name:** API Integration Expert\n- *",
-      "lastModified": "2026-09-20T06:00:05.974Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "1_Guides/API_Providers/openai-api-guide.md",
-      "title": "📚 OpenAI API Setup Guide",
-      "section": "1_Guides",
-      "category": "API_Providers",
-      "subcategory": "openai-api-guide",
-      "tags": [
-        "api_providers",
-        "new"
-      ],
-      "contentPreview": "\n# OpenAI API Setup Guide\n\n## Overview\nThis guide explains how to properly configure, authenticate, and use the OpenAI API for your agent workflows.\n\n## Setup Instructions\n1. Navigate to the OpenAI De",
-      "lastModified": "2026-09-20T06:00:05.975Z",
+      "lastModified": "2026-10-13T22:10:22.587Z",
       "isUserOwned": false
     },
     {
@@ -252,7 +223,7 @@
         "api"
       ],
       "contentPreview": "\n# OpenAI API Guide\n\n## Overview\nA comprehensive guide on integrating and utilizing the OpenAI API for building intelligent agents.\n\n## Agent Configuration\n\n### Basic Settings\n- **Agent Name:** OpenAI",
-      "lastModified": "2026-09-20T06:00:05.975Z",
+      "lastModified": "2026-10-13T22:10:02.094Z",
       "isUserOwned": false
     },
     {
@@ -720,8 +691,8 @@
         "reference",
         "options"
       ],
-      "contentPreview": "\n<!-- Last Updated: 2026-04-18 - Synced with upstream v2.1.114 -->\n\n# Claude Code Agent Guide\n\nComprehensive reference for building and managing agents with Claude Code CLI.\n\n**Key Features:**\n- 🤖 Ag",
-      "lastModified": "2026-09-20T06:00:05.989Z",
+      "contentPreview": "\n<!-- Last Updated: 2026-10-13 - Install, permission modes and CLI table checked against code.claude.com/docs/en/setup, permission-modes and cli-reference -->\n\n# Claude Code Agent Guide\n\nComprehensive",
+      "lastModified": "2026-10-13T22:10:49.750Z",
       "isUserOwned": false
     },
     {
@@ -737,8 +708,8 @@
         "reference",
         "options"
       ],
-      "contentPreview": "\n<!-- Last Updated: 2026-03-21 - Synced with upstream documentation -->\n\n# Claude Code CLI Flags Reference\n\nOfficial command-line flags available in Claude Code CLI.\n\n**Source**: [code.claude.com/docs",
-      "lastModified": "2026-09-20T06:00:05.989Z",
+      "contentPreview": "\n<!-- Last Updated: 2026-10-13 - Checked against code.claude.com/docs/en/cli-reference -->\n\n# Claude Code CLI Flags Reference\n\nOfficial command-line flags available in Claude Code CLI.\n\n**Source**: [c",
+      "lastModified": "2026-10-13T22:07:48.324Z",
       "isUserOwned": false
     },
     {
@@ -753,8 +724,8 @@
         "cli",
         "reference"
       ],
-      "contentPreview": "\n<!-- Last Updated: 2026-03-21 - Synced with upstream documentation -->\n\n# Claude Code Slash Commands Reference\n\nBuilt-in commands available in Claude Code CLI interactive mode.\n\n**Source**: [code.cla",
-      "lastModified": "2026-09-20T06:00:05.990Z",
+      "contentPreview": "\n<!-- Last Updated: 2026-10-13 - Checked against code.claude.com/docs/en/commands -->\n\n# Claude Code Slash Commands Reference\n\nBuilt-in commands available in Claude Code CLI interactive mode.\n\n**Sourc",
+      "lastModified": "2026-10-13T22:07:48.325Z",
       "isUserOwned": false
     },
     {
@@ -790,8 +761,8 @@
         "openai",
         "options"
       ],
-      "contentPreview": "\n<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->\n\n# Codex CLI Flags Reference\n\nOfficial command-line flags for Codex CLI (OpenAI's coding agent).\n\n**Source**: [developers.openai",
-      "lastModified": "2026-09-20T06:00:05.990Z",
+      "contentPreview": "\n<!-- Last Updated: 2026-10-13 - Checked against the Codex CLI command reference (learn.chatgpt.com/docs/developer-commands) and github.com/openai/codex -->\n\n# Codex CLI Flags Reference\n\nOfficial comm",
+      "lastModified": "2026-10-13T22:08:42.856Z",
       "isUserOwned": false
     },
     {
@@ -807,8 +778,8 @@
         "reference",
         "openai"
       ],
-      "contentPreview": "\n<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->\n\n# Codex Slash Commands Reference\n\nBuilt-in slash commands available in Codex CLI interactive mode.\n\n**Source**: [developers.ope",
-      "lastModified": "2026-09-20T06:00:05.991Z",
+      "contentPreview": "\n<!-- Last Updated: 2026-10-13 - Partially checked: see note below -->\n\n# Codex Slash Commands Reference\n\nBuilt-in slash commands available in Codex CLI interactive mode.\n\n**Source**: [developers.open",
+      "lastModified": "2026-10-13T22:08:42.856Z",
       "isUserOwned": false
     },
     {
@@ -915,8 +886,8 @@
         "google",
         "options"
       ],
-      "contentPreview": "\n<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->\n\n# Gemini CLI Flags Reference\n\nCommand-line options and features for Gemini CLI (Google's AI coding agent).\n\n**Source**: [gemini",
-      "lastModified": "2026-09-20T06:00:05.993Z",
+      "contentPreview": "\n<!-- Last Updated: 2026-10-13 - Checked against github.com/google-gemini/gemini-cli docs/cli/cli-reference.md -->\n\n# Gemini CLI Flags Reference\n\nCommand-line options and features for Gemini CLI (Goog",
+      "lastModified": "2026-10-13T22:09:18.365Z",
       "isUserOwned": false
     },
     {

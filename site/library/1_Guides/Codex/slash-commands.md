@@ -3,9 +3,10 @@ title: "Codex Slash Commands Reference"
 tags: ["codex", "slash-commands", "cli", "reference", "openai"]
 category: "Agent_Guides"
 subcategory: "Codex"
+checked: 2026-10-13
 ---
 
-<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->
+<!-- Last Updated: 2026-10-13 - Partially checked: see note below -->
 
 # Codex Slash Commands Reference
 
@@ -32,9 +33,7 @@ Built-in slash commands available in Codex CLI interactive mode.
 Switch between available models or adjust reasoning levels mid-session.
 
 **Available Models:**
-- `gpt-5.4` (recommended - combines GPT-5.3-Codex with frontier reasoning)
-- `gpt-5.3-codex` (strong coding capabilities)
-- `gpt-5.3-codex-spark` (ChatGPT Pro only, research preview)
+Run `/model` to see the models your account can use; the CLI reference no longer names a recommended default.
 
 **Usage:**
 ```bash
@@ -168,7 +167,6 @@ Execute local shell command and include output in context.
 # When active: all input interpreted as shell commands
 ```
 
-**Environment Variable:** `GEMINI_CLI=1` is set when running commands via `!`
 
 ## Keyboard Shortcuts (Not Commands)
 
@@ -217,12 +215,13 @@ Location: `~/.codex/config.toml`
 [tui]
 theme = "monokai"
 
-review_model = "gpt-5.4"
+review_model = "<model-id>"
 web_search = "cached"  # or "live" or "disabled"
 ```
 
 ## Notes
 
+- This list is not exhaustive: the official CLI also has `/permissions`, `/plan`, `/status`, `/init`, `/mcp`, `/goal`, `/feedback` and others. The slash-command page was unreachable when this guide was checked (it redirects to learn.chatgpt.com/docs/developer-commands), so run `/` in your installed build for the current list
 - All slash commands are case-sensitive
 - Commands can be used mid-conversation
 - Some commands open interactive pickers

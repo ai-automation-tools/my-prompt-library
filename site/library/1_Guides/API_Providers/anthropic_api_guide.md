@@ -3,20 +3,22 @@ title: "💻 Anthropic API Guide"
 tags: ["agent-guides", "anthropic", "api", "claude"]
 category: "Agent_Guides"
 subcategory: "API_Providers"
+checked: 2026-10-13
 ---
 
 # Anthropic API Guide
 
 ## Overview
-This guide covers how to integrate and build AI agents using the Anthropic API, specifically leveraging the Claude 5 family of models (Sonnet and Opus, plus Haiku 4.5). It focuses on utilizing advanced features like Tool Use (Function Calling), System Prompts, and Vision capabilities.
+This guide covers how to integrate and build AI agents using the Anthropic API, specifically leveraging the current Claude 5 family (Fable 5.1, Opus 5.5, Sonnet 5.5 and Haiku 5.5). It focuses on utilizing advanced features like Tool Use (Function Calling), System Prompts, and Vision capabilities.
 
 ## Agent Configuration
 
 ### Basic Settings
 - **Agent Name:** Claude via API
-- **Model:** `claude-opus-5` (Complex reasoning), `claude-sonnet-5` (Balanced), `claude-haiku-4-5` (Fast/Efficient)
-- **Temperature:** `0.0` for coding/factual tasks, `0.7` for creative tasks.
-- **Max Tokens:** Up to 4096 (can be extended with specific headers).
+- **Model:** `claude-fable-5-1` (demanding reasoning, long-horizon agents), `claude-opus-5-5` (agentic coding and knowledge work), `claude-sonnet-5-5` (speed/intelligence balance), `claude-haiku-5-5` (high-volume, low latency). Every ID is a pinned snapshot.
+- **Context window:** 1M tokens on all four; max output 128K tokens on the synchronous Messages API.
+- **Thinking and effort:** thinking is adaptive; steer it with the `effort` parameter (defaults: `high` on Fable 5.1 and Sonnet 5.5, `medium` on Opus 5.5 and Haiku 5.5). Check each model page for which sampling parameters it accepts before setting `temperature`.
+- **Max Tokens:** set `max_tokens` explicitly on every request.
 
 ### Tools & Permissions
 When defining tools for Claude via the API, you must provide a strict JSON schema describing the tool's inputs.
@@ -61,14 +63,15 @@ When a tool returns an error, you should:
 
 ### Initialization
 1. Obtain an API key from the Anthropic Console.
-2. Install the Anthropic client library (e.g., `pip install anthropic` or `npm install @anthropic-ai/sdk`).
-3. Initialize the client in your code with your API key.
+2. Set `ANTHROPIC_API_KEY` in your environment (the SDK clients read it automatically).
+3. Install the Anthropic client library (e.g., `pip install anthropic` or `npm install @anthropic-ai/sdk`).
+4. Initialize the client in your code.
 
 ### Standard Operating Procedure
 
 #### Phase 1: Request Construction
 - Combine the system prompt, available tool definitions, and user messages into the API request structure.
-- Define the desired model and temperature.
+- Define the desired model, `max_tokens` and (optionally) `effort`.
 
 #### Phase 2: API Call and Tool Execution
 - Send the request to the `messages` endpoint.
@@ -99,7 +102,7 @@ import anthropic
 
 client = anthropic.Anthropic()
 response = client.messages.create(
-    model="claude-haiku-4-5",
+    model="claude-haiku-5-5",
     max_tokens=1000,
     system="You are a pirate.",
     messages=[
@@ -166,8 +169,9 @@ Ahoy there, matey! How be ye doin' on this fine day?
 ## Version History
 
 - **v1.0** (2024): Updated for Claude 3 family and the Messages API.
+- **2026-10-13**: Model IDs, context and output limits checked against the models overview; merged in the former `anthropic-api-guide.md` stub (setup steps: get a key, set `ANTHROPIC_API_KEY`).
 
 ## References
 
-- [Anthropic API Documentation](https://docs.anthropic.com/en/api/getting-started)
-- [Anthropic Tool Use Documentation](https://docs.anthropic.com/en/docs/tool-use)
+- [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview)
+- [Claude API quickstart](https://platform.claude.com/docs/en/get-started)

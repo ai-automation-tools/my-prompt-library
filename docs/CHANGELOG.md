@@ -4,6 +4,44 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-13 — Library refresh — guides
+
+First guides pass. Nine guides under `site/library/1_Guides/` read against the vendors' own
+docs and corrected; each gets `checked: 2026-10-13`. Two duplicate stubs merged away.
+
+- **`Claude_Code/flags-reference.md`**, **`slash-commands.md`**, **`claude_code_cli_guide.md`** →
+  code.claude.com/docs/en/cli-reference, `/commands`, `/setup`, `/permission-modes`. Added the
+  new commands and flags (`--bg`, `--bare`, `--safe-mode`, `claude attach|logs|stop|doctor|install`,
+  `/goal`, `/background`, `/subtask`, `/cd` …), the full permission-mode list (`auto`, `dontAsk`),
+  `--effort` levels, `--cloud` (`--remote` deprecated). Removed the false `--api-key` flag and
+  `/pr-comments`, `/vim` (removed upstream). The CLI guide wrongly called npm install deprecated;
+  it is a supported method, so all install routes are now listed.
+- **`Codex/flags-reference.md`**, **`slash-commands.md`** → github.com/openai/codex and the Codex
+  CLI command reference (now at learn.chatgpt.com/docs/developer-commands). New install
+  commands, `codex update|review|fork|login|doctor|sandbox`, `--sandbox`, `--ask-for-approval`,
+  `--yolo`, `--oss`, `-c`. Dropped the retired `gpt-5.x` model list (no default is stated) and the
+  `GEMINI_CLI=1` line that had been pasted into the Codex pages. **Slash-command list not
+  re-verified:** the official slash page redirects to a page that does not list them; a note says so.
+- **`Gemini_CLI/flags-reference.md`** → github.com/google-gemini/gemini-cli `docs/cli/cli-reference.md`.
+  The page had no CLI-flag section; added the full options table, subcommands and model aliases
+  (`auto`, `pro`, `flash`, `flash-lite`); removed the unsupported `gemini auth login` and the
+  retired model list; `/memory refresh` → `/memory reload`.
+- **`API_Providers/anthropic_api_guide.md`** → platform.claude.com models overview. Model IDs now
+  `claude-fable-5-1`, `claude-opus-5-5`, `claude-sonnet-5-5`, `claude-haiku-5-5`; 1M context,
+  128K output, adaptive thinking and `effort`. **Merged** `anthropic-api-guide.md` (a 370-byte
+  stub) into it and deleted the stub.
+- **`API_Providers/openai_api_guide.md`**, **`openai-api-best-practices.md`** → developers.openai.com/api/docs/models.
+  `gpt-5.6-sol` (not a listed model) → `gpt-6.1-sol` / `gpt-6-astra` / `gpt-6-luna`, 1.05M context,
+  Responses API. **Merged** `openai-api-guide.md` (stub) into `openai_api_guide.md` and deleted it.
+
+Not touched: `docs/features/API.md` still uses the deleted `anthropic-api-guide.md` path as an
+example id (outside this job's scope). Remaining unchecked guides are for the next guides pass.
+Counts in `1_Guides/README.md` are unchanged.
+
+_Touched: the nine guides above, two deleted stubs, `site/api/prompt-index.json`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-12 — Three skills resynced; drift report clean (#339)
 
 The 2026-10-12 drift comment on #339 listed `brainstorming` as `behind` and `claude-api` as

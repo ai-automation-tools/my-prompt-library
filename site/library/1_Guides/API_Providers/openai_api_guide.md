@@ -3,6 +3,7 @@ title: "💻 OpenAI API Guide"
 tags: ["agent-guides", "openai", "api"]
 category: "Agent_Guides"
 subcategory: "API_Providers"
+checked: 2026-10-13
 ---
 
 # OpenAI API Guide
@@ -14,9 +15,9 @@ A comprehensive guide on integrating and utilizing the OpenAI API for building i
 
 ### Basic Settings
 - **Agent Name:** OpenAI Assistant
-- **Model:** gpt-5.6-sol
-- **Temperature:** 0.7
-- **Context Window:** 128k tokens
+- **Model:** `gpt-6.1-sol` (balance of intelligence and cost); `gpt-6-astra` (flagship, complex reasoning and coding); `gpt-6-luna` (high-volume, cost-sensitive)
+- **Reasoning effort:** low, medium, high, xhigh, max (Luna also accepts none)
+- **Context Window:** 1.05M tokens, 128K max output (all three)
 
 ### Tools & Permissions
 - Tool 1: Code Interpreter
@@ -59,8 +60,10 @@ When encountering an API error, you should:
 ## Workflow
 
 ### Initialization
-1. Initialize client with API key
-2. Set system prompt
+1. Create an API key in the OpenAI developer dashboard (Settings -> API Keys)
+2. Export it: `export OPENAI_API_KEY="your-key-here"`
+3. Initialize the client
+4. Set the system prompt (the `instructions` field on the Responses API)
 
 ### Standard Operating Procedure
 #### Phase 1: Request Prep
@@ -68,7 +71,7 @@ When encountering an API error, you should:
 - Define tools
 
 #### Phase 2: Execution
-- Call `chat.completions.create`
+- Call `client.responses.create` (the Responses API, the main API reference for current models)
 
 #### Phase 3: Response Handling
 - Parse response
@@ -123,11 +126,15 @@ client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 ## Integration
 
+### Related endpoints
+- Embeddings API for vector search
+
 ### With Other Agents
 - Can be used as the brain for LangChain or LlamaIndex agents
 
 ## Version History
 - **v1.0.0** (2024-01-01): Guide created
+- **2026-10-13**: Models, limits and endpoint checked against developers.openai.com/api/docs/models; merged in the former `openai-api-guide.md` stub (setup steps and embeddings note). The Assistants API is listed there as legacy.
 
 ## References
-- [OpenAI Docs](https://platform.openai.com/docs/)
+- [OpenAI models](https://developers.openai.com/api/docs/models)
