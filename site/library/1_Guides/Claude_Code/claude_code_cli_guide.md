@@ -3,9 +3,10 @@ title: "💻 Claude Code CLI Guide"
 tags: ["featured", "claude-code", "flags", "cli", "reference", "options"]
 category: "Agent_Guides"
 subcategory: "Claude_Code"
+checked: 2026-10-13
 ---
 
-<!-- Last Updated: 2026-04-18 - Synced with upstream v2.1.114 -->
+<!-- Last Updated: 2026-10-13 - Install, permission modes and CLI table checked against code.claude.com/docs/en/setup, permission-modes and cli-reference -->
 
 # Claude Code Agent Guide
 
@@ -21,7 +22,24 @@ Comprehensive reference for building and managing agents with Claude Code CLI.
 - 🛡️ Multiple permission modes for safe execution
 - 🌐 `sandbox.network.deniedDomains` support for explicit domain blocking
 
-**Installation Note:** NPM installation is deprecated. Use curl/bash script, Homebrew, or WinGet for installation.
+**Installation:** the native installer is recommended and auto-updates in the background (see [setup](https://code.claude.com/docs/en/setup)).
+
+```bash
+# macOS, Linux, WSL
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Windows PowerShell
+irm https://claude.ai/install.ps1 | iex
+
+# Homebrew / WinGet (no auto-update)
+brew install --cask claude-code
+winget install Anthropic.ClaudeCode
+
+# npm (Node.js 22+; installs the same native binary)
+npm install -g @anthropic-ai/claude-code
+```
+
+Update with `claude update`; check the install with `claude doctor`. Don't use `sudo npm install -g`.
 
 ---
 
@@ -274,7 +292,7 @@ claude mcp add-from-claude-desktop
 | Flag | Description |
 |------|-------------|
 | `--dangerously-skip-permissions` | Skip all permission prompts |
-| `--permission-mode` | Set mode: `default`, `acceptEdits`, `plan`, `dontAsk`, `bypassPermissions` |
+| `--permission-mode` | Set mode: `default`, `acceptEdits`, `plan`, `auto`, `dontAsk`, `bypassPermissions` |
 | `--permission-prompt-tool` | MCP tool to handle permission prompts |
 | `--allowedTools` | Tools that execute without prompting |
 | `--disallowedTools` | Tools removed from context |
@@ -284,7 +302,7 @@ claude mcp add-from-claude-desktop
 
 | Flag | Description |
 |------|-------------|
-| `--model` | Set model: `opus`, `sonnet`, `haiku`, or full name |
+| `--model` | Set model: `fable`, `opus`, `sonnet`, `haiku`, or full name (e.g. `claude-sonnet-5-5`) |
 | `--system-prompt` | Replace entire system prompt |
 | `--system-prompt-file` | Load system prompt from file (print mode) |
 | `--append-system-prompt` | Append text to default system prompt |
@@ -336,11 +354,12 @@ claude mcp add-from-claude-desktop
 
 | Mode | Description |
 |------|-------------|
-| `default` | Standard - prompts for permission on first use |
-| `acceptEdits` | Auto-accepts file edit permissions |
+| `default` (alias `manual`) | Reads only; prompts for edits, commands and network access |
+| `acceptEdits` | Auto-accepts file edits and common filesystem commands |
 | `plan` | Plan Mode - analyze but don't modify |
-| `dontAsk` | Auto-denies tools unless pre-approved |
-| `bypassPermissions` | Skips all prompts (requires safe environment) |
+| `auto` | Everything runs, with a classifier model reviewing actions in the background |
+| `dontAsk` | Auto-denies anything that would prompt unless pre-approved |
+| `bypassPermissions` | Skips all prompts (isolated containers and VMs only) |
 
 ### Settings File Locations
 

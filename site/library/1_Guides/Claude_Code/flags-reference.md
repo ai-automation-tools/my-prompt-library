@@ -3,9 +3,10 @@ title: "Claude Code CLI Flags Reference"
 tags: ["claude-code", "flags", "cli", "reference", "options"]
 category: "Agent_Guides"
 subcategory: "Claude_Code"
+checked: 2026-10-13
 ---
 
-<!-- Last Updated: 2026-03-21 - Synced with upstream documentation -->
+<!-- Last Updated: 2026-10-13 - Checked against code.claude.com/docs/en/cli-reference -->
 
 # Claude Code CLI Flags Reference
 
@@ -28,7 +29,13 @@ Official command-line flags available in Claude Code CLI.
 | `claude auth login` | Sign in to Anthropic account | `claude auth login --email user@example.com --sso` |
 | `claude auth logout` | Log out from Anthropic account | `claude auth logout` |
 | `claude auth status` | Show authentication status | `claude auth status` |
-| `claude agents` | List all configured subagents | `claude agents` |
+| `claude agents` | Open agent view to monitor and dispatch background sessions (`--json` for scripting) | `claude agents --json` |
+| `claude attach <id\|name>` | Attach to a background session | `claude attach 7c5dcf5d` |
+| `claude logs <id\|name>` | Print recent output from a background session | `claude logs 7c5dcf5d` |
+| `claude stop <id>` | Stop a background session | `claude stop 7c5dcf5d` |
+| `claude doctor` | Print read-only installation and settings diagnostics | `claude doctor` |
+| `claude install [version]` | Install or reinstall the native binary (`stable`, `latest` or a version) | `claude install stable` |
+| `claude setup-token` | Generate a long-lived OAuth token for CI and scripts | `claude setup-token` |
 | `claude mcp` | Configure MCP servers | See MCP documentation |
 | `claude remote-control` | Start Remote Control server | `claude remote-control --name "My Project"` |
 
@@ -50,11 +57,11 @@ Official command-line flags available in Claude Code CLI.
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--model` | Set model for current session | `claude --model claude-sonnet-4-6` |
-| `--effort` | Set effort level (low/medium/high/max) | `claude --effort high` |
-| `--fallback-model` | Enable fallback model (print mode) | `claude -p --fallback-model sonnet "query"` |
+| `--model` | Set model for current session | `claude --model claude-sonnet-5` |
+| `--effort` | Set effort level (low/medium/high/xhigh/max/ultracode; available levels depend on the model) | `claude --effort high` |
+| `--fallback-model` | Fall back to the listed model(s), comma-separated, when the primary is overloaded or unavailable | `claude --fallback-model sonnet,haiku` |
 
-**Aliases**: `sonnet` = latest Sonnet, `opus` = latest Opus
+**Aliases**: `sonnet`, `opus`, `haiku` and `fable` = the latest model of that family
 
 ### System Prompts
 
@@ -93,7 +100,7 @@ Official command-line flags available in Claude Code CLI.
 |------|-------------|---------|
 | `--agent` | Specify agent for session | `claude --agent my-custom-agent` |
 | `--agents` | Define custom subagents via JSON | `claude --agents '{"reviewer":{...}}'` |
-| `--teammate-mode` | Set teammate display mode (auto/in-process/tmux) | `claude --teammate-mode in-process` |
+| `--teammate-mode` | Set teammate display mode (`in-process` (default), `auto`, `tmux`, `iterm2`) | `claude --teammate-mode in-process` |
 
 ### Browser & Chrome
 
@@ -108,14 +115,14 @@ Official command-line flags available in Claude Code CLI.
 |------|-------------|---------|
 | `--mcp-config` | Load MCP servers from JSON | `claude --mcp-config ./mcp.json` |
 | `--strict-mcp-config` | Only use MCP from --mcp-config | `claude --strict-mcp-config --mcp-config ./mcp.json` |
-| `--plugin-dir` | Load plugins from directory | `claude --plugin-dir ./my-plugins` |
+| `--plugin-dir` | Load a plugin from a directory or `.zip` for this session (repeat the flag for more) | `claude --plugin-dir ./my-plugin` |
 | `--disable-slash-commands` | Disable all skills/commands | `claude --disable-slash-commands` |
 
 ### Web & Remote Sessions
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--remote` | Create web session on claude.ai | `claude --remote "Fix the login bug"` |
+| `--cloud` | Create a cloud session (`--remote` is a deprecated alias) | `claude --cloud "Fix the login bug"` |
 | `--remote-control`, `--rc` | Start with Remote Control enabled | `claude --remote-control "My Project"` |
 | `--teleport` | Resume web session in local terminal | `claude --teleport` |
 
@@ -133,11 +140,14 @@ Official command-line flags available in Claude Code CLI.
 | `--betas` | Beta headers for API requests | `claude --betas interleaved-thinking` |
 | `--channels` | (Research preview) MCP servers whose channel notifications Claude should listen for | `claude --channels plugin:my-notifier@my-marketplace` |
 | `--dangerously-load-development-channels` | Enable channels not on approved allowlist for local development | `claude --dangerously-load-development-channels server:webhook` |
-| `--debug` | Enable debug mode with filtering | `claude --debug "api,mcp"` |
+| `--debug` | Enable debug mode; category filter binds only in the `=` form | `claude --debug='mcp,startup'` |
+| `--bare` | Minimal mode: skip hooks, skills, plugins, MCP servers, auto memory and CLAUDE.md discovery | `claude --bare -p "query"` |
+| `--safe-mode` | Start with all customizations disabled to troubleshoot a broken config | `claude --safe-mode` |
+| `--bg`, `--background` | Start the session as a background agent and return immediately | `claude --bg "investigate the flaky test"` |
 | `--ide` | Auto-connect to IDE on startup | `claude --ide` |
-| `--init` | Run initialization hooks | `claude --init` |
-| `--init-only` | Run init hooks and exit | `claude --init-only` |
-| `--maintenance` | Run maintenance hooks and exit | `claude --maintenance` |
+| `--init` | Run Setup hooks with the `init` matcher (print mode only) | `claude -p --init "query"` |
+| `--init-only` | Run Setup and SessionStart hooks, then exit | `claude --init-only` |
+| `--maintenance` | Run Setup hooks with the `maintenance` matcher (print mode only) | `claude -p --maintenance "query"` |
 | `--permission-prompt-tool` | Specify MCP tool for permission prompts | `claude -p --permission-prompt-tool mcp_auth_tool "query"` |
 | `--worktree`, `-w` | Start in isolated git worktree | `claude -w feature-auth` |
 
@@ -166,7 +176,7 @@ Official command-line flags available in Claude Code CLI.
 | `--append-system-prompt` | Appends to default prompt | `claude --append-system-prompt "Always use TypeScript"` |
 | `--append-system-prompt-file` | Appends file to default prompt | `claude --append-system-prompt-file ./style-rules.txt` |
 
-**Note**: `--system-prompt` and `--system-prompt-file` are mutually exclusive. Append flags can combine with replacement flags.
+**Note**: Append flags can combine with replacement flags. From v2.1.283 a flag can also be combined with its own file form (e.g. `--append-system-prompt` with `--append-system-prompt-file`).
 
 **Best Practice**: Use append flags to preserve Claude Code's built-in capabilities while adding requirements. Use replacement only when you need complete control.
 
@@ -176,7 +186,7 @@ Official command-line flags available in Claude Code CLI.
 
 | Variable | Equivalent Flag | Default |
 |----------|----------------|---------|
-| `ANTHROPIC_API_KEY` | `--api-key` | None (required) |
+| `ANTHROPIC_API_KEY` | none (there is no `--api-key` flag; use `claude auth login --console`) | None |
 
 ---
 
@@ -184,9 +194,14 @@ Official command-line flags available in Claude Code CLI.
 
 | Mode | Description |
 |------|-------------|
-| `ask` | Prompt before each tool execution (default) |
+| `default` (alias `manual`) | Reads only; prompts before edits, commands and network access |
+| `acceptEdits` | Reads, file edits and common filesystem commands (`mkdir`, `mv`, `cp`) without asking |
 | `plan` | Show plan, execute after approval |
+| `auto` | Everything, with a classifier model reviewing actions in the background |
+| `dontAsk` | Reads in working directories and pre-approved tools only; anything that would prompt is denied |
 | `bypassPermissions` | Execute tools without prompting (use with caution) |
+
+Set with `--permission-mode <mode>`.
 
 ---
 

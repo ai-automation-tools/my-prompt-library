@@ -3,21 +3,29 @@ title: "Codex CLI Flags Reference"
 tags: ["codex", "flags", "cli", "reference", "openai", "options"]
 category: "Agent_Guides"
 subcategory: "Codex"
+checked: 2026-10-13
 ---
 
-<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->
+<!-- Last Updated: 2026-10-13 - Checked against the Codex CLI command reference (learn.chatgpt.com/docs/developer-commands) and github.com/openai/codex -->
 
 # Codex CLI Flags Reference
 
 Official command-line flags for Codex CLI (OpenAI's coding agent).
 
-**Source**: [developers.openai.com/codex/cli](https://developers.openai.com/codex/cli/)
+**Sources**: [developers.openai.com/codex](https://developers.openai.com/codex) (CLI pages now redirect to [learn.chatgpt.com/docs/developer-commands](https://learn.chatgpt.com/docs/developer-commands?surface=cli)), [github.com/openai/codex](https://github.com/openai/codex)
 
 ## Installation & Basic Commands
 
 ```bash
-# Install
-npm i -g @openai/codex
+# Install (macOS / Linux)
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+
+# Or via a package manager
+npm install -g @openai/codex
+brew install --cask codex
+
+# Windows (PowerShell)
+powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
 
 # Run interactive mode
 codex
@@ -26,7 +34,7 @@ codex
 codex "Explain this codebase to me"
 
 # Update to latest version
-npm i -g @openai/codex@latest
+codex update
 ```
 
 ## Core Commands
@@ -35,7 +43,14 @@ npm i -g @openai/codex@latest
 |---------|-------------|---------|
 | `codex` | Start interactive TUI session | `codex` |
 | `codex "query"` | Start with initial prompt | `codex "Explain this codebase"` |
-| `codex exec "task"` | Non-interactive automation | `codex exec "fix the CI failure"` |
+| `codex exec "task"` (alias `e`) | Non-interactive automation | `codex exec "fix the CI failure"` |
+| `codex review` | Non-interactive review of uncommitted changes, a base branch, a commit or custom instructions | `codex review` |
+| `codex fork` | Fork a previous session into a new chat | `codex fork` |
+| `codex login` / `codex logout` | Authenticate (ChatGPT OAuth, device auth, API key, access token) / remove credentials | `codex login` |
+| `codex doctor` | Diagnostic report for installation, config, auth, runtime and Git | `codex doctor` |
+| `codex sandbox` | Run commands inside the macOS, Linux or Windows sandbox | `codex sandbox` |
+| `codex apply` (alias `a`) | Apply the latest diff from a Codex cloud chat to your working tree | `codex apply` |
+| `codex update` | Check for and apply a CLI update | `codex update` |
 | `codex resume` | Open session picker | `codex resume` |
 | `codex resume --last` | Resume most recent session | `codex resume --last` |
 | `codex resume --all` | Show all sessions (any directory) | `codex resume --all` |
@@ -47,7 +62,7 @@ npm i -g @openai/codex@latest
 | `codex cloud exec --env ENV_ID "task"` | Start cloud task | `codex cloud exec --env ENV_ID "Summarize bugs"` |
 | `codex completion bash` | Generate bash completions | `codex completion bash` |
 | `codex completion zsh` | Generate zsh completions | `codex completion zsh` |
-| `codex completion fish` | Generate fish completions | `codex completion fish` |
+| `codex completion fish` | Generate fish completions (PowerShell and Elvish also supported) | `codex completion fish` |
 
 ## CLI Flags
 
@@ -55,44 +70,51 @@ npm i -g @openai/codex@latest
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--model <name>` | Specify model (gpt-5.4, gpt-5.3-codex, etc.) | `codex --model gpt-5.4` |
+| `--model <name>`, `-m` | Override the configured model | `codex --model <model-id>` |
 
-**Available Models:**
-- `gpt-5.4` - Recommended for most tasks (combines GPT-5.3-Codex with frontier reasoning)
-- `gpt-5.3-codex` - Strong coding capabilities
-- `gpt-5.3-codex-spark` - Extra fast (ChatGPT Pro only, research preview)
+The CLI reference states no default model. Run `/model` in a session, or `codex debug models`, to see the models your account can use.
 
 ### Context & Directories
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--cd <path>` | Set working directory | `codex --cd apps/frontend` |
-| `--add-dir <path>` | Expose additional writable roots | `codex --add-dir ../backend --add-dir ../shared` |
+| `--cd <path>`, `-C` | Set working directory | `codex --cd apps/frontend` |
+| `--add-dir <path>` | Grant write access to additional directories (repeatable) | `codex --add-dir ../backend --add-dir ../shared` |
 
 ### Image Input
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `-i <file>` | Attach image (PNG/JPEG) | `codex -i screenshot.png "Explain this error"` |
-| `--image <files>` | Attach multiple images (comma-separated) | `codex --image img1.png,img2.jpg "Summarize these"` |
+| `--image <paths>`, `-i` | Attach images to the initial prompt (comma-separated paths) | `codex -i screenshot.png "Explain this error"` |
 
 ### Web Search
 
 | Flag | Description | Default |
 |------|-------------|---------|
-| `--search` | Enable live web search (single run) | Cached mode |
+| `--search` | Enable live web search instead of cached (single run) | Cached mode |
 
 **Note**: Web search defaults to cached index for safety. Use `--search` for live results or set `web_search = "live"` in config. Can be disabled with `web_search = "disabled"`.
 
-### Approval Modes
+### Approvals & Sandbox
 
-| Mode | Description |
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--ask-for-approval`, `-a` | When Codex pauses for approval: `on-request` or `never` | `codex -a on-request` |
+| `--sandbox`, `-s` | Sandbox policy: `read-only`, `workspace-write` or `danger-full-access` | `codex -s workspace-write` |
+| `--dangerously-bypass-approvals-and-sandbox`, `--yolo` | Run without approvals or sandboxing (use sparingly) | `codex --yolo` |
+
+Use `/permissions` in an interactive session to switch modes.
+
+### Other Global Flags
+
+| Flag | Description |
 |------|-------------|
-| **Auto** (default) | Read/edit/run within working directory; asks for network or outside scope |
-| **Read-only** | Browse files only; no changes without approval |
-| **Full Access** | Work across machine including network (use sparingly) |
-
-Use `/permissions` in interactive session to switch modes.
+| `--config`, `-c` `key=value` | Override a configuration value for this run |
+| `--oss` | Use a local open-source model provider; pair with `--local-provider lmstudio\|ollama` |
+| `--enable <feature>` / `--disable <feature>` | Force a feature flag on or off (repeatable) |
+| `--no-alt-screen` | Disable alternate screen mode |
+| `--strict-config` | Error on unrecognized config fields |
+| `--remote <url>` | Connect to a remote app server (`ws://`, `wss://`, `unix://`) |
 
 ### Session Management
 
@@ -112,7 +134,7 @@ Use `/permissions` in interactive session to switch modes.
 
 | Flag | Description | Note |
 |------|-------------|------|
-| `--profile <name>` | Use specific config profile | Changes persist to profile, not root config |
+| `--profile <name>`, `-p` | Layer a named profile config | Changes persist to profile, not root config |
 
 ## Interactive Mode Features
 
@@ -203,7 +225,6 @@ autoload -Uz compinit && compinit
 
 | Variable | Description |
 |----------|-------------|
-| `GEMINI_CLI=1` | Set when running shell commands via `!` or shell mode |
 | `VISUAL` | Editor for Ctrl+G (fallback: `$EDITOR`) |
 | `EDITOR` | Fallback editor if `VISUAL` not set |
 | `CODEX_HOME` | Custom Codex home directory (default: `~/.codex`) |
@@ -220,7 +241,7 @@ autoload -Uz compinit && compinit
 
 - ✅ macOS
 - ✅ Linux
-- ⚠️ Windows (experimental - use WSL for best experience)
+- ⚠️ Windows (PowerShell installer available; WSL also works)
 
 **Windows Setup**: See [Windows setup guide](https://developers.openai.com/codex/windows)
 

@@ -3,15 +3,16 @@ title: "Gemini CLI Flags Reference"
 tags: ["gemini-cli", "flags", "cli", "reference", "google", "options"]
 category: "Agent_Guides"
 subcategory: "Gemini_CLI"
+checked: 2026-10-13
 ---
 
-<!-- Last Updated: 2026-03-14 - Synced with upstream documentation -->
+<!-- Last Updated: 2026-10-13 - Checked against github.com/google-gemini/gemini-cli docs/cli/cli-reference.md -->
 
 # Gemini CLI Flags Reference
 
 Command-line options and features for Gemini CLI (Google's AI coding agent).
 
-**Source**: [geminicli.com/docs](https://geminicli.com/docs/)
+**Sources**: [geminicli.com/docs](https://geminicli.com/docs/), [CLI reference](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/cli-reference.md)
 
 ## Installation
 
@@ -21,6 +22,47 @@ npm install -g @google/gemini-cli
 
 # Verify installation
 gemini --version
+
+# Update to the latest version
+gemini update
+```
+
+## CLI Options
+
+| Option | Alias | Description |
+|--------|-------|-------------|
+| `--model` | `-m` | Model to use (default `auto`); see aliases below |
+| `--prompt` | `-p` | Prompt text; forces non-interactive mode |
+| `--prompt-interactive` | `-i` | Run the prompt, then continue interactively |
+| `--resume` | `-r` | Resume a session: `"latest"` or an index number |
+| `--list-sessions` | | List sessions for the current project and exit |
+| `--delete-session` | | Delete a session by index |
+| `--approval-mode` | | `default`, `auto_edit`, `yolo` or `plan` |
+| `--yolo` | `-y` | **Deprecated**; use `--approval-mode=yolo` |
+| `--sandbox` | `-s` | Run in a sandboxed environment |
+| `--skip-trust` | | Trust the current workspace for this session |
+| `--worktree` | `-w` | Start in a new git worktree (needs `experimental.worktrees: true`) |
+| `--include-directories` | | Extra directories to add to the workspace |
+| `--extensions` | `-e` | Extensions to use (all enabled if omitted) |
+| `--list-extensions` | `-l` | List available extensions and exit |
+| `--allowed-mcp-server-names` | | Allowed MCP server names |
+| `--allowed-tools` | | **Deprecated**; use the Policy Engine |
+| `--output-format` | `-o` | `text` (default), `json` or `stream-json` |
+| `--screen-reader` | | Enable screen reader mode |
+| `--debug` | `-d` | Verbose debug logging |
+| `--version` / `--help` | `-v` / `-h` | Print version / help |
+
+Subcommands: `gemini update`, `gemini extensions` (`install`, `uninstall`, `list`, `update`, `enable`, `disable`, `link`, `new`, `validate`), `gemini mcp` (`add`, `remove`, `list`) and `gemini skills` (`list`, `install`, `link`, `uninstall`, `enable`, `disable`).
+
+Model aliases for `--model`: `auto` (default), `pro`, `flash`, `flash-lite`. Concrete model names are also accepted.
+
+Examples:
+
+```bash
+gemini -p "summarize this repo" -o json
+cat logs.txt | gemini -p "find the error"
+gemini -r latest "continue where we left off"
+gemini mcp add my-server ./server.js --scope user
 ```
 
 ## Core Features
@@ -41,10 +83,7 @@ Gemini CLI is an open-source AI agent that brings Gemini models directly into yo
 
 ## Authentication
 
-**Personal Accounts:**
-```bash
-gemini auth login
-```
+**Personal Accounts:** run `gemini` and choose a sign-in method when prompted (the CLI reference lists no separate login subcommand).
 
 **Enterprise/Google Cloud:**
 - Configure via Google Cloud project settings
@@ -60,11 +99,11 @@ Access Gemini models directly:
 /model set <model-name> --persist
 ```
 
-**Available Models:**
-- Gemini 3 - Latest with improved reasoning (1M token context)
-- Gemini 2.5 Flash - Fast with excellent quality
-- Gemini 2.0 - Previous generation
-- Gemini 1.5 Pro/Flash - Earlier versions
+**Model aliases** (`--model` / `/model`):
+- `auto` (default) - `gemini-2.5-pro`, or `gemini-3-pro-preview` when preview features are enabled
+- `pro` - complex reasoning (same resolution as `auto`)
+- `flash` - `gemini-2.5-flash`, fast and balanced
+- `flash-lite` - `gemini-2.5-flash-lite`, fastest, for simple tasks
 
 **Documentation**: [Model Selection](https://geminicli.com/docs/cli/model)
 
@@ -131,7 +170,7 @@ Manage via:
 ```bash
 /memory list      # List GEMINI.md file paths
 /memory show      # Display full concatenated memory
-/memory refresh   # Reload from all GEMINI.md files
+/memory reload    # Reload from all GEMINI.md files (older builds: /memory refresh)
 /memory add <text> # Add text to memory
 ```
 

@@ -3,9 +3,10 @@ title: "Claude Code Slash Commands Reference"
 tags: ["claude-code", "slash-commands", "cli", "reference"]
 category: "Agent_Guides"
 subcategory: "Claude_Code"
+checked: 2026-10-13
 ---
 
-<!-- Last Updated: 2026-03-21 - Synced with upstream documentation -->
+<!-- Last Updated: 2026-10-13 - Checked against code.claude.com/docs/en/commands -->
 
 # Claude Code Slash Commands Reference
 
@@ -21,15 +22,18 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 |---------|---------|
 | `/help` | Show help and available commands |
 | `/exit` | Exit the CLI (Alias: `/quit`) |
-| `/clear` | Clear conversation history and free up context (Aliases: `/reset`, `/new`) |
+| `/clear [name]` | Start a new conversation with empty context; a name labels the previous one in `/resume` (Aliases: `/reset`, `/new`) |
 
 ## Session Management
 
 | Command | Purpose |
 |---------|---------|
 | `/resume [session]` | Resume conversation by ID/name, or open session picker (Alias: `/continue`) |
-| `/fork [name]` | Create a fork of the current conversation at this point (Alias: `/branch`) |
-| `/branch [name]` | Create a branch of the current conversation at this point (Alias: `/fork`) |
+| `/branch [name]` | Create a branch of the current conversation at this point |
+| `/fork [prompt]` | Copy the current conversation into a new background session and keep working here |
+| `/background [prompt]` | Detach the current session to run as a background agent |
+| `/subtask <task>` | Spawn a forked background subagent that inherits the full conversation |
+| `/goal [condition\|clear]` | Keep working across turns until a condition is met |
 | `/rename [name]` | Rename current session and show name on prompt bar |
 | `/export [filename]` | Export current conversation as plain text |
 | `/compact [instructions]` | Compact conversation with optional focus instructions |
@@ -39,8 +43,11 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 | Command | Purpose |
 |---------|---------|
 | `/model [model]` | Select or change AI model (use arrows to adjust effort level) |
-| `/effort [low\|medium\|high\|max\|auto]` | Set model effort level |
-| `/config` | Open Settings interface (Alias: `/settings`) |
+| `/effort [level\|auto\|status\|ultracode [on\|off]]` | Set effort level: `low` to `xhigh`, `max`, or `auto` |
+| `/advisor [model\|off]` | Enable or disable the advisor tool, which consults a second model |
+| `/autocompact [auto\|<tokens>]` | Set how full the context window gets before auto-compact |
+| `/config [key=value ...]` | Open Settings interface (Alias: `/settings`) |
+| `/output-style [style]` | List or switch output styles |
 | `/status` | Open Settings interface (Status tab) showing version, model, account |
 
 ## Context & Memory
@@ -48,7 +55,8 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 | Command | Purpose |
 |---------|---------|
 | `/add-dir <path>` | Add a new working directory to current session |
-| `/context` | Visualize current context usage as colored grid |
+| `/cd <path>` | Move this session to a new working directory, keeping the conversation |
+| `/context [all]` | Visualize current context usage as colored grid |
 | `/btw <question>` | Ask quick side question without adding to conversation |
 | `/memory` | Edit CLAUDE.md memory files, enable/disable auto-memory |
 
@@ -66,14 +74,16 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 |---------|---------|
 | `/diff` | Open interactive diff viewer (uncommitted changes + per-turn diffs) |
 | `/rewind` | Rewind conversation/code to previous point (Alias: `/checkpoint`) |
-| `/security-review` | Analyze pending changes for security vulnerabilities |
-| `/pr-comments [PR]` | Fetch and display GitHub PR comments |
+| `/security-review` | Analyze the changes on your current branch for security vulnerabilities |
+| `/code-review [level] [--fix] [--comment] [pr#\|branch\|path]` | Bundled skill: review the diff or a PR (alias `/review`) |
+| `/ultrareview [PR or branch]` | Deep multi-agent code review in a cloud sandbox |
 
 ## Integrations & Extensions
 
 | Command | Purpose |
 |---------|---------|
-| `/agents` | Manage agent configurations |
+| `/agents` | Reminder to ask Claude to create or manage subagents, or edit `.claude/agents/` directly |
+| `/list-agents` | List the subagents, teammates and sessions Claude can message |
 | `/mcp` | Manage MCP server connections and OAuth |
 | `/chrome` | Configure Claude in Chrome settings |
 | `/ide` | Manage IDE integrations and show status |
@@ -81,13 +91,16 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 | `/reload-plugins` | Reload all active plugins without restarting |
 | `/hooks` | View hook configurations for tool events |
 | `/skills` | List available skills |
+| `/reload-skills` | Re-scan skill and command directories without restarting |
 
 ## Remote & Web Sessions
 
 | Command | Purpose |
 |---------|---------|
 | `/remote-control` | Make session available for remote control from claude.ai (Alias: `/rc`) |
-| `/remote-env` | Configure default remote environment for web sessions |
+| `/remote-env` | Choose the default cloud environment for cloud sessions started from the CLI |
+| `/teleport` | Pull a cloud session into this terminal |
+| `/schedule [description]` | Create, update, list or run cloud routines |
 | `/desktop` | Continue current session in Claude Code Desktop app (macOS/Windows) (Alias: `/app`) |
 | `/mobile` | Show QR code to download Claude mobile app (Aliases: `/ios`, `/android`) |
 
@@ -105,7 +118,7 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 | `/copy [N]` | Copy the last assistant response to clipboard. Pass `N` to copy Nth-latest: `/copy 2` for second-to-last. Shows picker for code blocks |
 | `/color [color\|default]` | Set prompt bar color (red/blue/green/yellow/purple/orange/pink/cyan) |
 | `/init` | Initialize project with CLAUDE.md guide |
-| `/doctor` | Diagnose and verify installation and settings |
+| `/doctor` | Setup checkup for installation, settings, extensions and CLAUDE.md |
 
 ## Display & UI
 
@@ -120,11 +133,10 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 
 | Command | Purpose |
 |---------|---------|
-| `/cost` | Show token usage statistics |
-| `/usage` | Show plan usage limits and rate limit status |
+| `/usage` | Show session cost, plan usage limits and activity stats (`/cost` is an alias) |
 | `/insights` | Generate report analyzing your sessions |
-| `/stats` | Visualize daily usage, session history, streaks |
-| `/tasks` | List and manage background tasks |
+| `/stats` | Alias for `/usage`, opens on the Stats tab |
+| `/tasks` | View and manage background work in the session (alias `/bashes`) |
 
 ## Account & Plans
 
@@ -145,8 +157,8 @@ Type `/` in Claude Code to see all available commands, or type `/` followed by l
 | `/fast [on\|off]` | Toggle fast mode |
 | `/feedback [report]` | Submit feedback about Claude Code (Alias: `/bug`) |
 | `/release-notes` | View full changelog |
-| `/vim` | Toggle between Vim and Normal editing modes |
-| `/voice` | Toggle push-to-talk voice dictation (requires Claude.ai account) |
+| `/voice [hold\|tap\|off]` | Toggle voice dictation (requires Claude.ai account) |
+| `/import [codex\|gemini\|cursor]` | Bring configuration from another coding agent into Claude Code |
 
 ## MCP Prompts
 
@@ -154,7 +166,9 @@ MCP servers can expose prompts as commands using format `/mcp__<server>__<prompt
 
 ## Bundled Skills
 
-Claude Code includes bundled skills like `/simplify`, `/batch`, and `/debug` that appear alongside built-in commands.
+Claude Code includes bundled skills like `/simplify`, `/batch`, `/debug`, `/loop` and `/verify` that appear alongside built-in commands.
+
+Removed: `/pr-comments` (v2.1.91; ask Claude to read PR comments) and `/vim` (v2.1.92; use `/config` → Editor mode).
 
 ## Command Aliases
 
@@ -167,7 +181,7 @@ Claude Code includes bundled skills like `/simplify`, `/batch`, and `/debug` tha
 - `/desktop` = `/app`
 - `/mobile` = `/ios` = `/android`
 - `/feedback` = `/bug`
-- `/fork` = `/branch`
+- `/cost` = `/usage`
 
 ---
 
