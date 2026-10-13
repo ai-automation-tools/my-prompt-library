@@ -238,6 +238,17 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       needs a preview deploy to confirm and is **Mike's call, not an agent's**.
 
 ### Library structure
+- [ ] **Record provenance for the untracked skills and the real agent definitions.** Only 99 of
+      323 skills carry an `upstream:` block, so the Monday `upstream-drift.yml` check never sees
+      the other 224; `2_Agents` has none at all, including the ~86 files that are real subagent
+      definitions (`name:` + `description:`) copied from public collections. Run
+      `scripts/attribute-upstream.mjs` over the untracked `3_Skills/**/SKILL.md` and stamp what
+      resolves (`match: unknown` for originals is a valid answer); then teach it and
+      `check-upstream-drift.mjs` to walk `2_Agents` for files with `name:`, leaving the role-play
+      prompts alone. **Done when** the drift report covers every vendored skill and agent, and
+      the counts in this file's *Skills* row are re-read from it. The biweekly library-refresh
+      job (`prompt-library-refresh`, added 2026-10-12) stamps `upstream:` on everything it adds,
+      so this is a one-time backfill.
 - [ ] **Decide what `2_Agents` is.** 460 of 546 files have no `name:`/`description:`, so they
       cannot load as subagents — they are role-play prompts filed in the wrong section.
       Either move them to `4_Prompts` or rename the section "Agent Prompts" and stop implying

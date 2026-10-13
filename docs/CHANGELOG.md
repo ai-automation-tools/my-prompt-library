@@ -4,6 +4,23 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-12 — Dependabot alerts: two patched, one not reachable
+
+- **`proxy-addr` 2.0.7 → 2.0.8** (critical, IP spoofing via IPv4-mapped IPv6 trust subnets;
+  via `express`) and **`source-map-js` 1.2.1 → 1.2.2** (high, event-loop DoS; via
+  `@tailwindcss/node` and `postcss`). Lockfile-only `npm update`, no range changes. The app
+  sets `trust proxy` to a hop count, not a subnet, so the spoofing path was not open here.
+- **`sprintf-js` (moderate) has no fixed release.** It arrives through `gray-matter` →
+  `js-yaml@3` → `argparse@1`, and `argparse` is required only by js-yaml's CLI entry
+  (`bin/js-yaml.js`), which the app never loads. Alert dismissed as *vulnerable code not used*.
+- **ROADMAP:** queued *Record provenance for the untracked skills and the real agent
+  definitions*, so the weekly drift check covers all of `3_Skills` and the installable part
+  of `2_Agents`.
+
+_Touched: `site/package-lock.json`, `docs/ROADMAP.md`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-12 — Live on `my-prompt-library.ai-automation-tools.dev`
 
 The app joins the org domain, following the `<repo-name>.ai-automation-tools.dev` convention.
@@ -21,6 +38,9 @@ _Touched: `site/index.html`, `site/src/App.tsx`, `site/src/index.css`,
 `site/src/components/SourceBar.tsx`, `README.md`, `CLAUDE.md`, `SECURITY.md`, `docs/README.md`,
 `docs/ROADMAP.md`, `docs/skill-packs/README.md`, `.github/ISSUE_TEMPLATE/bug_report.md`,
 `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-12 — Two new prompts in thin folders
 
 - **Zero-Based Budget Rebuild** (`4_Prompts/Finance/Budgets/zero-based-budget-rebuild.md`):
