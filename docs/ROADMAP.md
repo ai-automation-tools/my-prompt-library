@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-10-05 · **Live:** `prompts.mikesailab.com` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-10-05 · **Live:** `my-prompt-library.ai-automation-tools.dev` (also `prompts.mikesailab.com`) (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
