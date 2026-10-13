@@ -11,14 +11,14 @@ unavailable to you, email the address listed under *Support* in the README with
 
 Include what you found, how to reproduce it, and what you think the impact is. You will get
 an acknowledgement within a few days. Fixes ship as ordinary commits to `main`, which
-deploys to `prompts.mikesailab.com`, and are noted in `docs/CHANGELOG.md`.
+deploys to `my-prompt-library.ai-automation-tools.dev` (and `prompts.mikesailab.com`), and are noted in `docs/CHANGELOG.md`.
 
 ## Scope
 
 In scope:
 
 - The application under `site/` (`api/`, `routes/`, `middleware/`, `db/`, `src/`) and its
-  deployment at `prompts.mikesailab.com`.
+  deployment at `my-prompt-library.ai-automation-tools.dev`.
 - Anything that exposes another user's My Library content, session, or account.
 - Path traversal, injection, or auth bypass in the API.
 - Secrets or personal data committed to the repository.

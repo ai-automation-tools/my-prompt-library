@@ -5,6 +5,7 @@
 
 import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
 import { ArrowLeft, Check, LayoutGrid, Link2, Plus, Sparkles } from 'lucide-react';
+import SourceBar from './components/SourceBar';
 import { LazyMotion, domAnimation, m, AnimatePresence } from 'motion/react';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { useAuth } from './contexts/AuthContext';
@@ -702,7 +703,9 @@ source: My Prompt Library
 
   return (
     <LazyMotion features={domAnimation} strict>
-    <div className="relative flex h-screen overflow-hidden">
+    <div className="flex h-screen flex-col overflow-hidden">
+    <SourceBar />
+    <div className="relative flex min-h-0 flex-1 overflow-hidden">
       <AmbientBackground />
 
       {/* Mobile sidebar overlay */}
@@ -1019,6 +1022,7 @@ source: My Prompt Library
           />
         </Suspense>
       )}
+    </div>
     </div>
     </LazyMotion>
   );

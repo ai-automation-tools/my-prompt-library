@@ -4,6 +4,23 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-12 — Live on `my-prompt-library.ai-automation-tools.dev`
+
+The app joins the org domain, following the `<repo-name>.ai-automation-tools.dev` convention.
+The Vercel project now carries both hosts; `prompts.mikesailab.com` still serves the same
+deployment (no redirect yet).
+
+- **Source bar** (`src/components/SourceBar.tsx`, `.src-bar` in `index.css`): the org-wide
+  34px strip across the very top with **View source**, required on every site on the domain.
+  Built from the theme tokens, so all 16 themes pick it up.
+- **Consent gate**: `index.html` loads the shared `https://ai-automation-tools.dev/consent.js`.
+  Nothing here tracks anyone; the gate is there for the day something does.
+- README, docs, SECURITY and the bug template point at the new host.
+
+_Touched: `site/index.html`, `site/src/App.tsx`, `site/src/index.css`,
+`site/src/components/SourceBar.tsx`, `README.md`, `CLAUDE.md`, `SECURITY.md`, `docs/README.md`,
+`docs/ROADMAP.md`, `docs/skill-packs/README.md`, `.github/ISSUE_TEMPLATE/bug_report.md`,
+`docs/CHANGELOG.md`._
 ## 2026-10-12 — Two new prompts in thin folders
 
 - **Zero-Based Budget Rebuild** (`4_Prompts/Finance/Budgets/zero-based-budget-rebuild.md`):
