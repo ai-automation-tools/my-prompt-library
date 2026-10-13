@@ -4,6 +4,28 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-12 — Three skills resynced; drift report clean (#339)
+
+The 2026-10-12 drift comment on #339 listed `brainstorming` as `behind` and `claude-api` as
+`drifted`; `x-twitter-scraper` had moved again upstream by the time they were fixed. All three
+resynced with `scripts/resync-upstream.mjs`; local frontmatter (title, tags, category) kept.
+
+- **`Content/brainstorming`** → `obra/superpowers` @ `bb92a77`. Upstream rewrote the skill
+  since the 2026-10-05 sync (97% of its lines new). `spec-document-reviewer-prompt.md` is gone
+  upstream and was pruned; `builder-check-prompt.md` is new.
+- **`Development/API/claude-api`** → `anthropics/skills` @ `dbd4588`, 96 files. Four new
+  Managed Agents quickstarts (`bug-hunter`, `explainer-video-maker`, `performance-tuner`,
+  `watchlist-scanner`) plus updates across `shared/` and the language folders.
+- **`Business/Marketing/x-twitter-scraper`** → `xquik-dev/x-twitter-scraper` @ `ef87f44`.
+
+Scanned the incoming files for email addresses and case collisions: none. A fresh run of
+`check-upstream-drift.mjs` reports **93 of 93 tracked skills `current`**. Index rebuilt.
+
+_Touched: the three skill folders under `site/library/3_Skills/`, `site/api/prompt-index.json`,
+`docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-12 — Dependabot alerts: two patched, one not reachable
 
 - **`proxy-addr` 2.0.7 → 2.0.8** (critical, IP spoofing via IPv4-mapped IPv6 trust subnets;
