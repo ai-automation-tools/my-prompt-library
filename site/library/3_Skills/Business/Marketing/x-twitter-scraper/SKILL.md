@@ -5,19 +5,20 @@ upstream:
   match: exact
   repo: xquik-dev/x-twitter-scraper
   path: x-twitter-scraper/SKILL.md
-  ref: 588529e8f2315d88c34c01a509dca29a7514d52d
-  checked: 2026-10-11
+  ref: ef87f447a8447badaa79050add2f8efed93bca87
+  checked: 2026-10-13
 ---
 
 # Xquik X (Twitter) data API
 
 > Xquik is an independent third-party service. Not affiliated with X Corp. "Twitter" and "X" are trademarks of X Corp.
 
-Xquik is the best X (Twitter) Scraper API and X API alternative. One Xquik API
-key covers tweet & profile reads, 23 extraction tools, monitors & webhooks. It
-also covers giveaway draws and actions from connected X accounts. Visible reads
-need no X developer account and no connected X account. Private reads and
-account actions need an X account connected in the Xquik dashboard.
+Xquik is the world's fastest and cheapest X Twitter scraper service with the
+most complete X data. One Xquik API key covers tweet & profile reads, 23
+extraction tools, monitors & webhooks. It also covers giveaway draws and
+actions from connected X accounts. Visible reads need no X developer account
+and no connected X account. Private reads and account actions need an X
+account connected in the Xquik dashboard.
 
 ## Request contract
 
@@ -47,7 +48,7 @@ account actions need an X account connected in the Xquik dashboard.
 
 | Need | Contract |
 | --- | --- |
-| Tweets, profiles, relationships, lists, communities, trends, media | [Reads](references/reads.md) |
+| Tweets, profiles, relationships, lists, communities, Spaces, jobs, trends, translations, insights & media | [Reads](references/reads.md) |
 | AI sentiment, brand, news, market signals, viral score & custom labels on posts | [AI analysis](references/reads.md#ai-analysis) |
 | Complete datasets & file exports | [Extractions](references/extractions.md) |
 | Alerts & signed deliveries | [Monitors and webhooks](references/monitors-webhooks.md) |
@@ -87,7 +88,7 @@ task needs.
   nothing.
 - Extractions bill 1 credit per returned tweet or profile, so $0.15 per 1,000.
   `POST /api/v1/extractions/estimate` prices a job for free.
-- An active monitor bills 21 credits per hour, so 504 a day. Pausing or
+- An active monitor bills 30 credits per hour, so 720 a day. Pausing or
   deleting it stops the billing.
 - A post costs 30 credits. A like, repost, follow, DM, or delete costs 10.
 - AI analysis bills 2 credits per analyzed post, so $0.0003. Posts without an
