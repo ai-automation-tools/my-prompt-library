@@ -4,6 +4,26 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-13 — Phone polish
+
+An audit at 390×844 found no horizontal overflow (the sidebar is already a drawer), so the
+fixes are small and scoped to phones or touch, leaving desktop untouched.
+
+- Form fields render at 16px below `md`, so iOS Safari no longer zooms the page when the
+  search, category filter, palette or login/signup fields are focused (they were 12.5–15px).
+- Touch targets below `md`: icon buttons get a 36px minimum (card actions were 28px),
+  `.btn-sm` and the segmented control go from 30px to 36px, and the source-bar link fills
+  the bar's height.
+- The app shell uses `100dvh` after `100vh`, so the bottom of the layout isn't hidden
+  under mobile browser toolbars. On desktop `dvh` equals `vh`.
+- Card actions stay visible on touch tablets: `md+` with `hover: none` used to hide them
+  behind a hover that can't happen.
+
+_Touched: `site/src/index.css`, `site/src/App.tsx`, `site/src/components/PromptCard.tsx`,
+`docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-12 — Three skills resynced; drift report clean (#339)
 
 The 2026-10-12 drift comment on #339 listed `brainstorming` as `behind` and `claude-api` as
