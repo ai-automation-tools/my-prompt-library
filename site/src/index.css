@@ -169,6 +169,12 @@
 @layer components {
   /* ===== Source bar (org convention: top of every ai-automation-tools.dev site) ===== */
 
+  /* 100dvh tracks the visible area under mobile browser toolbars; it equals 100vh on desktop. */
+  .app-shell {
+    height: 100vh;
+    height: 100dvh;
+  }
+
   .src-bar {
     display: flex;
     flex: none;
@@ -823,6 +829,38 @@
 .markdown-body input[type="checkbox"] {
   accent-color: var(--accent);
   margin-right: 0.4em;
+}
+
+/* Phones only (below md, where the sidebar is a drawer). Unlayered on purpose, so these
+   win over the layered Tailwind utilities (h-7, text-[12.5px]) without !important. */
+@media (max-width: 767px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* iOS Safari zooms the page when a focused field's text is under 16px. */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  /* Touch targets: lift 28-32px icon buttons and 30px small buttons to 36px. */
+  .icon-btn {
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .btn-sm,
+  .segmented > button {
+    height: 36px;
+  }
+
+  /* The source link is 19px of text; let it fill the bar's height as its hit area. */
+  .src-link {
+    align-self: stretch;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
