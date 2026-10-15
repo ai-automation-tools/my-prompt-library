@@ -15,7 +15,7 @@ labels: bug
 
 **Where**
 
-- [ ] my-prompt-library.ai-automation-tools.dev (or prompts.mikesailab.com)
+- [ ] my-prompt-library.ai-automation-tools.dev
 - [ ] local dev (`npm run dev`)
 
 Browser / OS if relevant:
