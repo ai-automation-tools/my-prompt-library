@@ -40,7 +40,7 @@ const chunkSpinner = (
   </div>
 );
 
-const PUBLIC_SHARE_ORIGIN = 'https://prompts.mikesailab.com';
+const PUBLIC_SHARE_ORIGIN = 'https://my-prompt-library.ai-automation-tools.dev';
 
 export default function App() {
   const { user, logout, isLoading: authLoading } = useAuth();
