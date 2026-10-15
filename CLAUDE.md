@@ -6,7 +6,7 @@
 
 ## What this is
 
-Full-stack prompt-template manager deployed at **`my-prompt-library.ai-automation-tools.dev`** (Vercel). The old `prompts.mikesailab.com` host was decommissioned 2026-10-14 and 308s here.
+Full-stack prompt-template manager deployed at **`my-prompt-library.ai-automation-tools.dev`** (Vercel). The old `prompts.mikesailab.com` and `prompts.ax-platform.com` hosts were detached 2026-10-14.
 Two libraries: a **Public Library** (curated, file-backed under `library/`) and a
 per-user **My Library** (PostgreSQL/Neon). Also serves **Skill Packs** (zipped skill
 bundles) and a large **System Prompts** archive.
