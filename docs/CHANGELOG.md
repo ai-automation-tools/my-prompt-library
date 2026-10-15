@@ -4,6 +4,16 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-14 — `prompts.mikesailab.com` decommissioned
+
+The org domain is now the only home. Share links (`PUBLIC_SHARE_ORIGIN` in `src/App.tsx`) point
+at `my-prompt-library.ai-automation-tools.dev`, and the old `prompts.mikesailab.com` host 308s
+there so links already shared keep working.
+
+_Touched: `site/src/App.tsx`, `CLAUDE.md`, `SECURITY.md`, `.github/ISSUE_TEMPLATE/bug_report.md`, `docs/ROADMAP.md`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-13 — Phone polish
 
 An audit at 390×844 found no horizontal overflow (the sidebar is already a drawer), so the
