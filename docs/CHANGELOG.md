@@ -4,6 +4,16 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-14 — `prompts.mikesailab.com` decommissioned
+
+The org domain is now the only home. Share links (`PUBLIC_SHARE_ORIGIN` in `src/App.tsx`) point
+at `my-prompt-library.ai-automation-tools.dev`, and the old `prompts.mikesailab.com` and `prompts.ax-platform.com` hosts are
+detached from the Vercel project.
+
+_Touched: `site/src/App.tsx`, `CLAUDE.md`, `SECURITY.md`, `.github/ISSUE_TEMPLATE/bug_report.md`, `docs/ROADMAP.md`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-13 — Library refresh — guides
 
 First guides pass. Nine guides under `site/library/1_Guides/` read against the vendors' own
@@ -39,6 +49,9 @@ example id (outside this job's scope). Remaining unchecked guides are for the ne
 Counts in `1_Guides/README.md` are unchanged.
 
 _Touched: the nine guides above, two deleted stubs, `site/api/prompt-index.json`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-13 — Phone polish
 
 An audit at 390×844 found no horizontal overflow (the sidebar is already a drawer), so the
