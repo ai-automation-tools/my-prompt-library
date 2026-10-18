@@ -3,6 +3,12 @@ name: c-pro
 description: Write efficient C code with proper memory management, pointer arithmetic, and system calls. Handles embedded systems, kernel modules, and performance-critical code. Use PROACTIVELY for C optimization, memory issues, or system programming.
 tools: Read, Write, Edit, Bash
 model: sonnet
+upstream:
+  match: exact
+  repo: wshobson/agents
+  path: plugins/systems-programming/agents/c-pro.md
+  ref: 0874a27b17a22e2b7c2e2bcd725768e0803cad06
+  checked: 2026-10-18
 ---
 
 You are a C programming expert specializing in systems programming and performance.

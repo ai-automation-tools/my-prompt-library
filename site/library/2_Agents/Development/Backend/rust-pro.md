@@ -3,6 +3,12 @@ name: rust-pro
 description: Write idiomatic Rust with ownership patterns, lifetimes, and trait implementations. Masters async/await, safe concurrency, and zero-cost abstractions. Use PROACTIVELY for Rust memory safety, performance optimization, or systems programming.
 tools: Read, Write, Edit, Bash
 model: sonnet
+upstream:
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/agents/programming-languages/rust-pro.md
+  ref: 161d49190aaf470077d52de4d294e30cc4cccf4f
+  checked: 2026-10-18
 ---
 
 You are a Rust expert specializing in safe, performant systems programming.

@@ -37,6 +37,18 @@
  * Usage:
  *   node scripts/attribute-upstream.mjs --mirrors /tmp/upstream            # report
  *   node scripts/attribute-upstream.mjs --mirrors /tmp/upstream --write    # stamp
+ *
+ * Agents (`--agents`): the same matching over `2_Agents`, for the files that are
+ * real subagent definitions — frontmatter with `name:` — and not the role-play
+ * prompts filed beside them. The mirror only carries SKILL.md, so agents are
+ * matched against direct clones alone:
+ *   for r in VoltAgent/awesome-claude-code-subagents github/awesome-copilot \
+ *            wshobson/agents davila7/claude-code-templates; do
+ *     git clone --depth 1 "https://github.com/$r.git" "$(echo $r | tr / _)"
+ *   done
+ *   node scripts/attribute-upstream.mjs --mirrors /tmp/upstream --agents --write
+ * Each mode only reads and stamps its own section, so an agents run cannot
+ * downgrade a skill stamp that needed the mirror to make.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -65,6 +77,26 @@ const DIRECT = {
   "github_awesome-copilot": "github/awesome-copilot",
   openai_plugins: "openai/plugins",
 };
+// Agent publishers. Order is precedence: the first clone holding a body is its
+// origin, so the aggregator goes last — claude-code-templates re-ships most of
+// VoltAgent's and awesome-copilot's agents and would otherwise be credited.
+const AGENT_DIRECT = {
+  "VoltAgent_awesome-claude-code-subagents": "VoltAgent/awesome-claude-code-subagents",
+  "github_awesome-copilot": "github/awesome-copilot",
+  wshobson_agents: "wshobson/agents",
+  "davila7_claude-code-templates": "davila7/claude-code-templates",
+};
+const AGENTS = args.includes("--agents");
+const SOURCES = AGENTS ? AGENT_DIRECT : DIRECT;
+// An agent is a .md with `name:` and `description:` that is not part of a skill.
+const isEntry = AGENTS
+  ? (n) => n.endsWith(".md") && n !== "SKILL.md"
+  : (n) => n === "SKILL.md";
+const isAgentFm = (fm) => /^name:/m.test(fm) && /^description:/m.test(fm);
+// What an upstream calls the thing: a skill's directory, an agent's file name.
+const nameOf = (p) => AGENTS
+  ? p.split("/").pop().replace(/(\.agent)?\.md$/i, "")
+  : p.split("/").slice(-2)[0];
 const MIRROR = "NeverSight_learn-skills.dev";
 const AMBIGUOUS_AT = 3;
 
@@ -126,19 +158,21 @@ const headSha = (root) => {
 
 // ---------- index the directly cloned publishers ----------
 const dByBody = new Map(), dByPrefix = new Map(), dByShingle = new Map(), dByName = new Map();
-for (const [dirName, repo] of Object.entries(DIRECT)) {
+for (const [dirName, repo] of Object.entries(SOURCES)) {
   const root = path.join(MIRRORS, dirName);
   if (!fs.existsSync(root)) { console.error(`missing clone: ${dirName}`); continue; }
   const ref = headSha(root);
-  for (const f of walk(root, (n) => n === "SKILL.md")) {
+  for (const f of walk(root, isEntry)) {
     const parsed = splitFrontmatter(fs.readFileSync(f, "utf8"));
     if (!parsed) continue;
     const rec = { repo, ref, path: path.relative(root, f).split(path.sep).join("/") };
+    // A skill's support files can carry frontmatter too; they are not agents.
+    if (AGENTS && (!isAgentFm(parsed.fm) || /(^|\/)skills\//.test(rec.path))) continue;
     const bh = sha1(norm(parsed.body));
     if (!dByBody.has(bh)) dByBody.set(bh, rec);
     const pk = prefixKey(parsed.body);
     if (pk && !dByPrefix.has(pk)) dByPrefix.set(pk, rec);
-    const nm = rec.path.split("/").slice(-2)[0];
+    const nm = nameOf(rec.path);
     // First-party publishers win the name slot; two of them rarely collide.
     if (nm && !dByName.has(nm)) dByName.set(nm, rec);
     const sh = shingles(parsed.body);
@@ -156,7 +190,7 @@ console.error(`direct publishers indexed: ${dByBody.size} distinct bodies`);
 const mirrorRoot = path.join(MIRRORS, MIRROR);
 const mByBody = new Map(), mByPrefix = new Map();
 
-if (fs.existsSync(mirrorRoot)) {
+if (!AGENTS && fs.existsSync(mirrorRoot)) {
   const tree = await new Promise((res) => {
     const p = spawn("git", ["-C", mirrorRoot, "ls-tree", "-r", "HEAD"], { maxBuffer: 1 << 30 });
     let b = ""; p.stdout.setEncoding("utf8");
@@ -222,10 +256,12 @@ if (fs.existsSync(mirrorRoot)) {
 
 // ---------- attribute ----------
 const results = [];
-for (const f of walk(path.join(LIB, "3_Skills"), (n) => n === "SKILL.md")) {
+for (const f of walk(path.join(LIB, AGENTS ? "2_Agents" : "3_Skills"), isEntry)) {
   const raw = fs.readFileSync(f, "utf8");
   const parsed = splitFrontmatter(raw);
   const rel = path.relative(LIB, f).split(path.sep).join("/");
+  // Most of 2_Agents is role-play prompts with no `name:`; nothing to attribute.
+  if (AGENTS && !(parsed && /^name:/m.test(parsed.fm))) continue;
   if (!parsed) { results.push({ file: f, rel, match: "unknown", note: "no frontmatter" }); continue; }
 
   const bh = sha1(norm(parsed.body)), pk = prefixKey(parsed.body);
@@ -244,8 +280,7 @@ for (const f of walk(path.join(LIB, "3_Skills"), (n) => n === "SKILL.md")) {
   // a skill of exactly this directory name. Name alone is weak, but "a
   // first-party repo has this exact skill name" is strong enough to record as
   // `similar` for a human to confirm.
-  const dirName = rel.split("/").slice(-2)[0];
-  const byName = dByName.get(dirName);
+  const byName = dByName.get(nameOf(rel));
 
   // Best shingle overlap against a direct publisher: same skill, drifted.
   let near = null, nearScore = 0;
@@ -287,7 +322,7 @@ if (OUT) fs.writeFileSync(OUT, JSON.stringify(results, null, 1));
 // ---------- report ----------
 const n = (m) => results.filter((r) => r.match === m).length;
 const confident = n("exact") + n("prefix") + n("similar");
-console.log(`skills:      ${results.length}`);
+console.log(`${AGENTS ? "agents:" : "skills:"}      ${results.length}`);
 console.log(`  exact:     ${String(n("exact")).padStart(3)}  body identical to a single upstream`);
 console.log(`  similar:   ${String(n("similar")).padStart(3)}  same skill, body differs from upstream`);
 console.log(`  prefix:    ${String(n("prefix")).padStart(3)}  same opening, tail drifted`);

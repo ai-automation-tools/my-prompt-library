@@ -3,6 +3,12 @@ name: expert-cpp-software-engineer
 description: Provide expert C++ software engineering guidance using modern C++ and industry best practices.
 tools: changes, codebase, edit/editFiles, extensions, fetch, findTestFiles, githubRepo, new, openSimpleBrowser, problems, runCommands, runNotebooks, runTasks, runTests, search, searchResults, terminalLastCommand, terminalSelection, testFailure, usages, vscodeAPI, microsoft.docs.mcp
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/expert-cpp-software-engineer.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # Expert C++ software engineer mode instructions

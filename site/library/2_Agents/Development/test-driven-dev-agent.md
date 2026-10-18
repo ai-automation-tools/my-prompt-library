@@ -7,6 +7,9 @@ name: test-driven-dev-agent
 description: "Use this agent to write tests."
 tools: [Read, Edit, Bash]
 model: claude-sonnet-5
+upstream:
+  match: unknown
+  checked: 2026-10-18
 ---
 
 # Test-Driven Development Agent

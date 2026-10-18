@@ -3,6 +3,12 @@ name: rust-mcp-expert
 description: Expert assistant for Rust MCP server development using the rmcp SDK with tokio async runtime
 tools: Read, Bash, Grep, Glob, Edit, Write
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/rust-mcp-expert.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # Rust MCP Expert

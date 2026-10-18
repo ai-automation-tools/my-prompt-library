@@ -191,9 +191,9 @@ my-prompt-library/
 │   ├── vite.config.ts
 │   └── tsconfig.json
 ├── scripts/                      # Repo utilities, outside the deploy root
-│   ├── attribute-upstream.mjs    # Stamp upstream provenance on skills
+│   ├── attribute-upstream.mjs    # Stamp upstream provenance on skills (--agents: agents)
 │   ├── check-upstream-drift.mjs  # Weekly drift report
-│   ├── resync-upstream.mjs       # Pull a skill back level with its upstream
+│   ├── resync-upstream.mjs       # Pull a skill or agent back level with its upstream
 │   └── fix-skill-frontmatter.mjs # Enforce the Agent Skills spec
 ├── docs/                         # Documentation (see docs/README.md)
 ├── .github/workflows/            # upstream-drift.yml

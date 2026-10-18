@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Compare every vendored skill against its upstream and report what has moved.
+ * Compare every vendored skill and agent against its upstream and report what
+ * has moved.
  *
  * Reads the `upstream:` block that `attribute-upstream.mjs` stamped, resolves
  * the file in the upstream repo, and compares bodies with frontmatter stripped.
@@ -32,6 +33,13 @@
  * Usage:
  *   node scripts/check-upstream-drift.mjs                 # markdown to stdout
  *   node scripts/check-upstream-drift.mjs --out drift.md
+ *
+ * Agents are the `2_Agents` files carrying an `upstream:` block — the subagent
+ * definitions `attribute-upstream.mjs --agents` stamped, not the role-play
+ * prompts beside them. An upstream names an agent by its file (`x.md`,
+ * `x.agent.md`) where it names a skill by its directory; that is the only
+ * difference, and `nameOf` is where it lives. Agent rows keep their `2_Agents/`
+ * prefix in the report, which is also the argument resync-upstream.mjs takes.
  *
  * Auth: uses GITHUB_TOKEN if set (60 req/h anonymous, 5000 authenticated).
  */
@@ -106,21 +114,31 @@ const walk = (dir, match, out = []) => {
   return out;
 };
 
+const isSkill = (p) => /(^|\/)SKILL\.md$/i.test(p);
+// What an upstream calls the thing: a skill's directory, an agent's file name.
+const nameOf = (p) => isSkill(p)
+  ? p.split("/").slice(-2)[0]
+  : p.split("/").pop().replace(/(\.agent)?\.md$/i, "");
+
 // ---------- collect targets ----------
 const targets = [], skipped = { unknown: 0, ambiguous: 0, fork: 0, none: 0 };
-for (const f of walk(path.join(LIB, "3_Skills"), (n) => n === "SKILL.md")) {
+const files = [
+  ...walk(path.join(LIB, "3_Skills"), (n) => n === "SKILL.md"),
+  ...walk(path.join(LIB, "2_Agents"), (n) => n.endsWith(".md")),
+];
+for (const f of files) {
   const { fm, body } = splitFrontmatter(fs.readFileSync(f, "utf8"));
   const u = readUpstream(fm);
-  if (!u) { skipped.none++; continue; }
+  if (!u) { if (isSkill(f)) skipped.none++; continue; }  // unstamped agents are role-play prompts
   if (u.match === "unknown") { skipped.unknown++; continue; }
   if (u.match === "ambiguous") { skipped.ambiguous++; continue; }
   if (u.match === "fork") { skipped.fork++; continue; }  // upstream deleted the file; this copy is ours now
   if (!u.repo) { skipped.none++; continue; }
   const rel = path.relative(LIB, f).split(path.sep).join("/");
-  targets.push({ file: rel, u, body, dirName: rel.split("/").slice(-2)[0] });
+  targets.push({ file: rel, u, body, name: nameOf(rel) });
 }
 
-console.error(`attributed skills to check: ${targets.length}`);
+console.error(`attributed skills and agents to check: ${targets.length}`);
 console.error(`skipping ${skipped.unknown} unknown, ${skipped.ambiguous} ambiguous, ${skipped.fork} fork, ${skipped.none} unstamped`);
 if (!TOKEN) console.error("no GITHUB_TOKEN — anonymous limit is 60/h, expect throttling");
 
@@ -141,7 +159,7 @@ for (const repo of repos) {
     const tr = await fetch(`https://api.github.com/repos/${repo}/git/trees/${branch}?recursive=1`, { headers: api });
     if (!tr.ok) { trees.set(repo, { error: `tree HTTP ${tr.status}` }); continue; }
     const data = await tr.json();
-    const paths = (data.tree || []).filter((x) => x.type === "blob" && /(^|\/)SKILL\.md$/i.test(x.path))
+    const paths = (data.tree || []).filter((x) => x.type === "blob" && /\.md$/i.test(x.path))
       .map((x) => x.path);
     trees.set(repo, { branch, paths });
   } catch (e) {
@@ -159,12 +177,14 @@ for (const t of targets) {
   if (tree.error) { rows.push({ ...t, verdict: "error", detail: tree.error }); continue; }
 
   // Prefer the stamped path when it really exists upstream; otherwise locate the
-  // skill by its directory name, which survives the mirror's re-layout.
+  // skill by its directory name (an agent by its file name), which survives the
+  // mirror's re-layout.
   let resolved = tree.paths.includes(t.u.path) ? t.u.path : null;
   if (!resolved) {
-    const wanted = (t.u.path || "").split("/").slice(-2)[0] || t.dirName;
-    resolved = tree.paths.find((p) => p.split("/").slice(-2)[0] === wanted)
-      || tree.paths.find((p) => p.split("/").slice(-2)[0] === t.dirName)
+    const pool = tree.paths.filter((p) => isSkill(p) === isSkill(t.file));
+    const wanted = t.u.path ? nameOf(t.u.path) : t.name;
+    resolved = pool.find((p) => nameOf(p) === wanted)
+      || pool.find((p) => nameOf(p) === t.name)
       || null;
   }
   if (!resolved) { rows.push({ ...t, verdict: "upstream-gone" }); continue; }
@@ -197,7 +217,7 @@ for (const t of targets) {
 const by = (v) => rows.filter((r) => r.verdict === v);
 const MEAN = {
   "repo-gone": "the whole upstream repo 404s",
-  "upstream-gone": "no SKILL.md of this name left in the upstream repo",
+  "upstream-gone": "nothing of this name left in the upstream repo",
   behind: "a quarter or more of upstream's lines are not in this copy",
   drifted: "bodies differ, but this copy holds over 75% of upstream's lines",
   error: "could not be fetched",
@@ -206,7 +226,7 @@ const MEAN = {
 const order = ["repo-gone", "upstream-gone", "behind", "drifted", "error", "current"];
 
 const md = [`# Upstream drift — ${new Date().toISOString().slice(0, 10)}`, ""];
-md.push(`Checked **${rows.length}** attributed skills across **${repos.length}** upstream repos. ` +
+md.push(`Checked **${rows.length}** attributed skills and agents across **${repos.length}** upstream repos. ` +
   `Skipped ${skipped.unknown} \`unknown\` and ${skipped.ambiguous} \`ambiguous\` — no single upstream to compare against — ` +
   `and ${skipped.fork} \`fork\` whose upstream deleted the file.`);
 md.push("");

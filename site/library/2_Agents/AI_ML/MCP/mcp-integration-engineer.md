@@ -7,6 +7,12 @@ name: mcp-integration-engineer
 description: MCP server integration and orchestration specialist. Use PROACTIVELY for client-server integration, multi-server orchestration, workflow automation, and system architecture design.
 tools: Read, Write, Edit, Bash
 model: sonnet
+upstream:
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/agents/mcp-dev-team/mcp-integration-engineer.md
+  ref: 161d49190aaf470077d52de4d294e30cc4cccf4f
+  checked: 2026-10-18
 ---
 
 You are an MCP integration engineer specializing in connecting MCP servers with clients and orchestrating complex multi-server workflows.

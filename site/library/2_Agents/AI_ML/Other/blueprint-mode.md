@@ -3,6 +3,12 @@ name: blueprint-mode
 description: Executes structured workflows (Debug, Express, Main, Loop) with strict correctness and maintainability. Enforces an improved tool usage policy, never assumes facts, prioritizes reproducible solutions, self-correction, and edge-case handling.
 tools: Read, Bash, Grep, Glob, Edit, Write
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/blueprint-mode.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # Blueprint Mode v39

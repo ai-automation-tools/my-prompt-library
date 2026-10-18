@@ -3,6 +3,12 @@ name: microsoft-agent-framework-python
 description: Create, update, refactor, explain or work with code using the Python version of Microsoft Agent Framework.
 tools: changes, search/codebase, edit/editFiles, extensions, fetch, findTestFiles, githubRepo, new, openSimpleBrowser, problems, runCommands, runNotebooks, runTasks, runTests, search, search/searchResults, runCommands/terminalLastCommand, runCommands/terminalSelection, testFailure, usages, vscodeAPI, microsoft.docs.mcp, github, configurePythonEnvironment, getPythonEnvironmentInfo, getPythonExecutableCommand, installPythonPackage
 model: claude-sonnet-4
+upstream:
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/agents/programming-languages/microsoft-agent-framework-python.md
+  ref: 161d49190aaf470077d52de4d294e30cc4cccf4f
+  checked: 2026-10-18
 ---
 
 # Microsoft Agent Framework Python mode instructions

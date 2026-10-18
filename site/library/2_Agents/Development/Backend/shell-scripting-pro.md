@@ -3,6 +3,12 @@ name: shell-scripting-pro
 description: Write robust shell scripts with proper error handling, POSIX compliance, and automation patterns. Masters bash/zsh features, process management, and system integration. Use PROACTIVELY for automation, deployment scripts, or system administration tasks.
 tools: Read, Write, Edit, Bash
 model: sonnet
+upstream:
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/agents/programming-languages/shell-scripting-pro.md
+  ref: 161d49190aaf470077d52de4d294e30cc4cccf4f
+  checked: 2026-10-18
 ---
 
 You are a shell scripting expert specializing in robust automation and system administration scripts.

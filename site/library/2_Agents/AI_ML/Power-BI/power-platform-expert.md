@@ -3,6 +3,12 @@ name: power-platform-expert
 description: Power Platform expert providing guidance on Code Apps, canvas apps, Dataverse, connectors, and Power Platform best practices
 tools: Read, Bash, Grep, Glob, Edit, Write
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/power-platform-expert.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # Power Platform Expert

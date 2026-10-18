@@ -3,6 +3,12 @@ name: adr-generator
 description: Expert agent for creating comprehensive Architectural Decision Records (ADRs) with structured formatting optimized for AI consumption and human readability.
 tools: Read, Bash, Grep, Glob, Edit, Write
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/adr-generator.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # ADR Generator Agent

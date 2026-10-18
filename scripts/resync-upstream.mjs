@@ -30,6 +30,12 @@
  *   node scripts/resync-upstream.mjs --dry-run Development/API/claude-api
  *
  * Paths are relative to site/library/3_Skills. Auth: uses GITHUB_TOKEN if set.
+ *
+ * Agents: a path starting `2_Agents/` (as the drift report prints it) is a
+ * single-file subagent definition. Same rules — local frontmatter, upstream
+ * body — but there are no support files, and upstream names it by file
+ * (`x.md`, `x.agent.md`), not by directory:
+ *   node scripts/resync-upstream.mjs 2_Agents/AI_ML/Other/model-evaluator.md
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -37,7 +43,8 @@ import path from "node:path";
 const argv = process.argv.slice(2);
 const DRY = argv.includes("--dry-run");
 const KEEP_EXTRA = argv.includes("--keep-extra");
-const skills = argv.filter((a) => !a.startsWith("--"));
+// The drift report prints skills as `.../SKILL.md`; accept that as the directory.
+const skills = argv.filter((a) => !a.startsWith("--")).map((a) => a.replace(/\/SKILL\.md$/i, ""));
 
 if (!skills.length) {
   console.error("usage: node scripts/resync-upstream.mjs [--dry-run] [--keep-extra] <skill-dir>...");
@@ -48,7 +55,8 @@ const ROOT = path.join(
   path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1")),
   "..",
 );
-const SKILLS = path.join(ROOT, "site", "library", "3_Skills");
+const LIB = path.join(ROOT, "site", "library");
+const SKILLS = path.join(LIB, "3_Skills");
 
 const TOKEN = process.env.GITHUB_TOKEN || "";
 const api = { "User-Agent": "my-prompt-library-resync", Accept: "application/vnd.github+json" };
@@ -125,6 +133,31 @@ const today = new Date().toISOString().slice(0, 10);
 let failed = 0;
 
 for (const rel of skills) {
+  if (rel.startsWith("2_Agents/")) {
+    const local = path.join(LIB, rel.split("/").join(path.sep));
+    if (!fs.existsSync(local)) { console.error(`✗ ${rel}: no such file`); failed++; continue; }
+    const raw = fs.readFileSync(local, "utf8");
+    const { fm } = splitFrontmatter(raw);
+    const u = readUpstream(fm);
+    if (!u?.repo) { console.error(`✗ ${rel}: no upstream: block`); failed++; continue; }
+    let t;
+    try { t = await tree(u.repo); } catch (e) { console.error(`✗ ${rel}: ${e.message}`); failed++; continue; }
+    const nameOf = (p) => p.split("/").pop().replace(/(\.agent)?\.md$/i, "");
+    const wanted = nameOf(u.path || rel);
+    const up = t.blobs.includes(u.path)
+      ? u.path
+      : t.blobs.find((p) => /\.md$/i.test(p) && !/(^|\/)SKILL\.md$/i.test(p) && nameOf(p) === wanted);
+    if (!up) { console.error(`✗ ${rel}: not found in ${u.repo}`); failed++; continue; }
+    const r = await fetch(`https://raw.githubusercontent.com/${t.repo}/${t.sha}/${up}`);
+    if (!r.ok) { console.error(`✗ ${rel}: raw ${up}: HTTP ${r.status}`); failed++; continue; }
+    const body = splitFrontmatter(await r.text()).body;
+    let out = `---\n${stampUpstream(fm, { ref: t.sha, checked: today })}---${body}`;
+    if (raw.includes("\r\n")) out = out.replace(/\r?\n/g, "\r\n");
+    if (!DRY) fs.writeFileSync(local, out);
+    console.log(`${DRY ? "· " : "✓ "}${rel} ← ${t.repo}/${up} @ ${t.sha.slice(0, 7)}`);
+    continue;
+  }
+
   const localDir = path.join(SKILLS, rel.split("/").join(path.sep));
   const localSkill = path.join(localDir, "SKILL.md");
   if (!fs.existsSync(localSkill)) { console.error(`✗ ${rel}: no SKILL.md`); failed++; continue; }
