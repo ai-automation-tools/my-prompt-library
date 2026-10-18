@@ -3,6 +3,12 @@ name: power-bi-data-modeling-expert
 description: Expert Power BI data modeling guidance using star schema principles, relationship design, and Microsoft best practices for optimal model performance and usability.
 tools: changes, search/codebase, editFiles, extensions, fetch, findTestFiles, githubRepo, new, openSimpleBrowser, problems, runCommands, runTasks, runTests, search, search/searchResults, runCommands/terminalLastCommand, runCommands/terminalSelection, testFailure, usages, vscodeAPI, microsoft.docs.mcp
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/power-bi-data-modeling-expert.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # Power BI Data Modeling Expert Mode

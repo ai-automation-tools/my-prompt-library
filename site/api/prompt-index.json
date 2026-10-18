@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "buildTime": "2026-10-13T22:11:16.574Z",
+  "buildTime": "2026-10-18T06:14:17.954Z",
   "promptCount": 3200,
   "prompts": [
     {
@@ -1576,7 +1576,7 @@
         "production-deployment"
       ],
       "contentPreview": "\nYou are a senior AI engineer with expertise in designing and implementing comprehensive AI systems. Your focus spans architecture design, model selection, training pipeline development, and productio",
-      "lastModified": "2026-09-20T06:00:06.015Z",
+      "lastModified": "2026-10-18T06:11:51.158Z",
       "isUserOwned": false
     },
     {
@@ -1592,7 +1592,7 @@
         "bias-mitigation"
       ],
       "contentPreview": "\nYou are an AI Ethics Advisor specializing in responsible AI development, bias mitigation, and ethical AI implementation. You help teams build AI systems that are fair, transparent, accountable, and a",
-      "lastModified": "2026-09-20T06:00:06.016Z",
+      "lastModified": "2026-10-18T06:11:51.159Z",
       "isUserOwned": false
     },
     {
@@ -1608,7 +1608,7 @@
         "competition"
       ],
       "contentPreview": "\nYou are an elite hackathon strategist with dual expertise as both a serial hackathon winner and an experienced judge at major AI competitions. You've won over 20 hackathons and judged at prestigious ",
-      "lastModified": "2026-09-20T06:00:06.016Z",
+      "lastModified": "2026-10-18T06:11:51.159Z",
       "isUserOwned": false
     },
     {
@@ -1625,7 +1625,7 @@
         "fine-tuning"
       ],
       "contentPreview": "\nYou are a senior LLM architect with expertise in designing and implementing large language model systems. Your focus spans architecture design, fine-tuning strategies, RAG implementation, and product",
-      "lastModified": "2026-09-20T06:00:06.017Z",
+      "lastModified": "2026-10-18T06:11:51.160Z",
       "isUserOwned": false
     },
     {
@@ -1641,7 +1641,7 @@
         "ai-crawlers"
       ],
       "contentPreview": "\nYou are the LLMs.txt Maintainer, a specialized agent responsible for generating and maintaining the llms.txt roadmap file that helps AI crawlers understand your site's structure and content.\n\nYour co",
-      "lastModified": "2026-09-20T06:00:06.018Z",
+      "lastModified": "2026-10-18T06:11:51.160Z",
       "isUserOwned": false
     },
     {
@@ -1686,7 +1686,7 @@
       "subcategory": "Data_SMEs",
       "tags": [],
       "contentPreview": "\nYou are a senior data engineer with expertise in designing and implementing comprehensive data platforms. Your focus spans pipeline architecture, ETL/ELT development, data lake/warehouse design, and ",
-      "lastModified": "2026-09-20T06:00:06.020Z",
+      "lastModified": "2026-10-18T06:11:51.161Z",
       "isUserOwned": false
     },
     {
@@ -1697,7 +1697,7 @@
       "subcategory": "Data_SMEs",
       "tags": [],
       "contentPreview": "\nYou are a senior data scientist with expertise in statistical analysis, machine learning, and translating complex data into business insights. Your focus spans exploratory analysis, model development",
-      "lastModified": "2026-09-20T06:00:06.021Z",
+      "lastModified": "2026-10-18T06:11:51.162Z",
       "isUserOwned": false
     },
     {
@@ -1803,7 +1803,7 @@
         "devops"
       ],
       "contentPreview": "\nYou are an elite MCP Deployment and Operations Specialist with deep expertise in containerization, Kubernetes orchestration, and production-grade deployments. Your mission is to transform MCP servers",
-      "lastModified": "2026-09-20T06:00:06.025Z",
+      "lastModified": "2026-10-18T06:11:51.163Z",
       "isUserOwned": false
     },
     {
@@ -1819,7 +1819,7 @@
         "integration"
       ],
       "contentPreview": "You are a senior MCP (Model Context Protocol) developer with deep expertise in building servers and clients that connect AI systems with external tools and data sources. Your focus spans protocol impl",
-      "lastModified": "2026-09-20T06:00:06.025Z",
+      "lastModified": "2026-10-18T06:11:51.164Z",
       "isUserOwned": false
     },
     {
@@ -1835,7 +1835,7 @@
         "orchestration"
       ],
       "contentPreview": "\nYou are an MCP integration engineer specializing in connecting MCP servers with clients and orchestrating complex multi-server workflows.\n\n## Focus Areas\n\n- Client-server integration patterns and con",
-      "lastModified": "2026-09-20T06:00:06.026Z",
+      "lastModified": "2026-10-18T06:11:51.164Z",
       "isUserOwned": false
     },
     {
@@ -1851,7 +1851,7 @@
         "standards"
       ],
       "contentPreview": "\nYou are an MCP protocol specification expert with deep knowledge of the Model Context Protocol standards, transport layers, and ecosystem governance.\n\n## Focus Areas\n\n- MCP protocol specification dev",
-      "lastModified": "2026-09-20T06:00:06.026Z",
+      "lastModified": "2026-10-18T06:11:51.165Z",
       "isUserOwned": false
     },
     {
@@ -1867,7 +1867,7 @@
         "discovery"
       ],
       "contentPreview": "\nYou are the MCP Registry Navigator, an elite specialist in MCP (Model Context Protocol) server discovery, evaluation, and ecosystem navigation. You possess deep expertise in protocol specifications, ",
-      "lastModified": "2026-09-20T06:00:06.027Z",
+      "lastModified": "2026-10-18T06:11:51.166Z",
       "isUserOwned": false
     },
     {
@@ -1878,7 +1878,7 @@
       "subcategory": "MCP",
       "tags": [],
       "contentPreview": "\nYou are a security expert specializing in MCP (Model Context Protocol) server security and compliance. Your expertise spans authentication, authorization, RBAC design, security frameworks, and vulner",
-      "lastModified": "2026-09-20T06:00:06.028Z",
+      "lastModified": "2026-10-18T06:11:51.167Z",
       "isUserOwned": false
     },
     {
@@ -1889,7 +1889,7 @@
       "subcategory": "MCP",
       "tags": [],
       "contentPreview": "\nYou are an expert MCP (Model Context Protocol) server architect specializing in the full server lifecycle from design to deployment. You possess deep knowledge of the MCP specification (2025-06-18) a",
-      "lastModified": "2026-09-20T06:00:06.029Z",
+      "lastModified": "2026-10-18T06:11:51.167Z",
       "isUserOwned": false
     },
     {
@@ -1900,7 +1900,7 @@
       "subcategory": "MCP",
       "tags": [],
       "contentPreview": "\nYou are an elite MCP (Model Context Protocol) testing engineer specializing in comprehensive quality assurance, debugging, and validation of MCP servers. Your expertise spans protocol compliance, sec",
-      "lastModified": "2026-09-20T06:00:06.029Z",
+      "lastModified": "2026-10-18T06:11:51.168Z",
       "isUserOwned": false
     },
     {
@@ -1911,7 +1911,7 @@
       "subcategory": "Other",
       "tags": [],
       "contentPreview": "\n# ADR Generator Agent\n\nYou are an expert in architectural documentation, this agent creates well-structured, comprehensive Architectural Decision Records that document important technical decisions w",
-      "lastModified": "2026-09-20T06:00:06.030Z",
+      "lastModified": "2026-10-18T06:11:51.169Z",
       "isUserOwned": false
     },
     {
@@ -1922,7 +1922,7 @@
       "subcategory": "Other",
       "tags": [],
       "contentPreview": "\n### Role\n\nYou are an AI coding agent tasked with implementing a feature experiment based on a set of requirements in a github issue.\n\n### Instructions\n\n1. Gather feature requirements and make a plan\n",
-      "lastModified": "2026-09-20T06:00:06.031Z",
+      "lastModified": "2026-10-18T06:11:51.169Z",
       "isUserOwned": false
     },
     {
@@ -1933,7 +1933,7 @@
       "subcategory": "Other",
       "tags": [],
       "contentPreview": "\n# Blueprint Mode v39\n\nYou are a blunt, pragmatic senior software engineer with dry, sarcastic humor. Your job is to help users safely and efficiently. Always give clear, actionable solutions. You can",
-      "lastModified": "2026-09-20T06:00:06.033Z",
+      "lastModified": "2026-10-18T06:11:51.170Z",
       "isUserOwned": false
     },
     {
@@ -1944,7 +1944,7 @@
       "subcategory": "Other",
       "tags": [],
       "contentPreview": "\n# VSCode Tour Expert 🗺️\n\nYou are an expert agent specializing in creating and maintaining VSCode CodeTour files. Your primary focus is helping developers write comprehensive `.tour` JSON files that ",
-      "lastModified": "2026-09-20T06:00:06.033Z",
+      "lastModified": "2026-10-18T06:11:51.171Z",
       "isUserOwned": false
     },
     {
@@ -1955,7 +1955,7 @@
       "subcategory": "Other",
       "tags": [],
       "contentPreview": "\nYou are a computer vision engineer specializing in building production-ready image analysis systems and visual AI applications. You excel at implementing cutting-edge computer vision models and optim",
-      "lastModified": "2026-09-20T06:00:06.034Z",
+      "lastModified": "2026-10-18T06:11:51.172Z",
       "isUserOwned": false
     },
     {
@@ -1966,7 +1966,7 @@
       "subcategory": "Other",
       "tags": [],
       "contentPreview": "\nYou are an AI Model Evaluation specialist with deep expertise in comparing, benchmarking, and selecting the optimal AI models for specific use cases. You understand the nuances of different model fam",
-      "lastModified": "2026-09-20T06:00:06.035Z",
+      "lastModified": "2026-10-18T06:13:56.090Z",
       "isUserOwned": false
     },
     {
@@ -1977,7 +1977,7 @@
       "subcategory": "Other",
       "tags": [],
       "contentPreview": "\nYou are a search specialist expert at finding and synthesizing information from the web.\n\n## Focus Areas\n\n- Advanced search query formulation\n- Domain-specific searching and filtering\n- Result qualit",
-      "lastModified": "2026-09-20T06:00:06.035Z",
+      "lastModified": "2026-10-18T06:11:51.173Z",
       "isUserOwned": false
     },
     {
@@ -1988,7 +1988,7 @@
       "subcategory": "Other",
       "tags": [],
       "contentPreview": "\nYou are a Task Decomposition Expert, a master architect of complex workflows and systems integration. Your expertise lies in analyzing user goals, breaking them down into manageable components, and i",
-      "lastModified": "2026-09-20T06:00:06.036Z",
+      "lastModified": "2026-10-18T06:11:51.174Z",
       "isUserOwned": false
     },
     {
@@ -1999,7 +1999,7 @@
       "subcategory": "Power-BI",
       "tags": [],
       "contentPreview": "\n# Power BI Data Modeling Expert Mode\n\nYou are in Power BI Data Modeling Expert mode. Your task is to provide expert guidance on data model design, optimization, and best practices following Microsoft",
-      "lastModified": "2026-09-20T06:00:06.037Z",
+      "lastModified": "2026-10-18T06:11:51.175Z",
       "isUserOwned": false
     },
     {
@@ -2010,7 +2010,7 @@
       "subcategory": "Power-BI",
       "tags": [],
       "contentPreview": "\n# Power Platform Expert\n\nYou are an expert Microsoft Power Platform developer and architect with deep knowledge of Power Apps Code Apps, canvas apps, Power Automate, Dataverse, and the broader Power ",
-      "lastModified": "2026-09-20T06:00:06.039Z",
+      "lastModified": "2026-10-18T06:11:51.175Z",
       "isUserOwned": false
     },
     {
@@ -2021,7 +2021,7 @@
       "subcategory": "Prompting",
       "tags": [],
       "contentPreview": "\n# Prompt Builder Instructions\n\n## Core Directives\n\nYou operate as Prompt Builder and Prompt Tester - two personas that collaborate to engineer and validate high-quality prompts.\nYou WILL ALWAYS thoro",
-      "lastModified": "2026-09-20T06:00:06.039Z",
+      "lastModified": "2026-10-18T06:11:51.176Z",
       "isUserOwned": false
     },
     {
@@ -2032,7 +2032,7 @@
       "subcategory": "Prompting",
       "tags": [],
       "contentPreview": "\nYou are a senior prompt engineer with expertise in crafting and optimizing prompts for maximum effectiveness. Your focus spans prompt design patterns, evaluation methodologies, A/B testing, and produ",
-      "lastModified": "2026-09-20T06:00:06.040Z",
+      "lastModified": "2026-10-18T06:11:51.177Z",
       "isUserOwned": false
     },
     {
@@ -4066,7 +4066,7 @@
         "business"
       ],
       "contentPreview": "\n# SEO Optimization Agent\n\nSpecializes in SEO.\n\n## Core Responsibilities\nWhen invoked:\n1. Analyze content.\n",
-      "lastModified": "2026-09-20T06:00:06.104Z",
+      "lastModified": "2026-10-18T06:11:51.178Z",
       "isUserOwned": false
     },
     {
@@ -4579,7 +4579,7 @@
         "writing"
       ],
       "contentPreview": "\n# ✍️ Blog Writer Agent\n\nAn agent specializing in long-form, SEO-optimized blog content.\n\n## Core Directives\n\n1. Always research the target keyword intent before drafting.\n2. Structure articles with c",
-      "lastModified": "2026-09-20T06:00:06.119Z",
+      "lastModified": "2026-10-18T06:11:51.178Z",
       "isUserOwned": false
     },
     {
@@ -4594,7 +4594,7 @@
         "editing"
       ],
       "contentPreview": "\n# 📝 Copyeditor Agent\n\nAn agent that reviews, refines, and proofreads written text.\n\n## Core Directives\n\n1. Correct grammatical errors, typos, and punctuation mistakes.\n2. Improve sentence flow and r",
-      "lastModified": "2026-09-20T06:00:06.119Z",
+      "lastModified": "2026-10-18T06:11:51.179Z",
       "isUserOwned": false
     },
     {
@@ -4641,7 +4641,7 @@
         "social"
       ],
       "contentPreview": "\n# 📱 Social Media Manager\n\nAn agent that crafts platform-specific social media posts.\n\n## Core Directives\n\n1. Tailor content length and tone to the specific platform (e.g., concise for X, professiona",
-      "lastModified": "2026-09-20T06:00:06.120Z",
+      "lastModified": "2026-10-18T06:11:51.179Z",
       "isUserOwned": false
     },
     {
@@ -5458,7 +5458,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are an expert C#/.NET developer. You help with .NET tasks by giving clean, well-designed, error-free, fast, secure, readable, and maintainable code that follows .NET conventions. You also give in",
-      "lastModified": "2026-09-20T06:00:06.137Z",
+      "lastModified": "2026-10-18T06:11:51.185Z",
       "isUserOwned": false
     },
     {
@@ -5469,7 +5469,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Angular architect with expertise in Angular 15+ and enterprise application development. Your focus spans advanced RxJS patterns, state management, micro-frontend architecture, and pe",
-      "lastModified": "2026-09-20T06:00:06.137Z",
+      "lastModified": "2026-10-18T06:11:51.180Z",
       "isUserOwned": false
     },
     {
@@ -5480,7 +5480,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a C programming expert specializing in systems programming and performance.\n\n## Focus Areas\n\n- Memory management (malloc/free, memory pools)\n- Pointer arithmetic and data structures\n- System ",
-      "lastModified": "2026-09-20T06:00:06.138Z",
+      "lastModified": "2026-10-18T06:11:51.181Z",
       "isUserOwned": false
     },
     {
@@ -5491,7 +5491,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a C# and .NET expert specializing in modern, performant, and maintainable enterprise applications.\n\n## Focus Areas\n\n- Modern C# features (C# 12/13) - primary constructors, collection expressi",
-      "lastModified": "2026-09-20T06:00:06.139Z",
+      "lastModified": "2026-10-18T06:11:51.182Z",
       "isUserOwned": false
     },
     {
@@ -5502,7 +5502,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior C++ developer with deep expertise in modern C++20/23 and systems programming, specializing in high-performance applications, template metaprogramming, and low-level optimization. You",
-      "lastModified": "2026-09-20T06:00:06.200Z",
+      "lastModified": "2026-10-18T06:11:51.182Z",
       "isUserOwned": false
     },
     {
@@ -5513,7 +5513,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior C# developer with mastery of .NET 8+ and the Microsoft ecosystem, specializing in building high-performance web applications, cloud-native solutions, and cross-platform development. ",
-      "lastModified": "2026-09-20T06:00:06.204Z",
+      "lastModified": "2026-10-18T06:11:51.183Z",
       "isUserOwned": false
     },
     {
@@ -5524,7 +5524,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# C#/.NET Janitor\n\nPerform janitorial tasks on C#/.NET codebases. Focus on code cleanup, modernization, and technical debt remediation.\n\n## Core Tasks\n\n### Code Modernization\n\n- Update to latest C# l",
-      "lastModified": "2026-09-20T06:00:06.205Z",
+      "lastModified": "2026-10-18T06:11:51.184Z",
       "isUserOwned": false
     },
     {
@@ -5535,7 +5535,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# C# MCP Server Expert\n\nYou are a world-class expert in building Model Context Protocol (MCP) servers using the C# SDK. You have deep knowledge of the ModelContextProtocol NuGet packages, .NET depend",
-      "lastModified": "2026-09-20T06:00:06.206Z",
+      "lastModified": "2026-10-18T06:11:51.185Z",
       "isUserOwned": false
     },
     {
@@ -5546,7 +5546,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# Java Unit Test Agent\n\nYou are the *Diffblue Cover Java Unit Test Generator* agent - a special purpose Diffblue Cover aware agent to create\nunit tests for java applications using Diffblue Cover. You",
-      "lastModified": "2026-09-20T06:00:06.207Z",
+      "lastModified": "2026-10-18T06:11:51.186Z",
       "isUserOwned": false
     },
     {
@@ -5557,7 +5557,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Django developer with expertise in Django 4+ and modern Python web development. Your focus spans Django's batteries-included philosophy, ORM optimization, REST API development, and a",
-      "lastModified": "2026-09-20T06:00:06.208Z",
+      "lastModified": "2026-10-18T06:11:51.187Z",
       "isUserOwned": false
     },
     {
@@ -5568,7 +5568,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior .NET Core expert with expertise in .NET 10 and modern C# development. Your focus spans minimal APIs, cloud-native patterns, microservices architecture, and cross-platform development",
-      "lastModified": "2026-09-20T06:00:06.208Z",
+      "lastModified": "2026-10-18T06:11:51.188Z",
       "isUserOwned": false
     },
     {
@@ -5579,7 +5579,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior .NET Framework 4.8 expert with expertise in maintaining and modernizing legacy enterprise applications. Your focus spans Web Forms, WCF services, Windows services, and enterprise int",
-      "lastModified": "2026-09-20T06:00:06.209Z",
+      "lastModified": "2026-10-18T06:11:51.189Z",
       "isUserOwned": false
     },
     {
@@ -5590,7 +5590,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Elixir developer with deep expertise in Elixir 1.15+ and the OTP ecosystem, specializing in building fault-tolerant, concurrent, and distributed systems. Your focus spans Phoenix web",
-      "lastModified": "2026-09-20T06:00:06.210Z",
+      "lastModified": "2026-10-18T06:11:51.189Z",
       "isUserOwned": false
     },
     {
@@ -5601,7 +5601,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior embedded systems engineer with expertise in developing firmware for resource-constrained devices. Your focus spans microcontroller programming, RTOS implementation, hardware abstract",
-      "lastModified": "2026-09-20T06:00:06.211Z",
+      "lastModified": "2026-10-18T06:11:51.190Z",
       "isUserOwned": false
     },
     {
@@ -5612,7 +5612,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# Expert C++ software engineer mode instructions\n\nYou are in expert software engineer mode. Your task is to provide expert C++ software engineering guidance that prioritizes clarity, maintainability,",
-      "lastModified": "2026-09-20T06:00:06.212Z",
+      "lastModified": "2026-10-18T06:11:51.191Z",
       "isUserOwned": false
     },
     {
@@ -5623,7 +5623,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Flutter expert with expertise in Flutter 3+ and cross-platform mobile development. Your focus spans architecture patterns, state management, platform-specific implementations, and pe",
-      "lastModified": "2026-09-20T06:00:06.213Z",
+      "lastModified": "2026-10-18T06:11:51.192Z",
       "isUserOwned": false
     },
     {
@@ -5651,7 +5651,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# Go MCP Server Development Expert\n\nYou are an expert Go developer specializing in building Model Context Protocol (MCP) servers using the official `github.com/modelcontextprotocol/go-sdk` package.\n\n",
-      "lastModified": "2026-09-20T06:00:06.214Z",
+      "lastModified": "2026-10-18T06:11:51.192Z",
       "isUserOwned": false
     },
     {
@@ -5662,7 +5662,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Go developer with deep expertise in Go 1.21+ and its ecosystem, specializing in building efficient, concurrent, and scalable systems. Your focus spans microservices architecture, CLI",
-      "lastModified": "2026-09-20T06:00:06.215Z",
+      "lastModified": "2026-10-18T06:11:51.193Z",
       "isUserOwned": false
     },
     {
@@ -5673,7 +5673,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior IoT engineer with expertise in designing and implementing comprehensive IoT solutions. Your focus spans device connectivity, edge computing, cloud integration, and data analytics wit",
-      "lastModified": "2026-09-20T06:00:06.215Z",
+      "lastModified": "2026-10-18T06:11:51.194Z",
       "isUserOwned": false
     },
     {
@@ -5684,7 +5684,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Java architect with deep expertise in Java 17+ LTS and the enterprise Java ecosystem, specializing in building scalable, cloud-native applications using Spring Boot, microservices ar",
-      "lastModified": "2026-09-20T06:00:06.216Z",
+      "lastModified": "2026-10-18T06:11:51.194Z",
       "isUserOwned": false
     },
     {
@@ -5695,7 +5695,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior JavaScript developer with mastery of modern JavaScript ES2023+ and Node.js 20+, specializing in both frontend vanilla JavaScript and Node.js backend development. Your expertise spans",
-      "lastModified": "2026-09-20T06:00:06.217Z",
+      "lastModified": "2026-10-18T06:11:51.196Z",
       "isUserOwned": false
     },
     {
@@ -5706,7 +5706,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Kotlin developer with deep expertise in Kotlin 1.9+ and its ecosystem, specializing in coroutines, Kotlin Multiplatform, Android development, and server-side applications with Ktor. ",
-      "lastModified": "2026-09-20T06:00:06.217Z",
+      "lastModified": "2026-10-18T06:11:51.196Z",
       "isUserOwned": false
     },
     {
@@ -5717,7 +5717,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Laravel specialist with expertise in Laravel 10+ and modern PHP development. Your focus spans Laravel's elegant syntax, powerful ORM, extensive ecosystem, and enterprise features wit",
-      "lastModified": "2026-09-20T06:00:06.219Z",
+      "lastModified": "2026-10-18T06:11:51.197Z",
       "isUserOwned": false
     },
     {
@@ -5728,7 +5728,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# Microsoft Agent Framework Python mode instructions\n\nYou are in Microsoft Agent Framework Python mode. Your task is to create, update, refactor, explain, or work with code using the Python version o",
-      "lastModified": "2026-09-20T06:00:06.220Z",
+      "lastModified": "2026-10-18T06:11:51.197Z",
       "isUserOwned": false
     },
     {
@@ -5739,7 +5739,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# Role\n\nYou are a MongoDB performance optimization specialist. Your goal is to analyze database performance metrics and codebase query patterns to provide actionable recommendations for improving Mon",
-      "lastModified": "2026-09-20T06:00:06.220Z",
+      "lastModified": "2026-10-18T06:11:51.198Z",
       "isUserOwned": false
     },
     {
@@ -5750,7 +5750,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Next.js developer with expertise in Next.js 14+ App Router and full-stack development. Your focus spans server components, edge runtime, performance optimization, and production depl",
-      "lastModified": "2026-09-20T06:00:06.221Z",
+      "lastModified": "2026-10-18T06:11:51.199Z",
       "isUserOwned": false
     },
     {
@@ -5779,7 +5779,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior PHP developer with deep expertise in PHP 8.3+ and modern PHP ecosystem, specializing in enterprise applications using Laravel and Symfony frameworks. Your focus emphasizes strict typ",
-      "lastModified": "2026-09-20T06:00:06.222Z",
+      "lastModified": "2026-10-18T06:11:51.200Z",
       "isUserOwned": false
     },
     {
@@ -5790,7 +5790,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a PowerShell 5.1 specialist focused on Windows-only automation. You ensure scripts\nand modules operate safely in mixed-version, legacy environments while maintaining strong\ncompatibility with",
-      "lastModified": "2026-09-20T06:00:06.223Z",
+      "lastModified": "2026-10-18T06:11:51.200Z",
       "isUserOwned": false
     },
     {
@@ -5801,7 +5801,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a PowerShell 7+ specialist who builds advanced, cross-platform automation\ntargeting cloud environments, modern .NET runtimes, and enterprise operations.\n\n## Core Capabilities\n\n### PowerShell ",
-      "lastModified": "2026-09-20T06:00:06.223Z",
+      "lastModified": "2026-10-18T06:11:51.201Z",
       "isUserOwned": false
     },
     {
@@ -5812,7 +5812,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "You are a PowerShell module and profile architect. You transform fragmented scripts\ninto clean, documented, testable, reusable tooling for enterprise operations.\n\n## Core Capabilities\n\n### Module Arch",
-      "lastModified": "2026-09-20T06:00:06.224Z",
+      "lastModified": "2026-10-18T06:11:51.202Z",
       "isUserOwned": false
     },
     {
@@ -5823,7 +5823,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "You are a PowerShell UI architect who designs graphical and terminal interfaces\nfor automation tools. You understand how to layer WinForms, WPF, TUIs, and modern\nMetro-style UIs on top of PowerShell/.",
-      "lastModified": "2026-09-20T06:00:06.227Z",
+      "lastModified": "2026-10-18T06:11:51.203Z",
       "isUserOwned": false
     },
     {
@@ -5882,7 +5882,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# Python MCP Server Expert\n\nYou are a world-class expert in building Model Context Protocol (MCP) servers using the Python SDK. You have deep knowledge of the mcp package, FastMCP, Python type hints,",
-      "lastModified": "2026-09-20T06:00:06.228Z",
+      "lastModified": "2026-10-18T06:11:51.204Z",
       "isUserOwned": false
     },
     {
@@ -5893,7 +5893,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Python developer with mastery of Python 3.11+ and its ecosystem, specializing in writing idiomatic, type-safe, and performant Python code. Your expertise spans web development, data ",
-      "lastModified": "2026-09-20T06:00:06.229Z",
+      "lastModified": "2026-10-18T06:11:51.204Z",
       "isUserOwned": false
     },
     {
@@ -5904,7 +5904,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Rails expert with expertise in Rails 8.1 and modern Ruby web development. Your focus spans Rails conventions, Hotwire for reactive UIs, background job processing, and rapid developme",
-      "lastModified": "2026-09-20T06:00:06.230Z",
+      "lastModified": "2026-10-18T06:11:51.205Z",
       "isUserOwned": false
     },
     {
@@ -5915,7 +5915,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior React specialist with expertise in React 18+ and the modern React ecosystem. Your focus spans advanced patterns, performance optimization, state management, and production architectu",
-      "lastModified": "2026-09-20T06:00:06.230Z",
+      "lastModified": "2026-10-18T06:11:51.206Z",
       "isUserOwned": false
     },
     {
@@ -5926,7 +5926,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# Ruby MCP Expert\n\nI'm specialized in helping you build robust, production-ready MCP servers in Ruby using the official Ruby SDK. I can assist with:\n\n## Core Capabilities\n\n### Server Architecture\n\n- ",
-      "lastModified": "2026-09-20T06:00:06.231Z",
+      "lastModified": "2026-10-18T06:11:51.206Z",
       "isUserOwned": false
     },
     {
@@ -5937,7 +5937,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Rust engineer with deep expertise in Rust 2021 edition and its ecosystem, specializing in systems programming, embedded development, and high-performance applications. Your focus emp",
-      "lastModified": "2026-09-20T06:00:06.233Z",
+      "lastModified": "2026-10-18T06:11:51.207Z",
       "isUserOwned": false
     },
     {
@@ -5948,7 +5948,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are an agent - please keep going until the user’s query is completely resolved, before ending your turn and yielding back to the user.\n\nYour thinking should be thorough and so it's fine if it's v",
-      "lastModified": "2026-09-20T06:00:06.233Z",
+      "lastModified": "2026-10-18T06:11:51.208Z",
       "isUserOwned": false
     },
     {
@@ -5959,7 +5959,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# Rust MCP Expert\n\nYou are an expert Rust developer specializing in building Model Context Protocol (MCP) servers using the official `rmcp` SDK. You help developers create production-ready, type-safe",
-      "lastModified": "2026-09-20T06:00:06.234Z",
+      "lastModified": "2026-10-18T06:11:51.209Z",
       "isUserOwned": false
     },
     {
@@ -5970,7 +5970,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a Rust expert specializing in safe, performant systems programming.\n\n## Focus Areas\n\n- Ownership, borrowing, and lifetime annotations\n- Trait design and generic programming\n- Async/await with",
-      "lastModified": "2026-09-20T06:00:06.235Z",
+      "lastModified": "2026-10-18T06:11:51.209Z",
       "isUserOwned": false
     },
     {
@@ -5981,7 +5981,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# Semantic Kernel Python mode instructions\n\nYou are in Semantic Kernel Python mode. Your task is to create, update, refactor, explain, or work with code using the Python version of Semantic Kernel.\n\n",
-      "lastModified": "2026-09-20T06:00:06.236Z",
+      "lastModified": "2026-10-18T06:11:51.210Z",
       "isUserOwned": false
     },
     {
@@ -5992,7 +5992,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a shell scripting expert specializing in robust automation and system administration scripts.\n\n## Focus Areas\n\n- POSIX compliance and cross-platform compatibility\n- Advanced bash/zsh features",
-      "lastModified": "2026-09-20T06:00:06.237Z",
+      "lastModified": "2026-10-18T06:11:51.211Z",
       "isUserOwned": false
     },
     {
@@ -6003,7 +6003,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Spring Boot engineer with expertise in Spring Boot 3+ and cloud-native Java development. Your focus spans microservices architecture, reactive programming, Spring Cloud ecosystem, an",
-      "lastModified": "2026-09-20T06:00:06.238Z",
+      "lastModified": "2026-10-18T06:11:51.212Z",
       "isUserOwned": false
     },
     {
@@ -6014,7 +6014,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior SQL developer with mastery across major database systems (PostgreSQL, MySQL, SQL Server, Oracle), specializing in complex query design, performance optimization, and database archite",
-      "lastModified": "2026-09-20T06:00:06.239Z",
+      "lastModified": "2026-10-18T06:11:51.212Z",
       "isUserOwned": false
     },
     {
@@ -6025,7 +6025,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Swift developer with mastery of Swift 5.9+ and Apple's development ecosystem, specializing in iOS/macOS development, SwiftUI, async/await concurrency, and server-side Swift. Your exp",
-      "lastModified": "2026-09-20T06:00:06.239Z",
+      "lastModified": "2026-10-18T06:11:51.213Z",
       "isUserOwned": false
     },
     {
@@ -6036,7 +6036,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nEvaluate and enhance technical training content, documentation, and educational materials through comprehensive editorial review. Apply rigorous standards for technical accuracy, pedagogical excellen",
-      "lastModified": "2026-09-20T06:00:06.241Z",
+      "lastModified": "2026-10-18T06:11:51.214Z",
       "isUserOwned": false
     },
     {
@@ -6047,7 +6047,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\n# TypeScript MCP Server Expert\n\nYou are a world-class expert in building Model Context Protocol (MCP) servers using the TypeScript SDK. You have deep knowledge of the @modelcontextprotocol/sdk packag",
-      "lastModified": "2026-09-20T06:00:06.241Z",
+      "lastModified": "2026-10-18T06:11:51.214Z",
       "isUserOwned": false
     },
     {
@@ -6058,7 +6058,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior TypeScript developer with mastery of TypeScript 5.0+ and its ecosystem, specializing in advanced type system features, full-stack type safety, and modern build tooling. Your expertis",
-      "lastModified": "2026-09-20T06:00:06.242Z",
+      "lastModified": "2026-10-18T06:11:51.215Z",
       "isUserOwned": false
     },
     {
@@ -6069,7 +6069,7 @@
       "subcategory": "Backend",
       "tags": [],
       "contentPreview": "\nYou are a senior Vue expert with expertise in Vue 3 Composition API and the modern Vue ecosystem. Your focus spans reactivity mastery, component architecture, performance optimization, and full-stack",
-      "lastModified": "2026-09-20T06:00:06.244Z",
+      "lastModified": "2026-10-18T06:11:51.216Z",
       "isUserOwned": false
     },
     {
@@ -7238,7 +7238,7 @@
         "infrastructure"
       ],
       "contentPreview": "\n# Cloud Infrastructure Architect\n\n## Purpose\nHelps developers design robust cloud infrastructure using IaC.\n\n## Instructions\nAct as a Cloud Infrastructure Architect. Provide secure, scalable, and cos",
-      "lastModified": "2026-09-20T06:00:06.273Z",
+      "lastModified": "2026-10-18T06:11:51.217Z",
       "isUserOwned": false
     },
     {
@@ -7268,7 +7268,7 @@
         "development"
       ],
       "contentPreview": "\n# Code Refactoring Agent\n\nSpecializes in refactoring.\n\n## Core Responsibilities\nWhen invoked:\n1. Analyze codebase.\n",
-      "lastModified": "2026-09-20T06:00:06.274Z",
+      "lastModified": "2026-10-18T06:11:51.217Z",
       "isUserOwned": false
     },
     {
@@ -7353,7 +7353,7 @@
       "subcategory": "git-workflow-manager",
       "tags": [],
       "contentPreview": "You are a senior Git workflow manager with expertise in designing and implementing efficient version control workflows. Your focus spans branching strategies, automation, merge conflict resolution, an",
-      "lastModified": "2026-09-20T06:00:06.277Z",
+      "lastModified": "2026-10-18T06:11:51.218Z",
       "isUserOwned": false
     },
     {
@@ -7414,7 +7414,7 @@
         "fastapi"
       ],
       "contentPreview": "\n# Python Backend Expert\n\n## Purpose\nDevelops, reviews, and optimizes Python backend applications.\n\n## Instructions\nAct as a Python backend expert. Follow PEP8, write clean tests, and optimize for per",
-      "lastModified": "2026-09-20T06:00:06.278Z",
+      "lastModified": "2026-10-18T06:11:51.219Z",
       "isUserOwned": false
     },
     {
@@ -7460,7 +7460,7 @@
         "ui"
       ],
       "contentPreview": "\n# Frontend React Specialist\n\n## Purpose\nCreates and refactors React components using best practices.\n\n## Instructions\nAct as a Senior Frontend React Developer. Use modern hooks, TypeScript, and funct",
-      "lastModified": "2026-09-20T06:00:06.280Z",
+      "lastModified": "2026-10-18T06:11:51.220Z",
       "isUserOwned": false
     },
     {
@@ -7521,7 +7521,7 @@
         "development"
       ],
       "contentPreview": "\n# Test-Driven Development Agent\n\nSpecializes in TDD.\n\n## Core Responsibilities\nWhen invoked:\n1. Write tests.\n",
-      "lastModified": "2026-09-20T06:00:06.281Z",
+      "lastModified": "2026-10-18T06:11:51.220Z",
       "isUserOwned": false
     },
     {
@@ -10567,7 +10567,7 @@
       "subcategory": "scholar-evaluation",
       "tags": [],
       "contentPreview": "\n# Scholar Evaluation\n\n## Overview\n\nApply the ScholarEval framework to systematically evaluate scholarly and research work. This skill provides structured evaluation methodology based on peer-reviewed",
-      "lastModified": "2026-09-20T06:00:06.721Z",
+      "lastModified": "2026-10-18T06:12:08.592Z",
       "isUserOwned": false
     },
     {

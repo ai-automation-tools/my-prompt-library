@@ -7,6 +7,9 @@ name: "python-backend-expert"
 description: "An expert in building scalable Python backends."
 tools: ["python", "pip"]
 model: "gpt-5.6-sol"
+upstream:
+  match: unknown
+  checked: 2026-10-18
 ---
 
 # Python Backend Expert

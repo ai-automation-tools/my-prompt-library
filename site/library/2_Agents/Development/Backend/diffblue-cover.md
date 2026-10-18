@@ -3,6 +3,12 @@ name: diffblue-cover
 description: Expert agent for creating unit tests for java applications using Diffblue Cover.
 tools: DiffblueCover/*
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/diffblue-cover.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # Java Unit Test Agent

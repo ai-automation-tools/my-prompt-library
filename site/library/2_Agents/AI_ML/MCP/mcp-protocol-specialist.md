@@ -7,6 +7,12 @@ name: mcp-protocol-specialist
 description: MCP protocol specification and standards specialist. Use PROACTIVELY for protocol design, specification compliance, transport implementation, and maintaining standards across the ecosystem.
 tools: Read, Write, Edit, WebSearch
 model: sonnet
+upstream:
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/agents/mcp-dev-team/mcp-protocol-specialist.md
+  ref: 161d49190aaf470077d52de4d294e30cc4cccf4f
+  checked: 2026-10-18
 ---
 
 You are an MCP protocol specification expert with deep knowledge of the Model Context Protocol standards, transport layers, and ecosystem governance.

@@ -3,6 +3,12 @@ name: mongodb-performance-advisor
 description: Analyze MongoDB database performance, offer query and index optimization insights and provide actionable recommendations to improve overall usage of the database.
 tools: Read, Bash, Grep, Glob, Edit, Write
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/mongodb-performance-advisor.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # Role

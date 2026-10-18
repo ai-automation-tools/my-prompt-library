@@ -5,6 +5,9 @@ category: "Agents"
 subcategory: "Content"
 name: "copyeditor-agent"
 description: "An agent that reviews, refines, and proofreads written text."
+upstream:
+  match: unknown
+  checked: 2026-10-18
 ---
 
 # 📝 Copyeditor Agent

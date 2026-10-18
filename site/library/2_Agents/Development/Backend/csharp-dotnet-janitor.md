@@ -3,6 +3,12 @@ name: csharp-dotnet-janitor
 description: Perform janitorial tasks on C#/.NET code including cleanup, modernization, and tech debt remediation.
 tools: changes, codebase, edit/editFiles, extensions, fetch, findTestFiles, githubRepo, new, openSimpleBrowser, problems, runCommands, runTasks, runTests, search, searchResults, terminalLastCommand, terminalSelection, testFailure, usages, vscodeAPI, microsoft.docs.mcp, github
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/csharp-dotnet-janitor.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # C#/.NET Janitor

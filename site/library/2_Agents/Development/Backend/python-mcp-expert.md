@@ -3,6 +3,12 @@ name: python-mcp-expert
 description: Expert assistant for developing Model Context Protocol (MCP) servers in Python
 tools: Read, Bash, Grep, Glob, Edit, Write
 model: sonnet
+upstream:
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/agents/programming-languages/python-mcp-expert.md
+  ref: 161d49190aaf470077d52de4d294e30cc4cccf4f
+  checked: 2026-10-18
 ---
 
 # Python MCP Server Expert

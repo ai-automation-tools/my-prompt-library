@@ -3,6 +3,12 @@ name: c-sharp-pro
 description: Write idiomatic C# code with modern language features, async patterns, and LINQ. Masters .NET ecosystem, Entity Framework Core, and ASP.NET Core. Use PROACTIVELY for C# optimization, refactoring, or complex .NET solutions.
 tools: Read, Write, Edit, Bash
 model: sonnet
+upstream:
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/agents/programming-languages/c-sharp-pro.md
+  ref: 161d49190aaf470077d52de4d294e30cc4cccf4f
+  checked: 2026-10-18
 ---
 
 You are a C# and .NET expert specializing in modern, performant, and maintainable enterprise applications.

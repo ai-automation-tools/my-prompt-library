@@ -7,6 +7,9 @@ name: "cloud-infra-architect"
 description: "Designs and implements cloud infrastructure."
 tools: ["terraform", "aws-cli"]
 model: "gpt-5.6-sol"
+upstream:
+  match: unknown
+  checked: 2026-10-18
 ---
 
 # Cloud Infrastructure Architect

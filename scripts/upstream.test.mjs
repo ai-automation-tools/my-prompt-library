@@ -113,26 +113,31 @@ assert.equal(stampUpstream(after, { ref: "newsha", checked: "2026-08-26" }), aft
 // Renamed to `similar` on 2026-08-29; this assertion is what stops it coming back.
 {
   const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^[/]([A-Za-z]:)/, "$1"));
-  const LIB = path.join(HERE, "..", "site", "library", "3_Skills");
+  const LIB = path.join(HERE, "..", "site", "library");
   const KNOWN = new Set(["exact", "prefix", "similar", "ambiguous", "unknown", "fork"]);
-  const walk = (dir, out = []) => {
+  const walk = (dir, match, out = []) => {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
       const p = path.join(dir, e.name);
-      if (e.isDirectory()) walk(p, out);
-      else if (e.name === "SKILL.md") out.push(p);
+      if (e.isDirectory()) walk(p, match, out);
+      else if (match(e.name)) out.push(p);
     }
     return out;
   };
   const bad = [];
   let stamped = 0;
-  for (const f of walk(LIB)) {
+  // Agents carry the same block since 2026-10-17 (attribute-upstream.mjs --agents).
+  const files = [
+    ...walk(path.join(LIB, "3_Skills"), (n) => n === "SKILL.md"),
+    ...walk(path.join(LIB, "2_Agents"), (n) => n.endsWith(".md")),
+  ];
+  for (const f of files) {
     const u = readUpstream(splitFrontmatter(fs.readFileSync(f, "utf8")).fm);
     if (!u || !u.match) continue;
     stamped++;
     if (!KNOWN.has(u.match)) bad.push(path.relative(LIB, f) + ": match: " + u.match);
   }
   assert.deepEqual(bad, [], "every upstream.match must be a known attribution verdict");
-  console.log("  " + stamped + " stamped SKILL.md files, every match: value in the vocabulary");
+  console.log("  " + stamped + " stamped skills and agents, every match: value in the vocabulary");
 }
 
 console.log("upstream: all checks passed");

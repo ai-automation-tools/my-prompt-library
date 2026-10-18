@@ -5,6 +5,9 @@ category: "Agents"
 subcategory: "Content"
 name: "blog-writer-agent"
 description: "An agent specializing in long-form, SEO-optimized blog content."
+upstream:
+  match: unknown
+  checked: 2026-10-18
 ---
 
 # ✍️ Blog Writer Agent

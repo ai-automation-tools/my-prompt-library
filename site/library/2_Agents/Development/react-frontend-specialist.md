@@ -7,6 +7,9 @@ name: "react-frontend-specialist"
 description: "Specialist in React and Modern UI development."
 tools: ["npm", "node"]
 model: "gpt-5.6-sol"
+upstream:
+  match: unknown
+  checked: 2026-10-18
 ---
 
 # Frontend React Specialist

@@ -1,6 +1,6 @@
 # Roadmap — my-prompt-library
 
-**Updated:** 2026-10-05 · **Live:** `my-prompt-library.ai-automation-tools.dev` (Vercel) · **Deploy branch:** `main`
+**Updated:** 2026-10-17 · **Live:** `my-prompt-library.ai-automation-tools.dev` (Vercel) · **Deploy branch:** `main`
 
 Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
 The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
@@ -16,8 +16,9 @@ skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-202
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 28.3 MB, all of it reachable |
 | User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
 | Prompt index | `site/api/prompt-index.json` — **3,200** prompts, 1.98 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows; rebuilding an unchanged library leaves it byte-identical. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
-| Skills | **323**, all spec-valid. **99** carry a resolvable upstream. Of the 93 still tracked, **all 93 are byte-identical to upstream** — `behind` and `drifted` are both empty as of 2026-09-16, and every one now carries the commit sha it was synced from. The other 6 are forks we own. `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
-| `src/App.tsx` | **996 lines** (was 2,845), 19 `useState` hooks |
+| Skills | **323**, all spec-valid, and **all 323 carry an `upstream:` block**. 94 resolve to one live upstream and are drift-checked (93 `exact`, 1 `similar`); 6 are forks we own; 60 `ambiguous` and 163 `unknown` have no single upstream to check. Drift run of 2026-10-17: 92 current, 1 `behind` (`scholar-evaluation`, first stamped that day, upstream since rewritten), 1 `drifted` (`x-twitter-scraper`, 1%). `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
+| Agents | `2_Agents`: 546 files, of which **86** are real subagent definitions (`name:` frontmatter), all stamped since 2026-10-17: 71 `exact`, 6 `similar`, 9 `unknown` (our own). The 77 attributed ones are in the weekly drift check: 71 current, 6 `behind` (upstream expanded them). The other 460 are role-play prompts and carry nothing |
+| `src/App.tsx` | **1,029 lines** (was 2,845), 21 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
 | Line endings | LF everywhere, enforced by `.gitattributes`; the index is byte-reproducible on Linux and Windows |
 | Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG; login/signup rate-limited and validated; `helmet` headers; `LICENSE`/`NOTICE`/`SECURITY.md` in place (2026-10-05). Neon password rotation still pending |
@@ -219,11 +220,13 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       needs both halves: resync taking `description` from upstream (or diffing it), and the
       checker reporting it separately from the body.
 - [ ] **Raise attribution coverage above 31%.** 60 skills are `ambiguous` (the body exists in
-      three or more mirror repos, so no single origin is provable) and 164 are `unknown`.
+      three or more mirror repos, so no single origin is provable) and 163 are `unknown`.
       The mirror only indexes `SKILL.md`; matching support files would help.
-- [ ] **Extend provenance beyond skills.** `2_Agents`, `4_Prompts` and `5_System_Prompts`
-      have no `upstream:` stamping at all — the tooling is section-agnostic, it just has not
-      been pointed at them.
+- [ ] **Extend provenance beyond skills.** The 86 subagent definitions in `2_Agents` are
+      stamped and drift-checked since 2026-10-17 (`attribute-upstream.mjs --agents`). Its 460
+      role-play prompts, `4_Prompts` and `5_System_Prompts` still have no `upstream:` stamping;
+      those are single-file prompts with no `name:`, so the agent mode's matching applies but its
+      file filter does not.
 - [ ] **Surface freshness in the UI.** `lastModified` in the index is the *filesystem mtime*
       of whichever machine last rebuilt that entry with a real change. (Until 2026-09-28 it was
       the checkout time for every prompt; the builder now carries unchanged entries forward.) Swap it for
@@ -238,17 +241,17 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
       needs a preview deploy to confirm and is **Mike's call, not an agent's**.
 
 ### Library structure
-- [ ] **Record provenance for the untracked skills and the real agent definitions.** Only 99 of
-      323 skills carry an `upstream:` block, so the Monday `upstream-drift.yml` check never sees
-      the other 224; `2_Agents` has none at all, including the ~86 files that are real subagent
-      definitions (`name:` + `description:`) copied from public collections. Run
-      `scripts/attribute-upstream.mjs` over the untracked `3_Skills/**/SKILL.md` and stamp what
-      resolves (`match: unknown` for originals is a valid answer); then teach it and
-      `check-upstream-drift.mjs` to walk `2_Agents` for files with `name:`, leaving the role-play
-      prompts alone. **Done when** the drift report covers every vendored skill and agent, and
-      the counts in this file's *Skills* row are re-read from it. The biweekly library-refresh
-      job (`prompt-library-refresh`, added 2026-10-12) stamps `upstream:` on everything it adds,
-      so this is a one-time backfill.
+- [x] ~~**Record provenance for the untracked skills and the real agent definitions.**~~ The
+      premise had moved: 322 of 323 skills already carried a block (the `ambiguous`/`unknown`
+      stamps count), so the skill half was `scholar-evaluation` alone, stamped `similar` to
+      K-Dense-AI/claude-scientific-skills. `attribute-upstream.mjs --agents` matches `2_Agents`
+      files with `name:` against VoltAgent, awesome-copilot, wshobson and claude-code-templates
+      clones (the aggregator last, so it never takes credit for a re-shipped body) and stamped
+      all 86: 71 `exact`, 6 `similar`, 9 `unknown`. `check-upstream-drift.mjs` walks
+      `2_Agents` too, resolving agents by file name, and `resync-upstream.mjs` takes the
+      `2_Agents/…md` paths the report prints. First combined run: 171 checked, 163 current,
+      7 `behind` (six agents and `scholar-evaluation`), 1 `drifted`. Completed **2026-10-17** —
+      see the changelog.
 - [ ] **Decide what `2_Agents` is.** 460 of 546 files have no `name:`/`description:`, so they
       cannot load as subagents — they are role-play prompts filed in the wrong section.
       Either move them to `4_Prompts` or rename the section "Agent Prompts" and stop implying
@@ -327,7 +330,7 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 | Weekly (automated) | `upstream-drift.yml` runs Mondays 09:00 UTC and updates one rolling issue. Triage it — the job never edits content itself; `resync-upstream.mjs` is what repairs what it finds. |
 | Each deploy | The prompt index rebuilds automatically (`vercel-build` runs `build:index`). |
 | After adding content | Watch the build log for `[WARN] Failed to parse frontmatter` — those files are silently dropped from the library. |
-| After adding skills | Re-run `attribute-upstream.mjs --write` to stamp provenance on the new ones. It is idempotent. |
+| After adding skills or agents | Re-run `attribute-upstream.mjs --write` (skills) or `--agents --write` (agents) to stamp provenance on the new ones. Both are idempotent and each only touches its own section. |
 | Monthly | Refresh `5_System_Prompts` as new frontier models ship. |
 | Quarterly | Audit prompts for accuracy; review/rotate featured prompts. Re-check model IDs. |
 

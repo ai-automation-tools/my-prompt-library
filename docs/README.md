@@ -167,8 +167,8 @@ Repo-level tooling lives in `scripts/`, outside the deploy root:
 
 ```bash
 node scripts/check-upstream-drift.mjs      # what has drifted from upstream
-node scripts/resync-upstream.mjs <skill>   # pull that skill back level with upstream
-node scripts/attribute-upstream.mjs        # re-stamp provenance (see its header)
+node scripts/resync-upstream.mjs <skill>   # pull a skill (or 2_Agents/….md) level with upstream
+node scripts/attribute-upstream.mjs        # re-stamp provenance; --agents for 2_Agents (see header)
 node scripts/fix-skill-frontmatter.mjs     # enforce the Agent Skills spec
 node scripts/upstream.test.mjs             # self-checks (CI runs both)
 node scripts/skill-frontmatter.test.mjs

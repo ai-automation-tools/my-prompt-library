@@ -4,6 +4,44 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-17 — Provenance for agents, and the last unstamped skill
+
+The weekly drift check now covers the subagent definitions in `2_Agents`, not just skills.
+
+**Agents**
+- `scripts/attribute-upstream.mjs --agents` runs the same body / prefix / shingle / name matching
+  over `2_Agents` files with `name:` frontmatter, against clones of VoltAgent/awesome-claude-code-subagents,
+  github/awesome-copilot, wshobson/agents and davila7/claude-code-templates. The last of those
+  re-ships most of the others' agents, so it is consulted last and only credited where it is the
+  sole source. Each mode reads and stamps only its own section.
+- All 86 agent definitions are stamped: **71 `exact`** (36 VoltAgent, 17 awesome-copilot, 16
+  claude-code-templates, 2 wshobson), **6 `similar`** by name (claude-code-templates has since
+  rewritten them), **9 `unknown`** (no public source; ours). The 460 role-play prompts are untouched.
+
+**Drift tooling**
+- `check-upstream-drift.mjs` walks `2_Agents` too and resolves an agent by file name (`x.md`,
+  `x.agent.md`) where a skill resolves by directory. Agent rows keep their `2_Agents/` prefix.
+- `resync-upstream.mjs` accepts those `2_Agents/….md` paths (local frontmatter, upstream body,
+  no support files), and now also accepts a skill path ending in `/SKILL.md`, which is how the
+  report prints skills.
+- `upstream.test.mjs` checks the `match:` vocabulary across agents as well as skills (409 stamped files).
+
+**Skills**
+- `Data/scholar-evaluation` was the one skill with no `upstream:` block. Stamped `similar` to
+  K-Dense-AI/claude-scientific-skills, which has since rewritten it.
+
+First combined drift run: 171 checked, 163 current, 7 `behind` (`scholar-evaluation` and six
+agents: `task-decomposition-expert`, `hackathon-ai-strategist`, `model-evaluator`,
+`llms-maintainer`, `ai-ethics-advisor`, `computer-vision-engineer`), 1 `drifted`
+(`x-twitter-scraper`, 1%). None were resynced here; that is the drift job's call.
+
+_Touched: `scripts/attribute-upstream.mjs`, `scripts/check-upstream-drift.mjs`,
+`scripts/resync-upstream.mjs`, `scripts/upstream.test.mjs`, 86 files under `site/library/2_Agents/`,
+`site/library/3_Skills/Data/scholar-evaluation/SKILL.md`, `site/api/prompt-index.json`,
+`docs/ROADMAP.md`, `docs/ARCHITECTURE.md`, `docs/README.md`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-14 — `prompts.mikesailab.com` decommissioned
 
 The org domain is now the only home. Share links (`PUBLIC_SHARE_ORIGIN` in `src/App.tsx`) point

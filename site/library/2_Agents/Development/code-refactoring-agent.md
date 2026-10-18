@@ -7,6 +7,9 @@ name: code-refactoring-agent
 description: "Use this agent when you need to clean up legacy code."
 tools: [Read, Edit, Bash]
 model: claude-sonnet-5
+upstream:
+  match: unknown
+  checked: 2026-10-18
 ---
 
 # Code Refactoring Agent

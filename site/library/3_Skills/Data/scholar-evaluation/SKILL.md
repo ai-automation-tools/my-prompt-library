@@ -2,6 +2,12 @@
 name: "scholar-evaluation"
 description: "Apply the ScholarEval framework to systematically evaluate scholarly and research work. This skill provides structured evaluation methodology based on peer-reviewed research assessment criteria, enabling comprehensive analysis of academic papers, research proposals, literature reviews, and scholarly writing across multiple quality dimensions."
 title: "Scholar Evaluation"
+upstream:
+  match: similar
+  repo: K-Dense-AI/claude-scientific-skills
+  path: skills/scholar-evaluation/SKILL.md
+  ref: a1043ef544e3a100c28e70a736b6cf32554d0677
+  checked: 2026-10-18
 ---
 
 # Scholar Evaluation

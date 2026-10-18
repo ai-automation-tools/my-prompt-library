@@ -3,6 +3,12 @@ name: go-mcp-expert
 description: Expert assistant for building Model Context Protocol (MCP) servers in Go using the official SDK.
 tools: Read, Bash, Grep, Glob, Edit, Write
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/go-mcp-expert.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # Go MCP Server Development Expert

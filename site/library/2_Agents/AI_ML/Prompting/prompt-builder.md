@@ -3,6 +3,12 @@ name: prompt-builder
 description: Expert prompt engineering and validation system for creating high-quality prompts - Brought to you by microsoft/edge-ai
 tools: codebase, edit/editFiles, fetch, githubRepo, problems, runCommands, search, searchResults, terminalLastCommand, terminalSelection, usages, terraform, Microsoft Docs, context7
 model: sonnet
+upstream:
+  match: exact
+  repo: github/awesome-copilot
+  path: agents/prompt-builder.agent.md
+  ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
+  checked: 2026-10-18
 ---
 
 # Prompt Builder Instructions

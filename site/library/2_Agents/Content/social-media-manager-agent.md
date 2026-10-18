@@ -5,6 +5,9 @@ category: "Agents"
 subcategory: "Content"
 name: "social-media-manager-agent"
 description: "An agent that crafts platform-specific social media posts."
+upstream:
+  match: unknown
+  checked: 2026-10-18
 ---
 
 # 📱 Social Media Manager
