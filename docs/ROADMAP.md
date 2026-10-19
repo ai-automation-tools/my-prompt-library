@@ -1,14 +1,24 @@
-# Roadmap — my-prompt-library
+<h1 align="center">🗺️ Roadmap</h1>
 
-**Updated:** 2026-10-17 · **Live:** `my-prompt-library.ai-automation-tools.dev` (Vercel) · **Deploy branch:** `main`
+<p align="center">
+  <em>From a live, production-ready prompt library to one whose every file says where it came from and how fresh it is.</em>
+</p>
 
-Single source of truth for *what's next*. Shipped work lives in [CHANGELOG.md](CHANGELOG.md).
-The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md);
-skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-2026-09-16.md).
+<p align="center">
+  <img src="https://img.shields.io/badge/now-phase_1:_now-F59E0B?style=for-the-badge" alt="Now: Phase 1">
+  <img src="https://img.shields.io/badge/stage-public-2ea44f?style=for-the-badge" alt="Stage: public">
+  <a href="README.md"><img src="https://img.shields.io/badge/↩-docs_home-6B7280?style=for-the-badge" alt="Back to docs"></a>
+</p>
 
 ---
 
-## Snapshot
+The Prompt-Library roadmap routine works this file top to bottom every Saturday night, once the weekly upstream-drift issue has no `behind` skills: it takes the first open item that isn't `🔒 Needs Mike`, builds it, ticks it, and adds the matching line to the [changelog](CHANGELOG.md). **Every item above `## After public release` is a release gate.** The app is live at `my-prompt-library.ai-automation-tools.dev` (Vercel, deploy branch `main`) and the repo is public, so the open gates are loose ends a public repo should already have closed. Ticking an item adds its line to the changelog and updates any doc it made stale (the Snapshot table included), in the same commit. The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md); skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-2026-09-16.md).
+
+Markers: `- [ ]` open, `- [-]` claimed by a run in progress, `- [x]` done, `- [!]` blocked (the reason follows on the line). `small` marks an item a check verifies; `🔒 Needs Mike` marks one only Mike can do.
+
+## 📊 Snapshot
+
+Updated 2026-10-17.
 
 | | |
 |:---|:---|
@@ -29,293 +39,75 @@ skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-202
 
 ---
 
-## Now — blocking or near-term
+## 🚨 Phase 1: Now, blocking or near-term
 
-- [ ] **Rotate the Neon password and purge sessions.** The credential was scrubbed from Git
-      history but never rotated, and a scrub does not un-leak. In the same Neon session run
-      `DELETE FROM user_sessions;` — every existing cookie was minted by the old
-      `Math.random()` token generator. Everyone gets logged out once.
-- [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (still a placeholder, so auth and
-      My Library are dead locally). The dev server boots without it and serves the read-only
-      Public Library.
-- [x] ~~**Redact published contacts and sample credentials; add LICENSE.**~~ Three
-      teammates' work and personal emails were listed as recipients in two agent files and one
-      skill, and served on the live site; three Neon doc-sample connection strings sat in the
-      vendored `using-neon` reference. All replaced with placeholders. The README had claimed
-      Apache 2.0 with no `LICENSE` file; added it plus a `NOTICE` for vendored library content.
-      History not rewritten. Completed **2026-10-05** — see the changelog.
-- [x] ~~**Auth had no abuse controls.**~~ Login (20 / 15 min, failures only) and signup
-      (5 / 15 min) are now rate-limited per IP in `site/middleware/rate-limit.ts`; signup
-      validates email shape and enforces 8+ chars (login still accepts the old 6-char accounts);
-      bcrypt's 72-byte truncation is capped at the input; `helmet` sets response headers with
-      CSP off; `trust proxy` is 1 so `req.ip` is the client, not Vercel. The limiter store is
-      in-memory and therefore per warm instance — good enough against a single scripted
-      client, not against a distributed one. Completed **2026-10-05** — see the changelog.
-- [x] ~~**No community files.**~~ Root `SECURITY.md` (private advisory reporting, scope),
-      `CODE_OF_CONDUCT.md`, a short root `CONTRIBUTING.md` pointing at the full one in `docs/`,
-      a PR template and two issue templates. Completed **2026-10-05**.
-- [x] ~~**Triage the `drifted` skills.**~~ Cleared, but the triage started by throwing out the
-      ranking it was supposed to work from. The report's `missing` column was
-      `max(0, 1 - local_words / upstream_words)`, so it read 0% whenever the local copy was the
-      larger file — and an upstream that rewrites a skill into tighter prose *is* the case where
-      the local copy is larger. Every genuinely rotten file sorted to the bottom of the table as
-      a perfect match. `counterparty-risk` sat there at "0% missing" with a local body four
-      times upstream's length and not one section in common; the roadmap's own "the worst is 21%"
-      was reading the instrument, not the library. `check-upstream-drift.mjs` now compares
-      normalized lines in both directions — `missing` (upstream lines this copy lacks) and
-      `extra` (local lines upstream lacks) — and `behind` is set from `missing >= 25%` rather
-      than from a size ratio. On the corrected ranking the supposedly-empty `behind` tier held
-      **nine** skills at 28–96% missing, and the real backlog was 46, not 52.
-      All 46 then resynced, in three passes: the 9 `behind`; the 26 `joellewis/finance_skills`
-      skills, which one upstream pass had restructured identically (the `Purpose`/`Layer`/
-      `Direction`/`When to Use` preamble dropped in favour of `Worked Examples`, `Common
-      Pitfalls` and `Cross-References`), brought to a single sha; and the last 11 one at a time.
-      **All 93 tracked skills are now byte-identical to upstream.** Three judgment calls worth
-      keeping: `frontend-design` was resynced `--keep-extra` because upstream ships no
-      `LICENSE.txt` and dropping one from a vendored copy is not a freshness decision;
-      `timesfm-forecasting` looked like it would lose 2,000 words until upstream turned out to
-      have moved them into four `references/` files the resync mirrors; and `docx`/`xlsx` prune
-      looked alarming at 55 stale files but upstream had only moved `ooxml/schemas/` to
-      `scripts/office/schemas/`. Completed **2026-09-16** — see the changelog and
-      [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-2026-09-16.md).
-- [x] ~~**Seven skills carry a stale `match: behind` in their frontmatter.**~~ Renamed the
-      value rather than re-running the attributor, because the collision was the defect: the
-      attributor's `behind` meant "same skill, body differs" (attribution confidence) while
-      the drift checker's `behind` means "missing more than 25% of upstream" (freshness). The
-      confidence label is now `similar`, so the two vocabularies no longer overlap and nothing
-      in frontmatter reads as a live drift problem. Completed **2026-08-29** — see the
-      changelog. Re-running the attributor stays possible but needs the ~110k-skill mirror
-      clone, and it would have restamped the same seven with the same colliding word.
-- [x] ~~**Rewrite `1_Guides/API_Providers/openai_cli_guide.md`.**~~ The model-ID sweep had
-      skipped it because a find-and-replace on a GPT-4o-era guide would have produced
-      confident wrong pricing and rate-limit numbers. Rewrote it against OpenAI's current
-      docs instead: the CLI section now covers the real `openai` CLI (Responses API,
-      `openai responses create`) rather than the invented `pip install openai-cli` /
-      `openai api chat.completions.create` syntax the old version had, model and pricing
-      tables now name the current lineup (GPT-6 Astra, GPT-5.6 Sol/Terra/Luna, o3), and the
-      fixed "Tier 3" rate-limit table was replaced with a pointer to the per-account limits
-      page since those numbers vary by usage tier and go stale fast. Chat Completions
-      examples are kept as a legacy-compatible section, not deleted, since OpenAI still
-      supports it. Completed **2026-09-05**.
+- [ ] **Rotate the Neon password and purge sessions.** The credential was scrubbed from Git history but never rotated, and a scrub does not un-leak. In the same Neon session run `DELETE FROM user_sessions;` — every existing cookie was minted by the old `Math.random()` token generator. Everyone gets logged out once. 🔒 Needs Mike
+- [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (still a placeholder, so auth and My Library are dead locally). The dev server boots without it and serves the read-only Public Library. 🔒 Needs Mike
+- [x] **Redact published contacts and sample credentials; add LICENSE.** Three teammates' work and personal emails were listed as recipients in two agent files and one skill, and served on the live site; three Neon doc-sample connection strings sat in the vendored `using-neon` reference. All replaced with placeholders. The README had claimed Apache 2.0 with no `LICENSE` file; added it plus a `NOTICE` for vendored library content. History not rewritten. Completed **2026-10-05** — see the changelog.
+- [x] **Auth had no abuse controls.** Login (20 / 15 min, failures only) and signup (5 / 15 min) are now rate-limited per IP in `site/middleware/rate-limit.ts`; signup validates email shape and enforces 8+ chars (login still accepts the old 6-char accounts); bcrypt's 72-byte truncation is capped at the input; `helmet` sets response headers with CSP off; `trust proxy` is 1 so `req.ip` is the client, not Vercel. The limiter store is in-memory and therefore per warm instance — good enough against a single scripted client, not against a distributed one. Completed **2026-10-05** — see the changelog.
+- [x] **No community files.** Root `SECURITY.md` (private advisory reporting, scope), `CODE_OF_CONDUCT.md`, a short root `CONTRIBUTING.md` pointing at the full one in `docs/`, a PR template and two issue templates. Completed **2026-10-05**.
+- [x] **Triage the `drifted` skills.** Cleared, but the triage started by throwing out the ranking it was supposed to work from. The report's `missing` column was `max(0, 1 - local_words / upstream_words)`, so it read 0% whenever the local copy was the larger file — and an upstream that rewrites a skill into tighter prose *is* the case where the local copy is larger. Every genuinely rotten file sorted to the bottom of the table as a perfect match. `counterparty-risk` sat there at "0% missing" with a local body four times upstream's length and not one section in common; the roadmap's own "the worst is 21%" was reading the instrument, not the library. `check-upstream-drift.mjs` now compares normalized lines in both directions — `missing` (upstream lines this copy lacks) and `extra` (local lines upstream lacks) — and `behind` is set from `missing >= 25%` rather than from a size ratio. On the corrected ranking the supposedly-empty `behind` tier held **nine** skills at 28–96% missing, and the real backlog was 46, not 52. All 46 then resynced, in three passes: the 9 `behind`; the 26 `joellewis/finance_skills` skills, which one upstream pass had restructured identically (the `Purpose`/`Layer`/ `Direction`/`When to Use` preamble dropped in favour of `Worked Examples`, `Common Pitfalls` and `Cross-References`), brought to a single sha; and the last 11 one at a time. **All 93 tracked skills are now byte-identical to upstream.** Three judgment calls worth keeping: `frontend-design` was resynced `--keep-extra` because upstream ships no `LICENSE.txt` and dropping one from a vendored copy is not a freshness decision; `timesfm-forecasting` looked like it would lose 2,000 words until upstream turned out to have moved them into four `references/` files the resync mirrors; and `docx`/`xlsx` prune looked alarming at 55 stale files but upstream had only moved `ooxml/schemas/` to `scripts/office/schemas/`. Completed **2026-09-16** — see the changelog and [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-2026-09-16.md).
+- [x] **Seven skills carry a stale `match: behind` in their frontmatter.** Renamed the value rather than re-running the attributor, because the collision was the defect: the attributor's `behind` meant "same skill, body differs" (attribution confidence) while the drift checker's `behind` means "missing more than 25% of upstream" (freshness). The confidence label is now `similar`, so the two vocabularies no longer overlap and nothing in frontmatter reads as a live drift problem. Completed **2026-08-29** — see the changelog. Re-running the attributor stays possible but needs the ~110k-skill mirror clone, and it would have restamped the same seven with the same colliding word.
+- [x] **Rewrite `1_Guides/API_Providers/openai_cli_guide.md`.** The model-ID sweep had skipped it because a find-and-replace on a GPT-4o-era guide would have produced confident wrong pricing and rate-limit numbers. Rewrote it against OpenAI's current docs instead: the CLI section now covers the real `openai` CLI (Responses API, `openai responses create`) rather than the invented `pip install openai-cli` / `openai api chat.completions.create` syntax the old version had, model and pricing tables now name the current lineup (GPT-6 Astra, GPT-5.6 Sol/Terra/Luna, o3), and the fixed "Tier 3" rate-limit table was replaced with a pointer to the per-account limits page since those numbers vary by usage tier and go stale fast. Chat Completions examples are kept as a legacy-compatible section, not deleted, since OpenAI still supports it. Completed **2026-09-05**.
 
 ---
 
-## Next — dev/prod parity
+## 🔁 Phase 2: Next, dev/prod parity
 
-- [ ] **Move off Node 22 before it reaches end of life on 2027-04-30.** CI pins
-      `node-version: "22"` and `@types/node` is `^22`; `site/package.json` has no `engines`
-      pin, so Vercel runs whatever the project setting says. Node 24 is LTS to 2028-04-30 and
-      is Vercel's default for new projects; Vercel still offers 24.x, 22.x and 20.x. Source:
-      https://github.com/nodejs/Release/blob/main/schedule.json,
-      https://vercel.com/docs/functions/runtimes/node-js/node-js-versions. Where:
-      `.github/workflows/ci.yml`, `.github/workflows/upstream-drift.yml`, `@types/node`,
-      Vercel project Node setting (🔒 Needs Mike for the dashboard change; the workflow files
-      are a hold path). Done when: CI is green on Node 24, `@types/node` is `^24`, and the
-      Vercel project runs 24.x.
+- [ ] **Move off Node 22 before it reaches end of life on 2027-04-30.** CI pins `node-version: "22"` and `@types/node` is `^22`; `site/package.json` has no `engines` pin, so Vercel runs whatever the project setting says. Node 24 is LTS to 2028-04-30 and is Vercel's default for new projects; Vercel still offers 24.x, 22.x and 20.x. Source: https://github.com/nodejs/Release/blob/main/schedule.json, https://vercel.com/docs/functions/runtimes/node-js/node-js-versions. Where: `.github/workflows/ci.yml`, `.github/workflows/upstream-drift.yml`, `@types/node`, Vercel project Node setting (🔒 Needs Mike for the dashboard change; the workflow files are a hold path). Done when: CI is green on Node 24, `@types/node` is `^24`, and the Vercel project runs 24.x.
 
 The two API implementations had silently diverged, and that was the bug class that kept
 biting. Collapsed 2026-08-27: `server.ts` is now a 71-line dev wrapper that imports the
 same Express app `api/index.ts` exports and adds Vite's HMR middleware; `routes/skill-packs.ts`
 is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 
-- [x] ~~**Collapse to one implementation.**~~ ~880 duplicated lines deleted. Divergence is
-      now structurally impossible — there is one handler set. `npm run test:routes` pins the
-      route table in CI.
-- [x] ~~**`GET /api/prompts/:id` exists only in production.**~~ Dev serves it now.
-- [x] ~~**The dev server ships 15.5 MB per page load.**~~ Dev honours `lightweight` and the
-      prebuilt index: 1.28 MB against 9.3 MB for the full listing.
-- [x] ~~**Add a CI gate.**~~ Shipped: `.github/workflows/ci.yml` runs `npm ci` →
-      `npm run lint` → `npm run build:index` on every PR and fails if the rebuilt index
-      differs from the committed one. Since 2026-09-28 the comparison is byte-exact: the rebuild
-      carries unchanged entries' timestamps forward, so nothing has to be stripped.
+- [x] **Collapse to one implementation.** ~880 duplicated lines deleted. Divergence is now structurally impossible — there is one handler set. `npm run test:routes` pins the route table in CI.
+- [x] **`GET /api/prompts/:id` exists only in production.** Dev serves it now.
+- [x] **The dev server ships 15.5 MB per page load.** Dev honours `lightweight` and the prebuilt index: 1.28 MB against 9.3 MB for the full listing.
+- [x] **Add a CI gate.** Shipped: `.github/workflows/ci.yml` runs `npm ci` → `npm run lint` → `npm run build:index` on every PR and fails if the rebuilt index differs from the committed one. Since 2026-09-28 the comparison is byte-exact: the rebuild carries unchanged entries' timestamps forward, so nothing has to be stripped.
 
 ---
 
-## Then — build, payload, hygiene
+## 🧹 Phase 3: Then, build, payload, hygiene (done 2026-10-05)
 
-- [x] ~~**Delete `library/Legacy/`.**~~ Gone: 2,379 files, 37 MB, half the library payload.
-      Before deleting, every file was hashed against the live tree — 1,956 were byte-identical
-      duplicates and 404 were older revisions of a file that survived under the same name. The
-      33 with no counterpart at all split cleanly: 16 were support files their upstreams have
-      since deleted (`pptx`'s `html2pptx.js`, `skill-creator`'s `init_skill.py`, the per-language
-      `claude-api` stubs), and 17 were archived system prompts. Of those 17, three were the same
-      prompt under a different filename; **the other 14 were promoted into `5_System_Prompts/`**
-      rather than deleted, which is why the index went 1,725 → 1,739. Everything else is in Git
-      history (`git checkout <sha> -- site/library/Legacy`).
-- [x] ~~**Code-split the bundle.**~~ One 976 KB chunk became eight. First paint now costs
-      **706 KB / 200 KB gzipped** (was 976 / 265) and no chunk trips Vite's 500 KB warning.
-      `React.lazy` on `SkillPacksView`, `PromptDetail`, `PromptEditorModal` and the two auth
-      modals moves 184 KB of react-markdown off the critical path; `manualChunks` splits
-      React (397 KB) and motion (128 KB) into chunks that survive a content deploy in cache.
-      The remaining entry chunk is 181 KB.
-- [x] ~~**Defer `motion` if 128 KB on first paint is worth it.**~~ Switched all 10 files off the
-      `motion` component onto `m` + a single `<LazyMotion features={domAnimation} strict>` wrap
-      in `App.tsx`. The app only ever used enter/exit animations and `whileTap`, so `domAnimation`
-      covers it — no `drag`, `layout`, or motion-value hooks anywhere. `strict` mode means a
-      missed `motion.` usage now fails at runtime, not silently ships. The `motion` output chunk
-      dropped from 128 KB to **81.82 KB** (gzip 29.18 KB) purely from tree-shaking unused
-      gesture/drag/layout code that the full `motion` component always pulls in — it did not
-      become an async chunk, because `motion-dom` ships as one flat ES module, so there's no
-      internal boundary for Rollup to split `domAnimation` away from `m`/`AnimatePresence`; the
-      whole package still loads together. Completed **2026-09-07**.
-- [x] ~~**Split or delete the two multi-MB bulk files.**~~ Split. Both were the
-      f/awesome-chatgpt-prompts corpus in `<details>` form, over the 500 KB index ceiling and
-      therefore unreachable, and `promptsdotchat-opensource.md` was 1,168 of its 1,169 prompts
-      already inside `act-as-an-expert.md`. The union is now **1,349 individual files** under
-      `4_Prompts/Awesome_ChatGPT/General/`. `2_Agents` 7.7 → **2.1 MB**; the library 30.3 →
-      **27.3 MB** while gaining 1,347 files.
-- [x] ~~**The listing payload is now the biggest thing on first load.**~~ Fixed by deleting the
-      previews from it rather than paginating. 632 KB of the 2.2 MB response was a 200-character
-      excerpt of every prompt, and **nothing that operates on the whole listing reads it** —
-      `usePromptFilters` never had `content` among its Fuse keys, sort uses title and
-      `lastModified`, the category tree and tag facets are metadata. Only the blurb under a card
-      title consumes it, and at most ~50 cards are on screen. Server-side pagination was the
-      wrong shape here: search, tags and sort are all client-side over the full set, so paginating
-      the source would have broken them. The listing is now **117.6 KB gzipped** (from 338 KB,
-      measured — the 311 KB in the old note was an estimate), and a new
-      `POST /api/prompts/previews` serves blurbs a page at a time for ~4 KB. Three latent bugs
-      came out with it: card Copy and card Download were emitting the 200-character preview
-      instead of the prompt, and card Edit seeded the editor with it, so saving a My Library
-      prompt from a card truncated it — silent data loss. All three now fetch the real body.
-      Completed **2026-09-08** — see the changelog.
-- [x] ~~**Add `.gitattributes` and normalize line endings.**~~ Done, and it was not cosmetic:
-      the CI index gate could not pass on *any* PR, because `contentPreview` is embedded in
-      `prompt-index.json` verbatim and carried `
-` when built on Windows against `
-` when
-      rebuilt on a Linux runner. `eol=lf` (not a bare `text=auto`) is what makes the two
-      checkouts agree. 647 files renormalized, verified line-endings-only.
-- [x] ~~**Prune merged branches.**~~ 19 remote branches deleted on **2026-10-05**: the 13
-      the audit listed as ancestors of `main` (including `main-backup-5_15_26`, every commit of
-      which is in `main`), plus 4 squash-merged `roadmap/*` PR branches and 2 newer auto branches
-      that had since merged. Kept: `mike_desktop` (working branch, now ahead of `main`),
-      `content/auto-2026-10-05` (open PR #357), `roadmap/auto-2026-08-31` (PR #332 was closed
-      without merging, so its one commit is not in `main` — delete it or recover it, Mike's call),
-      and the dependabot branches, which dependabot manages.
-- [x] ~~**Guard against index drift locally.**~~ Fixed at the source rather than by either
-      proposed route. The noise was `lastModified` (file mtime) and `buildTime` being restamped
-      for all 3,200 prompts on every rebuild from a fresh checkout. `build-prompt-index.js` now
-      carries both forward from the previous index for any entry whose metadata is unchanged and
-      whose file has no uncommitted edits, so rebuilding an untouched library is byte-identical
-      and `git status` stays clean. A pre-commit rebuild would have produced the churn on every
-      commit; not committing the index would have removed the CI gate. The gate itself now
-      compares the whole file instead of stripping the two timestamps. Completed
-      **2026-09-28** — see the changelog.
+- [x] **Delete `library/Legacy/`.** Gone: 2,379 files, 37 MB, half the library payload. Before deleting, every file was hashed against the live tree — 1,956 were byte-identical duplicates and 404 were older revisions of a file that survived under the same name. The 33 with no counterpart at all split cleanly: 16 were support files their upstreams have since deleted (`pptx`'s `html2pptx.js`, `skill-creator`'s `init_skill.py`, the per-language `claude-api` stubs), and 17 were archived system prompts. Of those 17, three were the same prompt under a different filename; **the other 14 were promoted into `5_System_Prompts/`** rather than deleted, which is why the index went 1,725 → 1,739. Everything else is in Git history (`git checkout <sha> -- site/library/Legacy`).
+- [x] **Code-split the bundle.** One 976 KB chunk became eight. First paint now costs **706 KB / 200 KB gzipped** (was 976 / 265) and no chunk trips Vite's 500 KB warning. `React.lazy` on `SkillPacksView`, `PromptDetail`, `PromptEditorModal` and the two auth modals moves 184 KB of react-markdown off the critical path; `manualChunks` splits React (397 KB) and motion (128 KB) into chunks that survive a content deploy in cache. The remaining entry chunk is 181 KB.
+- [x] **Defer `motion` if 128 KB on first paint is worth it.** Switched all 10 files off the `motion` component onto `m` + a single `<LazyMotion features={domAnimation} strict>` wrap in `App.tsx`. The app only ever used enter/exit animations and `whileTap`, so `domAnimation` covers it — no `drag`, `layout`, or motion-value hooks anywhere. `strict` mode means a missed `motion.` usage now fails at runtime, not silently ships. The `motion` output chunk dropped from 128 KB to **81.82 KB** (gzip 29.18 KB) purely from tree-shaking unused gesture/drag/layout code that the full `motion` component always pulls in — it did not become an async chunk, because `motion-dom` ships as one flat ES module, so there's no internal boundary for Rollup to split `domAnimation` away from `m`/`AnimatePresence`; the whole package still loads together. Completed **2026-09-07**.
+- [x] **Split or delete the two multi-MB bulk files.** Split. Both were the f/awesome-chatgpt-prompts corpus in `<details>` form, over the 500 KB index ceiling and therefore unreachable, and `promptsdotchat-opensource.md` was 1,168 of its 1,169 prompts already inside `act-as-an-expert.md`. The union is now **1,349 individual files** under `4_Prompts/Awesome_ChatGPT/General/`. `2_Agents` 7.7 → **2.1 MB**; the library 30.3 → **27.3 MB** while gaining 1,347 files.
+- [x] **The listing payload is now the biggest thing on first load.** Fixed by deleting the previews from it rather than paginating. 632 KB of the 2.2 MB response was a 200-character excerpt of every prompt, and **nothing that operates on the whole listing reads it** — `usePromptFilters` never had `content` among its Fuse keys, sort uses title and `lastModified`, the category tree and tag facets are metadata. Only the blurb under a card title consumes it, and at most ~50 cards are on screen. Server-side pagination was the wrong shape here: search, tags and sort are all client-side over the full set, so paginating the source would have broken them. The listing is now **117.6 KB gzipped** (from 338 KB, measured — the 311 KB in the old note was an estimate), and a new `POST /api/prompts/previews` serves blurbs a page at a time for ~4 KB. Three latent bugs came out with it: card Copy and card Download were emitting the 200-character preview instead of the prompt, and card Edit seeded the editor with it, so saving a My Library prompt from a card truncated it — silent data loss. All three now fetch the real body. Completed **2026-09-08** — see the changelog.
+- [x] **Add `.gitattributes` and normalize line endings.** Done, and it was not cosmetic: the CI index gate could not pass on *any* PR, because `contentPreview` is embedded in `prompt-index.json` verbatim and carried `\r\n` when built on Windows against `\n` when rebuilt on a Linux runner. `eol=lf` (not a bare `text=auto`) is what makes the two checkouts agree. 647 files renormalized, verified line-endings-only.
+- [x] **Prune merged branches.** 19 remote branches deleted on **2026-10-05**: the 13 the audit listed as ancestors of `main` (including `main-backup-5_15_26`, every commit of which is in `main`), plus 4 squash-merged `roadmap/*` PR branches and 2 newer auto branches that had since merged. Kept: `mike_desktop` (working branch, now ahead of `main`), `content/auto-2026-10-05` (open PR #357), `roadmap/auto-2026-08-31` (PR #332 was closed without merging, so its one commit is not in `main` — delete it or recover it, Mike's call), and the dependabot branches, which dependabot manages.
+- [x] **Guard against index drift locally.** Fixed at the source rather than by either proposed route. The noise was `lastModified` (file mtime) and `buildTime` being restamped for all 3,200 prompts on every rebuild from a fresh checkout. `build-prompt-index.js` now carries both forward from the previous index for any entry whose metadata is unchanged and whose file has no uncommitted edits, so rebuilding an untouched library is byte-identical and `git status` stays clean. A pre-commit rebuild would have produced the churn on every commit; not committing the index would have removed the CI gate. The gate itself now compares the whole file instead of stripping the two timestamps. Completed **2026-09-28** — see the changelog.
 
 ---
 
-## Later — content, structure, features
+## 🚦 Public release
 
-### Content provenance
-- [ ] **Decide whether `description:` is curation or upstream content.** `resync-upstream.mjs`
-      preserves the whole local frontmatter block and rewrites only `upstream:`, on the reasoning
-      that `title`, `tags` and `category` are this library's own work. That is right for those
-      three and wrong for `description`, which upstream maintains too and which is the field a
-      skill actually triggers on. After 2026-09-16 all 93 bodies are level with upstream while
-      some descriptions are a year old: `counterparty-risk` still advertises the old flat
-      structure, not the three workflows its body now has, and says nothing about the
-      `margin-operations` / `settlement-clearing` split upstream added. The drift checker cannot
-      see it either — it strips frontmatter before comparing, deliberately, because `title`
-      carries a decorated emoji that would report all 323 skills as drifted every week. So this
-      needs both halves: resync taking `description` from upstream (or diffing it), and the
-      checker reporting it separately from the body.
-- [ ] **Raise attribution coverage above 31%.** 60 skills are `ambiguous` (the body exists in
-      three or more mirror repos, so no single origin is provable) and 163 are `unknown`.
-      The mirror only indexes `SKILL.md`; matching support files would help.
-- [ ] **Extend provenance beyond skills.** The 86 subagent definitions in `2_Agents` are
-      stamped and drift-checked since 2026-10-17 (`attribute-upstream.mjs --agents`). Its 460
-      role-play prompts, `4_Prompts` and `5_System_Prompts` still have no `upstream:` stamping;
-      those are single-file prompts with no `name:`, so the agent mode's matching applies but its
-      file filter does not.
-- [ ] **Surface freshness in the UI.** `lastModified` in the index is the *filesystem mtime*
-      of whichever machine last rebuilt that entry with a real change. (Until 2026-09-28 it was
-      the checkout time for every prompt; the builder now carries unchanged entries forward.) Swap it for
-      `upstream.checked` and render a stale badge.
-      *Scoping note (2026-09-12):* `api/prompt-index.json` carries no `upstream` data at all —
-      `build-prompt-index.js` reads only `title`, `tags` and the path — so this needs an index
-      schema change before any UI work, and the CI freshness gate has to learn the new field.
-      It also only answers for the ~99 skills with a resolvable upstream; the other ~3,100
-      prompts need a separate decision about what a freshness badge even means for them.
-      Sourcing `lastModified` from `git log -1 --format=%cI` would fix all 3,200 at once and
-      would let CI stop stripping the field, but Vercel builds from a shallow clone, so that
-      needs a preview deploy to confirm and is **Mike's call, not an agent's**.
+- [x] CI green on push and PR: lint, the route table, provenance self-checks and prompt-index freshness in `.github/workflows/ci.yml` — done 2026-08-27
+- [x] `LICENSE` (Apache 2.0) and a `NOTICE` for vendored library content, published contacts and sample credentials redacted — done 2026-10-05: see the Phase 1 item
+- [x] `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, PR and issue templates — done 2026-10-05: see the Phase 1 item
+- [x] Live at `https://my-prompt-library.ai-automation-tools.dev` with the org source bar and consent gate — done 2026-10-12: see the changelog
+- [ ] A full-history secret scan (gitleaks) run and its findings written down; the only known hit, the scrubbed Neon credential, is closed by rotating it (Phase 1)
 
-### Library structure
-- [x] ~~**Record provenance for the untracked skills and the real agent definitions.**~~ The
-      premise had moved: 322 of 323 skills already carried a block (the `ambiguous`/`unknown`
-      stamps count), so the skill half was `scholar-evaluation` alone, stamped `similar` to
-      K-Dense-AI/claude-scientific-skills. `attribute-upstream.mjs --agents` matches `2_Agents`
-      files with `name:` against VoltAgent, awesome-copilot, wshobson and claude-code-templates
-      clones (the aggregator last, so it never takes credit for a re-shipped body) and stamped
-      all 86: 71 `exact`, 6 `similar`, 9 `unknown`. `check-upstream-drift.mjs` walks
-      `2_Agents` too, resolving agents by file name, and `resync-upstream.mjs` takes the
-      `2_Agents/…md` paths the report prints. First combined run: 171 checked, 163 current,
-      7 `behind` (six agents and `scholar-evaluation`), 1 `drifted`. Completed **2026-10-17** —
-      see the changelog.
-- [ ] **Decide what `2_Agents` is.** 460 of 546 files have no `name:`/`description:`, so they
-      cannot load as subagents — they are role-play prompts filed in the wrong section.
-      Either move them to `4_Prompts` or rename the section "Agent Prompts" and stop implying
-      they are installable. (Splitting the bulk files already moved 1,349 prompts out of
-      `2_Agents` and into `4_Prompts`, which is the same argument applied to two files.)
-- [ ] **Resolve the remaining semantic duplicates.** The byte-level dedupe cannot see them
-      because names and frontmatter differ: 2 skill groups share an upstream file
-      (`skill-creator`, `brand-guidelines`), and `2_Agents` has 16 near-duplicate topic
-      groups — including **five** C# agents with no stated difference between them.
-- [x] ~~Expand thin categories: Healthcare, Education, Legal/Compliance, E-commerce,
-      Personal Productivity.~~ 54 prompts written across the five, taking the library
-      3,088 → **3,142**. Healthcare was the real gap — `4_Prompts` had *zero* files on the
-      subject, so it gets a new `Domain_Specific/Healthcare/` with 16 across
-      `Clinical_Documentation`, `Patient_Communication`, `Operations` and `Compliance`.
-      (`2_Agents/Domain_Specific/Healthcare/` already existed with 5 agent definitions;
-      these are prompts and live in the prompt section, so the two do not collide.)
-      Education 5 → 17, Legal/Compliance 22 → 30 with a new `Employment` subfolder,
-      E-commerce 12 → 22, Personal Productivity 13 → 21. Everything went into the existing
-      folders rather than new top-level categories, so nothing was restructured and the
-      "decide what `2_Agents` is" question above stays open and untouched. Written in the
-      `Domain_Specific/Legal` house style — Purpose, Instructions with named inputs,
-      Output Format, Related Prompts, Reputable Sources — not the generic
-      "provide a step-by-step implementation plan" filler that the older bulk `Business`
-      files use. No `featured` tags added: the featured row is section-wide and sorts on
-      `lastModified`, so 54 new files would have taken it over. Completed **2026-09-12**
-      — see the changelog.
-- [x] ~~Long-tail: Data Science, Blockchain/Web3, Design, industry verticals.~~ 58 prompts
-      written across all four, taking the library 3,142 → **3,200**. The item's own note —
-      that `4_Prompts/Development` (1 file) and `4_Prompts/Data` (2 files) were the thinnest
-      categories in the section — decided the placement, so three of the four topics landed
-      in a category that already existed and was starving: Data Science went to
-      `4_Prompts/Data/` (2 → **20**, new `Analysis`, `Data_Engineering`, `Machine_Learning`
-      and `Visualization` subfolders) and Blockchain/Web3 to
-      `4_Prompts/Development/Blockchain/` (1 → **13**). Putting Blockchain under
-      `Development` rather than `Engineering` was deliberate: `Engineering` is the crowded
-      general software category and already carries three copies of one `ethereum-developer`
-      role-play, so filing twelve specialist prompts there would have deepened a duplication
-      problem the roadmap already tracks, while `Development` was the near-empty category
-      the item asked about. Design is the one **new top-level category** —
-      `4_Prompts/Design/` with 16 across `UX_Research`, `UI_Design`, `Design_Systems` and
-      `Accessibility` — created because nothing in `4_Prompts` covered product design
-      (`Media/` is imagery, `Engineering/` has two stray files) and `3_Skills/Design` already
-      establishes the name. Industry verticals went into the existing `Domain_Specific/`
-      alongside Education, Healthcare and Legal: `Real_Estate` and `Manufacturing`, 6 each.
-      Written in the `Domain_Specific/Legal` house style — Purpose, Instructions with named
-      inputs and what the model must *not* infer, Output Format, Related Prompts, Reputable
-      Sources — with disclaimers on the files that touch legal, financial or safety
-      consequences (all of Blockchain's value-at-risk prompts, all of Real_Estate, and the
-      Manufacturing safety ones). No `featured` tags, for the same reason as the last pass.
-      `4_Prompts/Development/Api_Design/python-debugger.md`, a four-line stub, was left
-      alone: rewriting it is a different job from filling a category. Completed
-      **2026-09-19** — see the changelog.
+## After public release
 
-### Features
-- [x] ~~Finish the `App.tsx` de-bulk — lift the remaining URL/routing state into a
-      `useLibraryRoute` hook.~~ `src/hooks/useLibraryRoute.ts` now owns `activeTab`,
-      `activeCategory`, `activeSubcategory` and `promptPathParam`, the popstate listener and the
-      URL write-back. The section tab was parsed from `?section=` by two hand-written if-chains
-      (initial state and popstate) that had already drifted once — `skill-packs` was missing from
-      one — and is now one `parseSection` over a single tab list. `App.tsx` 1,083 → **996 lines**,
-      23 → 19 `useState` hooks (the snapshot's "24" was one high). `libraryMode` and the
-      `?prompt=` → prompt resolution stay in `App.tsx`: the first has its own persistence, the
-      second needs the loaded listing and `handlePromptClick`. Completed **2026-10-03** — see
-      the changelog.
+Nothing below blocks go-live. The routine works these groups in order once every gate above is ticked.
+
+### 🧾 Content provenance
+- [ ] **Decide whether `description:` is curation or upstream content.** `resync-upstream.mjs` preserves the whole local frontmatter block and rewrites only `upstream:`, on the reasoning that `title`, `tags` and `category` are this library's own work. That is right for those three and wrong for `description`, which upstream maintains too and which is the field a skill actually triggers on. After 2026-09-16 all 93 bodies are level with upstream while some descriptions are a year old: `counterparty-risk` still advertises the old flat structure, not the three workflows its body now has, and says nothing about the `margin-operations` / `settlement-clearing` split upstream added. The drift checker cannot see it either — it strips frontmatter before comparing, deliberately, because `title` carries a decorated emoji that would report all 323 skills as drifted every week. So this needs both halves: resync taking `description` from upstream (or diffing it), and the checker reporting it separately from the body. 🔒 Needs Mike
+- [ ] **Raise attribution coverage above 31%.** 60 skills are `ambiguous` (the body exists in three or more mirror repos, so no single origin is provable) and 163 are `unknown`. The mirror only indexes `SKILL.md`; matching support files would help.
+- [ ] **Extend provenance beyond skills.** The 86 subagent definitions in `2_Agents` are stamped and drift-checked since 2026-10-17 (`attribute-upstream.mjs --agents`). Its 460 role-play prompts, `4_Prompts` and `5_System_Prompts` still have no `upstream:` stamping; those are single-file prompts with no `name:`, so the agent mode's matching applies but its file filter does not.
+- [ ] **Surface freshness in the UI.** `lastModified` in the index is the *filesystem mtime* of whichever machine last rebuilt that entry with a real change. (Until 2026-09-28 it was the checkout time for every prompt; the builder now carries unchanged entries forward.) Swap it for `upstream.checked` and render a stale badge. *Scoping note (2026-09-12):* `api/prompt-index.json` carries no `upstream` data at all — `build-prompt-index.js` reads only `title`, `tags` and the path — so this needs an index schema change before any UI work, and the CI freshness gate has to learn the new field. It also only answers for the ~99 skills with a resolvable upstream; the other ~3,100 prompts need a separate decision about what a freshness badge even means for them. Sourcing `lastModified` from `git log -1 --format=%cI` would fix all 3,200 at once and would let CI stop stripping the field, but Vercel builds from a shallow clone, so that needs a preview deploy to confirm and is **Mike's call, not an agent's**.
+
+### 📚 Library structure
+- [x] **Record provenance for the untracked skills and the real agent definitions.** The premise had moved: 322 of 323 skills already carried a block (the `ambiguous`/`unknown` stamps count), so the skill half was `scholar-evaluation` alone, stamped `similar` to K-Dense-AI/claude-scientific-skills. `attribute-upstream.mjs --agents` matches `2_Agents` files with `name:` against VoltAgent, awesome-copilot, wshobson and claude-code-templates clones (the aggregator last, so it never takes credit for a re-shipped body) and stamped all 86: 71 `exact`, 6 `similar`, 9 `unknown`. `check-upstream-drift.mjs` walks `2_Agents` too, resolving agents by file name, and `resync-upstream.mjs` takes the `2_Agents/…md` paths the report prints. First combined run: 171 checked, 163 current, 7 `behind` (six agents and `scholar-evaluation`), 1 `drifted`. Completed **2026-10-17** — see the changelog.
+- [ ] **Decide what `2_Agents` is.** 460 of 546 files have no `name:`/`description:`, so they cannot load as subagents — they are role-play prompts filed in the wrong section. Either move them to `4_Prompts` or rename the section "Agent Prompts" and stop implying they are installable. (Splitting the bulk files already moved 1,349 prompts out of `2_Agents` and into `4_Prompts`, which is the same argument applied to two files.) 🔒 Needs Mike
+- [ ] **Resolve the remaining semantic duplicates.** The byte-level dedupe cannot see them because names and frontmatter differ: 2 skill groups share an upstream file (`skill-creator`, `brand-guidelines`), and `2_Agents` has 16 near-duplicate topic groups — including **five** C# agents with no stated difference between them.
+- [x] Expand thin categories: Healthcare, Education, Legal/Compliance, E-commerce, Personal Productivity. 54 prompts written across the five, taking the library 3,088 → **3,142**. Healthcare was the real gap — `4_Prompts` had *zero* files on the subject, so it gets a new `Domain_Specific/Healthcare/` with 16 across `Clinical_Documentation`, `Patient_Communication`, `Operations` and `Compliance`. (`2_Agents/Domain_Specific/Healthcare/` already existed with 5 agent definitions; these are prompts and live in the prompt section, so the two do not collide.) Education 5 → 17, Legal/Compliance 22 → 30 with a new `Employment` subfolder, E-commerce 12 → 22, Personal Productivity 13 → 21. Everything went into the existing folders rather than new top-level categories, so nothing was restructured and the "decide what `2_Agents` is" question above stays open and untouched. Written in the `Domain_Specific/Legal` house style — Purpose, Instructions with named inputs, Output Format, Related Prompts, Reputable Sources — not the generic "provide a step-by-step implementation plan" filler that the older bulk `Business` files use. No `featured` tags added: the featured row is section-wide and sorts on `lastModified`, so 54 new files would have taken it over. Completed **2026-09-12** — see the changelog.
+- [x] Long-tail: Data Science, Blockchain/Web3, Design, industry verticals. 58 prompts written across all four, taking the library 3,142 → **3,200**. The item's own note — that `4_Prompts/Development` (1 file) and `4_Prompts/Data` (2 files) were the thinnest categories in the section — decided the placement, so three of the four topics landed in a category that already existed and was starving: Data Science went to `4_Prompts/Data/` (2 → **20**, new `Analysis`, `Data_Engineering`, `Machine_Learning` and `Visualization` subfolders) and Blockchain/Web3 to `4_Prompts/Development/Blockchain/` (1 → **13**). Putting Blockchain under `Development` rather than `Engineering` was deliberate: `Engineering` is the crowded general software category and already carries three copies of one `ethereum-developer` role-play, so filing twelve specialist prompts there would have deepened a duplication problem the roadmap already tracks, while `Development` was the near-empty category the item asked about. Design is the one **new top-level category** — `4_Prompts/Design/` with 16 across `UX_Research`, `UI_Design`, `Design_Systems` and `Accessibility` — created because nothing in `4_Prompts` covered product design (`Media/` is imagery, `Engineering/` has two stray files) and `3_Skills/Design` already establishes the name. Industry verticals went into the existing `Domain_Specific/` alongside Education, Healthcare and Legal: `Real_Estate` and `Manufacturing`, 6 each. Written in the `Domain_Specific/Legal` house style — Purpose, Instructions with named inputs and what the model must *not* infer, Output Format, Related Prompts, Reputable Sources — with disclaimers on the files that touch legal, financial or safety consequences (all of Blockchain's value-at-risk prompts, all of Real_Estate, and the Manufacturing safety ones). No `featured` tags, for the same reason as the last pass. `4_Prompts/Development/Api_Design/python-debugger.md`, a four-line stub, was left alone: rewriting it is a different job from filling a category. Completed **2026-09-19** — see the changelog.
+
+### ✨ Features
+- [x] Finish the `App.tsx` de-bulk — lift the remaining URL/routing state into a `useLibraryRoute` hook. `src/hooks/useLibraryRoute.ts` now owns `activeTab`, `activeCategory`, `activeSubcategory` and `promptPathParam`, the popstate listener and the URL write-back. The section tab was parsed from `?section=` by two hand-written if-chains (initial state and popstate) that had already drifted once — `skill-packs` was missing from one — and is now one `parseSection` over a single tab list. `App.tsx` 1,083 → **996 lines**, 23 → 19 `useState` hooks (the snapshot's "24" was one high). `libraryMode` and the `?prompt=` → prompt resolution stay in `App.tsx`: the first has its own persistence, the second needs the loaded listing and `handlePromptClick`. Completed **2026-10-03** — see the changelog.
 - [ ] Lazy-mount the 16-theme picker so it is not in every render tree.
 - [ ] Role-based "starter pack" collections.
 - [ ] User ratings / feedback on prompts.
@@ -323,7 +115,9 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 
 ---
 
-## Maintenance cadence
+### 🗓️ Maintenance cadence
+
+Recurring work, not items.
 
 | When | Task |
 |:---|:---|
@@ -336,7 +130,7 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 
 ---
 
-## Done
+### 📜 Earlier work
 
 See [CHANGELOG.md](CHANGELOG.md).
 
@@ -362,3 +156,10 @@ all 22 npm advisories cleared, upstream provenance stamped across the skills lib
 drift check shipped, and the six most-drifted skills — `code-tour`, `huggingface-gradio`,
 `brainstorming`, `huggingface-llm-trainer`, `discernment-nudge` and `claude-api` — pulled back
 level with their upstreams by the new `scripts/resync-upstream.mjs`.
+
+---
+
+<p align="center">
+  <a href="README.md">← Docs home</a> ·
+  <a href="CHANGELOG.md">Changelog →</a>
+</p>
