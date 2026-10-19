@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script>
+    // Share links from the app (/?library=public&prompt=…) were minted on this host before the
+    // app moved. Forward any URL that carries the app's query params to the app host.
+    (function () {
+      var q = new URLSearchParams(location.search);
+      if (['library', 'section', 'prompt', 'category', 'subcategory'].some(function (k) { return q.has(k); }))
+        location.replace('https://my-prompt-library-demo.ai-automation-tools.dev' + location.pathname + location.search + location.hash);
+    })();
+  </script>
+  <title>My Prompt Library</title>
+  <meta name="description" content="A full-stack prompt-template manager: a curated public library of prompts, agents, guides, skills and system prompts, plus a personal library you keep with your own account." />
+  <link rel="canonical" href="https://my-prompt-library.ai-automation-tools.dev/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://my-prompt-library.ai-automation-tools.dev/" />
+  <meta property="og:title" content="My Prompt Library" />
+  <meta property="og:description" content="Public prompt templates, a personal library, search, markdown and skill packs. Open source, Apache 2.0." />
+  <meta property="og:site_name" content="My Prompt Library" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="theme-color" content="#060606" />
+  <script>
+    // Pre-paint theme. Default must equal THEME_DEFAULT in the page script.
+    (function () {
+      var t = 'dark';
+      try { var s = localStorage.getItem('my-prompt-library.theme'); if (s === 'light' || s === 'dark') t = s; } catch (e) {}
+      document.documentElement.classList.add(t);
+      if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fafafa');
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #060606; --dots: rgba(255,255,255,.035);
+      --surface: rgba(24,24,27,.45); --surface-2: rgba(24,24,27,.8);
+      --field: rgba(24,24,27,.4); --hover-bg: rgba(24,24,27,.7);
+      --bar: rgba(6,6,6,.72); --bar-line: rgba(39,39,42,.7); --srcbar-bg: #0a0a0b;
+      --menu-bg: #0a0a0c; --switch-bg: rgba(39,39,42,.6); --thumb: #27272a;
+      --code-bg: #09090b; --code-bar: #0c0c0f;
+      --line: rgba(63,63,70,.45); --line-2: rgba(63,63,70,.8); --line-hover: #52525b; --rule: rgba(39,39,42,.6);
+      --fg: #f4f4f5; --fg-2: #d4d4d8; --fg-3: #a1a1aa; --fg-4: #71717a; --fg-5: #52525b;
+      /* accent: amber, My Prompt Library's icon colour (design-system "Accent per site") */
+      --accent: #fbbf24; --accent-hover: #fcd34d; --accent-ink: #1a1204; --glow: rgba(251,191,36,.10);
+      --ok: #34d399;
+      --mix-ink: #fff; --tint-k: 80%;
+      --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+      --r-lg: 12px; --r-md: 8px; --r-sm: 6px;
+      --ease: cubic-bezier(.2,.7,.2,1);
+      --srcbar-h: 34px; --topbar-h: 56px;
+    }
+    html.light {
+      color-scheme: light;
+      --bg: #fafafa; --dots: rgba(0,0,0,.05);
+      --surface: rgba(255,255,255,.75); --surface-2: #fff;
+      --field: #fff; --hover-bg: #f4f4f5;
+      --bar: rgba(250,250,250,.8); --bar-line: #e4e4e7; --srcbar-bg: #f4f4f5;
+      --menu-bg: #fafafa; --switch-bg: rgba(228,228,231,.6); --thumb: #d4d4d8;
+      --code-bg: #fff; --code-bar: #f4f4f5;
+      --line: #e4e4e7; --line-2: #d4d4d8; --line-hover: #a1a1aa; --rule: #e4e4e7;
+      --fg: #09090b; --fg-2: #27272a; --fg-3: #52525b; --fg-4: #63636b; --fg-5: #76767f;
+      /* amber-700: 4.6:1 on #fafafa, white on it 5.0:1 */
+      --accent: #b45309; --accent-hover: #92400e; --accent-ink: #fff; --glow: rgba(251,191,36,.12);
+      --ok: #047857;
+      --mix-ink: #000; --tint-k: 55%;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.6 var(--sans); -webkit-font-smoothing: antialiased;
+      background-image: radial-gradient(var(--dots) 1.2px, transparent 0); background-size: 24px 24px; background-attachment: fixed;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: color-mix(in srgb, var(--accent) 30%, transparent); }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: var(--thumb); border-radius: 3px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    .skip { position: absolute; left: -9999px; top: 12px; z-index: 80; padding: 6px 12px; border-radius: 6px; background: var(--accent); color: var(--accent-ink); font-size: 14px; font-weight: 600; }
+    .skip:focus { left: 16px; }
+    .wrap { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+    .eyebrow { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-4); }
+    .eyebrow b { color: var(--accent); font-weight: 500; }
+    .eyebrow a:hover b { color: var(--accent-hover); }
+    code, .mono { font-family: var(--mono); }
+    p code, li code { font-size: .88em; padding: 1px 5px; border-radius: 4px; border: 1px solid var(--line); background: var(--field); color: var(--fg-2); }
+
+    /* Source bar: in flow, first in <body>. */
+    .src-bar { display: flex; align-items: center; gap: 16px; height: var(--srcbar-h); padding: 0 16px; background: var(--srcbar-bg); border-bottom: 1px solid var(--bar-line); font-size: 12px; }
+    .src-note { margin: 0; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--fg-4); }
+    .src-note strong { font-weight: 600; color: var(--accent); }
+    .src-link { margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 6px; color: var(--fg-3); font-weight: 500; transition: color .15s; }
+    .src-link:hover { color: var(--fg); }
+
+    /* Top bar */
+    .topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; height: var(--topbar-h); background: var(--bar); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--bar-line); }
+    .topbar .wrap { height: 100%; display: flex; align-items: center; gap: 14px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; letter-spacing: -.01em; white-space: nowrap; }
+    .brand img { width: 24px; height: 24px; flex: none; }
+    .nav { display: none; align-items: center; gap: 2px; margin-left: 14px; }
+    .nav a { padding: 6px 11px; font-size: 13.5px; color: var(--fg-3); border-radius: var(--r-sm); transition: color .2s; }
+    .nav a:hover, .nav a[aria-current="true"] { color: var(--fg); }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .org-link { display: none; font-family: var(--mono); font-size: 12px; color: var(--fg-4); padding: 6px 8px; border-radius: var(--r-sm); transition: color .2s; }
+    .org-link:hover { color: var(--fg); }
+    .menu-btn { display: inline-flex; width: 32px; height: 32px; align-items: center; justify-content: center; border: 1px solid var(--line-2); border-radius: var(--r-md); background: transparent; color: var(--fg-2); cursor: pointer; }
+    .mobile-nav { display: none; border-bottom: 1px solid var(--line); background: var(--menu-bg); }
+    .mobile-nav.open { display: block; }
+    .mobile-nav a { display: block; padding: 12px 20px; font-size: 15px; color: var(--fg-2); border-top: 1px solid var(--rule); }
+    @media (min-width: 760px) { .nav { display: flex; } .menu-btn { display: none; } }
+    @media (min-width: 960px) { .org-link { display: inline-block; } }
+
+    /* Theme switch */
+    .theme-sw { display: inline-flex; align-items: center; gap: 2px; padding: 2px; border-radius: 12px; background: var(--switch-bg); flex: none; }
+    .theme-sw button { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 24px; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--fg-4); cursor: pointer; transition: color .15s, background-color .15s; }
+    .theme-sw button:hover { color: var(--fg); }
+    .theme-sw button[aria-pressed="true"] { background: var(--bg); color: var(--fg); box-shadow: 0 1px 2px rgb(0 0 0 / .05); }
+    .theme-sw button:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: 0; }
+    .theme-sw svg { width: 13px; height: 13px; }
+
+    /* Hero */
+    .glow { position: absolute; inset: 0 0 auto 0; height: 640px; pointer-events: none; z-index: 0; background: radial-gradient(640px 360px at 70% 8%, var(--glow), transparent 70%); mask-image: linear-gradient(#000 60%, transparent); }
+    .hero { padding-block: 64px 44px; }
+    @media (min-width: 900px) { .hero { padding-block: 88px 56px; } }
+    h1 { margin: 18px 0 0; font-size: clamp(34px, 4.6vw, 52px); line-height: 1.04; letter-spacing: -.035em; font-weight: 700; text-wrap: balance; max-width: 18ch; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .lede { margin: 20px 0 0; max-width: 56ch; font-size: 16.5px; color: var(--fg-3); }
+    .cta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: var(--r-md); font: 600 14px var(--sans); border: 1px solid transparent; cursor: pointer; transition: transform .2s var(--ease), background .2s, border-color .2s, box-shadow .2s; }
+    .btn svg { width: 15px; height: 15px; flex: none; }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); }
+    .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 0 24px -6px var(--accent); }
+    /* The GitHub button is black in both themes (the one literal the house style allows). */
+    .btn-gh { background: #000; color: #fff; border-color: rgba(255,255,255,.16); }
+    .btn-gh:hover { background: #111114; border-color: rgba(255,255,255,.34); }
+    .btn-ghost { border-color: var(--line-2); color: var(--fg-2); background: var(--field); }
+    .btn-ghost:hover { border-color: var(--line-hover); background: var(--hover-bg); color: var(--fg); }
+    .fine { margin: 14px 0 0; font-size: 13px; color: var(--fg-4); max-width: 60ch; }
+
+    /* Sections + cards */
+    section { scroll-margin-top: 72px; padding-block: 64px; border-top: 1px solid var(--rule); }
+    h2 { margin: 10px 0 0; font-size: 26px; letter-spacing: -.025em; font-weight: 650; }
+    .sub { margin: 8px 0 0; max-width: 60ch; color: var(--fg-3); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(272px, 100%), 1fr)); gap: 14px; margin-top: 22px; }
+    .card { --c: var(--accent); --mx: 50%; --my: 50%; position: relative; padding: 20px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); overflow: hidden; transition: transform .3s var(--ease), border-color .3s, background .3s; }
+    .card:hover { transform: translateY(-2px); background: var(--surface-2); border-color: color-mix(in srgb, var(--c) 35%, var(--line)); }
+    .card::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(420px circle at var(--mx) var(--my), color-mix(in srgb, var(--c) 9%, transparent), transparent 60%); }
+    .card:hover::after { opacity: 1; }
+    .card h3 { margin: 0; font-size: 18px; letter-spacing: -.015em; font-weight: 600; }
+    .card p { margin: 8px 0 0; color: var(--fg-3); font-size: 14px; line-height: 1.55; }
+    .tag { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 11px; padding: 3px 7px; border-radius: 5px; border: 1px solid var(--line); color: var(--fg-4); }
+    .glyph { display: inline-grid; place-items: center; width: 34px; height: 34px; margin-bottom: 14px; border-radius: var(--r-md); border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); background: color-mix(in srgb, var(--accent) 12%, transparent); color: color-mix(in srgb, var(--accent) var(--tint-k), var(--mix-ink)); }
+    .glyph svg { width: 17px; height: 17px; }
+
+    /* What's inside: the six library sections */
+    .shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 10px; margin-top: 22px; }
+    .shelf .card { padding: 16px 18px; }
+    .shelf h3 { display: flex; align-items: center; gap: 10px; font-size: 15.5px; }
+    .shelf h3 i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex: none; }
+    .shelf p { margin-top: 4px; font-size: 13.5px; }
+    .shelf code { display: block; margin-top: 8px; font-size: 11.5px; color: var(--fg-4); }
+
+    /* How it works */
+    .flow { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 22px; counter-reset: step; }
+    @media (min-width: 760px) { .flow { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1040px) { .flow { grid-template-columns: repeat(4, 1fr); } }
+    .flow .card { padding: 18px; }
+    .flow .n { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); font-family: var(--mono); font-size: 11px; color: var(--accent); }
+    .flow h3 { margin-top: 12px; font-size: 15.5px; }
+    .flow p { font-size: 13.5px; }
+    .flow p code { overflow-wrap: anywhere; }
+
+    /* Terminal */
+    .term { margin-top: 22px; border: 1px solid var(--line-2); border-radius: var(--r-lg); background: var(--code-bg); overflow: hidden; }
+    .term + .term { margin-top: 14px; }
+    .term-bar { display: flex; align-items: center; gap: 10px; padding: 0 12px 0 14px; height: 42px; border-bottom: 1px solid var(--line); background: var(--code-bar); }
+    .term-bar .dots { display: inline-flex; gap: 6px; }
+    .term-bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-2); }
+    .term-title { font-family: var(--mono); font-size: 12px; color: var(--fg-4); min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .copy { margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 9px; border-radius: 5px; border: 1px solid var(--line-2); background: transparent; color: var(--fg-3); font: 11px var(--mono); cursor: pointer; transition: color .2s, border-color .2s; }
+    .copy:hover { color: var(--fg); border-color: var(--line-hover); }
+    .copy svg { width: 12px; height: 12px; }
+    .copy[data-done] { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
+    .term pre { margin: 0; padding: 18px 20px 20px; font: 13px/1.75 var(--mono); color: var(--fg-2); overflow-x: auto; }
+    .term .c { color: var(--fg-5); }
+    .term .p { color: var(--accent); user-select: none; }
+
+    /* Resources */
+    .docs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 10px; margin-top: 22px; }
+    .doc { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); transition: border-color .2s, background .2s, transform .2s var(--ease); }
+    .doc:hover { border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); background: var(--surface-2); transform: translateY(-1px); }
+    .doc small { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-4); }
+    .doc b { font-size: 14.5px; font-weight: 600; color: var(--fg); }
+    .doc span { font-size: 12.5px; color: var(--fg-4); overflow-wrap: anywhere; }
+    .doc.primary { border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); }
+    .doc.primary small { color: var(--accent); }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--rule); padding-block: 28px 40px; font-size: 13px; color: var(--fg-4); }
+    footer .row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+    footer .right { display: flex; flex-wrap: wrap; gap: 16px; }
+    footer a:hover { color: var(--fg); }
+
+    /* Phone pass: scoped so desktop computes identically. */
+    @media (max-width: 600px) {
+      .theme-sw button { width: 36px; height: 32px; }
+      .menu-btn { width: 40px; height: 40px; }
+      .copy { height: 36px; }
+      .btn { height: 44px; }
+      .src-bar { padding: 0 12px; }
+      .term pre { padding: 16px; font-size: 12.5px; }
+      footer .right a { display: inline-block; padding-block: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="src-bar">
+  <p class="src-note"><strong>Open source</strong> &middot; Apache 2.0 &middot; React, Express and Postgres, deployed on Vercel.</p>
+  <a class="src-link" href="https://github.com/ai-automation-tools/my-prompt-library" target="_blank" rel="noopener">
+    <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    View source
+  </a>
+</div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="My Prompt Library, back to top">
+      <img src="favicon.svg" alt="" width="24" height="24" />
+      My Prompt Library
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#features">Features</a><a href="#inside">What's inside</a><a href="#how">How it works</a><a href="#start">Quick start</a><a href="#resources">Resources</a>
+    </nav>
+    <div class="topbar-right">
+      <a class="org-link" href="https://ai-automation-tools.dev/">ai-automation-tools.dev</a>
+      <div class="theme-sw" id="themeSw" role="group" aria-label="Theme">
+        <button type="button" data-theme="light" aria-pressed="false" aria-label="Light theme" title="Light theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+        <button type="button" data-theme="dark" aria-pressed="true" aria-label="Dark theme" title="Dark theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg></button>
+      </div>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Sections">
+    <a href="#features">Features</a><a href="#inside">What's inside</a><a href="#how">How it works</a><a href="#start">Quick start</a><a href="#resources">Resources</a><a href="https://ai-automation-tools.dev/">ai-automation-tools.dev</a>
+  </nav>
+</header>
+
+<div class="glow" aria-hidden="true"></div>
+
+<main class="wrap" id="main">
+  <div class="hero" id="top">
+    <a class="eyebrow" href="https://ai-automation-tools.dev/"><b>ai-automation-tools</b> · open source · prompt templates</a>
+    <h1>Prompt templates you can <em>find</em>, copy and keep.</h1>
+    <p class="lede">My Prompt Library is a full-stack prompt-template manager. Browse a curated public library of prompts, agents, guides, skills and system prompts, then sign up to save, edit and organise your own in My Library.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://my-prompt-library-demo.ai-automation-tools.dev/">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg>
+        Open the library
+      </a>
+      <a class="btn btn-gh" href="https://github.com/ai-automation-tools/my-prompt-library" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        Source on GitHub
+      </a>
+      <a class="btn btn-ghost" href="#start">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4l4 4-4 4M8 12h5"/></svg>
+        Run it locally
+      </a>
+    </div>
+    <p class="fine">The hosted app is free to browse. An account is only needed for My Library.</p>
+  </div>
+
+  <section id="features">
+    <span class="eyebrow">Features</span>
+    <h2>What it does</h2>
+    <p class="sub">Two libraries behind one search box: a public one versioned in Git, and a personal one stored in Postgres.</p>
+    <div class="grid" id="grid">
+      <article class="card">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
+        <h3>Public Library</h3>
+        <p>Browse curated templates organised by section, category and subcategory, rendered from markdown. Copy any one into your own library.</p>
+        <span class="tag">library/ · Git-versioned</span>
+      </article>
+      <article class="card">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+        <h3>My Library</h3>
+        <p>Sign up and create, edit, tag and delete your own prompts. Passwords are bcrypt-hashed and sessions last 30 days.</p>
+        <span class="tag">PostgreSQL · Neon</span>
+      </article>
+      <article class="card">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+        <h3>Search and ⌘K</h3>
+        <p>Fuzzy search with Fuse.js, ranked so titles that start with or contain your query come first. A ⌘K palette reaches every prompt, section and theme.</p>
+        <span class="tag">Fuse.js</span>
+      </article>
+      <article class="card">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span>
+        <h3>Skill Packs</h3>
+        <p>Curated bundles of related skills for a domain or workflow. Add a pack to My Library, or download the whole thing as a ZIP for offline use.</p>
+        <span class="tag">ZIP download</span>
+      </article>
+      <article class="card">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="1.5"/><circle cx="17.5" cy="10.5" r="1.5"/><circle cx="8.5" cy="7.5" r="1.5"/><circle cx="6.5" cy="12.5" r="1.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.56-2.5 5.56-5.55C21.97 6.01 17.46 2 12 2z"/></svg></span>
+        <h3>16 themes</h3>
+        <p>The default is the org palette shared with ai-automation-tools.dev. Your pick is remembered per browser, and each section carries its own accent.</p>
+        <span class="tag">responsive</span>
+      </article>
+      <article class="card">
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <h3>Provenance you can check</h3>
+        <p>Vendored skills and agents record their upstream source in frontmatter, and a weekly workflow reports any that have drifted behind it. It never edits content.</p>
+        <span class="tag">upstream-drift.yml</span>
+      </article>
+    </div>
+  </section>
+
+  <section id="inside">
+    <span class="eyebrow">What's inside</span>
+    <h2>Five library sections, plus Skill Packs</h2>
+    <p class="sub">Each section is a numbered folder of markdown under <code>site/library/</code>. Skill Packs are served separately.</p>
+    <div class="shelf" id="shelf">
+      <article class="card" style="--c:#fb7185"><h3><i></i>Prompts</h3><p>Reusable prompt templates, organised by domain and task.</p><code>4_Prompts</code></article>
+      <article class="card" style="--c:#22d3ee"><h3><i></i>Agents</h3><p>Agent personas and operating instructions, ready to drop into a harness.</p><code>2_Agents</code></article>
+      <article class="card" style="--c:#a78bfa"><h3><i></i>Guides</h3><p>Setup and usage guides for the tools and providers the prompts target.</p><code>1_Guides</code></article>
+      <article class="card" style="--c:#fbbf24"><h3><i></i>System Prompts</h3><p>An archive of production system prompts, for study and reuse.</p><code>5_System_Prompts</code></article>
+      <article class="card" style="--c:#34d399"><h3><i></i>Skills</h3><p>SKILL.md bundles with their sample code, downloadable as a zip.</p><code>3_Skills</code></article>
+      <article class="card" style="--c:#2dd4bf"><h3><i></i>Skill Packs</h3><p>Curated collections of skills for a domain or workflow.</p><code>api/skill-packs</code></article>
+    </div>
+  </section>
+
+  <section id="how">
+    <span class="eyebrow">How it works</span>
+    <h2>One Express app, two kinds of storage</h2>
+    <p class="sub">Public content lives in files under Git; user data lives in Postgres. The same Express app serves both, in development and on Vercel.</p>
+    <div class="flow" id="flow">
+      <article class="card"><span class="n">1</span><h3>Markdown in Git</h3><p>The Public Library is markdown files in <code>library/</code>, so every change is a reviewed commit.</p></article>
+      <article class="card"><span class="n">2</span><h3>Index at build time</h3><p><code>npm run build:index</code> walks the library into <code>api/prompt-index.json</code>. CI fails a PR if the committed index is stale.</p></article>
+      <article class="card"><span class="n">3</span><h3>One API</h3><p><code>api/index.ts</code> runs as a Vercel serverless function in production and is imported by <code>server.ts</code> in development. There is no second copy.</p></article>
+      <article class="card"><span class="n">4</span><h3>React front end</h3><p>React 19, TypeScript, Vite 6 and Tailwind v4. Listings load metadata only; a prompt's body is fetched when you open it.</p></article>
+    </div>
+  </section>
+
+  <section id="start">
+    <span class="eyebrow">Quick start</span>
+    <h2>Run it locally</h2>
+    <p class="sub">From the README. You need Node and a Neon PostgreSQL connection string; without <code>DATABASE_URL</code> the public library still loads, but sign-in and My Library don't.</p>
+    <div class="term">
+      <div class="term-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term-title">local development</span>
+        <button class="copy" type="button" data-copy="git clone https://github.com/ai-automation-tools/my-prompt-library.git&#10;cd my-prompt-library/site&#10;npm install&#10;cp .env.example .env&#10;npm run dev"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 11V4a1 1 0 011-1h7"/></svg><span>copy</span></button>
+      </div>
+<pre tabindex="0"><span class="c"># Clone the repository</span>
+<span class="p">$ </span>git clone https://github.com/ai-automation-tools/my-prompt-library.git
+<span class="p">$ </span>cd my-prompt-library/site
+
+<span class="c"># Install dependencies</span>
+<span class="p">$ </span>npm install
+
+<span class="c"># Set up environment variables</span>
+<span class="p">$ </span>cp .env.example .env
+<span class="c"># Add your DATABASE_URL (Neon PostgreSQL connection string)</span>
+
+<span class="c"># Start development server</span>
+<span class="p">$ </span>npm run dev
+
+<span class="c"># Visit http://localhost:3010</span></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term-title">checks (CI runs all of these)</span>
+        <button class="copy" type="button" data-copy="npm run lint&#10;npm run test:routes&#10;npm run build:index"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 11V4a1 1 0 011-1h7"/></svg><span>copy</span></button>
+      </div>
+<pre tabindex="0"><span class="p">$ </span>npm run lint          <span class="c"># tsc --noEmit</span>
+<span class="p">$ </span>npm run test:routes   <span class="c"># the API route table is intact</span>
+<span class="p">$ </span>npm run build:index   <span class="c"># rebuild api/prompt-index.json after editing library/</span></pre>
+    </div>
+  </section>
+
+  <section id="resources">
+    <span class="eyebrow">Resources</span>
+    <h2>Links</h2>
+    <p class="sub">The hosted app, the source, and the documentation on the <code>main</code> branch.</p>
+    <div class="docs">
+      <a class="doc primary" href="https://my-prompt-library-demo.ai-automation-tools.dev/"><small>App</small><b>Open the library</b><span>my-prompt-library-demo.ai-automation-tools.dev</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library" target="_blank" rel="noopener"><small>Source</small><b>GitHub repository</b><span>ai-automation-tools/my-prompt-library</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library#readme" target="_blank" rel="noopener"><small>Start</small><b>README</b><span>features, quick start, API</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/README.md" target="_blank" rel="noopener"><small>Docs</small><b>Documentation index</b><span>every guide in docs/</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/setup/SETUP.md" target="_blank" rel="noopener"><small>Setup</small><b>Setup guide</b><span>local development</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/setup/DEPLOYMENT.md" target="_blank" rel="noopener"><small>Deploy</small><b>Deployment guide</b><span>Vercel + Neon PostgreSQL</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener"><small>Design</small><b>Architecture</b><span>system design, repo layout</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/features/API.md" target="_blank" rel="noopener"><small>Reference</small><b>API reference</b><span>REST endpoints</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/skill-packs/README.md" target="_blank" rel="noopener"><small>Feature</small><b>Skill Packs</b><span>creating and managing packs</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/CONTRIBUTING.md" target="_blank" rel="noopener"><small>Content</small><b>Contributing guide</b><span>how to add content</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/UPSTREAMS.md" target="_blank" rel="noopener"><small>Provenance</small><b>Upstreams</b><span>what the app depends on</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/CHANGELOG.md" target="_blank" rel="noopener"><small>History</small><b>Changelog</b><span>shipped work, newest first</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/ROADMAP.md" target="_blank" rel="noopener"><small>Plan</small><b>Roadmap</b><span>what's next</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/SECURITY.md" target="_blank" rel="noopener"><small>Policy</small><b>Security</b><span>reporting a vulnerability</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/issues" target="_blank" rel="noopener"><small>Feedback</small><b>Issues</b><span>report a bug or request a feature</span></a>
+      <a class="doc" href="https://ai-automation-tools.dev/"><small>Org</small><b>More tools</b><span>ai-automation-tools.dev</span></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap row">
+    <span class="mono">my-prompt-library.ai-automation-tools.dev</span>
+    <div class="right">
+      <a href="https://ai-automation-tools.dev">More tools</a>
+      <a href="https://github.com/ai-automation-tools/my-prompt-library" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://ai-automation-tools.dev/cookies.html">Cookies</a>
+      <a href="#" data-ail-consent="manage">Cookie settings</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme switch. THEME_DEFAULT must equal the pre-paint default in <head>.
+  const THEME_KEY = 'my-prompt-library.theme', THEME_DEFAULT = 'dark';
+  const themeBtns = document.querySelectorAll('#themeSw button');
+  function setTheme(t) {
+    const r = document.documentElement; r.classList.remove('light', 'dark'); r.classList.add(t);
+    themeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.theme === t)));
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'light' ? '#fafafa' : '#060606');
+  }
+  setTheme(document.documentElement.classList.contains('light') ? 'light' : THEME_DEFAULT);
+  themeBtns.forEach(b => b.addEventListener('click', () => { setTheme(b.dataset.theme); try { localStorage.setItem(THEME_KEY, b.dataset.theme); } catch (e) {} }));
+
+  // Phone menu sheet.
+  const menuBtn = document.getElementById('menuBtn'), sheet = document.getElementById('mobileNav');
+  menuBtn.addEventListener('click', () => { const open = sheet.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', String(open)); });
+  sheet.addEventListener('click', e => { if (e.target.closest('a')) { sheet.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); } });
+
+  // Card spotlight follows the pointer.
+  document.addEventListener('pointermove', e => {
+    const card = e.target.closest && e.target.closest('.card'); if (!card) return;
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - r.left) + 'px'); card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+
+  // Copy buttons.
+  document.addEventListener('click', async e => {
+    const b = e.target.closest('[data-copy]'); if (!b) return;
+    const label = b.querySelector('span');
+    try { await navigator.clipboard.writeText(b.dataset.copy); label.textContent = 'copied'; b.setAttribute('data-done', ''); }
+    catch (err) { label.textContent = 'select to copy'; }
+    setTimeout(() => { label.textContent = 'copy'; b.removeAttribute('data-done'); }, 1600);
+  });
+
+  // Scroll-spy: mark the nav link for the section in view.
+  const links = document.querySelectorAll('.nav a');
+  const spy = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) links.forEach(a => a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + en.target.id)));
+  }), { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('main section[id]').forEach(s => spy.observe(s));
+</script>
+<script src="https://ai-automation-tools.dev/consent.js" defer></script>
+</body>
+</html>
