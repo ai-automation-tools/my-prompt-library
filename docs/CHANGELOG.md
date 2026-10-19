@@ -4,6 +4,20 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-19 — Two API-lifecycle prompts
+
+Two new original prompts in `site/library/4_Prompts/Development/Api_Design/`, a folder that held one
+misfiled debugger prompt.
+
+- **API Breaking Change Review** — classifies each contract difference as breaking, risky or safe from the
+  consumer's side, including the silent ones (new nullable fields, new enum values, changed defaults).
+- **API Deprecation and Sunset Plan** — a dated retirement plan with `Deprecation`/`Sunset` headers,
+  brownouts, and a usage-based go/no-go for shutdown.
+
+`site/api/prompt-index.json` rebuilt to include them.
+
+---
+
 ## 2026-10-19 — The app moves to `my-prompt-library-demo.ai-automation-tools.dev`
 
 The bare host becomes the static homepage in `homepage/`, so everything that names the running app

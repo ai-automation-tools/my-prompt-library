@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "buildTime": "2026-10-18T06:14:17.954Z",
-  "promptCount": 3200,
+  "buildTime": "2026-10-19T21:02:01.134Z",
+  "promptCount": 3202,
   "prompts": [
     {
       "id": "1_Guides/API_Providers/anthropic_api_guide.md",
@@ -41879,6 +41879,40 @@
       ],
       "contentPreview": "\n# Supabase MCP Server Prompt Library\n\n## 1. Query Table Data\n```\nQuery all records from the \"users\" table in my Supabase database and return the first 50 results ordered by created_at descending. Inc",
       "lastModified": "2026-09-20T06:00:08.612Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Development/Api_Design/api-breaking-change-review.md",
+      "title": "🔀 API Breaking Change Review",
+      "section": "4_Prompts",
+      "category": "Development",
+      "subcategory": "Api_Design",
+      "tags": [
+        "api",
+        "versioning",
+        "backward-compatibility",
+        "review",
+        "contracts"
+      ],
+      "contentPreview": "\n# API Breaking Change Review\n\n## Purpose\nDecide whether a proposed API change breaks existing clients, by reading the diff from the consumer's side instead of the implementer's.\n\n## Instructions\nAct ",
+      "lastModified": "2026-10-19T21:01:29.971Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "4_Prompts/Development/Api_Design/api-deprecation-and-sunset-plan.md",
+      "title": "🌇 API Deprecation and Sunset Plan",
+      "section": "4_Prompts",
+      "category": "Development",
+      "subcategory": "Api_Design",
+      "tags": [
+        "api",
+        "deprecation",
+        "migration",
+        "versioning",
+        "communication"
+      ],
+      "contentPreview": "\n# API Deprecation and Sunset Plan\n\n## Purpose\nRetire an API version or endpoint on a dated schedule that tells each consumer what to do, and prove from usage data when it is safe to switch off.\n\n## I",
+      "lastModified": "2026-10-19T21:01:40.283Z",
       "isUserOwned": false
     },
     {
