@@ -4,6 +4,20 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-19 — Roadmap on the lab standard
+
+**Docs**
+- `docs/ROADMAP.md` takes the lab roadmap shape. No existing item is added, dropped or
+  re-ticked: the centred header, Now / Next / Then as Phases 1 to 3 (Then is done), a new
+  `## 🚦 Public release` checklist (four gates the repo already meets, ticked, and one open:
+  a full-history secret scan), and the Later groups, the maintenance cadence and the
+  earlier-work summary under `## After public release`. Wrapped items are one line each, the
+  strike-through on done items is gone, and the items that need Mike (the Neon rotation, the
+  real `DATABASE_URL`, the two "decide" items) carry `🔒 Needs Mike`. The `\r\n` in the
+  line-endings item, which had been written as a literal line break, is restored.
+
+_Touched: `docs/ROADMAP.md`, `docs/CHANGELOG.md`._
+
 ## 2026-10-17 — Provenance for agents, and the last unstamped skill
 
 The weekly drift check now covers the subagent definitions in `2_Agents`, not just skills.
