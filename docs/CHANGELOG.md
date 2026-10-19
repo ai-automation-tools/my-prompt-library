@@ -4,6 +4,23 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-19 — The app moves to `my-prompt-library-demo.ai-automation-tools.dev`
+
+The bare host becomes the static homepage in `homepage/`, so everything that names the running app
+now points at the `-demo` host.
+
+**App**
+- `PUBLIC_SHARE_ORIGIN` in `site/src/App.tsx` is `https://my-prompt-library-demo.ai-automation-tools.dev`,
+  so new share links go straight to the app. Old ones still work through the homepage's forwarding.
+
+**Docs**
+- README (logo link, View Demo, badge), CLAUDE.md, SECURITY.md, `docs/README.md`, the live-site line in
+  `docs/ROADMAP.md`, the `curl` examples in `docs/skill-packs/README.md` and the bug-report template
+  name the new host. Changelog history and the done roadmap item keep the old one.
+
+_Touched: `site/src/App.tsx`, `README.md`, `CLAUDE.md`, `SECURITY.md`, `docs/README.md`, `docs/ROADMAP.md`,
+`docs/skill-packs/README.md`, `.github/ISSUE_TEMPLATE/bug_report.md`, `docs/CHANGELOG.md`._
+
 ## 2026-10-19 — A static homepage in `homepage/`
 
 **Site**

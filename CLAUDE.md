@@ -1,4 +1,4 @@
-# CLAUDE.md — my-prompt-library (`my-prompt-library.ai-automation-tools.dev`)
+# CLAUDE.md — my-prompt-library (`my-prompt-library-demo.ai-automation-tools.dev`)
 
 > Repo-local guide. The workspace-wide rules live in
 > `D:\AI_Agents\Projects\Mikes_AI_Lab\Agents\Claude\CLAUDE.md` and still apply —
@@ -6,7 +6,7 @@
 
 ## What this is
 
-Full-stack prompt-template manager deployed at **`my-prompt-library.ai-automation-tools.dev`** (Vercel). The old `prompts.mikesailab.com` and `prompts.ax-platform.com` hosts were detached 2026-10-14.
+Full-stack prompt-template manager deployed at **`my-prompt-library-demo.ai-automation-tools.dev`** (Vercel). The old `prompts.mikesailab.com` and `prompts.ax-platform.com` hosts were detached 2026-10-14. The bare `my-prompt-library.ai-automation-tools.dev` is the static homepage in `homepage/` (GitHub Pages).
 Two libraries: a **Public Library** (curated, file-backed under `library/`) and a
 per-user **My Library** (PostgreSQL/Neon). Also serves **Skill Packs** (zipped skill
 bundles) and a large **System Prompts** archive.
