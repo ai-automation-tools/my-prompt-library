@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "My Prompt Library — Library Data Flow",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": "library-data-flow.html",
+    "repository": {
+      "url": "https://github.com/ai-automation-tools/my-prompt-library.git",
+      "revision": "31c17c53ead690ba2fcfb8ffa6cac2cdaa472c97"
+    }
+  },
+  "stages": [
+    {
+      "label": "Content sources"
+    },
+    {
+      "label": "Build step"
+    },
+    {
+      "label": "Stores"
+    },
+    {
+      "label": "Vercel functions"
+    },
+    {
+      "label": "Browser"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "upstream",
+      "type": "external",
+      "label": "Upstream repos",
+      "sublabel": "Vendored skills + agents",
+      "stage": 0,
+      "row": 0,
+      "sources": [
+        {
+          "path": "scripts/resync-upstream.mjs",
+          "line": 1,
+          "end_line": 39
+        },
+        {
+          "path": ".github/workflows/upstream-drift.yml",
+          "line": 1,
+          "end_line": 11
+        }
+      ]
+    },
+    {
+      "id": "library",
+      "type": "database",
+      "label": "library/ markdown",
+      "sublabel": "Five sections, in Git",
+      "stage": 0,
+      "row": 1,
+      "sources": [
+        {
+          "path": "site/api/index.ts",
+          "line": 106,
+          "end_line": 127
+        },
+        {
+          "path": "site/scripts/build-prompt-index.js",
+          "line": 27,
+          "end_line": 55
+        }
+      ]
+    },
+    {
+      "id": "packs",
+      "type": "database",
+      "label": "Skill pack JSON",
+      "sublabel": "3_Skills/packs",
+      "stage": 0,
+      "row": 3,
+      "sources": [
+        {
+          "path": "site/api/skill-packs.ts",
+          "line": 30,
+          "end_line": 33
+        },
+        {
+          "path": "site/api/skill-packs.ts",
+          "line": 57,
+          "end_line": 86
+        }
+      ]
+    },
+    {
+      "id": "build",
+      "type": "backend",
+      "label": "build:index",
+      "sublabel": "Every Vercel build",
+      "stage": 1,
+      "row": 0,
+      "sources": [
+        {
+          "path": "site/package.json",
+          "line": 6,
+          "end_line": 16
+        },
+        {
+          "path": "site/scripts/build-prompt-index.js",
+          "line": 57,
+          "end_line": 115
+        },
+        {
+          "path": "site/scripts/build-prompt-index.js",
+          "line": 152,
+          "end_line": 171
+        }
+      ]
+    },
+    {
+      "id": "index",
+      "type": "database",
+      "label": "prompt-index.json",
+      "sublabel": "Metadata + 200-char preview",
+      "stage": 2,
+      "row": 0,
+      "sources": [
+        {
+          "path": "site/scripts/build-prompt-index.js",
+          "line": 164,
+          "end_line": 171
+        },
+        {
+          "path": "site/api/index.ts",
+          "line": 61,
+          "end_line": 89
+        }
+      ]
+    },
+    {
+      "id": "neon",
+      "type": "database",
+      "label": "Neon PostgreSQL",
+      "sublabel": "Users, prompts, sessions",
+      "stage": 2,
+      "row": 2,
+      "sources": [
+        {
+          "path": "site/db/postgres.ts",
+          "line": 383,
+          "end_line": 432
+        },
+        {
+          "path": "site/db/postgres.ts",
+          "line": 162,
+          "end_line": 187
+        },
+        {
+          "path": "site/db/postgres.ts",
+          "line": 341,
+          "end_line": 367
+        }
+      ]
+    },
+    {
+      "id": "public_api",
+      "type": "backend",
+      "label": "Public library API",
+      "sublabel": "api/index.ts",
+      "stage": 3,
+      "row": 1,
+      "sources": [
+        {
+          "path": "site/api/index.ts",
+          "line": 181,
+          "end_line": 203
+        },
+        {
+          "path": "site/api/index.ts",
+          "line": 390,
+          "end_line": 423
+        },
+        {
+          "path": "site/api/index.ts",
+          "line": 481,
+          "end_line": 515
+        }
+      ]
+    },
+    {
+      "id": "my_api",
+      "type": "backend",
+      "label": "My Library API",
+      "sublabel": "api/index.ts + session",
+      "stage": 3,
+      "row": 2,
+      "sources": [
+        {
+          "path": "site/api/index.ts",
+          "line": 156,
+          "end_line": 179
+        },
+        {
+          "path": "site/api/index.ts",
+          "line": 522,
+          "end_line": 613
+        },
+        {
+          "path": "site/api/index.ts",
+          "line": 615,
+          "end_line": 703
+        }
+      ]
+    },
+    {
+      "id": "packs_api",
+      "type": "backend",
+      "label": "Skill packs API",
+      "sublabel": "api/skill-packs.ts",
+      "stage": 3,
+      "row": 3,
+      "sources": [
+        {
+          "path": "site/api/skill-packs.ts",
+          "line": 109,
+          "end_line": 149
+        },
+        {
+          "path": "site/api/skill-packs.ts",
+          "line": 160,
+          "end_line": 205
+        },
+        {
+          "path": "site/api/skill-packs.ts",
+          "line": 285,
+          "end_line": 330
+        }
+      ]
+    },
+    {
+      "id": "app",
+      "type": "frontend",
+      "label": "React app",
+      "sublabel": "Search, cards, editor",
+      "stage": 4,
+      "row": 2,
+      "sources": [
+        {
+          "path": "site/src/App.tsx",
+          "line": 142,
+          "end_line": 155
+        },
+        {
+          "path": "site/src/hooks/usePromptPreviews.ts",
+          "line": 29,
+          "end_line": 50
+        },
+        {
+          "path": "site/src/hooks/usePromptContent.ts",
+          "line": 39,
+          "end_line": 55
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "from": "upstream",
+      "to": "library",
+      "label": "Resync by hand",
+      "variant": "dashed"
+    },
+    {
+      "from": "library",
+      "to": "build",
+      "label": "Markdown + YAML",
+      "variant": "emphasis"
+    },
+    {
+      "from": "build",
+      "to": "index",
+      "label": "Metadata",
+      "variant": "emphasis"
+    },
+    {
+      "from": "index",
+      "to": "public_api",
+      "label": "Prebuilt listing",
+      "variant": "emphasis"
+    },
+    {
+      "from": "library",
+      "to": "public_api",
+      "label": "Full body by id"
+    },
+    {
+      "from": "public_api",
+      "to": "app",
+      "label": "List, blurbs, body",
+      "variant": "emphasis"
+    },
+    {
+      "from": "app",
+      "to": "my_api",
+      "label": "Create / edit / copy"
+    },
+    {
+      "from": "my_api",
+      "to": "neon",
+      "label": "user_prompts rows"
+    },
+    {
+      "from": "neon",
+      "to": "my_api",
+      "label": "Rows + session"
+    },
+    {
+      "from": "my_api",
+      "to": "app",
+      "label": "My Library"
+    },
+    {
+      "from": "packs",
+      "to": "packs_api",
+      "label": "Manifests"
+    },
+    {
+      "from": "packs_api",
+      "to": "neon",
+      "label": "Skills + install"
+    },
+    {
+      "from": "packs_api",
+      "to": "app",
+      "label": "Packs / ZIP"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Two libraries, two stores",
+      "items": [
+        "The Public Library is markdown in site/library/, versioned in Git and shipped with each deploy. Nothing in the app writes to it: POST, PUT and DELETE on /api/prompts all go to the signed-in user's rows in Neon.",
+        "My Library is per user in Neon PostgreSQL. Reading or changing it needs a session: bcrypt-checked login, then a 30-day auth_token cookie looked up in user_sessions.",
+        "Add to My Library reads the public file, strips its frontmatter, refuses a duplicate title in the same section and category, and inserts a copy into user_prompts."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Why the listing carries no bodies",
+      "items": [
+        "The lightweight public listing comes from prompt-index.json with every content field emptied, and is cached in the function for 5 minutes.",
+        "Cards ask POST /api/prompts/previews for the blurbs they render (up to 200 ids per request), served from the index's 200-character previews with a file fallback.",
+        "The real body comes from GET /api/prompts/:id, fetched when a prompt is opened, copied, downloaded or edited."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Skill packs",
+      "items": [
+        "Pack manifests are JSON under library/3_Skills/packs, each listing its skills' SKILL.md paths. api/skill-packs.ts is its own Vercel function, bundled with library/3_Skills/**.",
+        "Add to library copies every skill in the pack into user_prompts, tagged skill-pack:<id>, skips ones already there, and records the install in user_skill_pack_installs. Download zips each skill's whole directory.",
+        "A single skill's directory also downloads as a ZIP from GET /api/skills/download/:path, which refuses any path outside 3_Skills/."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Where the content comes from",
+      "items": [
+        "Vendored skills and agents carry an upstream: block. The weekly Upstream drift workflow reports which are behind in one GitHub issue and never edits the library; resync-upstream.mjs is run by hand to pull a body back level.",
+        "After any library change, npm run build:index regenerates the index. CI rebuilds it and fails when the committed file differs, and vercel-build rebuilds it on every deploy.",
+        "USE_GITHUB_MODE=true swaps the filesystem reads for the GitHub contents API on full listings and body fetches. The lightweight public listing still uses the prebuilt index first."
+      ]
+    }
+  ]
+}

@@ -11,6 +11,7 @@ Documentation for **my-prompt-library**, live at
 - **[Setup Guide](setup/SETUP.md)** — local development and production setup
 - **[Deployment Guide](setup/DEPLOYMENT.md)** — Vercel + Neon PostgreSQL
 - **[Architecture](ARCHITECTURE.md)** — system design, repo layout, technology stack
+- **[Diagrams](diagrams/README.md)** — the library data-flow diagram the [homepage](https://my-prompt-library.ai-automation-tools.dev/#diagram) shows: `library/` → build index → API → React app, plus My Library and skill packs in Neon. Interactive, every node linked to its code, and drift-checked in CI
 
 ### Creating Content
 - **[Contributing Guide](CONTRIBUTING.md)** — how to add content of any type

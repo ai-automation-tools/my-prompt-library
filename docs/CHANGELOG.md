@@ -4,6 +4,25 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-19 — A code-pinned data-flow diagram on the homepage
+
+**Docs**
+- New `docs/diagrams/library-data-flow.json`: an Archify data flow of how library markdown becomes the
+  prebuilt index the public API serves, how My Library and skill-pack installs reach Neon, and what the
+  React app fetches. Every node cites the code it describes at a pinned commit; `docs/diagrams/README.md`
+  is the procedure.
+
+**Site**
+- The homepage's "How it works" section embeds the interactive diagram live
+  (`homepage/diagram/`, copies the builder writes), in the page's theme.
+
+**Tooling**
+- `scripts/build-diagram.mjs` builds it and checks for drift (`--check`); CI's *Diagram drift* step warns
+  when cited code changes, and the weekly doc drift check reads `--check` as `prompt-library-diagram`.
+
+_Touched: `docs/diagrams/`, `scripts/build-diagram.mjs`, `homepage/index.html`, `homepage/diagram/`,
+`.github/workflows/ci.yml`, `.gitignore`, `README.md`, `docs/README.md`, `CLAUDE.md`, `docs/CHANGELOG.md`._
+
 ## 2026-10-19 — The app moves to `my-prompt-library-demo.ai-automation-tools.dev`
 
 The bare host becomes the static homepage in `homepage/`, so everything that names the running app

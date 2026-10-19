@@ -12,6 +12,9 @@ coverage/
 **/db/*.db-shm
 **/db/*.db-wal
 
+# Archify build receipts and screenshots (scripts/build-diagram.mjs)
+docs/diagrams/.build/
+
 # Local-only working trees (kept on disk, not tracked)
 backup/
 import/
