@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <p align="center">
-  <a href="https://my-prompt-library.ai-automation-tools.dev">
+  <a href="https://my-prompt-library-demo.ai-automation-tools.dev">
     <img src="images/My-Prompt-Library-Images/logos/dark/landscape-01-template-vault.svg" alt="My Prompt Library - searchable prompt templates and skill packs" width="720">
   </a>
 </p>
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://my-prompt-library.ai-automation-tools.dev">View Demo</a>
+  <a href="https://my-prompt-library-demo.ai-automation-tools.dev">View Demo</a>
   ·
   <a href="https://github.com/ai-automation-tools/my-prompt-library/issues">Report Bug</a>
   ·
@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-  <a href="https://my-prompt-library.ai-automation-tools.dev"><img src="https://img.shields.io/badge/Live_Demo-my--prompt--library.ai--automation--tools.dev-f59e0b?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
+  <a href="https://my-prompt-library-demo.ai-automation-tools.dev"><img src="https://img.shields.io/badge/Live_Demo-my--prompt--library--demo.ai--automation--tools.dev-f59e0b?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
   <img src="https://img.shields.io/badge/status-production-2ea44f?style=for-the-badge" alt="Status: production">
   <a href="docs/ROADMAP.md"><img src="https://img.shields.io/badge/plan-ROADMAP-8B5CF6?style=for-the-badge" alt="Roadmap"></a>
 </p>
