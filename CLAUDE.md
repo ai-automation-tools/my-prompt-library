@@ -92,6 +92,8 @@ site/
 
 (repo root, outside the deploy root)
   scripts/             Utility scripts (add-frontmatter.mjs, prompt_generation/, *.py helpers)
+  homepage/            Static homepage (one index.html, no build) → GitHub Pages via
+                       .github/workflows/homepage.yml; pinned by scripts/homepage.test.mjs
   docs/                Documentation (see docs/README.md; analysis in docs/audits/)
   images/              README / branding assets
   .github/workflows/ci.yml        lint + test:routes + provenance self-checks +

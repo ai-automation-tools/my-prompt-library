@@ -4,6 +4,23 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-19 — A static homepage in `homepage/`
+
+**Site**
+- New top-level `homepage/`: a single-file house-style page (amber accent, the app's own icon
+  colour; dark default, Light | Dark switch, source bar, consent script) for
+  `my-prompt-library.ai-automation-tools.dev`, with `favicon.svg`, `CNAME` and `.nojekyll`. Its
+  "Open the library" button points at the app's new host, `my-prompt-library-demo.ai-automation-tools.dev`.
+- Old app links keep working once the bare host serves the homepage: `404.html` forwards any
+  non-root path to the app host, and `index.html` forwards a root URL that carries the app's
+  share-link query (`library`, `section`, `prompt`, `category`, `subcategory`).
+- `.github/workflows/homepage.yml` publishes `homepage/` to GitHub Pages on a push to `main`
+  that touches it. The Vercel app (Root Directory `site/`) is unaffected.
+- `scripts/homepage.test.mjs` pins the page's required links; CI runs it.
+
+_Touched: `homepage/*`, `.github/workflows/homepage.yml`, `.github/workflows/ci.yml`,
+`scripts/homepage.test.mjs`, `CLAUDE.md`, `docs/CHANGELOG.md`._
+
 ## 2026-10-19 — Roadmap on the lab standard
 
 **Docs**
