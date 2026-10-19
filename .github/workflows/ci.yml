@@ -59,6 +59,13 @@ jobs:
         working-directory: .
         run: node scripts/homepage.test.mjs
 
+      # Warns, never fails: rebuilding needs Chrome + Archify, which CI doesn't have. A
+      # warning means code cited by docs/diagrams/library-data-flow.json changed since its
+      # pinned commit; docs/diagrams/README.md says how to update it.
+      - name: Diagram drift
+        working-directory: .
+        run: node scripts/build-diagram.mjs --hook | sed 's/^ISSUE:/::warning title=Diagram drift::ISSUE:/'
+
       # A rebuild on a clean checkout carries every unchanged entry's
       # lastModified (and buildTime) forward from the committed index, so it
       # must reproduce the committed file byte for byte. Any difference means

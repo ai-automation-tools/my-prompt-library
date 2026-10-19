@@ -176,6 +176,10 @@
     .flow h3 { margin-top: 12px; font-size: 15.5px; }
     .flow p { font-size: 13.5px; }
     .flow p code { overflow-wrap: anywhere; }
+    .diagram { margin: 22px 0 0; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--surface); }
+    .diagram iframe { display: block; width: 100%; height: clamp(420px, 62vw, 860px); border: 0; background: var(--bg); }
+    .diagram figcaption { padding: 10px 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--fg-3); }
+    .diagram figcaption a { color: var(--accent); }
 
     /* Terminal */
     .term { margin-top: 22px; border: 1px solid var(--line-2); border-radius: var(--r-lg); background: var(--code-bg); overflow: hidden; }
@@ -352,6 +356,9 @@
       <article class="card"><span class="n">3</span><h3>One API</h3><p><code>api/index.ts</code> runs as a Vercel serverless function in production and is imported by <code>server.ts</code> in development. There is no second copy.</p></article>
       <article class="card"><span class="n">4</span><h3>React front end</h3><p>React 19, TypeScript, Vite 6 and Tailwind v4. Listings load metadata only; a prompt's body is fetched when you open it.</p></article>
     </div>
+    <!-- The HTML is a copy scripts/build-diagram.mjs writes from docs/diagrams/ (the source); never edit it here. -->
+    <figure class="diagram" id="diagram"><iframe id="diagram-frame" src="diagram/library-data-flow.html" loading="lazy" onload="syncDiagramTheme()" title="My Prompt Library data flow, interactive: library markdown is indexed at build time into prompt-index.json, which the public library API serves to the React app with previews and full bodies on demand; My Library and skill-pack installs are stored in Neon PostgreSQL"></iframe>
+      <figcaption>Every node links to the code it describes; Route and Lens trace paths. <a href="diagram/library-data-flow.html">Open full screen ↗</a></figcaption></figure>
   </section>
 
   <section id="start">
@@ -429,8 +436,12 @@
   // Theme switch. THEME_DEFAULT must equal the pre-paint default in <head>.
   const THEME_KEY = 'my-prompt-library.theme', THEME_DEFAULT = 'dark';
   const themeBtns = document.querySelectorAll('#themeSw button');
+  // The data-flow diagram (same origin) starts Still unless localStorage says "live"; the
+  // homepage shows it Live (reduced-motion readers still get Still), in this page's theme.
+  try { localStorage.setItem('archify-motion', 'live'); } catch (e) {}
+  window.syncDiagramTheme = function () { const f = document.getElementById('diagram-frame'); try { if (f) f.contentDocument.documentElement.setAttribute('data-theme', document.documentElement.classList.contains('light') ? 'light' : 'dark'); } catch (e) {} };
   function setTheme(t) {
-    const r = document.documentElement; r.classList.remove('light', 'dark'); r.classList.add(t);
+    const r = document.documentElement; r.classList.remove('light', 'dark'); r.classList.add(t); syncDiagramTheme();
     themeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.theme === t)));
     document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'light' ? '#fafafa' : '#060606');
   }

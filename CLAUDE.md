@@ -95,6 +95,8 @@ site/
   homepage/            Static homepage (one index.html, no build) → GitHub Pages via
                        .github/workflows/homepage.yml; pinned by scripts/homepage.test.mjs
   docs/                Documentation (see docs/README.md; analysis in docs/audits/)
+  docs/diagrams/       Code-pinned Archify data-flow diagram. Edit only the .json, rebuild with
+                       node scripts/build-diagram.mjs --pin-head (copies into homepage/diagram/)
   images/              README / branding assets
   .github/workflows/ci.yml        lint + test:routes + provenance self-checks +
                                   prompt-index freshness gate

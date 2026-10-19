@@ -123,6 +123,7 @@ See [DEPLOYMENT.md](docs/setup/DEPLOYMENT.md) for complete deployment instructio
 - [Setup Guide](docs/setup/SETUP.md) - Local development setup
 - [Deployment Guide](docs/setup/DEPLOYMENT.md) - Deploy to Vercel
 - [Architecture](docs/ARCHITECTURE.md) - System design
+- [Diagrams](docs/diagrams/README.md) - The library data flow shown on the [homepage](https://my-prompt-library.ai-automation-tools.dev/#diagram), interactive and linked to the code
 
 **Creating Content**
 - [Contributing Guide](docs/CONTRIBUTING.md) - How to add content
