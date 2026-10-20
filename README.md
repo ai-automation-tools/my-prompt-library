@@ -76,6 +76,8 @@
 
 ### Local Development
 
+The app lives in `site/`. Run every `npm` command from there: the repo root has no `package.json`.
+
 ```bash
 # Clone the repository
 git clone https://github.com/ai-automation-tools/my-prompt-library.git
