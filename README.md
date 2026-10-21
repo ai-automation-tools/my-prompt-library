@@ -182,8 +182,8 @@ my-prompt-library/
 ├── .gitattributes            # LF everywhere, in the repo and the working tree
 ├── LICENSE, NOTICE           # Apache 2.0 for the app; vendored content keeps its own
 ├── SECURITY.md, CODE_OF_CONDUCT.md, CONTRIBUTING.md
-├── docs/                     # Project documentation
-├── scripts/                  # Utility scripts
+├── docs/                     # Project documentation (DISCOVERY.md is the repo-intake ledger)
+├── scripts/                  # Library tooling: provenance, skills sync, skill packs, discovery, link check
 └── README.md
 ```
 
