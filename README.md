@@ -58,6 +58,10 @@
 - One card per Model Context Protocol server: maintainer, licence, auth, and install lines for Claude Code and any `mcpServers` client
 - Install lines read from each server's own README, re-checked monthly
 
+🤖 **Use It From An Agent**
+- A built-in MCP server: Claude Code, Codex, Cursor or any MCP client can search the library, read any item, pull a skill with its files, and save to My Library
+- Featured prompts and your own show up as slash commands
+
 🎨 **Modern UI**
 - Responsive design (mobile, tablet, desktop)
 - The org house style shared with [ai-automation-tools.dev](https://ai-automation-tools.dev): sections in the top bar, a Light | Dark switch, and a Settings dialog with four colour palettes (sky, violet, emerald, ember), all remembered per browser; per-section accent colours
@@ -101,6 +105,7 @@ Copy `site/.env.example` to `site/.env` to change a default:
 npm run lint             # tsc --noEmit
 npm run test:routes      # the API route table is intact
 npm run test:my-library  # the My Library file store
+npm run test:mcp         # the MCP server, end to end over stdio
 npm run build:index      # rebuild api/prompt-index.json after editing library/
 
 node scripts/upstream.test.mjs           # provenance frontmatter (run from the repo root)
@@ -108,6 +113,45 @@ node scripts/skill-frontmatter.test.mjs  # Agent Skills spec compliance
 ```
 
 CI runs all of these on every PR and fails if the committed prompt index is stale.
+
+---
+
+## Use It From An Agent
+
+The repo ships an MCP server (`site/mcp/server.ts`) that reads the same folders as the app.
+Nothing else needs to be running. After `npm install` in `site/`, add it to your agent:
+
+```bash
+# Claude Code (use the absolute path to your clone)
+claude mcp add my-prompt-library -- npm --prefix /path/to/my-prompt-library/site run --silent mcp
+```
+
+Any other MCP client, as an `mcpServers` entry:
+
+```json
+{
+  "mcpServers": {
+    "my-prompt-library": {
+      "command": "npm",
+      "args": ["--prefix", "/path/to/my-prompt-library/site", "run", "--silent", "mcp"]
+    }
+  }
+}
+```
+
+| Tool | Does |
+|:---|:---|
+| `search_library` | Search every section and My Library by words, section, category or tags |
+| `get_item` | The full markdown of one item |
+| `list_sections`, `list_categories` | What is in the library, with counts |
+| `get_skill`, `get_skill_file` | A skill's `SKILL.md` and its support files |
+| `list_skill_packs`, `get_skill_pack` | The Skill Packs and the skills in each |
+| `save_to_my_library`, `update_my_prompt`, `delete_my_prompt` | Write to My Library (not offered when `READ_ONLY=true`) |
+
+It also offers MCP prompts: `library_prompt` takes any library id, and every featured prompt
+and every My Library prompt is listed by name, so clients show them as slash commands. It
+honours `MY_LIBRARY_DIR` and `READ_ONLY` from `site/.env`. Details:
+[docs/features/MCP-SERVER.md](docs/features/MCP-SERVER.md).
 
 ---
 

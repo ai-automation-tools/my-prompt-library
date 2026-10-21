@@ -4,6 +4,52 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — The library is an MCP server
+
+_Phase 1: MCP server for the library._ An agent can now search the library and use what it
+finds directly: Claude Code, Codex, Cursor or any MCP client, over stdio, with nothing else
+running.
+
+**App**
+- `site/mcp/server.ts` (`npm run mcp`), on `@modelcontextprotocol/server` 2.3, the v2 SDK line;
+  `serveStdio()` serves 2026-era and 2025-era clients from one factory. Eleven tools:
+  `search_library`, `get_item`, `list_sections`, `list_categories`, `get_skill`,
+  `get_skill_file`, `list_skill_packs`, `get_skill_pack`, and the My Library writes
+  `save_to_my_library`, `update_my_prompt`, `delete_my_prompt`, which are not registered at all
+  when `READ_ONLY` is set. MCP prompts: `library_prompt` for any id, plus every featured prompt
+  and every My Library prompt by name.
+- `site/mcp/setup.ts` loads first and keeps stdout for the protocol: `console.log`, `info` and
+  `debug` go to stderr, and `.env` loads with dotenv's `quiet` flag (dotenv 17 prints to stdout).
+- `site/lib/library.ts` is new and shared: the library path, the section keys, the index loader
+  and `readLibraryItem()`. `GET /api/prompts/:id` and the copy route now use it instead of their
+  own copies; `getAllPacks()` is exported from `api/skill-packs.ts` for the server.
+- Every caller path goes through `resolveInside()`. Support files are refused over 500 KB or
+  when binary.
+
+**Tests and CI**
+- `npm run test:mcp` (`scripts/mcp-server.test.mjs`) spawns the server over real stdio with the
+  SDK client: all eleven tools, the prompts, six traversal attempts, a My Library round trip in
+  a temp folder, and read-only mode. A deliberately broken containment check made it fail, so
+  the guard is covered. It never echoes what a broken guard returns. New CI step "MCP server".
+- Checked by hand: three launch commands complete the handshake, and a Claude Code session with
+  the README's config called `search_library` and got skill ids back.
+
+**Docs**
+- `docs/features/MCP-SERVER.md` (design and tool contracts), a README section with install lines
+  and the tool table, the server's own card in `6_MCP_Servers/Developer_Tools/` (20 cards now),
+  a homepage feature card (in place of the theme card) and install block, `CLAUDE.md`,
+  `docs/ARCHITECTURE.md`, `docs/README.md`.
+- Roadmap: seven Phase 1 items ticked. The MCP-prompts item was built differently from its
+  wording (featured and My Library prompts plus one generic prompt, not all ~2,200), and
+  placeholder-to-argument parsing became its own item under Later.
+
+**Dependencies**
+- Added `@modelcontextprotocol/server` and `zod`; `@modelcontextprotocol/client` as a dev
+  dependency for the test. `npm audit` still reports four moderate advisories, all in
+  `gray-matter`'s old `js-yaml` chain, which predate this change.
+
+_Touched: `site/mcp/`, `site/lib/library.ts`, `site/api/index.ts`, `site/api/skill-packs.ts`, `site/scripts/mcp-server.test.mjs`, `site/package.json`, `site/package-lock.json`, `.github/workflows/ci.yml`, `site/library/6_MCP_Servers/`, `homepage/index.html`, `README.md`, `CLAUDE.md`, `docs/{ROADMAP,CHANGELOG,ARCHITECTURE,README}.md`, `docs/features/MCP-SERVER.md`, `site/api/prompt-index.json`._
+
 ## 2026-10-21 — Roadmap rewritten; Phase 1 is an MCP server for the library
 
 **Docs**

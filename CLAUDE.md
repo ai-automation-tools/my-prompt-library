@@ -98,6 +98,14 @@ site/
   lib/my-library.ts    My Library file store + READ_ONLY. Ids are file names, restricted to
                        [a-z0-9-] so an id can never name a path outside the folder.
   lib/safe-path.ts     resolveInside(): keeps library paths inside library/
+  lib/library.ts       Shared by the API and the MCP server: LIBRARY_PATH, the section keys,
+                       the prebuilt-index loader and readLibraryItem(). Never writes to stdout.
+  mcp/server.ts        The MCP server (npm run mcp; stdio, @modelcontextprotocol/server v2):
+                       search, get, browse, skills, Skill Packs, My Library writes (not
+                       registered when READ_ONLY), featured + My Library prompts as MCP
+                       prompts. docs/features/MCP-SERVER.md. Must never log to stdout:
+  mcp/setup.ts         imported first; sends console.log/info/debug to stderr and loads .env
+                       quietly (dotenv 17 prints to stdout otherwise)
   library/             Public content, numbered sections (see below)
   scripts/build-prompt-index.js   Walks library/ → api/prompt-index.json (site build step).
                        Sorts by id and skips files over 500 KB. Carries `lastModified` and
@@ -105,6 +113,7 @@ site/
                        library leaves the file byte-identical.
   scripts/api-routes.test.mjs     Pins the route table (npm run test:routes)
   scripts/my-library.test.mjs     File-store self-check (npm run test:my-library)
+  scripts/mcp-server.test.mjs     MCP server end to end over stdio (npm run test:mcp)
   package.json, vite.config.ts, tsconfig.json, vercel.json, index.html
 
 (repo root, outside the deploy root)

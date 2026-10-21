@@ -9,6 +9,7 @@ import { dirname } from "path";
 import archiver from "archiver";
 import { myLibrary, READ_ONLY, type UserPrompt } from "../lib/my-library.js";
 import { resolveInside } from "../lib/safe-path.js";
+import { LIBRARY_PATH, SKILLS_SECTION, extractFirstHeading, readLibraryItem } from "../lib/library.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -120,34 +121,10 @@ const getPreviewIndex = (): Map<string, string> => {
   return previewIndex;
 };
 
-// Library path resolution.
-// Always resolve relative to this file, never process.cwd(): on Vercel the
-// function runs with cwd=/var/task while the app (Root Directory = site) is
-// bundled at /var/task/site, so a cwd-based path misses library/ entirely.
-const getLibraryPath = () => {
-  const candidates = [
-    path.join(__dirname, '..', 'library'),
-    path.join(process.cwd(), 'library'),
-  ];
-  const found = candidates.find(p => fs.existsSync(p));
-  if (!found) {
-    console.warn(`[LIBRARY] Not found in any of: ${candidates.join(', ')}`);
-  }
-  return found || candidates[0];
-};
-
-const LIBRARY_PATH = getLibraryPath();
-
-// Library section folder holding skills (numbered layout)
-const SKILLS_SECTION = '3_Skills';
+// LIBRARY_PATH, SKILLS_SECTION and the single-item reader live in lib/library.ts,
+// shared with the MCP server.
 // Pre-rename *_OLD trees — kept in the repo, never served
 const LEGACY_SECTION = 'Legacy';
-
-// Helper to extract first heading from markdown
-const extractFirstHeading = (content: string): string | null => {
-  const match = content.match(/^#\s+(.+)$/m);
-  return match ? match[1] : null;
-};
 
 // API to list all prompts (with optional lightweight mode)
 app.get("/api/prompts", async (req, res) => {
@@ -335,38 +312,16 @@ app.get("/api/prompts/:id", async (req, res) => {
       }
     }
 
-    const filePath = resolveInside(LIBRARY_PATH, promptId);
-
-    if (!filePath) {
+    const item = readLibraryItem(promptId);
+    if (item === 'invalid') {
       return res.status(400).json({ error: 'Invalid prompt path' });
     }
-
-    if (!fs.existsSync(filePath)) {
+    if (!item) {
       return res.status(404).json({ error: 'Prompt not found' });
     }
 
-    const rawContent = fs.readFileSync(filePath, 'utf-8');
-    const { data: frontmatter, content } = matter(rawContent);
-    const stat = fs.statSync(filePath);
-
-    // promptId is a URL key, always forward-slashed — never path.sep, which
-    // is "\" on Windows and left section holding the entire path in dev.
-    const pathParts = promptId.replace('.md', '').split('/');
-    const section = pathParts[0] || 'General';
-    const category = pathParts[1] || 'Uncategorized';
-    const subcategory = pathParts.length > 2 ? pathParts[2] : null;
-
-    return res.json({
-      id: promptId,
-      title: frontmatter.title || extractFirstHeading(content) || path.basename(promptId, '.md'),
-      section,
-      category,
-      subcategory,
-      tags: frontmatter.tags || [],
-      content,
-      lastModified: stat.mtime.toISOString(),
-      isUserOwned: false,
-    });
+    const { frontmatter, ...rest } = item;
+    return res.json({ ...rest, isUserOwned: false });
   } catch (error: any) {
     console.error("Error fetching prompt:", error);
     res.status(500).json({ error: "Failed to fetch prompt" });
@@ -447,27 +402,16 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", requireWritable, async (req
   try {
     const promptId = decodeURIComponent(req.params.path);
 
-    const promptPath = resolveInside(LIBRARY_PATH, promptId);
-
-    if (!promptPath) {
+    const item = readLibraryItem(promptId);
+    if (item === 'invalid') {
       return res.status(400).json({ error: "Invalid prompt path" });
     }
-
-    if (!fs.existsSync(promptPath)) {
+    if (!item) {
       return res.status(404).json({ error: "Prompt not found in public library" });
     }
 
     // Parsed content, without the library file's own frontmatter
-    const { data, content } = matter(fs.readFileSync(promptPath, 'utf-8'));
-
-    const pathParts = promptId.replace('.md', '').split('/');
-    const section = pathParts[0] || 'General';
-    const category = pathParts[1] || 'Uncategorized';
-    const subcategory = pathParts.length > 2 ? pathParts[2] : null;
-
-    // For Skills, use 'name' field instead of 'title'
-    const title = data.title || data.name
-      || extractFirstHeading(content) || path.basename(promptId, ".md");
+    const { title, section, category, subcategory, tags, content } = item;
 
     const normalizedTitle = title.trim().toLowerCase();
     const duplicate = myLibrary.list().find(p =>
@@ -486,7 +430,7 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", requireWritable, async (req
       section,
       category,
       subcategory,
-      tags: data.tags || [],
+      tags,
       content,
     });
 

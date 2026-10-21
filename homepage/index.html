@@ -318,10 +318,10 @@
         <span class="tag">ZIP download</span>
       </article>
       <article class="card">
-        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="1.5"/><circle cx="17.5" cy="10.5" r="1.5"/><circle cx="8.5" cy="7.5" r="1.5"/><circle cx="6.5" cy="12.5" r="1.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.56-2.5 5.56-5.55C21.97 6.01 17.46 2 12 2z"/></svg></span>
-        <h3>Light, dark and four palettes</h3>
-        <p>The org house style shared with ai-automation-tools.dev: dark by default, light from the switch, and sky, violet, emerald or ember from Settings, all remembered per browser. Each section carries its own accent.</p>
-        <span class="tag">responsive</span>
+        <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></span>
+        <h3>Use it from an agent</h3>
+        <p>A built-in MCP server lets Claude Code, Codex or any MCP client search the library, read any item, pull a skill with its files and save to My Library. Featured prompts show up as slash commands.</p>
+        <span class="tag">MCP · stdio</span>
       </article>
       <article class="card">
         <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
@@ -384,12 +384,20 @@
     </div>
     <div class="term">
       <div class="term-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term-title">checks (CI runs all of these)</span>
-        <button class="copy" type="button" data-copy="npm run lint&#10;npm run test:routes&#10;npm run test:my-library&#10;npm run build:index"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 11V4a1 1 0 011-1h7"/></svg><span>copy</span></button>
+        <button class="copy" type="button" data-copy="npm run lint&#10;npm run test:routes&#10;npm run test:my-library&#10;npm run test:mcp&#10;npm run build:index"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 11V4a1 1 0 011-1h7"/></svg><span>copy</span></button>
       </div>
 <pre tabindex="0"><span class="p">$ </span>npm run lint          <span class="c"># tsc --noEmit</span>
 <span class="p">$ </span>npm run test:routes   <span class="c"># the API route table is intact</span>
 <span class="p">$ </span>npm run test:my-library  <span class="c"># the My Library file store round-trips</span>
+<span class="p">$ </span>npm run test:mcp      <span class="c"># the MCP server, end to end over stdio</span>
 <span class="p">$ </span>npm run build:index   <span class="c"># rebuild api/prompt-index.json after editing library/</span></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term-title">use it from an agent (MCP)</span>
+        <button class="copy" type="button" data-copy="claude mcp add my-prompt-library -- npm --prefix /path/to/my-prompt-library/site run --silent mcp"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 11V4a1 1 0 011-1h7"/></svg><span>copy</span></button>
+      </div>
+<pre tabindex="0"><span class="c"># After npm install in site/, point your agent at the server (absolute path to your clone)</span>
+<span class="p">$ </span>claude mcp add my-prompt-library -- npm --prefix /path/to/my-prompt-library/site run --silent mcp</pre>
     </div>
   </section>
 

@@ -52,6 +52,13 @@ jobs:
       - name: Library path containment
         run: node lib/safe-path.test.mjs
 
+      # Spawns mcp/server.ts over real stdio with the SDK client: every tool, the
+      # MCP prompts, path-traversal refusals, a My Library round trip in a temp
+      # folder, and read-only mode. A clean handshake also proves nothing else
+      # writes to stdout.
+      - name: MCP server
+        run: npm run test:mcp
+
       # The provenance scripts live at the repo root, outside site/. They are
       # dependency-free except for gray-matter, which npm ci above installed.
       # The library walk in upstream.test.mjs is what pins the `match:`
