@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "buildTime": "2026-10-21T19:07:55.490Z",
-  "promptCount": 2795,
+  "buildTime": "2026-10-21T19:33:39.061Z",
+  "promptCount": 2796,
   "prompts": [
     {
       "id": "1_Guides/API_Providers/anthropic_api_guide.md",
@@ -44865,6 +44865,24 @@
       ],
       "contentPreview": "\n# MarkItDown MCP server\n\nConvert PDFs, Office files, images, audio and web pages to Markdown a model can read.\n\n## Install\n\n**Claude Code**\n\n```bash\npip install markitdown-mcp && claude mcp add marki",
       "lastModified": "2026-10-21T19:07:45.565Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "6_MCP_Servers/Developer_Tools/my-prompt-library.md",
+      "title": "🔌 My Prompt Library",
+      "section": "6_MCP_Servers",
+      "category": "Developer_Tools",
+      "subcategory": "my-prompt-library",
+      "tags": [
+        "mcp-server",
+        "developer-tools",
+        "prompts",
+        "skills",
+        "agents",
+        "featured"
+      ],
+      "contentPreview": "\n# My Prompt Library MCP server\n\nThis library as an MCP server: search prompts, agents, skills and MCP cards, read any item, pull a skill with its files, and save to My Library.\n\n## Install\n\n**Claude ",
+      "lastModified": "2026-10-21T19:31:41.383Z",
       "isUserOwned": false
     },
     {

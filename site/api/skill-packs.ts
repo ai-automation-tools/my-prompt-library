@@ -52,7 +52,7 @@ async function getAllPackFiles(dirPath: string): Promise<string[]> {
 }
 
 // Helper to read all pack files
-async function getAllPacks() {
+export async function getAllPacks(): Promise<any[]> {
   try {
     const packFiles = await getAllPackFiles(packsDir);
     

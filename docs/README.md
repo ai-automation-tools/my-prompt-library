@@ -23,6 +23,7 @@ Public Library is also browsable read-only at
 - **[API Reference](features/API.md)** — REST endpoints
 - **[Library Modes](features/LIBRARY-MODE-IMPLEMENTATION.md)** — Public vs My Library
 - **[Featured Prompts](features/FEATURED-PROMPTS.md)** — highlighting top prompts
+- **[MCP Server](features/MCP-SERVER.md)** — the library as an MCP server for agents
 
 ### Development
 - **[Debug Guide](development/DEBUG_UI.md)** — troubleshooting

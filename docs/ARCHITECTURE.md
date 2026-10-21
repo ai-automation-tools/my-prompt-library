@@ -302,6 +302,12 @@ ever reaches thousands of files, a cache keyed on the folder's mtime is the upgr
 locally. An earlier hand-copied dev server drifted from production, so `test:routes` now
 pins the route table.
 
+The MCP server (`site/mcp/server.ts`, [MCP-SERVER.md](features/MCP-SERVER.md)) is the one
+other entry point. It does not import the Express app, because that logs to stdout on load and
+a stdio server's stdout is the protocol. It shares `lib/library.ts`, `lib/my-library.ts`,
+`lib/safe-path.ts` and the Skill Pack reader with the API instead, so both read the library the
+same way.
+
 ### 4. Prebuilt index + in-memory cache
 
 The public listing is built once at build time, so a cold Vercel function does not walk

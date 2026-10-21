@@ -28,8 +28,10 @@ marks one only Mike can do.
 > date is in the [changelog](CHANGELOG.md). The app is local-first (clone and run, My Library
 > is a folder of markdown files) with a read-only demo at
 > `my-prompt-library-demo.ai-automation-tools.dev`. The library has six sections plus Skill
-> Packs, and seven scheduled jobs keep it growing and current. Next is an MCP server, so an
-> agent can search the library and pull a prompt, skill or agent straight into its work.
+> Packs, and seven scheduled jobs keep it growing and current. The local MCP server shipped the
+> same day, so an agent can search the library and pull a prompt, skill or agent straight into
+> its work. Phase 1's three remaining items each make something public and wait on Mike; the
+> roadmap routine moves on to Phase 2 meanwhile.
 
 ## 🔌 Phase 1: MCP server for the library
 
@@ -37,13 +39,13 @@ The library becomes a tool an agent calls, not just a site a person reads. A std
 in this repo and reads the same `site/library/` and My Library folder the app does; a
 read-only remote endpoint on the demo comes after it.
 
-- [ ] Design note in `docs/features/MCP-SERVER.md`: the tool list with input and output shapes, which tools write, the stdio transport and how the server finds `site/library/` and `MY_LIBRARY_DIR`, and how it shares code with `api/` instead of duplicating it. Done when the note exists and the tools below match it
-- [ ] Walking skeleton: `npm run mcp` in `site/` starts a stdio server on `@modelcontextprotocol/sdk` with two tools, `search_library` (query, section, tags, limit; ranked results with id, title, section, tags) and `get_item` (id; the full markdown body and frontmatter). Proved by `scripts/mcp-server.test.mjs`, which spawns the server, lists tools and calls both, and runs in CI
-- [ ] Browse tools: `list_sections` (the seven sections with counts) and `list_categories` (section → category → subcategory tree with counts), both from `api/prompt-index.json`, covered by the same test
-- [ ] Skill tools: `get_skill` returns a skill's `SKILL.md` and the list of its support files, `get_skill_file` returns one of them (paths confined to the skill folder by `resolveInside()`), `list_skill_packs` and `get_skill_pack` read `3_Skills/packs/`. Test includes a path-traversal attempt that must be refused
-- [ ] MCP prompts: every `4_Prompts` and `5_System_Prompts` file is exposed through `prompts/list` (paged, filterable by section) and `prompts/get`, with `[placeholder]` fields turned into prompt arguments where the file declares them, so clients show library prompts as slash commands
-- [ ] My Library write tools: `save_to_my_library` (copy a public item, or write a new one), `update_my_prompt`, `delete_my_prompt`, going through `site/lib/my-library.ts` with its id rules, and refusing every write when `READ_ONLY` is set. Test covers a round trip and the read-only refusal
-- [ ] Install docs: an "Use it from an agent" section in `README.md` with the `claude mcp add my-prompt-library -- …` line and an `mcpServers` JSON block, the server's own card in `site/library/6_MCP_Servers/Developer_Tools/my-prompt-library.md`, and a card on the homepage. `homepage.test.mjs` still passes
+- [x] Design note in `docs/features/MCP-SERVER.md`: the tool list with input and output shapes, which tools write, the stdio transport and how the server finds `site/library/` and `MY_LIBRARY_DIR`, and how it shares code with `api/` instead of duplicating it. Done when the note exists and the tools below match it — done 2026-10-21: `docs/features/MCP-SERVER.md` (shape, stdout rule, tool table, prompts, what is not built)
+- [x] Walking skeleton: `npm run mcp` in `site/` starts a stdio server on `@modelcontextprotocol/sdk` with two tools, `search_library` (query, section, tags, limit; ranked results with id, title, section, tags) and `get_item` (id; the full markdown body and frontmatter). Proved by `scripts/mcp-server.test.mjs`, which spawns the server, lists tools and calls both, and runs in CI — done 2026-10-21: `site/mcp/server.ts` on `@modelcontextprotocol/server` 2.3 via `serveStdio()`, `scripts/mcp-server.test.mjs` as `npm run test:mcp`, CI step "MCP server"
+- [x] Browse tools: `list_sections` (the seven sections with counts) and `list_categories` (section → category → subcategory tree with counts), both from `api/prompt-index.json`, covered by the same test — done 2026-10-21: `list_sections`, `list_categories`
+- [x] Skill tools: `get_skill` returns a skill's `SKILL.md` and the list of its support files, `get_skill_file` returns one of them (paths confined to the skill folder by `resolveInside()`), `list_skill_packs` and `get_skill_pack` read `3_Skills/packs/`. Test includes a path-traversal attempt that must be refused — done 2026-10-21: `get_skill`, `get_skill_file`, `list_skill_packs`, `get_skill_pack`; four traversal attempts refused in the test, and a deliberately broken guard made the test fail
+- [x] MCP prompts: every `4_Prompts` and `5_System_Prompts` file is exposed through `prompts/list` (paged, filterable by section) and `prompts/get`, with `[placeholder]` fields turned into prompt arguments where the file declares them, so clients show library prompts as slash commands — done 2026-10-21: built differently from this wording, on purpose: ~2,200 named prompts would flood every client's slash menu, so the server registers `library_prompt` (any id) plus the featured prompts and every My Library prompt by name, each with one optional `input` argument. Placeholder-to-argument parsing is a separate item under Later
+- [x] My Library write tools: `save_to_my_library` (copy a public item, or write a new one), `update_my_prompt`, `delete_my_prompt`, going through `site/lib/my-library.ts` with its id rules, and refusing every write when `READ_ONLY` is set. Test covers a round trip and the read-only refusal — done 2026-10-21: `save_to_my_library`, `update_my_prompt`, `delete_my_prompt`; not registered at all under `READ_ONLY`, and each handler checks again
+- [x] Install docs: an "Use it from an agent" section in `README.md` with the `claude mcp add my-prompt-library -- …` line and an `mcpServers` JSON block, the server's own card in `site/library/6_MCP_Servers/Developer_Tools/my-prompt-library.md`, and a card on the homepage. `homepage.test.mjs` still passes — done 2026-10-21: README "Use It From An Agent", `6_MCP_Servers/Developer_Tools/my-prompt-library.md`, homepage feature card and install block. The `npm --prefix … run --silent mcp` line was tested with a real Claude Code session
 - [ ] Remote read-only endpoint on the demo: Streamable HTTP at `/api/mcp` on Vercel, read tools and MCP prompts only, no write tools registered, a per-IP rate limit, and the CSP and headers the rest of the API has. Proved by a deployed smoke test with a real MCP client 🔒 Needs Mike (it opens a new public endpoint)
 - [ ] Publish the stdio server as an npm package so `npx my-prompt-library-mcp` works without a clone, with the library bundled or fetched from the demo 🔒 Needs Mike (npm account and package name)
 - [ ] List the server in the official MCP registry (`modelcontextprotocol/registry`) once it is on npm 🔒 Needs Mike
@@ -81,6 +83,7 @@ Nothing below blocks go-live.
 - [ ] Role-based starter collections for prompts and agents (a "frontend engineer" or "founder" set), served like Skill Packs and installable into My Library in one step
 - [ ] Skill Packs show whether a pack is generated from a folder or hand-picked, and the generated ones say which folder
 - [ ] Export My Library as a zip, and import one, from Settings
+- [ ] Library prompts with `[placeholder]` fields expose them as MCP prompt arguments, so a client asks for each value instead of one free-text `input`
 
 ### 📣 Publish and promote
 
