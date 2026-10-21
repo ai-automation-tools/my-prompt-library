@@ -178,7 +178,7 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
 - When bulk-importing content, check what you are about to publish: an upstream corpus put
   350 contributor email addresses one commit away from a public site.
 - Match the existing file's style. `App.tsx` is huge — when touching the UI, prefer
-  extracting into `src/components/` or `src/hooks/` over growing it back (see docs/ROADMAP.md).
+  extracting into `src/components/` or `src/hooks/` over growing it back (the 2026-10-03 changelog entry shows how).
 
 ## Env vars
 
