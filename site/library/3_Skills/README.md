@@ -187,7 +187,7 @@ Some SKILL.md files contain relative paths to references or scripts. These paths
 
 ## 📖 Related
 
-- **Agents:** `../2_Agents/` - Agent personas & instructions
+- **Agents:** `../2_Agents/` - Installable subagent definitions
 - **Prompts:** `../4_Prompts/` - Prompt templates
 - **Guides:** `../1_Guides/` - Tool documentation
 

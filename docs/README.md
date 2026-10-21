@@ -36,7 +36,8 @@ Public Library is also browsable read-only at
 - **[CONTRIBUTING.md](../CONTRIBUTING.md)** — the short version; the full guide is [here](CONTRIBUTING.md)
 
 ### Planning & Status
-- **[Direction](DIRECTION.md)** — plain-language: what changed after the audit, and what the site becomes
+- **[Discovery ledger](DISCOVERY.md)** — GitHub repos found for the library, and what was decided about each
+- **[Upstreams](UPSTREAMS.md)** — what the app depends on, checked biweekly
 - **[Roadmap](ROADMAP.md)** — what's next
 - **[Changelog](CHANGELOG.md)** — shipped work, newest first
 - **[Repository Audit (2026-08-26)](audits/REPO-AUDIT-2026-08-26.md)** — whole-repo health check
@@ -52,13 +53,15 @@ Public Library is also browsable read-only at
 ```
 docs/
 ├── README.md                     # This file
-├── DIRECTION.md                  # Why the plan changed, in plain language
 ├── ROADMAP.md                    # What's next
 ├── CHANGELOG.md                  # Shipped work, newest first
 ├── ARCHITECTURE.md               # System design and repo layout
 ├── CONTRIBUTING.md               # How to add content
+├── DISCOVERY.md                  # Repo-intake ledger (Discovery job adds, Mike decides)
+├── UPSTREAMS.md                  # App dependencies the upstream check watches
 │
-├── audits/                       # Point-in-time health checks
+├── audits/                       # Point-in-time health checks and retired plans
+│   ├── DIRECTION-2026-08-27.md   # The post-audit plan, historical
 │   ├── REPO-AUDIT-2026-08-26.md
 │   ├── upstream-drift-2026-08-26.md
 │   ├── upstream-drift-2026-08-27.md
@@ -75,6 +78,7 @@ docs/
 │   ├── agents-template.md
 │   ├── system-prompts-template.md
 │   ├── skills-template.md
+│   ├── mcp-servers-template.md
 │   └── TEMPLATE-SUMMARY.md
 │
 ├── skill-packs/
@@ -85,7 +89,8 @@ docs/
 ├── features/
 │   ├── API.md
 │   ├── LIBRARY-MODE-IMPLEMENTATION.md
-│   └── FEATURED-PROMPTS.md
+│   ├── FEATURED-PROMPTS.md
+│   └── MCP-SERVER.md             # The library as an MCP server
 │
 └── development/
     └── DEBUG_UI.md
@@ -109,7 +114,7 @@ docs/
 
 **...know what needs doing** → [Roadmap](ROADMAP.md) → [Repository Audit](audits/REPO-AUDIT-2026-08-26.md)
 
-**...understand why the plan looks like this** → [Direction](DIRECTION.md)
+**...understand why the plan looks like this** → [Roadmap](ROADMAP.md) → [Changelog](CHANGELOG.md) (the 2026-08-27 plan is kept in [audits/DIRECTION-2026-08-27.md](audits/DIRECTION-2026-08-27.md))
 
 **...troubleshoot** → [Debug Guide](development/DEBUG_UI.md)
 

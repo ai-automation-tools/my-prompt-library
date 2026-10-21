@@ -101,11 +101,15 @@ library/
 │
 ├── 2_Agents/
 │   └── [Category]/
-│       └── your-agent.md
+│       └── your-agent.md         # installable subagents only: name: + description:
 │
 ├── 5_System_Prompts/
 │   └── [Platform]/
 │       └── your-system.md
+│
+├── 6_MCP_Servers/
+│   └── [Folder]/
+│       └── server-name.md        # from docs/templates/mcp-servers-template.md
 │
 └── 3_Skills/
     └── [Category]/

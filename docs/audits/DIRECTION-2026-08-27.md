@@ -1,16 +1,22 @@
+> [!NOTE]
+> **Historical, kept for the record.** Written 2026-08-27, moved here from `docs/DIRECTION.md`
+> on 2026-10-21 when the roadmap was rewritten from scratch. It describes a plan that has since
+> been carried out or dropped (accounts, Neon and GitHub mode are gone; the app is local-first).
+> For the current plan read [ROADMAP.md](../ROADMAP.md); for what shipped, [CHANGELOG.md](../CHANGELOG.md).
+
 # Direction — what changed after the audit, and what the site becomes
 
-**Written:** 2026-08-27 · Plain-language companion to [ROADMAP.md](ROADMAP.md).
+**Written:** 2026-08-27 · Plain-language companion to the roadmap of that time.
 
 > **Since 2026-10-21 the app is local-first.** Accounts, Neon Postgres and GitHub mode are gone: My
 > Library is a folder of markdown files on the user's machine, and the Vercel site is a read-only
 > demo. The Neon and `DATABASE_URL` items below are history; the one that remains is deleting that
-> database. See the [changelog](CHANGELOG.md) entry for that date.
+> database. See the [changelog](../CHANGELOG.md) entry for that date.
 
 This is not a task list. It explains **why the plan changed** after
-[the 2026-08-26 audit](audits/REPO-AUDIT-2026-08-26.md), what the old plan assumed, what the
+[the 2026-08-26 audit](REPO-AUDIT-2026-08-26.md), what the old plan assumed, what the
 new one assumes, and what the site actually looks like once the roadmap is finished. For the
-tasks themselves, read the roadmap. For what already shipped, read [CHANGELOG.md](CHANGELOG.md).
+tasks themselves, read the roadmap. For what already shipped, read [CHANGELOG.md](../CHANGELOG.md).
 
 ---
 
