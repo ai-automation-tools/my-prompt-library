@@ -60,7 +60,7 @@ const QUERIES = [
 ];
 // Noise: repos that are about the subject but are tools, not content, and the
 // leaked / extracted system-prompt dumps the catalog job must never vendor.
-const EXCLUDE = /\b(cli|sdk|desktop|extension|plugin-marketplace|boilerplate|starter|template-repo|leak\w*|extract\w*|jailbreak\w*|system-prompts-and-models)\b/i;
+const EXCLUDE = /\b(cli|sdk|desktop|extension|plugin-marketplace|boilerplate|starter|template-repo)\b|leak|extract|jailbreak|system[-_]prompts[-_]and[-_]models/i;
 
 const gh = (ghArgs) => {
   try { return JSON.parse(execFileSync("gh", ghArgs, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }) || "[]"); }
