@@ -8,7 +8,6 @@ import { ArrowLeft, Check, LayoutGrid, Link2, Plus, Sparkles } from 'lucide-reac
 import SourceBar from './components/SourceBar';
 import { LazyMotion, domAnimation, m, AnimatePresence } from 'motion/react';
 import { ToastContainer, type ToastProps } from './components/Toast';
-import { useAuth } from './contexts/AuthContext';
 import { type Prompt } from './components/PromptCard';
 import Sidebar, { type SkillPackSummary } from './components/Sidebar';
 import TopBar, { type Crumb } from './components/TopBar';
@@ -22,6 +21,7 @@ import { usePromptContent } from './hooks/usePromptContent';
 import { useLibraryRoute, slugifyPromptPath, type LibraryTab } from './hooks/useLibraryRoute';
 import { getSection, getSectionFolder, getSectionDisplayName, getTabForFolder, humanize } from './lib/sections';
 import { readStoredTheme, THEME_STORAGE_KEY, type Theme } from './lib/themes';
+import { READ_ONLY } from './lib/mode';
 
 // Split out of the entry chunk: none of these render on first paint, and
 // PromptDetail/PromptEditorModal each pull in react-markdown + remark-gfm.
@@ -30,8 +30,6 @@ import { readStoredTheme, THEME_STORAGE_KEY, type Theme } from './lib/themes';
 const SkillPacksView = lazy(() => import('./components/SkillPacksView'));
 const PromptDetail = lazy(() => import('./components/PromptDetail'));
 const PromptEditorModal = lazy(() => import('./components/PromptEditorModal'));
-const LoginModal = lazy(() => import('./components/LoginModal'));
-const SignupModal = lazy(() => import('./components/SignupModal'));
 const CommandPalette = lazy(() => import('./components/CommandPalette'));
 
 const chunkSpinner = (
@@ -43,11 +41,8 @@ const chunkSpinner = (
 const PUBLIC_SHARE_ORIGIN = 'https://my-prompt-library-demo.ai-automation-tools.dev';
 
 export default function App() {
-  const { user, logout, isLoading: authLoading } = useAuth();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
@@ -61,8 +56,9 @@ export default function App() {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editingPrompt, setEditingPrompt] = useState<Prompt | null>(null);
   
-  // Library mode: 'public' or 'my'
+  // Library mode: 'public' or 'my'. The read-only demo has only 'public'.
   const [libraryMode, setLibraryMode] = useState<'public' | 'my'>(() => {
+    if (READ_ONLY) return 'public';
     const saved = localStorage.getItem('library-mode');
     const urlParams = new URLSearchParams(window.location.search);
     const urlMode = urlParams.get('library');
@@ -129,16 +125,6 @@ export default function App() {
   } = useLibraryRoute({ selectedPrompt, setSelectedPrompt, setLibraryMode });
 
   useEffect(() => {
-    if (authLoading) {
-      return;
-    }
-
-    if (libraryMode === 'my' && !user) {
-      setPrompts([]);
-      setIsLoading(false);
-      return;
-    }
-
     setIsLoading(true);
     const url = `/api/prompts?library=${libraryMode}&lightweight=true`;
     fetch(url)
@@ -152,18 +138,13 @@ export default function App() {
         showToast('error', 'Failed to load prompts');
         setIsLoading(false);
       });
-  }, [showToast, libraryMode, authLoading, user]);
+  }, [showToast, libraryMode]);
 
   useEffect(() => {
     if (activeTab !== 'skill-packs') {
       return;
     }
-    if (libraryMode === 'my' && !user) {
-      setSkillPacks([]);
-      return;
-    }
-
-    fetch(`/api/skill-packs?library=${libraryMode}`, { credentials: 'include' })
+    fetch(`/api/skill-packs?library=${libraryMode}`)
       .then(async res => {
         const data = await res.json();
         if (!res.ok) {
@@ -176,7 +157,7 @@ export default function App() {
         console.error('Failed to fetch skill packs:', err);
         setSkillPacks([]);
       });
-  }, [activeTab, libraryMode, user]);
+  }, [activeTab, libraryMode]);
 
   // Theme: applied to <html> (themes.css keys off it) and remembered. The
   // inline script in index.html reads the same key before first paint.
@@ -517,7 +498,7 @@ source: My Prompt Library
     const url = `/api/prompts?library=${libraryMode}&lightweight=true`;
 
     try {
-      const res = await fetch(url, { credentials: 'include' });
+      const res = await fetch(url);
       const data = await res.json();
 
       if (!res.ok) {
@@ -618,12 +599,6 @@ source: My Prompt Library
   }, [fetchFullContent]);
 
   const handleNewPrompt = useCallback(() => {
-    if (!user) {
-      showToast('error', 'Please sign in to create prompts');
-      setIsLoginOpen(true);
-      return;
-    }
-
     if (libraryMode !== 'my') {
       setLibraryMode('my');
     }
@@ -634,7 +609,7 @@ source: My Prompt Library
 
     setEditingPrompt(null);
     setIsEditorOpen(true);
-  }, [user, showToast, libraryMode, activeTab]);
+  }, [libraryMode, activeTab]);
 
   /** Palette → prompt: switch library/section to wherever it lives, then open it. */
   const openPromptFromPalette = useCallback((prompt: Prompt) => {
@@ -746,15 +721,11 @@ source: My Prompt Library
       {/* Main Content */}
       <main className="relative z-10 flex h-full min-w-0 flex-1 flex-col overflow-hidden">
         <TopBar
-          user={user}
           sidebarOpen={isSidebarOpen}
           onToggleSidebar={() => setIsSidebarOpen(open => !open)}
           crumbs={crumbs}
           onOpenPalette={() => setIsPaletteOpen(true)}
           onNewPrompt={handleNewPrompt}
-          onLogin={() => setIsLoginOpen(true)}
-          onSignup={() => setIsSignupOpen(true)}
-          onLogout={logout}
         />
 
         {/* Content Area */}
@@ -823,10 +794,7 @@ source: My Prompt Library
                 {activeTab === 'skill-packs' && (
                   <Suspense fallback={chunkSpinner}>
                     <SkillPacksView
-                      user={user}
                       libraryMode={libraryMode}
-                      onRequireLogin={() => setIsLoginOpen(true)}
-                      onBrowsePublic={() => setLibraryMode('public')}
                       onToast={showToast}
                     />
                   </Suspense>
@@ -854,9 +822,6 @@ source: My Prompt Library
                     onPreviousPage={goToPreviousPage}
                     onNextPage={goToNextPage}
                     searchQuery={searchQuery}
-                    isAuthenticated={Boolean(user)}
-                    onLogin={() => setIsLoginOpen(true)}
-                    onSignup={() => setIsSignupOpen(true)}
                     onBrowsePublic={() => setLibraryMode('public')}
                     actions={promptCardActions}
                   />
@@ -952,6 +917,7 @@ source: My Prompt Library
       </main>
 
       {/* Floating "new prompt" — phones only; the top bar carries it elsewhere. */}
+      {!READ_ONLY && (
       <m.button
         type="button"
         whileTap={{ scale: 0.94 }}
@@ -961,6 +927,7 @@ source: My Prompt Library
       >
         <Plus className="h-6 w-6" />
       </m.button>
+      )}
 
       {/* Prompt Editor Modal */}
       {isEditorOpen && (
@@ -996,32 +963,6 @@ source: My Prompt Library
       {/* Toast Notifications */}
       <ToastContainer toasts={toasts} onClose={closeToast} />
 
-      {/* Auth Modals */}
-      {isLoginOpen && (
-        <Suspense fallback={null}>
-          <LoginModal
-            isOpen={isLoginOpen}
-            onClose={() => setIsLoginOpen(false)}
-            onSwitchToSignup={() => {
-              setIsLoginOpen(false);
-              setIsSignupOpen(true);
-            }}
-          />
-        </Suspense>
-      )}
-
-      {isSignupOpen && (
-        <Suspense fallback={null}>
-          <SignupModal
-            isOpen={isSignupOpen}
-            onClose={() => setIsSignupOpen(false)}
-            onSwitchToLogin={() => {
-              setIsSignupOpen(false);
-              setIsLoginOpen(true);
-            }}
-          />
-        </Suspense>
-      )}
     </div>
     </div>
     </LazyMotion>

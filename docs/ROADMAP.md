@@ -12,27 +12,27 @@
 
 ---
 
-The Prompt-Library roadmap routine works this file top to bottom every Saturday night, once the weekly upstream-drift issue has no `behind` skills: it takes the first open item that isn't `🔒 Needs Mike`, builds it, ticks it, and adds the matching line to the [changelog](CHANGELOG.md). **Every item above `## After public release` is a release gate.** The app is live at `my-prompt-library-demo.ai-automation-tools.dev` (Vercel, deploy branch `main`) and the repo is public, so the open gates are loose ends a public repo should already have closed. Ticking an item adds its line to the changelog and updates any doc it made stale (the Snapshot table included), in the same commit. The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md); skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-2026-09-16.md).
+The Prompt-Library roadmap routine works this file top to bottom every Saturday night, once the weekly upstream-drift issue has no `behind` skills: it takes the first open item that isn't `🔒 Needs Mike`, builds it, ticks it, and adds the matching line to the [changelog](CHANGELOG.md). **Every item above `## After public release` is a release gate.** The app is local-first (clone and run), with a read-only demo at `my-prompt-library-demo.ai-automation-tools.dev` (Vercel, deploy branch `main`), and the repo is public, so the open gates are loose ends a public repo should already have closed. Ticking an item adds its line to the changelog and updates any doc it made stale (the Snapshot table included), in the same commit. The current items come from [audits/REPO-AUDIT-2026-08-26.md](audits/REPO-AUDIT-2026-08-26.md); skill drift from [audits/upstream-drift-2026-09-16.md](audits/upstream-drift-2026-09-16.md).
 
 Markers: `- [ ]` open, `- [-]` claimed by a run in progress, `- [x]` done, `- [!]` blocked (the reason follows on the line). `small` marks an item a check verifies; `🔒 Needs Mike` marks one only Mike can do.
 
 ## 📊 Snapshot
 
-Updated 2026-10-17.
+Updated 2026-10-21.
 
 | | |
 |:---|:---|
-| Stack | React 19 + TS + Vite 6 + Tailwind v4 · Express/Vercel serverless · Neon Postgres |
+| Stack | React 19 + TS + Vite 6 + Tailwind v4 · one Express app, run locally by `server.ts` and as the Vercel demo function · no database |
 | Public Library | Markdown under `site/library/` — `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. 28.3 MB, all of it reachable |
-| User data | Postgres: `users`, `user_prompts`, `user_sessions`, `user_skill_pack_installs` |
+| User data | My Library is markdown files in a local folder (`site/my-library/`, gitignored, `MY_LIBRARY_DIR` moves it). No accounts since 2026-10-21; the Vercel demo is read-only |
 | Prompt index | `site/api/prompt-index.json` — **3,200** prompts, 1.98 MB (`npm run build:index`), LF-normalized, id-sorted, reproducible on Linux and Windows; rebuilding an unchanged library leaves it byte-identical. Its `contentPreview` field no longer ships in the listing; `POST /api/prompts/previews` serves it a page at a time |
 | Skills | **323**, all spec-valid, and **all 323 carry an `upstream:` block**. 94 resolve to one live upstream and are drift-checked (93 `exact`, 1 `similar`); 6 are forks we own; 60 `ambiguous` and 163 `unknown` have no single upstream to check. Drift run of 2026-10-17: 92 current, 1 `behind` (`scholar-evaluation`, first stamped that day, upstream since rewritten), 1 `drifted` (`x-twitter-scraper`, 1%). `upstream.match` is attribution confidence only (`exact`/`prefix`/`similar`/`ambiguous`/`unknown`/`fork`) — `behind` is a drift verdict and is pinned out of frontmatter by `upstream.test.mjs` |
 | Agents | `2_Agents`: 546 files, of which **86** are real subagent definitions (`name:` frontmatter), all stamped since 2026-10-17: 71 `exact`, 6 `similar`, 9 `unknown` (our own). The 77 attributed ones are in the weekly drift check: 71 current, 6 `behind` (upstream expanded them). The other 460 are role-play prompts and carry nothing |
 | `src/App.tsx` | **1,029 lines** (was 2,845), 21 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
 | Line endings | LF everywhere, enforced by `.gitattributes`; the index is byte-reproducible on Linux and Windows |
-| Security | 0 npm advisories; path traversal closed; session tokens are CSPRNG; login/signup rate-limited and validated; `helmet` headers; `LICENSE`/`NOTICE`/`SECURITY.md` in place (2026-10-05). Neon password rotation still pending |
-| Health | Live and production-ready. Everything below is content, maintainability, or polish, plus the one operational item in **Now** |
+| Security | 0 npm advisories; path traversal closed; no accounts, so no auth surface: the local server binds to 127.0.0.1 and the demo refuses every write (`READ_ONLY`); My Library ids are file names restricted to `[a-z0-9-]`; `helmet` headers; `LICENSE`/`NOTICE`/`SECURITY.md` in place (2026-10-05). The old Neon database still exists until Mike deletes it |
+| Health | Local-first since 2026-10-21, with a read-only demo. Everything below is content, maintainability, or polish, plus the one cleanup item in **Now** |
 
 > Counts come from `api/prompt-index.json` (`promptCount`) and the drift report, not from
 > hand-maintained numbers here.
@@ -41,8 +41,8 @@ Updated 2026-10-17.
 
 ## 🚨 Phase 1: Now, blocking or near-term
 
-- [ ] **Rotate the Neon password and purge sessions.** The credential was scrubbed from Git history but never rotated, and a scrub does not un-leak. In the same Neon session run `DELETE FROM user_sessions;` — every existing cookie was minted by the old `Math.random()` token generator. Everyone gets logged out once. 🔒 Needs Mike
-- [ ] **Fill in the real `DATABASE_URL`** in `site/.env` (still a placeholder, so auth and My Library are dead locally). The dev server boots without it and serves the read-only Public Library. 🔒 Needs Mike
+- [ ] **Delete the Neon database and the dead Vercel env vars.** Nothing reads them since the app went local-first on 2026-10-21. Deleting the Neon project also closes the old leak for good: its password was scrubbed from Git history but never rotated, and a scrub does not un-leak. Export the `user_prompts` rows first if any are worth keeping (they can be re-saved as files under `site/my-library/`). In Vercel, remove `DATABASE_URL`, `GITHUB_TOKEN`, `GITHUB_OWNER`, `GITHUB_REPO` and `GITHUB_BRANCH` from the `my-prompt-library` project. 🔒 Needs Mike
+- [x] **Go local-first; drop accounts and the database.** The hosted signup site became an app you clone and run: My Library is a folder of markdown files (`site/lib/my-library.ts`), login, Neon/Postgres and GitHub mode are gone, the server binds to loopback, and the Vercel deployment is a read-only Public Library demo (`READ_ONLY`, implied by Vercel's `VERCEL`). This also retires the placeholder-`DATABASE_URL` item: there is nothing left to configure. Completed **2026-10-21** — see the changelog.
 - [x] **Redact published contacts and sample credentials; add LICENSE.** Three teammates' work and personal emails were listed as recipients in two agent files and one skill, and served on the live site; three Neon doc-sample connection strings sat in the vendored `using-neon` reference. All replaced with placeholders. The README had claimed Apache 2.0 with no `LICENSE` file; added it plus a `NOTICE` for vendored library content. History not rewritten. Completed **2026-10-05** — see the changelog.
 - [x] **Auth had no abuse controls.** Login (20 / 15 min, failures only) and signup (5 / 15 min) are now rate-limited per IP in `site/middleware/rate-limit.ts`; signup validates email shape and enforces 8+ chars (login still accepts the old 6-char accounts); bcrypt's 72-byte truncation is capped at the input; `helmet` sets response headers with CSP off; `trust proxy` is 1 so `req.ip` is the client, not Vercel. The limiter store is in-memory and therefore per warm instance — good enough against a single scripted client, not against a distributed one. Completed **2026-10-05** — see the changelog.
 - [x] **No community files.** Root `SECURITY.md` (private advisory reporting, scope), `CODE_OF_CONDUCT.md`, a short root `CONTRIBUTING.md` pointing at the full one in `docs/`, a PR template and two issue templates. Completed **2026-10-05**.
@@ -87,7 +87,7 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 - [x] `LICENSE` (Apache 2.0) and a `NOTICE` for vendored library content, published contacts and sample credentials redacted — done 2026-10-05: see the Phase 1 item
 - [x] `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, PR and issue templates — done 2026-10-05: see the Phase 1 item
 - [x] Live at `https://my-prompt-library.ai-automation-tools.dev` with the org source bar and consent gate — done 2026-10-12: see the changelog
-- [ ] A full-history secret scan (gitleaks) run and its findings written down; the only known hit, the scrubbed Neon credential, is closed by rotating it (Phase 1)
+- [ ] A full-history secret scan (gitleaks) run and its findings written down; the only known hit, the scrubbed Neon credential, is closed by deleting that database (Phase 1)
 
 ## After public release
 

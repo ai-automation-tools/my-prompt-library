@@ -6,250 +6,40 @@
 http://localhost:3010/api
 ```
 
-Production: `https://your-domain.com/api`
+Hosted demo (read-only): `https://my-prompt-library-demo.ai-automation-tools.dev/api`
 
-## Authentication
+The handlers live in `site/api/index.ts` (prompts, previews, skill downloads) and
+`site/api/skill-packs.ts` (skill packs). Locally `server.ts` mounts both on one Express app;
+on Vercel `site/vercel.json` routes `/api/skill-packs/*` to the second function and every
+other `/api/*` path to the first.
 
-### Overview
+## Access and read-only mode
 
-The API uses **token-based authentication** with httpOnly cookies.
+There are no accounts, sessions or API keys. Every endpoint is open to whoever can reach the
+server, which by default is only this machine (the server binds to `127.0.0.1`).
 
-**Authentication Flow:**
-1. User signs up or logs in
-2. Server creates session and returns token
-3. Token stored in httpOnly cookie (automatically sent by browser)
-4. Subsequent requests include cookie
-5. Server validates token and attaches user to request
+**Read-only mode** is on when `READ_ONLY=true`, and always on Vercel (which sets `VERCEL`).
+In that mode every route that writes to My Library returns:
 
-**Token Format:**
 ```
-<random>_<timestamp>_<random>
-Example: abc123_1710610234567_xyz789
-```
-
-### Using Tokens
-
-**Cookie (Recommended):**
-```javascript
-// Automatic with fetch() in browser
-fetch('/api/prompts', {
-  credentials: 'include' // Include cookies
-});
+403 Forbidden
+{ "error": "This copy of the library is read-only. Clone the repo to keep your own prompts." }
 ```
 
-**Authorization Header (Alternative):**
-```bash
-curl -H "Authorization: Bearer abc123_1710610234567_xyz789" \
-  http://localhost:3010/api/auth/me
-```
+The write routes are `POST /api/prompts`, `PUT /api/prompts/:id`, `DELETE /api/prompts/:id`,
+`POST /api/prompts/:path/copy-to-my-prompts`, `POST /api/skill-packs/:packId/add-to-library`
+and `DELETE /api/skill-packs/:packId/remove-from-library`. All reads keep working.
 
----
+## Two kinds of id
 
-## Authentication Endpoints
+| Library | Id looks like | Where it lives |
+|:---|:---|:---|
+| Public | `4_Prompts/Business/Marketing/market-research.md` (path under `site/library/`, forward slashes) | `site/library/` |
+| My Library | `market-research-plan-3fa9c1` (bare file name, no `.md`, no `/`) | `MY_LIBRARY_DIR`, default `site/my-library/` |
 
-**Rate limits (since 2026-10-05).** `POST /api/auth/login` allows 20 failed attempts per IP
-per 15 minutes (successful logins don't count); `POST /api/auth/signup` allows 5 requests per
-IP per 15 minutes. Over the limit the response is `429 Too Many Requests` with
-`{ "error": "..." }` and `RateLimit-*` headers. The counter is in-memory, so on Vercel it is
-per warm function instance.
-
-**Input rules.** `email` is trimmed and must look like an address (one `@`, no whitespace,
-at most 254 chars). `password` is 8–72 characters on signup; login only checks the 72 cap, so
-accounts created under the old 6-character rule still work. `name` is trimmed, at most 100 chars.
-
-### POST /api/auth/signup
-
-Create a new user account.
-
-**Request:**
-```json
-{
-  "email": "user@example.com",
-  "password": "securePassword123",
-  "name": "John Doe"  // optional
-}
-```
-
-**Response (200 OK):**
-```json
-{
-  "user": {
-    "id": "user_1710609876543_abc123",
-    "email": "user@example.com",
-    "name": "John Doe",
-    "avatar_url": null,
-    "created_at": "2024-03-16T10:17:56.000Z",
-    "updated_at": "2024-03-16T10:17:56.000Z"
-  },
-  "token": "abc123_1710610234567_xyz789"
-}
-```
-
-**Set-Cookie Header:**
-```
-auth_token=abc123_1710610234567_xyz789; HttpOnly; Path=/; Max-Age=2592000
-```
-
-**Errors:**
-- `400 Bad Request`: Missing email or password
-- `400 Bad Request`: Invalid email, password outside 8–72 characters, or name over 100
-- `409 Conflict`: Email already exists
-- `429 Too Many Requests`: More than 5 signups from this IP in 15 minutes
-
-**Example:**
-```bash
-curl -X POST http://localhost:3010/api/auth/signup \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "john@example.com",
-    "password": "secret123",
-    "name": "John Doe"
-  }'
-```
-
----
-
-### POST /api/auth/login
-
-Login with existing credentials.
-
-**Request:**
-```json
-{
-  "email": "user@example.com",
-  "password": "securePassword123"
-}
-```
-
-**Response (200 OK):**
-```json
-{
-  "user": {
-    "id": "user_1710609876543_abc123",
-    "email": "user@example.com",
-    "name": "John Doe",
-    "avatar_url": null,
-    "created_at": "2024-03-16T10:17:56.000Z",
-    "updated_at": "2024-03-16T10:17:56.000Z"
-  },
-  "token": "abc123_1710610234567_xyz789"
-}
-```
-
-**Errors:**
-- `400 Bad Request`: Missing or malformed email or password
-- `401 Unauthorized`: Invalid email or password
-- `429 Too Many Requests`: More than 20 failed logins from this IP in 15 minutes
-
-**Example:**
-```bash
-curl -X POST http://localhost:3010/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "john@example.com",
-    "password": "secret123"
-  }' \
-  -c cookies.txt  # Save cookie
-```
-
----
-
-### POST /api/auth/logout
-
-Logout current user (requires authentication).
-
-**Request:** (no body)
-
-**Response (200 OK):**
-```json
-{
-  "message": "Logged out successfully"
-}
-```
-
-**Errors:**
-- `401 Unauthorized`: Not authenticated
-
-**Example:**
-```bash
-curl -X POST http://localhost:3010/api/auth/logout \
-  -b cookies.txt  # Use saved cookie
-```
-
----
-
-### GET /api/auth/me
-
-Get current user info (requires authentication).
-
-**Request:** (no body)
-
-**Response (200 OK):**
-```json
-{
-  "user": {
-    "id": "user_1710609876543_abc123",
-    "email": "user@example.com",
-    "name": "John Doe",
-    "avatar_url": "https://example.com/avatar.jpg",
-    "created_at": "2024-03-16T10:17:56.000Z",
-    "updated_at": "2024-03-16T10:22:15.000Z"
-  }
-}
-```
-
-**Errors:**
-- `401 Unauthorized`: Not authenticated
-- `404 Not Found`: User not found in database
-
-**Example:**
-```bash
-curl http://localhost:3010/api/auth/me \
-  -b cookies.txt
-```
-
----
-
-### PUT /api/auth/me
-
-Update current user profile (requires authentication).
-
-**Request:**
-```json
-{
-  "name": "John Smith",
-  "avatar_url": "https://example.com/new-avatar.jpg"
-}
-```
-
-**Response (200 OK):**
-```json
-{
-  "user": {
-    "id": "user_1710609876543_abc123",
-    "email": "user@example.com",
-    "name": "John Smith",
-    "avatar_url": "https://example.com/new-avatar.jpg",
-    "created_at": "2024-03-16T10:17:56.000Z",
-    "updated_at": "2024-03-16T10:25:30.000Z"
-  }
-}
-```
-
-**Errors:**
-- `401 Unauthorized`: Not authenticated
-- `404 Not Found`: User not found
-
-**Example:**
-```bash
-curl -X PUT http://localhost:3010/api/auth/me \
-  -H "Content-Type: application/json" \
-  -b cookies.txt \
-  -d '{
-    "name": "John Smith",
-    "avatar_url": "https://example.com/avatar.jpg"
-  }'
-```
+`GET /api/prompts/:id` uses the slash to tell them apart. My Library ids match
+`^[a-z0-9-]+$`; anything else is never looked up as a file. When an id goes in a URL path,
+encode it with `encodeURIComponent` so the slashes in public ids survive.
 
 ---
 
@@ -257,76 +47,66 @@ curl -X PUT http://localhost:3010/api/auth/me \
 
 ### GET /api/prompts
 
-List prompts based on library mode.
+List prompts.
 
 **Query Parameters:**
-- `library` (required): `public` or `my`
+- `library`: `public` (default behaviour) or `my`
 - `lightweight` (optional): `true` or `false` (default: `false`)
 
 **Public Library (`?library=public`):**
-- Returns all prompts from file system or prebuilt index
-- No authentication required
-- All prompts have `isUserOwned: false`
-- **Performance optimization:** Uses prebuilt index for faster cold starts
+- Every prompt under `site/library/`, from the prebuilt index when it can be used
+- `isUserOwned: false`
+- `README.md` files, the `Legacy/` section, non-`SKILL.md` files under `3_Skills/` and files
+  over 500 KB are left out
 
 **My Library (`?library=my`):**
-- Returns user's personal prompts from database
-- **Requires authentication**
-- All prompts have `isUserOwned: true`
+- Every `.md` file in the My Library folder, newest `updated` first
+- `isUserOwned: true`
+- Returns `[]` when the folder does not exist yet (and always on the read-only demo, which
+  has none)
 
 **Lightweight Mode (`?lightweight=true`):**
-- Returns metadata only. `content` is an empty string for the public library — no body
-  text of any kind, not even a preview (changed 2026-09-08; it used to carry 200
-  characters per prompt, which was 632 KB of the response and 221 KB of it gzipped).
-  My Library still returns a 200-character preview inline, since that is one user's own
+- Public library: `content` is an empty string. No body text of any kind, not even a
+  preview. For all 3,088 public prompts this was **117.6 KB gzipped**, against 338 KB when
+  each entry carried a 200-character preview (measured 2026-09-08; it scales roughly with
+  prompt count).
+- My Library: `content` is the first 200 characters, inline, since it is one person's
   prompts rather than the whole library.
-- **117.6 KB gzipped** for all 3,088 public prompts, against 338 KB before. (The library
-  is 3,200 prompts as of 2026-09-19; the measurement above is from the 2026-09-08 change and
-  scales roughly with prompt count.)
-- Recommended for initial page loads.
-- Use `POST /api/prompts/previews` for card blurbs, and `GET /api/prompts/:id` for the
-  full body. Never treat a lightweight `content` as the real prompt — it isn't one.
+- Use `POST /api/prompts/previews` for public card blurbs and `GET /api/prompts/:id` for the
+  full body. Never treat a lightweight `content` as the real prompt.
 
 **Response (200 OK):**
 ```json
 [
   {
-    "id": "prompt_1710610123456_xyz789",
-    "title": "SEO Blog Post Generator",
-    "section": "4_Prompts",
-    "category": "Writing",
-    "subcategory": "Technical",
-    "tags": ["seo", "blog", "content"],
-    "content": "Generate an SEO-optimized blog post about...",
-    "lastModified": "2024-03-16T10:22:03.000Z",
-    "isUserOwned": true
-  },
-  ...
+    "id": "2_Agents/Developer/General/devops-engineer.md",
+    "title": "⚙️ DevOps Engineer",
+    "section": "2_Agents",
+    "category": "Developer",
+    "subcategory": "General",
+    "tags": ["featured", "devops"],
+    "content": "",
+    "lastModified": "2026-03-25T10:15:00.000Z",
+    "isUserOwned": false
+  }
 ]
 ```
 
-**Errors:**
-- `401 Unauthorized`: Not authenticated (for `?library=my`)
+If the library cannot be read the response is `200` with `[]`; the error goes to the server
+log.
 
 **Examples:**
-
 ```bash
-# Public library (no auth required)
-curl http://localhost:3010/api/prompts?library=public
-
-# My library (requires auth)
-curl http://localhost:3010/api/prompts?library=my \
-  -b cookies.txt
+curl "http://localhost:3010/api/prompts?library=public&lightweight=true"
+curl "http://localhost:3010/api/prompts?library=my"
 ```
 
 ---
 
 ### POST /api/prompts/previews
 
-Get card blurbs for a batch of public library ids. This is what fills in the excerpt under a
-card title now that the listing no longer ships one.
-
-**Authentication:** None.
+Card blurbs for a batch of public library ids. This fills in the excerpt under a card title,
+since the lightweight listing ships none.
 
 **Request:**
 ```json
@@ -343,13 +123,12 @@ card title now that the listing no longer ships one.
 **Behavior:**
 - Served from a Map built once out of `api/prompt-index.json`; ids the index does not have
   fall back to reading the file.
-- **Capped at 200 ids per request** — extra ids are dropped, not rejected. The client
+- **Capped at 200 ids per request.** Extra ids are dropped, not rejected. The client
   (`src/hooks/usePromptPreviews.ts`) chunks to match.
 - Ids that do not resolve are **omitted from the response** rather than failing the batch.
   Non-`.md` ids and anything that escapes `library/` (checked with `resolveInside`) resolve
   to nothing.
-- Only public library files. User-owned prompts are not here — My Library's listing carries
-  its previews inline.
+- Public library files only. My Library's listing carries its previews inline.
 
 **Errors:**
 - `400 Bad Request`: body is not `{ ids: [...] }`
@@ -365,12 +144,11 @@ curl -X POST http://localhost:3010/api/prompts/previews \
 
 ### GET /api/prompts/:id
 
-Get a single prompt with full content by ID.
+One prompt with its full content.
 
 **Path Parameters:**
-- `id` (required): Prompt ID (file path for public library, database ID for user prompts)
-
-**Authentication:** Optional (required for user-owned prompts)
+- `id`: a public library path or a My Library id (see [Two kinds of id](#two-kinds-of-id)),
+  URL-encoded
 
 **Response (200 OK):**
 ```json
@@ -387,31 +165,27 @@ Get a single prompt with full content by ID.
 }
 ```
 
-**Errors:**
-- `404 Not Found`: Prompt not found
-- `401 Unauthorized`: Not authenticated (for user-owned prompts)
-- `500 Internal Server Error`: Failed to fetch prompt
+For a public prompt, `section`, `category` and `subcategory` come from the path and `title`
+from frontmatter, the first `#` heading, or the file name. For a My Library prompt they come
+from the file's frontmatter and `isUserOwned` is `true`.
 
-**Use Case:**
-- Fetch full content after displaying lightweight list
-- On-demand loading for better performance
-- Reduces initial payload size by ~95%
+**Errors:**
+- `400 Bad Request`: the path escapes `library/`
+- `404 Not Found`: prompt not found
+- `500 Internal Server Error`: failed to read the prompt
 
 **Example:**
 ```bash
-# Get public library prompt
-curl http://localhost:3010/api/prompts/library%2FAgents%2FDeveloper%2FGeneral%2Fdevops-engineer.md
-
-# Get user-owned prompt (requires auth)
-curl http://localhost:3010/api/prompts/prompt_1710610456789_abc123 \
-  -b cookies.txt
+curl http://localhost:3010/api/prompts/2_Agents%2FDeveloper%2FGeneral%2Fdevops-engineer.md
+curl http://localhost:3010/api/prompts/market-research-plan-3fa9c1
 ```
 
 ---
 
 ### POST /api/prompts
 
-Create a new prompt in user's library (requires authentication).
+Create a prompt in My Library. Writes one new `.md` file. **Write route: `403` in read-only
+mode.**
 
 **Request:**
 ```json
@@ -419,43 +193,46 @@ Create a new prompt in user's library (requires authentication).
   "title": "My Custom Prompt",
   "section": "4_Prompts",
   "category": "Business",
-  "subcategory": "Marketing",  // optional
-  "tags": ["custom", "marketing"],  // optional
+  "subcategory": "Marketing",
+  "tags": ["custom", "marketing"],
   "content": "Full prompt content in markdown..."
 }
 ```
 
+`subcategory` and `tags` are optional.
+
 **Response (200 OK):**
 ```json
 {
-  "id": "prompt_1710610456789_abc123",
+  "id": "my-custom-prompt-a41f0e",
   "title": "My Custom Prompt",
   "section": "4_Prompts",
   "category": "Business",
   "subcategory": "Marketing",
   "tags": ["custom", "marketing"],
   "content": "Full prompt content in markdown...",
-  "lastModified": "2024-03-16T10:27:36.000Z",
+  "lastModified": "2026-10-21T10:27:36.000Z",
   "isUserOwned": true,
   "message": "Prompt created successfully"
 }
 ```
 
+The id is the slugged title (up to 60 characters) plus 6 random hex characters. It is also
+the file name, and it does not change when the prompt is renamed later.
+
 **Errors:**
-- `400 Bad Request`: Missing required fields (title, section, category, content)
-- `401 Unauthorized`: Not authenticated
+- `400 Bad Request`: missing `title`, `section`, `category` or `content`
+- `403 Forbidden`: read-only mode
+- `500 Internal Server Error`: the file could not be written
 
 **Example:**
 ```bash
 curl -X POST http://localhost:3010/api/prompts \
   -H "Content-Type: application/json" \
-  -b cookies.txt \
   -d '{
     "title": "My Prompt",
     "section": "4_Prompts",
     "category": "Business",
-    "subcategory": "Marketing",
-    "tags": ["custom"],
     "content": "# My Prompt\n\nContent here..."
   }'
 ```
@@ -464,403 +241,253 @@ curl -X POST http://localhost:3010/api/prompts \
 
 ### PUT /api/prompts/:id
 
-Update an existing prompt (requires authentication).
+Update a My Library prompt in place. **Write route: `403` in read-only mode.**
 
 **URL Parameters:**
-- `id`: Prompt ID (e.g., `prompt_1710610456789_abc123`)
+- `id`: My Library id (e.g. `my-custom-prompt-a41f0e`)
 
-**Request:**
-```json
-{
-  "title": "Updated Title",  // optional
-  "section": "2_Agents",  // optional
-  "category": "Development",  // optional
-  "subcategory": "Python",  // optional
-  "tags": ["updated", "python"],  // optional
-  "content": "Updated content..."  // optional
-}
-```
+**Request:** any of `title`, `section`, `category`, `subcategory`, `tags`, `content`. Fields
+left out (or empty) keep their current value; send `"subcategory": null` to clear it.
 
-**Response (200 OK):**
-```json
-{
-  "id": "prompt_1710610456789_abc123",
-  "title": "Updated Title",
-  "section": "2_Agents",
-  "category": "Development",
-  "subcategory": "Python",
-  "tags": ["updated", "python"],
-  "content": "Updated content...",
-  "lastModified": "2024-03-16T10:30:15.000Z",
-  "isUserOwned": true,
-  "message": "Prompt updated successfully"
-}
-```
+**Response (200 OK):** the updated prompt, same shape as `POST /api/prompts`, with
+`"message": "Prompt updated successfully"`.
 
 **Errors:**
-- `401 Unauthorized`: Not authenticated
-- `404 Not Found`: Prompt not found or user doesn't own it
+- `403 Forbidden`: read-only mode
+- `404 Not Found`: no My Library file with that id
 
 **Example:**
 ```bash
-curl -X PUT http://localhost:3010/api/prompts/prompt_123 \
+curl -X PUT http://localhost:3010/api/prompts/my-custom-prompt-a41f0e \
   -H "Content-Type: application/json" \
-  -b cookies.txt \
-  -d '{
-    "title": "New Title",
-    "content": "New content..."
-  }'
+  -d '{ "title": "New Title", "content": "New content..." }'
 ```
 
 ---
 
 ### DELETE /api/prompts/:id
 
-Delete a prompt (requires authentication).
-
-**URL Parameters:**
-- `id`: Prompt ID
-
-**Request:** (no body)
+Delete a My Library prompt (removes its file). **Write route: `403` in read-only mode.**
 
 **Response (200 OK):**
 ```json
-{
-  "message": "Prompt deleted successfully"
-}
+{ "message": "Prompt deleted successfully" }
 ```
 
 **Errors:**
-- `401 Unauthorized`: Not authenticated
-- `404 Not Found`: Prompt not found or user doesn't own it
+- `403 Forbidden`: read-only mode
+- `404 Not Found`: no My Library file with that id
 
 **Example:**
 ```bash
-curl -X DELETE http://localhost:3010/api/prompts/prompt_123 \
-  -b cookies.txt
+curl -X DELETE http://localhost:3010/api/prompts/my-custom-prompt-a41f0e
 ```
 
 ---
 
-### POST /api/prompts/:id/copy-to-my-prompts
+### POST /api/prompts/:path/copy-to-my-prompts
 
-Copy a public prompt to user's personal library (requires authentication).
+Copy a public prompt into My Library as a new file. The library file's own frontmatter is
+dropped; `title` (or a skill's `name`) and `tags` carry over, and section, category and
+subcategory come from the path. **Write route: `403` in read-only mode.**
 
 **URL Parameters:**
-- `id`: Public prompt path (e.g., `4_Prompts/Business/Marketing/market-research.md`)
+- `path`: public prompt path, e.g. `4_Prompts/Business/Marketing/market-research.md`
 
-**Request:** (no body)
+**Request:** no body.
 
-**Response (200 OK):**
-```json
-{
-  "id": "prompt_1710610789012_def456",
-  "title": "Market Research Plan",
-  "section": "4_Prompts",
-  "category": "Business",
-  "subcategory": "Marketing",
-  "tags": ["research", "business"],
-  "content": "Design a market research plan for...",
-  "lastModified": "2024-03-16T10:33:09.000Z",
-  "isUserOwned": true,
-  "message": "Prompt copied to My Library"
-}
-```
+**Response (200 OK):** the new My Library prompt, same shape as `POST /api/prompts`, with
+`"message": "Prompt copied to My Library"`.
 
 **Errors:**
-- `401 Unauthorized`: Not authenticated
-- `404 Not Found`: Source prompt not found
-- `500 Internal Server Error`: Copy failed
+- `400 Bad Request`: the path escapes `library/`
+- `403 Forbidden`: read-only mode
+- `404 Not Found`: source prompt not found
+- `409 Conflict`: My Library already has a prompt with the same title (case-insensitive) in
+  the same section, category and subcategory
+- `500 Internal Server Error`: copy failed
 
 **Example:**
 ```bash
-curl -X POST "http://localhost:3010/api/prompts/Prompt_Library%2FBusiness%2FMarketing%2Fmarket-research.md/copy-to-my-prompts" \
-  -b cookies.txt
+curl -X POST "http://localhost:3010/api/prompts/4_Prompts%2FBusiness%2FMarketing%2Fmarket-research.md/copy-to-my-prompts"
 ```
+
+---
+
+### GET /api/skills/download/:skillPath
+
+Download one skill directory under `library/3_Skills/` as a ZIP.
+
+**Errors:**
+- `400 Bad Request`: the path is outside `3_Skills/`, or is not a directory
+- `404 Not Found`: directory not found
+- `500 Internal Server Error`: archive failed
+
+---
+
+## Skill Pack Endpoints
+
+Packs are JSON files under `site/library/3_Skills/packs/`. See
+[Skill Packs](../skill-packs/README.md) for the format.
+
+A pack counts as "in My Library" while at least one My Library prompt carries the tag
+`skill-pack:<packId>`. There is no separate install record: adding a pack tags every skill it
+copies, and removing it deletes those files.
+
+### GET /api/skill-packs?library=public|my
+
+List packs as summaries (`id`, `name`, `description`, `icon`, `version`, `tags`,
+`category`, `skillCount`, `author`, `created_at`, `updated_at`).
+
+- `public` (default): every pack
+- `my`: only packs with at least one My Library prompt tagged `skill-pack:<packId>`. On the
+  read-only demo this is always empty.
+
+### GET /api/skill-packs/:packId
+
+The full pack, with each skill's frontmatter resolved into `metadata`. Skills whose file
+cannot be read are left out.
+
+**Errors:** `404 Not Found` if the pack does not exist.
+
+### POST /api/skill-packs/:packId/add-to-library
+
+Copy every skill in the pack into My Library, in section `3_Skills`, tagged
+`skill-pack:<packId>`. **Write route: `403` in read-only mode.**
+
+**Body:**
+```json
+{ "confirm": true }
+```
+
+**Response (200 OK):**
+```json
+{ "message": "Added 4 skills from Developer Essentials Pack (1 skipped)", "added": 4, "skipped": 1, "packId": "developer-essentials-pack" }
+```
+
+A skill is skipped when My Library already has a prompt with the same title, section and
+category, so adding a pack twice does not duplicate it.
+
+**Errors:**
+- `400 Bad Request`: `confirm` is not `true`
+- `403 Forbidden`: read-only mode
+- `404 Not Found`: pack not found
+
+### DELETE /api/skill-packs/:packId/remove-from-library
+
+Delete every My Library prompt in section `3_Skills` tagged `skill-pack:<packId>`.
+**Write route: `403` in read-only mode.**
+
+**Body:**
+```json
+{ "confirm": true }
+```
+
+**Response (200 OK):**
+```json
+{ "message": "Removed 4 skills from My Library", "removed": 4, "packId": "developer-essentials-pack" }
+```
+
+**Errors:**
+- `400 Bad Request`: `confirm` is not `true`
+- `403 Forbidden`: read-only mode
+
+### GET /api/skill-packs/:packId/download
+
+Download the pack as a ZIP.
+
+**Errors:** `404 Not Found` if the pack does not exist.
 
 ---
 
 ## Response Formats
 
-### Success Response
+Success responses are `200 OK` with the resource as the body (an array for listings, an
+object otherwise). Errors carry an `error` field:
 
-All successful responses use HTTP status `200 OK` (or `201 Created` where appropriate).
-
-**Standard Format:**
 ```json
-{
-  "data": { ... },
-  "message": "Operation successful"  // optional
-}
+{ "error": "Description of what went wrong" }
 ```
 
-### Error Response
+**Status codes in use:**
+- `200 OK`: success
+- `400 Bad Request`: invalid input or path
+- `403 Forbidden`: write attempted in read-only mode
+- `404 Not Found`: resource doesn't exist
+- `409 Conflict`: the prompt is already in My Library
+- `500 Internal Server Error`: server error
 
-All error responses include an `error` field with a human-readable message.
-
-**Format:**
-```json
-{
-  "error": "Description of what went wrong"
-}
-```
-
-**Common HTTP Status Codes:**
-- `200 OK`: Success
-- `400 Bad Request`: Invalid input
-- `401 Unauthorized`: Authentication required or invalid
-- `404 Not Found`: Resource doesn't exist
-- `409 Conflict`: Resource already exists
-- `500 Internal Server Error`: Server error
+There is no CORS configuration (same-origin only), no rate limiting and no server-side
+pagination.
 
 ---
 
-## Data Models
-
-### User (Public)
-
-Returned by API (password_hash excluded).
-
-```typescript
-{
-  id: string;              // "user_<timestamp>_<random>"
-  email: string;           // "user@example.com"
-  name: string | null;     // Display name
-  avatar_url: string | null;  // Profile picture URL
-  created_at: string;      // ISO 8601 timestamp
-  updated_at: string;      // ISO 8601 timestamp
-}
-```
+## Data Model
 
 ### Prompt
 
-Returned by prompt endpoints.
-
 ```typescript
 {
-  id: string;              // Database ID or file path
-  title: string;           // Prompt title
-  section: string;         // Prompt_Library | Agent_Instructions | Agent_Guides | System_Prompts | Skills
-  category: string;        // Business, Marketing, Development, etc.
-  subcategory: string | null;  // Optional sub-category
-  tags: string[];          // Array of tag strings
-  content: string;         // Full markdown content
-  lastModified: string;    // ISO 8601 timestamp
-  isUserOwned: boolean;    // true for user prompts, false for public
+  id: string;              // public: path under library/; My Library: file name without .md
+  title: string;
+  section: string;         // 1_Guides | 2_Agents | 3_Skills | 4_Prompts | 5_System_Prompts
+  category: string;
+  subcategory: string | null;
+  tags: string[];
+  content: string;         // full markdown, or a preview/empty string in lightweight mode
+  lastModified: string;    // ISO 8601; My Library uses the frontmatter `updated` value
+  isUserOwned: boolean;    // true for My Library, false for public
 }
 ```
 
-### Session
+### My Library file
 
-Not directly returned (internal use only).
-
-```typescript
-{
-  id: string;              // "session_<timestamp>_<random>"
-  user_id: string;         // Foreign key to user
-  token: string;           // Random session token
-  expires_at: string;      // ISO 8601 timestamp
-  created_at: string;      // ISO 8601 timestamp
-}
-```
-
+```markdown
 ---
-
-## Rate Limiting
-
-**Current:** No rate limiting implemented
-
-**Planned:**
-- 100 requests per minute per IP
-- 1000 requests per hour per user
-- Separate limits for auth endpoints (stricter)
-
+title: My Custom Prompt
+section: 4_Prompts
+category: Business
+subcategory: Marketing
+tags:
+  - custom
+created: '2026-10-21T10:27:36.000Z'
+updated: '2026-10-21T10:27:36.000Z'
 ---
-
-## CORS
-
-**Current:** Not configured (same-origin only)
-
-**For Production:**
-```typescript
-app.use(cors({
-  origin: 'https://your-frontend-domain.com',
-  credentials: true  // Allow cookies
-}));
+Full prompt content in markdown...
 ```
 
----
-
-## Pagination
-
-**Current:** Not implemented (returns all results)
-
-**Future Format:**
-```
-GET /api/prompts?library=my&page=2&limit=20
-```
-
-**Response:**
-```json
-{
-  "data": [...],
-  "pagination": {
-    "page": 2,
-    "limit": 20,
-    "total": 156,
-    "totalPages": 8
-  }
-}
-```
-
----
-
-## Filtering & Search
-
-**Planned Features:**
-
-**Search:**
-```
-GET /api/prompts?library=my&search=marketing
-```
-
-**Filter by Section:**
-```
-GET /api/prompts?library=my&section=Prompt_Library
-```
-
-**Filter by Category:**
-```
-GET /api/prompts?library=my&category=Business
-```
-
-**Filter by Tags:**
-```
-GET /api/prompts?library=my&tags=seo,marketing
-```
-
-**Sort:**
-```
-GET /api/prompts?library=my&sort=title&order=asc
-```
-
----
-
-## Webhooks
-
-**Status:** Not implemented
-
-**Planned Events:**
-- `prompt.created`
-- `prompt.updated`
-- `prompt.deleted`
-- `user.created`
-
----
-
-## SDK / Client Libraries
-
-**Status:** Not yet available
-
-**Planned:**
-- JavaScript/TypeScript client
-- Python client
-- CLI tool
-
-**Example Future Usage:**
-```typescript
-import { MyPromptLibrary } from '@my-prompt-library/client';
-
-const client = new MyPromptLibrary({
-  apiUrl: 'http://localhost:3010',
-  token: 'your-auth-token'
-});
-
-const prompts = await client.prompts.list({ library: 'my' });
-const newPrompt = await client.prompts.create({
-  title: 'Test',
-  content: '...'
-});
-```
+See [SETUP.md](../setup/SETUP.md#my-library-on-disk) for the defaults applied to
+hand-edited files.
 
 ---
 
 ## Testing
 
-### Using cURL
-
-**Complete Flow:**
 ```bash
-# 1. Sign up
-curl -X POST http://localhost:3010/api/auth/signup \
-  -H "Content-Type: application/json" \
-  -d '{"email":"test@example.com","password":"test123"}' \
-  -c cookies.txt
-
-# 2. Get profile
-curl http://localhost:3010/api/auth/me \
-  -b cookies.txt
-
-# 3. List my prompts
-curl http://localhost:3010/api/prompts?library=my \
-  -b cookies.txt
-
-# 4. Create prompt
-curl -X POST http://localhost:3010/api/prompts \
-  -H "Content-Type: application/json" \
-  -b cookies.txt \
-  -d '{
-    "title": "Test Prompt",
-    "section": "4_Prompts",
-    "category": "Business",
-    "content": "Test content"
-  }'
-
-# 5. Logout
-curl -X POST http://localhost:3010/api/auth/logout \
-  -b cookies.txt
+npm run test:routes      # the route table, and that no auth router is mounted
+npm run test:my-library  # the file store, against a temp folder
 ```
 
-### Using Postman
+**Quick cURL round trip** (local, not read-only):
+```bash
+# Create
+curl -X POST http://localhost:3010/api/prompts \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Test Prompt","section":"4_Prompts","category":"Business","content":"Test content"}'
 
-1. Create collection
-2. Set base URL variable: `http://localhost:3010`
-3. Add requests for each endpoint
-4. Use Tests tab to save token:
-   ```javascript
-   pm.environment.set("auth_token", pm.response.json().token);
-   ```
+# List
+curl "http://localhost:3010/api/prompts?library=my"
 
-### Using JavaScript (fetch)
-
-```javascript
-// Sign up
-const signupResponse = await fetch('http://localhost:3010/api/auth/signup', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  credentials: 'include',
-  body: JSON.stringify({
-    email: 'test@example.com',
-    password: 'test123'
-  })
-});
-const { user, token } = await signupResponse.json();
-
-// Get prompts
-const promptsResponse = await fetch('http://localhost:3010/api/prompts?library=my', {
-  credentials: 'include'
-});
-const prompts = await promptsResponse.json();
+# The file is in site/my-library/test-prompt-<hex>.md
 ```
 
 ---
 
 ## Performance Optimizations
 
-### Prebuilt Index (March 2026)
+### Prebuilt Index
 
-**Overview:**
-The API uses a prebuilt static index for faster cold starts on serverless deployments (Vercel).
+The API uses a prebuilt static index for faster cold starts on Vercel.
 
 **Build Process:**
 ```bash
@@ -902,29 +529,14 @@ committed file byte for byte. CI relies on that.
 - **Payload size:** 13MB → 700KB for lightweight mode
 - **Memory usage:** Reduced by ~90%
 
-### Caching Strategy
+### Caching
 
-**In-Memory Cache:**
-- 5-minute TTL for public library lightweight requests
-- Resets on server restart
-- Cache key: `public-lightweight`
-
-**Browser Cache:**
-- Client-side caching via standard HTTP headers
-- Cache-Control headers for static assets
+- 5-minute in-memory cache for public library lightweight listings
+- Resets on server restart (or a new Vercel instance)
+- The My Library listing is never cached; it reads the folder on every request, so
+  hand-edits show up on the next load
 
 ### Lightweight Mode
-
-**When to Use:**
-- Initial page loads
-- List views
-- Search results
-- Category browsing
-
-**When to Use Full Content:**
-- Individual prompt view
-- Copy operations
-- Export operations
 
 **Recommended Pattern:**
 ```javascript
@@ -944,8 +556,7 @@ const full = await fetch(`/api/prompts/${encodeURIComponent(promptId)}`);
 
 ### File Size Limits
 
-**Automatic Filtering:**
-- Files >500KB are excluded from index
+- Files >500KB are excluded from the index and the listing
 - Prevents bulk collections from slowing down the API
 - Skipped files are logged during build
 
@@ -955,88 +566,19 @@ const full = await fetch(`/api/prompts/${encodeURIComponent(promptId)}`);
 
 ### Pagination
 
-**Frontend Pagination:**
 - 50 prompts per page (`ITEMS_PER_PAGE` in `src/hooks/usePromptFilters.ts`)
-- Client-side pagination (all data loaded once)
-- Navigation: Previous/Next buttons
-
-**Backend Considerations:**
-- Full dataset returned (filtered client-side)
+- Client-side pagination; the full listing is loaded once and filtered in the browser
 - Consider server-side pagination for >5000 prompts
 
 ---
 
-## Skill Pack Endpoints
-
-### GET /api/skill-packs?library=public|my
-
-List skill packs by library mode.
-
-- `public`: all available packs
-- `my`: only packs explicitly added by the authenticated user
-
-**Auth:** Required only for `library=my`
-
-### GET /api/skill-packs/:packId
-
-Get full pack details and resolved skill metadata.
-
-### POST /api/skill-packs/:packId/add-to-library
-
-Add a skill pack to My Library.
-
-**Auth:** Required  
-**Body:**
-```json
-{ "confirm": true }
-```
-
-Behavior:
-- Tracks install in `user_skill_pack_installs`
-- Imports pack skills into `user_prompts`
-- Tags imported skills with `skill-pack:<packId>` for cleanup
-
-### DELETE /api/skill-packs/:packId/remove-from-library
-
-Remove a skill pack from My Library.
-
-**Auth:** Required  
-**Body:**
-```json
-{ "confirm": true }
-```
-
-Behavior:
-- Removes pack install from `user_skill_pack_installs`
-- Removes imported skills tagged `skill-pack:<packId>` from user prompts
-
-### GET /api/skill-packs/:packId/download
-
-Download the pack as ZIP.
-
----
-
-## Versioning
-
-**Current Version:** v1 (implicit)
-
-**Future:** API versioning via URL path
-```
-/api/v1/prompts
-/api/v2/prompts
-```
-
----
-
-## Support
-
-**Issues:** GitHub Issues  
-**Documentation:** `/docs` directory  
-**Questions:** Discord community
-
----
-
 ## Changelog
+
+### v2.0.0 (October 2026)
+- **Removed:** all `/api/auth/*` endpoints, cookie sessions and rate limiting
+- My Library is a folder of markdown files; its ids are file names, not database ids
+- Write routes return `403` in read-only mode (`READ_ONLY=true`, or on Vercel)
+- Skill-pack "installed" state is derived from `skill-pack:<packId>` tags
 
 ### v1.3.0 (September 2026)
 - **New Endpoint:** `POST /api/prompts/previews` — batched card blurbs, 200 ids max
@@ -1048,8 +590,6 @@ Download the pack as ZIP.
 ### v1.2.0 (April 2026)
 - Added skill pack library-mode endpoint behavior (`public` vs `my`)
 - Added skill pack install/remove APIs with explicit confirmation
-- Added user skill pack install tracking (`user_skill_pack_installs`)
-- Added cleanup behavior for imported skill-pack prompts
 - Improved search ranking to prioritize prompt title matches first
 
 ### v1.1.0 (March 2026)
@@ -1062,7 +602,6 @@ Download the pack as ZIP.
 
 ### v1.0.0
 - Initial release
-- User authentication (signup, login, logout)
 - Prompt CRUD operations
 - Public/My Library separation
 - Copy prompts from public to personal library

@@ -19,9 +19,9 @@
 How a prompt reaches the browser: the Public Library is markdown in `site/library/`, which
 `build:index` walks on every build into `prompt-index.json`. The public library API serves that
 index as a metadata-only listing, card blurbs from its previews, and a prompt's full body from the
-file when it is opened. My Library is separate: creates, edits and copies go through the
-session-checked API into Neon PostgreSQL, and the skill packs function copies a pack's skills into
-the same table and records the install. Upstream skill repos feed the library only when someone
+file when it is opened. My Library is separate: creates, edits and copies go through the API into
+a local folder of markdown files (refused on the read-only demo), and the skill packs function
+copies a pack's skills into that folder, tagged with the pack's id. Upstream skill repos feed the library only when someone
 runs the resync script by hand. Below the map, four cards cover the two libraries, why the listing
 carries no bodies, skill packs, and where the content comes from.
 
@@ -43,7 +43,7 @@ tracing, search, light/dark, and SVG/PNG export.
 ## 🔁 Keeping it current
 
 Every node cites code by path and line range, pinned to the commit in `meta.repository.revision`.
-The cited files are `site/api/index.ts`, `site/api/skill-packs.ts`, `site/db/postgres.ts`,
+The cited files are `site/api/index.ts`, `site/api/skill-packs.ts`, `site/lib/my-library.ts`,
 `site/scripts/build-prompt-index.js`, `site/package.json`, `site/src/App.tsx`, the
 `usePromptPreviews` and `usePromptContent` hooks, `scripts/resync-upstream.mjs` and
 `.github/workflows/upstream-drift.yml`. When one changes, the diagram may describe logic that moved

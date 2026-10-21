@@ -17,10 +17,9 @@ source. `—` means never checked.
 
 ## Data and APIs
 
-| Upstream | What the code assumes | Code | Check at | Last checked |
-|:---|:---|:---|:---|:---|
-| **Neon Postgres via `pg`** | `pg` `^8.23.0`; one `Pool` from `DATABASE_URL`, `max: 10`, `ssl: { rejectUnauthorized: false }` in production; parameterized queries only | `site/db/postgres.ts` | neon.com/docs/changelog; neon.com/docs/connect/connect-securely; github.com/brianc/node-postgres/blob/master/CHANGELOG.md | 2026-10-09 |
-| **GitHub REST API** *(GitHub mode, `USE_GITHUB_MODE=true`)* | `Authorization: token <GITHUB_TOKEN>`, `Accept: application/vnd.github.v3+json`, no `X-GitHub-Api-Version` header. Calls `GET /repos/{o}/{r}/git/ref/heads/{branch}`, `GET /repos/{o}/{r}/git/trees/{sha}?recursive=1`, `GET /repos/{o}/{r}/contents/{path}?ref={branch}` | `site/api/index.ts` | docs.github.com/en/rest/about-the-rest-api/api-versions; github.blog/changelog (label: api) | 2026-10-09 |
+None. Since 2026-10-21 the app calls no external service at runtime: the Public Library is read
+from `site/library/` and My Library from local files. (Neon Postgres and the GitHub REST API were
+tracked here until then.)
 
 ## Static assets
 
@@ -45,7 +44,7 @@ source. `—` means never checked.
 | Vite, @vitejs/plugin-react | `^6.2.0`, `^5.2.0` | github.com/vitejs/vite/blob/main/packages/vite/CHANGELOG.md | — |
 | Tailwind CSS v4, @tailwindcss/vite | `^4.1.14`, `^4.3.3` | github.com/tailwindlabs/tailwindcss/releases | — |
 | TypeScript | `~5.9.3` | devblogs.microsoft.com/typescript | — |
-| bcryptjs, cookie-parser, express-rate-limit, helmet | `^3.0.3`, `^1.4.7`, `^8.7.0`, `^8.3.0` (auth path; the limiter and headers sit in front of it) | each package's GitHub releases | — |
+| helmet | `^8.3.0` (response headers) | github.com/helmetjs/helmet/releases | — |
 | fuse.js, react-markdown, remark-gfm, gray-matter, archiver, motion, lucide-react, dotenv | see `package.json` | each package's GitHub releases | — |
 
 Flag breaking majors, EOL runtimes, and security advisories only. Routine bumps are

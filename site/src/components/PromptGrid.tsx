@@ -135,9 +135,6 @@ interface PromptGridProps {
   onPreviousPage: () => void;
   onNextPage: () => void;
   searchQuery: string;
-  isAuthenticated: boolean;
-  onLogin: () => void;
-  onSignup: () => void;
   onBrowsePublic: () => void;
   actions: PromptCardActions;
 }
@@ -156,9 +153,6 @@ export default function PromptGrid({
   onPreviousPage,
   onNextPage,
   searchQuery,
-  isAuthenticated,
-  onLogin,
-  onSignup,
   onBrowsePublic,
   actions,
 }: PromptGridProps) {
@@ -168,11 +162,7 @@ export default function PromptGrid({
 
   if (totalCount === 0) {
     if (actions.libraryMode === 'my') {
-      return isAuthenticated ? (
-        <EmptyState type="no-prompts" onBrowsePublic={onBrowsePublic} />
-      ) : (
-        <EmptyState type="not-authenticated" onLogin={onLogin} onSignup={onSignup} onBrowsePublic={onBrowsePublic} />
-      );
+      return <EmptyState onBrowsePublic={onBrowsePublic} />;
     }
     return <NoResults searchQuery={searchQuery} />;
   }

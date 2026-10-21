@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import archiver from 'archiver';
-import { sessionDb, userDb, promptDb, userSkillPackDb } from '../db/postgres.js';
+import { myLibrary, READ_ONLY } from '../lib/my-library.js';
 
 // Recursively get all files in a directory
 async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): Promise<string[]> {
@@ -32,26 +32,11 @@ const APP_ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const packsDir = path.join(APP_ROOT, 'library/3_Skills/packs');
 
 
-function getCookieToken(cookieHeader?: string): string | null {
-  if (!cookieHeader) return null;
-  const parts = cookieHeader.split(';').map(p => p.trim());
-  const auth = parts.find(p => p.startsWith('auth_token='));
-  if (!auth) return null;
-  return decodeURIComponent(auth.slice('auth_token='.length));
-}
+// A pack is "in My Library" while any of its skills are: add-to-library tags
+// every skill it copies, so the tag is the install record.
+const installTag = (packId: string) => `skill-pack:${packId}`;
 
-async function resolveUserId(req: VercelRequest): Promise<string | null> {
-  const bearer = req.headers.authorization?.replace('Bearer ', '').trim();
-  const cookieToken = getCookieToken(req.headers.cookie);
-  const token = bearer || cookieToken;
-  if (!token) return null;
-
-  const session = await sessionDb.findByToken(token);
-  if (!session) return null;
-
-  const user = await userDb.findById(session.user_id);
-  return user?.id || null;
-}
+const READ_ONLY_ERROR = { error: 'This copy of the library is read-only. Clone the repo to keep your own prompts.' };
 
 
 async function getAllPackFiles(dirPath: string): Promise<string[]> {
@@ -118,13 +103,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       let filtered = packs;
 
       if (libraryMode === 'my') {
-        const userId = await resolveUserId(req);
-        if (!userId) {
-          return res.status(401).json({ error: 'Authentication required for My Library' });
-        }
-        const installs = await userSkillPackDb.listByUserId(userId);
-        const installedIds = new Set(installs.map(i => i.pack_id));
-        filtered = packs.filter(pack => installedIds.has(pack.id));
+        const tags = new Set(myLibrary.list().flatMap(p => p.tags));
+        filtered = packs.filter(pack => tags.has(installTag(pack.id)));
       }
 
       const summary = filtered.map(pack => ({
@@ -152,21 +132,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const addMatch = urlPath.match(/^\/api\/skill-packs\/([^\/]+)\/add-to-library$/);
   if (method === 'POST' && addMatch) {
     try {
+      if (READ_ONLY) return res.status(403).json(READ_ONLY_ERROR);
       if (req.body?.confirm !== true) {
         return res.status(400).json({ error: 'Explicit confirmation required' });
       }
 
       const packId = decodeURIComponent(addMatch[1]);
-      const userId = await resolveUserId(req);
-      if (!userId) {
-        return res.status(401).json({ error: 'Authentication required' });
-      }
 
       const packs = await getAllPacks();
       const pack = packs.find(p => p.id === packId);
       if (!pack) return res.status(404).json({ error: 'Pack not found' });
 
-      const existing = await promptDb.findByUserId(userId);
+      const existing = myLibrary.list();
       const existingKeys = new Set(existing.map(p => `${p.title}::${p.section}::${p.category}`));
 
       let added = 0;
@@ -181,8 +158,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const category = data.category || pack.category || 'Skill Packs';
         const subcategory = data.subcategory || pack.name;
         const tags = Array.isArray(data.tags) ? data.tags : (Array.isArray(pack.tags) ? pack.tags : []);
-        const installTag = `skill-pack:${pack.id}`;
-        const tagsWithInstall = tags.includes(installTag) ? tags : [...tags, installTag];
+        const tag = installTag(pack.id);
+        const tagsWithInstall = tags.includes(tag) ? tags : [...tags, tag];
 
         const dedupeKey = `${title}::${section}::${category}`;
         if (existingKeys.has(dedupeKey)) {
@@ -190,12 +167,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           continue;
         }
 
-        await promptDb.copyFromPublic(userId, { title, section, category, subcategory, tags: tagsWithInstall, content });
+        myLibrary.create({ title, section, category, subcategory, tags: tagsWithInstall, content });
         existingKeys.add(dedupeKey);
         added++;
       }
-
-      await userSkillPackDb.add(userId, pack.id);
 
       return res.status(200).json({
         message: `Added ${added} skill${added === 1 ? '' : 's'} from ${pack.name}${skipped > 0 ? ` (${skipped} skipped)` : ''}`,
@@ -212,24 +187,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const removeMatch = urlPath.match(/^\/api\/skill-packs\/([^\/]+)\/remove-from-library$/);
   if (method === 'DELETE' && removeMatch) {
     try {
+      if (READ_ONLY) return res.status(403).json(READ_ONLY_ERROR);
       if (req.body?.confirm !== true) {
         return res.status(400).json({ error: 'Explicit confirmation required' });
       }
       const packId = decodeURIComponent(removeMatch[1]);
-      const userId = await resolveUserId(req);
-      if (!userId) return res.status(401).json({ error: 'Authentication required' });
 
-      const installTag = `skill-pack:${packId}`;
-      const userPrompts = await promptDb.findByUserId(userId);
-      const packPrompts = userPrompts.filter(p => p.section === '3_Skills' && Array.isArray(p.tags) && p.tags.includes(installTag));
+      const packPrompts = myLibrary.list().filter(p => p.section === '3_Skills' && p.tags.includes(installTag(packId)));
 
       let removed = 0;
       for (const prompt of packPrompts) {
-        const ok = await promptDb.delete(prompt.id, userId);
-        if (ok) removed++;
+        if (myLibrary.delete(prompt.id)) removed++;
       }
-
-      await userSkillPackDb.remove(userId, packId);
 
       return res.status(200).json({
         message: `Removed ${removed} skill${removed === 1 ? '' : 's'} from My Library`,

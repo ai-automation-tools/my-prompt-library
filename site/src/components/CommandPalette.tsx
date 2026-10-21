@@ -18,6 +18,7 @@ import type { LibraryTab } from '../hooks/useLibraryRoute';
 import type { Prompt } from './PromptCard';
 import { extractEmoji } from './PromptCard';
 import { Kbd } from './ui/primitives';
+import { READ_ONLY } from '../lib/mode';
 
 interface CommandPaletteProps {
   prompts: Prompt[];
@@ -102,7 +103,7 @@ export default function CommandPalette({
       icon: <s.icon className="h-3.5 w-3.5" />,
       run: () => onSelectSection(s.id),
     }));
-    const actions: Item[] = [
+    const actions: Item[] = READ_ONLY ? [] : [
       {
         key: 'action:new',
         group: 'Actions',

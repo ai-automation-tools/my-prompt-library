@@ -1,289 +1,160 @@
 # Setup Guide
 
-Complete setup instructions for local development and production deployment.
+How to run My Prompt Library on your own machine. There is no database, no account and no
+required configuration: the Public Library is markdown in `site/library/`, and your own
+prompts (My Library) are markdown files in a folder you choose.
 
 ---
 
 ## Prerequisites
 
 - **Node.js** 22 ([download](https://nodejs.org/)) — CI pins 22; 20 works
-- **npm** or **yarn**
-- **PostgreSQL database** (Neon recommended for free tier)
+- **npm**
 - **Git** ([download](https://git-scm.com/))
 
 ---
 
-## Local Development Setup
+## Local Setup
 
-### 1. Clone Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/ai-automation-tools/my-prompt-library.git
 cd my-prompt-library/site
 ```
 
-Everything that runs — `package.json`, `api/`, `library/`, `server.ts` — lives under `site/`.
-All `npm` commands below are run from there.
+Everything that runs (`package.json`, `api/`, `lib/`, `library/`, `server.ts`) lives under
+`site/`. Run every `npm` command below from there.
 
-```bash
-# (you are now in site/)
-```
-
-### 2. Install Dependencies
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Create Neon Database
-
-1. Sign up at [neon.tech](https://neon.tech) (free)
-2. Create a new project: "my-prompt-library"
-3. Copy the connection string from Settings → Connection Details
-
-Example connection string:
-```
-postgresql://neondb_owner:npg_xxxxx@ep-xxxxx.neon.tech/neondb?sslmode=require
-```
-
-### 4. Configure Environment Variables
-
-Create `.env` under `site/` (copy `site/.env.example`):
+### 3. Start the app
 
 ```bash
-# Required: PostgreSQL Database
-DATABASE_URL=postgresql://neondb_owner:npg_xxxxx@ep-xxxxx.neon.tech/neondb?sslmode=require
-
-# Optional: GitHub Mode (for public library)
-USE_GITHUB_MODE=false
-GITHUB_TOKEN=
-GITHUB_OWNER=
-GITHUB_REPO=
-GITHUB_BRANCH=main
+npm run dev     # Vite with hot reload
+# or
+npm start       # build once, then serve dist/
 ```
 
-### 5. Start Development Server
-
-```bash
-npm run dev
-```
-
-Visit **http://localhost:3010**
-
-The database schema will initialize automatically on first run.
+Open **http://localhost:3010**. The server prints the folder it is using for My Library on
+startup.
 
 ---
 
-## Production Deployment (Vercel)
+## Configuration (optional)
 
-> Set the Vercel project's **Root Directory** to `site`. Without it the build cannot find
-> `package.json`. Full steps in [DEPLOYMENT.md](DEPLOYMENT.md).
+No `.env` is needed. To change a default, copy `site/.env.example` to `site/.env` and
+uncomment what you want:
 
-### 1. Create Vercel Account
-
-Sign up at [vercel.com](https://vercel.com) (free tier available)
-
-### 2. Install Vercel CLI (Optional)
-
-```bash
-npm install -g vercel
-```
-
-### 3. Deploy
-
-**Option A: GitHub Integration (Recommended)**
-
-1. Push your code to GitHub
-2. Visit [vercel.com/new](https://vercel.com/new)
-3. Import your repository
-4. Add environment variables (see below)
-5. Deploy
-
-**Option B: Vercel CLI**
-
-```bash
-vercel login
-vercel link
-vercel env add DATABASE_URL
-# Paste your Neon connection string
-vercel --prod
-```
-
-### 4. Add Environment Variables in Vercel
-
-Go to Vercel Dashboard → Your Project → Settings → Environment Variables
-
-**Required:**
-```
-DATABASE_URL = postgresql://neondb_owner:npg_xxxxx@ep-xxxxx.neon.tech/neondb?sslmode=require
-```
-
-**Optional (GitHub Mode):**
-```
-USE_GITHUB_MODE = true
-GITHUB_TOKEN = ghp_xxxxxxxxxxxxxxxxxxxxx
-GITHUB_OWNER = your-username
-GITHUB_REPO = my-prompt-library
-GITHUB_BRANCH = main
-```
-
-### 5. Redeploy
-
-After adding environment variables, trigger a redeploy:
-- Vercel Dashboard → Deployments → Redeploy
-- Or push a new commit to trigger auto-deployment
+| Variable | Default | What it does |
+|:---|:---|:---|
+| `MY_LIBRARY_DIR` | `my-library` | Folder that holds My Library. Relative paths resolve against `site/`; absolute paths are used as-is. |
+| `HOST` | `127.0.0.1` | Address the server listens on. See [Exposing it beyond localhost](#exposing-it-beyond-localhost). |
+| `READ_ONLY` | `false` | `true` serves the Public Library only and refuses every write with `403`. Vercel turns this on automatically. |
 
 ---
 
-## Storage Modes
+## My Library on disk
 
-### Local Filesystem Mode (Default)
+Each prompt you create, copy from the Public Library or add from a skill pack is one `.md`
+file in `MY_LIBRARY_DIR` (default `site/my-library/`, which is gitignored).
 
-**Public Library:** Reads from `library/` directory (local files)  
-**User Data:** PostgreSQL (Neon)
+- **File name = id.** New files are named `<slug-of-title>-<6 hex>.md`, for example
+  `code-review-checklist-3fa9c1.md`. The name never changes after creation, so renaming a
+  prompt does not break links to it.
+- **Frontmatter** holds the metadata; the body is the prompt:
 
-**Pros:**
-- ✅ Fast (no external API calls for public library)
-- ✅ Works offline
-- ✅ No rate limits
+  ```markdown
+  ---
+  title: Code review checklist
+  section: 4_Prompts
+  category: Coding
+  subcategory: null
+  tags:
+    - review
+  created: '2026-10-21T14:02:11.000Z'
+  updated: '2026-10-21T14:02:11.000Z'
+  ---
+  Review this diff for...
+  ```
 
-**Cons:**
-- ❌ Public library updates require git pull + redeploy
+- **Hand-editing is fine.** Missing fields fall back to defaults (`section` → `4_Prompts`,
+  `category` → `Uncategorized`, `updated` → the file's modified time). A file you add by
+  hand must use a lowercase `a-z0-9-` name to be picked up as an id.
+- **Skill packs** you add are ordinary My Library files tagged `skill-pack:<packId>`.
+  Removing the pack deletes the files with that tag.
 
-**Configuration:**
+**Backing it up:** point `MY_LIBRARY_DIR` at a folder that is already synced or under git,
+for example `MY_LIBRARY_DIR=D:/Notes/prompts`. There is nothing else to back up.
+
+---
+
+## Exposing it beyond localhost
+
+There are no accounts. Anyone who can reach the server can create, edit and delete
+everything in My Library. That is why it listens on `127.0.0.1` by default.
+
+If you set `HOST=0.0.0.0` (or put it behind a reverse proxy), do one of these first:
+
+- set `READ_ONLY=true`, which makes it a Public Library browser like the hosted demo, or
+- put your own authentication in front of it (a VPN, an authenticating proxy, basic auth).
+
+> [!NOTE]
+> `READ_ONLY` is read twice: by the server, which refuses writes, and by `vite build`, which
+> hides the write controls in the UI. Both load `site/.env`, so one line there covers
+> `npm run dev` and `npm start` alike.
+
+---
+
+## Checks
+
 ```bash
-USE_GITHUB_MODE=false
+npm run lint             # tsc --noEmit
+npm run test:routes      # the API route table is intact
+npm run test:my-library  # My Library file store round-trip, in a temp folder
+npm run build:index      # rebuild api/prompt-index.json after editing library/
 ```
 
----
-
-### GitHub API Mode (Optional)
-
-**Public Library:** Fetched from GitHub API  
-**User Data:** PostgreSQL (Neon)
-
-**Pros:**
-- ✅ Public library updates without redeployment
-- ✅ Collaborative editing via Git
-- ✅ Dynamic content
-
-**Cons:**
-- ❌ Slower (API calls required)
-- ❌ GitHub API rate limits (5000/hour authenticated)
-
-**Configuration:**
-```bash
-USE_GITHUB_MODE=true
-GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxx  # Personal Access Token
-GITHUB_OWNER=your-username
-GITHUB_REPO=my-prompt-library
-GITHUB_BRANCH=main
-```
-
-**How to create GitHub Personal Access Token:**
-1. GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
-2. Generate new token (classic)
-3. Scopes: `repo` (full control)
-4. Copy token and add to `.env`
-
----
-
-## Database Schema
-
-The database initializes automatically with these tables:
-
-**`users`**
-- id, email, password_hash, name, avatar_url
-- created_at, updated_at
-
-**`user_prompts`**
-- id, user_id, title, section, category, subcategory
-- tags (JSON), content
-- created_at, updated_at
-
-**`user_sessions`**
-- id, user_id, token, expires_at
-- created_at
-
-Schema file: `db/postgres.ts` (see `initializeSchema()`)
-
----
-
-## Testing Your Setup
-
-### 1. Create an Account
-
-Visit your local or deployed URL:
-1. Click "Sign Up"
-2. Enter email, password, name
-3. Create account
-
-### 2. Browse Public Library
-
-- Switch to "Public Library" tab
-- Browse categories
-- Search for prompts
-
-### 3. Save Prompts
-
-- Click "+ Add to My Library" on any public prompt
-- Switch to "My Library" tab
-- Verify prompt was copied
-
-### 4. Create Custom Prompts
-
-- Click "+ New Prompt" in My Library
-- Fill in details
-- Save
+CI runs these on every PR, plus the provenance and homepage checks from the repo root.
 
 ---
 
 ## Troubleshooting
 
-### Database Connection Errors
+### My Library is empty after changing `MY_LIBRARY_DIR`
 
-**Error:** `connect ECONNREFUSED` or `connection timeout`
+The app reads only the folder it printed at startup. Check the path in the console, and
+remember a relative path resolves against `site/`, not the directory you ran `npm` from.
 
-**Solution:**
-- Verify `DATABASE_URL` is correct in `.env` (local) or Vercel env vars (production)
-- Check Neon dashboard for connection string
-- Ensure SSL is enabled (`sslmode=require`)
+### A hand-edited prompt does not show up
 
-### Build Failures
+The file name must be lowercase letters, digits and hyphens with a `.md` extension. A file
+with broken YAML frontmatter is skipped with a `[MY-LIBRARY] Skipping unreadable` warning in
+the server console.
 
-**Error:** `Transform failed` or TypeScript errors
+### Saving fails with `403`
 
-**Solution:**
+The server is in read-only mode. Unset `READ_ONLY` (and make sure `VERCEL` is not set in
+your shell).
+
+### Build failures
+
 ```bash
-npm run build  # Test build locally
-npm run dev    # Check console for errors
+npm run lint    # type errors
+npm run build   # full build: index, tsc, vite
 ```
-
-### Authentication Issues
-
-**Error:** `401 Unauthorized` or `Invalid token`
-
-**Solution:**
-- Clear browser cookies
-- Check browser console for CORS errors
-- Verify cookies are enabled in browser
-
-### GitHub API Rate Limit
-
-**Error:** `403 API rate limit exceeded`
-
-**Solution:**
-- Switch to local filesystem mode (`USE_GITHUB_MODE=false`)
-- Wait 1 hour for rate limit reset
-- Use authenticated token (higher rate limit: 5000/hour)
 
 ---
 
 ## Next Steps
 
-- [**API Reference**](../features/API.md) - Learn about available endpoints
-- [**Architecture**](../ARCHITECTURE.md) - Understand system design
-- [**Deployment Guide**](DEPLOYMENT.md) - Advanced deployment options
+- [**API Reference**](../features/API.md) - the REST endpoints
+- [**Architecture**](../ARCHITECTURE.md) - how the pieces fit
+- [**Hosted demo**](DEPLOYMENT.md) - how the read-only demo is built on Vercel
 
 ---
 

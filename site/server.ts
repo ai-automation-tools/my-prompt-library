@@ -7,13 +7,14 @@ import { dirname } from "path";
 import { app } from "./api/index.js";
 import skillPacksHandler from "./api/skill-packs.js";
 import type { VercelRequest, VercelResponse } from "./lib/vercel-types.js";
-import { initializeSchema } from "./db/postgres.js";
+import { MY_LIBRARY_DIR } from "./lib/my-library.js";
 
 /**
  * Local dev server.
  *
- * This file owns exactly one thing production does not have: Vite's HMR
- * middleware. Every API route comes from the same `api/` handlers Vercel runs,
+ * In development it adds the one thing the Vercel demo does not have: Vite's
+ * HMR middleware. With NODE_ENV=production (`npm start`) it serves the built
+ * `dist/` instead. Every API route comes from the same `api/` handlers Vercel runs,
  * mounted on the same Express app — so dev and prod cannot drift apart again.
  *
  * They had. This file used to carry its own copy of all seven prompt routes,
@@ -38,7 +39,9 @@ async function startServer() {
     skillPacksHandler(req as unknown as VercelRequest, res as unknown as VercelResponse),
   );
 
-  if (process.env.NODE_ENV !== "production") {
+  // `npm start` passes --production; NODE_ENV=production does the same.
+  const production = process.argv.includes("--production") || process.env.NODE_ENV === "production";
+  if (!production) {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
@@ -51,21 +54,12 @@ async function startServer() {
     });
   }
 
-  // A missing or unreachable DATABASE_URL must not stop the server — the
-  // read-only Public Library works without it; only auth and My Library break.
-  try {
-    await initializeSchema();
-  } catch (err) {
-    console.warn(
-      "[DB] Schema init failed — starting without a database. " +
-        "Public Library is read-only; auth and My Library will not work. " +
-        "Set DATABASE_URL in site/.env to enable them.",
-    );
-    console.warn("[DB]", err instanceof Error ? err.message : err);
-  }
-
-  app.listen(PORT, "0.0.0.0", () => {
+  // There are no accounts: anyone who can reach this port can edit My Library,
+  // so it listens on loopback only. HOST=0.0.0.0 opens it to the network.
+  const host = process.env.HOST || "127.0.0.1";
+  app.listen(PORT, host, () => {
     console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`My Library: ${MY_LIBRARY_DIR}`);
   });
 }
 
