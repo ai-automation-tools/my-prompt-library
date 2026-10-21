@@ -4,6 +4,33 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — My Library keeps a skill's frontmatter
+
+Found by testing the MCP server for real: a Claude Code session created a prompt and a skill in
+My Library, then the skill was edited.
+
+**Fixed**
+- `lib/my-library.ts` rewrote a file's whole frontmatter on every save from the seven keys it
+  manages, so **any edit dropped a skill's `name` and `description`**, and a skill without them
+  does not load. This hit the app's editor too, not only the MCP server. Unmanaged keys now
+  live in a new `extra` field: read from the file, written back first (a skill still opens with
+  `name:`), and kept through updates.
+- Copying from the Public Library dropped them as well: the copy route, Skill Pack installs and
+  the MCP server's `save_to_my_library` passed only the body. They now carry the item's own
+  frontmatter, less provenance (`upstream:`) and the keys My Library manages
+  (`carriedFrontmatter()` in `lib/library.ts`).
+- `get_item` returns a My Library skill as a complete SKILL.md, frontmatter included.
+
+**Tests**
+- `test:my-library`: a skill keeps `name` and `description` through an update, and the file
+  starts with `name:`. `test:mcp`: a skill created with frontmatter survives an edit and
+  read-back, and a copied Public Library skill keeps its `name`. With the fix removed, both
+  suites fail.
+- Re-run through Claude Code: the skill created in the first test was edited and still reads
+  back with its `name` and `description`, on disk and through `get_item`.
+
+_Touched: `site/lib/my-library.ts`, `site/lib/library.ts`, `site/api/index.ts`, `site/api/skill-packs.ts`, `site/mcp/server.ts`, `site/scripts/my-library.test.mjs`, `site/scripts/mcp-server.test.mjs`, `docs/features/MCP-SERVER.md`, `docs/CHANGELOG.md`._
+
 ## 2026-10-21 — The MCP server stays current with everything else
 
 The server runs straight from this clone (it is in Mike's user-scope Claude Code config), so

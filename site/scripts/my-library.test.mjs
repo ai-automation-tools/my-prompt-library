@@ -39,6 +39,17 @@ try {
   assert.equal(updated.content.trim(), "Body A");
   assert.equal(myLibrary.get(a.id).title, "Renamed");
 
+  // Frontmatter the store does not manage survives create and update: a skill
+  // without name/description will not load, and saves used to drop them.
+  const skill = myLibrary.create({ title: "my-skill", section: "3_Skills", category: "Dev", subcategory: null, tags: [], content: "Do the thing.\n", extra: { name: "my-skill", description: "Use when testing." } });
+  myLibrary.update(skill.id, { tags: ["edited"] });
+  const skillRead = myLibrary.get(skill.id);
+  assert.equal(skillRead.extra.name, "my-skill");
+  assert.equal(skillRead.extra.description, "Use when testing.");
+  assert.deepEqual(skillRead.tags, ["edited"]);
+  assert.match(fs.readFileSync(path.join(dir, `${skill.id}.md`), "utf-8"), /^---\nname: my-skill\n/);
+  myLibrary.delete(skill.id);
+
   // Ids can't climb out of the folder
   for (const bad of ["../x", "..\\x", "a/b", "A", ""]) {
     assert.equal(myLibrary.get(bad), null, bad);

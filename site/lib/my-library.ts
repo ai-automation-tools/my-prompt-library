@@ -23,9 +23,20 @@ export interface UserPrompt {
   content: string;
   created_at: string;
   updated_at: string;
+  /**
+   * Frontmatter keys this store does not manage, kept as they were. A skill's
+   * `name` and `description` live here: without them its SKILL.md will not load,
+   * and before 2026-10-21 every save dropped them.
+   */
+  extra?: Record<string, unknown>;
 }
 
 type PromptFields = Omit<UserPrompt, 'id' | 'created_at' | 'updated_at'>;
+
+/** The keys `write()` owns; everything else in a file's frontmatter is `extra`. */
+const MANAGED = new Set(['title', 'section', 'category', 'subcategory', 'tags', 'created', 'updated']);
+const extraOf = (data: Record<string, unknown>) =>
+  Object.fromEntries(Object.entries(data).filter(([k]) => !MANAGED.has(k)));
 
 const APP_ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -67,12 +78,15 @@ function read(id: string): UserPrompt | null {
     content,
     created_at: asString(data.created) || updated,
     updated_at: updated,
+    extra: extraOf(data),
   };
 }
 
 function write(prompt: UserPrompt, flag: 'w' | 'wx' = 'w') {
   fs.mkdirSync(MY_LIBRARY_DIR, { recursive: true });
+  // Unmanaged keys first, so a skill's file still opens with name/description.
   const frontmatter = {
+    ...extraOf(prompt.extra ?? {}),
     title: prompt.title,
     section: prompt.section,
     category: prompt.category,
@@ -134,6 +148,7 @@ export const myLibrary = {
       subcategory: updates.subcategory !== undefined ? updates.subcategory || null : existing.subcategory,
       tags: updates.tags || existing.tags,
       content: updates.content || existing.content,
+      extra: { ...existing.extra, ...updates.extra },
       updated_at: new Date().toISOString(),
     };
     write(prompt);

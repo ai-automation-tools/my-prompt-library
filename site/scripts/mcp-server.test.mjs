@@ -133,6 +133,25 @@ try {
   assert.match(await ok(client, 'get_item', { id: myId }), /UPDATED-BODY/);
   const fresh = await ok(client, 'save_to_my_library', { title: 'Fresh prompt', content: 'Hello', section: 'prompts', tags: ['t1'] });
   assert.match(fresh, /Saved to My Library/);
+  // A skill keeps its frontmatter through save, edit and read-back.
+  const skillSaved = await ok(client, 'save_to_my_library', {
+    title: 'test-skill', section: 'skills', category: 'Development', tags: ['t'],
+    content: '---\nname: test-skill\ndescription: Use when testing the MCP server.\n---\n\n# Test skill\n\nDo it.\n',
+  });
+  const skillId = skillSaved.match(/`([a-z0-9-]+)`/)?.[1];
+  await ok(client, 'update_my_prompt', { id: skillId, tags: ['t', 'edited'] });
+  const skillBack = await ok(client, 'get_item', { id: skillId });
+  assert.match(skillBack, /name: test-skill/, 'skill name survives an edit');
+  assert.match(skillBack, /description: Use when testing the MCP server\./, 'skill description survives an edit');
+
+  // Copying a Public Library skill carries its name and description too.
+  const libSkill = index.prompts.find((p) => p.section === '3_Skills' && p.id.endsWith('/SKILL.md'));
+  const copied = await ok(client, 'save_to_my_library', { id: libSkill.id });
+  const copiedId = copied.match(/`([a-z0-9-]+)`/)?.[1];
+  assert.match(await ok(client, 'get_item', { id: copiedId }), /\nname: /, 'copied skill keeps its name');
+  await ok(client, 'delete_my_prompt', { id: skillId });
+  await ok(client, 'delete_my_prompt', { id: copiedId });
+
   await ok(client, 'delete_my_prompt', { id: myId });
   await refused(client, 'get_item', { id: myId });
   await refused(client, 'delete_my_prompt', { id: '../escape' });
