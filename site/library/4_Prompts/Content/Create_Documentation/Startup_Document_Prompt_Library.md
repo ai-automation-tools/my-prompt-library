@@ -381,4 +381,4 @@ Write a Service Level Agreement (SLA) for [App Name] offered to [SMB / enterpris
 
 ---
 
-*Generated for AX Platform — replace all `[bracketed placeholders]` before use.*
+*Replace all `[bracketed placeholders]` before use.*

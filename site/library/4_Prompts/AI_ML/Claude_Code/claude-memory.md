@@ -147,6 +147,6 @@ Create a global CLAUDE.md at ~/.claude/CLAUDE.md with my personal preferences:
 - Preferred code style: [e.g. TypeScript with strict mode, Python with type hints]
 - Communication style: [e.g. terse, no preamble, show commands not explanations]
 - Always do / never do: [your global rules]
-- Common tools I use: [e.g. n8n, Cloudflare Workers, MCP, AX Platform]
+- Common tools I use: [e.g. n8n, Cloudflare Workers, MCP]
 - My environment: [e.g. Windows + WSL2, Node 20, Python 3.11]
 ```

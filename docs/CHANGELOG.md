@@ -4,6 +4,30 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — AX Platform content retired
+
+The library was first built alongside the AX Platform agent-coordination tool, which is no
+longer in service. Everything that only made sense with it is gone; prompts that mentioned it in
+passing now read generically.
+
+**Content**
+- Removed (10 files, 3 of them whole folders): the `AX Platform Agent` persona
+  (`2_Agents/Platform_Agents/Ax-Platform_Dev/`), the `ax-workspace-cookbook` skill
+  (`3_Skills/Platform_Integrations/AX_Workspace_Cookbooks_SKILL/`), the `AX MCP Server Prompts`
+  collection (`4_Prompts/Engineering/AX-Platform/`), the `AX Platform Workspace Task` Claude Code
+  prompt, the three AX-specific Claude Cowork prompts (changelog draft, MCP updates newsletter,
+  competitor intel), and the duplicate copies of the pricing-model and agent-spec prompts that
+  were written "for AX Platform".
+- Genericised (17 files): the surviving `Pricing Model Builder` and `Agent Spec Generator`
+  prompts now target `[your product]` / "your agent platform"; eight Claude Cowork prompts say
+  "my product" or "my stack" instead of AX Platform; the `siem_cve_workflow` skill drops the three
+  `mcp__ax-platform__*` tools from `allowed-tools` and stores artifacts as "shared context"; the
+  OpenClaw MCP setup guide loses its AX batch-auth block; two Build_Apps prompts lose the
+  `projects/ax-platform/` path; the section READMEs for Agents and Skills no longer list it.
+- Index: **3192 prompts** (was 3202).
+
+_Touched: the files above, `site/api/prompt-index.json`, `docs/CHANGELOG.md`._
+
 ## 2026-10-21 — Every library section gets a job, and 430 files get tags
 
 Until today the content automations grew `4_Prompts` only (two prompts a week), skills and

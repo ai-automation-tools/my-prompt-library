@@ -46,7 +46,7 @@ This directory contains reusable skill modules following the AgentSkills specifi
 | Enterprise | 13 | Communications, governance |
 | Data | 29 | Data science, analytics |
 | AI_ML | 16 | AI engineering, MCP, prompting |
-| Platform_Integrations | 7 | AX Platform |
+| Platform_Integrations | 6 | Linear, Notion, n8n, Feishu, Academy |
 
 ---
 
@@ -80,9 +80,6 @@ This directory contains reusable skill modules following the AgentSkills specifi
 ### Finance (Merged from 2 categories)
 - Finance
 - Prediction_Markets
-
-### Platform_Integrations (Renamed from 1 category)
-- AX-Platform
 
 ---
 
@@ -163,7 +160,6 @@ subcategory: "AI_ML|Business|Development|etc."
 - ❌ Video (merged into Content)
 - ❌ Game_Design (merged into Design)
 - ❌ Prediction_Markets (merged into Finance)
-- ❌ AX-Platform (moved to Platform_Integrations)
 - ❌ Tools (merged into Development)
 - ❌ Other (merged into Development)
 - ❌ Science (merged into Data)

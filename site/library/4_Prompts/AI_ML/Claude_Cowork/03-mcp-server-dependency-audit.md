@@ -13,7 +13,7 @@ subcategory: "Claude_Cowork"
 
 ## Prompt
 
-Search for updates to the MCP (Model Context Protocol) ecosystem and dependencies relevant to AX Platform. Check:
+Search for updates to the MCP (Model Context Protocol) ecosystem and dependencies relevant to my stack. Check:
 1. Any new MCP spec versions or protocol changes from the official repo
 2. Updates to key npm/pip packages used in our MCP server implementations
 3. New MCP servers or tools published in the community that may be relevant to enterprise IAM / agent collaboration use cases

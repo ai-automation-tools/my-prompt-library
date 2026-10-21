@@ -17,7 +17,7 @@ Search for high-performing image generation prompts for Midjourney, DALL-E, Flux
 
 Focus on:
 1. Prompts producing photorealistic food photography (relevant for FlavorAtlas)
-2. Prompts for editorial / tech / startup visual styles (relevant for AX Platform marketing)
+2. Prompts for editorial / tech / startup visual styles (relevant for product marketing)
 3. Prompts using innovative style or lighting techniques worth cataloging
 4. Any "prompt formulas" — reusable structural templates with fill-in-the-blank variables
 

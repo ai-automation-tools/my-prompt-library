@@ -18,5 +18,5 @@ Search for this week's news and incidents related to AI agent security failures,
 - Regulatory updates affecting AI agents in enterprise environments
 - Case studies of agent-related data breaches or policy violations
 
-Compile a weekly "Agent Sprawl Risk Report" that: summarizes top 3 risk themes this week, identifies relevant talking points for AX Platform's sales narrative, and flags any compliance or regulatory developments Jacob should know about. End with a one-paragraph "threat landscape summary" suitable for our investor updates.
+Compile a weekly "Agent Sprawl Risk Report" that: summarizes top 3 risk themes this week, identifies relevant talking points for my product's sales narrative, and flags any compliance or regulatory developments I should know about. End with a one-paragraph "threat landscape summary" suitable for our investor updates.
 

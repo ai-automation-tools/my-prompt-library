@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "buildTime": "2026-10-21T18:08:23.686Z",
-  "promptCount": 3202,
+  "buildTime": "2026-10-21T18:19:39.965Z",
+  "promptCount": 3192,
   "prompts": [
     {
       "id": "1_Guides/API_Providers/anthropic_api_guide.md",
@@ -8589,24 +8589,6 @@
       "isUserOwned": false
     },
     {
-      "id": "2_Agents/Domain_Specific/Specs/agent-spec-generator-prompt.md",
-      "title": "🤖 Prompt for Generating an Agent Specification",
-      "section": "2_Agents",
-      "category": "Domain_Specific",
-      "subcategory": "Specs",
-      "tags": [
-        "collections",
-        "ai_agents",
-        "agent",
-        "spec",
-        "generator",
-        "prompt"
-      ],
-      "contentPreview": "# Prompt for Generating an Agent Specification\n\n## Objective\n\nTo generate a detailed Agent Specification from a plain-English workflow description. This specification will be used to configure an agen",
-      "lastModified": "2026-09-20T06:00:06.299Z",
-      "isUserOwned": false
-    },
-    {
       "id": "2_Agents/Domain_Specific/Use_Cases/compliance-monitoring-agent.md",
       "title": "🤖 Compliance Monitoring Agent",
       "section": "2_Agents",
@@ -8811,23 +8793,6 @@
         "harness"
       ],
       "contentPreview": "# Prompt: Generate Agent Evaluation Harness\n\n## Goal\nTo generate a comprehensive test suite for evaluating the performance and safety of an AI agent.\n\n## Instructions\nYou are an expert in AI agent eva",
-      "lastModified": "2026-09-20T06:00:06.304Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Domain_Specific/agent-spec.md",
-      "title": "🤖 Generating An Agent Specification",
-      "section": "2_Agents",
-      "category": "Domain_Specific",
-      "subcategory": "agent-spec",
-      "tags": [
-        "collections",
-        "ai",
-        "agent",
-        "spec",
-        "generator"
-      ],
-      "contentPreview": "# Prompt for Generating an Agent Specification\n\n## Objective\n\nTo generate a detailed Agent Specification from a plain-English workflow description. This specification will be used to configure an agen",
       "lastModified": "2026-09-20T06:00:06.304Z",
       "isUserOwned": false
     },
@@ -9460,21 +9425,6 @@
         "finance"
       ],
       "contentPreview": "\n# Tax Strategy Agent\n\n## Role\nTax planning specialist helping individuals and small businesses minimize tax liability through legal strategies, deductions, and smart financial planning.\n\n## Important",
-      "lastModified": "2026-10-21T18:07:05.824Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "2_Agents/Platform_Agents/Ax-Platform_Dev/ax-platform-developer.md",
-      "title": "AX Platform Agent",
-      "section": "2_Agents",
-      "category": "Platform_Agents",
-      "subcategory": "Ax-Platform_Dev",
-      "tags": [
-        "agent",
-        "platform-agents",
-        "ax-platform-dev"
-      ],
-      "contentPreview": "\n# AX Platform Agent\n\n## Identity\nYou are the **AX Platform Code + Docs Agent**, responsible for creating and maintaining documentation, code, newsletters, and reports for the AX Platform product.\n\n##",
       "lastModified": "2026-10-21T18:07:05.824Z",
       "isUserOwned": false
     },
@@ -14712,19 +14662,6 @@
       "isUserOwned": false
     },
     {
-      "id": "3_Skills/Platform_Integrations/AX_Workspace_Cookbooks_SKILL/SKILL.md",
-      "title": "🛠️ \"ax-workspace-cookbook\"",
-      "section": "3_Skills",
-      "category": "Platform_Integrations",
-      "subcategory": "AX_Workspace_Cookbooks_SKILL",
-      "tags": [
-        "featured"
-      ],
-      "contentPreview": "\n# AX Platform Workspace Cookbook Builder\n\n## Skill Purpose\n\nGenerate complete \"cookbook\" documentation for AX Platform workspace setups. Given a workspace scenario or use case, produce four standardi",
-      "lastModified": "2026-09-20T06:00:07.462Z",
-      "isUserOwned": false
-    },
-    {
       "id": "3_Skills/Platform_Integrations/academy-guide/SKILL.md",
       "title": "academy-guide",
       "section": "3_Skills",
@@ -14828,7 +14765,7 @@
         "siem"
       ],
       "contentPreview": "\n# SIEM CVE Workflow\n\nRun the full SIEM CVE pipeline: fetch critical vulnerabilities, normalize an alert, and coordinate all agents through detection, enrichment, correlation, and incident response.\n\n",
-      "lastModified": "2026-10-21T18:07:06.050Z",
+      "lastModified": "2026-10-21T18:19:22.977Z",
       "isUserOwned": false
     },
     {
@@ -15116,23 +15053,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/AI_ML/Claude_Code/ax-platform-workspace-task.md",
-      "title": "📌 AX Platform Workspace Task",
-      "section": "4_Prompts",
-      "category": "AI_ML",
-      "subcategory": "Claude_Code",
-      "tags": [
-        "ax-platform",
-        "mcp",
-        "workspace",
-        "messages",
-        "tasks"
-      ],
-      "contentPreview": "\nPost, assign tasks, or coordinate work in an AX Platform workspace.\n\n## Prompt\n\n```\nUsing the AX Platform MCP tools:\n1) Check recent messages in [WORKSPACE/SPACE]\n2) Complete [TASK]\n3) Post a summary",
-      "lastModified": "2026-09-20T06:00:07.590Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/AI_ML/Claude_Code/batch-file-processor.md",
       "title": "📌 Batch File Processor",
       "section": "4_Prompts",
@@ -15241,7 +15161,7 @@
         "claude-code"
       ],
       "contentPreview": "\n# Prompt: Bootstrap and Manage CLAUDE.md Memory\n\n**Use when:** You want Claude Code to maintain persistent context, conventions, and project knowledge across sessions using CLAUDE.md files.\n\n---\n\n## ",
-      "lastModified": "2026-10-21T18:07:06.062Z",
+      "lastModified": "2026-10-21T18:19:22.354Z",
       "isUserOwned": false
     },
     {
@@ -16060,7 +15980,7 @@
         "daily"
       ],
       "contentPreview": "# AI News Bulletin (Daily)\n\n**Schedule:** Daily — 6:30 AM\n**Category:** AI News\n**Tools Required:** Web Search\n**Estimated Time:** ~4 minutes\n\n## Prompt\n\nSearch for the top AI news from the last 24 ho",
-      "lastModified": "2026-09-20T06:00:07.609Z",
+      "lastModified": "2026-10-21T18:19:22.144Z",
       "isUserOwned": false
     },
     {
@@ -16093,7 +16013,7 @@
         "watch"
       ],
       "contentPreview": "# IAM & Security CVE Watch\n\n**Schedule:** Daily — 8:00 AM\n**Category:** Security\n**Tools Required:** Web Search\n**Estimated Time:** ~5 minutes\n\n## Prompt\n\nSearch for new CVEs and security advisories p",
-      "lastModified": "2026-09-20T06:00:07.609Z",
+      "lastModified": "2026-10-21T18:19:21.956Z",
       "isUserOwned": false
     },
     {
@@ -16178,7 +16098,7 @@
         "planner"
       ],
       "contentPreview": "# Weekly Priority Planner\n\n**Schedule:** Every Sunday — 7:00 PM\n**Category:** Operations\n**Tools Required:** Google Calendar, Notion\n**Estimated Time:** ~5 minutes\n\n## Prompt\n\nCheck my Google Calendar",
-      "lastModified": "2026-09-20T06:00:07.612Z",
+      "lastModified": "2026-10-21T18:19:21.841Z",
       "isUserOwned": false
     },
     {
@@ -16195,7 +16115,7 @@
         "risk"
       ],
       "contentPreview": "# Agent Sprawl Risk Report\n\n**Schedule:** Every Friday — 5:00 PM\n**Category:** Security\n**Tools Required:** Web Search\n**Estimated Time:** ~8 minutes\n\n## Prompt\n\nSearch for this week's news and incide",
-      "lastModified": "2026-09-20T06:00:07.612Z",
+      "lastModified": "2026-10-21T18:19:21.721Z",
       "isUserOwned": false
     },
     {
@@ -16213,40 +16133,6 @@
       ],
       "contentPreview": "# Airline Miles Transfer & Sweet Spot Alert\n\n**Schedule:** Every Tuesday & Friday — 7:30 AM\n**Category:** Rewards\n**Tools Required:** Web Search\n**Estimated Time:** ~6 minutes\n\n## Prompt\n\nSearch for c",
       "lastModified": "2026-09-20T06:00:07.612Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/AI_ML/Claude_Cowork/02-ax-mcp-updates-newsletter-draft.md",
-      "title": "🤝 AX MCP Updates Newsletter Draft",
-      "section": "4_Prompts",
-      "category": "AI_ML",
-      "subcategory": "Claude_Cowork",
-      "tags": [
-        "ai-tools",
-        "claude-cowork",
-        "updates",
-        "newsletter",
-        "draft"
-      ],
-      "contentPreview": "# AX MCP Updates Newsletter Draft\n\n**Schedule:** Every Wednesday — 2:00 PM\n**Category:** AI News\n**Tools Required:** Web Search\n**Estimated Time:** ~7 minutes\n\n## Prompt\n\nSearch for this week's notabl",
-      "lastModified": "2026-09-20T06:00:07.612Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/AI_ML/Claude_Cowork/02-ax-platform-changelog-draft.md",
-      "title": "🤝 AX Platform Changelog Draft",
-      "section": "4_Prompts",
-      "category": "AI_ML",
-      "subcategory": "Claude_Cowork",
-      "tags": [
-        "ai-tools",
-        "claude-cowork",
-        "platform",
-        "changelog",
-        "draft"
-      ],
-      "contentPreview": "# AX Platform Changelog Draft\n\n**Schedule:** Every Friday — 3:00 PM\n**Category:** Development\n**Tools Required:** GitHub, Markdown output\n**Estimated Time:** ~5 minutes\n\n## Prompt\n\nReview all commits ",
-      "lastModified": "2026-09-20T06:00:07.613Z",
       "isUserOwned": false
     },
     {
@@ -16331,7 +16217,7 @@
         "digest"
       ],
       "contentPreview": "# AI Research Paper Digest\n\n**Schedule:** Every Tuesday & Thursday — 7:00 AM\n**Category:** AI News\n**Tools Required:** Web Search\n**Estimated Time:** ~5 minutes\n\n## Prompt\n\nSearch arXiv and recent AI ",
-      "lastModified": "2026-09-20T06:00:07.614Z",
+      "lastModified": "2026-10-21T18:19:22.249Z",
       "isUserOwned": false
     },
     {
@@ -16399,7 +16285,7 @@
         "prompt"
       ],
       "contentPreview": "# Image Generation Prompt Library Builder\n\n**Schedule:** Every Thursday — 8:30 AM\n**Category:** AI Prompts\n**Tools Required:** Web Search, Web Fetch\n**Estimated Time:** ~9 minutes\n\n## Prompt\n\nSearch f",
-      "lastModified": "2026-09-20T06:00:07.616Z",
+      "lastModified": "2026-10-21T18:19:21.610Z",
       "isUserOwned": false
     },
     {
@@ -16416,7 +16302,7 @@
         "audit"
       ],
       "contentPreview": "# MCP Server Dependency Audit\n\n**Schedule:** Every Monday — 8:30 AM\n**Category:** Development\n**Tools Required:** Web Search, GitHub\n**Estimated Time:** ~6 minutes\n\n## Prompt\n\nSearch for updates to th",
-      "lastModified": "2026-09-20T06:00:07.616Z",
+      "lastModified": "2026-10-21T18:19:21.479Z",
       "isUserOwned": false
     },
     {
@@ -16433,24 +16319,7 @@
         "hygiene"
       ],
       "contentPreview": "# Notion Weekly Hygiene\n\n**Schedule:** Every Saturday — 10:00 AM\n**Category:** Operations\n**Tools Required:** Notion\n**Estimated Time:** ~6 minutes\n\n## Prompt\n\nDo a weekly hygiene pass on my Notion wo",
-      "lastModified": "2026-09-20T06:00:07.617Z",
-      "isUserOwned": false
-    },
-    {
-      "id": "4_Prompts/AI_ML/Claude_Cowork/04-ax-platform-competitor-intel.md",
-      "title": "🤝 AX Platform Competitor Intel",
-      "section": "4_Prompts",
-      "category": "AI_ML",
-      "subcategory": "Claude_Cowork",
-      "tags": [
-        "ai-tools",
-        "claude-cowork",
-        "platform",
-        "competitor",
-        "intel"
-      ],
-      "contentPreview": "# AX Platform Competitor Intel\n\n**Schedule:** Every Wednesday — 9:00 AM\n**Category:** Operations\n**Tools Required:** Web Search\n**Estimated Time:** ~7 minutes\n\n## Prompt\n\nSearch for recent news and up",
-      "lastModified": "2026-09-20T06:00:07.617Z",
+      "lastModified": "2026-10-21T18:19:21.322Z",
       "isUserOwned": false
     },
     {
@@ -16518,7 +16387,7 @@
         "agent"
       ],
       "contentPreview": "# System Prompt & Agent Config Collector\n\n**Schedule:** Every Monday — 9:30 AM\n**Category:** AI Prompts\n**Tools Required:** Web Search, Web Fetch\n**Estimated Time:** ~10 minutes\n\n## Prompt\n\nSearch for",
-      "lastModified": "2026-09-20T06:00:07.618Z",
+      "lastModified": "2026-10-21T18:19:21.116Z",
       "isUserOwned": false
     },
     {
@@ -16964,7 +16833,7 @@
         "setup"
       ],
       "contentPreview": "# MCP Server Setup Prompt\n\n**Category:** Configuration  \n**Use Case:** Adding new MCP servers to OpenClaw  \n**Based on:** Work completed 2026-02-14\n\n---\n\n## Prompt\n\n```\nI need to add a new MCP server ",
-      "lastModified": "2026-09-20T06:00:07.628Z",
+      "lastModified": "2026-10-21T18:19:22.866Z",
       "isUserOwned": false
     },
     {
@@ -16985,7 +16854,7 @@
     },
     {
       "id": "4_Prompts/AI_ML/Other/agent-spec-generator-prompt.md",
-      "title": "📌 Agent Spec Generator Prompt For AX Platform",
+      "title": "📌 Agent Spec Generator Prompt",
       "section": "4_Prompts",
       "category": "AI_ML",
       "subcategory": "Other",
@@ -16996,8 +16865,8 @@
         "spec",
         "generator"
       ],
-      "contentPreview": "# Agent Spec Generator Prompt for AX-Platform\n\n**Objective:** This prompt transforms a plain-English description of a workflow into a structured agent specification for the AX-Platform.\n\n**Prompt:**\n\n",
-      "lastModified": "2026-09-20T06:00:07.629Z",
+      "contentPreview": "# Agent Spec Generator Prompt\n\n**Objective:** This prompt transforms a plain-English description of a workflow into a structured agent specification for your agent platform.\n\n**Prompt:**\n\n\"You are an ",
+      "lastModified": "2026-10-21T18:19:23.082Z",
       "isUserOwned": false
     },
     {
@@ -41175,26 +41044,8 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/Business/Other/pricing-model-builder-prompt.md",
-      "title": "📌 Prompt: Pricing Model Builder for AX-Platform",
-      "section": "4_Prompts",
-      "category": "Business",
-      "subcategory": "Other",
-      "tags": [
-        "collections",
-        "business",
-        "pricing",
-        "model",
-        "builder",
-        "prompt"
-      ],
-      "contentPreview": "\n# Prompt: Pricing Model Builder for AX-Platform\n\n## Objective\nGenerate three distinct pricing models for the AX-Platform, an advanced AI development and deployment platform. For each model, provide a",
-      "lastModified": "2026-09-20T06:00:08.569Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/Business/Other/pricing-model-builder.md",
-      "title": "📌 Pricing Model Builder For AX Platform",
+      "title": "📌 Pricing Model Builder",
       "section": "4_Prompts",
       "category": "Business",
       "subcategory": "Other",
@@ -41205,8 +41056,8 @@
         "model",
         "builder"
       ],
-      "contentPreview": "# Prompt: Pricing Model Builder for AX-Platform\n\n## Objective\nGenerate three distinct pricing models for the AX-Platform, an advanced AI development and deployment platform. For each model, provide a ",
-      "lastModified": "2026-09-20T06:00:08.570Z",
+      "contentPreview": "# Prompt: Pricing Model Builder\n\n## Objective\nGenerate three distinct pricing models for [your product], an AI development and deployment platform. For each model, provide a detailed breakdown of its ",
+      "lastModified": "2026-10-21T18:19:23.188Z",
       "isUserOwned": false
     },
     {
@@ -42409,7 +42260,7 @@
         "create-documentation"
       ],
       "contentPreview": "\n# Startup Document Prompt Library\n\n> Copy-ready LLM prompts for every document needed to build and formalize a web app into a profitable business. \n> Replace all `[bracketed placeholders]` with your ",
-      "lastModified": "2026-10-21T18:07:06.070Z",
+      "lastModified": "2026-10-21T18:19:22.758Z",
       "isUserOwned": false
     },
     {
@@ -45084,24 +44935,6 @@
       "isUserOwned": false
     },
     {
-      "id": "4_Prompts/Engineering/AX-Platform/ax_prompt_library.md",
-      "title": "🎯 AX MCP Server Prompts",
-      "section": "4_Prompts",
-      "category": "Engineering",
-      "subcategory": "AX-Platform",
-      "tags": [
-        "featured",
-        "ax-mcp",
-        "agents",
-        "automation",
-        "workflow",
-        "prompt-library"
-      ],
-      "contentPreview": "\n# AX Prompt Library\n\nConsolidated prompts extracted from the AX Platform prompt library.\n\n## Switch Workspace\n\n```\nOn the AX MCP server, switch to the Podcast workspace and confirm the active space.\n",
-      "lastModified": "2026-09-20T06:00:08.650Z",
-      "isUserOwned": false
-    },
-    {
       "id": "4_Prompts/Engineering/Api_Design/api-design-prompt.md",
       "title": "📌 API Design Specification (Based on IETF RFC 9110 and OpenAPI)",
       "section": "4_Prompts",
@@ -45413,7 +45246,7 @@
         "system"
       ],
       "contentPreview": "# Discord Automation System\n\nBuild an automated content distribution system for Discord channels with external source scraping and AI-powered content generation.\n\n## Context\nMulti-channel Discord auto",
-      "lastModified": "2026-09-20T06:00:08.657Z",
+      "lastModified": "2026-10-21T18:19:22.613Z",
       "isUserOwned": false
     },
     {
@@ -45430,7 +45263,7 @@
         "podcast"
       ],
       "contentPreview": "# Multi-Voice Podcast Generator\n\nBuild a podcast generation system with multiple AI voices, natural dialogue, and automated audio production.\n\n## Context\nGenerate podcast episodes with 6-7 distinct ch",
-      "lastModified": "2026-09-20T06:00:08.657Z",
+      "lastModified": "2026-10-21T18:19:22.482Z",
       "isUserOwned": false
     },
     {

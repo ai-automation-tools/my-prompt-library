@@ -20,5 +20,5 @@ Search for the top AI news from the last 24 hours. Focus on:
 - AI regulation, policy, or safety developments
 - Funding rounds above $50M in AI startups
 
-Format as the "AI News Bulletin" — 5–7 items max, each with a one-sentence summary and a relevance note for AX Platform (how might this affect our market, our tech stack, or our pitch?). Keep it scannable. Bold the most important item of the day.
+Format as the "AI News Bulletin" — 5–7 items max, each with a one-sentence summary and a relevance note for my product (how might this affect our market, our tech stack, or our pitch?). Keep it scannable. Bold the most important item of the day.
 

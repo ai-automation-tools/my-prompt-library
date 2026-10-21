@@ -1,16 +1,16 @@
 ---
-title: "📌 Agent Spec Generator Prompt For AX Platform"
+title: "📌 Agent Spec Generator Prompt"
 tags: ["collections", "ai", "agent", "spec", "generator"]
 category: "Collections"
 subcategory: "AI"
 ---
-# Agent Spec Generator Prompt for AX-Platform
+# Agent Spec Generator Prompt
 
-**Objective:** This prompt transforms a plain-English description of a workflow into a structured agent specification for the AX-Platform.
+**Objective:** This prompt transforms a plain-English description of a workflow into a structured agent specification for your agent platform.
 
 **Prompt:**
 
-"You are an expert in designing AI agents for the AX-Platform. Your task is to convert the following plain-English workflow description into a detailed agent specification.
+"You are an expert in designing AI agents. Your task is to convert the following plain-English workflow description into a detailed agent specification.
 
 **Workflow Description:**
 [User provides a plain-English description of the workflow. For example: 'An agent that takes a company name, finds their website, scrapes the careers page for open roles, and sends an email to a specified address with the list of roles.']

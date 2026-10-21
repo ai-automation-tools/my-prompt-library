@@ -20,5 +20,5 @@ Do a weekly hygiene pass on my Notion workspace. Check:
 4. Any stale portfolio tracking rows (stocks with price data older than 5 days)
 5. Project pages without an update in the last 7 days
 
-Output a Notion Health Report: what's stale, what's missing, and the top 5 cleanup actions. Prioritize items related to AX Platform and the investment portfolio. Suggest which items I can batch-fix in under 15 minutes.
+Output a Notion Health Report: what's stale, what's missing, and the top 5 cleanup actions. Prioritize items related to my main product and the investment portfolio. Suggest which items I can batch-fix in under 15 minutes.
 
