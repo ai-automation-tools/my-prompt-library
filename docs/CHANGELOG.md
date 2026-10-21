@@ -4,6 +4,25 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — Docs brought level with the day's changes
+
+**Docs**
+- `docs/DIRECTION.md` moved to `docs/audits/DIRECTION-2026-08-27.md` with a "historical" note:
+  it explained the post-audit plan of August (accounts, Neon, GitHub mode), which the local-first
+  rewrite and today's new roadmap replaced. Its links were fixed for the new folder.
+- `docs/README.md`: the index lists the discovery ledger and `UPSTREAMS.md` instead of
+  Direction, and the tree shows `DISCOVERY.md`, `UPSTREAMS.md`, the MCP Servers template and
+  `features/MCP-SERVER.md`.
+- `docs/ARCHITECTURE.md` and the `README.md` tree: `lib/library.ts`, `site/mcp/`,
+  `6_MCP_Servers/`, `resources.json`, the MCP test, and the six repo scripts added this month.
+- `docs/CONTRIBUTING.md`: the folder tree has `6_MCP_Servers/`, and `2_Agents/` says
+  installable subagents only. The templates README and summary describe the agents template as
+  subagent definitions rather than personas and list the MCP Servers template.
+  `3_Skills/README.md` describes `2_Agents` the same way.
+- Every relative link in the touched docs resolves; `homepage.test.mjs` passes.
+
+_Touched: `README.md`, `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/CONTRIBUTING.md`, `docs/audits/DIRECTION-2026-08-27.md` (moved), `docs/templates/README.md`, `docs/templates/TEMPLATE-SUMMARY.md`, `site/library/3_Skills/README.md`, `docs/CHANGELOG.md`._
+
 ## 2026-10-21 — My Library keeps a skill's frontmatter
 
 Found by testing the MCP server for real: a Claude Code session created a prompt and a skill in

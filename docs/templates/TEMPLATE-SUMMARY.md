@@ -23,7 +23,7 @@ Created **5 comprehensive templates** for the my-prompt-library project to guide
 - **Size:** 5.2 KB
 - **Key Sections:** Agent metadata, Responsibilities, Workflows, Communication protocols, Progress tracking
 - **Icon:** Various (depending on agent domain)
-- **Use Case:** Full agent personas with behavior specs
+- **Use Case:** Installable subagent definitions (`name:` + `description:` frontmatter); role-play prompts go in `4_Prompts`
 
 ### 4. 📝 System Prompts Template
 - **Purpose:** Complete LLM system instructions and platform configurations
@@ -39,7 +39,13 @@ Created **5 comprehensive templates** for the my-prompt-library project to guide
 - **Icon:** 🔧
 - **Use Case:** CLI tools, APIs, external integrations
 
-### 6. 📚 README
+### 6. 🔌 MCP Servers Template (added 2026-10-21)
+- **Purpose:** One card per MCP server for `6_MCP_Servers/`
+- **Key Sections:** Frontmatter with a `server:` block (repo, licence, transport, checked), Install (Claude Code and `mcpServers` JSON), What it can do, Notes, Details
+- **Icon:** 🔌
+- **Use Case:** Install lines read from the server's own README, re-checked monthly by `scripts/check-mcp-servers.mjs`
+
+### 7. 📚 README
 - **Purpose:** Comprehensive guide for choosing and using templates
 - **Size:** 8.7 KB
 - **Content:** Template selection guide, quick start instructions, validation checklist, examples

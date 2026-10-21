@@ -46,9 +46,9 @@ This template documents how to configure and use AI coding assistants and agents
 
 ### 3. 🤖 Agents Template
 **File:** `agents-template.md`  
-**Use for:** Full agent definitions with behavior specs
+**Use for:** Installable subagent definitions (the Claude Code `.claude/agents/` shape)
 
-This template defines complete autonomous agents with their capabilities, workflows, and communication protocols. These are full agent personas that can be instantiated.
+This template defines a subagent: frontmatter with `name:` and `description:` (plus `tools:` and `model:`), then its system prompt. Since 2026-10-21 `2_Agents` holds only these; a role-play or "act as X" prompt without `name:` belongs in `4_Prompts`.
 
 **Key Features:**
 - Required frontmatter: title (with 🤖 icon), tags, category, subcategory

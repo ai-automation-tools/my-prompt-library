@@ -211,7 +211,8 @@ honours `MY_LIBRARY_DIR` and `READ_ONLY` from `site/.env`. Details:
 my-prompt-library/
 ├── site/                     # The app (run npm here; Vercel Root Directory = site)
 │   ├── api/                  # API handlers (one Express app, also run by Vercel)
-│   ├── lib/                  # my-library.ts (file store), safe-path.ts
+│   ├── lib/                  # library.ts (shared reader), my-library.ts (file store), safe-path.ts
+│   ├── mcp/                  # The MCP server (npm run mcp)
 │   ├── src/                  # React application
 │   │   ├── App.tsx           # Main React component
 │   │   ├── components/       # UI components
@@ -225,10 +226,10 @@ my-prompt-library/
 │   │   ├── 5_System_Prompts/
 │   │   └── 6_MCP_Servers/
 │   ├── my-library/           # Your prompts (gitignored, created on first save)
-│   ├── scripts/              # build-prompt-index.js, api-routes and my-library tests
+│   ├── scripts/              # build-prompt-index.js, the route, My Library and MCP tests
 │   └── server.ts             # Local server around the same app api/ exports (port 3010)
 ├── homepage/                 # Static project homepage (GitHub Pages)
-├── .github/workflows/ci.yml  # lint + route and store tests + provenance checks + index freshness
+├── .github/workflows/ci.yml  # lint + route, store and MCP tests + provenance checks + index freshness
 ├── .gitattributes            # LF everywhere, in the repo and the working tree
 ├── LICENSE, NOTICE           # Apache 2.0 for the app; vendored content keeps its own
 ├── SECURITY.md, CODE_OF_CONDUCT.md, CONTRIBUTING.md
