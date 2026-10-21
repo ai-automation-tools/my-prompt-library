@@ -10,8 +10,10 @@ import {
   Clock,
   Copy,
   Download,
+  ExternalLink,
   FolderOpen,
   FolderPlus,
+  Github,
   Hash,
   Layers,
   LayoutGrid,
@@ -157,6 +159,18 @@ export default function PromptDetail({
             className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full blur-3xl"
             style={{ background: 'color-mix(in srgb, var(--c) 10%, transparent)' }}
           />
+          {prompt.sourceUrl && (
+            <a
+              href={prompt.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative mb-5 inline-flex max-w-full items-center gap-2 rounded-[var(--r-md)] border border-[var(--line)] px-3 py-2 text-[13px] font-medium text-[var(--fg)] transition-colors hover:border-[color-mix(in_srgb,var(--c)_45%,var(--line))] hover:bg-[color-mix(in_srgb,var(--c)_8%,transparent)]"
+            >
+              <Github className="h-4 w-4 shrink-0 text-[var(--c)]" aria-hidden="true" />
+              <span className="truncate">{prompt.sourceUrl.replace('https://github.com/', '')}</span>
+              <ExternalLink className="h-3.5 w-3.5 shrink-0 text-[var(--fg-4)]" aria-hidden="true" />
+            </a>
+          )}
           {prompt.tags.length > 0 && (
             <div className="relative mb-6 flex flex-wrap gap-1.5">
               {prompt.tags.map(tag => (

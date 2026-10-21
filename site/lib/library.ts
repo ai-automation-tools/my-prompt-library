@@ -93,6 +93,14 @@ export function carriedFrontmatter(frontmatter: Record<string, unknown>): Record
   return Object.fromEntries(Object.entries(frontmatter).filter(([k]) => !drop.has(k)));
 }
 
+/** An MCP server card's source on GitHub, from `server.repo` (and `server.path` for a monorepo). */
+export function sourceUrlOf(frontmatter: Record<string, unknown>): string | undefined {
+  const server = frontmatter.server as { repo?: unknown; path?: unknown } | undefined;
+  if (typeof server?.repo !== 'string' || !/^[\w.-]+\/[\w.-]+$/.test(server.repo)) return undefined;
+  const base = `https://github.com/${server.repo}`;
+  return typeof server.path === 'string' && server.path ? `${base}/tree/HEAD/${server.path}` : base;
+}
+
 export interface LibraryItem {
   id: string;
   title: string;
