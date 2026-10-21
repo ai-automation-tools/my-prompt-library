@@ -4,6 +4,16 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — Neon deleted, Vercel env vars cleared
+
+**Ops**
+- The Neon project behind the old accounts is deleted, closing the never-rotated credential that
+  had been scrubbed from history. The `my-prompt-library` Vercel project no longer holds
+  `DATABASE_URL` or the GitHub-mode variables. Verified on the live demo after the #383 deploy:
+  writes return 403, `/api/auth/me` is 404, and the UI has no library switch or sign-in.
+
+_Touched: `docs/ROADMAP.md`, `docs/CHANGELOG.md`._
+
 ## 2026-10-21 — Local-first: no accounts, My Library on disk, a read-only demo
 
 The plan changed from a public site where people sign up and keep prompts, to an app people clone

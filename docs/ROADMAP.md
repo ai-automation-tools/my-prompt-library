@@ -31,8 +31,8 @@ Updated 2026-10-21.
 | `src/App.tsx` | **1,029 lines** (was 2,845), 21 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
 | Line endings | LF everywhere, enforced by `.gitattributes`; the index is byte-reproducible on Linux and Windows |
-| Security | 0 npm advisories; path traversal closed; no accounts, so no auth surface: the local server binds to 127.0.0.1 and the demo refuses every write (`READ_ONLY`); My Library ids are file names restricted to `[a-z0-9-]`; `helmet` headers; `LICENSE`/`NOTICE`/`SECURITY.md` in place (2026-10-05). The old Neon database still exists until Mike deletes it |
-| Health | Local-first since 2026-10-21, with a read-only demo. Everything below is content, maintainability, or polish, plus the one cleanup item in **Now** |
+| Security | 0 npm advisories; path traversal closed; no accounts, so no auth surface: the local server binds to 127.0.0.1 and the demo refuses every write (`READ_ONLY`); My Library ids are file names restricted to `[a-z0-9-]`; `helmet` headers; `LICENSE`/`NOTICE`/`SECURITY.md` in place (2026-10-05). The Neon database is deleted and the Vercel project holds no secrets |
+| Health | Local-first since 2026-10-21, with a read-only demo. Everything below is content, maintainability, or polish, and the release gates below |
 
 > Counts come from `api/prompt-index.json` (`promptCount`) and the drift report, not from
 > hand-maintained numbers here.
@@ -41,7 +41,7 @@ Updated 2026-10-21.
 
 ## 🚨 Phase 1: Now, blocking or near-term
 
-- [ ] **Delete the Neon database and the dead Vercel env vars.** Nothing reads them since the app went local-first on 2026-10-21. Deleting the Neon project also closes the old leak for good: its password was scrubbed from Git history but never rotated, and a scrub does not un-leak. Export the `user_prompts` rows first if any are worth keeping (they can be re-saved as files under `site/my-library/`). In Vercel, remove `DATABASE_URL`, `GITHUB_TOKEN`, `GITHUB_OWNER`, `GITHUB_REPO` and `GITHUB_BRANCH` from the `my-prompt-library` project. 🔒 Needs Mike
+- [x] **Delete the Neon database and the dead Vercel env vars.** Nothing read them after the app went local-first. The Neon project is deleted, which also closes the old leak for good (its password was scrubbed from Git history but never rotated), and the `my-prompt-library` Vercel project has no environment variables left. Completed **2026-10-21** — see the changelog.
 - [x] **Go local-first; drop accounts and the database.** The hosted signup site became an app you clone and run: My Library is a folder of markdown files (`site/lib/my-library.ts`), login, Neon/Postgres and GitHub mode are gone, the server binds to loopback, and the Vercel deployment is a read-only Public Library demo (`READ_ONLY`, implied by Vercel's `VERCEL`). This also retires the placeholder-`DATABASE_URL` item: there is nothing left to configure. Completed **2026-10-21** — see the changelog.
 - [x] **Redact published contacts and sample credentials; add LICENSE.** Three teammates' work and personal emails were listed as recipients in two agent files and one skill, and served on the live site; three Neon doc-sample connection strings sat in the vendored `using-neon` reference. All replaced with placeholders. The README had claimed Apache 2.0 with no `LICENSE` file; added it plus a `NOTICE` for vendored library content. History not rewritten. Completed **2026-10-05** — see the changelog.
 - [x] **Auth had no abuse controls.** Login (20 / 15 min, failures only) and signup (5 / 15 min) are now rate-limited per IP in `site/middleware/rate-limit.ts`; signup validates email shape and enforces 8+ chars (login still accepts the old 6-char accounts); bcrypt's 72-byte truncation is capped at the input; `helmet` sets response headers with CSP off; `trust proxy` is 1 so `req.ip` is the client, not Vercel. The limiter store is in-memory and therefore per warm instance — good enough against a single scripted client, not against a distributed one. Completed **2026-10-05** — see the changelog.
@@ -87,7 +87,7 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 - [x] `LICENSE` (Apache 2.0) and a `NOTICE` for vendored library content, published contacts and sample credentials redacted — done 2026-10-05: see the Phase 1 item
 - [x] `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, PR and issue templates — done 2026-10-05: see the Phase 1 item
 - [x] Live at `https://my-prompt-library.ai-automation-tools.dev` with the org source bar and consent gate — done 2026-10-12: see the changelog
-- [ ] A full-history secret scan (gitleaks) run and its findings written down; the only known hit, the scrubbed Neon credential, is closed by deleting that database (Phase 1)
+- [ ] A full-history secret scan (gitleaks) run and its findings written down; the only known hit, the scrubbed Neon credential, is closed: that database was deleted 2026-10-21
 
 ## After public release
 
