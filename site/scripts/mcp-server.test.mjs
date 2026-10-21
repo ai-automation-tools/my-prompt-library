@@ -65,6 +65,13 @@ function findSkillWithFiles(dir = skillsRoot) {
   return null;
 }
 
+// The server keeps its own section list (lib/library.ts) so it never imports the
+// React app. Fail here if a section is added to the app without the server.
+const appFolders = [...fs.readFileSync(path.join(SITE, 'src', 'lib', 'sections.ts'), 'utf-8').matchAll(/folder: '(\d_[A-Za-z_]+)'/g)].map((m) => m[1]).sort();
+const serverFolders = [...fs.readFileSync(path.join(SITE, 'lib', 'library.ts'), 'utf-8').matchAll(/folder: '(\d_[A-Za-z_]+)'/g)].map((m) => m[1]).sort();
+assert.ok(appFolders.length >= 6, `found the app's sections (${appFolders.length})`);
+assert.deepEqual(serverFolders, appFolders, 'lib/library.ts SECTIONS must list the same folders as src/lib/sections.ts');
+
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'mcp-my-library-'));
 let client;
 try {

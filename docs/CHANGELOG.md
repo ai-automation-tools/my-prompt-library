@@ -4,6 +4,37 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — The MCP server stays current with everything else
+
+The server runs straight from this clone (it is in Mike's user-scope Claude Code config), so
+anything that leaves the clone stale breaks it in every session.
+
+**Found and fixed**
+- The daily repo sync never reinstalled `node_modules` for this repo. It only acted on a
+  root-level `package-lock.json` changing, and only for read-only mirrors; this repo's lockfile
+  is `site/package-lock.json` and it syncs through `mike_desktop`. `Sync-Repos.ps1` (outside
+  this repo) gains an opt-in `$repoInstallDirs` map with `my-prompt-library = site`: a pulled
+  change to that lockfile now stops the local app and any `node` process rooted in the repo,
+  runs `npm ci` in `site/`, checks the tree, and restarts the app. The repo also gets the
+  `$repoServiceTasks` row the hub asks of any repo that runs a dev server. Exercised once
+  against the real repo: `npm ci` ran, the app came back, the build and `test:mcp` passed.
+
+**Tooling**
+- `npm run test:mcp` now also fails if `SECTIONS` in `lib/library.ts` and `src/lib/sections.ts`
+  list different folders, so a new library section cannot ship without the server knowing it.
+  Proved by renaming one folder: the test failed with that message.
+- The item count in the server's instructions is read from the index at start-up instead of
+  being written into the code.
+
+**Docs**
+- `docs/features/MCP-SERVER.md` gains "How it stays current": what keeps the content, the clone,
+  `node_modules`, the SDK and the server's own card current, and what CI checks.
+- `README.md` links the MCP Server doc from its Features quick links; `docs/UPSTREAMS.md` lists
+  the MCP SDK and zod so the biweekly upstream check covers majors and spec revisions;
+  `CLAUDE.md` notes the section rule.
+
+_Touched: `site/mcp/server.ts`, `site/scripts/mcp-server.test.mjs`, `docs/features/MCP-SERVER.md`, `docs/UPSTREAMS.md`, `docs/CHANGELOG.md`, `README.md`, `CLAUDE.md`; outside the repo, `Sync-Repos.ps1`._
+
 ## 2026-10-21 — The library is an MCP server
 
 _Phase 1: MCP server for the library._ An agent can now search the library and use what it

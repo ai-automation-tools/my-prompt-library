@@ -39,6 +39,8 @@ tracked here until then.)
 
 | Upstream | Declared in `site/package.json` | Check at | Last checked |
 |:---|:---|:---|:---|
+| MCP TypeScript SDK (`@modelcontextprotocol/server`; `@modelcontextprotocol/client` for the test) | `^2.3.1`. The server uses `McpServer`, `registerTool`/`registerPrompt` with zod v4 schemas, and `serveStdio()` from `@modelcontextprotocol/server/stdio`, which also serves 2025-era clients. A v3 major, or a spec revision `serveStdio` stops negotiating, breaks `site/mcp/server.ts`; `npm run test:mcp` is the check | github.com/modelcontextprotocol/typescript-sdk/releases; modelcontextprotocol.io/specification (changelog) | — |
+| zod | `^4` (imported as `zod/v4` by the MCP server) | github.com/colinhacks/zod/releases | — |
 | React / react-dom | `^19.3.0` | react.dev/blog | — |
 | Express | `^4.22.3` (Express 5 is a breaking major) | expressjs.com/en/changelog; github.com/expressjs/express/releases | — |
 | Vite, @vitejs/plugin-react | `^6.2.0`, `^5.2.0` | github.com/vitejs/vite/blob/main/packages/vite/CHANGELOG.md | — |
