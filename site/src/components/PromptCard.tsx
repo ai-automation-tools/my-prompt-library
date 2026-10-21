@@ -9,6 +9,7 @@ import { m } from 'motion/react';
 import { cn } from '../lib/cn';
 import { humanize } from '../lib/sections';
 import { IconButton } from './ui/primitives';
+import { READ_ONLY } from '../lib/mode';
 
 export interface Prompt {
   id: string;
@@ -184,7 +185,7 @@ const PromptCard = memo(function PromptCard({
         <span className="mono mr-auto pl-1 text-[10.5px] text-[var(--fg-5)]">
           {new Date(prompt.lastModified).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
         </span>
-        {libraryMode === 'public' ? (
+        {READ_ONLY ? null : libraryMode === 'public' ? (
           <IconButton
             label={copyingToMyPromptsId === prompt.id ? 'Saving…' : 'Save to My Library'}
             onClick={stop(() => onCopyToMyPrompts(prompt))}

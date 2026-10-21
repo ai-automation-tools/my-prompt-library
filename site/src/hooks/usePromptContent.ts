@@ -39,9 +39,7 @@ export function usePromptContent(showToast: (type: 'success' | 'error', message:
   /** The real body of a prompt. Falls back to whatever the caller had on failure. */
   const fetchFullContent = useCallback(async (prompt: Prompt): Promise<string> => {
     try {
-      const response = await fetch(`/api/prompts/${encodeURIComponent(prompt.id)}`, {
-        credentials: 'include',
-      });
+      const response = await fetch(`/api/prompts/${encodeURIComponent(prompt.id)}`);
       if (response.ok) {
         const full = await response.json();
         if (typeof full?.content === 'string') {

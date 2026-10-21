@@ -12,6 +12,7 @@ import type { Theme } from '../lib/themes';
 import type { LibraryTab } from '../hooks/useLibraryRoute';
 import type { Prompt } from './PromptCard';
 import ThemePicker from './ThemePicker';
+import { READ_ONLY } from '../lib/mode';
 
 export type { Theme } from '../lib/themes';
 
@@ -147,7 +148,8 @@ export default function Sidebar({
           </button>
         </div>
 
-        {/* Library switch */}
+        {/* Library switch — the read-only demo has no My Library to switch to */}
+        {!READ_ONLY && (
         <div className="px-3 pt-3">
           <LayoutGroup id="library-mode">
             <div className="segmented w-full" role="group" aria-label="Library">
@@ -175,6 +177,7 @@ export default function Sidebar({
             </div>
           </LayoutGroup>
         </div>
+        )}
 
         {/* Sections */}
         <nav className="px-3 pt-4" aria-label="Sections">

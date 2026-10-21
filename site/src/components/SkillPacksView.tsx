@@ -5,7 +5,7 @@ import { cn } from '../lib/cn';
 import { humanize } from '../lib/sections';
 import { Button } from './ui/primitives';
 import { LoadingSkeleton } from './PromptGrid';
-import EmptyState from './EmptyState';
+import { READ_ONLY } from '../lib/mode';
 
 type ToastType = 'success' | 'error' | 'warning' | 'info';
 
@@ -49,10 +49,7 @@ interface SkillPackDetail extends SkillPackSummary {
 }
 
 interface SkillPacksViewProps {
-  user: { id: string } | null;
   libraryMode: 'public' | 'my';
-  onRequireLogin: () => void;
-  onBrowsePublic?: () => void;
   onToast: (type: ToastType, message: string) => void;
 }
 
@@ -63,7 +60,7 @@ function trackSpotlight(e: ReactMouseEvent<HTMLElement>) {
   el.style.setProperty('--my', `${e.clientY - rect.top}px`);
 }
 
-export default function SkillPacksView({ user, libraryMode, onRequireLogin, onBrowsePublic, onToast }: SkillPacksViewProps) {
+export default function SkillPacksView({ libraryMode, onToast }: SkillPacksViewProps) {
   const [packs, setPacks] = useState<SkillPackSummary[]>([]);
   const [selectedPack, setSelectedPack] = useState<SkillPackDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -76,7 +73,7 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onBr
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`/api/skill-packs?library=${libraryMode}`, { credentials: 'include' });
+      const response = await fetch(`/api/skill-packs?library=${libraryMode}`);
       if (!response.ok) throw new Error(`Failed to fetch skill packs (${response.status})`);
       const data = await response.json();
       setPacks(Array.isArray(data) ? data : []);
@@ -88,23 +85,11 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onBr
     }
   }, [libraryMode]);
 
-  const needsLogin = libraryMode === 'my' && !user;
-
   useEffect(() => {
-    if (needsLogin) {
-      setPacks([]);
-      setLoading(false);
-      return;
-    }
     void fetchPacks();
-  }, [fetchPacks, needsLogin]);
+  }, [fetchPacks]);
 
   const handleAddPackToLibrary = async (packId: string) => {
-    if (!user) {
-      onToast('info', 'Sign in to add skill packs to your library');
-      onRequireLogin();
-      return;
-    }
     const pack = packs.find(p => p.id === packId);
     if (!window.confirm(`Add skill pack${pack ? ` "${pack.name}"` : ''} to My Library?`)) return;
 
@@ -112,7 +97,6 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onBr
       setAddingPackId(packId);
       const response = await fetch(`/api/skill-packs/${encodeURIComponent(packId)}/add-to-library`, {
         method: 'POST',
-        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ confirm: true }),
       });
@@ -128,11 +112,6 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onBr
   };
 
   const handleRemovePackFromLibrary = async (packId: string) => {
-    if (!user) {
-      onToast('info', 'Sign in to manage your skill packs');
-      onRequireLogin();
-      return;
-    }
     const pack = packs.find(p => p.id === packId);
     if (!window.confirm(`Remove skill pack${pack ? ` "${pack.name}"` : ''} from My Library?`)) return;
 
@@ -140,7 +119,6 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onBr
       setRemovingPackId(packId);
       const response = await fetch(`/api/skill-packs/${encodeURIComponent(packId)}/remove-from-library`, {
         method: 'DELETE',
-        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ confirm: true }),
       });
@@ -190,7 +168,7 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onBr
   };
 
   const libraryAction = (packId: string, size: 'sm' | 'md' = 'sm') =>
-    libraryMode === 'public' ? (
+    READ_ONLY ? null : libraryMode === 'public' ? (
       <Button size={size} variant="tonal" onClick={e => { e.stopPropagation(); void handleAddPackToLibrary(packId); }} disabled={addingPackId === packId} icon={<PackagePlus className="h-3.5 w-3.5" />}>
         {addingPackId === packId ? 'Adding…' : 'Add to My Library'}
       </Button>
@@ -199,11 +177,6 @@ export default function SkillPacksView({ user, libraryMode, onRequireLogin, onBr
         {removingPackId === packId ? 'Removing…' : 'Remove'}
       </Button>
     );
-
-  // My Library needs an account; say so instead of surfacing the 401.
-  if (needsLogin) {
-    return <EmptyState type="not-authenticated" onLogin={onRequireLogin} onSignup={onRequireLogin} onBrowsePublic={onBrowsePublic} />;
-  }
 
   if (loading) return <LoadingSkeleton count={6} />;
 

@@ -29,6 +29,7 @@ import { humanize } from '../lib/sections';
 import type { Prompt } from './PromptCard';
 import { extractEmoji } from './PromptCard';
 import { Button, IconButton } from './ui/primitives';
+import { READ_ONLY } from '../lib/mode';
 
 interface PromptDetailProps {
   prompt: Prompt;
@@ -116,7 +117,7 @@ export default function PromptDetail({
           >
             {isCopied ? 'Copied' : 'Copy prompt'}
           </Button>
-          {libraryMode === 'public' && (
+          {libraryMode === 'public' && !READ_ONLY && (
             <Button size="sm" onClick={() => onCopyToMyPrompts(prompt)} disabled={saving} icon={<FolderPlus className="h-3.5 w-3.5" />}>
               {saving ? 'Saving…' : 'Save to My Library'}
             </Button>
