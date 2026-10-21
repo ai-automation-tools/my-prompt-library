@@ -14,11 +14,12 @@ import './setup.js'; // first: stdout guard and .env, before anything can log
 import fs from 'fs';
 import path from 'path';
 import Fuse from 'fuse.js';
+import matter from 'gray-matter';
 import * as z from 'zod/v4';
 import { McpServer } from '@modelcontextprotocol/server';
 import { serveStdio } from '@modelcontextprotocol/server/stdio';
 import {
-  LIBRARY_PATH, SECTIONS, SECTION_KEYS, SKILLS_SECTION, loadIndex, readLibraryItem,
+  LIBRARY_PATH, SECTIONS, SECTION_KEYS, SKILLS_SECTION, carriedFrontmatter, loadIndex, readLibraryItem,
   type IndexEntry, type SectionKey,
 } from '../lib/library.js';
 import { myLibrary, READ_ONLY, type UserPrompt } from '../lib/my-library.js';
@@ -134,7 +135,12 @@ export function createServer(): McpServer {
     if (!id.includes('/')) {
       const mine = myLibrary.get(id);
       if (!mine) return fail(`No My Library item "${id}".`);
-      return text(`# ${mine.title}\n\nMy Library · ${keyOf(mine.section)} › ${mine.category}${mine.tags.length ? ` · tags: ${mine.tags.join(', ')}` : ''}\n\n${mine.content}`);
+      // A skill is only usable with its frontmatter (name, description), so return
+      // the whole SKILL.md; other items read fine as their body.
+      const body = mine.section === SKILLS_SECTION && mine.extra && Object.keys(mine.extra).length
+        ? matter.stringify(mine.content, mine.extra)
+        : mine.content;
+      return text(`# ${mine.title}\n\nMy Library · ${keyOf(mine.section)} › ${mine.category}${mine.tags.length ? ` · tags: ${mine.tags.join(', ')}` : ''}\n\n${body}`);
     }
     const item = readLibraryItem(id);
     if (item === 'invalid') return fail(`"${id}" is not a library path. Ids look like "4_Prompts/<Category>/<file>.md".`);
@@ -276,6 +282,7 @@ export function createServer(): McpServer {
         const saved = myLibrary.create({
           title: title || item.title, section: item.section, category: item.category,
           subcategory: item.subcategory, tags: tags ?? item.tags, content: item.content,
+          extra: carriedFrontmatter(item.frontmatter),
         });
         return text(`Copied to My Library as \`${saved.id}\`.`);
       }

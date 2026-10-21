@@ -9,7 +9,7 @@ import { dirname } from "path";
 import archiver from "archiver";
 import { myLibrary, READ_ONLY, type UserPrompt } from "../lib/my-library.js";
 import { resolveInside } from "../lib/safe-path.js";
-import { LIBRARY_PATH, SKILLS_SECTION, extractFirstHeading, readLibraryItem } from "../lib/library.js";
+import { LIBRARY_PATH, SKILLS_SECTION, carriedFrontmatter, extractFirstHeading, readLibraryItem } from "../lib/library.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -432,6 +432,7 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", requireWritable, async (req
       subcategory,
       tags,
       content,
+      extra: carriedFrontmatter(item.frontmatter),
     });
 
     return res.json({ ...toApiPrompt(copiedPrompt), message: "Prompt copied to My Library" });

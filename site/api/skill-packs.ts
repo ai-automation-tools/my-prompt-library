@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import archiver from 'archiver';
 import { myLibrary, READ_ONLY } from '../lib/my-library.js';
+import { carriedFrontmatter } from '../lib/library.js';
 
 // Recursively get all files in a directory
 async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): Promise<string[]> {
@@ -167,7 +168,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           continue;
         }
 
-        myLibrary.create({ title, section, category, subcategory, tags: tagsWithInstall, content });
+        myLibrary.create({ title, section, category, subcategory, tags: tagsWithInstall, content, extra: carriedFrontmatter(data) });
         existingKeys.add(dedupeKey);
         added++;
       }

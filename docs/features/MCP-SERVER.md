@@ -36,14 +36,14 @@ All tools return markdown text. Read tools carry `readOnlyHint`.
 | Tool | Input | Returns |
 |:---|:---|:---|
 | `search_library` | `query?`, `section?` (prompts, agents, guides, system-prompts, skills, mcp-servers), `tags?` (all must match), `category?`, `library?` (all, public, my), `limit?` (1–50, default 10) | One line per hit: title, id, place, tags. Fuse.js over title, tags, category, subcategory and the opening text; with no query, the filtered items by title |
-| `get_item` | `id` | The full markdown. Library ids are paths (`4_Prompts/…/x.md`); a bare slug is a My Library id |
+| `get_item` | `id` | The full markdown. Library ids are paths (`4_Prompts/…/x.md`); a bare slug is a My Library id. A My Library skill comes back as a complete SKILL.md, frontmatter included |
 | `list_sections` | none | The six sections with counts and what each holds, plus the My Library count |
 | `list_categories` | `section` | Category and subcategory folders with counts |
 | `get_skill` | `id`: skill folder or its `SKILL.md` id | `SKILL.md` plus the list of support files with sizes |
 | `get_skill_file` | `skill`, `path` | One text file inside the skill. Refuses paths outside the folder, files over 500 KB and binaries |
 | `list_skill_packs` | none | Every pack: id, name, skill count, generated or hand-picked |
 | `get_skill_pack` | `id` | The pack's skills with their `SKILL.md` ids |
-| `save_to_my_library` | `id` to copy, or `title` + `content` (+ `section`, `category`, `subcategory`, `tags`) | The new My Library id. A copy refuses a duplicate title in the same place, as the app does |
+| `save_to_my_library` | `id` to copy, or `title` + `content` (+ `section`, `category`, `subcategory`, `tags`) | The new My Library id. A copy refuses a duplicate title in the same place, as the app does, and keeps the item's own frontmatter (a skill's `name`, `description`, `license`…); new content may start with its own frontmatter block |
 | `update_my_prompt` | `id` + any of `title`, `content`, `category`, `subcategory`, `tags` | Confirmation |
 | `delete_my_prompt` | `id` | Confirmation. `destructiveHint`; the server's instructions tell the agent to ask first |
 

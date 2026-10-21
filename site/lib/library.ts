@@ -83,6 +83,16 @@ export function placeOf(id: string) {
   };
 }
 
+/**
+ * The part of a library file's frontmatter a copy in My Library keeps: a skill's
+ * `name`, `description`, `license`, `allowed-tools` and the like. Provenance and
+ * the keys My Library manages itself are left behind.
+ */
+export function carriedFrontmatter(frontmatter: Record<string, unknown>): Record<string, unknown> {
+  const drop = new Set(['title', 'tags', 'section', 'category', 'subcategory', 'upstream', 'created', 'updated']);
+  return Object.fromEntries(Object.entries(frontmatter).filter(([k]) => !drop.has(k)));
+}
+
 export interface LibraryItem {
   id: string;
   title: string;
