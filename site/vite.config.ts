@@ -1,3 +1,4 @@
+import 'dotenv/config'; // READ_ONLY in site/.env must reach a standalone `vite build` too
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';

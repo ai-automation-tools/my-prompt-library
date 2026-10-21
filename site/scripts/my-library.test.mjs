@@ -53,4 +53,22 @@ try {
   fs.rmSync(dir, { recursive: true, force: true });
 }
 
-console.log("my-library: file store round-trips, updates in place, and rejects path ids");
+// The write guard: a page on another site can't post into My Library
+const { app } = await import("../api/index.ts");
+const server = app.listen(0, "127.0.0.1");
+await new Promise((r) => server.once("listening", r));
+const base = `http://127.0.0.1:${server.address().port}`;
+try {
+  const copy = `${base}/api/prompts/${encodeURIComponent("1_Guides/README.md")}/copy-to-my-prompts`;
+  const foreign = await fetch(copy, { method: "POST", headers: { Origin: "https://evil.example" } });
+  assert.equal(foreign.status, 403, "cross-site write refused");
+  const nullOrigin = await fetch(copy, { method: "POST", headers: { Origin: "null" } });
+  assert.equal(nullOrigin.status, 403, "null-origin write refused");
+  const sameSite = await fetch(copy, { method: "POST", headers: { Origin: base } });
+  assert.notEqual(sameSite.status, 403, "same-origin write allowed");
+} finally {
+  server.close();
+  fs.rmSync(dir, { recursive: true, force: true });
+}
+
+console.log("my-library: file store round-trips, updates in place, rejects path ids and cross-site writes");

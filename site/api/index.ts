@@ -38,10 +38,32 @@ app.use((req, res, next) => {
   next();
 });
 
-/** Every route that writes to My Library. The hosted demo is read-only. */
-const requireWritable: express.RequestHandler = (_req, res, next) => {
+/** Browsers send Origin on cross-site writes; ours always matches the Host it was served from. */
+const isCrossSite = (req: express.Request) => {
+  const origin = req.headers.origin;
+  if (!origin) return false; // curl and other non-browser clients
+  try {
+    return new URL(origin).host !== req.headers.host;
+  } catch {
+    return true; // "null" from sandboxed frames and file:// pages
+  }
+};
+
+/**
+ * Every route that writes to My Library. The hosted demo is read-only, and with
+ * no accounts the Origin check is what stops any page you visit from posting a
+ * form at localhost:3010 (copy-to-my-prompts needs no body, so it is a simple
+ * request the browser sends without asking).
+ * ponytail: no Host allowlist, so DNS rebinding is not covered; add one if the
+ * local server ever holds anything more sensitive than prompts.
+ */
+const requireWritable: express.RequestHandler = (req, res, next) => {
   if (READ_ONLY) {
     res.status(403).json({ error: 'This copy of the library is read-only. Clone the repo to keep your own prompts.' });
+    return;
+  }
+  if (isCrossSite(req)) {
+    res.status(403).json({ error: 'Cross-site request refused' });
     return;
   }
   next();
