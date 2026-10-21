@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "buildTime": "2026-10-21T18:19:39.965Z",
-  "promptCount": 3192,
+  "buildTime": "2026-10-21T18:38:11.743Z",
+  "promptCount": 3232,
   "prompts": [
     {
       "id": "1_Guides/API_Providers/anthropic_api_guide.md",
@@ -10440,6 +10440,70 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/Business/Strategy/business-plan-builder/SKILL.md",
+      "title": "💼 business-plan-builder",
+      "section": "3_Skills",
+      "category": "Business",
+      "subcategory": "Strategy",
+      "tags": [
+        "skill",
+        "business",
+        "strategy",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Business plan builder\n\nSomebody hands you an idea. Your job is to find out whether it holds up, and to leave behind a set of documents that show your work — so the reader can disagree with a specif",
+      "lastModified": "2026-10-21T18:38:08.411Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Business/Strategy/customer-discovery/SKILL.md",
+      "title": "💼 customer-discovery",
+      "section": "3_Skills",
+      "category": "Business",
+      "subcategory": "Strategy",
+      "tags": [
+        "skill",
+        "business",
+        "strategy",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Customer Discovery\n\n## What discovery is for\n\nDiscovery exists to find out whether a problem is real, painful, and already being\nworked around at cost. It is not for validating a solution, and it i",
+      "lastModified": "2026-10-21T18:38:08.440Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Business/Strategy/go-to-market/SKILL.md",
+      "title": "💼 go-to-market",
+      "section": "3_Skills",
+      "category": "Business",
+      "subcategory": "Strategy",
+      "tags": [
+        "skill",
+        "business",
+        "strategy",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Go-to-Market\n\n## The gap this closes\n\nA product can be good, correctly priced, and still reach nobody. Go-to-market is the\nargument for how a specific buyer finds out this exists, decides it is for",
+      "lastModified": "2026-10-21T18:38:08.442Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Business/Strategy/pricing-strategy/SKILL.md",
+      "title": "💼 pricing-strategy",
+      "section": "3_Skills",
+      "category": "Business",
+      "subcategory": "Strategy",
+      "tags": [
+        "skill",
+        "business",
+        "strategy",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Pricing Strategy\n\n## Price is a product decision\n\nPricing is usually treated as a last step — build the thing, look at two\ncompetitors, land somewhere between them, round to $29. That produces a nu",
+      "lastModified": "2026-10-21T18:38:08.443Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/Business/analytics-tracking/SKILL.md",
       "title": "🧪 analytics-tracking",
       "section": "3_Skills",
@@ -10590,6 +10654,38 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/Content/Cooking/recipe-validator/SKILL.md",
+      "title": "✍️ recipe-validator",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "Cooking",
+      "tags": [
+        "skill",
+        "content",
+        "cooking",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Recipe validator\n\nJudge whether food recipes are **safe to cook, healthy within reason, and made to a competent standard** — then report exactly what's wrong and how to fix it. This is a *review*, ",
+      "lastModified": "2026-10-21T18:38:08.415Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/Documentation/repo-docs-builder/SKILL.md",
+      "title": "✍️ repo-docs-builder",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "Documentation",
+      "tags": [
+        "skill",
+        "content",
+        "documentation",
+        "agent-skills"
+      ],
+      "contentPreview": "\nYou are a **Repository Builder** — you take a repo, project folder, doc library, or Obsidian vault (new or existing) and make it **professional and navigable end to end**: a clean layout, a house-sty",
+      "lastModified": "2026-10-21T18:38:08.418Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/Content/General/document-writer/SKILL.md",
       "title": "🔌 document-writer",
       "section": "3_Skills",
@@ -10620,6 +10716,70 @@
       ],
       "contentPreview": "\n# Humanizer: Remove AI Writing Patterns\n\nYou are a writing editor that identifies and removes signs of AI-generated text to make writing sound more natural and human. This guide is based on Wikipedia",
       "lastModified": "2026-09-20T06:00:06.498Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/Image_Generation/news-images/SKILL.md",
+      "title": "✍️ news-images",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "Image_Generation",
+      "tags": [
+        "skill",
+        "content",
+        "image-generation",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# News Images\n\nThis skill generates **eight** news-image variants. Each turns recent major **U.S.** news into bright cartoon-editorial imagery. Its job is **generation** — research the stories, lay o",
+      "lastModified": "2026-10-21T18:38:08.425Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/Media/captions-and-accessibility/SKILL.md",
+      "title": "✍️ captions-and-accessibility",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "Media",
+      "tags": [
+        "skill",
+        "content",
+        "media",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Captions and Accessibility\n\n## Accessibility is part of done, not a later pass\n\nAn asset that a deaf viewer cannot follow, a blind viewer cannot understand, or a\nlow-vision viewer cannot read is no",
+      "lastModified": "2026-10-21T18:38:08.448Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/Media/media-rights-and-licensing/SKILL.md",
+      "title": "✍️ media-rights-and-licensing",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "Media",
+      "tags": [
+        "skill",
+        "content",
+        "media",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Media Rights and Licensing\n\n## Never assert a right you did not confirm\n\nThe dangerous sentence in media production is \"that's probably fine.\" Music, a font, a\nstock clip, a voice, a likeness — eac",
+      "lastModified": "2026-10-21T18:38:08.449Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Content/Media/post-publish-analytics/SKILL.md",
+      "title": "✍️ post-publish-analytics",
+      "section": "3_Skills",
+      "category": "Content",
+      "subcategory": "Media",
+      "tags": [
+        "skill",
+        "content",
+        "media",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Post-Publish Analytics\n\n## Analytics exist to change the next piece\n\nNumbers after publish are only worth reading if they change what you make next.\nCollecting views and screenshotting a nice chart",
+      "lastModified": "2026-10-21T18:38:08.450Z",
       "isUserOwned": false
     },
     {
@@ -12065,6 +12225,22 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/Development/API/api-client-resilience/SKILL.md",
+      "title": "💻 api-client-resilience",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "API",
+      "tags": [
+        "skill",
+        "development",
+        "api",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# API Client Resilience\n\n## The default failure\n\nAn HTTP client written without deliberate failure handling does not fail. It hangs.\nThe request goes out, the provider is degraded rather than down, n",
+      "lastModified": "2026-10-21T18:38:08.434Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/Development/API/api-documentation-generator/SKILL.md",
       "title": "💻 api-documentation-generator",
       "section": "3_Skills",
@@ -12095,6 +12271,22 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/Development/API/api-integration-testing/SKILL.md",
+      "title": "💻 api-integration-testing",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "API",
+      "tags": [
+        "skill",
+        "development",
+        "api",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# API Integration Testing\n\n## The two failure modes\n\n**Tests that hit the live API.** They are slow, they fail when the provider has a\nbad morning, they burn quota, and they cannot run in CI without ",
+      "lastModified": "2026-10-21T18:38:08.435Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/Development/API/api-patterns/SKILL.md",
       "title": "🔌 api-patterns",
       "section": "3_Skills",
@@ -12107,6 +12299,22 @@
       ],
       "contentPreview": "\n# API Patterns\n\n> API design principles and decision-making for 2025.\n> **Learn to THINK, not copy fixed patterns.**\n\n## 🎯 Selective Reading Rule\n\n**Read ONLY files relevant to the request!** Check ",
       "lastModified": "2026-10-21T18:07:05.947Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/API/api-response-normalization/SKILL.md",
+      "title": "💻 api-response-normalization",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "API",
+      "tags": [
+        "skill",
+        "development",
+        "api",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# API Response Normalization\n\n## The problem\n\nFive APIs answering the same question return five shapes. One nests records under\n`data.items`, one under `results`, one returns a bare array. One dates ",
+      "lastModified": "2026-10-21T18:38:08.437Z",
       "isUserOwned": false
     },
     {
@@ -12137,6 +12345,38 @@
       ],
       "contentPreview": "\n# Building LLM-Powered Applications with Claude\n\nThis skill helps you build LLM-powered applications with Claude. Choose the right surface based on your needs, detect the project language, then read ",
       "lastModified": "2026-10-21T18:07:05.949Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/API/public-api-evaluation/SKILL.md",
+      "title": "💻 public-api-evaluation",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "API",
+      "tags": [
+        "skill",
+        "development",
+        "api",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Public API Evaluation\n\n## Why this exists\n\nThe cost of an API is almost never the integration. It is the thing you find out in\nmonth four: the free tier was a trial, the data is refreshed quarterly",
+      "lastModified": "2026-10-21T18:38:08.438Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/API/rate-limit-and-quota-management/SKILL.md",
+      "title": "💻 rate-limit-and-quota-management",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "API",
+      "tags": [
+        "skill",
+        "development",
+        "api",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Rate Limit and Quota Management\n\n## Two different constraints\n\nThey get conflated and they need different mechanisms.\n\n- **A rate limit** is about *speed*. Requests per second, minute, or hour. Exc",
+      "lastModified": "2026-10-21T18:38:08.439Z",
       "isUserOwned": false
     },
     {
@@ -12197,6 +12437,70 @@
       ],
       "contentPreview": "\n# Mermaid Diagram Specialist\n\n## Overview\n\n**Purpose**: Expert in creating comprehensive Mermaid diagrams for\ndocumentation, architecture visualization, and process mapping\n\n**Category**: Tech **Prim",
       "lastModified": "2026-10-21T18:07:05.952Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Automation/agent-workspace-builder/SKILL.md",
+      "title": "💻 agent-workspace-builder",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Automation",
+      "tags": [
+        "skill",
+        "development",
+        "automation",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Agent workspace builder\n\nAn **agent workspace** is a repo you open an agent in to do one kind of work. Its `.claude/`\n(or another client's equivalent) carries skills, reviewer agents, commands, rul",
+      "lastModified": "2026-10-21T18:38:08.396Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Automation/automated-dev-pipeline/SKILL.md",
+      "title": "💻 automated-dev-pipeline",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Automation",
+      "tags": [
+        "skill",
+        "development",
+        "automation",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Automated dev pipeline\n\nA pattern for letting scheduled, unattended AI sessions do development work: start new\nprojects, build them, publish them to GitHub, and keep every repo current afterwards. ",
+      "lastModified": "2026-10-21T18:38:08.404Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Automation/html-email-templates/SKILL.md",
+      "title": "💻 html-email-templates",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Automation",
+      "tags": [
+        "skill",
+        "development",
+        "automation",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Email Template\n\nThree templates, used together or alone. Pick based on what the email *is* and which system generates it:\n\n| Email is... | Use | Delivery |\n|---|---|---|\n| A notification, alert, or",
+      "lastModified": "2026-10-21T18:38:08.406Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Automation/task-router/SKILL.md",
+      "title": "💻 task-router",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Automation",
+      "tags": [
+        "skill",
+        "development",
+        "automation",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Task Router\n\nPick the **execution shape** first, the **model** second. Wrong shape is the expensive\nmistake — a fan-out for a typo burns tokens and wall-clock; an inline guess at an\narchitecture ch",
+      "lastModified": "2026-10-21T18:38:08.407Z",
       "isUserOwned": false
     },
     {
@@ -12738,6 +13042,54 @@
       ],
       "contentPreview": "\n# Neon Serverless Postgres\n\nNeon is a serverless Postgres platform that separates compute and storage to offer autoscaling, branching, instant restore, and scale-to-zero. It's fully compatible with P",
       "lastModified": "2026-10-21T18:07:05.957Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Engineering/debugging-methodology/SKILL.md",
+      "title": "💻 debugging-methodology",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Engineering",
+      "tags": [
+        "skill",
+        "development",
+        "engineering",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Debugging Methodology\n\n## Debugging is narrowing, not guessing\n\nThe slow way to debug is to read the code, form a theory about what is probably\nwrong, change something, and see if the symptom goes ",
+      "lastModified": "2026-10-21T18:38:08.444Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Engineering/performance-optimization/SKILL.md",
+      "title": "💻 performance-optimization",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Engineering",
+      "tags": [
+        "skill",
+        "development",
+        "engineering",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Performance Optimization\n\n## Measure first, or you are guessing\n\nThe instinct on a slow system is to find the code that *looks* expensive and optimize\nit. That instinct is wrong often enough to be ",
+      "lastModified": "2026-10-21T18:38:08.445Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Engineering/testing-strategy/SKILL.md",
+      "title": "💻 testing-strategy",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Engineering",
+      "tags": [
+        "skill",
+        "development",
+        "engineering",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Testing Strategy\n\n## Tests exist to let you change code safely\n\nThe point of a test suite is not coverage and it is not correctness proofs. It is the\nconfidence to change code without manually re-c",
+      "lastModified": "2026-10-21T18:38:08.447Z",
       "isUserOwned": false
     },
     {
@@ -13433,6 +13785,22 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/Development/Web_Development/project-hub-scaffold/SKILL.md",
+      "title": "💻 project-hub-scaffold",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Web_Development",
+      "tags": [
+        "skill",
+        "development",
+        "web-development",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Project Hub scaffold\n\nReuse an existing Project Hub engine: a local filesystem scanner and vanilla-JS\nexplorer. Find the checkout containing `Hub/hub.mjs` and `Hub/index.html` from the\nuser's conte",
+      "lastModified": "2026-10-21T18:38:08.429Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/Development/Web_Development/react-component-generator/SKILL.md",
       "title": "🛠️ react-component-generator",
       "section": "3_Skills",
@@ -13475,6 +13843,22 @@
       ],
       "contentPreview": "\n# Web Artifacts Builder\n\nTo build powerful frontend claude.ai artifacts, follow these steps:\n1. Initialize the frontend repo using `scripts/init-artifact.sh`\n2. Develop your artifact by editing the g",
       "lastModified": "2026-10-21T18:07:05.984Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Development/Web_Development/web-house-style/SKILL.md",
+      "title": "💻 web-house-style",
+      "section": "3_Skills",
+      "category": "Development",
+      "subcategory": "Web_Development",
+      "tags": [
+        "skill",
+        "development",
+        "web-development",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Web house style\n\nThe sites in the `ai-automation-tools` org (the landing page, Agent Chat, Cronsole,\nEdge-Radar, Edge Spectrum, Project Hub, the Agent Skills showcase) were moved onto\none design vo",
+      "lastModified": "2026-10-21T18:38:08.433Z",
       "isUserOwned": false
     },
     {
@@ -14662,6 +15046,214 @@
       "isUserOwned": false
     },
     {
+      "id": "3_Skills/Platform_Integrations/Agent_Chat/agent-chat-conv-types/SKILL.md",
+      "title": "🔌 agent-chat-conv-types",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Agent_Chat",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "agent-chat",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Conversation types and sub-types\n\nTwo axes, and keeping them apart is the whole design.\n\n| | `conv_type` | `preset` |\n|:---|:---|:---|\n| **Is** | The room's **structure** — who is in it, what each ",
+      "lastModified": "2026-10-21T18:38:08.458Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Agent_Chat/agent-chat-delivery/SKILL.md",
+      "title": "🔌 agent-chat-delivery",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Agent_Chat",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "agent-chat",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Delivery, notifications and the watchdog\n\nThe web UI is the **viewer** — a conversation lives in `db/chat.db` and you go look at it.\nDelivery is the **push** half: when a run finishes (or posts its",
+      "lastModified": "2026-10-21T18:38:08.461Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Agent_Chat/agent-chat-run-triage/SKILL.md",
+      "title": "🔌 agent-chat-run-triage",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Agent_Chat",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "agent-chat",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Triaging a live run\n\n**Diagnose from the database outward.** The DB is the contract between processes; a CLI window\ntelling you what it thinks is happening is a *second-hand* account of that row. R",
+      "lastModified": "2026-10-21T18:38:08.463Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Cronsole/cronsole-claude-routines/SKILL.md",
+      "title": "🔌 cronsole-claude-routines",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Cronsole",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "cronsole",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Claude Code routines — scheduled agents in the cloud\n\nA **routine** is a prompt Anthropic runs on a schedule, in an isolated checkout, ending in a pull\nrequest. It is one of two places a scheduled ",
+      "lastModified": "2026-10-21T18:38:08.465Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Cronsole/cronsole-windows-jobs/SKILL.md",
+      "title": "🔌 cronsole-windows-jobs",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Cronsole",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "cronsole",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Windows Task Scheduler jobs\n\nMost scheduled jobs worth building are **one of four shapes**. Recognize the shape, fill in its\nconfig, and let a registrar create the task — rather than hand-building ",
+      "lastModified": "2026-10-21T18:38:08.472Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Edge_Radar/edge-radar-strategy-evidence/SKILL.md",
+      "title": "🔌 edge-radar-strategy-evidence",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Edge_Radar",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "edge-radar",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Strategy evidence\n\n**The question is never \"did it win\". It is \"does this sample support acting differently\".**\n\n> **The frame that governs everything here:** over 390 settled bets the *market's* B",
+      "lastModified": "2026-10-21T18:38:08.474Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Edge_Radar/edge-radar-strategy-profiles/SKILL.md",
+      "title": "🔌 edge-radar-strategy-profiles",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Edge_Radar",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "edge-radar",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Strategy profiles\n\n**A strategy is a `.env.<name>` file and a subaccount. It is never a fork, never a second API key,\nand never an edit to the live `.env`.**\n\n> **The frame:** two strategies, one c",
+      "lastModified": "2026-10-21T18:38:08.477Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Edge_Spectrum/edge-spectrum-dataset/SKILL.md",
+      "title": "🔌 edge-spectrum-dataset",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Edge_Spectrum",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "edge-spectrum",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# The dataset and its artifacts\n\n**`site/src/data/edges.ts` is the only place these 187 records are authored. Everything else that\nholds them is generated.**\n\nEditing an artifact by hand is reverted ",
+      "lastModified": "2026-10-21T18:38:08.479Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Edge_Spectrum/edge-spectrum-endpoint/SKILL.md",
+      "title": "🔌 edge-spectrum-endpoint",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Edge_Spectrum",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "edge-spectrum",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Endpoints\n\n**Every endpoint exists twice and must behave once.** `site/server.ts` (Express, local dev only)\nand `site/api/*.ts` (Vercel serverless, production) are two adapters over the same logic ",
+      "lastModified": "2026-10-21T18:38:08.482Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Edge_Spectrum/edge-spectrum-hub-tool/SKILL.md",
+      "title": "🔌 edge-spectrum-hub-tool",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Edge_Spectrum",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "edge-spectrum",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Adding a tool to the hub\n\n**The hub is a registry plus a page. If you touched more than two files, check why.**\n\nEverything about a tile — its title, blurb, icon, status pill, accent, and where it ",
+      "lastModified": "2026-10-21T18:38:08.485Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Project_Hub/project-hub-client/SKILL.md",
+      "title": "🔌 project-hub-client",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Project_Hub",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "project-hub",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Working in index.html\n\n**The interface is one 3,700-line file on purpose and it stays that way.** No build step, no\nbundler, no framework — the hub's whole promise is `node hub.mjs` and a browser. ",
+      "lastModified": "2026-10-21T18:38:08.487Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Project_Hub/project-hub-demo/SKILL.md",
+      "title": "🔌 project-hub-demo",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Project_Hub",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "project-hub",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# The hosted demo\n\n**Nothing in `Demo/` reimplements the hub.** The build runs the real `Hub/hub.mjs` against a\nfictional workspace, crawls every response it produces, and writes those out beside an\n",
+      "lastModified": "2026-10-21T18:38:08.490Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Platform_Integrations/Project_Hub/project-hub-scan/SKILL.md",
+      "title": "🔌 project-hub-scan",
+      "section": "3_Skills",
+      "category": "Platform_Integrations",
+      "subcategory": "Project_Hub",
+      "tags": [
+        "skill",
+        "platform-integrations",
+        "project-hub",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Changing what the hub sees\n\n**A node is only in the tree if it survived four filters, and it is only readable if\n`resolveId()` agrees a second time.** Most \"why isn't this showing up\" bugs are one ",
+      "lastModified": "2026-10-21T18:38:08.492Z",
+      "isUserOwned": false
+    },
+    {
       "id": "3_Skills/Platform_Integrations/academy-guide/SKILL.md",
       "title": "academy-guide",
       "section": "3_Skills",
@@ -14751,6 +15343,54 @@
       ],
       "contentPreview": "\n# Notion\n\nUse the Notion API for page management, structured data workflows, and block-level content updates.\n\n## When To Use\n\n- Create or update Notion pages\n- Query Notion databases or data sources",
       "lastModified": "2026-10-21T18:07:06.049Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Security/Practice/security-metrics-and-posture/SKILL.md",
+      "title": "🛡️ security-metrics-and-posture",
+      "section": "3_Skills",
+      "category": "Security",
+      "subcategory": "Practice",
+      "tags": [
+        "skill",
+        "security",
+        "practice",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Security Metrics and Posture\n\n## Measure to decide, not to decorate\n\nA security dashboard usually fills up with numbers that are easy to collect and\nchange nothing: total alerts, patches applied, t",
+      "lastModified": "2026-10-21T18:38:08.452Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Security/Practice/security-report-writing/SKILL.md",
+      "title": "🛡️ security-report-writing",
+      "section": "3_Skills",
+      "category": "Security",
+      "subcategory": "Practice",
+      "tags": [
+        "skill",
+        "security",
+        "practice",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Security Report Writing\n\n## The report is the deliverable\n\nThe testing is not the product. The report is. A brilliant assessment written up\nbadly gets skimmed, misunderstood, and shelved, and the r",
+      "lastModified": "2026-10-21T18:38:08.453Z",
+      "isUserOwned": false
+    },
+    {
+      "id": "3_Skills/Security/Practice/vulnerability-disclosure/SKILL.md",
+      "title": "🛡️ vulnerability-disclosure",
+      "section": "3_Skills",
+      "category": "Security",
+      "subcategory": "Practice",
+      "tags": [
+        "skill",
+        "security",
+        "practice",
+        "agent-skills"
+      ],
+      "contentPreview": "\n# Vulnerability Disclosure\n\n## Two sides of the same process\n\nCoordinated disclosure is the agreement between whoever found a flaw and whoever can\nfix it: the finder gives the owner time to remediate",
+      "lastModified": "2026-10-21T18:38:08.455Z",
       "isUserOwned": false
     },
     {
