@@ -138,8 +138,26 @@ const copyTree = (from, to, notes) => {
 
 const stampedSkill = (raw, { name, category, subcategory, srcPath }) => {
   const { fm, body } = splitFrontmatter(raw);
-  // Keep the upstream's own keys (name, description, ...) verbatim; add ours around them.
-  const kept = fm.split("\n").filter((l) => !/^(title|tags|upstream):/.test(l) && !/^\s+(match|repo|path|ref|checked):/.test(l)).join("\n").replace(/\n+$/, "");
+  // Keep the upstream's own keys (name, description, ...) and add ours around them.
+  // Two repairs on the way through, both learned on the first dry run: a key we
+  // replace (title/tags/upstream) takes its indented continuation lines with it,
+  // and a one-line plain scalar holding ": " or " #" (two upstream descriptions
+  // did) is quoted, since js-yaml refuses it and the index would drop the skill.
+  const segments = [];
+  for (const line of fm.split("\n")) {
+    const m = line.match(/^([A-Za-z_][\w-]*):(.*)$/);
+    if (m) segments.push({ key: m[1], rest: m[2], lines: [line] });
+    else if (segments.length) segments[segments.length - 1].lines.push(line);
+  }
+  const kept = segments
+    .filter((s) => !["title", "tags", "upstream"].includes(s.key))
+    .map((s) => {
+      const v = s.rest.trim();
+      if (s.lines.length === 1 && v && !/^["'[{|>]/.test(v) && /: |\s#/.test(v)) return `${s.key}: ${JSON.stringify(v)}`;
+      return s.lines.join("\n");
+    })
+    .join("\n")
+    .replace(/\n+$/, "");
   const tags = JSON.stringify(["skill", slug(category), slug(subcategory), "agent-skills"].filter((t, i, a) => t && a.indexOf(t) === i));
   const out = [
     "---",
