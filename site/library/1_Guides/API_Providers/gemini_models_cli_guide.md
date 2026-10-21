@@ -26,7 +26,7 @@ Comprehensive reference for building and managing agents with Google Gemini mode
 
 **Key Features:**
 - 🌟 Native multimodal (text, image, video, audio)
-- 🧠 2M token context window (Gemini 1.5 Pro)
+- 🧠 Long context windows (see the models page)
 - 🆓 Free tier with generous limits
 - 🎯 Grounding with Google Search
 - 📊 JSON mode and code execution
@@ -76,7 +76,7 @@ source ~/.bashrc
 ### Using with cURL
 
 ```bash
-curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$GOOGLE_API_KEY" \
+curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=$GOOGLE_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
     "contents": [{
@@ -88,32 +88,18 @@ curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:g
 ---
 ## 3. Available Models
 
-### Production Models
+### Current Models
 
-| Model | Context | Description | Use Case |
-|-------|---------|-------------|----------|
-| `gemini-2.0-flash` | 1M | Latest, fastest multimodal | Real-time apps, high volume |
-| `gemini-1.5-flash` | 1M | Fast, cost-effective | General tasks |
-| `gemini-1.5-pro` | 2M | Most capable, longest context | Complex analysis, large docs |
-| `gemini-1.0-pro` | 32K | Legacy text model | Simple text tasks |
+Checked 2026-10-21 against https://ai.google.dev/gemini-api/docs/models. Model IDs change often; confirm there before pinning one.
 
-### Model Selection Guide
+| Model | Description | Use Case |
+|-------|-------------|----------|
+| `gemini-3.8-flash` | Most intelligent Flash model | Real-time apps, high volume |
+| `gemini-3.6-flash` | Previous-generation Flash | General tasks |
+| `gemini-3.5-flash-lite` / `gemini-3.1-flash-lite` | Lowest cost | Bulk, simple tasks |
+| `gemini-3.1-pro-preview` | Pro tier (preview) | Complex analysis, large docs |
 
-**gemini-2.0-flash** (Recommended):
-- Newest generation (Dec 2024)
-- Multimodal: text, image, video, audio
-- Real-time streaming audio/video
-- Best price-to-performance ratio
-
-**gemini-1.5-pro**:
-- 2M token context (industry-leading)
-- Best for: full codebases, books, hours of video
-- More accurate than Flash on complex tasks
-
-**gemini-1.5-flash**:
-- 1M context
-- 50x cheaper than Pro
-- Good for: most everyday tasks
+The Gemini 1.x and 2.0 models used in older examples are retired; 2.0 Flash shut down 2026-06-01 (https://ai.google.dev/gemini-api/docs/deprecations).
 
 ---
 ## 4. Python SDK Examples
@@ -125,7 +111,7 @@ import google.generativeai as genai
 
 genai.configure(api_key="AIza...")
 
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-3.6-flash')
 response = model.generate_content("Hello, Gemini!")
 
 print(response.text)
@@ -143,7 +129,7 @@ for chunk in response:
 ### Multi-turn Conversation
 
 ```python
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-3.6-flash')
 chat = model.start_chat(history=[])
 
 response = chat.send_message("Hello!")
@@ -157,7 +143,7 @@ print(response.text)
 
 ```python
 model = genai.GenerativeModel(
-    'gemini-1.5-flash',
+    'gemini-3.6-flash',
     system_instruction="You are a Python expert. Provide concise, working code examples."
 )
 
@@ -169,7 +155,7 @@ response = model.generate_content("Explain list comprehensions")
 ```python
 import PIL.Image
 
-model = genai.GenerativeModel('gemini-2.0-flash')
+model = genai.GenerativeModel('gemini-3.6-flash')
 
 # From file
 image = PIL.Image.open('photo.jpg')
@@ -201,7 +187,7 @@ while video_file.state.name == "PROCESSING":
     video_file = genai.get_file(video_file.name)
 
 # Generate content
-model = genai.GenerativeModel('gemini-1.5-pro')
+model = genai.GenerativeModel('gemini-3.1-pro-preview')
 response = model.generate_content([
     "Summarize what happens in this video",
     video_file
@@ -248,7 +234,7 @@ def get_weather(location: str, unit: str = "celsius"):
 tools = [get_weather]
 
 model = genai.GenerativeModel(
-    'gemini-1.5-flash',
+    'gemini-3.6-flash',
     tools=tools
 )
 
@@ -296,7 +282,7 @@ import json
 from typing import Literal
 
 model = genai.GenerativeModel(
-    'gemini-1.5-flash',
+    'gemini-3.6-flash',
     generation_config={
         "response_mime_type": "application/json",
         "response_schema": {
@@ -324,7 +310,7 @@ print(data)
 
 ```python
 model = genai.GenerativeModel(
-    'gemini-1.5-pro',
+    'gemini-3.1-pro-preview',
     tools='code_execution'
 )
 
@@ -345,7 +331,7 @@ print(response.text)
 from google.generativeai.types import Tool, GoogleSearchRetrieval
 
 model = genai.GenerativeModel(
-    'gemini-1.5-flash',
+    'gemini-3.6-flash',
     tools=[Tool(google_search_retrieval=GoogleSearchRetrieval())]
 )
 
@@ -377,7 +363,7 @@ generation_config = {
 }
 
 model = genai.GenerativeModel(
-    'gemini-1.5-flash',
+    'gemini-3.6-flash',
     generation_config=generation_config
 )
 ```
@@ -441,25 +427,9 @@ genai.delete_file(file.name)
 ---
 ## 11. Rate Limits & Pricing
 
-### Free Tier Limits
-
-| Model | RPM | RPD | TPM |
-|-------|-----|-----|-----|
-| gemini-2.0-flash | 15 | 1,500 | 1M |
-| gemini-1.5-flash | 15 | 1,500 | 1M |
-| gemini-1.5-pro | 2 | 50 | 32K |
-
-### Paid Tier (Pay-as-you-go)
-
-| Model | Input (per 1M tokens) | Output (per 1M tokens) |
-|-------|----------------------|------------------------|
-| gemini-2.0-flash | $0.075 | $0.30 |
-| gemini-1.5-flash | $0.075 | $0.30 |
-| gemini-1.5-pro | $1.25 | $5.00 |
+Rate limits and per-token prices vary by model and tier and change often. See https://ai.google.dev/gemini-api/docs/rate-limits and https://ai.google.dev/gemini-api/docs/pricing.
 
 **Context caching:** Up to 90% discount on cached content
-
-**Paid tier limits:** 1,000 RPM, unlimited daily requests
 
 ---
 ## 12. Context Caching
@@ -472,7 +442,7 @@ document = genai.upload_file(path="large_book.pdf")
 
 # Create cache
 cache = genai.caching.CachedContent.create(
-    model='gemini-1.5-pro',
+    model='gemini-3.1-pro-preview',
     contents=[document],
     system_instruction="You are an expert on this book",
     ttl=datetime.timedelta(hours=1)
@@ -519,7 +489,7 @@ except Exception as e:
 
 ```python
 # Count tokens before sending
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-3.6-flash')
 tokens = model.count_tokens("Your very long text here")
 
 print(f"Total tokens: {tokens.total_tokens}")
@@ -542,7 +512,7 @@ gcloud config set project YOUR_PROJECT_ID
 curl -X POST \
   -H "Authorization: Bearer $(gcloud auth print-access-token)" \
   -H "Content-Type: application/json" \
-  https://us-central1-aiplatform.googleapis.com/v1/projects/YOUR_PROJECT_ID/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent \
+  https://us-central1-aiplatform.googleapis.com/v1/projects/YOUR_PROJECT_ID/locations/us-central1/publishers/google/models/gemini-3.6-flash:generateContent \
   -d '{
     "contents": {
       "role": "user",
@@ -558,7 +528,7 @@ pip install litellm
 
 export GEMINI_API_KEY="AIza..."
 
-litellm --model gemini/gemini-1.5-flash
+litellm --model gemini/gemini-3.6-flash
 ```
 
 ---
@@ -568,7 +538,7 @@ litellm --model gemini/gemini-1.5-flash
 
 ```python
 model = genai.GenerativeModel(
-    'gemini-2.0-flash-thinking',
+    'gemini-3.6-flash-thinking',
     generation_config={
         "temperature": 1.0,
         "thinking_config": {
@@ -611,7 +581,7 @@ response = client.chat.completions.create(
 
 # Gemini equivalent
 import google.generativeai as genai
-model = genai.GenerativeModel('gemini-1.5-pro')
+model = genai.GenerativeModel('gemini-3.1-pro-preview')
 response = model.generate_content("Hello")
 ```
 
@@ -628,7 +598,7 @@ message = client.messages.create(
 
 # Gemini
 import google.generativeai as genai
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-3.6-flash')
 response = model.generate_content("Hello")
 ```
 
@@ -680,26 +650,7 @@ except ResourceExhausted:
 ```
 
 ---
-## 18. Comparison
-
-### vs GPT-4
-
-- ✅ **16x longer context** (2M vs 128K)
-- ✅ **10x cheaper** ($1.25 vs $10 per 1M input)
-- ✅ **Native video/audio** understanding
-- ✅ **Free tier** available
-- ⚠️ **Slightly weaker** at complex reasoning
-
-### vs Claude 3.5
-
-- ✅ **10x longer context** (2M vs 200K)
-- ✅ **5x cheaper** ($1.25 vs $3 per 1M input)
-- ✅ **Built-in code execution**
-- ✅ **Google Search grounding**
-- ⚠️ **Less nuanced** writing style
-
----
-**Last Updated:** 2026-03-24  
+**Last Updated:** 2026-10-21  
 **API Version:** v1beta
 
 *Part of the [my_agents](../../) repository*

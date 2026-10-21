@@ -1,6 +1,6 @@
 ---
 title: "💼 Investor Pitch Deck"
-tags: ["featured", "business", "documentation", "investor", "pitch", "deck"]
+tags: ["business", "documentation", "investor", "pitch", "deck"]
 category: "Business"
 subcategory: "Documentation"
 ---
