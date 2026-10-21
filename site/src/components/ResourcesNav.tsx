@@ -46,7 +46,7 @@ const RESOURCE_GROUPS: ResourceGroup[] = [
     id: 'cli',
     label: 'CLI agents',
     icon: Terminal,
-    accent: '#38bdf8',
+    accent: 'var(--accent)',
     links: [
       { label: 'Claude Code', href: 'https://github.com/anthropics/claude-code', icon: Github },
       { label: 'Gemini CLI', href: 'https://github.com/google-gemini/gemini-cli', icon: Github },
@@ -57,7 +57,7 @@ const RESOURCE_GROUPS: ResourceGroup[] = [
     id: 'system-prompts',
     label: 'System prompts',
     icon: FileText,
-    accent: '#fbbf24',
+    accent: 'var(--sec-system-prompts)',
     links: [
       { label: 'Learn Prompting', href: 'https://learnprompting.org/docs/basics/system_prompts', icon: Library },
       { label: 'Prompting Guide', href: 'https://www.promptingguide.ai/techniques', icon: Library },
@@ -70,7 +70,7 @@ const RESOURCE_GROUPS: ResourceGroup[] = [
     id: 'prompt-libraries',
     label: 'Prompt libraries',
     icon: Sparkles,
-    accent: '#fb7185',
+    accent: 'var(--sec-prompts)',
     links: [
       { label: 'Prompts.chat', href: 'https://prompts.chat/prompts', icon: Library },
       { label: 'PromptHero', href: 'https://prompthero.com/', icon: Sparkles },
@@ -83,7 +83,7 @@ const RESOURCE_GROUPS: ResourceGroup[] = [
     id: 'prompting-guides',
     label: 'Prompting guides',
     icon: BookOpen,
-    accent: '#a78bfa',
+    accent: 'var(--sec-guides)',
     links: [
       { label: 'Prompting Guide AI', href: 'https://www.promptingguide.ai/', icon: BookOpen },
       { label: 'Claude Prompt Eng', href: 'https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview', icon: Library },
@@ -96,7 +96,7 @@ const RESOURCE_GROUPS: ResourceGroup[] = [
     id: 'agents',
     label: 'Agents & MCP',
     icon: Bot,
-    accent: '#22d3ee',
+    accent: 'var(--sec-agents)',
     links: [
       { label: 'Anthropic Agents', href: 'https://docs.anthropic.com/en/docs/agents-and-tools/overview', icon: Bot },
       { label: 'OpenAI Agents', href: 'https://platform.openai.com/docs/guides/agents', icon: Bot },
@@ -113,7 +113,7 @@ const RESOURCE_GROUPS: ResourceGroup[] = [
     id: 'skills',
     label: 'Skills',
     icon: Zap,
-    accent: '#34d399',
+    accent: 'var(--sec-skills)',
     links: [
       { label: 'OpenClaw Skills', href: 'https://github.com/openclaw/openclaw/tree/main/skills', icon: Github },
       { label: 'ClawHub', href: 'https://clawhub.com', icon: Library },
@@ -146,7 +146,7 @@ export default function ResourcesNav() {
   }, [open]);
 
   return (
-    <div ref={ref} className="relative hidden lg:block">
+    <div ref={ref} className="relative hidden xl:block">
       <button
         type="button"
         onClick={() => setOpen(o => !o)}

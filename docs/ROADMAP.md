@@ -108,7 +108,7 @@ Nothing below blocks go-live. The routine works these groups in order once every
 
 ### ✨ Features
 - [x] Finish the `App.tsx` de-bulk — lift the remaining URL/routing state into a `useLibraryRoute` hook. `src/hooks/useLibraryRoute.ts` now owns `activeTab`, `activeCategory`, `activeSubcategory` and `promptPathParam`, the popstate listener and the URL write-back. The section tab was parsed from `?section=` by two hand-written if-chains (initial state and popstate) that had already drifted once — `skill-packs` was missing from one — and is now one `parseSection` over a single tab list. `App.tsx` 1,083 → **996 lines**, 23 → 19 `useState` hooks (the snapshot's "24" was one high). `libraryMode` and the `?prompt=` → prompt resolution stay in `App.tsx`: the first has its own persistence, the second needs the loaded listing and `handlePromptClick`. Completed **2026-10-03** — see the changelog.
-- [ ] Lazy-mount the 16-theme picker so it is not in every render tree.
+- [x] ~~Lazy-mount the 16-theme picker so it is not in every render tree.~~ Moot: the picker went with the house-style restyle on 2026-10-21; the theme is a Light | Dark switch now.
 - [ ] Role-based "starter pack" collections.
 - [ ] User ratings / feedback on prompts.
 - [ ] Programmatic API access for the public library.

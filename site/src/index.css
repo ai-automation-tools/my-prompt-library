@@ -1,53 +1,87 @@
 /*
- * Base stylesheet — the org design vocabulary that ai-automation-tools.dev and the
- * other sites in the org share: a #060606 ground with a faint dot grid, zinc
- * surfaces, sky-400 as the primary accent, Inter for text and JetBrains Mono for
- * eyebrows / tags / keys. Every colour is a token on :root; themes.css swaps the
- * tokens per [data-theme] and nothing else.
+ * Base stylesheet — the org house style (web-house-style): a #060606 ground with
+ * a faint dot grid, zinc surfaces, sky as the page accent, Inter for text and
+ * JetBrains Mono for eyebrows / tags / keys. Every colour is a token on :root;
+ * html.light redefines the same names and nothing else. Rules below the token
+ * blocks reference tokens only.
  */
 
 @import "tailwindcss";
-@import "./themes.css";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
-/* ===== Tokens (default theme = "mikesailab") ===== */
+/* ===== Tokens: dark (the default) ===== */
 
 :root {
   color-scheme: dark;
 
+  /* ground */
   --bg: #060606;
   --bg-2: #0a0a0c;
+  --dots: rgba(255, 255, 255, 0.035);
+  /* surfaces */
   --surface: rgba(24, 24, 27, 0.45);
   --surface-2: rgba(24, 24, 27, 0.8);
+  --panel: rgba(10, 10, 12, 0.6);
+  --field: rgba(24, 24, 27, 0.4);
+  --hover-bg: rgba(24, 24, 27, 0.7);
+  --hover-weak: rgba(63, 63, 70, 0.3);
+  --bar: rgba(6, 6, 6, 0.72);
+  --bar-line: rgba(39, 39, 42, 0.7);
+  --rail-bg: #08080a;
+  --srcbar-bg: #0a0a0b;
+  --menu-bg: #0a0a0c;
+  --pop-bg: #0c0c0f;
+  --pop-shadow: rgba(0, 0, 0, 0.8);
+  --pop-ring: rgba(255, 255, 255, 0.03);
+  --scrim: rgba(0, 0, 0, 0.6);
+  --switch-bg: rgba(39, 39, 42, 0.6);
+  --kbd-bg: #0e0e11;
+  --code-bg: rgba(6, 6, 6, 0.7);
+  --thumb: #27272a;
+  --hilite: rgba(255, 255, 255, 0.15);
+  /* lines */
   --line: rgba(63, 63, 70, 0.45);
   --line-2: rgba(63, 63, 70, 0.8);
-
+  --line-hover: #52525b;
+  --rule: rgba(39, 39, 42, 0.6);
+  /* text, brightest to faintest */
   --fg: #f4f4f5;
   --fg-2: #d4d4d8;
   --fg-3: #a1a1aa;
   --fg-4: #71717a;
   --fg-5: #52525b;
-
+  --fg-max: #fff;
+  --on-fg: #09090b;
+  /* accent: sky, the page's own hue */
   --accent: #38bdf8;
-  --accent-2: #0ea5e9;
+  --accent-hover: #7dd3fc;
   --accent-ink: #0b1220;
+  --glow-a: rgba(56, 189, 248, 0.12);
+  --glow-b: rgba(139, 92, 246, 0.06);
+  /* state */
   --ok: #34d399;
-  --warn: #fbbf24;
-  --danger: #fb7185;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+  /* accent-tinted text: mix toward white in dark, toward black in light */
+  --mix-ink: #fff;
+  --tint-k: 80%;
+  /* per-section hues (the per-tool accents on the org landing page) */
+  --sec-prompts: #fb7185;
+  --sec-agents: #22d3ee;
+  --sec-guides: #a78bfa;
+  --sec-skills: #34d399;
+  --sec-system-prompts: #fbbf24;
+  --sec-skill-packs: #2dd4bf;
 
   /* Derived from --accent so a theme only has to set the base colour. */
   --tint: color-mix(in srgb, var(--accent) 10%, transparent);
   --tint-2: color-mix(in srgb, var(--accent) 18%, transparent);
   --glow: color-mix(in srgb, var(--accent) 35%, transparent);
   --glow-soft: color-mix(in srgb, var(--accent) 12%, transparent);
-
-  /* The dot grid: ink channel + opacity. Light themes flip the ink. */
-  --grid-ink: 255, 255, 255;
-  --grid-opacity: 0.035;
   --blur: 16px;
 
   --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -58,10 +92,79 @@
   --r-sm: 6px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --srcbar-h: 34px;
+  --topbar-h: 56px;
 
-  /* Per-section accent: set by themes.css from data-section; falls back to --accent. */
+  /* The current section's accent, from data-section on <html>; falls back to --accent. */
   --c: var(--section-c, var(--accent));
 }
+
+/* ===== Tokens: light (opt-in from the switch) =====
+   Contrast on #fafafa: fg 19.1 · fg-2 14.3 · fg-3 7.4 · fg-4 5.7 · fg-5 4.3 · accent 5.7.
+   Section hues drop to their 700 shade so text in them clears 4.5:1 on white. */
+
+html.light {
+  color-scheme: light;
+
+  --bg: #fafafa;
+  --bg-2: #f4f4f5;
+  --dots: rgba(0, 0, 0, 0.05);
+  --surface: rgba(255, 255, 255, 0.75);
+  --surface-2: #fff;
+  --panel: rgba(255, 255, 255, 0.7);
+  --field: #fff;
+  --hover-bg: #f4f4f5;
+  --hover-weak: rgba(228, 228, 231, 0.7);
+  --bar: rgba(250, 250, 250, 0.8);
+  --bar-line: #e4e4e7;
+  --rail-bg: #f4f4f5;
+  --srcbar-bg: #f4f4f5;
+  --menu-bg: #fafafa;
+  --pop-bg: #fff;
+  --pop-shadow: rgba(0, 0, 0, 0.18);
+  --pop-ring: rgba(0, 0, 0, 0.04);
+  --scrim: rgba(24, 24, 27, 0.35);
+  --switch-bg: rgba(228, 228, 231, 0.6);
+  --kbd-bg: #f4f4f5;
+  --code-bg: #f4f4f5;
+  --thumb: #d4d4d8;
+  --hilite: rgba(255, 255, 255, 0.4);
+  --line: #e4e4e7;
+  --line-2: #d4d4d8;
+  --line-hover: #a1a1aa;
+  --rule: #e4e4e7;
+  --fg: #09090b;
+  --fg-2: #27272a;
+  --fg-3: #52525b;
+  --fg-4: #63636b;
+  --fg-5: #76767f;
+  --fg-max: #000;
+  --on-fg: #fff;
+  --accent: #0369a1;
+  --accent-hover: #075985;
+  --accent-ink: #fff;
+  --glow-a: rgba(56, 189, 248, 0.1);
+  --glow-b: rgba(139, 92, 246, 0.04);
+  --ok: #047857;
+  --warn: #b45309;
+  --danger: #b91c1c;
+  --mix-ink: #000;
+  --tint-k: 55%;
+  --sec-prompts: #be123c;
+  --sec-agents: #0e7490;
+  --sec-guides: #6d28d9;
+  --sec-skills: #047857;
+  --sec-system-prompts: #b45309;
+  --sec-skill-packs: #0f766e;
+}
+
+/* Per-section accent (--section-c), from data-section on <html>. */
+:root[data-section='prompts'] { --section-c: var(--sec-prompts); }
+:root[data-section='agents'] { --section-c: var(--sec-agents); }
+:root[data-section='guides'] { --section-c: var(--sec-guides); }
+:root[data-section='skills'] { --section-c: var(--sec-skills); }
+:root[data-section='system-prompts'] { --section-c: var(--sec-system-prompts); }
+:root[data-section='skill-packs'] { --section-c: var(--sec-skill-packs); }
 
 /* Base styles sit in Tailwind's `base` layer and the component classes in
    `components`, so a utility on an element (pl-11, h-7) still wins over them. */
@@ -75,6 +178,8 @@
 
   html {
     height: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -89,7 +194,6 @@
     text-rendering: optimizeLegibility;
     overflow: hidden;
     position: relative;
-    transition: background-color 0.5s var(--ease), color 0.5s var(--ease);
   }
 
   /* The dot grid, fixed to the viewport. */
@@ -99,7 +203,7 @@
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: radial-gradient(rgba(var(--grid-ink), var(--grid-opacity)) 1.2px, transparent 0);
+    background-image: radial-gradient(var(--dots) 1.2px, transparent 0);
     background-size: 24px 24px;
   }
 
@@ -140,8 +244,8 @@
   }
 
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   ::-webkit-scrollbar-track {
@@ -149,20 +253,31 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--fg-5) 60%, transparent);
-    border-radius: 99px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--fg-4);
-    background-clip: padding-box;
+    background: var(--thumb);
+    border-radius: 3px;
   }
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--fg-5) 60%, transparent) transparent;
+    scrollbar-color: var(--thumb) transparent;
+  }
+
+  /* Skip link: first thing Tab reaches. */
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 12px;
+    z-index: 80;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .skip:focus {
+    left: 16px;
   }
 }
 
@@ -180,12 +295,12 @@
     flex: none;
     align-items: center;
     gap: 16px;
-    height: 34px;
+    height: var(--srcbar-h);
     padding: 0 16px;
     position: relative;
     z-index: 20;
-    background: var(--bg-2);
-    border-bottom: 1px solid var(--line);
+    background: var(--srcbar-bg);
+    border-bottom: 1px solid var(--bar-line);
     font-size: 12px;
   }
 
@@ -218,6 +333,244 @@
     color: var(--fg);
   }
 
+  /* ===== Top bar: brand, section nav, ⌘K, theme switch (house document-page bar) ===== */
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 10px;
+    height: var(--topbar-h);
+    padding: 0 12px;
+    background: var(--bar);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--bar-line);
+  }
+
+  .brand {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    white-space: nowrap;
+  }
+
+  .brand img {
+    width: 24px;
+    height: 24px;
+    flex: none;
+    border-radius: 6px;
+    outline: 1px solid var(--line-2);
+    outline-offset: -1px;
+  }
+
+  .nav {
+    display: none;
+    align-items: center;
+    gap: 2px;
+    margin-left: 6px;
+  }
+
+  .nav a,
+  .nav button {
+    position: relative;
+    padding: 6px 9px;
+    font-size: 13.5px;
+    color: var(--fg-3);
+    border-radius: var(--r-sm);
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .nav a:hover,
+  .nav button:hover,
+  .nav [aria-current="true"] {
+    color: var(--fg);
+  }
+
+  /* The sliding underline under the current section, like the landing page's scroll-spy. */
+  .nav .ind {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: -1px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--c);
+  }
+
+  .topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .kbd-btn {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    height: 32px;
+    padding: 0 10px 0 12px;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-md);
+    background: var(--field);
+    color: var(--fg-4);
+    font-size: 13px;
+    white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .kbd-btn:hover {
+    border-color: var(--line-hover);
+    color: var(--fg-2);
+  }
+
+  .menu-btn {
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-md);
+    background: transparent;
+    color: var(--fg-2);
+  }
+
+  .mobile-nav {
+    display: none;
+    flex: none;
+    border-bottom: 1px solid var(--line);
+    background: var(--menu-bg);
+  }
+
+  .mobile-nav.open {
+    display: block;
+  }
+
+  .mobile-nav button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 15px;
+    text-align: left;
+    color: var(--fg-2);
+    border-top: 1px solid var(--rule);
+  }
+
+  .mobile-nav button[aria-current="true"] {
+    color: var(--fg);
+    background: color-mix(in srgb, var(--c) 10%, transparent);
+  }
+
+  /* Six section links plus the right cluster need ~1000px beside the 272px
+     categories panel, so the links fold into the sheet below 1280px. */
+  @media (min-width: 1280px) {
+    .nav { display: flex; }
+    .menu-btn { display: none; }
+  }
+
+  @media (min-width: 768px) {
+    .kbd-btn { display: inline-flex; }
+  }
+
+  /* Theme switch: Light | Dark segmented pill. */
+  .theme-sw {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px;
+    border-radius: 12px;
+    background: var(--switch-bg);
+    flex: none;
+  }
+
+  .theme-sw button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--fg-4);
+    transition: color 0.15s, background-color 0.15s;
+  }
+
+  .theme-sw button:hover {
+    color: var(--fg);
+  }
+
+  .theme-sw button[aria-pressed="true"] {
+    background: var(--bg);
+    color: var(--fg);
+    box-shadow: 0 1px 2px var(--pop-ring);
+  }
+
+  .theme-sw button:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--accent) 60%, transparent);
+    outline-offset: 0;
+  }
+
+  .theme-sw svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* One soft glow behind the top of the page, nothing else lit at rest. */
+  .glow {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 560px;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(640px 360px at 70% 8%, var(--glow-a), transparent 70%),
+      radial-gradient(420px 260px at 18% 30%, var(--glow-b), transparent 70%);
+    mask-image: linear-gradient(#000 60%, transparent);
+  }
+
+  /* ===== Footer (one row, like the landing page) ===== */
+
+  .site-footer {
+    margin-top: 48px;
+    padding: 24px 0 8px;
+    border-top: 1px solid var(--rule);
+    color: var(--fg-4);
+    font-size: 13px;
+  }
+
+  .site-footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 22px;
+  }
+
+  .site-footer .right {
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .site-footer a:hover {
+    color: var(--fg-2);
+  }
+
   /* ===== Type helpers ===== */
 
   .eyebrow {
@@ -226,6 +579,11 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--fg-4);
+  }
+
+  .eyebrow b {
+    color: var(--accent);
+    font-weight: 500;
   }
 
   .mono {
@@ -243,7 +601,7 @@
     font-size: 10.5px;
     line-height: 1;
     color: var(--fg-3);
-    background: color-mix(in srgb, var(--bg-2) 80%, var(--fg) 4%);
+    background: var(--kbd-bg);
     border: 1px solid var(--line-2);
     border-bottom-width: 2px;
     border-radius: 4px;
@@ -273,12 +631,12 @@
   }
 
   .popover {
-    background: color-mix(in srgb, var(--bg-2) 96%, var(--fg) 4%);
+    background: var(--pop-bg);
     border: 1px solid var(--line-2);
     border-radius: var(--r-lg);
     box-shadow:
-      0 30px 80px -24px rgba(0, 0, 0, 0.9),
-      0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+      0 30px 80px -24px var(--pop-shadow),
+      0 0 0 1px var(--pop-ring) inset;
   }
 
   /* Spotlight card: a cursor-tracked ring and inner wash in the card's accent (--c).
@@ -302,7 +660,7 @@
     transform: translateY(-2px);
     background: var(--surface-2);
     border-color: color-mix(in srgb, var(--c) 35%, var(--line));
-    box-shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 20px 40px -24px var(--pop-shadow);
   }
 
   .spot::before {
@@ -398,17 +756,17 @@
     background: var(--accent);
     color: var(--accent-ink);
     font-weight: 600;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 8px 24px -10px var(--glow);
+    box-shadow: 0 1px 0 var(--hilite) inset, 0 8px 24px -10px var(--glow);
   }
 
   .btn-primary:hover:not(:disabled) {
-    background: color-mix(in srgb, var(--accent) 88%, #fff);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 12px 32px -10px var(--glow);
+    background: var(--accent-hover);
+    box-shadow: 0 1px 0 var(--hilite) inset, 0 12px 32px -10px var(--glow);
   }
 
   .btn-tonal {
     background: color-mix(in srgb, var(--c) 14%, transparent);
-    color: color-mix(in srgb, var(--c) 85%, #fff);
+    color: color-mix(in srgb, var(--c) var(--tint-k), var(--mix-ink));
     border-color: color-mix(in srgb, var(--c) 28%, transparent);
   }
 
@@ -441,12 +799,12 @@
   .btn-danger {
     background: color-mix(in srgb, var(--danger) 12%, transparent);
     border-color: color-mix(in srgb, var(--danger) 30%, transparent);
-    color: color-mix(in srgb, var(--danger) 85%, #fff);
+    color: color-mix(in srgb, var(--danger) var(--tint-k), var(--mix-ink));
   }
 
   .btn-danger:hover:not(:disabled) {
     background: var(--danger);
-    color: #fff;
+    color: var(--fg-max);
     border-color: var(--danger);
   }
 
@@ -486,7 +844,7 @@
     height: 38px;
     padding: 0 12px;
     border-radius: var(--r-md);
-    background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+    background: var(--field);
     border: 1px solid var(--line-2);
     color: var(--fg);
     font-size: 14px;
@@ -550,7 +908,7 @@
   }
 
   .chip-active {
-    color: color-mix(in srgb, var(--accent) 85%, #fff);
+    color: color-mix(in srgb, var(--accent) var(--tint-k), var(--mix-ink));
     background: var(--tint);
     border-color: color-mix(in srgb, var(--accent) 40%, transparent);
   }
@@ -564,7 +922,7 @@
     display: inline-flex;
     padding: 3px;
     gap: 2px;
-    background: color-mix(in srgb, var(--bg-2) 80%, transparent);
+    background: var(--switch-bg);
     border: 1px solid var(--line);
     border-radius: var(--r-md);
   }
@@ -597,7 +955,7 @@
     position: absolute;
     inset: 0;
     border-radius: 6px;
-    background: color-mix(in srgb, var(--fg) 9%, transparent);
+    background: var(--bg);
     border: 1px solid var(--line-2);
     z-index: -1;
   }
@@ -643,11 +1001,6 @@
 
   @keyframes blink {
     50% { opacity: 0; }
-  }
-
-  @keyframes drift {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-    50% { transform: translate3d(2%, -3%, 0) scale(1.05); }
   }
 
   .animate-fade-up {
@@ -740,7 +1093,7 @@
   font-size: 0.85em;
   padding: 0.15em 0.4em;
   border-radius: 5px;
-  color: color-mix(in srgb, var(--c) 85%, #fff);
+  color: color-mix(in srgb, var(--c) var(--tint-k), var(--mix-ink));
   background: color-mix(in srgb, var(--c) 9%, transparent);
   border: 1px solid color-mix(in srgb, var(--c) 18%, transparent);
 }
@@ -751,9 +1104,9 @@
   padding: 1.1rem 1.25rem;
   border-radius: var(--r-lg);
   overflow-x: auto;
-  background: color-mix(in srgb, var(--bg) 70%, var(--bg-2));
+  background: var(--code-bg);
   border: 1px solid var(--line);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+  box-shadow: 0 1px 0 var(--pop-ring) inset;
 }
 
 .markdown-body pre code {
@@ -834,25 +1187,31 @@
 /* Phones only (below md, where the sidebar is a drawer). Unlayered on purpose, so these
    win over the layered Tailwind utilities (h-7, text-[12.5px]) without !important. */
 @media (max-width: 767px) {
-  html {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-  }
-
   /* iOS Safari zooms the page when a focused field's text is under 16px. */
-  input,
+  input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),
   textarea,
   select {
     font-size: 16px;
   }
 
-  /* Touch targets: lift 28-32px icon buttons and 30px small buttons to 36px. */
+  /* Touch targets: lift 28-32px icon buttons and 30px small buttons to 36px+. */
   .icon-btn {
     min-width: 36px;
     min-height: 36px;
   }
 
+  .menu-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .theme-sw button {
+    width: 36px;
+    height: 32px;
+  }
+
   .btn-sm,
+  .chip,
   .segmented > button {
     height: 36px;
   }
@@ -860,6 +1219,11 @@
   /* The source link is 19px of text; let it fill the bar's height as its hit area. */
   .src-link {
     align-self: stretch;
+  }
+
+  .site-footer a {
+    display: inline-block;
+    padding-block: 9px;
   }
 }
 

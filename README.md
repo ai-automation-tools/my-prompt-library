@@ -56,8 +56,8 @@
 
 🎨 **Modern UI**
 - Responsive design (mobile, tablet, desktop)
-- 16 selectable themes (default: Mike's AI Lab — the org palette shared with [ai-automation-tools.dev](https://ai-automation-tools.dev) and [mikesailab.com](https://mikesailab.com)), remembered per browser
-- ⌘K command palette across every prompt, section and theme; per-section accent colours
+- The org house style shared with [ai-automation-tools.dev](https://ai-automation-tools.dev): sections in the top bar, a Light | Dark switch remembered per browser, per-section accent colours
+- ⌘K command palette across every prompt, section and action
 - Fuzzy search with Fuse.js
 - Title-prioritized search ranking (title starts-with/contains first)
 

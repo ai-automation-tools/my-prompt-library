@@ -4,6 +4,36 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — The app on the org house style
+
+The app now wears the same chrome as ai-automation-tools.dev (the `web-house-style` skill):
+the sections sit in the top bar as nav links with a sliding underline, the categories panel is
+the sidebar, and the theme is a Light | Dark pill at the right end of the bar.
+
+**UI**
+- Top bar rebuilt as the house document-page bar: categories toggle, the app icon as the brand,
+  the six sections as links (a sheet under the bar below 1280px, opened by a menu button), then
+  ⌘K, Resources, New prompt and the theme switch. Breadcrumbs moved above the content, shown
+  once you are inside a category.
+- The 16-theme picker is gone. Dark is the default whatever the OS says; light is opt-in from the
+  switch and remembered as `my-prompt-library.theme`, applied in `index.html` before first paint so
+  a light-mode reload never flashes dark. The light set is the house light block (sky-700 accent,
+  section hues at their 700 shade so text in them passes contrast on white).
+- `index.css` carries the full house token set (dark on `:root`, light on `html.light`); every rule
+  below the token blocks references tokens only. `themes.css` deleted.
+- The constellation canvas and the two drifting glows are gone: one static glow behind the top of
+  the page, nothing else lit at rest.
+- A footer row at the end of the content (GitHub, Homepage, ai-automation-tools.dev, Cookie
+  settings), a skip link, and the phone pass: 16px fields, 36–40px tap targets, no sideways scroll
+  at 390px.
+- ⌘K keeps a Light / Dark pair under Themes instead of sixteen entries.
+
+_Touched: `site/index.html`, `site/src/index.css`, `site/src/App.tsx`, `site/src/hooks/useTheme.ts`
+(new), `site/src/components/{TopBar,Sidebar,ThemeSwitch,Breadcrumbs,CommandPalette,PromptCard,
+ResourcesNav}.tsx`, `site/src/components/ui/primitives.tsx`, `site/src/lib/sections.ts`; deleted
+`site/src/themes.css`, `site/src/lib/themes.ts`, `ThemePicker.tsx`, `AmbientBackground.tsx`;
+`CLAUDE.md`, `README.md`, `homepage/index.html`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-21 — Dev server's HMR socket pinned to 24678
 
 **Tooling**

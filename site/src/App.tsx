@@ -10,17 +10,17 @@ import { LazyMotion, domAnimation, m, AnimatePresence } from 'motion/react';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { type Prompt } from './components/PromptCard';
 import Sidebar, { type SkillPackSummary } from './components/Sidebar';
-import TopBar, { type Crumb } from './components/TopBar';
+import TopBar from './components/TopBar';
+import Breadcrumbs, { type Crumb } from './components/Breadcrumbs';
 import LibraryHero from './components/LibraryHero';
-import AmbientBackground from './components/AmbientBackground';
 import PromptGrid, { PromptCardGrid, type PromptCardActions } from './components/PromptGrid';
 import PromptListToolbar from './components/PromptListToolbar';
 import { Button } from './components/ui/primitives';
 import { usePromptFilters } from './hooks/usePromptFilters';
 import { usePromptContent } from './hooks/usePromptContent';
 import { useLibraryRoute, slugifyPromptPath, type LibraryTab } from './hooks/useLibraryRoute';
+import { useTheme } from './hooks/useTheme';
 import { getSection, getSectionFolder, getSectionDisplayName, getTabForFolder, humanize } from './lib/sections';
-import { readStoredTheme, THEME_STORAGE_KEY, type Theme } from './lib/themes';
 import { READ_ONLY } from './lib/mode';
 
 // Split out of the entry chunk: none of these render on first paint, and
@@ -46,7 +46,7 @@ export default function App() {
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
-  const [theme, setTheme] = useState<Theme>(readStoredTheme);
+  const [theme, setTheme] = useTheme();
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   // Open on desktop, closed (a drawer) on phones.
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => window.innerWidth >= 768);
@@ -159,18 +159,7 @@ export default function App() {
       });
   }, [activeTab, libraryMode]);
 
-  // Theme: applied to <html> (themes.css keys off it) and remembered. The
-  // inline script in index.html reads the same key before first paint.
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, theme);
-    } catch {
-      /* storage unavailable */
-    }
-  }, [theme]);
-
-  // Section accent: themes.css maps data-section → --section-c.
+  // Section accent: index.css maps data-section → --section-c.
   const section = getSection(activeTab);
   useEffect(() => {
     document.documentElement.setAttribute('data-section', section.slug);
@@ -217,17 +206,6 @@ export default function App() {
     selectedPrompt,
     libraryMode,
   });
-
-  /** Prompt count per section, for the sidebar badges. */
-  const sectionCounts = useMemo(() => {
-    const counts: Partial<Record<LibraryTab, number>> = {};
-    for (const p of prompts) {
-      const tab = getTabForFolder(p.section);
-      counts[tab] = (counts[tab] ?? 0) + 1;
-    }
-    if (activeTab === 'skill-packs') counts['skill-packs'] = skillPacks.length;
-    return counts;
-  }, [prompts, skillPacks.length, activeTab]);
 
   const heroStats = useMemo(() => {
     if (activeTab === 'skill-packs') {
@@ -679,10 +657,9 @@ source: My Prompt Library
   return (
     <LazyMotion features={domAnimation} strict>
     <div className="app-shell flex flex-col overflow-hidden">
+    <a href="#main" className="skip">Skip to content</a>
     <SourceBar />
     <div className="relative flex min-h-0 flex-1 overflow-hidden">
-      <AmbientBackground />
-
       {/* Mobile sidebar overlay */}
       <AnimatePresence>
         {isSidebarOpen && (
@@ -690,7 +667,7 @@ source: My Prompt Library
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-40 bg-[var(--scrim)] backdrop-blur-sm md:hidden"
             onClick={() => setIsSidebarOpen(false)}
           />
         )}
@@ -703,8 +680,6 @@ source: My Prompt Library
         libraryMode={libraryMode}
         setLibraryMode={setLibraryMode}
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        sectionCounts={sectionCounts}
         skillPacks={skillPacks}
         categories={categories}
         sectionPrompts={sectionPrompts}
@@ -714,23 +689,26 @@ source: My Prompt Library
         selectedSubcategory={selectedSubcategory}
         handleSubcategoryClick={handleSubcategoryClick}
         handleShowAllPrompts={handleShowAllPrompts}
-        theme={theme}
-        setTheme={setTheme}
       />
 
       {/* Main Content */}
-      <main className="relative z-10 flex h-full min-w-0 flex-1 flex-col overflow-hidden">
+      <main id="main" className="relative z-10 flex h-full min-w-0 flex-1 flex-col overflow-hidden">
         <TopBar
           sidebarOpen={isSidebarOpen}
           onToggleSidebar={() => setIsSidebarOpen(open => !open)}
-          crumbs={crumbs}
+          activeTab={activeTab}
+          onSelectSection={openSectionFromPalette}
           onOpenPalette={() => setIsPaletteOpen(true)}
           onNewPrompt={handleNewPrompt}
+          theme={theme}
+          setTheme={setTheme}
         />
 
         {/* Content Area */}
-        <div className="flex-1 overflow-y-auto px-4 pb-24 md:px-8 md:pb-12">
-          <div className="mx-auto w-full max-w-[1440px]">
+        <div className="relative flex-1 overflow-y-auto px-4 pb-24 md:px-8 md:pb-8">
+          <div className="glow" aria-hidden="true" />
+          <div className="relative mx-auto flex min-h-full w-full max-w-[1440px] flex-col">
+          <Breadcrumbs crumbs={crumbs} />
           {/* Hero Section */}
           {!selectedPrompt && !selectedSubcategory && (
             <LibraryHero
@@ -912,6 +890,18 @@ source: My Prompt Library
               </m.div>
             )}
           </AnimatePresence>
+
+          <footer className="site-footer mt-auto">
+            <div className="row">
+              <span className="mono">my-prompt-library</span>
+              <div className="right">
+                <a href="https://github.com/ai-automation-tools/my-prompt-library" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://my-prompt-library.ai-automation-tools.dev" target="_blank" rel="noopener noreferrer">Homepage</a>
+                <a href="https://ai-automation-tools.dev" target="_blank" rel="noopener noreferrer">ai-automation-tools.dev</a>
+                <a href="#" data-ail-consent="manage">Cookie settings</a>
+              </div>
+            </div>
+          </footer>
           </div>
         </div>
       </main>

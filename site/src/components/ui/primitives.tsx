@@ -120,7 +120,7 @@ export function Modal({ onClose, size = 'md', labelledBy, children, className }:
         animate={{ opacity: 1 }}
         transition={{ duration: 0.2 }}
         onClick={onClose}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-[var(--scrim)] backdrop-blur-sm"
       />
       <m.div
         role="dialog"
@@ -200,7 +200,7 @@ export function Notice({
       role={tone === 'danger' ? 'alert' : 'status'}
       className="flex items-start gap-2.5 rounded-[var(--r-md)] px-3.5 py-3 text-sm"
       style={{
-        color: `color-mix(in srgb, ${color} 85%, #fff)`,
+        color: `color-mix(in srgb, ${color} var(--tint-k), var(--mix-ink))`,
         background: `color-mix(in srgb, ${color} 10%, transparent)`,
         border: `1px solid color-mix(in srgb, ${color} 30%, transparent)`,
       }}

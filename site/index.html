@@ -1,26 +1,28 @@
 <!doctype html>
-<html lang="en" data-theme="mikesailab">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#060606" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="description" content="My Prompt Library — a curated library of prompts, agents, skills and system prompts for AI coding tools, with a personal library on top." />
+    <title>My Prompt Library</title>
+    <script>
+      // Pre-paint theme (house style): dark unless the visitor picked light. The
+      // default must equal THEME_DEFAULT in src/hooks/useTheme.ts.
+      (function () {
+        var t = 'dark';
+        try { var s = localStorage.getItem('my-prompt-library.theme'); if (s === 'light' || s === 'dark') t = s; } catch (e) {}
+        document.documentElement.classList.add(t);
+        if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fafafa');
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <title>My Prompt Library</title>
-    <script>
-      // Apply the saved theme before first paint so the page never flashes the default.
-      try {
-        var t = localStorage.getItem('prompt-library-theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
-      } catch (e) {}
-    </script>
   </head>
   <body>
     <div id="root"></div>
