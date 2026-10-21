@@ -30,4 +30,29 @@ column, so never delete a row: change its status instead.
 | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | skills | 0 | — | — | 2026-10-21 | pending | named by Mike as the kind of repo to pull in; stars and licence not read yet |
 | [morluto/rea](https://github.com/morluto/rea) | skills | 0 | — | — | 2026-10-21 | pending | named by Mike; a reverse-engineering MCP server plus skills |
 | [tt-a1i/archify](https://github.com/tt-a1i/archify) | skills | 0 | — | — | 2026-10-21 | pending | named by Mike; diagram-building skill |
+| [n8n-io/n8n](https://github.com/n8n-io/n8n) | mcp | 208,240 | Other | 2026-10-21 | 2026-10-21 | pending | popular |
+| [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | skills | 171,228 | mit | 2026-10-18 | 2026-10-21 | pending | new |
+| [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | skills | 109,256 | mit | 2026-10-13 | 2026-10-21 | pending | new |
+| [paperclipai/paperclip](https://github.com/paperclipai/paperclip) | skills | 105,594 | mit | 2026-10-21 | 2026-10-21 | pending | new |
+| [nexu-io/open-design](https://github.com/nexu-io/open-design) | skills | 103,051 | apache-2.0 | 2026-10-21 | 2026-10-21 | pending | new |
+| [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | skills | 102,114 | apache-2.0 | 2026-10-21 | 2026-10-21 | pending | popular |
+| [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | skills | 100,436 | mit | 2026-10-20 | 2026-10-21 | pending | new |
+| [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers) | mcp | 96,708 | mit | 2026-10-18 | 2026-10-21 | pending | popular |
+| [koala73/worldmonitor](https://github.com/koala73/worldmonitor) | mcp | 89,074 | agpl-3.0 | 2026-10-21 | 2026-10-21 | pending | new |
+| [D4Vinci/Scrapling](https://github.com/D4Vinci/Scrapling) | mcp | 89,018 | bsd-3-clause | 2026-10-21 | 2026-10-21 | pending | popular |
+| [ruvnet/ruflo](https://github.com/ruvnet/ruflo) | mcp | 78,157 | mit | 2026-10-21 | 2026-10-21 | pending | popular |
+| [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) | skills | 77,604 | none | 2026-09-18 | 2026-10-21 | pending | popular; no licence, ask before vendoring |
+| [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) | skills | 70,244 | Other | 2026-10-21 | 2026-10-21 | pending | new |
+| [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | prompts | 69,995 | cc0-1.0 | 2026-10-19 | 2026-10-21 | pending | popular |
+| [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) | agents | 67,877 | mit | 2026-10-21 | 2026-10-21 | pending | new |
+| [upstash/context7](https://github.com/upstash/context7) | mcp | 63,434 | mit | 2026-10-21 | 2026-10-21 | pending | popular |
+| [sansan0/TrendRadar](https://github.com/sansan0/TrendRadar) | mcp | 63,079 | gpl-3.0 | 2026-10-20 | 2026-10-21 | pending | popular |
+| [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | skills | 59,437 | mit | 2026-10-21 | 2026-10-21 | pending | new |
+| [blader/humanizer](https://github.com/blader/humanizer) | skills | 59,217 | mit | 2026-10-16 | 2026-10-21 | pending | new |
+| [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | skills | 58,134 | mit | 2026-10-19 | 2026-10-21 | pending | new |
+| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | skills | 56,185 | Other | 2026-10-21 | 2026-10-21 | pending | popular |
+| [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | skills | 55,801 | mit | 2026-10-19 | 2026-10-21 | pending | new |
+| [ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | mcp | 53,946 | apache-2.0 | 2026-10-21 | 2026-10-21 | pending | popular |
+| [VoltAgent/awesome-openclaw-skills](https://github.com/VoltAgent/awesome-openclaw-skills) | skills | 53,256 | mit | 2026-10-19 | 2026-10-21 | pending | new |
+| [CherryHQ/cherry-studio](https://github.com/CherryHQ/cherry-studio) | skills | 52,833 | agpl-3.0 | 2026-10-21 | 2026-10-21 | pending | popular |
 <!-- discover-repos: new rows go above this line -->
