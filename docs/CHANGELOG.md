@@ -4,6 +4,16 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — Dev server's HMR socket pinned to 24678
+
+**Tooling**
+- `server.ts` runs Vite in middleware mode, which opens its hot-reload WebSocket on a port of its
+  own. It was left to Vite's default, so another middleware-mode app on the machine (edge-spectrum)
+  could take it first and leave this one without HMR. `site/vite.config.ts` now pins it to `24678`
+  explicitly (edge-spectrum moved to `24679`); `DISABLE_HMR=true` still turns it off.
+
+_Touched: `site/vite.config.ts`, `docs/CHANGELOG.md`._
+
 ## 2026-10-21 — Neon deleted, Vercel env vars cleared
 
 **Ops**
