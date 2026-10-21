@@ -55,6 +55,7 @@ uncomment what you want:
 | `MY_LIBRARY_DIR` | `my-library` | Folder that holds My Library. Relative paths resolve against `site/`; absolute paths are used as-is. |
 | `HOST` | `127.0.0.1` | Address the server listens on. See [Exposing it beyond localhost](#exposing-it-beyond-localhost). |
 | `READ_ONLY` | `false` | `true` serves the Public Library only and refuses every write with `403`. Vercel turns this on automatically. |
+| `ALLOWED_HOSTS` | (none) | Extra hostnames the dev server answers to, comma-separated. Needed behind a proxy that forwards its own Host header, such as `tailscale serve`; see [Over Tailscale](#over-tailscale). |
 
 ---
 
@@ -102,6 +103,23 @@ If you set `HOST=0.0.0.0` (or put it behind a reverse proxy), do one of these fi
 
 - set `READ_ONLY=true`, which makes it a Public Library browser like the hosted demo, or
 - put your own authentication in front of it (a VPN, an authenticating proxy, basic auth).
+
+### Over Tailscale
+
+The simplest way to reach the app from your other devices is to leave `HOST` alone and let
+Tailscale proxy the loopback port to your tailnet only (not Funnel, which is the public internet):
+
+```bash
+tailscale serve --bg --http=3010 http://127.0.0.1:3010
+```
+
+Then set `ALLOWED_HOSTS` in `site/.env` to the names Tailscale forwards, for example
+`ALLOWED_HOSTS=my-pc,my-pc.tailnet-name.ts.net`. Vite answers `403` to any other Host,
+middleware mode included. The tailnet is the authentication here: every device on it can
+read **and edit** My Library, exactly as this PC can, while pages on other sites still cannot
+post to it (the Origin check). Add `READ_ONLY=true` if the other devices should only read.
+
+The MCP server is not affected by any of this: it talks to agents over stdio on this machine.
 
 > [!NOTE]
 > `READ_ONLY` is read twice: by the server, which refuses writes, and by `vite build`, which

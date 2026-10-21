@@ -4,6 +4,33 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — Tailscale access documented; stopping the app spares the MCP server
+
+Reviewed alongside the logon auto-start and `tailscale serve` set up earlier the same day
+(#395 added `ALLOWED_HOSTS`).
+
+**Checked, no conflict**
+- The start task now also runs at logon and kept its exact path, so the daily sync's
+  stop-and-restart entry for this repo still matches it.
+- Port 3010 is served to the tailnet only (no Funnel), proxied to `127.0.0.1:3010`; the server
+  still binds loopback. Through both tailnet hostnames the page and API answer `200`; a write
+  with a foreign Origin is refused `403`, a same-origin one passes the guard.
+
+**Fixed (outside this repo)**
+- `Stop-Prompt-Library` ended every process in `site/node_modules`, which includes this
+  library's MCP server in every Claude Code session using it. The Routines fleet's
+  `Invoke-AppControl.ps1` now excludes processes naming `mcp/server.ts` and their children.
+  Tested with a connected session through a real stop and start: the MCP server kept
+  answering throughout.
+
+**Docs**
+- `ALLOWED_HOSTS` is in the settings tables of `README.md` and `docs/setup/SETUP.md`, and
+  `SETUP.md` has an "Over Tailscale" section: the `tailscale serve` command, the
+  `ALLOWED_HOSTS` line, and the fact that every tailnet device can edit My Library unless
+  `READ_ONLY=true`.
+
+_Touched: `README.md`, `docs/setup/SETUP.md`, `docs/CHANGELOG.md`; outside the repo, `Invoke-AppControl.ps1`._
+
 ## 2026-10-21 — Docs brought level with the day's changes
 
 **Docs**

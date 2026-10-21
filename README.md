@@ -98,6 +98,7 @@ Copy `site/.env.example` to `site/.env` to change a default:
 | `MY_LIBRARY_DIR` | `my-library` | Where My Library is kept. Relative to `site/`, or absolute. |
 | `HOST` | `127.0.0.1` | Address to listen on. There are no accounts, so read [this](docs/setup/SETUP.md#exposing-it-beyond-localhost) before opening it up. |
 | `READ_ONLY` | `false` | `true` serves the Public Library only and refuses every write. |
+| `ALLOWED_HOSTS` | (none) | Extra hostnames the dev server answers to, comma-separated, for a proxy such as `tailscale serve`. See [this](docs/setup/SETUP.md#over-tailscale). |
 
 ### Checks
 
