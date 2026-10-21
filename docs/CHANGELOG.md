@@ -4,6 +4,29 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — Roadmap rewritten; Phase 1 is an MCP server for the library
+
+**Docs**
+- `docs/ROADMAP.md` rewritten from scratch in the lab roadmap standard. The finished history,
+  the Snapshot table and the "Earlier work" essay are gone; this changelog is the record of
+  everything done before today.
+- **Phase 1: MCP server for the library**, at Mike's request. A stdio server in this repo
+  (search, get, browse, skills and packs, library prompts as MCP prompts, My Library writes
+  that respect `READ_ONLY`), each step with the test that proves it; then a read-only remote
+  endpoint on the demo, an npm package and an MCP registry listing, which are Mike's calls.
+- **Phase 2: Loose ends.** Node 24, the Resources menu below 1536px, per-section hero counter
+  labels, semantic duplicates, and four decisions waiting on Mike (a stale branch, the
+  Awesome ChatGPT corpus, a `LICENSE` for `agent-skills`).
+- Public release keeps its three done gates and one open one, the full-history secret scan.
+- After release: content provenance, three features (starter collections, generated vs
+  hand-picked packs, My Library export and import), and a launch post. Dropped as obsolete:
+  user ratings (there are no accounts) and "programmatic API access" (the MCP server is that).
+- A "Kept current by" table says which scheduled job owns which part of the library.
+- `CLAUDE.md` no longer points at a roadmap item that is gone. The weekly roadmap job's prompt
+  (Routines fleet) now walks whatever phases the file has instead of a fixed Phase 1–3 list.
+
+_Touched: `docs/ROADMAP.md`, `docs/CHANGELOG.md`, `CLAUDE.md`._
+
 ## 2026-10-21 — MCP Servers section, 2_Agents holds real agents only, first discovery triage
 
 **Content**
