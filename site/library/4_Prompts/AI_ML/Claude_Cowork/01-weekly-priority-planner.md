@@ -15,7 +15,7 @@ subcategory: "Claude_Cowork"
 
 Check my Google Calendar for the upcoming week's meetings and commitments. Review any open tasks or notes in Notion. Then build my weekly plan:
 
-1. **This week's top 3 priorities** — highest leverage work across AX Platform, dev, and investing
+1. **This week's top 3 priorities** — highest leverage work across my product, dev, and investing
 2. **Schedule conflicts or heavy days** — flag days with 3+ meetings
 3. **Prep needed** — any meeting or commitment that needs prep work flagged 1 day ahead
 4. **Carry-over items** — anything from last week still unresolved

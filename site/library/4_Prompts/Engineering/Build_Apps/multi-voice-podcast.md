@@ -94,4 +94,4 @@ Script (Conversational Format) → Parse Characters → Generate Audio Segments 
 ---
 
 *Based on: Podcast generation with ElevenLabs*  
-*Location: `~/.openclaw/workspace/projects/ax-platform/openclaw/podcasts/`*
+*Location: `~/.openclaw/workspace/projects/openclaw/podcasts/`*

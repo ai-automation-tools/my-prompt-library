@@ -19,5 +19,5 @@ Search arXiv and recent AI research outlets for papers published in the last 48 
 - LLM tool use, function calling, and MCP-related architectures
 - Enterprise AI security and compliance
 
-Pick the top 3 most relevant papers. For each: title, authors, one-paragraph plain-English summary, and a "So what for AX?" note (1–2 sentences on practical relevance). Link to the abstract. Flag any that represent a significant advance worth sharing with Jacob.
+Pick the top 3 most relevant papers. For each: title, authors, one-paragraph plain-English summary, and a "So what for me?" note (1–2 sentences on practical relevance). Link to the abstract. Flag any that represent a significant advance worth sharing with Jacob.
 

@@ -40,7 +40,7 @@ This directory contains complete agent definitions including personas, instructi
 | Development | 151 | Software engineering agents |
 | Assistants | 71 | Personal & productivity helpers |
 | AI_ML | 33 | AI/ML specialists |
-| Platform_Agents | 34 | aX Platform, Gemini Gems agents |
+| Platform_Agents | 33 | Gemini Gems and other platform-specific agents |
 | Finance | 32 | Financial analysts |
 | Content | 30 | Writers & content creators |
 | Business | 29 | Business operations |
@@ -75,8 +75,7 @@ This directory contains complete agent definitions including personas, instructi
 - Research
 - Specialized
 
-### Platform_Agents (Merged from 2 categories)
-- Ax-Platform
+### Platform_Agents (Renamed from 1 category)
 - Gemini_Gems
 
 ### Assistants (Merged from 3 categories)
@@ -157,7 +156,6 @@ subcategory: "AI_ML|Business|Development|etc."
 - ❌ Healthcare (moved to Domain_Specific)
 - ❌ Legal_Advisors (moved to Domain_Specific)
 - ❌ Research (moved to Domain_Specific)
-- ❌ Ax-Platform (moved to Platform_Agents)
 - ❌ Gemini_Gems (moved to Platform_Agents)
 
 ### New Organization

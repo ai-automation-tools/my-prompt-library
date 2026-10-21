@@ -189,11 +189,6 @@ For OAuth servers, you'll need to:
 3. Follow browser prompts to authenticate
 4. Tokens are stored in `~/.mcporter/credentials.json`
 
-For aX Platform servers specifically, use:
-```bash
-node ~/.openclaw/workspace/scripts/ax-mcp-batch-auth.js
-```
-
 ---
 
 ## Notes

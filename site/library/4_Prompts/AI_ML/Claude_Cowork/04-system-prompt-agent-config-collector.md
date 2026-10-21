@@ -21,7 +21,7 @@ For each notable system prompt or config found:
 1. Full text (or as much as is available)
 2. Source / product it belongs to (if known)
 3. Interesting techniques used: [persona definition] [tool use framing] [constraint setting] [chain-of-thought scaffolding] [safety instructions] [output formatting]
-4. Relevance note for AX Platform agent design
+4. Relevance note for my own agent design
 
 Save to ~/prompts/system-prompts/[source-slug].md. Particularly flag any enterprise agent configs or IAM-adjacent prompts with an [AX-RELEVANT] tag. Append entries to ~/prompts/system-prompts/index.md.
 

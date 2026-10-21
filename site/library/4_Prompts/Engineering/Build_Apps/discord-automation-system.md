@@ -86,4 +86,4 @@ External Sources → Scrapers → Data Store → AI Generator → Preview → Po
 ---
 
 *Based on: AX-Discord weekly updates project*  
-*Location: `~/.openclaw/workspace/projects/ax-platform/openclaw/AX-Discord/`*
+*Location: `~/.openclaw/workspace/projects/openclaw/Discord-Automation/`*

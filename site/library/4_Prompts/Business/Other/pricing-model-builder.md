@@ -1,13 +1,13 @@
 ---
-title: "📌 Pricing Model Builder For AX Platform"
+title: "📌 Pricing Model Builder"
 tags: ["collections", "business", "pricing", "model", "builder"]
 category: "Collections"
 subcategory: "Business"
 ---
-# Prompt: Pricing Model Builder for AX-Platform
+# Prompt: Pricing Model Builder
 
 ## Objective
-Generate three distinct pricing models for the AX-Platform, an advanced AI development and deployment platform. For each model, provide a detailed breakdown of its structure, enumerate the pros and cons, and identify the ideal customer segment it would best serve.
+Generate three distinct pricing models for [your product], an AI development and deployment platform. For each model, provide a detailed breakdown of its structure, enumerate the pros and cons, and identify the ideal customer segment it would best serve.
 
 ## Pricing Models to Propose
 
@@ -30,4 +30,4 @@ Generate three distinct pricing models for the AX-Platform, an advanced AI devel
 *   **Best-Fit Segments:** Enterprise customers, businesses with diverse user needs, companies looking for a scalable and predictable pricing structure.
 
 ## Desired Output Format
-Present the analysis for each model in a clear, structured format. Use headings, bullet points, and bold text to enhance readability. The final output should be a comprehensive document that can be used by the product and sales teams to make informed decisions about the go-to-market strategy for the AX-Platform.
+Present the analysis for each model in a clear, structured format. Use headings, bullet points, and bold text to enhance readability. The final output should be a comprehensive document that can be used by the product and sales teams to make informed decisions about the go-to-market strategy for [your product].
