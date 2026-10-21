@@ -23,6 +23,7 @@ export interface Prompt {
   featured?: boolean;
   isUserOwned?: boolean;
   anchor?: string;
+  sourceUrl?: string;
 }
 
 export function extractEmoji(text: string): { emoji: string | null; title: string } {

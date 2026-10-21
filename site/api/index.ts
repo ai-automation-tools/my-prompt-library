@@ -9,7 +9,7 @@ import { dirname } from "path";
 import archiver from "archiver";
 import { myLibrary, READ_ONLY, type UserPrompt } from "../lib/my-library.js";
 import { resolveInside } from "../lib/safe-path.js";
-import { LIBRARY_PATH, SKILLS_SECTION, carriedFrontmatter, extractFirstHeading, readLibraryItem } from "../lib/library.js";
+import { LIBRARY_PATH, SKILLS_SECTION, carriedFrontmatter, extractFirstHeading, readLibraryItem, sourceUrlOf } from "../lib/library.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -321,7 +321,7 @@ app.get("/api/prompts/:id", async (req, res) => {
     }
 
     const { frontmatter, ...rest } = item;
-    return res.json({ ...rest, isUserOwned: false });
+    return res.json({ ...rest, isUserOwned: false, sourceUrl: sourceUrlOf(frontmatter) });
   } catch (error: any) {
     console.error("Error fetching prompt:", error);
     res.status(500).json({ error: "Failed to fetch prompt" });
