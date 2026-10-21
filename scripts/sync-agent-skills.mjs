@@ -105,13 +105,14 @@ const readUpstream = (fm) => {
   return out;
 };
 
-const presentPaths = new Set();
+const presentPaths = new Map(); // upstream path -> local SKILL.md
 const presentNames = new Set();
 for (const f of walk(LIB)) {
   presentNames.add(path.basename(path.dirname(f)).toLowerCase());
   const u = readUpstream(splitFrontmatter(fs.readFileSync(f, "utf8")).fm);
-  if (u && u.repo === REPO && u.path) presentPaths.add(u.path);
+  if (u && u.repo === REPO && u.path) presentPaths.set(u.path, f);
 }
+const normBody = (raw) => splitFrontmatter(raw).body.replace(/\r\n/g, "\n").trim();
 
 // ---------- candidates ----------
 const candidates = [];
@@ -176,9 +177,35 @@ const stampedSkill = (raw, { name, category, subcategory, srcPath }) => {
   return out.endsWith("\n") ? out : out + "\n";
 };
 
-const added = [], skipped = [];
+// A skill already here (same upstream path) is refreshed when its upstream body
+// moved: support files re-mirrored, body replaced, local frontmatter kept except
+// `ref` and `checked`. Same contract as resync-upstream.mjs, from the local checkout.
+const updateSkill = (c, localSkill) => {
+  const upstreamRaw = fs.readFileSync(path.join(c.dir, "SKILL.md"), "utf8");
+  const localRaw = fs.readFileSync(localSkill, "utf8");
+  if (normBody(upstreamRaw) === normBody(localRaw)) return false;
+  if (WRITE) {
+    const notes = [];
+    copyTree(c.dir, path.dirname(localSkill), notes);
+    const { fm } = splitFrontmatter(localRaw);
+    const fm2 = fm.replace(/^(\s+ref:).*$/m, `$1 ${REF}`).replace(/^(\s+checked:).*$/m, `$1 ${TODAY}`);
+    const body = splitFrontmatter(upstreamRaw).body.replace(/^\n+/, "\n");
+    fs.writeFileSync(localSkill, `---\n${fm2}\n---\n${body}${body.endsWith("\n") ? "" : "\n"}`, "utf8");
+  }
+  return true;
+};
+
+const added = [], updated = [], skipped = [];
 for (const c of candidates) {
-  if (presentPaths.has(c.rel)) { skipped.push(`${c.name}: present`); continue; }
+  if (presentPaths.has(c.rel)) {
+    const local = presentPaths.get(c.rel);
+    if (updateSkill(c, local)) {
+      const rel = path.relative(LIB, path.dirname(local)).split(path.sep).join("/");
+      updated.push({ ...c, local: rel });
+      console.log(`UPDATED ${rel} <- ${c.rel}`);
+    } else skipped.push(`${c.name}: current`);
+    continue;
+  }
   if (presentNames.has(c.name.toLowerCase())) { skipped.push(`${c.name}: a skill of that name is already in the library`); continue; }
   const [category, subcategory] = destFor(c.area, c.project);
   const dest = path.join(LIB, category, subcategory, c.name);
@@ -194,13 +221,21 @@ for (const c of candidates) {
 }
 for (const s of skipped) console.log(`SKIPPED ${s}`);
 
-if (WRITE && added.length) {
+if (WRITE && (added.length || updated.length)) {
+  const n = (k, w) => `${k} ${k === 1 ? w : w + "s"}`;
+  const head = [added.length && `${n(added.length, "skill")} synced`, updated.length && `${n(updated.length, "skill")} refreshed`].filter(Boolean).join(", ");
   const lines = [
-    `## ${TODAY} — ${added.length} ${added.length === 1 ? "skill" : "skills"} synced from agent-skills`,
+    `## ${TODAY} — ${head} from agent-skills`,
     "",
     "**Content**",
-    `- Copied from \`${REPO}\` at \`${REF.slice(0, 7)}\` by \`scripts/sync-agent-skills.mjs\` (the weekly Skills Sync job), each with an \`upstream:\` block so the Monday drift check tracks it from here on:`,
-    ...added.map((a) => `  - \`3_Skills/${a.category}/${a.subcategory}/${a.name}/\` ← \`${a.rel}\`${a.notes.length ? ` (${a.notes.join("; ")})` : ""}`),
+    ...(added.length ? [
+      `- Copied from \`${REPO}\` at \`${REF.slice(0, 7)}\` by \`scripts/sync-agent-skills.mjs\` (the weekly Skills Sync job), each with an \`upstream:\` block so the Monday drift check tracks it from here on:`,
+      ...added.map((a) => `  - \`3_Skills/${a.category}/${a.subcategory}/${a.name}/\` ← \`${a.rel}\`${a.notes.length ? ` (${a.notes.join("; ")})` : ""}`),
+    ] : []),
+    ...(updated.length ? [
+      `- Brought level with \`${REPO}\` at \`${REF.slice(0, 7)}\` (body and support files; local frontmatter kept, \`ref\`/\`checked\` bumped):`,
+      ...updated.map((u) => `  - \`3_Skills/${u.local}/\``),
+    ] : []),
     "",
     "_Touched: the folders above, `site/api/prompt-index.json`, `docs/CHANGELOG.md`._",
     "",

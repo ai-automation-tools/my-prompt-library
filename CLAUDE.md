@@ -111,9 +111,15 @@ site/
   scripts/             Library tooling: check-upstream-drift.mjs (the Monday issue, with a per-section
                        health table), attribute-upstream.mjs + resync-upstream.mjs (provenance),
                        sync-agent-skills.mjs (copies new skills from the org's agent-skills repo into
-                       3_Skills, stamped; run weekly by the Routines fleet with no model),
-                       backfill-tags.mjs (path-derived tags for any file with none; the Monthly
-                       Upkeep keeps it at zero), the two *.test.mjs self-checks, prompt_generation/
+                       3_Skills, stamped, and refreshes the ones already here; run weekly by the
+                       Routines fleet with no model), build-skill-packs.mjs (one generated pack per
+                       3_Skills folder with 6+ skills, plus dead-path repair of the hand packs; same
+                       job), discover-repos.mjs (gh search for new/popular skills, prompt, agent and
+                       MCP repos → docs/DISCOVERY.md rows for a person to accept; accept/link rows
+                       become Resources-menu links in site/library/resources.json),
+                       check-resources.mjs (dead-link report for that menu), backfill-tags.mjs
+                       (path-derived tags for any file with none; the Monthly Upkeep keeps it at
+                       zero), the two *.test.mjs self-checks, prompt_generation/
   homepage/            Static homepage (one index.html, no build) → GitHub Pages via
                        .github/workflows/homepage.yml; pinned by scripts/homepage.test.mjs
   docs/                Documentation (see docs/README.md; analysis in docs/audits/)

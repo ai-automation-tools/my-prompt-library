@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, m } from 'motion/react';
 import { cn } from '../lib/cn';
+import resources from '../../library/resources.json';
 
 interface ResourceLink {
   label: string;
@@ -37,93 +38,29 @@ interface ResourceGroup {
 }
 
 /**
- * External reading, grouped. One "Resources" menu replaces the five pills the
- * old top bar carried; the data is unchanged apart from being flattened into
- * groups so it lays out as columns.
+ * External reading, grouped, one column per group. The data lives in
+ * `library/resources.json` so the discovery script and the upkeep job can add
+ * or drop a link without touching this component; icons are named there and
+ * resolved here.
  */
-const RESOURCE_GROUPS: ResourceGroup[] = [
-  {
-    id: 'cli',
-    label: 'CLI agents',
-    icon: Terminal,
-    accent: 'var(--accent)',
-    links: [
-      { label: 'Claude Code', href: 'https://github.com/anthropics/claude-code', icon: Github },
-      { label: 'Gemini CLI', href: 'https://github.com/google-gemini/gemini-cli', icon: Github },
-      { label: 'Codex CLI', href: 'https://github.com/openai/codex', icon: Github },
-    ],
-  },
-  {
-    id: 'system-prompts',
-    label: 'System prompts',
-    icon: FileText,
-    accent: 'var(--sec-system-prompts)',
-    links: [
-      { label: 'Learn Prompting', href: 'https://learnprompting.org/docs/basics/system_prompts', icon: Library },
-      { label: 'Prompting Guide', href: 'https://www.promptingguide.ai/techniques', icon: Library },
-      { label: 'OpenAI Cookbook', href: 'https://cookbook.openai.com/', icon: BookOpen },
-      { label: 'Anthropic Docs', href: 'https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering', icon: Library },
-      { label: 'Gemini Docs', href: 'https://ai.google.dev/gemini-api/docs/system-instructions', icon: Library },
-    ],
-  },
-  {
-    id: 'prompt-libraries',
-    label: 'Prompt libraries',
-    icon: Sparkles,
-    accent: 'var(--sec-prompts)',
-    links: [
-      { label: 'Prompts.chat', href: 'https://prompts.chat/prompts', icon: Library },
-      { label: 'PromptHero', href: 'https://prompthero.com/', icon: Sparkles },
-      { label: 'Vertex AI Gallery', href: 'https://cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery', icon: Library },
-      { label: 'WorkMind', href: 'https://workmind.ai/ai-prompt-library/', icon: Library },
-      { label: 'PromptSource', href: 'https://github.com/bigscience-workshop/promptsource', icon: Github },
-    ],
-  },
-  {
-    id: 'prompting-guides',
-    label: 'Prompting guides',
-    icon: BookOpen,
-    accent: 'var(--sec-guides)',
-    links: [
-      { label: 'Prompting Guide AI', href: 'https://www.promptingguide.ai/', icon: BookOpen },
-      { label: 'Claude Prompt Eng', href: 'https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview', icon: Library },
-      { label: 'OpenAI Prompt Guide', href: 'https://developers.openai.com/api/docs/guides/prompt-engineering', icon: BookOpen },
-      { label: 'Google Prompt Design', href: 'https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design', icon: BookOpen },
-      { label: 'Digital Maker Tools', href: 'https://digitalmaker.ai/tools', icon: Wrench },
-    ],
-  },
-  {
-    id: 'agents',
-    label: 'Agents & MCP',
-    icon: Bot,
-    accent: 'var(--sec-agents)',
-    links: [
-      { label: 'Anthropic Agents', href: 'https://docs.anthropic.com/en/docs/agents-and-tools/overview', icon: Bot },
-      { label: 'OpenAI Agents', href: 'https://platform.openai.com/docs/guides/agents', icon: Bot },
-      { label: 'Gemini Function Calling', href: 'https://ai.google.dev/gemini-api/docs/function-calling', icon: Zap },
-      { label: 'MCP Introduction', href: 'https://modelcontextprotocol.io/introduction', icon: Library },
-      { label: 'OpenClaw Docs', href: 'https://docs.openclaw.ai/', icon: BookOpen },
-      { label: 'AI Template Agents', href: 'https://www.aitmpl.com/agents', icon: Bot },
-      { label: '500 AI Agents', href: 'https://github.com/ashishpatel26/500-AI-Agents-Projects', icon: Github },
-      { label: 'Awesome AI Agents', href: 'https://github.com/e2b-dev/awesome-ai-agents', icon: Github },
-      { label: 'HuggingFace Agents', href: 'https://huggingface.co/spaces?sort=trending&search=agent', icon: Bot },
-    ],
-  },
-  {
-    id: 'skills',
-    label: 'Skills',
-    icon: Zap,
-    accent: 'var(--sec-skills)',
-    links: [
-      { label: 'OpenClaw Skills', href: 'https://github.com/openclaw/openclaw/tree/main/skills', icon: Github },
-      { label: 'ClawHub', href: 'https://clawhub.com', icon: Library },
-      { label: 'Semantic Kernel', href: 'https://github.com/microsoft/semantic-kernel', icon: Github },
-      { label: 'LangChain Tools', href: 'https://python.langchain.com/docs/modules/agents/tools/', icon: Library },
-      { label: 'MCP Docs', href: 'https://modelcontextprotocol.io/docs', icon: BookOpen },
-      { label: 'SkillsMP', href: 'https://skillsmp.com/', icon: Zap },
-    ],
-  },
-];
+const ICONS: Record<string, LucideIcon> = {
+  terminal: Terminal,
+  sparkles: Sparkles,
+  zap: Zap,
+  wrench: Wrench,
+  bot: Bot,
+  github: Github,
+  'file-text': FileText,
+  library: Library,
+  'book-open': BookOpen,
+  compass: Compass,
+};
+
+const RESOURCE_GROUPS: ResourceGroup[] = resources.groups.map(g => ({
+  ...g,
+  icon: ICONS[g.icon] ?? Compass,
+  links: g.links.map(l => ({ ...l, icon: ICONS[l.icon] ?? ExternalLink })),
+}));
 
 export default function ResourcesNav() {
   const [open, setOpen] = useState(false);

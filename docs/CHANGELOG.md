@@ -4,6 +4,40 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — Skills refresh, generated Skill Packs, repo discovery, a data-driven Resources menu
+
+Four more pieces of the library's upkeep move from "someone should" to a script.
+
+**Tooling**
+- `scripts/sync-agent-skills.mjs` now **refreshes** as well as adds: a skill already stamped
+  from `ai-automation-tools/agent-skills` whose upstream body moved gets its body and support
+  files re-mirrored, local frontmatter kept, `ref`/`checked` bumped (`UPDATED` lines, own
+  changelog bullet). The Monday Skills Sync job runs it, so the org's skills are both pulled in
+  and kept level without waiting for the drift issue.
+- `scripts/build-skill-packs.mjs` generates one pack per `3_Skills` folder with **6 or more
+  skills** (`generated: true`, name and description read from each SKILL.md), rewrites only
+  generated packs, removes one whose folder shrank, and with `--write` drops dead paths from the
+  hand-written packs. First run: **20 generated packs** beside the 6 hand-written ones (Content,
+  Data, Design, Security, Cloud, Git, Mobile, CI/CD, Blockchain, Web, SME, Development root,
+  AI/ML, Business, Marketing, Enterprise Communications, Finance, Investing, Portfolio
+  Management, Platform Integrations). A second run changes nothing.
+- `scripts/discover-repos.mjs` searches GitHub (`gh search repos`, eleven queries across skills,
+  prompts, agent definitions and MCP servers) for repos that are **new** (under a year old,
+  500+ stars) or **popular** (5000+), skips everything the library already tracks (`upstream.repo`
+  stamps, `docs/UPSTREAMS.md`, the Resources menu, the ledger), and appends the top 25 by stars
+  to **`docs/DISCOVERY.md`** as `pending` rows with licence and last push. A person flips a row
+  to `accept`, `link` or `reject`; the script links `accept`/`link` rows into the Resources
+  menu, the Catalog Refresh job vendors `accept` rows with provenance. Leaked-prompt dumps are
+  filtered out before they reach the ledger. The ledger starts with the three repos Mike named.
+- The **Resources** menu reads `site/library/resources.json` (six groups, icon names resolved in
+  `ResourcesNav.tsx`) instead of a hard-coded array, so scripts and jobs can add or drop a link.
+  `scripts/check-resources.mjs` probes every link and reports the dead ones; its first run found
+  Learn Prompting's system-prompts page gone (repointed to its prompt-structure page). The org's
+  own `agent-skills` repo is now the first link under Skills.
+- `site/tsconfig.json`: `resolveJsonModule`.
+
+_Touched: `scripts/{sync-agent-skills,build-skill-packs,discover-repos,check-resources}.mjs`, `site/library/resources.json`, `site/library/3_Skills/packs/**` (20 new), `site/src/components/ResourcesNav.tsx`, `site/tsconfig.json`, `docs/DISCOVERY.md`, `CLAUDE.md`, `README.md`, `docs/ROADMAP.md`, `docs/CHANGELOG.md`._
+
 ## 2026-10-21 — AX Platform content retired
 
 The library was first built alongside the AX Platform agent-coordination tool, which is no
