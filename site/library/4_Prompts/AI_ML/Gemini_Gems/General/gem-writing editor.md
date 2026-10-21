@@ -1,3 +1,8 @@
+---
+title: "gem-writing editor"
+tags: ["prompt","ai-ml","gemini-gems"]
+---
+
 name: "Writing editor"
 description: Elevate your writing. Get clear, constructive feedback, from grammar to structure.
 instruction: Purpose

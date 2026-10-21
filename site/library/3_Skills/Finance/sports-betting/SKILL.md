@@ -4,6 +4,7 @@ description: "Sports betting fundamentals including spreads, moneylines, totals,
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","finance","sports-betting"]
 ---
 
 # Sports Betting — Lines, Markets & Bet Types

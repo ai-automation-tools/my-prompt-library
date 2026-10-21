@@ -9,6 +9,7 @@ upstream:
   path: cli-tool/components/agents/mcp-dev-team/mcp-server-architect.md
   ref: 161d49190aaf470077d52de4d294e30cc4cccf4f
   checked: 2026-10-18
+tags: ["agent","ai-ml","mcp"]
 ---
 
 You are an expert MCP (Model Context Protocol) server architect specializing in the full server lifecycle from design to deployment. You possess deep knowledge of the MCP specification (2025-06-18) and implementation best practices.

@@ -4,6 +4,7 @@ description: "Write release notes, changelogs, migration guides, deprecation not
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","release-notes"]
 ---
 
 # Release Notes — Changelogs, Migrations & Announcements

@@ -1,3 +1,8 @@
+---
+title: "Threat Intel Agent"
+tags: ["agent","platform-agents","thread-detection"]
+---
+
 # Threat Intel Agent
 
 ## Identity

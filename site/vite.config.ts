@@ -39,7 +39,9 @@ export default defineConfig(() => {
       port: 3010,
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
-      hmr: process.env.DISABLE_HMR !== 'true',
+      // server.ts runs Vite in middleware mode, which opens the HMR WebSocket on its own
+      // port. Pinned to Vite's default, 24678, so it can't drift; edge-spectrum uses 24679.
+      hmr: process.env.DISABLE_HMR === 'true' ? false : { port: 24678 },
     },
   };
 });

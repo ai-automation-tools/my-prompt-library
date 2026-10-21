@@ -1,3 +1,8 @@
+---
+title: "Python Programming Teacher Agent"
+tags: ["agent","domain-specific","education"]
+---
+
 # Python Programming Teacher Agent
 
 ## Role

@@ -6,6 +6,7 @@ upstream:
   copies: 3
   candidates: [hhu3637kr/skills, julianobarbosa/claude-code-skills, zpankz/mcp-skillset]
   checked: 2026-08-26
+tags: ["skill","content","json-canvas"]
 ---
 
 # JSON Canvas Skill

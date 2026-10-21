@@ -1,3 +1,8 @@
+---
+title: "Prompt: Advanced Context and Session Management"
+tags: ["prompt","ai-ml","claude-code"]
+---
+
 # Prompt: Advanced Context and Session Management
 
 **Use when:** You want to actively manage Claude Code's context window, handle long sessions efficiently, maintain state across sessions, or recover from context loss.

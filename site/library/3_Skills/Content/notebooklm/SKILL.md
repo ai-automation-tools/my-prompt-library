@@ -6,6 +6,7 @@ upstream:
   copies: 13
   candidates: [automindtechnologie-jpg/ultimate-skill.md, crystal9114/notebooklm-skill, guanyang/antigravity-skills, guanyang/open-agent-hub, jpropato/siba, jst-well-dan/skill-box, microck/ordinary-claude-skills, pleaseprompto/notebooklm-skill]
   checked: 2026-08-26
+tags: ["skill","content","notebooklm"]
 ---
 
 # NotebookLM Research Assistant Skill

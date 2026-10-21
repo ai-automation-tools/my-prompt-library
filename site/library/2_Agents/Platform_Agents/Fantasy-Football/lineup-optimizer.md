@@ -1,3 +1,8 @@
+---
+title: "Fantasy Football Lineup Optimizer Agent"
+tags: ["agent","platform-agents","fantasy-football"]
+---
+
 # Fantasy Football Lineup Optimizer Agent
 
 ## Role

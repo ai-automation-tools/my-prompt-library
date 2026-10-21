@@ -4,6 +4,7 @@ description: "Manage betting capital with staking plans, drawdown limits, risk-o
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","finance","bankroll-management"]
 ---
 
 # Bankroll Management — Capital Preservation & Risk Control

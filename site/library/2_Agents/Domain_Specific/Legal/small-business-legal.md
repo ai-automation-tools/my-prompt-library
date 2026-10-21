@@ -1,3 +1,8 @@
+---
+title: "Small Business Legal Advisor"
+tags: ["agent","domain-specific","legal"]
+---
+
 # Small Business Legal Advisor
 
 ## Role

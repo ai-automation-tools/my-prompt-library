@@ -1,3 +1,8 @@
+---
+title: "Full Stack Dev"
+tags: ["agent","development","general"]
+---
+
 # Full Stack Dev
 
 ##  Role & Context

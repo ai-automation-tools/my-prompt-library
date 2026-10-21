@@ -1,5 +1,6 @@
 ---
 title: "🛠️ backend-api-design"
+tags: ["skill","development","api"]
 name: "backend-api-design"
 description: Design clean, RESTful or GraphQL API architectures. Use this skill when asked to plan out an API, design endpoints, define schemas, or architect backend services.
 upstream:

@@ -4,6 +4,7 @@ description: Plan and execute rapid game prototypes to validate mechanics, test 
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","game-prototyping"]
 ---
 
 # Game Prototyping — Find the Fun Fast

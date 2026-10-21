@@ -4,6 +4,7 @@ description: Design game audio systems including music, sound effects, ambient s
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","audio-design"]
 ---
 
 # Audio Design — Sound, Music & Sonic Identity

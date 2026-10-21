@@ -4,6 +4,7 @@ description: "Detect and evaluate arbitrage opportunities across sportsbooks and
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","finance","arbitrage-scanner"]
 ---
 
 # Arbitrage Scanner — Cross-Market Profit Opportunities

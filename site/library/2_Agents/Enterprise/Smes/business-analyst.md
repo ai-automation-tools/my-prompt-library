@@ -1,3 +1,8 @@
+---
+title: "Business Analyst Agent"
+tags: ["agent","enterprise","smes"]
+---
+
 # Business Analyst Agent
 
 ## Role

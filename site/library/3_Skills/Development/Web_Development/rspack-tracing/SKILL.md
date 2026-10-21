@@ -1,5 +1,6 @@
 ---
 title: "Rspack Tracing"
+tags: ["skill","development","web-development"]
 name: "rspack-tracing"
 description: Diagnose Rspack build failures and performance bottlenecks using trace capture and analysis workflows.
 source: https://skillsmp.com/skills/neversight-learn-skills-dev-data-skills-md-rstackjs-agent-skills-rspack-tracing-skill-md

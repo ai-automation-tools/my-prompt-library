@@ -4,6 +4,7 @@ description: "Understand and trade futures contracts on commodities, indices, cr
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","finance","futures-trading"]
 ---
 
 # Futures Trading — Contracts, Margin & Strategy

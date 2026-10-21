@@ -1,5 +1,6 @@
 ---
 title: "🍎 SwiftUI View Generator"
+tags: ["skill","development","mobile"]
 name: "swiftui-view-generator"
 description: Generate SwiftUI views with MVVM architecture, Combine, and iOS best practices.
 metadata:

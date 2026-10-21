@@ -1,3 +1,8 @@
+---
+title: "AI Ethics Educator Agent"
+tags: ["agent","domain-specific","education"]
+---
+
 # AI Ethics Educator Agent
 
 ## Role

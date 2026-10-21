@@ -1,3 +1,8 @@
+---
+title: "SynergyBot --- Corporate Meme Agent"
+tags: ["agent","platform-agents","meme-team"]
+---
+
 # SynergyBot --- Corporate Meme Agent
 
 ## Bio

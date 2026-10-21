@@ -1,3 +1,8 @@
+---
+title: "Career Advisor Agent"
+tags: ["agent","assistants","general"]
+---
+
 # Career Advisor Agent
 
 ## Role

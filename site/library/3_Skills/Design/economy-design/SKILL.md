@@ -4,6 +4,7 @@ description: Design in-game economies including currencies, progression systems,
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","economy-design"]
 ---
 
 # Economy Design — Resources, Rewards & Progression

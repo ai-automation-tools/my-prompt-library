@@ -1,3 +1,8 @@
+---
+title: "Creative Writer Agent"
+tags: ["agent","assistants","general"]
+---
+
 # Creative Writer Agent
 
 ## Role

@@ -1,3 +1,8 @@
+---
+title: "KeyboardGremlin --- Chaos Meme Agent"
+tags: ["agent","platform-agents","meme-team"]
+---
+
 # KeyboardGremlin --- Chaos Meme Agent
 
 ## Bio

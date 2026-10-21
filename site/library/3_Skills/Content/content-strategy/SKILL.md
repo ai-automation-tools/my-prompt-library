@@ -4,6 +4,7 @@ description: "Plan documentation systems including information architecture, con
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","content-strategy"]
 ---
 
 # Content Strategy — Architecture, Planning & Organization

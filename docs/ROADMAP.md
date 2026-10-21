@@ -31,8 +31,8 @@ Updated 2026-10-21.
 | `src/App.tsx` | **1,029 lines** (was 2,845), 21 `useState` hooks |
 | CI | `.github/workflows/ci.yml` — lint, route table, provenance self-checks, prompt-index freshness. Green since 2026-08-27 |
 | Line endings | LF everywhere, enforced by `.gitattributes`; the index is byte-reproducible on Linux and Windows |
-| Security | 0 npm advisories; path traversal closed; no accounts, so no auth surface: the local server binds to 127.0.0.1 and the demo refuses every write (`READ_ONLY`); My Library ids are file names restricted to `[a-z0-9-]`; `helmet` headers; `LICENSE`/`NOTICE`/`SECURITY.md` in place (2026-10-05). The old Neon database still exists until Mike deletes it |
-| Health | Local-first since 2026-10-21, with a read-only demo. Everything below is content, maintainability, or polish, plus the one cleanup item in **Now** |
+| Security | 0 npm advisories; path traversal closed; no accounts, so no auth surface: the local server binds to 127.0.0.1 and the demo refuses every write (`READ_ONLY`); My Library ids are file names restricted to `[a-z0-9-]`; `helmet` headers; `LICENSE`/`NOTICE`/`SECURITY.md` in place (2026-10-05). The Neon database is deleted and the Vercel project holds no secrets |
+| Health | Local-first since 2026-10-21, with a read-only demo. Everything below is content, maintainability, or polish, and the release gates below |
 
 > Counts come from `api/prompt-index.json` (`promptCount`) and the drift report, not from
 > hand-maintained numbers here.
@@ -41,7 +41,7 @@ Updated 2026-10-21.
 
 ## 🚨 Phase 1: Now, blocking or near-term
 
-- [ ] **Delete the Neon database and the dead Vercel env vars.** Nothing reads them since the app went local-first on 2026-10-21. Deleting the Neon project also closes the old leak for good: its password was scrubbed from Git history but never rotated, and a scrub does not un-leak. Export the `user_prompts` rows first if any are worth keeping (they can be re-saved as files under `site/my-library/`). In Vercel, remove `DATABASE_URL`, `GITHUB_TOKEN`, `GITHUB_OWNER`, `GITHUB_REPO` and `GITHUB_BRANCH` from the `my-prompt-library` project. 🔒 Needs Mike
+- [x] **Delete the Neon database and the dead Vercel env vars.** Nothing read them after the app went local-first. The Neon project is deleted, which also closes the old leak for good (its password was scrubbed from Git history but never rotated), and the `my-prompt-library` Vercel project has no environment variables left. Completed **2026-10-21** — see the changelog.
 - [x] **Go local-first; drop accounts and the database.** The hosted signup site became an app you clone and run: My Library is a folder of markdown files (`site/lib/my-library.ts`), login, Neon/Postgres and GitHub mode are gone, the server binds to loopback, and the Vercel deployment is a read-only Public Library demo (`READ_ONLY`, implied by Vercel's `VERCEL`). This also retires the placeholder-`DATABASE_URL` item: there is nothing left to configure. Completed **2026-10-21** — see the changelog.
 - [x] **Redact published contacts and sample credentials; add LICENSE.** Three teammates' work and personal emails were listed as recipients in two agent files and one skill, and served on the live site; three Neon doc-sample connection strings sat in the vendored `using-neon` reference. All replaced with placeholders. The README had claimed Apache 2.0 with no `LICENSE` file; added it plus a `NOTICE` for vendored library content. History not rewritten. Completed **2026-10-05** — see the changelog.
 - [x] **Auth had no abuse controls.** Login (20 / 15 min, failures only) and signup (5 / 15 min) are now rate-limited per IP in `site/middleware/rate-limit.ts`; signup validates email shape and enforces 8+ chars (login still accepts the old 6-char accounts); bcrypt's 72-byte truncation is capped at the input; `helmet` sets response headers with CSP off; `trust proxy` is 1 so `req.ip` is the client, not Vercel. The limiter store is in-memory and therefore per warm instance — good enough against a single scripted client, not against a distributed one. Completed **2026-10-05** — see the changelog.
@@ -87,7 +87,7 @@ is gone, with dev mounting the production `api/skill-packs.ts` handler directly.
 - [x] `LICENSE` (Apache 2.0) and a `NOTICE` for vendored library content, published contacts and sample credentials redacted — done 2026-10-05: see the Phase 1 item
 - [x] `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, PR and issue templates — done 2026-10-05: see the Phase 1 item
 - [x] Live at `https://my-prompt-library.ai-automation-tools.dev` with the org source bar and consent gate — done 2026-10-12: see the changelog
-- [ ] A full-history secret scan (gitleaks) run and its findings written down; the only known hit, the scrubbed Neon credential, is closed by deleting that database (Phase 1)
+- [ ] A full-history secret scan (gitleaks) run and its findings written down; the only known hit, the scrubbed Neon credential, is closed: that database was deleted 2026-10-21
 
 ## After public release
 
@@ -108,7 +108,7 @@ Nothing below blocks go-live. The routine works these groups in order once every
 
 ### ✨ Features
 - [x] Finish the `App.tsx` de-bulk — lift the remaining URL/routing state into a `useLibraryRoute` hook. `src/hooks/useLibraryRoute.ts` now owns `activeTab`, `activeCategory`, `activeSubcategory` and `promptPathParam`, the popstate listener and the URL write-back. The section tab was parsed from `?section=` by two hand-written if-chains (initial state and popstate) that had already drifted once — `skill-packs` was missing from one — and is now one `parseSection` over a single tab list. `App.tsx` 1,083 → **996 lines**, 23 → 19 `useState` hooks (the snapshot's "24" was one high). `libraryMode` and the `?prompt=` → prompt resolution stay in `App.tsx`: the first has its own persistence, the second needs the loaded listing and `handlePromptClick`. Completed **2026-10-03** — see the changelog.
-- [ ] Lazy-mount the 16-theme picker so it is not in every render tree.
+- [x] ~~Lazy-mount the 16-theme picker so it is not in every render tree.~~ Moot: the picker went with the house-style restyle on 2026-10-21; the theme is a Light | Dark switch now.
 - [ ] Role-based "starter pack" collections.
 - [ ] User ratings / feedback on prompts.
 - [ ] Programmatic API access for the public library.
@@ -121,12 +121,12 @@ Recurring work, not items.
 
 | When | Task |
 |:---|:---|
-| Weekly (automated) | `upstream-drift.yml` runs Mondays 09:00 UTC and updates one rolling issue. Triage it — the job never edits content itself; `resync-upstream.mjs` is what repairs what it finds. |
+| Weekly (automated) | `upstream-drift.yml` runs Mondays 09:00 UTC and updates one rolling issue, since 2026-10-21 with a per-section **library health** table (files, changed in 30 days, untagged, no provenance). Triage it — the job never edits content itself; `resync-upstream.mjs` is what repairs what it finds. |
+| Weekly (routine fleet) | Six jobs in `~\.claude\Routines\jobs\prompt-library-*`, one lane each, every PR merged by the Org PR Sweep: **Skills Sync** (Mon, no model: `scripts/sync-agent-skills.mjs` copies new skills from the org's `agent-skills` into `3_Skills`), **Add Prompts** (Mon: 2 prompts into `4_Prompts`, 1 guide into `1_Guides`), **Guides Refresh** (alternate Tue: fixes `1_Guides` against official docs), **Catalog Refresh** (alternate Thu: vendor-published system prompts and real agent definitions), the **Weekly Roadmap** (Sat: works this file, resyncs drifted skills), and the **Monthly Upkeep** (3rd Wed: fixes and removes stale content, checks the Skill Packs and adds one a month, rotates `featured`, runs `scripts/backfill-tags.mjs`). |
 | Each deploy | The prompt index rebuilds automatically (`vercel-build` runs `build:index`). |
-| After adding content | Watch the build log for `[WARN] Failed to parse frontmatter` — those files are silently dropped from the library. |
-| After adding skills or agents | Re-run `attribute-upstream.mjs --write` (skills) or `--agents --write` (agents) to stamp provenance on the new ones. Both are idempotent and each only touches its own section. |
-| Monthly | Refresh `5_System_Prompts` as new frontier models ship. |
-| Quarterly | Audit prompts for accuracy; review/rotate featured prompts. Re-check model IDs. |
+| After adding content | Watch the build log for `[WARN] Failed to parse frontmatter` — those files are silently dropped from the library. Run `node scripts/backfill-tags.mjs` (`--write`) so nothing ships untagged: the tag filter and ⌘K cannot see a file without `tags`. |
+| After adding skills or agents by hand | Re-run `attribute-upstream.mjs --write` (skills) or `--agents --write` (agents) to stamp provenance on the new ones. Both are idempotent and each only touches its own section. Skills that came through the Skills Sync are stamped already. |
+| Quarterly | Audit prompts for accuracy. Re-check model IDs the upkeep missed. |
 
 ---
 

@@ -4,6 +4,7 @@ description: Design game narratives including story structure, world-building, c
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","narrative-design"]
 ---
 
 # Narrative Design — Story, World & Dialogue

@@ -8,6 +8,7 @@ upstream:
   path: skills/docx/SKILL.md
   ref: 34040c9c568585f6929bedeaad110ad08f079624
   checked: 2026-09-16
+tags: ["skill","content","docx"]
 ---
 
 # DOCX creation, editing, and analysis

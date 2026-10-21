@@ -4,6 +4,7 @@ description: "Create and enforce writing style guides covering voice, tone, term
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","style-guide"]
 ---
 
 # Style Guide — Voice, Tone & Editorial Standards

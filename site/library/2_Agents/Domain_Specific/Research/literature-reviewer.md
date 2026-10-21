@@ -1,3 +1,8 @@
+---
+title: "AI Literature Review Specialist"
+tags: ["agent","domain-specific","research"]
+---
+
 # AI Literature Review Specialist
 
 ## Role

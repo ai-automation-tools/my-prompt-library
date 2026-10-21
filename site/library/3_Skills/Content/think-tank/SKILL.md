@@ -4,6 +4,7 @@ description: Run a Virtual Think Tank — a structured multi-persona debate — 
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","think-tank"]
 ---
 
 # Virtual Think Tank

@@ -1,3 +1,8 @@
+---
+title: "gem-career guide"
+tags: ["system-prompt","gemini-gems"]
+---
+
 name: "Career guide"
 description: Unlock your career potential. Get a detailed plan to refine your skills and achieve your career goals.
 instruction: Purpose

@@ -1,3 +1,8 @@
+---
+title: "AI 3D Asset Creator Agent"
+tags: ["agent","domain-specific","art-and-design"]
+---
+
 # AI 3D Asset Creator Agent
 
 ## Role

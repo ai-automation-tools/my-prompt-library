@@ -1,3 +1,8 @@
+---
+title: "Financial Modeling Prep MCP"
+tags: ["prompt","data","financial"]
+---
+
 # Financial Modeling Prep MCP
 
 Financial statements, company fundamentals, analyst data, ratios, earnings calendars, and market screening.

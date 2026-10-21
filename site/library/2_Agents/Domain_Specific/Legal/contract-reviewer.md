@@ -1,3 +1,8 @@
+---
+title: "Contract Reviewer Agent"
+tags: ["agent","domain-specific","legal"]
+---
+
 # Contract Reviewer Agent
 
 ## Role

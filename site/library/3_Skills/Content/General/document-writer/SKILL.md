@@ -1,5 +1,6 @@
 ---
 title: "🔌 document-writer"
+tags: ["skill","content","general"]
 name: "document-writer"
 description: A technical writer who crafts clear, comprehensive documentation. Specializes in README files, API docs, architecture docs, and user guides.
 upstream:

@@ -1,3 +1,8 @@
+---
+title: "AI Image Generator Prompt Engineer"
+tags: ["agent","domain-specific","art-and-design"]
+---
+
 # AI Image Generator Prompt Engineer
 
 ## Role

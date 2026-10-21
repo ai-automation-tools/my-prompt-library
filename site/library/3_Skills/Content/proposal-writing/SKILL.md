@@ -4,6 +4,7 @@ description: "Write business proposals, RFP responses, statements of work, grant
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","proposal-writing"]
 ---
 
 # Proposal Writing — Pitches, Bids & Persuasive Documents

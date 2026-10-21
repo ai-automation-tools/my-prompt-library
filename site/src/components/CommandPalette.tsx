@@ -9,11 +9,11 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import Fuse from 'fuse.js';
-import { ArrowRight, Clock, CornerDownLeft, Palette, Plus, Search } from 'lucide-react';
+import { ArrowRight, Clock, CornerDownLeft, Moon, Plus, Search, Settings, Sun } from 'lucide-react';
 import { m } from 'motion/react';
 import { cn } from '../lib/cn';
 import { SECTIONS, getTabForFolder, humanize } from '../lib/sections';
-import { THEMES, type Theme } from '../lib/themes';
+import type { Theme } from '../hooks/useTheme';
 import type { LibraryTab } from '../hooks/useLibraryRoute';
 import type { Prompt } from './PromptCard';
 import { extractEmoji } from './PromptCard';
@@ -27,6 +27,7 @@ interface CommandPaletteProps {
   onSelectPrompt: (prompt: Prompt) => void;
   onSelectSection: (tab: LibraryTab) => void;
   onNewPrompt: () => void;
+  onOpenSettings: () => void;
   onSetTheme: (theme: Theme) => void;
 }
 
@@ -49,6 +50,7 @@ export default function CommandPalette({
   onSelectPrompt,
   onSelectSection,
   onNewPrompt,
+  onOpenSettings,
   onSetTheme,
 }: CommandPaletteProps) {
   const [query, setQuery] = useState('');
@@ -103,22 +105,34 @@ export default function CommandPalette({
       icon: <s.icon className="h-3.5 w-3.5" />,
       run: () => onSelectSection(s.id),
     }));
-    const actions: Item[] = READ_ONLY ? [] : [
-      {
+    const actions: Item[] = [
+      ...(READ_ONLY ? [] : [{
         key: 'action:new',
-        group: 'Actions',
+        group: 'Actions' as const,
         label: 'New prompt',
         hint: 'Create a prompt in My Library',
         icon: <Plus className="h-3.5 w-3.5" />,
         run: onNewPrompt,
+      }]),
+      {
+        key: 'action:settings',
+        group: 'Actions',
+        label: 'Settings',
+        hint: 'Appearance, colour palette, local data',
+        icon: <Settings className="h-3.5 w-3.5" />,
+        run: onOpenSettings,
       },
     ];
-    const themes: Item[] = THEMES.map(t => ({
+    const themes: Item[] = (
+      [
+        { id: 'light', label: 'Light theme', icon: Sun },
+        { id: 'dark', label: 'Dark theme', icon: Moon },
+      ] as const
+    ).map(t => ({
       key: `theme:${t.id}`,
       group: 'Themes',
-      label: `Theme: ${t.name}`,
-      accent: t.accent,
-      icon: <Palette className="h-3.5 w-3.5" />,
+      label: t.label,
+      icon: <t.icon className="h-3.5 w-3.5" />,
       run: () => onSetTheme(t.id),
     }));
 
@@ -130,9 +144,7 @@ export default function CommandPalette({
     const matchedPrompts = fuse.search(q, { limit: MAX_PROMPT_RESULTS }).map(r => promptItem(r.item, 'Prompts'));
     const matchedSections = sections.filter(s => s.label.toLowerCase().includes(lower));
     const matchedActions = actions.filter(a => a.label.toLowerCase().includes(lower));
-    const matchedThemes = lower.startsWith('theme') || lower.startsWith('dark') || lower.startsWith('light')
-      ? themes.filter(t => t.label.toLowerCase().includes(lower.replace(/^theme:?\s*/, '')))
-      : themes.filter(t => t.label.toLowerCase().includes(lower)).slice(0, 4);
+    const matchedThemes = themes.filter(t => t.label.toLowerCase().includes(lower) || 'theme'.startsWith(lower));
     return [...matchedPrompts, ...matchedSections, ...matchedActions, ...matchedThemes];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, fuse, recentPrompts]);
@@ -176,7 +188,7 @@ export default function CommandPalette({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.15 }}
-        className="absolute inset-0 bg-black/60 backdrop-blur-[3px]"
+        className="absolute inset-0 bg-[var(--scrim)] backdrop-blur-[3px]"
         onClick={onClose}
       />
       <m.div

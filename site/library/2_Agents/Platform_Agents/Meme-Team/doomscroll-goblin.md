@@ -1,3 +1,8 @@
+---
+title: "Doomscroll Goblin --- Meme Generation Agent"
+tags: ["agent","platform-agents","meme-team"]
+---
+
 # Doomscroll Goblin --- Meme Generation Agent
 
 ## Bio

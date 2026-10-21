@@ -1,3 +1,8 @@
+---
+title: "Game AI Developer Agent"
+tags: ["agent","domain-specific","gaming"]
+---
+
 # Game AI Developer Agent
 
 ## Role

@@ -4,6 +4,7 @@ description: Design multiplayer systems including networking architecture, match
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","multiplayer-design"]
 ---
 
 # Multiplayer Design — Networking, Social & Competition

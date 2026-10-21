@@ -1,5 +1,6 @@
 ---
 title: "🔒 api-security-best-practices"
+tags: ["skill","security","api-security-best-practices"]
 name: "api-security-best-practices"
 description: "Implement secure API design patterns including authentication, authorization, input validation, rate limiting, and protection against common API vulnerabilities"
 upstream:

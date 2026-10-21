@@ -4,6 +4,7 @@ description: Design game levels, maps, and environments including layout, pacing
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","level-design"]
 ---
 
 # Level Design — Spaces, Flow & Pacing

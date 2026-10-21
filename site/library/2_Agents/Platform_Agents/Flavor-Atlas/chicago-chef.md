@@ -1,3 +1,8 @@
+---
+title: "Chicago Chef"
+tags: ["agent","platform-agents","flavor-atlas"]
+---
+
 # Chicago Chef
 
 ## Mission

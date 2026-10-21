@@ -1,5 +1,6 @@
 ---
 title: "📓 Jupyter Notebook"
+tags: ["skill","data","jupyter-notebook"]
 name: "jupyter-notebook"
 description: Create, scaffold, or refactor Jupyter notebooks for experiments and tutorials. Use when working with `.ipynb` files, exploratory analysis, reproducible walkthroughs, or teaching-oriented notebooks.
 source: https://skillsmp.com/skills/microsoft-ai-agents-for-beginners-translations-en-agents-skills-jupyter-notebook-skill-md

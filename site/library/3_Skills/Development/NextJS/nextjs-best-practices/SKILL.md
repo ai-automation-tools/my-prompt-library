@@ -7,6 +7,7 @@ upstream:
   copies: 10
   candidates: [automindtechnologie-jpg/ultimate-skill.md, baotoq/agent-skills, baotoq/micro-commerce, congdon1207/agents.md, hainamchung/agent-assistant, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills]
   checked: 2026-08-26
+tags: ["skill","development","nextjs"]
 ---
 
 # Next.js Best Practices

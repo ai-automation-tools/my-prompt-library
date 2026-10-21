@@ -8,6 +8,7 @@ upstream:
   path: skills/xlsx/SKILL.md
   ref: 34040c9c568585f6929bedeaad110ad08f079624
   checked: 2026-09-16
+tags: ["skill","content","xlsx"]
 ---
 
 # XLSX creation, editing, and analysis

@@ -1,5 +1,6 @@
 ---
 title: "🐍 Python Design Patterns"
+tags: ["skill","development","python"]
 name: "python-design-patterns"
 description: Python architecture and code-structure guidance centered on KISS, single responsibility, composition over inheritance, and the rule of three. Use when designing new components or refactoring complex Python code.
 source: https://skillsmp.com/skills/wshobson-agents-plugins-python-development-skills-python-design-patterns-skill-md

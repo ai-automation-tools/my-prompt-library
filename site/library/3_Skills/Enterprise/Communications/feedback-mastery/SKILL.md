@@ -7,6 +7,7 @@ upstream:
   copies: 3
   candidates: [cachemoney/agent-toolkit, softaworks/agent-toolkit, visualxintelligence/agent-toolkit]
   checked: 2026-08-26
+tags: ["skill","enterprise","communications"]
 ---
 
 # Feedback Conversations

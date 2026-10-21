@@ -1,3 +1,8 @@
+---
+title: "Italian Chef Agent"
+tags: ["agent","platform-agents","flavor-atlas"]
+---
+
 # Italian Chef Agent
 
 ## Role
