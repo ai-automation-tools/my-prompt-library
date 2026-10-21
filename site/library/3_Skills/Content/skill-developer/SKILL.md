@@ -6,6 +6,7 @@ upstream:
   copies: 14
   candidates: [automindtechnologie-jpg/ultimate-skill.md, chacha95/advanced-harness, diet103/claude-code-infrastructure-showcase, jpropato/siba, langfuse/langfuse, mamba-mental/agent-skill-manager, microck/ordinary-claude-skills, nilecui/skillsbase]
   checked: 2026-08-26
+tags: ["skill","content","skill-developer"]
 ---
 
 # Skill Developer Guide

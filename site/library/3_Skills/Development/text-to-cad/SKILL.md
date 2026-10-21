@@ -12,6 +12,7 @@ upstream:
   match: unknown
   declared: "https://github.com/earthtojake/text-to-cad"
   checked: 2026-08-26
+tags: ["skill","development","text-to-cad"]
 ---
 
 # Text to CAD

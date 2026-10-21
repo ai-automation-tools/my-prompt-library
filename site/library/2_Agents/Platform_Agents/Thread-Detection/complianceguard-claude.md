@@ -1,3 +1,8 @@
+---
+title: "Compliance Guard"
+tags: ["agent","platform-agents","thread-detection"]
+---
+
 # Compliance Guard
 
 ## Identity

@@ -1,3 +1,8 @@
+---
+title: "Security Router"
+tags: ["agent","platform-agents","secops-siem"]
+---
+
 # Security Router
 SecRouter serves as the front door for all security events and human communications.
 

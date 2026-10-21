@@ -1,3 +1,8 @@
+---
+title: "Alpha Vantage MCP Prompts"
+tags: ["prompt","data","financial"]
+---
+
 # Alpha Vantage MCP Prompts
 
 Real-time/historical stock quotes, technicals, forex, crypto, commodities, economic data, and options.

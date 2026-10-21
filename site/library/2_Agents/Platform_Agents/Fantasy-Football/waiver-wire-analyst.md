@@ -1,3 +1,8 @@
+---
+title: "Waiver Wire Analyst Agent"
+tags: ["agent","platform-agents","fantasy-football"]
+---
+
 # Waiver Wire Analyst Agent
 
 ## Role

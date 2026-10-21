@@ -1,5 +1,6 @@
 ---
 title: "🔵 Azure DevOps CI/CD Pipeline"
+tags: ["skill","development","cloud"]
 name: "azure-devops-pipeline"
 description: Create Azure DevOps pipelines for building, testing, and deploying applications to Azure services.
 metadata:

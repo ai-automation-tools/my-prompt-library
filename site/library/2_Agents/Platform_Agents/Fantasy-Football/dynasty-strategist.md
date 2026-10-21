@@ -1,3 +1,8 @@
+---
+title: "Dynasty Fantasy Football Strategist Agent"
+tags: ["agent","platform-agents","fantasy-football"]
+---
+
 # Dynasty Fantasy Football Strategist Agent
 
 ## Role

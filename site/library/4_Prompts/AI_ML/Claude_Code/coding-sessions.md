@@ -1,3 +1,8 @@
+---
+title: "Prompt: Run Effective Agentic Coding Sessions"
+tags: ["prompt","ai-ml","claude-code"]
+---
+
 # Prompt: Run Effective Agentic Coding Sessions
 
 **Use when:** You want Claude Code to work autonomously on a feature, bug, or codebase task with minimal interruption — while staying safe and aligned.

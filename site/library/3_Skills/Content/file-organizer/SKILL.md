@@ -6,6 +6,7 @@ upstream:
   copies: 6
   candidates: [automindtechnologie-jpg/ultimate-skill.md, jpropato/siba, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
   checked: 2026-08-26
+tags: ["skill","content","file-organizer"]
 ---
 
 # File Organizer

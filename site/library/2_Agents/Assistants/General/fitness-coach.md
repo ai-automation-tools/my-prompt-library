@@ -1,3 +1,8 @@
+---
+title: "Fitness Coach Agent"
+tags: ["agent","assistants","general"]
+---
+
 # Fitness Coach Agent
 
 ## Role

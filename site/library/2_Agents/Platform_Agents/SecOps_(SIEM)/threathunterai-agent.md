@@ -1,3 +1,8 @@
+---
+title: "Threat Hunter AI"
+tags: ["agent","platform-agents","secops-siem"]
+---
+
 # Threat Hunter AI
 
 ThreatHunterAI performs advanced detection, correlation, and anomaly analysis across enriched SIEM events.

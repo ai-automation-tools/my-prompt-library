@@ -1,3 +1,8 @@
+---
+title: "Social Media Manager Agent"
+tags: ["agent","content","other"]
+---
+
 # Social Media Manager Agent
 
 ## Role

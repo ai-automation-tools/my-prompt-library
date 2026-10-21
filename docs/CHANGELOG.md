@@ -4,6 +4,40 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — Every library section gets a job, and 430 files get tags
+
+Until today the content automations grew `4_Prompts` only (two prompts a week), skills and
+Skill Packs had no intake at all, and the two refresh passes each ran once a month. The fleet
+in `~\.claude\Routines` now covers every section, one lane per job, and the repo carries the
+scripts the model-free parts run on.
+
+**Content**
+- `scripts/backfill-tags.mjs` gives any indexed file with no `tags:` path-derived tags
+  (section, category, subcategory). Run once: **430 files** tagged (241 skills, 162 agents, 21
+  prompts, 6 system prompts) that the tag filter and ⌘K could not see. Text-level insert of one
+  line (or a prepended block for files with no frontmatter), so the drift check's body
+  comparison and the skill-frontmatter test are unaffected. The Monthly Upkeep re-runs it.
+- `scripts/sync-agent-skills.mjs` copies every skill in the org's `ai-automation-tools/agent-skills`
+  that `3_Skills` does not hold into the matching category, stamped with `title`, `tags` and an
+  `upstream:` block (`match: exact`) so the drift check tracks it from then on. Adds only. The
+  Routines fleet runs it Mondays with no Claude session (`Prompt-Library Skills Sync`); 40 skills
+  are waiting for the first run.
+- The six duplicate pack JSONs under `3_Skills/Development/` are gone: `api/skill-packs.ts` reads
+  `3_Skills/packs/` only, and these copies had drifted from the real ones.
+
+**Tooling**
+- `check-upstream-drift.mjs` adds a **Library health** table to the Monday issue: per section,
+  files, changed in the last 30 days, untagged, and (skills, real agents) without provenance.
+- Fleet changes, in the Routines repo: the Library Refresh split into a **Guides Refresh**
+  (alternate Tuesdays) and a **Catalog Refresh** (alternate Thursdays) so each lane runs twice a
+  month; Add Prompts adds **1 guide** a week beside its 2 prompts; the Monthly Upkeep checks every
+  Skill Pack's paths and adds one pack a month, keeps `featured` within per-section caps, and
+  keeps the untagged count at zero.
+
+_Touched: `scripts/{backfill-tags,sync-agent-skills,check-upstream-drift}.mjs`, 430 files under
+`site/library/`, `site/api/prompt-index.json`, `CLAUDE.md`, `docs/ROADMAP.md`; deleted
+`site/library/3_Skills/Development/*-pack.json`._
+
 ## 2026-10-21 — Section buttons in the top bar
 
 **UI**

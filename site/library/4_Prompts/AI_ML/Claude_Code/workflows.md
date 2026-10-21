@@ -1,3 +1,8 @@
+---
+title: "Prompt: Create Automated Workflows"
+tags: ["prompt","ai-ml","claude-code"]
+---
+
 # Prompt: Create Automated Workflows
 
 **Use when:** You want Claude Code to design, build, or improve automated workflows — including GitHub Actions, shell scripts, n8n pipelines, cron jobs, or multi-step automation chains.

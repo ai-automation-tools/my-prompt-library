@@ -1,5 +1,6 @@
 ---
 title: "⚛️ React Native Component Generator"
+tags: ["skill","development","mobile"]
 name: "react-native-component-generator"
 description: Generate React Native functional components with hooks, state management, and styling for mobile apps.
 metadata:

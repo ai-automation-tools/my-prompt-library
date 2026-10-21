@@ -1,3 +1,8 @@
+---
+title: "MLOps Specialist"
+tags: ["agent","ai-ml","general"]
+---
+
 # MLOps Specialist
 
 ## Role

@@ -1,5 +1,6 @@
 ---
 title: "☁️ AWS Infrastructure Setup"
+tags: ["skill","development","cloud"]
 name: "aws-infrastructure-setup"
 description: Set up AWS infrastructure using Terraform/CloudFormation with best practices for security, scalability, and cost optimization.
 metadata:

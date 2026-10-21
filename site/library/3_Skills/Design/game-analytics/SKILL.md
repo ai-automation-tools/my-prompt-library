@@ -4,6 +4,7 @@ description: Design telemetry systems, define KPIs, analyze player behavior data
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","game-analytics"]
 ---
 
 # Game Analytics — Telemetry, KPIs & Data-Driven Design

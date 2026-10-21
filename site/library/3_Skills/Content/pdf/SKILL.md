@@ -8,6 +8,7 @@ upstream:
   path: skills/pdf/SKILL.md
   ref: 3b3fad96af16a10759d930941b4520ba0c40edae
   checked: 2026-08-26
+tags: ["skill","content","pdf"]
 ---
 
 # PDF Processing Guide

@@ -7,6 +7,7 @@ upstream:
   path: skills/brainstorming/SKILL.md
   ref: bb92a77741419a4ab5f06e711a283343f1ada0c3
   checked: 2026-10-13
+tags: ["skill","content","brainstorming"]
 ---
 
 # Brainstorming

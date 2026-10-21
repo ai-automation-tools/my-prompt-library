@@ -1,5 +1,6 @@
 ---
 title: "📄 Feishu Doc"
+tags: ["skill","platform-integrations","feishu-doc"]
 name: "feishu-doc"
 description: Read, create, write, and append content in Feishu (Lark) Docs, Sheets, Bitable, and Wiki-linked documents. Use when working with Feishu knowledge and document workflows.
 source: https://skillsmp.com/skills/openclaw-skills-skills-autogame-17-feishu-doc-skill-md

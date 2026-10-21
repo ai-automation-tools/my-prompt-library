@@ -7,6 +7,7 @@ upstream:
   copies: 7
   candidates: [ag47-pt/website, automindtechnologie-jpg/ultimate-skill.md, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, vudovn/antigravity-kit, xfstudio/skills]
   checked: 2026-08-26
+tags: ["skill","content","plan-writing"]
 ---
 
 # Plan Writing

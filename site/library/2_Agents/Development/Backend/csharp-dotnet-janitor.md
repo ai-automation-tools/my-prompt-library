@@ -9,6 +9,7 @@ upstream:
   path: agents/csharp-dotnet-janitor.agent.md
   ref: cb64ad12e32737ae764becd6885462e9b4c7cb00
   checked: 2026-10-18
+tags: ["agent","development","backend"]
 ---
 
 # C#/.NET Janitor

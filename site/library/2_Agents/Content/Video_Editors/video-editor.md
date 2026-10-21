@@ -1,3 +1,8 @@
+---
+title: "Video Editor Agent"
+tags: ["agent","content","video-editors"]
+---
+
 # Video Editor Agent
 
 ## Role

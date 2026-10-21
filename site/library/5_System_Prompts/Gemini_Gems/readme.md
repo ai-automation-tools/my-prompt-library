@@ -1,3 +1,8 @@
+---
+title: "Google Gemini's Gems instructios"
+tags: ["system-prompt","gemini-gems"]
+---
+
 # Google Gemini's Gems instructios
 
 This folder contains the Gem prompts for Google's Gemini.

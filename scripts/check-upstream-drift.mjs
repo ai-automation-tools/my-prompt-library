@@ -126,10 +126,15 @@ const files = [
   ...walk(path.join(LIB, "3_Skills"), (n) => n === "SKILL.md"),
   ...walk(path.join(LIB, "2_Agents"), (n) => n.endsWith(".md")),
 ];
+let unstampedAgents = 0; // real subagent definitions (`name:` frontmatter) with no upstream block
 for (const f of files) {
   const { fm, body } = splitFrontmatter(fs.readFileSync(f, "utf8"));
   const u = readUpstream(fm);
-  if (!u) { if (isSkill(f)) skipped.none++; continue; }  // unstamped agents are role-play prompts
+  if (!u) {
+    if (isSkill(f)) skipped.none++;
+    else if (/^name:/m.test(fm)) unstampedAgents++;
+    continue;  // other unstamped agents are role-play prompts
+  }
   if (u.match === "unknown") { skipped.unknown++; continue; }
   if (u.match === "ambiguous") { skipped.ambiguous++; continue; }
   if (u.match === "fork") { skipped.fork++; continue; }  // upstream deleted the file; this copy is ours now
@@ -234,6 +239,38 @@ md.push("| verdict | count | meaning |");
 md.push("|:---|---:|:---|");
 for (const v of order) if (by(v).length) md.push(`| \`${v}\` | ${by(v).length} | ${MEAN[v]} |`);
 md.push("");
+
+// ---------- library health ----------
+// Per section, from the committed index: how much is there, how much moved in the
+// last 30 days (lastModified is carried forward on rebuilds, so it is real), how
+// much the tag filter cannot see, and how much has no provenance. Here so the gaps
+// the content jobs leave show up every Monday instead of being found by hand.
+try {
+  const index = JSON.parse(fs.readFileSync(path.join(LIB, "..", "api", "prompt-index.json"), "utf8"));
+  const prompts = Array.isArray(index) ? index : index.prompts || [];
+  const cut = Date.now() - 30 * 86400000;
+  const health = {};
+  for (const p of prompts) {
+    const s = p.section || p.id.split("/")[0];
+    const h = (health[s] ??= { files: 0, recent: 0, untagged: 0 });
+    h.files++;
+    if (new Date(p.lastModified).getTime() > cut) h.recent++;
+    if (!p.tags || p.tags.length === 0) h.untagged++;
+  }
+  const unstamped = { "3_Skills": skipped.none, "2_Agents": unstampedAgents };
+  md.push("## Library health", "");
+  md.push(`Sections as the index sees them (${prompts.length} files). *Changed* is \`lastModified\` within 30 days; ` +
+    "*untagged* files are invisible to the tag filter and ⌘K; *no provenance* counts skills, and real agent definitions, without an `upstream:` block.", "");
+  md.push("| section | files | changed <30d | untagged | no provenance |");
+  md.push("|:---|---:|---:|---:|---:|");
+  for (const s of Object.keys(health).sort()) {
+    const h = health[s];
+    md.push(`| \`${s}\` | ${h.files} | ${h.recent} | ${h.untagged} | ${s in unstamped ? unstamped[s] : "—"} |`);
+  }
+  md.push("");
+} catch (e) {
+  md.push(`_Library health table skipped: ${String(e.message || e)}_`, "");
+}
 
 for (const v of ["repo-gone", "upstream-gone", "behind", "drifted", "error"]) {
   const list = by(v);

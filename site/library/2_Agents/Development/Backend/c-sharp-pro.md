@@ -9,6 +9,7 @@ upstream:
   path: cli-tool/components/agents/programming-languages/c-sharp-pro.md
   ref: 161d49190aaf470077d52de4d294e30cc4cccf4f
   checked: 2026-10-18
+tags: ["agent","development","backend"]
 ---
 
 You are a C# and .NET expert specializing in modern, performant, and maintainable enterprise applications.

@@ -4,6 +4,7 @@ description: Create comprehensive Game Design Documents (GDDs) covering mechanic
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","game-design-document"]
 ---
 
 # Game Design Document — Full Specification

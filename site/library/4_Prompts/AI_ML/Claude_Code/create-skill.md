@@ -1,3 +1,8 @@
+---
+title: "Prompt: Create a New Claude Code Skill"
+tags: ["prompt","ai-ml","claude-code"]
+---
+
 # Prompt: Create a New Claude Code Skill
 
 **Use when:** You want to package a reusable workflow, tool pattern, or domain knowledge into a Skill that Claude Code will auto-discover and apply.

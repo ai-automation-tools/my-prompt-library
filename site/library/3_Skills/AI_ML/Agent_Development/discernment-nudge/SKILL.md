@@ -14,6 +14,7 @@ upstream:
   declared: "https://github.com/anthropics/skills/blob/main/skills/discernment-nudge/SKILL.md"
   ref: 3b3fad96af16a10759d930941b4520ba0c40edae
   checked: 2026-08-26
+tags: ["skill","ai-ml","agent-development"]
 ---
 
 # Discernment nudge

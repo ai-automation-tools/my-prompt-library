@@ -4,6 +4,7 @@ description: "Build and organize knowledge bases, help centers, FAQ systems, and
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","knowledge-base"]
 ---
 
 # Knowledge Base — Help Centers, FAQs & Troubleshooting

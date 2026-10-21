@@ -1,3 +1,8 @@
+---
+title: "Content Strategist Agent"
+tags: ["agent","content","other"]
+---
+
 # Content Strategist Agent
 
 ## Role

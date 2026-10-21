@@ -1,3 +1,8 @@
+---
+title: "Estate Planning Basics"
+tags: ["agent","domain-specific","legal"]
+---
+
 # Estate Planning Basics
 
 ## Role

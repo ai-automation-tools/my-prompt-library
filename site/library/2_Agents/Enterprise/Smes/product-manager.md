@@ -1,3 +1,8 @@
+---
+title: "Product Manager Agent"
+tags: ["agent","enterprise","smes"]
+---
+
 # Product Manager Agent
 
 ## Role

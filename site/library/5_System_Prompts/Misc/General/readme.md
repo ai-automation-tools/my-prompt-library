@@ -1,3 +1,8 @@
+---
+title: "Other Agent Instructions"
+tags: ["system-prompt","misc","general"]
+---
+
 # Other Agent Instructions
 
 General-purpose and miscellaneous agent configurations.

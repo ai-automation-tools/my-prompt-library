@@ -1,3 +1,8 @@
+---
+title: "Prompt: Spawn and Configure a Sub-Agent (Task Tool)"
+tags: ["agent","development","claude-code"]
+---
+
 # Prompt: Spawn and Configure a Sub-Agent (Task Tool)
 
 **Use when:** You want Claude Code to delegate a scoped task to a new agent instance with its own instructions, tools, and context — running independently and returning a result.

@@ -108,7 +108,12 @@ site/
   package.json, vite.config.ts, tsconfig.json, vercel.json, index.html
 
 (repo root, outside the deploy root)
-  scripts/             Utility scripts (add-frontmatter.mjs, prompt_generation/, *.py helpers)
+  scripts/             Library tooling: check-upstream-drift.mjs (the Monday issue, with a per-section
+                       health table), attribute-upstream.mjs + resync-upstream.mjs (provenance),
+                       sync-agent-skills.mjs (copies new skills from the org's agent-skills repo into
+                       3_Skills, stamped; run weekly by the Routines fleet with no model),
+                       backfill-tags.mjs (path-derived tags for any file with none; the Monthly
+                       Upkeep keeps it at zero), the two *.test.mjs self-checks, prompt_generation/
   homepage/            Static homepage (one index.html, no build) → GitHub Pages via
                        .github/workflows/homepage.yml; pinned by scripts/homepage.test.mjs
   docs/                Documentation (see docs/README.md; analysis in docs/audits/)

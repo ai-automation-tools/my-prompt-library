@@ -12,6 +12,7 @@ upstream:
   match: unknown
   declared: "https://github.com/cathrynlavery/diagram-design"
   checked: 2026-08-26
+tags: ["skill","design","diagram-design"]
 ---
 
 # Diagram Design

@@ -6,6 +6,7 @@ upstream:
   copies: 17
   candidates: [aaaaqwq/agi-super-skills, aaaaqwq/claude-code-skills, codingheader/myskills, commandcodeai/agent-skills, composio-community/awesome-codex-skills, composiohq/awesome-claude-skills, composiohq/awesome-codex-skills, hainamchung/agent-assistant]
   checked: 2026-08-26
+tags: ["skill","content","invoice-organizer"]
 ---
 
 # Invoice Organizer

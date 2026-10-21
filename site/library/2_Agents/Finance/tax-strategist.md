@@ -1,3 +1,8 @@
+---
+title: "Tax Strategy Agent"
+tags: ["agent","finance"]
+---
+
 # Tax Strategy Agent
 
 ## Role

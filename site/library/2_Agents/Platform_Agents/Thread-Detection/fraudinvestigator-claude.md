@@ -1,3 +1,8 @@
+---
+title: "Fraud Investigator"
+tags: ["agent","platform-agents","thread-detection"]
+---
+
 # Fraud Investigator
 
 ## Identity

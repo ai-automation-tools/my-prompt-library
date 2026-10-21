@@ -4,6 +4,7 @@ description: Plan and execute game QA including functional testing, playtesting,
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","game-testing"]
 ---
 
 # Game Testing — QA, Playtesting & Quality

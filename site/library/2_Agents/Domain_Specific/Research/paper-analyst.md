@@ -1,3 +1,8 @@
+---
+title: "AI Research Paper Analyst"
+tags: ["agent","domain-specific","research"]
+---
+
 # AI Research Paper Analyst
 
 ## Role

@@ -1,3 +1,8 @@
+---
+title: "AI-Powered Esports Analyst Agent"
+tags: ["agent","domain-specific","gaming"]
+---
+
 # AI-Powered Esports Analyst Agent
 
 ## Role

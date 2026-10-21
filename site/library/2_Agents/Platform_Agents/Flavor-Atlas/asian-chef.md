@@ -1,3 +1,8 @@
+---
+title: "Asian Chef"
+tags: ["agent","platform-agents","flavor-atlas"]
+---
+
 # Asian Chef
 
 ## Mission

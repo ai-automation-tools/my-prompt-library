@@ -3,6 +3,7 @@ category: Content Creation
 description: Generate original story ideas, including plot, characterization, and
   emotional arcs, for novels, screenplays, or short stories.
 title: "📌 Story idea generator"
+tags: ["prompt","content","other"]
 ---
 
 # Story Idea Generator

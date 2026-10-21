@@ -4,6 +4,7 @@ description: Design game user interfaces and user experience flows including HUD
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","ui-ux-design"]
 ---
 
 # UI/UX Design — Interface & Player Experience

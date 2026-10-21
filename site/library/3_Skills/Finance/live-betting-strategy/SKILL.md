@@ -4,6 +4,7 @@ description: "Strategies for in-play and live betting including momentum analysi
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","finance","live-betting-strategy"]
 ---
 
 # Live Betting Strategy — In-Play Analysis & Execution

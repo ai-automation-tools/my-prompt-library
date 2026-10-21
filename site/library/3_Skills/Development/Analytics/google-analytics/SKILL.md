@@ -4,6 +4,7 @@ description: Analyze Google Analytics data, review website performance metrics, 
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","development","analytics"]
 ---
 
 # Google Analytics Analysis

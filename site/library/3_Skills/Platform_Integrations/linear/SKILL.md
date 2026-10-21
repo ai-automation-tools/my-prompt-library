@@ -1,5 +1,6 @@
 ---
 title: "📐 Linear"
+tags: ["skill","platform-integrations","linear"]
 name: "linear"
 description: Manage issues, projects, cycles, labels, and team workflows in Linear. Use when reading, creating, or updating Linear tickets through connected tools.
 source: https://skillsmp.com/skills/openai-plugins-plugins-linear-skills-linear-skill-md

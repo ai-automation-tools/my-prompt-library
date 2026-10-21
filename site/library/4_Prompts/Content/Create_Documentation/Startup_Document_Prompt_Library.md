@@ -1,3 +1,8 @@
+---
+title: "Startup Document Prompt Library"
+tags: ["prompt","content","create-documentation"]
+---
+
 # Startup Document Prompt Library
 
 > Copy-ready LLM prompts for every document needed to build and formalize a web app into a profitable business. 

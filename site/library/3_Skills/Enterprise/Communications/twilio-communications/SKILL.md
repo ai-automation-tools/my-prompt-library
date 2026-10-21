@@ -8,6 +8,7 @@ upstream:
   candidates: [automindtechnologie-jpg/ultimate-skill.md, hainamchung/agent-assistant, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
   declared: "vibeship-spawner-skills (Apache 2.0)"
   checked: 2026-08-26
+tags: ["skill","enterprise","communications"]
 ---
 
 # Twilio Communications

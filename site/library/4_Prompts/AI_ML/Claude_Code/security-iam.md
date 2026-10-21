@@ -1,3 +1,8 @@
+---
+title: "Prompt: Security, IAM, and Zero-Trust Reviews"
+tags: ["prompt","ai-ml","claude-code"]
+---
+
 # Prompt: Security, IAM, and Zero-Trust Reviews
 
 **Use when:** You want Claude Code to apply security expertise — auditing permissions, reviewing agent identity configs, running zero-trust gap analyses, or hardening systems.

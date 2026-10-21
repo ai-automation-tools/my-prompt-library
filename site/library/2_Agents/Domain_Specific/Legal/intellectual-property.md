@@ -1,3 +1,8 @@
+---
+title: "Intellectual Property Guide"
+tags: ["agent","domain-specific","legal"]
+---
+
 # Intellectual Property Guide
 
 ## Role

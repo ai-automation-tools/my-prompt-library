@@ -121,12 +121,12 @@ Recurring work, not items.
 
 | When | Task |
 |:---|:---|
-| Weekly (automated) | `upstream-drift.yml` runs Mondays 09:00 UTC and updates one rolling issue. Triage it — the job never edits content itself; `resync-upstream.mjs` is what repairs what it finds. |
+| Weekly (automated) | `upstream-drift.yml` runs Mondays 09:00 UTC and updates one rolling issue, since 2026-10-21 with a per-section **library health** table (files, changed in 30 days, untagged, no provenance). Triage it — the job never edits content itself; `resync-upstream.mjs` is what repairs what it finds. |
+| Weekly (routine fleet) | Six jobs in `~\.claude\Routines\jobs\prompt-library-*`, one lane each, every PR merged by the Org PR Sweep: **Skills Sync** (Mon, no model: `scripts/sync-agent-skills.mjs` copies new skills from the org's `agent-skills` into `3_Skills`), **Add Prompts** (Mon: 2 prompts into `4_Prompts`, 1 guide into `1_Guides`), **Guides Refresh** (alternate Tue: fixes `1_Guides` against official docs), **Catalog Refresh** (alternate Thu: vendor-published system prompts and real agent definitions), the **Weekly Roadmap** (Sat: works this file, resyncs drifted skills), and the **Monthly Upkeep** (3rd Wed: fixes and removes stale content, checks the Skill Packs and adds one a month, rotates `featured`, runs `scripts/backfill-tags.mjs`). |
 | Each deploy | The prompt index rebuilds automatically (`vercel-build` runs `build:index`). |
-| After adding content | Watch the build log for `[WARN] Failed to parse frontmatter` — those files are silently dropped from the library. |
-| After adding skills or agents | Re-run `attribute-upstream.mjs --write` (skills) or `--agents --write` (agents) to stamp provenance on the new ones. Both are idempotent and each only touches its own section. |
-| Monthly | Refresh `5_System_Prompts` as new frontier models ship. |
-| Quarterly | Audit prompts for accuracy; review/rotate featured prompts. Re-check model IDs. |
+| After adding content | Watch the build log for `[WARN] Failed to parse frontmatter` — those files are silently dropped from the library. Run `node scripts/backfill-tags.mjs` (`--write`) so nothing ships untagged: the tag filter and ⌘K cannot see a file without `tags`. |
+| After adding skills or agents by hand | Re-run `attribute-upstream.mjs --write` (skills) or `--agents --write` (agents) to stamp provenance on the new ones. Both are idempotent and each only touches its own section. Skills that came through the Skills Sync are stamped already. |
+| Quarterly | Audit prompts for accuracy. Re-check model IDs the upkeep missed. |
 
 ---
 

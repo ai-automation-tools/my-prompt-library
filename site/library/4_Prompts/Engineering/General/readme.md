@@ -1,3 +1,8 @@
+---
+title: "Developer Agent Instructions"
+tags: ["prompt","engineering","general"]
+---
+
 # Developer Agent Instructions
 
 System prompts and instructions for development-focused agents.
