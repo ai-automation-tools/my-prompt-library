@@ -5,7 +5,7 @@
 
 import { Search, X } from 'lucide-react';
 import { m } from 'motion/react';
-import type { SectionMeta } from '../lib/sections';
+import { lowerLabel, type SectionMeta } from '../lib/sections';
 import CountUp from './ui/CountUp';
 
 interface LibraryHeroProps {
@@ -51,7 +51,7 @@ export default function LibraryHero({ section, libraryMode, stats, searchQuery, 
           </h1>
           <p className="mt-3 text-[15px] leading-relaxed text-[var(--fg-3)]">
             {libraryMode === 'my'
-              ? `Your saved and authored ${section.label.toLowerCase()}. Only you can see these.`
+              ? `Your saved and authored ${lowerLabel(section.label)}. Only you can see these.`
               : section.description}
           </p>
         </div>
@@ -77,7 +77,7 @@ export default function LibraryHero({ section, libraryMode, stats, searchQuery, 
           type="search"
           value={searchQuery}
           onChange={e => onSearchChange(e.target.value)}
-          placeholder={`Filter ${section.label.toLowerCase()} by title, tag or category…`}
+          placeholder={`Filter ${lowerLabel(section.label)} by title, tag or category…`}
           aria-label={`Filter ${section.label}`}
           className="input h-11 rounded-[var(--r-lg)] pl-11 pr-11 text-[14.5px] [&::-webkit-search-cancel-button]:hidden"
         />

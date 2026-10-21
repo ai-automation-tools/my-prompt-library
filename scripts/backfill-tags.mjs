@@ -25,7 +25,7 @@ const ROOT = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^
 const LIB = path.join(ROOT, "site", "library");
 
 const SECTION_TAG = {
-  "1_Guides": "guide", "2_Agents": "agent", "3_Skills": "skill", "4_Prompts": "prompt", "5_System_Prompts": "system-prompt",
+  "1_Guides": "guide", "2_Agents": "agent", "3_Skills": "skill", "4_Prompts": "prompt", "5_System_Prompts": "system-prompt", "6_MCP_Servers": "mcp-server",
 };
 const slug = (s) => s.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 

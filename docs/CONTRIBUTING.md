@@ -59,7 +59,7 @@ subcategory: "Subcategory_Name"    # Required: Second-level category
 **3. `category`**
 - Quoted string
 - Must match folder structure
-- Example: `"4_Prompts"`, `"2_Agents"`, `"3_Skills"` (the five numbered folders under `site/library/`)
+- Example: `"4_Prompts"`, `"2_Agents"`, `"3_Skills"` (the six numbered folders under `site/library/`)
 
 **4. `subcategory`**
 - Quoted string

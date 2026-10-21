@@ -4,6 +4,45 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — MCP Servers section, 2_Agents holds real agents only, first discovery triage
+
+**Content**
+- New section **MCP Servers** (`site/library/6_MCP_Servers/`, tab `mcp-servers`, indigo accent).
+  19 cards in five folders: the six reference servers (Filesystem, Fetch, Memory, Sequential
+  Thinking, Git, Time), Playwright and Chrome DevTools, GitHub, Context7, MarkItDown and REA,
+  Supabase, Cloudflare and AWS, Notion, n8n-mcp, Resend and Stripe. Each card names the
+  maintainer, licence, transport and auth, with install lines for Claude Code and for any
+  `mcpServers` client, all read from the server's own README today. Four are `featured`.
+  Template: `docs/templates/mcp-servers-template.md`.
+- **`2_Agents` now holds only installable subagent definitions.** The 456 files without `name:`
+  frontmatter (role-play personas and "act as X" task prompts) are deleted; git history keeps
+  them. 86 definitions remain, all with provenance. Section README rewritten; the agents
+  template now starts from the subagent frontmatter.
+- **Discovery triage.** All 28 ledger rows decided: 9 `accept` (skill collections with a
+  licence, for the Catalog Refresh), 6 `link`, 10 `reject` (apps, agent harnesses, a
+  CAPTCHA-bypass scraper, a leaked-prompt dump), 3 `done` (Context7, Chrome DevTools and REA
+  became MCP cards).
+- Resources menu: the six `link` rows added (four under Skills, two under Agents & MCP).
+- Index: **2,795 entries** (3,192 − 456 agents + 40 skills from the first Skills Sync + 19 cards).
+
+**Tooling**
+- `scripts/check-mcp-servers.mjs` flags cards whose repo is missing, renamed, archived,
+  relicensed, quiet for a year, or not re-read in 90 days. The Monthly Upkeep runs it.
+- `scripts/discover-repos.mjs` links only `link` rows into the Resources menu now; accepted
+  repos show up in the library itself.
+- `scripts/backfill-tags.mjs` knows the new section (`mcp-server`).
+
+**App**
+- `sections.ts`, the tab type, the path filter and the per-section tokens (`--sec-mcp`, 400/700
+  indigo) carry the seventh section. The top-bar section buttons fold into the sheet below
+  **1360px** (was 1280px), the width seven buttons need.
+- Running text keeps acronyms when it lower-cases a section name (`lowerLabel()`), so the page
+  says "All MCP servers", not "All mcp servers".
+- Homepage: "Six library sections" with an MCP Servers card; the Agents card describes what is
+  there now.
+
+_Touched: `site/library/2_Agents/**`, `site/library/6_MCP_Servers/**`, `site/library/resources.json`, `site/src/` (sections, route and filter hooks, index.css, App, LibraryHero, TopBar), `scripts/{check-mcp-servers,discover-repos,backfill-tags}.mjs`, `docs/` (DISCOVERY, ROADMAP, ARCHITECTURE, README, CONTRIBUTING, CHANGELOG, two templates), `homepage/index.html`, `CLAUDE.md`, `README.md`, `site/api/prompt-index.json`._
+
 ## 2026-10-21 — 40 skills synced from agent-skills
 
 **Content**

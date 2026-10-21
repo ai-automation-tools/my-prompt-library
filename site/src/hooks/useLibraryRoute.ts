@@ -7,9 +7,9 @@ import { useState, useEffect } from 'react';
 import { type Prompt } from '../components/PromptCard';
 import { READ_ONLY } from '../lib/mode';
 
-export type LibraryTab = 'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts' | 'skill-packs';
+export type LibraryTab = 'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts' | 'mcp-servers' | 'skill-packs';
 
-const TABS: readonly LibraryTab[] = ['agent-guides', 'agents', 'prompt-library', 'skills', 'system-prompts', 'skill-packs'];
+const TABS: readonly LibraryTab[] = ['agent-guides', 'agents', 'prompt-library', 'skills', 'system-prompts', 'mcp-servers', 'skill-packs'];
 
 // The tab id doubles as the `?section=` value. Anything unrecognised lands on Prompts.
 function parseSection(section: string | null): LibraryTab {

@@ -51,8 +51,12 @@
 - Point `MY_LIBRARY_DIR` at a synced or git folder and your library is backed up
 
 📦 **Skill Packs**
-- Curated bundles of Agent Skills, added to or removed from My Library in one step
+- Bundles of Agent Skills, one per skills folder plus hand-picked themes, added to or removed from My Library in one step
 - Download any skill or pack as a ZIP
+
+🔌 **MCP Servers**
+- One card per Model Context Protocol server: maintainer, licence, auth, and install lines for Claude Code and any `mcpServers` client
+- Install lines read from each server's own README, re-checked monthly
 
 🎨 **Modern UI**
 - Responsive design (mobile, tablet, desktop)
@@ -173,7 +177,8 @@ my-prompt-library/
 │   │   ├── 2_Agents/
 │   │   ├── 3_Skills/
 │   │   ├── 4_Prompts/
-│   │   └── 5_System_Prompts/
+│   │   ├── 5_System_Prompts/
+│   │   └── 6_MCP_Servers/
 │   ├── my-library/           # Your prompts (gitignored, created on first save)
 │   ├── scripts/              # build-prompt-index.js, api-routes and my-library tests
 │   └── server.ts             # Local server around the same app api/ exports (port 3010)
