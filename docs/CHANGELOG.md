@@ -155,6 +155,15 @@ _Touched: `site/` (api, lib, server, src, scripts, package files, `.env.example`
 ROADMAP, DIRECTION, UPSTREAMS, ARCHITECTURE, setup, features, skill-packs, diagrams),
 `homepage/index.html`, `homepage/diagram/`, `docs/CHANGELOG.md`._
 
+## 2026-10-20 — Quick Start says where to run npm
+
+**Docs**
+- The README's Quick Start now states that the app lives in `site/` and every `npm` command runs
+  there. Running `npm install` from the repo root from an existing clone did nothing but leave an
+  empty `package-lock.json`.
+
+_Touched: `README.md`, `docs/CHANGELOG.md`._
+
 ## 2026-10-19 — Two API-lifecycle prompts
 
 Two new original prompts in `site/library/4_Prompts/Development/Api_Design/`, a folder that held one
@@ -168,15 +177,6 @@ misfiled debugger prompt.
 `site/api/prompt-index.json` rebuilt to include them.
 
 ---
-
-## 2026-10-20 — Quick Start says where to run npm
-
-**Docs**
-- The README's Quick Start now states that the app lives in `site/` and every `npm` command runs
-  there. Running `npm install` from the repo root from an existing clone did nothing but leave an
-  empty `package-lock.json`.
-
-_Touched: `README.md`, `docs/CHANGELOG.md`._
 
 ## 2026-10-19 — A code-pinned data-flow diagram on the homepage
 
