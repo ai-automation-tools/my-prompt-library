@@ -71,7 +71,7 @@ site/
     hooks/useTheme     Light | Dark (`html.light`, key `my-prompt-library.theme`) and the colour palette
                        (`html[data-palette]`, key `my-prompt-library.palette`, sky/violet/emerald/ember);
                        index.html applies both before first paint
-    lib/               mode (READ_ONLY), cn (clsx + tailwind-merge), sections (the six sections: tab id, folder,
+    lib/               mode (READ_ONLY), cn (clsx + tailwind-merge), sections (the seven sections: tab id, folder,
                        label, icon, accent token, blurb — every tab switch reads from here)
     components/        TopBar (brand, section nav + phone sheet, ⌘K trigger, Resources menu,
                        New prompt, Settings, ThemeSwitch), Sidebar (library switch, category tree),
@@ -115,9 +115,10 @@ site/
                        Routines fleet with no model), build-skill-packs.mjs (one generated pack per
                        3_Skills folder with 6+ skills, plus dead-path repair of the hand packs; same
                        job), discover-repos.mjs (gh search for new/popular skills, prompt, agent and
-                       MCP repos → docs/DISCOVERY.md rows for a person to accept; accept/link rows
+                       MCP repos → docs/DISCOVERY.md rows for a person to accept; `link` rows
                        become Resources-menu links in site/library/resources.json),
-                       check-resources.mjs (dead-link report for that menu), backfill-tags.mjs
+                       check-resources.mjs (dead-link report for that menu), check-mcp-servers.mjs (flags MCP cards whose repo
+                       is missing, renamed, archived, relicensed or quiet), backfill-tags.mjs
                        (path-derived tags for any file with none; the Monthly Upkeep keeps it at
                        zero), the two *.test.mjs self-checks, prompt_generation/
   homepage/            Static homepage (one index.html, no build) → GitHub Pages via
@@ -133,10 +134,10 @@ site/
 
 ## Library structure (current — numbered)
 
-`library/1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`. (`Legacy/`,
+`library/1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`, `6_MCP_Servers`. (`Legacy/`,
 the pre-rename `*_OLD` trees, was deleted 2026-08-27; the readers still skip a folder by that
 name, so restoring it from history would not put it back in the index.) The frontend tab ids
-(`agent-guides`, `agents`, `skills`, `prompt-library`, `system-prompts`) map to these
+(`agent-guides`, `agents`, `skills`, `prompt-library`, `system-prompts`, `mcp-servers`) map to these
 folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, run
 `npm run build:index` so `api/prompt-index.json` reflects it.
 

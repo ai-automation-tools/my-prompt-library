@@ -18,6 +18,7 @@ const TAB_PATH_PREFIX: Record<string, string> = {
   skills: '3_Skills/',
   'prompt-library': '4_Prompts/',
   'system-prompts': '5_System_Prompts/',
+  'mcp-servers': '6_MCP_Servers/',
 };
 
 interface UsePromptFiltersArgs {

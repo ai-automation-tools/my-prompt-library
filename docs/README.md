@@ -16,7 +16,7 @@ Public Library is also browsable read-only at
 
 ### Creating Content
 - **[Contributing Guide](CONTRIBUTING.md)** — how to add content of any type
-- **[Templates](templates/)** — starter templates for all five content types
+- **[Templates](templates/)** — starter templates for all six content types
 - **[Skill Packs](skill-packs/)** — create and manage skill pack collections
 
 ### Features
@@ -122,6 +122,7 @@ docs/
 | 💻 **[Guides](templates/agent-guides-template.md)** | Platform documentation | `1_Guides/` |
 | 🤖 **[Agents](templates/agents-template.md)** | Agent definitions | `2_Agents/` |
 | 📝 **[System Prompts](templates/system-prompts-template.md)** | LLM instructions | `5_System_Prompts/` |
+| 🔌 **[MCP Servers](templates/mcp-servers-template.md)** | Server cards with install lines | `6_MCP_Servers/` |
 | 🔧 **[Skills](templates/skills-template.md)** | Agent Skills (`SKILL.md`) | `3_Skills/` |
 
 See the [Templates README](templates/README.md) for the detailed usage guide.

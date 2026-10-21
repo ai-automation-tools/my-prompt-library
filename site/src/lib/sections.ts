@@ -1,5 +1,5 @@
 /**
- * The five library sections plus Skill Packs: one record each with its tab id,
+ * The six library sections plus Skill Packs: one record each with its tab id,
  * `library/` folder, label, icon, accent colour and blurb. Every component that
  * used to switch on a tab id reads from here instead.
  *
@@ -14,6 +14,7 @@ import {
   BookOpen,
   Bot,
   Package,
+  Plug,
   Sparkles,
   TerminalSquare,
   Wrench,
@@ -51,7 +52,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     folder: '2_Agents',
     icon: Bot,
     accent: 'var(--sec-agents)',
-    description: 'Agent personas and operating instructions, ready to drop into a harness.',
+    description: 'Installable subagent definitions, ready to drop into .claude/agents/.',
   },
   {
     id: 'agent-guides',
@@ -79,6 +80,15 @@ export const SECTIONS: readonly SectionMeta[] = [
     icon: Wrench,
     accent: 'var(--sec-skills)',
     description: 'SKILL.md bundles with their sample code, downloadable as a zip.',
+  },
+  {
+    id: 'mcp-servers',
+    slug: 'mcp',
+    label: 'MCP Servers',
+    folder: '6_MCP_Servers',
+    icon: Plug,
+    accent: 'var(--sec-mcp)',
+    description: 'Model Context Protocol servers worth installing, with verified install lines.',
   },
   {
     id: 'skill-packs',
@@ -118,4 +128,9 @@ export function getTabForFolder(folder: string): LibraryTab {
 /** Human form of a `Some_Category_Name` folder segment. */
 export function humanize(segment: string | null | undefined): string {
   return (segment ?? '').replace(/_/g, ' ');
+}
+
+/** Lower-case a label for running text, keeping acronyms ("MCP Servers" → "MCP servers"). */
+export function lowerLabel(label: string): string {
+  return label.split(' ').map(w => (/^[A-Z]{2,}$/.test(w) ? w : w.toLowerCase())).join(' ');
 }

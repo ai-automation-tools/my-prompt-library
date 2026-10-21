@@ -75,6 +75,7 @@
   --sec-guides: #a78bfa;
   --sec-skills: #34d399;
   --sec-system-prompts: #fbbf24;
+  --sec-mcp: #818cf8;
   --sec-skill-packs: #2dd4bf;
 
   /* Derived from --accent so a theme only has to set the base colour. */
@@ -155,6 +156,7 @@ html.light {
   --sec-guides: #6d28d9;
   --sec-skills: #047857;
   --sec-system-prompts: #b45309;
+  --sec-mcp: #4338ca;
   --sec-skill-packs: #0f766e;
 }
 
@@ -220,6 +222,7 @@ html.light[data-palette='ember'] {
 :root[data-section='guides'] { --section-c: var(--sec-guides); }
 :root[data-section='skills'] { --section-c: var(--sec-skills); }
 :root[data-section='system-prompts'] { --section-c: var(--sec-system-prompts); }
+:root[data-section='mcp'] { --section-c: var(--sec-mcp); }
 :root[data-section='skill-packs'] { --section-c: var(--sec-skill-packs); }
 
 /* Base styles sit in Tailwind's `base` layer and the component classes in
@@ -553,9 +556,9 @@ html.light[data-palette='ember'] {
     background: color-mix(in srgb, var(--c) 10%, transparent);
   }
 
-  /* Six section links plus the right cluster need ~1000px beside the 272px
-     categories panel, so the links fold into the sheet below 1280px. */
-  @media (min-width: 1280px) {
+  /* Seven section links plus the right cluster need ~1060px beside the 272px
+     categories panel, so the links fold into the sheet below 1360px. */
+  @media (min-width: 1360px) {
     .nav { display: flex; }
     .menu-btn { display: none; }
   }

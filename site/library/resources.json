@@ -1,5 +1,5 @@
 {
-  "_comment": "The Resources menu in the top bar (src/components/ResourcesNav.tsx reads this). Six groups, one column each; icon is a name from ICONS in that component; accent is a section token. scripts/discover-repos.mjs appends a link here for every docs/DISCOVERY.md row marked accept or link, and scripts/check-resources.mjs reports dead links. Edit by hand too; keep labels under 28 characters.",
+  "_comment": "The Resources menu in the top bar (src/components/ResourcesNav.tsx reads this). Six groups, one column each; icon is a name from ICONS in that component; accent is a section token. scripts/discover-repos.mjs appends a link here for every docs/DISCOVERY.md row marked link, and scripts/check-resources.mjs reports dead links. Edit by hand too; keep labels under 28 characters.",
   "groups": [
     {
       "id": "cli",
@@ -7,9 +7,21 @@
       "icon": "terminal",
       "accent": "var(--accent)",
       "links": [
-        { "label": "Claude Code", "href": "https://github.com/anthropics/claude-code", "icon": "github" },
-        { "label": "Gemini CLI", "href": "https://github.com/google-gemini/gemini-cli", "icon": "github" },
-        { "label": "Codex CLI", "href": "https://github.com/openai/codex", "icon": "github" }
+        {
+          "label": "Claude Code",
+          "href": "https://github.com/anthropics/claude-code",
+          "icon": "github"
+        },
+        {
+          "label": "Gemini CLI",
+          "href": "https://github.com/google-gemini/gemini-cli",
+          "icon": "github"
+        },
+        {
+          "label": "Codex CLI",
+          "href": "https://github.com/openai/codex",
+          "icon": "github"
+        }
       ]
     },
     {
@@ -18,11 +30,31 @@
       "icon": "file-text",
       "accent": "var(--sec-system-prompts)",
       "links": [
-        { "label": "Learn Prompting", "href": "https://learnprompting.org/docs/basics/prompt_structure", "icon": "library" },
-        { "label": "Prompting Guide", "href": "https://www.promptingguide.ai/techniques", "icon": "library" },
-        { "label": "OpenAI Cookbook", "href": "https://cookbook.openai.com/", "icon": "book-open" },
-        { "label": "Anthropic Docs", "href": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering", "icon": "library" },
-        { "label": "Gemini Docs", "href": "https://ai.google.dev/gemini-api/docs/system-instructions", "icon": "library" }
+        {
+          "label": "Learn Prompting",
+          "href": "https://learnprompting.org/docs/basics/prompt_structure",
+          "icon": "library"
+        },
+        {
+          "label": "Prompting Guide",
+          "href": "https://www.promptingguide.ai/techniques",
+          "icon": "library"
+        },
+        {
+          "label": "OpenAI Cookbook",
+          "href": "https://cookbook.openai.com/",
+          "icon": "book-open"
+        },
+        {
+          "label": "Anthropic Docs",
+          "href": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering",
+          "icon": "library"
+        },
+        {
+          "label": "Gemini Docs",
+          "href": "https://ai.google.dev/gemini-api/docs/system-instructions",
+          "icon": "library"
+        }
       ]
     },
     {
@@ -31,11 +63,31 @@
       "icon": "sparkles",
       "accent": "var(--sec-prompts)",
       "links": [
-        { "label": "Prompts.chat", "href": "https://prompts.chat/prompts", "icon": "library" },
-        { "label": "PromptHero", "href": "https://prompthero.com/", "icon": "sparkles" },
-        { "label": "Vertex AI Gallery", "href": "https://cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery", "icon": "library" },
-        { "label": "WorkMind", "href": "https://workmind.ai/ai-prompt-library/", "icon": "library" },
-        { "label": "PromptSource", "href": "https://github.com/bigscience-workshop/promptsource", "icon": "github" }
+        {
+          "label": "Prompts.chat",
+          "href": "https://prompts.chat/prompts",
+          "icon": "library"
+        },
+        {
+          "label": "PromptHero",
+          "href": "https://prompthero.com/",
+          "icon": "sparkles"
+        },
+        {
+          "label": "Vertex AI Gallery",
+          "href": "https://cloud.google.com/vertex-ai/generative-ai/docs/prompt-gallery",
+          "icon": "library"
+        },
+        {
+          "label": "WorkMind",
+          "href": "https://workmind.ai/ai-prompt-library/",
+          "icon": "library"
+        },
+        {
+          "label": "PromptSource",
+          "href": "https://github.com/bigscience-workshop/promptsource",
+          "icon": "github"
+        }
       ]
     },
     {
@@ -44,11 +96,31 @@
       "icon": "book-open",
       "accent": "var(--sec-guides)",
       "links": [
-        { "label": "Prompting Guide AI", "href": "https://www.promptingguide.ai/", "icon": "book-open" },
-        { "label": "Claude Prompt Eng", "href": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview", "icon": "library" },
-        { "label": "OpenAI Prompt Guide", "href": "https://developers.openai.com/api/docs/guides/prompt-engineering", "icon": "book-open" },
-        { "label": "Google Prompt Design", "href": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design", "icon": "book-open" },
-        { "label": "Digital Maker Tools", "href": "https://digitalmaker.ai/tools", "icon": "wrench" }
+        {
+          "label": "Prompting Guide AI",
+          "href": "https://www.promptingguide.ai/",
+          "icon": "book-open"
+        },
+        {
+          "label": "Claude Prompt Eng",
+          "href": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview",
+          "icon": "library"
+        },
+        {
+          "label": "OpenAI Prompt Guide",
+          "href": "https://developers.openai.com/api/docs/guides/prompt-engineering",
+          "icon": "book-open"
+        },
+        {
+          "label": "Google Prompt Design",
+          "href": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/introduction-prompt-design",
+          "icon": "book-open"
+        },
+        {
+          "label": "Digital Maker Tools",
+          "href": "https://digitalmaker.ai/tools",
+          "icon": "wrench"
+        }
       ]
     },
     {
@@ -57,15 +129,61 @@
       "icon": "bot",
       "accent": "var(--sec-agents)",
       "links": [
-        { "label": "Anthropic Agents", "href": "https://docs.anthropic.com/en/docs/agents-and-tools/overview", "icon": "bot" },
-        { "label": "OpenAI Agents", "href": "https://platform.openai.com/docs/guides/agents", "icon": "bot" },
-        { "label": "Gemini Function Calling", "href": "https://ai.google.dev/gemini-api/docs/function-calling", "icon": "zap" },
-        { "label": "MCP Introduction", "href": "https://modelcontextprotocol.io/introduction", "icon": "library" },
-        { "label": "OpenClaw Docs", "href": "https://docs.openclaw.ai/", "icon": "book-open" },
-        { "label": "AI Template Agents", "href": "https://www.aitmpl.com/agents", "icon": "bot" },
-        { "label": "500 AI Agents", "href": "https://github.com/ashishpatel26/500-AI-Agents-Projects", "icon": "github" },
-        { "label": "Awesome AI Agents", "href": "https://github.com/e2b-dev/awesome-ai-agents", "icon": "github" },
-        { "label": "HuggingFace Agents", "href": "https://huggingface.co/spaces?sort=trending&search=agent", "icon": "bot" }
+        {
+          "label": "Anthropic Agents",
+          "href": "https://docs.anthropic.com/en/docs/agents-and-tools/overview",
+          "icon": "bot"
+        },
+        {
+          "label": "OpenAI Agents",
+          "href": "https://platform.openai.com/docs/guides/agents",
+          "icon": "bot"
+        },
+        {
+          "label": "Gemini Function Calling",
+          "href": "https://ai.google.dev/gemini-api/docs/function-calling",
+          "icon": "zap"
+        },
+        {
+          "label": "MCP Introduction",
+          "href": "https://modelcontextprotocol.io/introduction",
+          "icon": "library"
+        },
+        {
+          "label": "OpenClaw Docs",
+          "href": "https://docs.openclaw.ai/",
+          "icon": "book-open"
+        },
+        {
+          "label": "AI Template Agents",
+          "href": "https://www.aitmpl.com/agents",
+          "icon": "bot"
+        },
+        {
+          "label": "500 AI Agents",
+          "href": "https://github.com/ashishpatel26/500-AI-Agents-Projects",
+          "icon": "github"
+        },
+        {
+          "label": "Awesome AI Agents",
+          "href": "https://github.com/e2b-dev/awesome-ai-agents",
+          "icon": "github"
+        },
+        {
+          "label": "HuggingFace Agents",
+          "href": "https://huggingface.co/spaces?sort=trending&search=agent",
+          "icon": "bot"
+        },
+        {
+          "label": "Awesome Mcp Servers",
+          "href": "https://github.com/punkpeye/awesome-mcp-servers",
+          "icon": "github"
+        },
+        {
+          "label": "Claude Code Best Practice",
+          "href": "https://github.com/shanraisshan/claude-code-best-practice",
+          "icon": "github"
+        }
       ]
     },
     {
@@ -74,13 +192,61 @@
       "icon": "zap",
       "accent": "var(--sec-skills)",
       "links": [
-        { "label": "Agent Skills (org)", "href": "https://github.com/ai-automation-tools/agent-skills", "icon": "github" },
-        { "label": "OpenClaw Skills", "href": "https://github.com/openclaw/openclaw/tree/main/skills", "icon": "github" },
-        { "label": "ClawHub", "href": "https://clawhub.com", "icon": "library" },
-        { "label": "Semantic Kernel", "href": "https://github.com/microsoft/semantic-kernel", "icon": "github" },
-        { "label": "LangChain Tools", "href": "https://python.langchain.com/docs/modules/agents/tools/", "icon": "library" },
-        { "label": "MCP Docs", "href": "https://modelcontextprotocol.io/docs", "icon": "book-open" },
-        { "label": "SkillsMP", "href": "https://skillsmp.com/", "icon": "zap" }
+        {
+          "label": "Agent Skills (org)",
+          "href": "https://github.com/ai-automation-tools/agent-skills",
+          "icon": "github"
+        },
+        {
+          "label": "OpenClaw Skills",
+          "href": "https://github.com/openclaw/openclaw/tree/main/skills",
+          "icon": "github"
+        },
+        {
+          "label": "ClawHub",
+          "href": "https://clawhub.com",
+          "icon": "library"
+        },
+        {
+          "label": "Semantic Kernel",
+          "href": "https://github.com/microsoft/semantic-kernel",
+          "icon": "github"
+        },
+        {
+          "label": "LangChain Tools",
+          "href": "https://python.langchain.com/docs/modules/agents/tools/",
+          "icon": "library"
+        },
+        {
+          "label": "MCP Docs",
+          "href": "https://modelcontextprotocol.io/docs",
+          "icon": "book-open"
+        },
+        {
+          "label": "SkillsMP",
+          "href": "https://skillsmp.com/",
+          "icon": "zap"
+        },
+        {
+          "label": "Claude Mem",
+          "href": "https://github.com/thedotmack/claude-mem",
+          "icon": "github"
+        },
+        {
+          "label": "Awesome Claude Skills",
+          "href": "https://github.com/ComposioHQ/awesome-claude-skills",
+          "icon": "github"
+        },
+        {
+          "label": "Awesome Claude Code",
+          "href": "https://github.com/hesreallyhim/awesome-claude-code",
+          "icon": "github"
+        },
+        {
+          "label": "Awesome Openclaw Skills",
+          "href": "https://github.com/VoltAgent/awesome-openclaw-skills",
+          "icon": "github"
+        }
       ]
     }
   ]

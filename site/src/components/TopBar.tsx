@@ -26,9 +26,9 @@ interface TopBarProps {
 }
 
 /**
- * The house-style top bar: categories toggle, brand, the six sections as nav
+ * The house-style top bar: categories toggle, brand, the seven sections as nav
  * bordered buttons (the current one filled in its section hue), then ⌘K, Resources,
- * New prompt, Settings and the Light | Dark switch. Below 1280px the sections
+ * New prompt, Settings and the Light | Dark switch. Below 1360px the sections
  * fold into a sheet under the bar, opened by the menu button.
  */
 export default function TopBar({

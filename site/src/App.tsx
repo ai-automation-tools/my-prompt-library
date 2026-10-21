@@ -20,7 +20,7 @@ import { usePromptFilters } from './hooks/usePromptFilters';
 import { usePromptContent } from './hooks/usePromptContent';
 import { useLibraryRoute, slugifyPromptPath, type LibraryTab } from './hooks/useLibraryRoute';
 import { usePalette, useTheme } from './hooks/useTheme';
-import { getSection, getSectionFolder, getSectionDisplayName, getTabForFolder, humanize } from './lib/sections';
+import { getSection, getSectionFolder, getSectionDisplayName, getTabForFolder, humanize, lowerLabel } from './lib/sections';
 import { READ_ONLY } from './lib/mode';
 
 // Split out of the entry chunk: none of these render on first paint, and
@@ -789,7 +789,7 @@ source: My Prompt Library
                       <LayoutGrid className="h-3.5 w-3.5" />
                     </span>
                     <h2 className="text-[15px] font-semibold tracking-tight text-[var(--fg)]">
-                      All {getSectionDisplayName(activeTab).toLowerCase()}
+                      All {lowerLabel(getSectionDisplayName(activeTab))}
                     </h2>
                   </div>
                 )}
@@ -889,7 +889,7 @@ source: My Prompt Library
                   This category has no prompts in the current library. Pick another one from the sidebar.
                 </p>
                 <Button size="sm" className="mt-5" onClick={handleShowAllPrompts}>
-                  Back to all {getSectionDisplayName(activeTab).toLowerCase()}
+                  Back to all {lowerLabel(getSectionDisplayName(activeTab))}
                 </Button>
               </m.div>
             )}

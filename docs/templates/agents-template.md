@@ -1,9 +1,15 @@
 ---
+name: [agent-name]  # lowercase-hyphenated; REQUIRED: 2_Agents holds only files with name: + description:
+description: "Use this agent when [trigger]. [One or two sentences on what it does.]"
+tools: Read, Write, Edit, Bash, Glob, Grep  # only what it needs
+model: sonnet  # optional: haiku | sonnet | opus | inherit
 title: "🤖 [Agent Name]"
-tags: ["agent", "role", "domain"]
-category: "Agents"
-subcategory: "[Category_Name]"  # e.g., Git, DevOps, Security
+tags: ["agent", "[category]", "[topic]"]
 ---
+<!-- A Claude Code subagent definition: the file drops into .claude/agents/ as-is. A role-play
+     or "act as X" prompt without name:/description: belongs in 4_Prompts, not here
+     (decided 2026-10-21). Vendored definitions also carry an upstream: block. -->
+
 
 # [Agent Name/Title]
 

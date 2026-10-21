@@ -4,7 +4,7 @@
  * prompts, agent definitions, MCP servers) and queue them in `docs/DISCOVERY.md`
  * for a human to accept or reject. Nothing is vendored here: that is the Catalog
  * Refresh job's work once a row says `accept`, and only after it has read the
- * licence. Rows that say `accept` or `link` also get a Resources-menu entry
+ * licence. Rows that say `link` get a Resources-menu entry
  * (`site/library/resources.json`) from this script, so the top-right menu grows
  * without anyone editing React.
  *
@@ -113,14 +113,15 @@ for (const r of picked) {
   console.log(`FOUND ${r.fullName} (${r.stargazersCount}★, ${r.kind}, ${licenceOf(r)}, ${r.why}) ${(r.description || "").slice(0, 90)}`);
 }
 
-// ---------- resources.json: link every accept/link row that is not there yet ----------
+// ---------- resources.json: link every `link` row that is not there yet ----------
+// (accepted repos show up in the library itself, so they are not linked as well)
 const linked = [];
 if (fs.existsSync(RESOURCES)) {
   const res = JSON.parse(fs.readFileSync(RESOURCES, "utf8"));
   const have = new Set(res.groups.flatMap((g) => g.links.map((l) => l.href.toLowerCase().replace(/\/$/, ""))));
   const GROUP_FOR_KIND = { skills: "skills", prompts: "prompt-libraries", agents: "agents", mcp: "agents" };
   for (const r of rows) {
-    if (!["accept", "link", "done"].includes(r.status)) continue;
+    if (r.status !== "link") continue;
     const href = `https://github.com/${r.repo}`;
     if (have.has(href.toLowerCase())) continue;
     const g = res.groups.find((x) => x.id === GROUP_FOR_KIND[r.kind]);
