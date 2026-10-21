@@ -146,7 +146,7 @@ export default function ResourcesNav() {
   }, [open]);
 
   return (
-    <div ref={ref} className="relative hidden xl:block">
+    <div ref={ref} className="relative hidden 2xl:block">
       <button
         type="button"
         onClick={() => setOpen(o => !o)}

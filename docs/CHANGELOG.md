@@ -4,6 +4,16 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — Section buttons in the top bar
+
+**UI**
+- The six section links are bordered buttons now; the current one fills with its section's hue
+  (rose, cyan, violet, amber, emerald, teal) instead of an underline. Each gets its icon from
+  1536px up. The Resources menu and the brand wordmark move to the same wide-window gate so the
+  bar never overflows beside the categories panel; the ⌘K trigger is icon + keys only.
+
+_Touched: `site/src/index.css`, `site/src/components/{TopBar,ResourcesNav}.tsx`, `docs/ARCHITECTURE.md`._
+
 ## 2026-10-21 — Settings dialog with colour palettes
 
 **UI**

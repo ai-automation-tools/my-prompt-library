@@ -5,7 +5,6 @@
 
 import { useState } from 'react';
 import { Menu, PanelLeft, Plus, Search, Settings, X } from 'lucide-react';
-import { LayoutGroup, m } from 'motion/react';
 import { SECTIONS } from '../lib/sections';
 import type { LibraryTab } from '../hooks/useLibraryRoute';
 import type { Theme } from '../hooks/useTheme';
@@ -28,7 +27,7 @@ interface TopBarProps {
 
 /**
  * The house-style top bar: categories toggle, brand, the six sections as nav
- * links (a sliding underline marks the current one), then ⌘K, Resources,
+ * bordered buttons (the current one filled in its section hue), then ⌘K, Resources,
  * New prompt, Settings and the Light | Dark switch. Below 1280px the sections
  * fold into a sheet under the bar, opened by the menu button.
  */
@@ -59,41 +58,31 @@ export default function TopBar({
 
         <button type="button" className="brand" onClick={() => pick('prompt-library')} aria-label="My Prompt Library home">
           <img src="/favicon.svg" alt="" width={24} height={24} />
-          {/* The wordmark only where the six section links leave room beside it. */}
-          <span className="hidden 2xl:inline">My Prompt Library</span>
+          {/* The wordmark only on very wide windows: six section buttons come first. */}
+          <span className="hidden min-[1720px]:inline">My Prompt Library</span>
         </button>
 
         <nav className="nav" aria-label="Sections">
-          <LayoutGroup id="section-nav">
-            {SECTIONS.map(section => {
-              const active = section.id === activeTab;
-              return (
-                <button
-                  key={section.id}
-                  type="button"
-                  aria-current={active ? 'true' : undefined}
-                  onClick={() => pick(section.id)}
-                  style={{ ['--c' as string]: section.accent }}
-                >
-                  {section.label}
-                  {active && (
-                    <m.span
-                      layoutId="section-nav-ind"
-                      className="ind"
-                      aria-hidden="true"
-                      transition={{ type: 'spring', stiffness: 500, damping: 42 }}
-                    />
-                  )}
-                </button>
-              );
-            })}
-          </LayoutGroup>
+          {SECTIONS.map(section => {
+            const Icon = section.icon;
+            return (
+              <button
+                key={section.id}
+                type="button"
+                aria-current={section.id === activeTab ? 'true' : undefined}
+                onClick={() => pick(section.id)}
+                style={{ ['--c' as string]: section.accent }}
+              >
+                <Icon aria-hidden="true" />
+                {section.label}
+              </button>
+            );
+          })}
         </nav>
 
         <div className="topbar-right">
           <button type="button" className="kbd-btn" onClick={onOpenPalette} aria-label="Search the library">
             <Search className="h-3.5 w-3.5" aria-hidden="true" />
-            <span className="hidden 2xl:inline">Search…</span>
             <Kbd>{MOD_KEY}</Kbd>
             <Kbd>K</Kbd>
           </button>
