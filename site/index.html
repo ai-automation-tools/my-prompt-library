@@ -8,13 +8,17 @@
     <meta name="description" content="My Prompt Library — a curated library of prompts, agents, skills and system prompts for AI coding tools, with a personal library on top." />
     <title>My Prompt Library</title>
     <script>
-      // Pre-paint theme (house style): dark unless the visitor picked light. The
-      // default must equal THEME_DEFAULT in src/hooks/useTheme.ts.
+      // Pre-paint appearance (house style): dark unless the visitor picked light, plus the
+      // chosen colour palette. Defaults and ids must match src/hooks/useTheme.ts.
       (function () {
         var t = 'dark';
         try { var s = localStorage.getItem('my-prompt-library.theme'); if (s === 'light' || s === 'dark') t = s; } catch (e) {}
         document.documentElement.classList.add(t);
         if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fafafa');
+        try {
+          var p = localStorage.getItem('my-prompt-library.palette');
+          if (p === 'violet' || p === 'emerald' || p === 'ember') document.documentElement.setAttribute('data-palette', p);
+        } catch (e) {}
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />

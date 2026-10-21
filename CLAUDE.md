@@ -68,13 +68,15 @@ site/
                        usePromptPreviews (batched card blurbs — the listing has no body text)
                        usePromptContent (copy state + fetching a prompt's real body)
                        useLibraryRoute (section/category/subcategory/?prompt= URL state)
-    hooks/useTheme     Light | Dark (`html.light`), key `my-prompt-library.theme`; index.html applies
-                       the stored one before first paint
+    hooks/useTheme     Light | Dark (`html.light`, key `my-prompt-library.theme`) and the colour palette
+                       (`html[data-palette]`, key `my-prompt-library.palette`, sky/violet/emerald/ember);
+                       index.html applies both before first paint
     lib/               mode (READ_ONLY), cn (clsx + tailwind-merge), sections (the six sections: tab id, folder,
                        label, icon, accent token, blurb — every tab switch reads from here)
     components/        TopBar (brand, section nav + phone sheet, ⌘K trigger, Resources menu,
-                       New prompt, ThemeSwitch), Sidebar (library switch, category tree),
-                       Breadcrumbs, CommandPalette (⌘K: prompts / sections / actions / themes),
+                       New prompt, Settings, ThemeSwitch), Sidebar (library switch, category tree),
+                       Breadcrumbs, SettingsModal (mode + palette, local data, shortcuts),
+                       CommandPalette (⌘K: prompts / sections / actions / themes),
                        LibraryHero (title, blurb, CountUp stats, in-section search),
                        PromptListToolbar, PromptGrid (also exports PromptCardGrid,
                        PromptCardActions, LoadingSkeleton), PromptCard (spotlight card),
@@ -142,6 +144,8 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
   `--mix-ink` by `--tint-k`. `--c` is the current section's accent (`--sec-*`, 400 shade dark /
   700 light, set from `data-section` on `<html>`); cards, glyphs and tonal buttons tint from it.
   Dark is the default whatever the OS says; the Light | Dark pill is the last control in the top bar.
+  Settings (gear) adds a colour palette on top of the mode: each `html[data-palette]` block swaps
+  only `--accent` (+ hover/ink/glow) and, in dark, tints `--bg` a hair; never the rest of the set.
   Shared controls are classes in `@layer components` (`.btn`, `.input`, `.chip`, `.spot`)
   wrapped by `components/ui/primitives.tsx`; reach for those before writing a new button.
 - Motion: `motion/react` with `LazyMotion` + `m.*` (never `motion.*`, it defeats the split).

@@ -19,7 +19,7 @@ import { Button } from './components/ui/primitives';
 import { usePromptFilters } from './hooks/usePromptFilters';
 import { usePromptContent } from './hooks/usePromptContent';
 import { useLibraryRoute, slugifyPromptPath, type LibraryTab } from './hooks/useLibraryRoute';
-import { useTheme } from './hooks/useTheme';
+import { usePalette, useTheme } from './hooks/useTheme';
 import { getSection, getSectionFolder, getSectionDisplayName, getTabForFolder, humanize } from './lib/sections';
 import { READ_ONLY } from './lib/mode';
 
@@ -31,6 +31,7 @@ const SkillPacksView = lazy(() => import('./components/SkillPacksView'));
 const PromptDetail = lazy(() => import('./components/PromptDetail'));
 const PromptEditorModal = lazy(() => import('./components/PromptEditorModal'));
 const CommandPalette = lazy(() => import('./components/CommandPalette'));
+const SettingsModal = lazy(() => import('./components/SettingsModal'));
 
 const chunkSpinner = (
   <div className="flex h-64 items-center justify-center">
@@ -47,6 +48,8 @@ export default function App() {
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
   const [theme, setTheme] = useTheme();
+  const [palette, setPalette] = usePalette();
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   // Open on desktop, closed (a drawer) on phones.
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => window.innerWidth >= 768);
@@ -699,6 +702,7 @@ source: My Prompt Library
           activeTab={activeTab}
           onSelectSection={openSectionFromPalette}
           onOpenPalette={() => setIsPaletteOpen(true)}
+          onOpenSettings={() => setIsSettingsOpen(true)}
           onNewPrompt={handleNewPrompt}
           theme={theme}
           setTheme={setTheme}
@@ -945,7 +949,28 @@ source: My Prompt Library
             onSelectPrompt={openPromptFromPalette}
             onSelectSection={openSectionFromPalette}
             onNewPrompt={handleNewPrompt}
+            onOpenSettings={() => setIsSettingsOpen(true)}
             onSetTheme={setTheme}
+          />
+        </Suspense>
+      )}
+
+      {/* Settings */}
+      {isSettingsOpen && (
+        <Suspense fallback={null}>
+          <SettingsModal
+            theme={theme}
+            setTheme={setTheme}
+            palette={palette}
+            setPalette={setPalette}
+            favoriteCount={favorites.length}
+            recentCount={recentlyViewed.length}
+            onClearLocalData={() => {
+              setFavorites([]);
+              setRecentlyViewed([]);
+              showToast('success', 'Favourites and recent prompts cleared');
+            }}
+            onClose={() => setIsSettingsOpen(false)}
           />
         </Suspense>
       )}

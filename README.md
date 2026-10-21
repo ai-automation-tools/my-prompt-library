@@ -56,7 +56,7 @@
 
 🎨 **Modern UI**
 - Responsive design (mobile, tablet, desktop)
-- The org house style shared with [ai-automation-tools.dev](https://ai-automation-tools.dev): sections in the top bar, a Light | Dark switch remembered per browser, per-section accent colours
+- The org house style shared with [ai-automation-tools.dev](https://ai-automation-tools.dev): sections in the top bar, a Light | Dark switch, and a Settings dialog with four colour palettes (sky, violet, emerald, ember), all remembered per browser; per-section accent colours
 - ⌘K command palette across every prompt, section and action
 - Fuzzy search with Fuse.js
 - Title-prioritized search ranking (title starts-with/contains first)

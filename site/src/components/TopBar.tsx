@@ -4,7 +4,7 @@
  */
 
 import { useState } from 'react';
-import { Menu, PanelLeft, Plus, Search, X } from 'lucide-react';
+import { Menu, PanelLeft, Plus, Search, Settings, X } from 'lucide-react';
 import { LayoutGroup, m } from 'motion/react';
 import { SECTIONS } from '../lib/sections';
 import type { LibraryTab } from '../hooks/useLibraryRoute';
@@ -20,6 +20,7 @@ interface TopBarProps {
   activeTab: LibraryTab;
   onSelectSection: (tab: LibraryTab) => void;
   onOpenPalette: () => void;
+  onOpenSettings: () => void;
   onNewPrompt: () => void;
   theme: Theme;
   setTheme: (theme: Theme) => void;
@@ -28,8 +29,8 @@ interface TopBarProps {
 /**
  * The house-style top bar: categories toggle, brand, the six sections as nav
  * links (a sliding underline marks the current one), then ⌘K, Resources,
- * New prompt and the Light | Dark switch. Below 1280px the sections fold into
- * a sheet under the bar, opened by the menu button.
+ * New prompt, Settings and the Light | Dark switch. Below 1280px the sections
+ * fold into a sheet under the bar, opened by the menu button.
  */
 export default function TopBar({
   sidebarOpen,
@@ -37,6 +38,7 @@ export default function TopBar({
   activeTab,
   onSelectSection,
   onOpenPalette,
+  onOpenSettings,
   onNewPrompt,
   theme,
   setTheme,
@@ -107,6 +109,10 @@ export default function TopBar({
               New prompt
             </Button>
           )}
+
+          <IconButton label="Settings" framed onClick={onOpenSettings}>
+            <Settings className="h-4 w-4" />
+          </IconButton>
 
           <ThemeSwitch theme={theme} setTheme={setTheme} />
 

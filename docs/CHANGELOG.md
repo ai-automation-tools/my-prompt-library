@@ -4,6 +4,21 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — Settings dialog with colour palettes
+
+**UI**
+- A Settings button (gear) in the top bar, also reachable from ⌘K. The dialog holds Appearance
+  (the Light | Dark mode and a colour palette), Local data (clear favourites and recently viewed)
+  and the keyboard shortcuts.
+- Four palettes on top of the mode: Sky (the org default), Violet, Emerald and Ember, after the
+  retired Midnight Violet, Emerald Glass and Carbon Ember themes. Each swaps only the accent (400
+  shade dark, 700 light) and in dark tints the ground a hair toward the hue; surfaces, text and
+  lines stay the house set. Stored as `my-prompt-library.palette` and applied before first paint.
+
+_Touched: `site/index.html`, `site/src/index.css`, `site/src/hooks/useTheme.ts`,
+`site/src/components/{SettingsModal (new),TopBar,CommandPalette}.tsx`, `site/src/App.tsx`,
+`CLAUDE.md`, `README.md`, `homepage/index.html`, `docs/ARCHITECTURE.md`._
+
 ## 2026-10-21 — The app on the org house style
 
 The app now wears the same chrome as ai-automation-tools.dev (the `web-house-style` skill):

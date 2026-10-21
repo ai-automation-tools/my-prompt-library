@@ -9,7 +9,7 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import Fuse from 'fuse.js';
-import { ArrowRight, Clock, CornerDownLeft, Moon, Plus, Search, Sun } from 'lucide-react';
+import { ArrowRight, Clock, CornerDownLeft, Moon, Plus, Search, Settings, Sun } from 'lucide-react';
 import { m } from 'motion/react';
 import { cn } from '../lib/cn';
 import { SECTIONS, getTabForFolder, humanize } from '../lib/sections';
@@ -27,6 +27,7 @@ interface CommandPaletteProps {
   onSelectPrompt: (prompt: Prompt) => void;
   onSelectSection: (tab: LibraryTab) => void;
   onNewPrompt: () => void;
+  onOpenSettings: () => void;
   onSetTheme: (theme: Theme) => void;
 }
 
@@ -49,6 +50,7 @@ export default function CommandPalette({
   onSelectPrompt,
   onSelectSection,
   onNewPrompt,
+  onOpenSettings,
   onSetTheme,
 }: CommandPaletteProps) {
   const [query, setQuery] = useState('');
@@ -103,14 +105,22 @@ export default function CommandPalette({
       icon: <s.icon className="h-3.5 w-3.5" />,
       run: () => onSelectSection(s.id),
     }));
-    const actions: Item[] = READ_ONLY ? [] : [
-      {
+    const actions: Item[] = [
+      ...(READ_ONLY ? [] : [{
         key: 'action:new',
-        group: 'Actions',
+        group: 'Actions' as const,
         label: 'New prompt',
         hint: 'Create a prompt in My Library',
         icon: <Plus className="h-3.5 w-3.5" />,
         run: onNewPrompt,
+      }]),
+      {
+        key: 'action:settings',
+        group: 'Actions',
+        label: 'Settings',
+        hint: 'Appearance, colour palette, local data',
+        icon: <Settings className="h-3.5 w-3.5" />,
+        run: onOpenSettings,
       },
     ];
     const themes: Item[] = (

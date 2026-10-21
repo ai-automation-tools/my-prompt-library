@@ -158,6 +158,62 @@ html.light {
   --sec-skill-packs: #0f766e;
 }
 
+/* ===== Colour palettes (Settings → Appearance) =====
+   Each swaps the accent on top of the mode, 400 shade in dark / 700 in light, and in
+   dark tints the ground a hair toward the hue, the way the old themes it is named
+   after did. Everything else (surfaces, text, lines) is the house set unchanged. */
+
+html[data-palette='violet'] {
+  --bg: #08060e;
+  --accent: #a78bfa;
+  --accent-hover: #c4b5fd;
+  --accent-ink: #1e1033;
+  --glow-a: rgba(167, 139, 250, 0.14);
+  --glow-b: rgba(56, 189, 248, 0.05);
+}
+
+html[data-palette='emerald'] {
+  --bg: #060908;
+  --accent: #34d399;
+  --accent-hover: #6ee7b7;
+  --accent-ink: #04120c;
+  --glow-a: rgba(52, 211, 153, 0.12);
+  --glow-b: rgba(45, 212, 191, 0.05);
+}
+
+html[data-palette='ember'] {
+  --bg: #0a0705;
+  --accent: #fb923c;
+  --accent-hover: #fdba74;
+  --accent-ink: #1a0c04;
+  --glow-a: rgba(251, 146, 60, 0.12);
+  --glow-b: rgba(251, 113, 133, 0.05);
+}
+
+html.light[data-palette='violet'] {
+  --bg: #fafafa;
+  --accent: #6d28d9;
+  --accent-hover: #5b21b6;
+  --accent-ink: #fff;
+  --glow-a: rgba(167, 139, 250, 0.12);
+}
+
+html.light[data-palette='emerald'] {
+  --bg: #fafafa;
+  --accent: #047857;
+  --accent-hover: #065f46;
+  --accent-ink: #fff;
+  --glow-a: rgba(52, 211, 153, 0.12);
+}
+
+html.light[data-palette='ember'] {
+  --bg: #fafafa;
+  --accent: #c2410c;
+  --accent-hover: #9a3412;
+  --accent-ink: #fff;
+  --glow-a: rgba(251, 146, 60, 0.12);
+}
+
 /* Per-section accent (--section-c), from data-section on <html>. */
 :root[data-section='prompts'] { --section-c: var(--sec-prompts); }
 :root[data-section='agents'] { --section-c: var(--sec-agents); }
