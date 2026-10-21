@@ -42,7 +42,7 @@ Skill Packs are pre-configured bundles of related skills designed for specific u
 **GET /api/skill-packs?library=public|my**
 - Lists packs by library mode (summary)
 - `public`: all available packs
-- `my`: only packs explicitly added by the authenticated user
+- `my`: packs added to My Library (any My Library prompt tagged `skill-pack:<packId>`)
 - Returns: Array of pack metadata
 
 **GET /api/skill-packs/:packId**

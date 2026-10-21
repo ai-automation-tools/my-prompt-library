@@ -13,7 +13,7 @@
     })();
   </script>
   <title>My Prompt Library</title>
-  <meta name="description" content="A full-stack prompt-template manager: a curated public library of prompts, agents, guides, skills and system prompts, plus a personal library you keep with your own account." />
+  <meta name="description" content="A prompt-template manager you run on your own machine: a curated public library of prompts, agents, guides, skills and system prompts, plus a personal library kept as markdown files you own." />
   <link rel="canonical" href="https://my-prompt-library.ai-automation-tools.dev/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://my-prompt-library.ai-automation-tools.dev/" />
@@ -176,6 +176,10 @@
     .flow h3 { margin-top: 12px; font-size: 15.5px; }
     .flow p { font-size: 13.5px; }
     .flow p code { overflow-wrap: anywhere; }
+    .diagram { margin: 22px 0 0; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--surface); }
+    .diagram iframe { display: block; width: 100%; height: clamp(420px, 62vw, 860px); border: 0; background: var(--bg); }
+    .diagram figcaption { padding: 10px 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--fg-3); }
+    .diagram figcaption a { color: var(--accent); }
 
     /* Terminal */
     .term { margin-top: 22px; border: 1px solid var(--line-2); border-radius: var(--r-lg); background: var(--code-bg); overflow: hidden; }
@@ -228,7 +232,7 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <div class="src-bar">
-  <p class="src-note"><strong>Open source</strong> &middot; Apache 2.0 &middot; React, Express and Postgres, deployed on Vercel.</p>
+  <p class="src-note"><strong>Open source</strong> &middot; Apache 2.0 &middot; React and Express, run locally; a read-only demo is on Vercel.</p>
   <a class="src-link" href="https://github.com/ai-automation-tools/my-prompt-library" target="_blank" rel="noopener">
     <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
     View source
@@ -266,11 +270,11 @@
   <div class="hero" id="top">
     <a class="eyebrow" href="https://ai-automation-tools.dev/"><b>ai-automation-tools</b> · open source · prompt templates</a>
     <h1>Prompt templates you can <em>find</em>, copy and keep.</h1>
-    <p class="lede">My Prompt Library is a full-stack prompt-template manager. Browse a curated public library of prompts, agents, guides, skills and system prompts, then sign up to save, edit and organise your own in My Library.</p>
+    <p class="lede">My Prompt Library is a prompt-template manager you clone and run on your own machine. Browse a curated public library of prompts, agents, guides, skills and system prompts, then save, edit and organise your own in My Library, a folder of markdown files you own.</p>
     <div class="cta">
       <a class="btn btn-primary" href="https://my-prompt-library-demo.ai-automation-tools.dev/">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg>
-        Open the library
+        Browse the demo
       </a>
       <a class="btn btn-gh" href="https://github.com/ai-automation-tools/my-prompt-library" target="_blank" rel="noopener">
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -281,13 +285,13 @@
         Run it locally
       </a>
     </div>
-    <p class="fine">The hosted app is free to browse. An account is only needed for My Library.</p>
+    <p class="fine">The hosted demo is read-only: browse and copy anything. Run it locally to keep your own prompts. No account, no database.</p>
   </div>
 
   <section id="features">
     <span class="eyebrow">Features</span>
     <h2>What it does</h2>
-    <p class="sub">Two libraries behind one search box: a public one versioned in Git, and a personal one stored in Postgres.</p>
+    <p class="sub">Two libraries behind one search box: a public one versioned in Git, and a personal one in a folder on your disk.</p>
     <div class="grid" id="grid">
       <article class="card">
         <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
@@ -298,8 +302,8 @@
       <article class="card">
         <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
         <h3>My Library</h3>
-        <p>Sign up and create, edit, tag and delete your own prompts. Passwords are bcrypt-hashed and sessions last 30 days.</p>
-        <span class="tag">PostgreSQL · Neon</span>
+        <p>Create, edit, tag and delete your own prompts, or save any public one. Each is a markdown file, so you can sync it, version it in Git or edit it by hand.</p>
+        <span class="tag">markdown files · MY_LIBRARY_DIR</span>
       </article>
       <article class="card">
         <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
@@ -344,23 +348,26 @@
 
   <section id="how">
     <span class="eyebrow">How it works</span>
-    <h2>One Express app, two kinds of storage</h2>
-    <p class="sub">Public content lives in files under Git; user data lives in Postgres. The same Express app serves both, in development and on Vercel.</p>
+    <h2>One Express app, all files</h2>
+    <p class="sub">Public content lives in files under Git; your own prompts live in files on your machine. The same Express app serves both, locally and as the read-only demo on Vercel.</p>
     <div class="flow" id="flow">
       <article class="card"><span class="n">1</span><h3>Markdown in Git</h3><p>The Public Library is markdown files in <code>library/</code>, so every change is a reviewed commit.</p></article>
       <article class="card"><span class="n">2</span><h3>Index at build time</h3><p><code>npm run build:index</code> walks the library into <code>api/prompt-index.json</code>. CI fails a PR if the committed index is stale.</p></article>
-      <article class="card"><span class="n">3</span><h3>One API</h3><p><code>api/index.ts</code> runs as a Vercel serverless function in production and is imported by <code>server.ts</code> in development. There is no second copy.</p></article>
+      <article class="card"><span class="n">3</span><h3>One API</h3><p><code>api/index.ts</code> is imported by <code>server.ts</code> when you run it locally and runs as a Vercel function for the demo. There is no second copy.</p></article>
       <article class="card"><span class="n">4</span><h3>React front end</h3><p>React 19, TypeScript, Vite 6 and Tailwind v4. Listings load metadata only; a prompt's body is fetched when you open it.</p></article>
     </div>
+    <!-- The HTML is a copy scripts/build-diagram.mjs writes from docs/diagrams/ (the source); never edit it here. -->
+    <figure class="diagram" id="diagram"><iframe id="diagram-frame" src="diagram/library-data-flow.html" loading="lazy" onload="syncDiagramTheme()" title="My Prompt Library data flow, interactive: library markdown is indexed at build time into prompt-index.json, which the public library API serves to the React app with previews and full bodies on demand; My Library prompts and skill packs added to it are markdown files in a local folder"></iframe>
+      <figcaption>Every node links to the code it describes; Route and Lens trace paths. <a href="diagram/library-data-flow.html">Open full screen ↗</a></figcaption></figure>
   </section>
 
   <section id="start">
     <span class="eyebrow">Quick start</span>
     <h2>Run it locally</h2>
-    <p class="sub">From the README. You need Node and a Neon PostgreSQL connection string; without <code>DATABASE_URL</code> the public library still loads, but sign-in and My Library don't.</p>
+    <p class="sub">From the README. All you need is Node. Your prompts are saved to <code>site/my-library/</code>; set <code>MY_LIBRARY_DIR</code> to keep them somewhere else.</p>
     <div class="term">
       <div class="term-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term-title">local development</span>
-        <button class="copy" type="button" data-copy="git clone https://github.com/ai-automation-tools/my-prompt-library.git&#10;cd my-prompt-library/site&#10;npm install&#10;cp .env.example .env&#10;npm run dev"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 11V4a1 1 0 011-1h7"/></svg><span>copy</span></button>
+        <button class="copy" type="button" data-copy="git clone https://github.com/ai-automation-tools/my-prompt-library.git&#10;cd my-prompt-library/site&#10;npm install&#10;npm run dev"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 11V4a1 1 0 011-1h7"/></svg><span>copy</span></button>
       </div>
 <pre tabindex="0"><span class="c"># Clone the repository</span>
 <span class="p">$ </span>git clone https://github.com/ai-automation-tools/my-prompt-library.git
@@ -369,21 +376,18 @@
 <span class="c"># Install dependencies</span>
 <span class="p">$ </span>npm install
 
-<span class="c"># Set up environment variables</span>
-<span class="p">$ </span>cp .env.example .env
-<span class="c"># Add your DATABASE_URL (Neon PostgreSQL connection string)</span>
-
 <span class="c"># Start development server</span>
 <span class="p">$ </span>npm run dev
 
-<span class="c"># Visit http://localhost:3010</span></pre>
+<span class="c"># Visit http://localhost:3010 (npm start serves a production build instead)</span></pre>
     </div>
     <div class="term">
       <div class="term-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term-title">checks (CI runs all of these)</span>
-        <button class="copy" type="button" data-copy="npm run lint&#10;npm run test:routes&#10;npm run build:index"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 11V4a1 1 0 011-1h7"/></svg><span>copy</span></button>
+        <button class="copy" type="button" data-copy="npm run lint&#10;npm run test:routes&#10;npm run test:my-library&#10;npm run build:index"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 11V4a1 1 0 011-1h7"/></svg><span>copy</span></button>
       </div>
 <pre tabindex="0"><span class="p">$ </span>npm run lint          <span class="c"># tsc --noEmit</span>
 <span class="p">$ </span>npm run test:routes   <span class="c"># the API route table is intact</span>
+<span class="p">$ </span>npm run test:my-library  <span class="c"># the My Library file store round-trips</span>
 <span class="p">$ </span>npm run build:index   <span class="c"># rebuild api/prompt-index.json after editing library/</span></pre>
     </div>
   </section>
@@ -391,14 +395,14 @@
   <section id="resources">
     <span class="eyebrow">Resources</span>
     <h2>Links</h2>
-    <p class="sub">The hosted app, the source, and the documentation on the <code>main</code> branch.</p>
+    <p class="sub">The read-only demo, the source, and the documentation on the <code>main</code> branch.</p>
     <div class="docs">
-      <a class="doc primary" href="https://my-prompt-library-demo.ai-automation-tools.dev/"><small>App</small><b>Open the library</b><span>my-prompt-library-demo.ai-automation-tools.dev</span></a>
+      <a class="doc primary" href="https://my-prompt-library-demo.ai-automation-tools.dev/"><small>Demo</small><b>Browse the library</b><span>my-prompt-library-demo.ai-automation-tools.dev</span></a>
       <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library" target="_blank" rel="noopener"><small>Source</small><b>GitHub repository</b><span>ai-automation-tools/my-prompt-library</span></a>
       <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library#readme" target="_blank" rel="noopener"><small>Start</small><b>README</b><span>features, quick start, API</span></a>
       <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/README.md" target="_blank" rel="noopener"><small>Docs</small><b>Documentation index</b><span>every guide in docs/</span></a>
       <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/setup/SETUP.md" target="_blank" rel="noopener"><small>Setup</small><b>Setup guide</b><span>local development</span></a>
-      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/setup/DEPLOYMENT.md" target="_blank" rel="noopener"><small>Deploy</small><b>Deployment guide</b><span>Vercel + Neon PostgreSQL</span></a>
+      <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/setup/DEPLOYMENT.md" target="_blank" rel="noopener"><small>Deploy</small><b>Deployment guide</b><span>the read-only demo on Vercel</span></a>
       <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener"><small>Design</small><b>Architecture</b><span>system design, repo layout</span></a>
       <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/features/API.md" target="_blank" rel="noopener"><small>Reference</small><b>API reference</b><span>REST endpoints</span></a>
       <a class="doc" href="https://github.com/ai-automation-tools/my-prompt-library/blob/main/docs/skill-packs/README.md" target="_blank" rel="noopener"><small>Feature</small><b>Skill Packs</b><span>creating and managing packs</span></a>
@@ -429,8 +433,12 @@
   // Theme switch. THEME_DEFAULT must equal the pre-paint default in <head>.
   const THEME_KEY = 'my-prompt-library.theme', THEME_DEFAULT = 'dark';
   const themeBtns = document.querySelectorAll('#themeSw button');
+  // The data-flow diagram (same origin) starts Still unless localStorage says "live"; the
+  // homepage shows it Live (reduced-motion readers still get Still), in this page's theme.
+  try { localStorage.setItem('archify-motion', 'live'); } catch (e) {}
+  window.syncDiagramTheme = function () { const f = document.getElementById('diagram-frame'); try { if (f) f.contentDocument.documentElement.setAttribute('data-theme', document.documentElement.classList.contains('light') ? 'light' : 'dark'); } catch (e) {} };
   function setTheme(t) {
-    const r = document.documentElement; r.classList.remove('light', 'dark'); r.classList.add(t);
+    const r = document.documentElement; r.classList.remove('light', 'dark'); r.classList.add(t); syncDiagramTheme();
     themeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.theme === t)));
     document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'light' ? '#fafafa' : '#060606');
   }

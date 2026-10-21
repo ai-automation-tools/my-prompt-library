@@ -6,36 +6,41 @@ Technical architecture and design decisions for the Prompt Library application.
 
 ## Overview
 
-The Prompt Library is a full-stack web application for managing and organizing prompt templates. It uses a **hybrid storage model**:
+My Prompt Library is a local-first app: you clone it and run it on your own machine. It
+keeps everything as markdown files on disk:
 
-1. **Public Library** - Filesystem-based (Git version control)
-2. **User Data** - PostgreSQL database (Neon)
-3. **GitHub Mode** (optional) - API-based public library access
+1. **Public Library**: curated prompts, agents, skills, guides and system prompts in
+   `site/library/`, versioned in this repo.
+2. **My Library**: your own prompts, one `.md` file each, in `site/my-library/` (gitignored)
+   or whatever folder `MY_LIBRARY_DIR` names.
+
+There is no database and there are no accounts. The same app also runs on Vercel as a
+**read-only demo** that serves the Public Library only.
 
 ---
 
 ## Technology Stack
 
 ### Frontend
-- **React** - UI framework
+- **React 19** - UI framework
 - **Vite** - Build tool and dev server
 - **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
+- **Tailwind CSS v4** - Styling
 - **Lucide React** - Icons
 - **React Markdown** - Markdown rendering
 - **Fuse.js** - Fuzzy search
+- **motion** - Animation
 
 ### Backend
-- **Express** - API server
-- **Vercel Serverless Functions** - Production deployment
-- **Node.js** - Runtime
-- **TypeScript** - Type safety
-- **PostgreSQL (Neon)** - User data and authentication
+- **Express** - API server (one app, used locally and on Vercel)
+- **Node.js** + **tsx** - Runtime
+- **gray-matter** - Frontmatter parsing for both libraries
+- **archiver** - Skill and skill-pack ZIP downloads
+- **helmet** - Response headers
 
-### External Services
-- **Neon** - Serverless PostgreSQL database
-- **GitHub API** - Remote storage (optional)
-- **Vercel** - Hosting and deployment
+### Hosting
+- **Vercel** - the read-only demo
+- **GitHub Pages** - the static project homepage in `homepage/` (separate from the app)
 
 ---
 
@@ -44,42 +49,87 @@ The Prompt Library is a full-stack web application for managing and organizing p
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                         Frontend                            │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
-│  │   React UI   │  │ Fuse Search  │  │  MD Render   │     │
-│  └──────────────┘  └──────────────┘  └──────────────┘     │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │
+│  │   React UI   │  │ Fuse Search  │  │  MD Render   │       │
+│  └──────────────┘  └──────────────┘  └──────────────┘       │
+│        __READ_ONLY__ (build-time) hides write controls      │
 └────────────────────────┬────────────────────────────────────┘
                          │ HTTP (fetch)
 ┌────────────────────────▼────────────────────────────────────┐
 │                      API Layer                              │
-│      One Express app — api/index.ts exports it, Vercel       │
-│      runs it as a function, server.ts imports it in dev      │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │  GET  /api/prompts          - List (?lightweight)   │  │
-│  │  POST /api/prompts/previews - Card blurbs by id     │  │
-│  │  GET  /api/prompts/:id      - One prompt, full body │  │
-│  │  POST /api/prompts          - Create new prompt     │  │
-│  │  PUT  /api/prompts/:id      - Update prompt         │  │
-│  │  DELETE /api/prompts/:id    - Delete prompt         │  │
-│  │  POST /api/prompts/:id/copy - Copy to My Library    │  │
-│  │  GET  /api/skills/download/ - Skill directory ZIP   │  │
-│  └──────────────────────────────────────────────────────┘  │
+│      One Express app — api/index.ts exports it, Vercel      │
+│      runs it as a function, server.ts imports it locally    │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │  GET  /api/prompts          - List (?lightweight)    │   │
+│  │  POST /api/prompts/previews - Card blurbs by id      │   │
+│  │  GET  /api/prompts/:id      - One prompt, full body  │   │
+│  │  POST /api/prompts          - Create          [write]│   │
+│  │  PUT  /api/prompts/:id      - Update          [write]│   │
+│  │  DELETE /api/prompts/:id    - Delete          [write]│   │
+│  │  POST /api/prompts/:path/copy-to-my-prompts   [write]│   │
+│  │  GET  /api/skills/download/ - Skill directory ZIP    │   │
+│  │  /api/skill-packs/*         - api/skill-packs.ts     │   │
+│  └──────────────────────────────────────────────────────┘   │
+│        [write] routes return 403 when READ_ONLY             │
 └────────────────────────┬────────────────────────────────────┘
                          │
          ┌───────────────┴────────────────┐
-         │                                │
          ▼                                ▼
 ┌─────────────────┐          ┌──────────────────────┐
-│  Local Storage  │          │   GitHub Storage     │
-│   (filesystem)  │          │  (USE_GITHUB_MODE)   │
-│                 │          │                      │
-│  library/       │          │  + Batching (50)     │
-│  ├─ 1_Guides    │          │  + Cache (5min)      │
-│  ├─ 2_Agents    │          │  + Rate Limiting     │
-│  ├─ 3_Skills    │          │                      │
-│  ├─ 4_Prompts   │          │                      │
-│  └─ 5_System_.. │          │                      │
+│ Public Library  │          │     My Library       │
+│ site/library/   │          │ lib/my-library.ts    │
+│  ├─ 1_Guides    │          │                      │
+│  ├─ 2_Agents    │          │ MY_LIBRARY_DIR       │
+│  ├─ 3_Skills    │          │ (default             │
+│  ├─ 4_Prompts   │          │  site/my-library/)   │
+│  └─ 5_System_.. │          │ one .md per prompt   │
+│ + api/prompt-   │          │                      │
+│   index.json    │          │ absent on the demo   │
 └─────────────────┘          └──────────────────────┘
 ```
+
+The interactive version of this flow is in [diagrams/](diagrams/README.md).
+
+---
+
+## Data Layer
+
+### Public Library
+
+Markdown files under `site/library/`, one section per numbered folder. A prompt's id is its
+path under `library/` with forward slashes, e.g. `2_Agents/Developer/General/devops-engineer.md`.
+Section, category and subcategory come from the path; title and tags from frontmatter.
+
+`npm run build:index` walks the library and writes `api/prompt-index.json`. The API serves
+lightweight listings from that index (and a 5-minute in-memory cache), falling back to a
+filesystem walk when no index exists. CI fails if the committed index is stale.
+
+### My Library
+
+`site/lib/my-library.ts` is the whole store: `list`, `get`, `create`, `update`, `delete`
+over a folder of markdown files.
+
+- **Folder:** `MY_LIBRARY_DIR`, resolved against `site/` if relative. Default
+  `site/my-library/`, gitignored. Created on first write.
+- **File name = id:** `<slug-of-title>-<6 hex>.md`. The name is fixed at creation, so
+  renaming a prompt never breaks a link to it. Ids must match `^[a-z0-9-]+$`, which is what
+  keeps an id from naming a path outside the folder.
+- **Frontmatter:** `title`, `section`, `category`, `subcategory`, `tags`, `created`,
+  `updated`. The body is the prompt. Values are normalised on read, so hand-edited files
+  with unquoted dates or missing fields still load; an unparseable file is skipped with a
+  warning.
+- **No cache:** every listing reads the folder, so edits made outside the app show up on
+  the next load.
+
+Files instead of a database means the folder can be synced, put under git, or edited in
+any editor, and there is nothing to install.
+
+### Skill packs
+
+Packs are JSON manifests under `site/library/3_Skills/packs/`. Adding a pack copies its
+skills into My Library (section `3_Skills`) tagged `skill-pack:<packId>`; removing it
+deletes the files with that tag. "Which packs are in My Library" is computed from those
+tags. There is no separate install record.
 
 ---
 
@@ -94,63 +144,55 @@ real body from `GET /api/prompts/:id`. Treating a listing prompt's `content` as 
 the bug that hit copy, download and edit before 2026-09-08.
 
 ```
-User Request
+fetch('/api/prompts?library=…&lightweight=true')
     ↓
-Frontend (React)
-    ↓ fetch('/api/prompts')
-API Layer
-    ↓ Check feature flag (USE_GITHUB_MODE)
-    ├─ false → Filesystem Read
-    │           ↓ fs.readdirSync()
-    │           ↓ gray-matter.parse()
-    │           ↓ Return JSON
-    │
-    └─ true → GitHub API
-                ↓ Check cache
-                ├─ HIT → Return cached
-                └─ MISS → Fetch from GitHub
-                           ↓ Get branch SHA
-                           ↓ Get file tree
-                           ↓ Batch fetch blobs (50 at a time)
-                           ↓ Parse frontmatter
-                           ↓ Cache results (5min TTL)
-                           ↓ Return JSON
+library=my     → myLibrary.list()  → read every .md in MY_LIBRARY_DIR
+                                     (200-char preview inline)
+library=public → cache hit?        → return cached
+                 prebuilt index?   → return index entries, content ''
+                 otherwise         → walk site/library/, parse frontmatter
 ```
 
 ### 2. Create Prompt (`POST /api/prompts`)
 
 ```
-User Input (form)
-    ↓
-Frontend
-    ↓ fetch('/api/prompts', { method: 'POST', body: {...} })
-API Layer
-    ↓ Validate input
-    ↓ Generate safe filename
-    ├─ Local Mode → fs.writeFileSync()
-    └─ GitHub Mode → GitHub API PUT (create file)
-    ↓ Return success
-Frontend
-    ↓ Refresh prompts list
+PromptEditorModal
+    ↓ fetch('/api/prompts', { method: 'POST', body })
+requireWritable          → 403 if READ_ONLY
+    ↓ validate title/section/category/content
+myLibrary.create()       → write <slug>-<hex>.md (exclusive create)
+    ↓ return the prompt
+Frontend refreshes My Library
 ```
 
-### 3. Copy to My_Prompts (`POST /api/prompts/:id/copy-to-my-prompts`)
+### 3. Copy to My Library (`POST /api/prompts/:path/copy-to-my-prompts`)
 
 ```
-User clicks "Add to My Prompts"
+"Save to My Library" on a public prompt
     ↓
-Frontend
-    ↓ fetch('/api/prompts/:id/copy-to-my-prompts', { method: 'POST' })
-API Layer
-    ↓ Validate source section (one of 1_Guides … 5_System_Prompts)
-    ↓ Check destination doesn't exist
-    ├─ Local Mode → fs.copyFileSync()
-    └─ GitHub Mode → GitHub API (read + write)
-    ↓ Return success
-Frontend
-    ↓ Show success toast
-    ↓ Refresh prompts list
+requireWritable          → 403 if READ_ONLY
+resolveInside(library/)  → 400 if the path escapes
+    ↓ parse the source file, derive section/category from its path
+duplicate title in the same section/category/subcategory? → 409
+myLibrary.create()       → new file in MY_LIBRARY_DIR
 ```
+
+---
+
+## Read-only Mode
+
+`READ_ONLY` is true when `READ_ONLY=true` is set, or when `VERCEL` is set (always, on
+Vercel). It is checked in two places:
+
+- **Server:** `READ_ONLY` in `lib/my-library.ts`. The `requireWritable` middleware in
+  `api/index.ts`, and the add/remove handlers in `api/skill-packs.ts`, return `403` for
+  every write.
+- **UI:** `vite.config.ts` bakes the same test into the bundle as `__READ_ONLY__`, which
+  `src/lib/mode.ts` exports. When it is true the app forces the Public Library and hides
+  the library switch, New prompt, Save to My Library and pack add/remove.
+
+The server check is the real one; the UI flag only keeps buttons that would fail out of
+sight.
 
 ---
 
@@ -158,50 +200,52 @@ Frontend
 
 ```
 my-prompt-library/
-├── site/                         # The deployable app — Vercel Root Directory
+├── site/                         # The app — run npm here; Vercel Root Directory
 │   ├── api/
-│   │   ├── index.ts              # Vercel handler: prompts, auth, GitHub mode
-│   │   ├── skill-packs.ts        # Vercel handler for skill packs
+│   │   ├── index.ts              # Express app: prompts, previews, skill downloads
+│   │   ├── skill-packs.ts        # Skill-pack handler (own Vercel function)
 │   │   └── prompt-index.json     # Prebuilt index (regenerated by build:index)
+│   ├── lib/
+│   │   ├── my-library.ts         # My Library file store + READ_ONLY
+│   │   ├── safe-path.ts          # resolveInside(): path containment check
+│   │   └── vercel-types.ts
 │   ├── src/
 │   │   ├── components/           # React components
-│   │   ├── contexts/             # AuthContext
 │   │   ├── hooks/                # usePromptFilters, usePromptPreviews, usePromptContent,
 │   │   │                         #   useLibraryRoute (URL-backed navigation state)
+│   │   ├── lib/mode.ts           # READ_ONLY for the UI (from __READ_ONLY__)
 │   │   ├── App.tsx               # App shell
 │   │   └── main.tsx              # Entry point
-│   ├── lib/                      # Shared helpers (safe-path, vercel-types)
-│   ├── routes/                   # Express router (auth only; validates input, applies limiters)
-│   ├── middleware/auth.ts        # Cookie/bearer session middleware
-│   ├── middleware/rate-limit.ts  # Per-IP login/signup limiters (in-memory, per instance)
-│   ├── db/postgres.ts            # Postgres layer
 │   ├── library/                  # Public Library content
 │   │   ├── 1_Guides/
 │   │   ├── 2_Agents/
-│   │   ├── 3_Skills/             # One directory per skill, each with SKILL.md
+│   │   ├── 3_Skills/             # One directory per skill, each with SKILL.md; packs/
 │   │   ├── 4_Prompts/
 │   │   └── 5_System_Prompts/
+│   ├── my-library/               # Your prompts (gitignored; created on first save)
 │   ├── scripts/build-prompt-index.js   # Walks library/, sorts by id, skips >500 KB, keeps unchanged timestamps
 │   ├── scripts/api-routes.test.mjs     # Pins the route table (npm run test:routes)
-│   ├── server.ts                 # 71-line dev wrapper: imports api/index.ts's app,
-│   │                             #   mounts api/skill-packs.ts, adds Vite HMR (:3010)
-│   ├── .env.example              # Config template (.env is not committed)
+│   ├── scripts/my-library.test.mjs     # File-store round trip (npm run test:my-library)
+│   ├── server.ts                 # Local server: imports api/index.ts's app, mounts
+│   │                             #   api/skill-packs.ts, adds Vite HMR or serves dist/ (:3010)
+│   ├── .env.example              # Optional settings: MY_LIBRARY_DIR, HOST, READ_ONLY
 │   ├── package.json
 │   ├── vercel.json
 │   ├── vite.config.ts
 │   └── tsconfig.json
-├── scripts/                      # Repo utilities, outside the deploy root
+├── homepage/                     # Static project homepage (GitHub Pages)
+├── scripts/                      # Repo utilities, outside the app
 │   ├── attribute-upstream.mjs    # Stamp upstream provenance on skills (--agents: agents)
 │   ├── check-upstream-drift.mjs  # Weekly drift report
 │   ├── resync-upstream.mjs       # Pull a skill or agent back level with its upstream
 │   └── fix-skill-frontmatter.mjs # Enforce the Agent Skills spec
 ├── docs/                         # Documentation (see docs/README.md)
-├── .github/workflows/            # upstream-drift.yml
+├── .github/workflows/            # ci.yml, upstream-drift.yml
 └── CLAUDE.md                     # Repo guide for coding agents
 ```
 
-> The entire deployable app lives under `site/`. Run every `npm` command from
-> there, and keep the Vercel project's **Root Directory** set to `site`.
+> The entire app lives under `site/`. Run every `npm` command from there, and keep the
+> Vercel project's **Root Directory** set to `site`.
 
 ---
 
@@ -211,8 +255,9 @@ my-prompt-library/
 
 ```
 App.tsx                       app shell, data fetching (routing state: hooks/useLibraryRoute)
-├── Sidebar                   library-mode switcher, section select, categories, theme picker
-├── TopBar                    mobile menu trigger, ResourcesNav, auth buttons
+├── SourceBar                 "View source" bar
+├── Sidebar                   library-mode switcher (hidden when read-only), sections, categories, themes
+├── TopBar                    mobile menu trigger, ResourcesNav, New prompt (hidden when read-only)
 │   └── ResourcesNav          data-driven external-link menus
 ├── LibraryHero               section heading + search field
 ├── PromptListToolbar         counts, stat badges, favorites/recent/tag filters, sort select
@@ -221,200 +266,100 @@ App.tsx                       app shell, data fetching (routing state: hooks/use
 │       └── PromptCard        title, tags, preview, row actions
 ├── PromptDetail              single-prompt view
 ├── SkillPacksView            skill-pack catalog (own tab)
-├── EmptyState                not-authenticated / no-prompts states
-└── PromptModal
-    ├── MarkdownRenderer
-    ├── Metadata
-    └── ActionButtons
+├── EmptyState                empty My Library
+├── PromptEditorModal         create / edit a My Library prompt
+├── CommandPalette            ⌘K across prompts, sections, themes and actions
+└── ToastContainer
 ```
 
-`PromptCardActions` (exported from `PromptGrid.tsx`) bundles the eleven card-level
-props — `libraryMode`, the transient `copied` / `copyingToMyPromptsId` / `favorites`
-state, and the seven row-action callbacks — so all three grids pass one object.
+`PromptCardActions` (exported from `PromptGrid.tsx`) bundles the card-level props — the
+library mode, transient copy/favorite state, and the row-action callbacks — so every grid
+passes one object.
 
 ---
 
 ## Design Decisions
 
-### 1. **Dual Storage Modes**
+### 1. Local-first, no accounts
 
-**Rationale:**
-- Local mode needed for development (fast, no API limits)
-- GitHub mode needed for production (centralized, version control)
+A prompt library is personal and small. Running it locally removes the database, the
+password handling, the sessions and the hosting cost, and leaves the user owning plain
+files. The trade-off is that there is no multi-device sync built in; pointing
+`MY_LIBRARY_DIR` at a synced or git folder covers that.
 
-**Trade-offs:**
-- More complexity in API layer
-- Need to test both code paths
-- **Benefit:** Flexibility and better DX
+### 2. Files, not a database, for My Library
 
-### 2. **Batching GitHub API Calls**
+Same format as the Public Library, so copying a prompt is a file write and the folder is
+readable without the app. The store is small enough to list on every request; if a library
+ever reaches thousands of files, a cache keyed on the folder's mtime is the upgrade.
 
-**Problem:** 666 prompts → 666 concurrent API calls → EMFILE error
+### 3. One Express app everywhere
 
-**Solution:** Batch processing (50 at a time)
+`api/index.ts` exports the app; Vercel runs it as a function and `server.ts` mounts it
+locally. An earlier hand-copied dev server drifted from production, so `test:routes` now
+pins the route table.
 
-**Alternative considered:**
-- GraphQL API (single query) - More complex, GitHub GraphQL learning curve
-- Git clone on deployment - Requires writable filesystem (not available on Vercel)
+### 4. Prebuilt index + in-memory cache
 
-**Why batching won:**
-- Simple implementation
-- Works with REST API
-- Provides progress logging
-- Easy to tune (batch size, delays)
+The public listing is built once at build time, so a cold Vercel function does not walk
+thousands of files. The 5-minute in-memory cache covers warm instances. No external cache:
+it is a read-only, read-heavy workload.
 
-### 3. **In-Memory Caching**
+### 5. Read-only by environment
 
-**Why in-memory?**
-- Simple to implement
-- No dependencies
-- Fast access
-- Auto-invalidates on server restart
-
-**Alternative considered:**
-- Redis/Memcached - Overkill for read-heavy use case
-- Filesystem cache - Vercel has ephemeral filesystem
-- LocalStorage - Client-side only, doesn't reduce API calls
-
-**Why 5-minute TTL?**
-- Balances freshness vs API usage
-- Most users refresh within 5 minutes
-- Long enough to prevent rate limit issues
-- Short enough to see recent changes
-
-### 4. **Feature Flag Pattern**
-
-**Why feature flag?**
-- Easy to toggle modes
-- Safe default (local mode)
-- No code changes needed to switch
-- Can be environment-specific
-
-**Implementation:**
-```typescript
-const USE_GITHUB_MODE = process.env.USE_GITHUB_MODE === 'true';
-```
-
-**Benefits:**
-- Explicit opt-in (secure by default)
-- Boolean check is fast
-- Works across all environments
-
----
-
-## Performance Considerations
-
-### Bottlenecks
-
-1. **GitHub API latency** (~100-200ms per request)
-   - Mitigated by: Batching, caching
-   
-2. **Large file parsing** (gray-matter)
-   - Mitigated by: Lazy loading, pagination (future)
-
-3. **Frontend rendering** (666 cards)
-   - Mitigated by: Virtualization (future), search filtering
-
-### Optimization Strategies
-
-| Layer | Strategy | Impact |
-|-------|----------|--------|
-| API | Batching | -95% concurrent requests |
-| API | Caching | -99% repeat API calls |
-| API | Delays | Prevents rate limiting |
-| Frontend | Fuse.js | Fast search without server round-trip |
-| Frontend | Lazy render | (Future) Only render visible cards |
+The demo turns itself read-only from Vercel's own `VERCEL` variable, so a deploy cannot
+forget to set a flag and end up writable.
 
 ---
 
 ## Security Considerations
 
-### Environment Variables
+- **Binding:** the server listens on `127.0.0.1` unless `HOST` is set. With no accounts,
+  loopback is the access control. Exposing it needs `READ_ONLY=true` or an auth layer in
+  front.
+- **Read-only enforcement:** on the server, for every write route, not only in the UI.
+- **Path containment:** public-library reads go through `resolveInside()`
+  (`lib/safe-path.ts`), which resolves first and compares after, so `a/../../b` is refused.
+  Skill downloads must also land under `3_Skills/`. My Library ids are restricted to
+  `^[a-z0-9-]+$`.
+- **Headers and limits:** `helmet` sets the standard response headers. CSP is off on purpose
+  (Vite's inline module preloads and Google Fonts); HSTS is Vercel's. JSON bodies are capped
+  at 1 MB.
+- **No secrets:** the app needs none. `site/.env.example` holds only optional settings.
 
-**Sensitive data:**
-- `GITHUB_TOKEN` - Must be encrypted in Vercel
-
-**Public data:**
-- `GITHUB_OWNER`, `GITHUB_REPO` - Safe to expose (public repo)
-
-### API Security
-
-**Current:**
-- Public library reads are unauthenticated; every write (`POST`/`PUT`/`DELETE /api/prompts`,
-  skill-pack add/remove, profile update) requires a session.
-- Sessions are 256-bit CSPRNG tokens in `httpOnly`, `sameSite=lax` cookies (`secure` in
-  production). `sameSite=lax` is what stands in for CSRF protection: a cross-site form POST
-  does not carry the cookie.
-- `POST /api/auth/login` and `/signup` are rate-limited per IP (`middleware/rate-limit.ts`);
-  inputs are shape- and length-checked in `routes/auth.ts`. See `docs/features/API.md`.
-- `helmet` sets the standard response headers. CSP is off on purpose (Vite's inline module
-  preloads and Google Fonts), HSTS is Vercel's.
-- `app.set('trust proxy', 1)` so `req.ip` is the client, not Vercel's edge.
-- Read-only GitHub token in GitHub mode.
-
-**Future considerations:**
-- A shared rate-limit store (Upstash/Redis) if abuse ever shows up across instances.
-- Email verification on signup.
-
-### File Path Validation
-
-```typescript
-const resolvePromptPath = (promptId: string) => {
-  // Normalize path separators
-  const normalizedId = promptId.replace(/\\/g, '/');
-  
-  // Validate .md extension
-  if (!normalizedId.endsWith('.md')) {
-    throw new Error('Invalid prompt path');
-  }
-  
-  // Prevent directory traversal
-  const absolutePath = path.resolve(promptsRoot, normalizedId);
-  if (!absolutePath.startsWith(promptsRoot)) {
-    throw new Error('Invalid prompt path');
-  }
-  
-  return absolutePath;
-};
-```
-
-**Prevents:**
-- Directory traversal (`../../etc/passwd`)
-- Non-markdown files
-- Access outside `prompts/` directory
+See [SECURITY.md](../SECURITY.md) for the threat model and reporting.
 
 ---
 
 ## Deployment Architecture
 
-### Vercel Deployment
+### Local
+
+```
+npm run dev    → tsx server.ts               → Express + Vite HMR on 127.0.0.1:3010
+npm start      → npm run build + server.ts --production → Express + dist/ on 127.0.0.1:3010
+```
+
+### Hosted demo (Vercel)
 
 ```
 ┌─────────────────────────────────────┐
 │          Vercel Edge CDN            │
-│     (Static assets + caching)       │
+│        (static dist/ assets)        │
 └─────────────┬───────────────────────┘
-              │
+              │ vercel.json rewrites
 ┌─────────────▼───────────────────────┐
 │      Vercel Serverless Functions    │
-│                                     │
-│  /api/prompts → api/index.ts        │
-│                                     │
-│  Cold start: ~300ms                 │
-│  Warm: ~50ms                        │
+│  /api/skill-packs/* → skill-packs.ts│
+│  /api/*             → index.ts      │
+│  VERCEL set → READ_ONLY             │
 └─────────────┬───────────────────────┘
-              │
               ▼
-     GitHub API (if USE_GITHUB_MODE=true)
+     site/library/ + prompt-index.json (bundled)
 ```
 
-### Environment Configuration
-
-| Environment | USE_GITHUB_MODE | Storage |
-|-------------|----------------|---------|
-| Local Dev | false | Filesystem |
-| Vercel Preview | true | GitHub API |
-| Vercel Production | true | GitHub API |
+Build: Root Directory `site`, `vercel-build` (`build:index` → `tsc` → `vite build`), deploy
+branch `main`, no environment variables. Details in [setup/DEPLOYMENT.md](setup/DEPLOYMENT.md).
 
 ---
 
@@ -422,80 +367,40 @@ const resolvePromptPath = (promptId: string) => {
 
 ### API Layer
 
-```typescript
-try {
-  // Operation
-} catch (error) {
-  console.error("Error reading prompts:", error);
-  console.error("Error stack:", error?.stack);
-  // Return empty array instead of 500 to prevent UI break
-  res.json([]);
-}
-```
+The public listing returns `[]` instead of a `500` when the library cannot be read, so the
+UI shows its empty state rather than breaking; the error is logged. One file with malformed
+frontmatter is skipped rather than emptying the listing, in both libraries. Other routes
+return `{ "error": "..." }` with a `4xx`/`5xx` status.
 
-**Rationale:**
-- UI should never crash on API errors
-- Empty array allows UI to show "No prompts" state
-- Errors logged for debugging
-- User sees graceful degradation
+### Frontend
 
-### Frontend Error Handling
-
-- **Network errors:** Show retry button
-- **Parse errors:** Show error message, don't break app
-- **Empty state:** Show helpful message ("No prompts found")
+- **Network errors:** toast, the app keeps running
+- **Read-only 403s:** should not happen from the UI, since the controls are hidden
+- **Empty state:** an empty My Library offers to browse the Public Library
 
 ---
 
 ## Testing Strategy
 
-### Manual Testing
+CI (`.github/workflows/ci.yml`) runs on every PR:
 
-- ✅ Local mode - filesystem read/write
-- ✅ GitHub mode - API fetch with batching
-- ✅ Cache hit/miss behavior
-- ✅ Rate limit handling
-- ✅ Error states
+- `npm run lint` — type-check
+- `npm run test:routes` — the route table, and that no auth router is mounted
+- `npm run test:my-library` — the file store round trip and id containment, in a temp folder
+- provenance and Agent Skills frontmatter checks, homepage links, diagram drift (warning)
+- prompt index freshness
 
-### Future Testing
-
-- [ ] Unit tests for API endpoints
-- [ ] Integration tests for GitHub API calls
-- [ ] E2E tests for UI workflows
-- [ ] Performance benchmarks
-
----
-
-## Future Improvements
-
-### Short Term
-- [ ] Pagination for large libraries (>1000 prompts)
-- [ ] Virtual scrolling for performance
-- [ ] Markdown preview in grid view
-- [ ] Export/import functionality
-
-### Medium Term
-- [ ] User authentication
-- [ ] Multi-user support
-- [ ] Prompt versioning
-- [ ] Collaborative editing
-
-### Long Term
-- [ ] AI-powered prompt suggestions
-- [ ] Prompt templates with variables
-- [ ] Analytics dashboard
-- [ ] REST API for third-party integrations
+There are no UI or end-to-end tests.
 
 ---
 
 ## References
 
 - [Vercel Serverless Functions](https://vercel.com/docs/functions)
-- [GitHub REST API](https://docs.github.com/en/rest)
 - [React Documentation](https://react.dev/)
 - [Vite Guide](https://vitejs.dev/guide/)
+- [gray-matter](https://github.com/jonschlinkert/gray-matter)
 
 ---
 
-**Last Updated:** March 14, 2026  
-**Version:** 1.0.0
+**Last Updated:** October 21, 2026

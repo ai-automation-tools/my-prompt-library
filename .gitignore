@@ -7,10 +7,11 @@ coverage/
 .env*
 !.env.example
 
-# Database
-**/db/*.db
-**/db/*.db-shm
-**/db/*.db-wal
+# My Library: each user's own prompts (site/lib/my-library.ts). Never shipped.
+site/my-library/
+
+# Archify build receipts and screenshots (scripts/build-diagram.mjs)
+docs/diagrams/.build/
 
 # Local-only working trees (kept on disk, not tracked)
 backup/

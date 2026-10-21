@@ -20,7 +20,7 @@ for (const layer of app._router.stack) {
       registered.add(`${method.toUpperCase()} ${layer.route.path}`);
     }
   } else if (layer.regexp && layer.handle?.stack) {
-    // A mounted router (app.use('/api/auth', authRoutes)) — record the mount.
+    // A mounted router (app.use('/api/x', router)) — record the mount.
     registered.add(`USE ${layer.regexp.source}`);
   }
 }
@@ -39,10 +39,10 @@ const expected = [
 const missing = expected.filter((r) => !registered.has(r));
 assert.deepEqual(missing, [], `missing routes: ${missing.join(", ")}`);
 
-// The auth router is mounted rather than declared route-by-route.
+// There are no accounts any more; an /api/auth router coming back means login did.
 assert.ok(
-  [...registered].some((r) => r.startsWith("USE ") && r.includes("api")),
-  "auth router is not mounted on the shared app",
+  ![...registered].some((r) => r.startsWith("USE ") && r.includes("auth")),
+  "an auth router is mounted on the shared app",
 );
 
 console.log(`api-routes: all ${expected.length} routes present on the shared app`);

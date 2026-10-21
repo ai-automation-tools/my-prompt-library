@@ -17,6 +17,75 @@ misfiled debugger prompt.
 `site/api/prompt-index.json` rebuilt to include them.
 
 ---
+## 2026-10-21 — Local-first: no accounts, My Library on disk, a read-only demo
+
+The plan changed from a public site where people sign up and keep prompts, to an app people clone
+and run themselves. A personal library doesn't need a server-side account, and running signups
+meant owning a login system, a database and their security for no benefit to anyone.
+
+**App**
+- My Library is now a folder of markdown files, one per prompt, with title, section, category,
+  subcategory, tags and dates in frontmatter (`site/lib/my-library.ts`). It defaults to
+  `site/my-library/` (gitignored); `MY_LIBRARY_DIR` points it at a synced or git-tracked folder.
+  Every My Library route kept its shape, so the UI's create, edit, delete, copy and skill-pack flows
+  are unchanged apart from the sign-in prompts disappearing.
+- Removed: email/password accounts (bcrypt, cookie sessions, rate limiting, the login and signup
+  modals, `AuthContext`), the Neon/Postgres layer and its four tables, and GitHub mode, which the
+  Vercel deployment never had switched on. Dependencies `pg`, `bcryptjs`, `cookie-parser`,
+  `express-rate-limit` and their types are gone.
+- Skill packs: a pack counts as in My Library while any prompt there carries its
+  `skill-pack:<id>` tag, so the separate install table went with the database.
+- The server listens on `127.0.0.1` (`HOST` overrides), since anyone who can reach it can edit My
+  Library, and every write refuses a request whose `Origin` doesn't match its `Host`, so a page on
+  another site can't post a form into it. `npm start` now builds and serves `dist/`; it used to run a `dist/server.js` nothing built.
+- Read-only mode: `READ_ONLY=true`, or automatically on Vercel. Write routes return 403 and the UI
+  hides the library switch, New prompt, Save to My Library and pack add/remove. The demo at
+  `my-prompt-library-demo.ai-automation-tools.dev` is now a read-only Public Library browser.
+
+**Tooling**
+- `npm run test:my-library` round-trips the file store in a temp folder, checks that ids can't
+  name a path outside it and that cross-site writes are refused; CI runs it, and the existing
+  `lib/safe-path.test.mjs`. `test:routes` now also fails if an auth router comes back.
+- The data-flow diagram swaps the Neon node for the `my-library/` folder, re-pinned to the new code.
+
+**Docs**
+- README, CLAUDE.md, SECURITY.md, setup, deployment, API, architecture, UPSTREAMS, the homepage and
+  the roadmap describe the local-first app. `docs/features/GITHUB_MODE.md` and
+  `docs/development/POSTGRES-MIGRATION-SUMMARY.md` were deleted. The roadmap's Neon items became one:
+  delete the database and the dead Vercel env vars (Mike).
+
+_Touched: `site/` (api, lib, server, src, scripts, package files, `.env.example`, `vite.config.ts`),
+`.github/workflows/ci.yml`, `.gitignore`, `README.md`, `CLAUDE.md`, `SECURITY.md`, `docs/` (README,
+ROADMAP, DIRECTION, UPSTREAMS, ARCHITECTURE, setup, features, skill-packs, diagrams),
+`homepage/index.html`, `homepage/diagram/`, `docs/CHANGELOG.md`._
+
+## 2026-10-20 — Quick Start says where to run npm
+
+**Docs**
+- The README's Quick Start now states that the app lives in `site/` and every `npm` command runs
+  there. Running `npm install` from the repo root from an existing clone did nothing but leave an
+  empty `package-lock.json`.
+
+_Touched: `README.md`, `docs/CHANGELOG.md`._
+
+## 2026-10-19 — A code-pinned data-flow diagram on the homepage
+
+**Docs**
+- New `docs/diagrams/library-data-flow.json`: an Archify data flow of how library markdown becomes the
+  prebuilt index the public API serves, how My Library and skill-pack installs reach Neon, and what the
+  React app fetches. Every node cites the code it describes at a pinned commit; `docs/diagrams/README.md`
+  is the procedure.
+
+**Site**
+- The homepage's "How it works" section embeds the interactive diagram live
+  (`homepage/diagram/`, copies the builder writes), in the page's theme.
+
+**Tooling**
+- `scripts/build-diagram.mjs` builds it and checks for drift (`--check`); CI's *Diagram drift* step warns
+  when cited code changes, and the weekly doc drift check reads `--check` as `prompt-library-diagram`.
+
+_Touched: `docs/diagrams/`, `scripts/build-diagram.mjs`, `homepage/index.html`, `homepage/diagram/`,
+`.github/workflows/ci.yml`, `.gitignore`, `README.md`, `docs/README.md`, `CLAUDE.md`, `docs/CHANGELOG.md`._
 
 ## 2026-10-19 — The app moves to `my-prompt-library-demo.ai-automation-tools.dev`
 

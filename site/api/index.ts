@@ -1,6 +1,5 @@
 import "dotenv/config";
 import express from "express";
-import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import fs from "fs";
 import path from "path";
@@ -8,9 +7,7 @@ import matter from "gray-matter";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import archiver from "archiver";
-import authRoutes from "../routes/auth.js";
-import { optionalAuth, authenticate } from "../middleware/auth.js";
-import { promptDb, initializeSchema } from "../db/postgres.js";
+import { myLibrary, READ_ONLY, type UserPrompt } from "../lib/my-library.js";
 import { resolveInside } from "../lib/safe-path.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -23,11 +20,6 @@ const __dirname = dirname(__filename);
 // the GitHub tree on a `prompts/` folder that was renamed to `library/`.
 export const app = express();
 
-// Vercel terminates TLS and forwards the client IP in X-Forwarded-For; one hop
-// is exactly what we trust. Rate limiting keys on req.ip, so without this every
-// request would look like it came from the proxy.
-app.set('trust proxy', 1);
-
 // Response headers only: no CSP, because Vite's build emits inline module
 // preloads and the themes pull from Google Fonts, and in production the static
 // assets never pass through Express anyway. HSTS is left to Vercel, which sets
@@ -37,7 +29,6 @@ app.use(helmet({ contentSecurityPolicy: false, strictTransportSecurity: false })
 // Prompt bodies are user content and some library prompts run long, but nothing
 // legitimate approaches a megabyte.
 app.use(express.json({ limit: '1mb' }));
-app.use(cookieParser());
 
 // Debug middleware
 app.use((req, res, next) => {
@@ -47,8 +38,49 @@ app.use((req, res, next) => {
   next();
 });
 
-// Mount auth routes
-app.use('/api/auth', authRoutes);
+/** Browsers send Origin on cross-site writes; ours always matches the Host it was served from. */
+const isCrossSite = (req: express.Request) => {
+  const origin = req.headers.origin;
+  if (!origin) return false; // curl and other non-browser clients
+  try {
+    return new URL(origin).host !== req.headers.host;
+  } catch {
+    return true; // "null" from sandboxed frames and file:// pages
+  }
+};
+
+/**
+ * Every route that writes to My Library. The hosted demo is read-only, and with
+ * no accounts the Origin check is what stops any page you visit from posting a
+ * form at localhost:3010 (copy-to-my-prompts needs no body, so it is a simple
+ * request the browser sends without asking).
+ * ponytail: no Host allowlist, so DNS rebinding is not covered; add one if the
+ * local server ever holds anything more sensitive than prompts.
+ */
+const requireWritable: express.RequestHandler = (req, res, next) => {
+  if (READ_ONLY) {
+    res.status(403).json({ error: 'This copy of the library is read-only. Clone the repo to keep your own prompts.' });
+    return;
+  }
+  if (isCrossSite(req)) {
+    res.status(403).json({ error: 'Cross-site request refused' });
+    return;
+  }
+  next();
+};
+
+/** The wire shape of a My Library prompt. */
+const toApiPrompt = (p: UserPrompt) => ({
+  id: p.id,
+  title: p.title,
+  section: p.section,
+  category: p.category,
+  subcategory: p.subcategory,
+  tags: p.tags,
+  content: p.content,
+  lastModified: p.updated_at,
+  isUserOwned: true,
+});
 
 // Simple in-memory cache for prompt listings
 let promptsCache: { data: any[], timestamp: number } | null = null;
@@ -88,21 +120,6 @@ const getPreviewIndex = (): Map<string, string> => {
   return previewIndex;
 };
 
-// Helper function to generate safe filename
-const generateFilename = (title: string) => {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '') + '.md';
-};
-
-// Helper function to create directory if it doesn't exist
-const ensureDir = (dirPath: string) => {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
-};
-
 // Library path resolution.
 // Always resolve relative to this file, never process.cwd(): on Vercel the
 // function runs with cwd=/var/task while the app (Root Directory = site) is
@@ -126,22 +143,6 @@ const SKILLS_SECTION = '3_Skills';
 // Pre-rename *_OLD trees — kept in the repo, never served
 const LEGACY_SECTION = 'Legacy';
 
-// GitHub configuration
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_OWNER = process.env.GITHUB_OWNER;
-const GITHUB_REPO = process.env.GITHUB_REPO;
-const GITHUB_BRANCH = process.env.GITHUB_BRANCH || 'main';
-const USE_GITHUB_MODE = process.env.USE_GITHUB_MODE === 'true';
-
-const isGitHubConfigured = () => {
-  return USE_GITHUB_MODE && GITHUB_TOKEN && GITHUB_OWNER && GITHUB_REPO;
-};
-
-const githubHeaders = GITHUB_TOKEN ? {
-  'Authorization': `token ${GITHUB_TOKEN}`,
-  'Accept': 'application/vnd.github.v3+json',
-} : {};
-
 // Helper to extract first heading from markdown
 const extractFirstHeading = (content: string): string | null => {
   const match = content.match(/^#\s+(.+)$/m);
@@ -149,33 +150,18 @@ const extractFirstHeading = (content: string): string | null => {
 };
 
 // API to list all prompts (with optional lightweight mode)
-app.get("/api/prompts", optionalAuth, async (req, res) => {
+app.get("/api/prompts", async (req, res) => {
   const libraryMode = req.query.library as string;
   const lightweight = req.query.lightweight === 'true'; // Only return metadata, not full content
-  
+
   if (libraryMode === 'my') {
-    if (!req.user) {
-      return res.status(401).json({ error: 'Authentication required for My Library' });
-    }
-    
-    const userPrompts = await promptDb.findByUserId(req.user.id);
-    
-    const formattedPrompts = userPrompts.map(p => ({
-      id: p.id,
-      title: p.title,
-      section: p.section,
-      category: p.category,
-      subcategory: p.subcategory,
-      tags: p.tags,
-      // My Library keeps its inline preview where the public listing dropped one:
-      // this is one user's own prompts, not 3,088, so the bytes are not worth a
-      // round trip — and /api/prompts/previews only knows about library files.
+    // My Library keeps its inline preview where the public listing dropped one:
+    // it is one person's own prompts, not 3,088, so the bytes are not worth a
+    // round trip — and /api/prompts/previews only knows about library files.
+    return res.json(myLibrary.list().map(p => ({
+      ...toApiPrompt(p),
       content: lightweight ? p.content.substring(0, PREVIEW_LENGTH) : p.content,
-      lastModified: p.updated_at,
-      isUserOwned: true,
-    }));
-    
-    return res.json(formattedPrompts);
+    })));
   }
 
   // Check cache for public library lightweight requests
@@ -195,184 +181,98 @@ app.get("/api/prompts", optionalAuth, async (req, res) => {
       ...p,
       content: '',
     }));
-    
+
     // Cache it for subsequent requests
     promptsCache = { data: indexedPrompts, timestamp: Date.now() };
-    
+
     return res.json(indexedPrompts);
   }
 
   try {
-    if (isGitHubConfigured()) {
-      // GitHub mode implementation
-      const branchResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/ref/heads/${encodeURIComponent(GITHUB_BRANCH)}`,
-        { headers: githubHeaders }
-      );
-      
-      if (!branchResponse.ok) {
-        throw new Error(`GitHub API error: ${branchResponse.statusText}`);
-      }
+    const walkDir = (dir: string, baseDir: string = LIBRARY_PATH): any[] => {
+      if (!fs.existsSync(dir)) return [];
 
-      const branchData: any = await branchResponse.json();
-      const commitSha = branchData.object.sha;
+      let results: any[] = [];
+      const list = fs.readdirSync(dir);
 
-      const treeResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${commitSha}?recursive=1`,
-        { headers: githubHeaders }
-      );
+      list.forEach(file => {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
 
-      if (!treeResponse.ok) {
-        throw new Error(`GitHub tree error: ${treeResponse.statusText}`);
-      }
+        if (stat.isDirectory()) {
+          if (dir === baseDir && file === LEGACY_SECTION) {
+            return;
+          }
+          results = results.concat(walkDir(filePath, baseDir));
+        } else if (file.endsWith('.md')) {
+          if (file === 'README.md') {
+            return;
+          }
 
-      const treeData: any = await treeResponse.json();
-      const mdFiles = treeData.tree.filter((item: any) => {
-        if (item.type !== 'blob' || !item.path.startsWith('library/') || !item.path.endsWith('.md')) {
-          return false;
-        }
+          const relativePath = path.relative(baseDir, filePath);
 
-        if (item.path.endsWith('/README.md')) {
-          return false;
-        }
-        
-        if (item.path.startsWith(`library/${LEGACY_SECTION}/`)) {
-          return false;
-        }
+          // For Skills section, only include SKILL.md files
+          if (relativePath.startsWith(SKILLS_SECTION + path.sep)) {
+            if (!file.endsWith('SKILL.md')) {
+              return; // Skip non-SKILL.md files in Skills section
+            }
+          }
 
-        // For Skills section, only include SKILL.md files
-        if (item.path.startsWith(`library/${SKILLS_SECTION}/`)) {
-          return item.path.endsWith('/SKILL.md');
-        }
-        
-        return true;
-      });
+          // Skip files larger than 500KB (likely bulk collections, not individual prompts)
+          if (stat.size > 500 * 1024) {
+            console.log(`[SKIP] Large file: ${relativePath} (${(stat.size / 1024).toFixed(0)}KB)`);
+            return;
+          }
 
-      const prompts = await Promise.all(
-        mdFiles.map(async (file: any) => {
-          const contentResponse = await fetch(
-            `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${file.path}?ref=${GITHUB_BRANCH}`,
-            { headers: githubHeaders }
-          );
-          
-          if (!contentResponse.ok) return null;
-          
-          const contentData: any = await contentResponse.json();
-          const rawContent = Buffer.from(contentData.content, 'base64').toString('utf-8');
-          const { data, content } = matter(rawContent);
-          
-          const pathParts = file.path.replace('library/', '').replace('.md', '').split('/');
+          const rawContent = fs.readFileSync(filePath, 'utf-8');
+
+          // One file with malformed frontmatter must not empty the whole library
+          let data: Record<string, any>;
+          let content: string;
+          try {
+            ({ data, content } = matter(rawContent));
+          } catch (err) {
+            console.warn(`[WARN] Failed to parse frontmatter in ${relativePath}, skipping`);
+            return;
+          }
+
+          const pathParts = relativePath.replace('.md', '').split(path.sep);
+
           const section = pathParts[0] || 'General';
           const category = pathParts[1] || 'Uncategorized';
           const subcategory = pathParts.length > 2 ? pathParts[2] : null;
-          
+
           // For Skills, use 'name' field instead of 'title'
-          // `title` first for every section: `name` is the spec slug now.
           const title = data.title || data.name
-            || extractFirstHeading(content) || path.basename(file.path, '.md');
-          
-          return {
-            id: file.path,
+            || extractFirstHeading(content) || path.basename(file, '.md');
+
+          results.push({
+            // Ids are URL/path keys — always forward-slashed, even on Windows
+            id: relativePath.split(path.sep).join('/'),
             title: title,
             section,
             category,
             subcategory,
             tags: data.tags || [],
             content: lightweight ? '' : content, // Lightweight drops the body; cards fetch previews
-            lastModified: contentData.sha,
+            lastModified: stat.mtime.toISOString(),
             isUserOwned: false,
-          };
-        })
-      );
+          });
+        }
+      });
 
-      res.json(prompts.filter(Boolean));
-    } else {
-      // Local filesystem mode
-      const walkDir = (dir: string, baseDir: string = LIBRARY_PATH): any[] => {
-        if (!fs.existsSync(dir)) return [];
-        
-        let results: any[] = [];
-        const list = fs.readdirSync(dir);
-        
-        list.forEach(file => {
-          const filePath = path.join(dir, file);
-          const stat = fs.statSync(filePath);
-          
-          if (stat.isDirectory()) {
-            if (dir === baseDir && file === LEGACY_SECTION) {
-              return;
-            }
-            results = results.concat(walkDir(filePath, baseDir));
-          } else if (file.endsWith('.md')) {
-            if (file === 'README.md') {
-              return;
-            }
+      return results;
+    };
 
-            const relativePath = path.relative(baseDir, filePath);
-            
-            // For Skills section, only include SKILL.md files
-            if (relativePath.startsWith(SKILLS_SECTION + path.sep)) {
-              if (!file.endsWith('SKILL.md')) {
-                return; // Skip non-SKILL.md files in Skills section
-              }
-            }
-            
-            // Skip files larger than 500KB (likely bulk collections, not individual prompts)
-            if (stat.size > 500 * 1024) {
-              console.log(`[SKIP] Large file: ${relativePath} (${(stat.size / 1024).toFixed(0)}KB)`);
-              return;
-            }
-            
-            const rawContent = fs.readFileSync(filePath, 'utf-8');
+    const prompts = walkDir(LIBRARY_PATH);
 
-            // One file with malformed frontmatter must not empty the whole library
-            let data: Record<string, any>;
-            let content: string;
-            try {
-              ({ data, content } = matter(rawContent));
-            } catch (err) {
-              console.warn(`[WARN] Failed to parse frontmatter in ${relativePath}, skipping`);
-              return;
-            }
-
-            const pathParts = relativePath.replace('.md', '').split(path.sep);
-            
-            const section = pathParts[0] || 'General';
-            const category = pathParts[1] || 'Uncategorized';
-            const subcategory = pathParts.length > 2 ? pathParts[2] : null;
-            
-            // For Skills, use 'name' field instead of 'title'
-            const title = data.title || data.name
-              || extractFirstHeading(content) || path.basename(file, '.md');
-            
-            results.push({
-              // Ids are URL/path keys — always forward-slashed, even on Windows
-              id: relativePath.split(path.sep).join('/'),
-              title: title,
-              section,
-              category,
-              subcategory,
-              tags: data.tags || [],
-              content: lightweight ? '' : content, // Lightweight drops the body; cards fetch previews
-              lastModified: stat.mtime.toISOString(),
-              isUserOwned: false,
-            });
-          }
-        });
-        
-        return results;
-      };
-
-      const prompts = walkDir(LIBRARY_PATH);
-      
-      // Cache lightweight public library requests
-      if (libraryMode === 'public' && lightweight) {
-        promptsCache = { data: prompts, timestamp: Date.now() };
-        console.log('[CACHE SET] Cached', prompts.length, 'prompts');
-      }
-      
-      res.json(prompts);
+    // Cache lightweight public library requests
+    if (libraryMode === 'public' && lightweight) {
+      promptsCache = { data: prompts, timestamp: Date.now() };
+      console.log('[CACHE SET] Cached', prompts.length, 'prompts');
     }
+
+    res.json(prompts);
   } catch (error: any) {
     console.error("Error listing prompts:", error);
     res.json([]);
@@ -423,96 +323,50 @@ app.post("/api/prompts/previews", (req, res) => {
 });
 
 // Get single prompt with full content
-app.get("/api/prompts/:id", optionalAuth, async (req, res) => {
+app.get("/api/prompts/:id", async (req, res) => {
   try {
     const promptId = decodeURIComponent(req.params.id);
-    
-    // Check if it's a user-owned prompt (database ID)
-    if (req.user && !promptId.includes('/')) {
-      const prompt = await promptDb.findById(promptId);
-      if (prompt && prompt.user_id === req.user.id) {
-        return res.json({
-          id: prompt.id,
-          title: prompt.title,
-          section: prompt.section,
-          category: prompt.category,
-          subcategory: prompt.subcategory,
-          tags: prompt.tags,
-          content: prompt.content,
-          lastModified: prompt.updated_at,
-          isUserOwned: true,
-        });
+
+    // My Library ids are bare file names; library ids are always section/…/file.md
+    if (!promptId.includes('/')) {
+      const prompt = myLibrary.get(promptId);
+      if (prompt) {
+        return res.json(toApiPrompt(prompt));
       }
     }
-    
-    // Otherwise, it's a file path in the library
-    if (isGitHubConfigured()) {
-      // GitHub mode
-      const githubPath = promptId.startsWith('library/') ? promptId : `library/${promptId}`;
-      const response = await fetch(
-        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${githubPath}?ref=${GITHUB_BRANCH}`,
-        { headers: githubHeaders }
-      );
-      
-      if (!response.ok) {
-        return res.status(404).json({ error: 'Prompt not found' });
-      }
-      
-      const data: any = await response.json();
-      const rawContent = Buffer.from(data.content, 'base64').toString('utf-8');
-      const { data: frontmatter, content } = matter(rawContent);
-      
-      const pathParts = promptId.replace('library/', '').replace('.md', '').split('/');
-      const section = pathParts[0] || 'General';
-      const category = pathParts[1] || 'Uncategorized';
-      const subcategory = pathParts.length > 2 ? pathParts[2] : null;
-      
-      return res.json({
-        id: promptId,
-        title: frontmatter.title || extractFirstHeading(content) || path.basename(promptId, '.md'),
-        section,
-        category,
-        subcategory,
-        tags: frontmatter.tags || [],
-        content,
-        lastModified: data.sha,
-        isUserOwned: false,
-      });
-    } else {
-      // Local filesystem mode
-      const filePath = resolveInside(LIBRARY_PATH, promptId);
 
-      if (!filePath) {
-        return res.status(400).json({ error: 'Invalid prompt path' });
-      }
+    const filePath = resolveInside(LIBRARY_PATH, promptId);
 
-      if (!fs.existsSync(filePath)) {
-        return res.status(404).json({ error: 'Prompt not found' });
-      }
-      
-      const rawContent = fs.readFileSync(filePath, 'utf-8');
-      const { data: frontmatter, content } = matter(rawContent);
-      const stat = fs.statSync(filePath);
-      
-      // promptId is a URL key, always forward-slashed — never path.sep, which
-      // is "\" on Windows and left section holding the entire path in dev.
-      const pathParts = promptId.replace('.md', '').split('/');
-      const section = pathParts[0] || 'General';
-      const category = pathParts[1] || 'Uncategorized';
-      const subcategory = pathParts.length > 2 ? pathParts[2] : null;
-      
-      return res.json({
-        id: promptId,
-        title: frontmatter.title || extractFirstHeading(content) || path.basename(promptId, '.md'),
-        section,
-        category,
-        subcategory,
-        tags: frontmatter.tags || [],
-        content,
-        lastModified: stat.mtime.toISOString(),
-        isUserOwned: false,
-      });
+    if (!filePath) {
+      return res.status(400).json({ error: 'Invalid prompt path' });
     }
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: 'Prompt not found' });
+    }
+
+    const rawContent = fs.readFileSync(filePath, 'utf-8');
+    const { data: frontmatter, content } = matter(rawContent);
+    const stat = fs.statSync(filePath);
+
+    // promptId is a URL key, always forward-slashed — never path.sep, which
+    // is "\" on Windows and left section holding the entire path in dev.
+    const pathParts = promptId.replace('.md', '').split('/');
+    const section = pathParts[0] || 'General';
+    const category = pathParts[1] || 'Uncategorized';
+    const subcategory = pathParts.length > 2 ? pathParts[2] : null;
+
+    return res.json({
+      id: promptId,
+      title: frontmatter.title || extractFirstHeading(content) || path.basename(promptId, '.md'),
+      section,
+      category,
+      subcategory,
+      tags: frontmatter.tags || [],
+      content,
+      lastModified: stat.mtime.toISOString(),
+      isUserOwned: false,
+    });
   } catch (error: any) {
     console.error("Error fetching prompt:", error);
     res.status(500).json({ error: "Failed to fetch prompt" });
@@ -520,7 +374,7 @@ app.get("/api/prompts/:id", optionalAuth, async (req, res) => {
 });
 
 // Create prompt
-app.post("/api/prompts", authenticate, async (req, res) => {
+app.post("/api/prompts", requireWritable, async (req, res) => {
   try {
     const { title, section, category, subcategory, tags, content } = req.body;
 
@@ -528,7 +382,7 @@ app.post("/api/prompts", authenticate, async (req, res) => {
       return res.status(400).json({ error: "Missing required fields: title, section, category, content" });
     }
 
-    const prompt = await promptDb.create(req.user!.id, {
+    const prompt = myLibrary.create({
       title,
       section,
       category,
@@ -537,18 +391,7 @@ app.post("/api/prompts", authenticate, async (req, res) => {
       content,
     });
 
-    res.json({
-      id: prompt.id,
-      title: prompt.title,
-      section: prompt.section,
-      category: prompt.category,
-      subcategory: prompt.subcategory,
-      tags: prompt.tags,
-      content: prompt.content,
-      lastModified: prompt.updated_at,
-      isUserOwned: true,
-      message: "Prompt created successfully"
-    });
+    res.json({ ...toApiPrompt(prompt), message: "Prompt created successfully" });
   } catch (error: any) {
     console.error("Error creating prompt:", error);
     res.status(500).json({ error: "Failed to create prompt" });
@@ -556,12 +399,12 @@ app.post("/api/prompts", authenticate, async (req, res) => {
 });
 
 // Update prompt
-app.put("/api/prompts/:id", authenticate, async (req, res) => {
+app.put("/api/prompts/:id", requireWritable, async (req, res) => {
   try {
     const promptId = decodeURIComponent(req.params.id);
     const { title, tags, content, category, subcategory, section } = req.body;
 
-    const prompt = await promptDb.update(promptId, req.user!.id, {
+    const prompt = myLibrary.update(promptId, {
       title,
       tags,
       content,
@@ -571,21 +414,10 @@ app.put("/api/prompts/:id", authenticate, async (req, res) => {
     });
 
     if (!prompt) {
-      return res.status(404).json({ error: "Prompt not found or unauthorized" });
+      return res.status(404).json({ error: "Prompt not found" });
     }
 
-    res.json({
-      id: prompt.id,
-      title: prompt.title,
-      section: prompt.section,
-      category: prompt.category,
-      subcategory: prompt.subcategory,
-      tags: prompt.tags,
-      content: prompt.content,
-      lastModified: prompt.updated_at,
-      isUserOwned: true,
-      message: "Prompt updated successfully"
-    });
+    res.json({ ...toApiPrompt(prompt), message: "Prompt updated successfully" });
   } catch (error) {
     console.error("Error updating prompt:", error);
     res.status(500).json({ error: "Failed to update prompt" });
@@ -593,14 +425,12 @@ app.put("/api/prompts/:id", authenticate, async (req, res) => {
 });
 
 // Delete prompt
-app.delete("/api/prompts/:id", authenticate, async (req, res) => {
+app.delete("/api/prompts/:id", requireWritable, async (req, res) => {
   try {
     const promptId = decodeURIComponent(req.params.id);
 
-    const deleted = await promptDb.delete(promptId, req.user!.id);
-
-    if (!deleted) {
-      return res.status(404).json({ error: "Prompt not found or unauthorized" });
+    if (!myLibrary.delete(promptId)) {
+      return res.status(404).json({ error: "Prompt not found" });
     }
 
     res.json({
@@ -613,58 +443,34 @@ app.delete("/api/prompts/:id", authenticate, async (req, res) => {
 });
 
 // Copy from public library
-app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, res) => {
+app.post("/api/prompts/:path(*)/copy-to-my-prompts", requireWritable, async (req, res) => {
   try {
     const promptId = decodeURIComponent(req.params.path);
-    
-    // Read from filesystem or GitHub
-    let content: string;
-    let data: any;
-    
-    if (isGitHubConfigured()) {
-      const contentResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/library/${promptId}?ref=${GITHUB_BRANCH}`,
-        { headers: githubHeaders }
-      );
-      
-      if (!contentResponse.ok) {
-        return res.status(404).json({ error: "Prompt not found in public library" });
-      }
-      
-      const contentData: any = await contentResponse.json();
-      const rawContent = Buffer.from(contentData.content, 'base64').toString('utf-8');
-      const parsed = matter(rawContent);
-      data = parsed.data;
-      content = parsed.content;  // Use parsed content (without frontmatter)
-    } else {
-      const promptPath = resolveInside(LIBRARY_PATH, promptId);
 
-      if (!promptPath) {
-        return res.status(400).json({ error: "Invalid prompt path" });
-      }
+    const promptPath = resolveInside(LIBRARY_PATH, promptId);
 
-      if (!fs.existsSync(promptPath)) {
-        return res.status(404).json({ error: "Prompt not found in public library" });
-      }
-      
-      const rawContent = fs.readFileSync(promptPath, 'utf-8');
-      const parsed = matter(rawContent);
-      data = parsed.data;
-      content = parsed.content;  // Use parsed content (without frontmatter)
+    if (!promptPath) {
+      return res.status(400).json({ error: "Invalid prompt path" });
     }
+
+    if (!fs.existsSync(promptPath)) {
+      return res.status(404).json({ error: "Prompt not found in public library" });
+    }
+
+    // Parsed content, without the library file's own frontmatter
+    const { data, content } = matter(fs.readFileSync(promptPath, 'utf-8'));
 
     const pathParts = promptId.replace('.md', '').split('/');
     const section = pathParts[0] || 'General';
     const category = pathParts[1] || 'Uncategorized';
     const subcategory = pathParts.length > 2 ? pathParts[2] : null;
-    
+
     // For Skills, use 'name' field instead of 'title'
     const title = data.title || data.name
       || extractFirstHeading(content) || path.basename(promptId, ".md");
 
-    const existingPrompts = await promptDb.findByUserId(req.user!.id);
     const normalizedTitle = title.trim().toLowerCase();
-    const duplicate = existingPrompts.find(p =>
+    const duplicate = myLibrary.list().find(p =>
       p.section === section &&
       p.category === category &&
       (p.subcategory || null) === (subcategory || null) &&
@@ -675,7 +481,7 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
       return res.status(409).json({ error: "This prompt already exists in your library" });
     }
 
-    const copiedPrompt = await promptDb.copyFromPublic(req.user!.id, {
+    const copiedPrompt = myLibrary.create({
       title,
       section,
       category,
@@ -684,18 +490,7 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", authenticate, async (req, r
       content,
     });
 
-    return res.json({
-      id: copiedPrompt.id,
-      title: copiedPrompt.title,
-      section: copiedPrompt.section,
-      category: copiedPrompt.category,
-      subcategory: copiedPrompt.subcategory,
-      tags: copiedPrompt.tags,
-      content: copiedPrompt.content,
-      lastModified: copiedPrompt.updated_at,
-      isUserOwned: true,
-      message: "Prompt copied to My Library"
-    });
+    return res.json({ ...toApiPrompt(copiedPrompt), message: "Prompt copied to My Library" });
   } catch (error: any) {
     console.error("Error copying prompt to My Library:", error);
     return res.status(500).json({ error: error.message || "Failed to copy prompt to My Library" });
@@ -708,115 +503,43 @@ app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
     const skillPath = decodeURIComponent(req.params.skillPath).replace(/\\/g, '/');
 
     // Resolve first, then check containment — a raw startsWith() on skillPath is
-    // satisfied by "3_Skills/../../db" and hands out the whole bundle. Checked
-    // before the mode split because GitHub normalises ".." in contents URLs too.
+    // satisfied by "3_Skills/../../db" and hands out the whole bundle.
     const skillsRoot = path.join(LIBRARY_PATH, SKILLS_SECTION);
-    const resolvedSkillPath = resolveInside(LIBRARY_PATH, skillPath);
+    const fullPath = resolveInside(LIBRARY_PATH, skillPath);
 
-    if (!resolvedSkillPath || !resolvedSkillPath.startsWith(skillsRoot + path.sep)) {
+    if (!fullPath || !fullPath.startsWith(skillsRoot + path.sep)) {
       return res.status(400).json({ error: "Invalid skill path. Must be under 3_Skills/ directory." });
     }
 
-    // Check if using GitHub or filesystem
-    if (isGitHubConfigured()) {
-      // For GitHub mode, we need to fetch all files in the directory
-      const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/library/${skillPath}?ref=${GITHUB_BRANCH}`;
-      const response = await fetch(apiUrl, { headers: githubHeaders });
-      
-      if (!response.ok) {
-        return res.status(404).json({ error: "Skill directory not found" });
-      }
-
-      const files: any[] = await response.json();
-      
-      if (!Array.isArray(files)) {
-        return res.status(400).json({ error: "Path must be a directory" });
-      }
-
-      // Get the skill directory name for the zip filename
-      const skillDirName = path.basename(skillPath);
-      const zipFilename = `${skillDirName}.zip`;
-
-      // Set headers for download
-      res.setHeader('Content-Type', 'application/zip');
-      res.setHeader('Content-Disposition', `attachment; filename="${zipFilename}"`);
-
-      // Create archive
-      const archive = archiver('zip', {
-        zlib: { level: 9 }
-      });
-
-      archive.on('error', (err) => {
-        console.error('Archive error:', err);
-        if (!res.headersSent) {
-          res.status(500).json({ error: 'Failed to create archive' });
-        }
-      });
-
-      archive.pipe(res);
-
-      // Recursively fetch and add files from GitHub
-      async function addFilesFromGitHub(dirPath: string, archivePath: string = '') {
-        const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/library/${dirPath}?ref=${GITHUB_BRANCH}`;
-        const resp = await fetch(url, { headers: githubHeaders });
-        
-        if (!resp.ok) return;
-        
-        const items: any[] = await resp.json();
-        
-        for (const item of items) {
-          if (item.type === 'file') {
-            // Fetch file content
-            const fileResp = await fetch(item.download_url);
-            const fileContent = await fileResp.text();
-            const fileName = archivePath ? `${archivePath}/${item.name}` : item.name;
-            archive.append(fileContent, { name: fileName });
-          } else if (item.type === 'dir') {
-            const subPath = item.path.replace('library/', '');
-            const newArchivePath = archivePath ? `${archivePath}/${item.name}` : item.name;
-            await addFilesFromGitHub(subPath, newArchivePath);
-          }
-        }
-      }
-
-      await addFilesFromGitHub(skillPath);
-      await archive.finalize();
-
-    } else {
-      // Filesystem mode (local development)
-      const fullPath = resolvedSkillPath;
-
-      if (!fs.existsSync(fullPath)) {
-        return res.status(404).json({ error: "Skill directory not found" });
-      }
-
-      const stats = fs.statSync(fullPath);
-      if (!stats.isDirectory()) {
-        return res.status(400).json({ error: "Path must be a directory" });
-      }
-
-      const skillDirName = path.basename(fullPath);
-      const zipFilename = `${skillDirName}.zip`;
-
-      res.setHeader('Content-Type', 'application/zip');
-      res.setHeader('Content-Disposition', `attachment; filename="${zipFilename}"`);
-
-      const archive = archiver('zip', {
-        zlib: { level: 9 }
-      });
-
-      archive.on('error', (err) => {
-        console.error('Archive error:', err);
-        if (!res.headersSent) {
-          res.status(500).json({ error: 'Failed to create archive' });
-        }
-      });
-
-      archive.pipe(res);
-      archive.directory(fullPath, false);
-      await archive.finalize();
+    if (!fs.existsSync(fullPath)) {
+      return res.status(404).json({ error: "Skill directory not found" });
     }
 
+    const stats = fs.statSync(fullPath);
+    if (!stats.isDirectory()) {
+      return res.status(400).json({ error: "Path must be a directory" });
+    }
+
+    const skillDirName = path.basename(fullPath);
+    const zipFilename = `${skillDirName}.zip`;
+
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', `attachment; filename="${zipFilename}"`);
+
+    const archive = archiver('zip', {
+      zlib: { level: 9 }
+    });
+
+    archive.on('error', (err) => {
+      console.error('Archive error:', err);
+      if (!res.headersSent) {
+        res.status(500).json({ error: 'Failed to create archive' });
+      }
+    });
+
+    archive.pipe(res);
+    archive.directory(fullPath, false);
+    await archive.finalize();
   } catch (error: any) {
     console.error("Error creating skill download:", error);
     if (!res.headersSent) {
@@ -825,14 +548,6 @@ app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
   }
 });
 
-// Initialize database on cold start
-let initialized = false;
-
-export default async function handler(req: any, res: any) {
-  if (!initialized) {
-    await initializeSchema();
-    initialized = true;
-  }
-  
+export default function handler(req: any, res: any) {
   return app(req, res);
 }

@@ -1,6 +1,7 @@
 # Documentation
 
-Documentation for **my-prompt-library**, live at
+Documentation for **my-prompt-library**, a prompt library you clone and run locally. The
+Public Library is also browsable read-only at
 [my-prompt-library-demo.ai-automation-tools.dev](https://my-prompt-library-demo.ai-automation-tools.dev).
 
 ---
@@ -8,9 +9,10 @@ Documentation for **my-prompt-library**, live at
 ## 📚 Quick Links
 
 ### Getting Started
-- **[Setup Guide](setup/SETUP.md)** — local development and production setup
-- **[Deployment Guide](setup/DEPLOYMENT.md)** — Vercel + Neon PostgreSQL
+- **[Setup Guide](setup/SETUP.md)** — run it locally, configure My Library
+- **[Hosted Demo](setup/DEPLOYMENT.md)** — how the read-only demo is built on Vercel
 - **[Architecture](ARCHITECTURE.md)** — system design, repo layout, technology stack
+- **[Diagrams](diagrams/README.md)** — the library data-flow diagram the [homepage](https://my-prompt-library.ai-automation-tools.dev/#diagram) shows: `library/` → build index → API → React app, plus My Library and skill packs. Interactive, every node linked to its code, and drift-checked in CI
 
 ### Creating Content
 - **[Contributing Guide](CONTRIBUTING.md)** — how to add content of any type
@@ -21,11 +23,9 @@ Documentation for **my-prompt-library**, live at
 - **[API Reference](features/API.md)** — REST endpoints
 - **[Library Modes](features/LIBRARY-MODE-IMPLEMENTATION.md)** — Public vs My Library
 - **[Featured Prompts](features/FEATURED-PROMPTS.md)** — highlighting top prompts
-- **[GitHub Mode](features/GITHUB_MODE.md)** — using GitHub as the storage backend
 
 ### Development
 - **[Debug Guide](development/DEBUG_UI.md)** — troubleshooting
-- **[PostgreSQL Migration](development/POSTGRES-MIGRATION-SUMMARY.md)** — SQLite → Postgres notes
 
 ### Project policies (repo root)
 - **[LICENSE](../LICENSE)** — Apache 2.0 for the application code
@@ -64,8 +64,8 @@ docs/
 │   └── upstream-drift-2026-09-16.md
 │
 ├── setup/
-│   ├── SETUP.md                  # Local dev setup
-│   └── DEPLOYMENT.md             # Production deployment
+│   ├── SETUP.md                  # Local setup
+│   └── DEPLOYMENT.md             # The read-only hosted demo
 │
 ├── templates/                    # Content templates, one per section
 │   ├── README.md
@@ -84,12 +84,10 @@ docs/
 ├── features/
 │   ├── API.md
 │   ├── LIBRARY-MODE-IMPLEMENTATION.md
-│   ├── FEATURED-PROMPTS.md
-│   └── GITHUB_MODE.md
+│   └── FEATURED-PROMPTS.md
 │
 └── development/
-    ├── DEBUG_UI.md
-    └── POSTGRES-MIGRATION-SUMMARY.md
+    └── DEBUG_UI.md
 ```
 
 > Superseded planning docs (`archive/`, `QUICK_REFERENCE.md`, `library-update-logs/`) were
@@ -102,7 +100,7 @@ docs/
 
 **...run the app locally** → [Setup Guide](setup/SETUP.md), then `cd site && npm run dev`
 
-**...deploy to production** → [Deployment Guide](setup/DEPLOYMENT.md) → [Architecture](ARCHITECTURE.md)
+**...understand the hosted demo** → [Hosted Demo](setup/DEPLOYMENT.md) → [Architecture](ARCHITECTURE.md)
 
 **...add new content** → [Contributing Guide](CONTRIBUTING.md) → [Templates](templates/)
 
@@ -140,10 +138,10 @@ and match the containing directory, and `description` is required. Run
 | Layer | Technology |
 |:---|:---|
 | Frontend | React 19, TypeScript, Vite 6, Tailwind v4, Fuse.js |
-| Backend | Express (local dev) and Vercel serverless handlers |
-| Data | Public Library = markdown in `site/library/`; user data = Neon PostgreSQL |
-| Auth | bcrypt hashes, CSPRNG cookie sessions (30-day) |
-| Deploy | Vercel, Root Directory `site` |
+| Backend | One Express app: `server.ts` locally, Vercel serverless handlers for the demo |
+| Data | Public Library = markdown in `site/library/`; My Library = markdown files in `MY_LIBRARY_DIR` (default `site/my-library/`) |
+| Auth | None. The server binds to `127.0.0.1`; the demo is read-only |
+| Hosting | Runs locally; read-only demo on Vercel (Root Directory `site`) |
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 
@@ -151,15 +149,16 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 
 ## 🔧 Development
 
-Prerequisites: Node.js 18+, a Neon (or local) PostgreSQL URL, Git.
+Prerequisites: Node.js 22 (20 works), Git. No database, no `.env` needed.
 
 ```bash
 cd site                     # the whole app lives here
 npm install
-cp .env.example .env        # then set DATABASE_URL
-npm run dev                 # http://localhost:3010
+npm run dev                 # http://localhost:3010 (npm start: build, then serve dist/)
 npm run build               # build:index -> tsc -> vite build
 npm run lint                # tsc --noEmit
+npm run test:routes         # API route table
+npm run test:my-library     # My Library file store
 npm run build:index         # regenerate api/prompt-index.json from library/
 ```
 
@@ -179,19 +178,18 @@ Provenance vocabulary: `upstream.match` records *attribution confidence* — `ex
 `behind` is a verdict `check-upstream-drift.mjs` assigns at run time and belongs
 only in its report; `upstream.test.mjs` fails if it ever lands in frontmatter.
 
-The app runs without `DATABASE_URL` — it serves the read-only Public Library, and auth plus
-My Library are disabled.
+Optional settings (`MY_LIBRARY_DIR`, `HOST`, `READ_ONLY`) are listed in `site/.env.example`
+and the [Setup Guide](setup/SETUP.md#configuration-optional).
 
 ---
 
 ## 📊 Project Status
 
-Production-ready and live. Security as of 2026-10-05: 0 npm advisories, path traversal
-closed, CSPRNG session tokens, per-IP rate limits on login and signup, input validation,
-`helmet` headers, no personal contact details or sample credentials in the library, and a
-`LICENSE` that matches what the README claims. The one open security item is operational —
-rotating the Neon password that was scrubbed from history — see [ROADMAP.md](ROADMAP.md).
-Dev/prod parity and payload size are done; the open work is content.
+A local-first app with a read-only hosted demo. There are no accounts or database to
+secure: the server binds to loopback, the demo refuses every write, path traversal is
+closed, `helmet` sets headers, and the library carries no personal contact details or
+sample credentials. See [SECURITY.md](../SECURITY.md) for the threat model and
+[ROADMAP.md](ROADMAP.md) for open work.
 
 A weekly GitHub Action (`.github/workflows/upstream-drift.yml`) reports which vendored
 skills have fallen behind their upstream. It never edits content; it updates one rolling
@@ -216,8 +214,8 @@ utility-first), run `npm run lint` and `npm run build`, and open a PR describing
 - **Main README:** [../README.md](../README.md)
 - **Agent guide:** [../CLAUDE.md](../CLAUDE.md)
 - **Repository:** [github.com/ai-automation-tools/my-prompt-library](https://github.com/ai-automation-tools/my-prompt-library)
-- **Live site:** [my-prompt-library-demo.ai-automation-tools.dev](https://my-prompt-library-demo.ai-automation-tools.dev)
+- **Read-only demo:** [my-prompt-library-demo.ai-automation-tools.dev](https://my-prompt-library-demo.ai-automation-tools.dev)
 
 ---
 
-**Last updated:** 2026-08-26
+**Last updated:** 2026-10-21

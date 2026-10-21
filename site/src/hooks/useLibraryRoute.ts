@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { type Prompt } from '../components/PromptCard';
+import { READ_ONLY } from '../lib/mode';
 
 export type LibraryTab = 'agent-guides' | 'agents' | 'prompt-library' | 'skills' | 'system-prompts' | 'skill-packs';
 
@@ -62,7 +63,7 @@ export function useLibraryRoute({ selectedPrompt, setSelectedPrompt, setLibraryM
       const prompt = urlParams.get('prompt');
 
       setActiveTab(parseSection(urlParams.get('section')));
-      if (library === 'public' || library === 'my') setLibraryMode(library);
+      if (library === 'public' || (library === 'my' && !READ_ONLY)) setLibraryMode(library);
       setActiveCategory(urlParams.get('category'));
       setActiveSubcategory(urlParams.get('subcategory'));
       setPromptPathParam(prompt);

@@ -1,3 +1,4 @@
+import 'dotenv/config'; // READ_ONLY in site/.env must reach a standalone `vite build` too
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -9,6 +10,11 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
+    // Same rule as READ_ONLY in lib/my-library.ts: the hosted demo on Vercel
+    // has no My Library, so the UI hides everything that would write to one.
+    define: {
+      __READ_ONLY__: JSON.stringify(process.env.READ_ONLY === 'true' || Boolean(process.env.VERCEL)),
+    },
     build: {
       rollupOptions: {
         output: {

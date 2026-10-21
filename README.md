@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <em>A full-stack prompt-template manager with public templates,<br>personal libraries, auth, search, markdown, and skill packs.</em>
+  <em>A prompt library you clone and run on your own machine:<br>a curated public library to browse, and your own prompts as markdown files you own.</em>
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://my-prompt-library-demo.ai-automation-tools.dev">View Demo</a>
+  <a href="https://my-prompt-library-demo.ai-automation-tools.dev">Browse the public library online (read-only)</a>
   ·
   <a href="https://github.com/ai-automation-tools/my-prompt-library/issues">Report Bug</a>
   ·
@@ -23,8 +23,8 @@
 </p>
 
 <p align="center">
-  <a href="https://my-prompt-library-demo.ai-automation-tools.dev"><img src="https://img.shields.io/badge/Live_Demo-my--prompt--library--demo.ai--automation--tools.dev-f59e0b?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
-  <img src="https://img.shields.io/badge/status-production-2ea44f?style=for-the-badge" alt="Status: production">
+  <a href="https://my-prompt-library-demo.ai-automation-tools.dev"><img src="https://img.shields.io/badge/Read--only_Demo-my--prompt--library--demo.ai--automation--tools.dev-f59e0b?style=for-the-badge&logo=vercel&logoColor=white" alt="Read-only demo"></a>
+  <img src="https://img.shields.io/badge/runs-locally-2ea44f?style=for-the-badge" alt="Runs locally">
   <a href="docs/ROADMAP.md"><img src="https://img.shields.io/badge/plan-ROADMAP-8B5CF6?style=for-the-badge" alt="Roadmap"></a>
 </p>
 
@@ -32,29 +32,27 @@
   <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 19">
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 5">
   <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4">
-  <img src="https://img.shields.io/badge/PostgreSQL-Neon-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL on Neon">
-  <img src="https://img.shields.io/badge/Vercel-serverless-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel serverless">
+  <img src="https://img.shields.io/badge/storage-markdown_files-6B7280?style=flat-square&logo=markdown&logoColor=white" alt="Storage: markdown files">
+  <img src="https://img.shields.io/badge/accounts-none-6B7280?style=flat-square" alt="No accounts">
 </p>
 
 ---
 
 ## Features
 
-✨ **Dual Library System**
-- **Public Library** - Browse curated prompt templates
-- **My Library** - Save and organize your own prompts
+📚 **Two Libraries**
+- **Public Library** - Thousands of curated prompts, agents, skills, guides and system prompts, in `site/library/`
+- **My Library** - Your own prompts, one markdown file each, in a folder on your disk
 
-🔐 **User Authentication**
-- Secure signup/login with bcrypt password hashing
-- Session-based authentication with 30-day expiry
-- Profile management
+📝 **Your Prompts Are Files**
+- Create, edit and delete prompts in the app, or in any text editor
+- Copy any public prompt into My Library with one click
+- Tags, sections and categories live in each file's frontmatter
+- Point `MY_LIBRARY_DIR` at a synced or git folder and your library is backed up
 
-📦 **Prompt Management**
-- Create, edit, delete prompts
-- Copy public prompts to your library
-- Tag-based organization
-- Section/Category hierarchy
-- Markdown support
+📦 **Skill Packs**
+- Curated bundles of Agent Skills, added to or removed from My Library in one step
+- Download any skill or pack as a ZIP
 
 🎨 **Modern UI**
 - Responsive design (mobile, tablet, desktop)
@@ -62,54 +60,50 @@
 - ⌘K command palette across every prompt, section and theme; per-section accent colours
 - Fuzzy search with Fuse.js
 - Title-prioritized search ranking (title starts-with/contains first)
-- Clean, intuitive interface
 
-🚀 **Production-Ready**
-- PostgreSQL database (Neon)
-- Vercel serverless deployment
-- TypeScript throughout
-- API-first architecture
+🔒 **Nothing To Sign Up For**
+- No accounts, no database, no API keys, no `.env` required
+- The server listens on `127.0.0.1` only
+- The [online demo](https://my-prompt-library-demo.ai-automation-tools.dev) is the same app in read-only mode
 
 ---
 
 ## Quick Start
 
-### Local Development
+The app lives in `site/`. Run every `npm` command from there: the repo root has no `package.json`.
 
 ```bash
-# Clone the repository
 git clone https://github.com/ai-automation-tools/my-prompt-library.git
 cd my-prompt-library/site
-
-# Install dependencies
 npm install
-
-# Set up environment variables
-cp .env.example .env
-# Add your DATABASE_URL (Neon PostgreSQL connection string)
-
-# Start development server
-npm run dev
-
-# Visit http://localhost:3010
+npm run dev        # or: npm start (build once, then serve)
 ```
+
+Open http://localhost:3010. Your prompts are saved to `site/my-library/` (gitignored).
+
+### Optional settings
+
+Copy `site/.env.example` to `site/.env` to change a default:
+
+| Variable | Default | What it does |
+|:---|:---|:---|
+| `MY_LIBRARY_DIR` | `my-library` | Where My Library is kept. Relative to `site/`, or absolute. |
+| `HOST` | `127.0.0.1` | Address to listen on. There are no accounts, so read [this](docs/setup/SETUP.md#exposing-it-beyond-localhost) before opening it up. |
+| `READ_ONLY` | `false` | `true` serves the Public Library only and refuses every write. |
 
 ### Checks
 
 ```bash
-npm run lint          # tsc --noEmit
-npm run test:routes   # the API route table is intact
-npm run build:index   # rebuild api/prompt-index.json after editing library/
+npm run lint             # tsc --noEmit
+npm run test:routes      # the API route table is intact
+npm run test:my-library  # the My Library file store
+npm run build:index      # rebuild api/prompt-index.json after editing library/
 
 node scripts/upstream.test.mjs           # provenance frontmatter (run from the repo root)
 node scripts/skill-frontmatter.test.mjs  # Agent Skills spec compliance
 ```
 
 CI runs all of these on every PR and fails if the committed prompt index is stale.
-
-### Deploy to Vercel
-
-See [DEPLOYMENT.md](docs/setup/DEPLOYMENT.md) for complete deployment instructions.
 
 ---
 
@@ -120,9 +114,10 @@ See [DEPLOYMENT.md](docs/setup/DEPLOYMENT.md) for complete deployment instructio
 ### Quick Links
 
 **Getting Started**
-- [Setup Guide](docs/setup/SETUP.md) - Local development setup
-- [Deployment Guide](docs/setup/DEPLOYMENT.md) - Deploy to Vercel
+- [Setup Guide](docs/setup/SETUP.md) - Run it locally, configure My Library
+- [Hosted Demo](docs/setup/DEPLOYMENT.md) - How the read-only demo is built on Vercel
 - [Architecture](docs/ARCHITECTURE.md) - System design
+- [Diagrams](docs/diagrams/README.md) - The library data flow shown on the [homepage](https://my-prompt-library.ai-automation-tools.dev/#diagram), interactive and linked to the code
 
 **Creating Content**
 - [Contributing Guide](docs/CONTRIBUTING.md) - How to add content
@@ -150,15 +145,14 @@ See [DEPLOYMENT.md](docs/setup/DEPLOYMENT.md) for complete deployment instructio
 - Fuse.js (search)
 
 **Backend:**
-- Express + TypeScript
-- PostgreSQL (Neon)
-- bcrypt (password hashing)
-- cookie-based sessions
+- Express + TypeScript, run with `tsx`
+- gray-matter (frontmatter for both libraries)
+- Markdown files on disk, no database
 
-**Deployment:**
-- Vercel (serverless functions)
-- Neon (database)
-- GitHub (version control)
+**Hosting:**
+- Your machine (the app)
+- Vercel (the read-only demo)
+- GitHub Pages (the [homepage](https://my-prompt-library.ai-automation-tools.dev))
 
 ---
 
@@ -166,12 +160,13 @@ See [DEPLOYMENT.md](docs/setup/DEPLOYMENT.md) for complete deployment instructio
 
 ```
 my-prompt-library/
-├── site/                     # Deployable app (Vercel Root Directory = site)
-│   ├── api/                  # Vercel serverless API handlers
+├── site/                     # The app (run npm here; Vercel Root Directory = site)
+│   ├── api/                  # API handlers (one Express app, also run by Vercel)
+│   ├── lib/                  # my-library.ts (file store), safe-path.ts
 │   ├── src/                  # React application
 │   │   ├── App.tsx           # Main React component
 │   │   ├── components/       # UI components
-│   │   ├── contexts/         # Auth context provider
+│   │   ├── lib/mode.ts       # Read-only flag for the UI
 │   │   └── main.tsx          # Entry point
 │   ├── library/              # Public prompt templates (numbered)
 │   │   ├── 1_Guides/
@@ -179,12 +174,11 @@ my-prompt-library/
 │   │   ├── 3_Skills/
 │   │   ├── 4_Prompts/
 │   │   └── 5_System_Prompts/
-│   ├── db/                   # Database layer (PostgreSQL)
-│   ├── routes/               # Auth routes
-│   ├── middleware/           # Session middleware + per-IP login/signup limiters
-│   ├── scripts/              # build-prompt-index.js, api-routes.test.mjs
-│   └── server.ts             # Dev wrapper around the same app api/ exports (port 3010)
-├── .github/workflows/ci.yml  # lint + route test + provenance checks + index freshness
+│   ├── my-library/           # Your prompts (gitignored, created on first save)
+│   ├── scripts/              # build-prompt-index.js, api-routes and my-library tests
+│   └── server.ts             # Local server around the same app api/ exports (port 3010)
+├── homepage/                 # Static project homepage (GitHub Pages)
+├── .github/workflows/ci.yml  # lint + route and store tests + provenance checks + index freshness
 ├── .gitattributes            # LF everywhere, in the repo and the working tree
 ├── LICENSE, NOTICE           # Apache 2.0 for the app; vendored content keeps its own
 ├── SECURITY.md, CODE_OF_CONDUCT.md, CONTRIBUTING.md
@@ -195,68 +189,51 @@ my-prompt-library/
 
 ---
 
-## Environment Variables
+## My Library Files
 
-Create a `.env` file under `site/`:
+Each prompt is one file, named `<slug-of-title>-<6 hex>.md`:
 
-```bash
-# PostgreSQL Database (Neon)
-DATABASE_URL=postgresql://user:password@host/database?sslmode=require
-
-# Optional: GitHub Mode for Public Library
-USE_GITHUB_MODE=false
-GITHUB_TOKEN=
-GITHUB_OWNER=
-GITHUB_REPO=
-GITHUB_BRANCH=main
+```markdown
+---
+title: Code review checklist
+section: 4_Prompts
+category: Coding
+tags:
+  - review
+created: '2026-10-21T14:02:11.000Z'
+updated: '2026-10-21T14:02:11.000Z'
+---
+Review this diff for...
 ```
+
+Edit them by hand if you like; the app re-reads the folder on every load. Skill packs you add
+are ordinary files tagged `skill-pack:<packId>`. Details in the [Setup Guide](docs/setup/SETUP.md#my-library-on-disk).
 
 ---
 
 ## API Endpoints
-
-### Authentication
-- `POST /api/auth/signup` - Create account (5 per IP / 15 min; 8–72 char password)
-- `POST /api/auth/login` - Login (20 failed attempts per IP / 15 min)
-- `POST /api/auth/logout` - Logout
-- `GET /api/auth/me` - Get current user
-- `PUT /api/auth/me` - Update profile
 
 ### Prompts
 - `GET /api/prompts?library=public|my` - List prompts (add `&lightweight=true` for metadata only —
   no body text at all for the public library)
 - `POST /api/prompts/previews` - Card blurbs for a batch of ids (`{ ids: string[] }`, 200 max)
 - `GET /api/prompts/:id` - One prompt with its full body
-- `POST /api/prompts` - Create prompt (auth required)
-- `PUT /api/prompts/:id` - Update prompt (auth required)
-- `DELETE /api/prompts/:id` - Delete prompt (auth required)
-- `POST /api/prompts/:path/copy-to-my-prompts` - Copy to My Library
+- `POST /api/prompts` - Create a My Library prompt
+- `PUT /api/prompts/:id` - Update a My Library prompt
+- `DELETE /api/prompts/:id` - Delete a My Library prompt
+- `POST /api/prompts/:path/copy-to-my-prompts` - Copy a public prompt to My Library
 
 ### Skill Packs
 - `GET /api/skill-packs?library=public|my` - List packs by mode
 - `GET /api/skill-packs/:packId` - Pack details
-- `POST /api/skill-packs/:packId/add-to-library` - Add pack to My Library (auth + confirm)
-- `DELETE /api/skill-packs/:packId/remove-from-library` - Remove pack from My Library (auth + confirm)
+- `POST /api/skill-packs/:packId/add-to-library` - Add pack to My Library (confirm)
+- `DELETE /api/skill-packs/:packId/remove-from-library` - Remove pack from My Library (confirm)
 - `GET /api/skill-packs/:packId/download` - Download pack ZIP
 
 ### Skills
 - `GET /api/skills/download/:skillPath` - Download a skill directory as a ZIP
 
-See [docs/features/API.md](docs/features/API.md) for detailed documentation.
-
----
-
-## Database Schema
-
-**Tables:**
-- `users` - User accounts
-- `user_prompts` - User-owned prompts
-- `user_sessions` - Authentication sessions
-- `user_skill_pack_installs` - User-installed skill packs
-
-**Hybrid Storage:**
-- Public Library → Files (`library/` directory, Git version control)
-- User Data → PostgreSQL (Neon database)
+Every route that writes returns `403` in read-only mode. See [docs/features/API.md](docs/features/API.md) for detailed documentation.
 
 ---
 
