@@ -1,17 +1,17 @@
 {
   "name": "Web Development Pack",
   "id": "development-web-development-pack",
-  "description": "Every skill under 3_Skills/Development/Web_Development (8), bundled so the whole folder installs in one click. Generated from the library tree; see the folder for the individual skills.",
+  "description": "Every skill under 3_Skills/Development/Web_Development (10), bundled so the whole folder installs in one click. Generated from the library tree; see the folder for the individual skills.",
   "icon": "💻",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "my-prompt-library",
   "generated": true,
   "tags": [
     "development",
     "web-development",
+    "agent-skills",
     "react",
-    "frontend",
-    "testing"
+    "frontend"
   ],
   "category": "Development",
   "skills": [
@@ -36,6 +36,11 @@
       "description": "Create distinctive, production-grade frontend interfaces with high design quality."
     },
     {
+      "path": "library/3_Skills/Development/Web_Development/project-hub-scaffold/SKILL.md",
+      "name": "Project-Hub-Scaffold",
+      "description": "Stand up a browsable HTML console over a folder of project documents — Project Hub"
+    },
+    {
       "path": "library/3_Skills/Development/Web_Development/react-component-generator/SKILL.md",
       "name": "React-Component-Generator",
       "description": "Generate robust, accessible, and well-typed React components using Tailwind CSS and TypeScript."
@@ -49,6 +54,11 @@
       "path": "library/3_Skills/Development/Web_Development/web-artifacts-builder/SKILL.md",
       "name": "Web-Artifacts-Builder",
       "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui)."
+    },
+    {
+      "path": "library/3_Skills/Development/Web_Development/web-house-style/SKILL.md",
+      "name": "Web-House-Style",
+      "description": "Give a new or existing web page the shared look, feel and navigation of the"
     },
     {
       "path": "library/3_Skills/Development/Web_Development/webapp-testing/SKILL.md",

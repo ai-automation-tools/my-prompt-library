@@ -4,6 +4,52 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-21 — 40 skills synced from agent-skills
+
+**Content**
+- Copied from `ai-automation-tools/agent-skills` at `6f36b55` by `scripts/sync-agent-skills.mjs` (the weekly Skills Sync job), each with an `upstream:` block so the Monday drift check tracks it from here on:
+  - `3_Skills/Development/Automation/agent-workspace-builder/` ← `Skills/Core/Automation/agent-workspace-builder/SKILL.md`
+  - `3_Skills/Development/Automation/automated-dev-pipeline/` ← `Skills/Core/Automation/automated-dev-pipeline/SKILL.md`
+  - `3_Skills/Development/Automation/html-email-templates/` ← `Skills/Core/Automation/html-email-templates/SKILL.md`
+  - `3_Skills/Development/Automation/task-router/` ← `Skills/Core/Automation/task-router/SKILL.md`
+  - `3_Skills/Business/Strategy/business-plan-builder/` ← `Skills/Core/Business/business-plan-builder/SKILL.md`
+  - `3_Skills/Content/Cooking/recipe-validator/` ← `Skills/Core/Cooking/recipe-validator/SKILL.md`
+  - `3_Skills/Content/Documentation/repo-docs-builder/` ← `Skills/Core/Documentation/repo-docs-builder/SKILL.md`
+  - `3_Skills/Content/Image_Generation/news-images/` ← `Skills/Core/Image-Gen/news-images/SKILL.md`
+  - `3_Skills/Development/Web_Development/project-hub-scaffold/` ← `Skills/Core/Web/project-hub-scaffold/SKILL.md`
+  - `3_Skills/Development/Web_Development/web-house-style/` ← `Skills/Core/Web/web-house-style/SKILL.md`
+  - `3_Skills/Development/API/api-client-resilience/` ← `Skills/Domain/API/api-client-resilience/SKILL.md`
+  - `3_Skills/Development/API/api-integration-testing/` ← `Skills/Domain/API/api-integration-testing/SKILL.md`
+  - `3_Skills/Development/API/api-response-normalization/` ← `Skills/Domain/API/api-response-normalization/SKILL.md`
+  - `3_Skills/Development/API/public-api-evaluation/` ← `Skills/Domain/API/public-api-evaluation/SKILL.md`
+  - `3_Skills/Development/API/rate-limit-and-quota-management/` ← `Skills/Domain/API/rate-limit-and-quota-management/SKILL.md`
+  - `3_Skills/Business/Strategy/customer-discovery/` ← `Skills/Domain/Business/customer-discovery/SKILL.md`
+  - `3_Skills/Business/Strategy/go-to-market/` ← `Skills/Domain/Business/go-to-market/SKILL.md`
+  - `3_Skills/Business/Strategy/pricing-strategy/` ← `Skills/Domain/Business/pricing-strategy/SKILL.md`
+  - `3_Skills/Development/Engineering/debugging-methodology/` ← `Skills/Domain/Engineering/debugging-methodology/SKILL.md`
+  - `3_Skills/Development/Engineering/performance-optimization/` ← `Skills/Domain/Engineering/performance-optimization/SKILL.md`
+  - `3_Skills/Development/Engineering/testing-strategy/` ← `Skills/Domain/Engineering/testing-strategy/SKILL.md`
+  - `3_Skills/Content/Media/captions-and-accessibility/` ← `Skills/Domain/Media/captions-and-accessibility/SKILL.md`
+  - `3_Skills/Content/Media/media-rights-and-licensing/` ← `Skills/Domain/Media/media-rights-and-licensing/SKILL.md`
+  - `3_Skills/Content/Media/post-publish-analytics/` ← `Skills/Domain/Media/post-publish-analytics/SKILL.md`
+  - `3_Skills/Security/Practice/security-metrics-and-posture/` ← `Skills/Domain/Security/security-metrics-and-posture/SKILL.md`
+  - `3_Skills/Security/Practice/security-report-writing/` ← `Skills/Domain/Security/security-report-writing/SKILL.md`
+  - `3_Skills/Security/Practice/vulnerability-disclosure/` ← `Skills/Domain/Security/vulnerability-disclosure/SKILL.md`
+  - `3_Skills/Platform_Integrations/Agent_Chat/agent-chat-conv-types/` ← `Skills/Projects/agent-chat/agent-chat-conv-types/SKILL.md`
+  - `3_Skills/Platform_Integrations/Agent_Chat/agent-chat-delivery/` ← `Skills/Projects/agent-chat/agent-chat-delivery/SKILL.md`
+  - `3_Skills/Platform_Integrations/Agent_Chat/agent-chat-run-triage/` ← `Skills/Projects/agent-chat/agent-chat-run-triage/SKILL.md`
+  - `3_Skills/Platform_Integrations/Cronsole/cronsole-claude-routines/` ← `Skills/Projects/cronsole/cronsole-claude-routines/SKILL.md`
+  - `3_Skills/Platform_Integrations/Cronsole/cronsole-windows-jobs/` ← `Skills/Projects/cronsole/cronsole-windows-jobs/SKILL.md`
+  - `3_Skills/Platform_Integrations/Edge_Radar/edge-radar-strategy-evidence/` ← `Skills/Projects/edge-radar/edge-radar-strategy-evidence/SKILL.md`
+  - `3_Skills/Platform_Integrations/Edge_Radar/edge-radar-strategy-profiles/` ← `Skills/Projects/edge-radar/edge-radar-strategy-profiles/SKILL.md`
+  - `3_Skills/Platform_Integrations/Edge_Spectrum/edge-spectrum-dataset/` ← `Skills/Projects/edge-spectrum/edge-spectrum-dataset/SKILL.md`
+  - `3_Skills/Platform_Integrations/Edge_Spectrum/edge-spectrum-endpoint/` ← `Skills/Projects/edge-spectrum/edge-spectrum-endpoint/SKILL.md`
+  - `3_Skills/Platform_Integrations/Edge_Spectrum/edge-spectrum-hub-tool/` ← `Skills/Projects/edge-spectrum/edge-spectrum-hub-tool/SKILL.md`
+  - `3_Skills/Platform_Integrations/Project_Hub/project-hub-client/` ← `Skills/Projects/project-hub/project-hub-client/SKILL.md`
+  - `3_Skills/Platform_Integrations/Project_Hub/project-hub-demo/` ← `Skills/Projects/project-hub/project-hub-demo/SKILL.md`
+  - `3_Skills/Platform_Integrations/Project_Hub/project-hub-scan/` ← `Skills/Projects/project-hub/project-hub-scan/SKILL.md`
+
+_Touched: the folders above, `site/api/prompt-index.json`, `docs/CHANGELOG.md`._
 ## 2026-10-21 — Skills refresh, generated Skill Packs, repo discovery, a data-driven Resources menu
 
 Four more pieces of the library's upkeep move from "someone should" to a script.
