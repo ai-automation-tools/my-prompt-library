@@ -43,7 +43,7 @@ column, so never delete a row: change its status instead.
 | [ruvnet/ruflo](https://github.com/ruvnet/ruflo) | mcp | 78,157 | mit | 2026-10-21 | 2026-10-21 | pending | popular |
 | [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) | skills | 77,604 | none | 2026-09-18 | 2026-10-21 | pending | popular; no licence, ask before vendoring |
 | [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) | skills | 70,244 | Other | 2026-10-21 | 2026-10-21 | pending | new |
-| [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | prompts | 69,995 | cc0-1.0 | 2026-10-19 | 2026-10-21 | pending | popular |
+| [asgeirtj/system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | prompts | 69,995 | cc0-1.0 | 2026-10-19 | 2026-10-21 | reject | leaked prompts are never vendored (catalog rule); filter fixed the same day |
 | [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) | agents | 67,877 | mit | 2026-10-21 | 2026-10-21 | pending | new |
 | [upstash/context7](https://github.com/upstash/context7) | mcp | 63,434 | mit | 2026-10-21 | 2026-10-21 | pending | popular |
 | [sansan0/TrendRadar](https://github.com/sansan0/TrendRadar) | mcp | 63,079 | gpl-3.0 | 2026-10-20 | 2026-10-21 | pending | popular |
