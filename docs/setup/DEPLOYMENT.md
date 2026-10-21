@@ -1,132 +1,92 @@
-# Deployment Guide
+# Hosted Demo
 
-## Vercel Deployment
+The demo at [my-prompt-library-demo.ai-automation-tools.dev](https://my-prompt-library-demo.ai-automation-tools.dev)
+is a read-only browser for the Public Library. It runs the same `site/` app as a local
+clone, on Vercel, with every write turned off. To keep your own prompts, clone the repo and
+run it locally ([Setup Guide](SETUP.md)).
 
-### Prerequisites
-
-1. **Neon Database**
-   - Sign up at https://neon.tech
-   - Create a new project named "my-prompt-library"
-   - Copy the connection string (Settings → Connection Details)
-
-2. **Vercel Account**
-   - Sign up at https://vercel.com
-   - Install Vercel CLI: `npm i -g vercel`
-
-3. **Project settings**
-   - **Root Directory:** `site` (the deployable app lives there; the repo root holds docs and
-     utility scripts only)
-   - **Production branch:** `main`. Work happens on `mike_desktop` and lands via PR.
-   - Build command: the default `npm run build` runs `vercel-build`, which regenerates
-     `api/prompt-index.json` before `vite build`.
-
-### Environment Variables
-
-Add these to your Vercel project (Settings → Environment Variables):
-
-```bash
-DATABASE_URL=postgresql://neondb_owner:npg_...@ep-....neon.tech/neondb?sslmode=require
-NODE_ENV=production
-```
-
-**Optional GitHub Mode** (for collaborative public library editing):
-```bash
-USE_GITHUB_MODE=true
-GITHUB_TOKEN=ghp_...
-GITHUB_OWNER=your-username
-GITHUB_REPO=my-prompt-library
-GITHUB_BRANCH=main
-```
-
-### Deploy Steps
-
-1. **Connect to Vercel**
-   ```bash
-   cd my-prompt-library/site
-   vercel login
-   vercel link
-   ```
-
-2. **Add Environment Variables**
-   ```bash
-   vercel env add DATABASE_URL
-   # Paste your Neon connection string when prompted
-   
-   vercel env add NODE_ENV
-   # Type: production
-   ```
-
-3. **Deploy**
-   ```bash
-   vercel --prod
-   ```
-
-### Post-Deployment
-
-1. **Test the deployment:**
-   - Visit your Vercel URL
-   - Click "Sign Up" → Create an account
-   - Browse Public Library → Add prompts to your library
-   - Switch to "My Library" → Verify your prompts are saved
-
-2. **Custom Domain** (optional):
-   - Vercel Dashboard → Settings → Domains
-   - Add your domain (e.g., prompts.example.com)
-
-## Local Development
-
-```bash
-npm install
-npm run dev
-```
-
-Visit http://localhost:3010
-
-## Database Schema
-
-The database is automatically initialized on first run. Tables:
-
-- `users` - User accounts (email, password_hash, name, avatar_url)
-- `user_prompts` - User-owned prompts
-- `user_sessions` - Authentication sessions (30-day expiry)
-
-See `db/postgres.ts` for full schema.
-
-## Architecture
-
-- **Public Library:** File-based (library/ directory)
-- **User Prompts:** PostgreSQL (Neon database)
-- **Auth:** Cookie-based sessions, bcrypt password hashing
-- **Frontend:** React + Vite
-- **Backend:** Express + TypeScript
-
-## Troubleshooting
-
-**Database connection errors:**
-- Verify `DATABASE_URL` environment variable is set
-- Check Neon dashboard for connection details
-- Ensure SSL is enabled in connection string
-
-**Build failures:**
-- Run `npm run build` locally to test
-- Check `vercel build` logs for TypeScript errors
-
-**Authentication issues:**
-- Clear cookies and try again
-- Check browser console for CORS errors
-- Verify `NODE_ENV=production` on Vercel
-
-## Migration from SQLite
-
-If you have existing data in SQLite (local dev):
-
-1. Export SQLite data:
-   ```bash
-   node -e "const db = require('better-sqlite3')('db/prompts.db'); console.log(JSON.stringify(db.prepare('SELECT * FROM users').all(), null, 2));" > users.json
-   ```
-
-2. Import to Postgres (manual SQL INSERT or use a migration script)
+The project homepage, [my-prompt-library.ai-automation-tools.dev](https://my-prompt-library.ai-automation-tools.dev),
+is a separate static site in `homepage/` served by GitHub Pages. Nothing here changes it.
 
 ---
 
-**Status:** Postgres migration complete. Ready for Vercel deployment.
+## How Vercel builds it
+
+| Setting | Value |
+|:---|:---|
+| Root Directory | `site` (the repo root holds docs and utility scripts only) |
+| Production branch | `main`. Work happens on `mike_desktop` and lands via PR. |
+| Build command | default; Vercel runs the `vercel-build` script: `build:index`, then `tsc`, then `vite build` |
+| Environment variables | none required |
+
+`build:index` regenerates `api/prompt-index.json` from `library/` on every deploy, so the
+listing always matches the committed library.
+
+`site/vercel.json` does the routing:
+
+- `/api/skill-packs/*` goes to its own function, `api/skill-packs.ts`, which bundles
+  `library/3_Skills/**` via `includeFiles`.
+- Every other `/api/*` path goes to `api/index.ts` (the Express app).
+- Everything else falls through to `index.html` for the SPA.
+
+Locally, `server.ts` mounts both handlers on one Express process, so the route table is the
+same in both places. `npm run test:routes` pins it.
+
+---
+
+## Read-only, automatically
+
+Vercel sets `VERCEL` in every build and function. The app treats that the same as
+`READ_ONLY=true`:
+
+- **Server** (`site/lib/my-library.ts`): every write route (create, update, delete, copy to
+  My Library, add or remove a skill pack) returns `403` with
+  `"This copy of the library is read-only. Clone the repo to keep your own prompts."`
+- **UI** (`site/vite.config.ts` bakes `__READ_ONLY__` into the bundle; `site/src/lib/mode.ts`
+  reads it): the Public / My Library switch, **New prompt**, **Save to My Library**, and
+  skill-pack add/remove are hidden.
+
+There is no writable disk on Vercel and the demo is shared by every visitor, so there is no
+My Library there at all.
+
+---
+
+## Cleaning up old Vercel settings
+
+Earlier versions used accounts in Neon Postgres and an optional GitHub-backed library. The
+app no longer reads any of these, and they can be deleted from the Vercel project
+(Settings → Environment Variables):
+
+- `DATABASE_URL`
+- `GITHUB_TOKEN`
+- `GITHUB_OWNER`
+- `GITHUB_REPO`
+- `GITHUB_BRANCH`
+
+`USE_GITHUB_MODE` and `NODE_ENV`, if still set, are also unused and can go.
+
+---
+
+## Self-hosting
+
+You can deploy your own copy the same way (import the repo on Vercel, Root Directory
+`site`). It will be read-only too.
+
+If you host it anywhere else and expose it beyond `localhost`, remember there are no
+accounts: anyone who can reach it can edit My Library. Either set `READ_ONLY=true` (in the
+environment of both the build and the server; see the note in [SETUP.md](SETUP.md#exposing-it-beyond-localhost))
+or put your own authentication in front of it.
+
+---
+
+## Troubleshooting
+
+**Build fails:** run `npm run build` in `site/` locally; it is the same sequence as
+`vercel-build`. Check the Vercel build log for the `tsc` step.
+
+**The demo shows write buttons, or saving returns 403:** the bundle and the server disagree
+on read-only mode. On Vercel both come from `VERCEL`, so this points at a build made
+elsewhere and uploaded; redeploy from Git.
+
+**Hosting looks wrong:** before trusting anything above, `curl -I` the live URL and check
+the `Server:` header.

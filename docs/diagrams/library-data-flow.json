@@ -8,7 +8,7 @@
     "output": "library-data-flow.html",
     "repository": {
       "url": "https://github.com/ai-automation-tools/my-prompt-library.git",
-      "revision": "31c17c53ead690ba2fcfb8ffa6cac2cdaa472c97"
+      "revision": "95638e65b8885a20227c7df2df894b566b4e54ec"
     }
   },
   "stages": [
@@ -22,7 +22,7 @@
       "label": "Stores"
     },
     {
-      "label": "Vercel functions"
+      "label": "API (local or demo)"
     },
     {
       "label": "Browser"
@@ -59,8 +59,8 @@
       "sources": [
         {
           "path": "site/api/index.ts",
-          "line": 106,
-          "end_line": 127
+          "line": 123,
+          "end_line": 144
         },
         {
           "path": "site/scripts/build-prompt-index.js",
@@ -80,12 +80,12 @@
         {
           "path": "site/api/skill-packs.ts",
           "line": 30,
-          "end_line": 33
+          "end_line": 32
         },
         {
           "path": "site/api/skill-packs.ts",
-          "line": 57,
-          "end_line": 86
+          "line": 42,
+          "end_line": 71
         }
       ]
     },
@@ -93,14 +93,14 @@
       "id": "build",
       "type": "backend",
       "label": "build:index",
-      "sublabel": "Every Vercel build",
+      "sublabel": "Every build and deploy",
       "stage": 1,
       "row": 0,
       "sources": [
         {
           "path": "site/package.json",
           "line": 6,
-          "end_line": 16
+          "end_line": 17
         },
         {
           "path": "site/scripts/build-prompt-index.js",
@@ -129,33 +129,33 @@
         },
         {
           "path": "site/api/index.ts",
-          "line": 61,
-          "end_line": 89
+          "line": 93,
+          "end_line": 121
         }
       ]
     },
     {
-      "id": "neon",
+      "id": "my_library",
       "type": "database",
-      "label": "Neon PostgreSQL",
-      "sublabel": "Users, prompts, sessions",
+      "label": "my-library/ markdown",
+      "sublabel": "One file per prompt, on disk",
       "stage": 2,
       "row": 2,
       "sources": [
         {
-          "path": "site/db/postgres.ts",
-          "line": 383,
-          "end_line": 432
+          "path": "site/lib/my-library.ts",
+          "line": 28,
+          "end_line": 47
         },
         {
-          "path": "site/db/postgres.ts",
-          "line": 162,
-          "end_line": 187
+          "path": "site/lib/my-library.ts",
+          "line": 54,
+          "end_line": 85
         },
         {
-          "path": "site/db/postgres.ts",
-          "line": 341,
-          "end_line": 367
+          "path": "site/lib/my-library.ts",
+          "line": 90,
+          "end_line": 149
         }
       ]
     },
@@ -169,18 +169,18 @@
       "sources": [
         {
           "path": "site/api/index.ts",
-          "line": 181,
-          "end_line": 203
+          "line": 167,
+          "end_line": 189
         },
         {
           "path": "site/api/index.ts",
-          "line": 390,
-          "end_line": 423
+          "line": 290,
+          "end_line": 323
         },
         {
           "path": "site/api/index.ts",
-          "line": 481,
-          "end_line": 515
+          "line": 336,
+          "end_line": 373
         }
       ]
     },
@@ -188,24 +188,24 @@
       "id": "my_api",
       "type": "backend",
       "label": "My Library API",
-      "sublabel": "api/index.ts + session",
+      "sublabel": "api/index.ts, writes 403 on the demo",
       "stage": 3,
       "row": 2,
       "sources": [
         {
           "path": "site/api/index.ts",
-          "line": 156,
-          "end_line": 179
+          "line": 41,
+          "end_line": 83
         },
         {
           "path": "site/api/index.ts",
-          "line": 522,
-          "end_line": 613
+          "line": 377,
+          "end_line": 443
         },
         {
           "path": "site/api/index.ts",
-          "line": 615,
-          "end_line": 703
+          "line": 446,
+          "end_line": 498
         }
       ]
     },
@@ -219,18 +219,18 @@
       "sources": [
         {
           "path": "site/api/skill-packs.ts",
-          "line": 109,
-          "end_line": 149
+          "line": 98,
+          "end_line": 125
         },
         {
           "path": "site/api/skill-packs.ts",
-          "line": 160,
-          "end_line": 205
+          "line": 132,
+          "end_line": 185
         },
         {
           "path": "site/api/skill-packs.ts",
-          "line": 285,
-          "end_line": 330
+          "line": 254,
+          "end_line": 300
         }
       ]
     },
@@ -244,8 +244,8 @@
       "sources": [
         {
           "path": "site/src/App.tsx",
-          "line": 142,
-          "end_line": 155
+          "line": 127,
+          "end_line": 141
         },
         {
           "path": "site/src/hooks/usePromptPreviews.ts",
@@ -254,8 +254,8 @@
         },
         {
           "path": "site/src/hooks/usePromptContent.ts",
-          "line": 39,
-          "end_line": 55
+          "line": 40,
+          "end_line": 53
         }
       ]
     }
@@ -303,13 +303,13 @@
     },
     {
       "from": "my_api",
-      "to": "neon",
-      "label": "user_prompts rows"
+      "to": "my_library",
+      "label": "Write .md files"
     },
     {
-      "from": "neon",
+      "from": "my_library",
       "to": "my_api",
-      "label": "Rows + session"
+      "label": "Read .md files"
     },
     {
       "from": "my_api",
@@ -323,8 +323,8 @@
     },
     {
       "from": "packs_api",
-      "to": "neon",
-      "label": "Skills + install"
+      "to": "my_library",
+      "label": "Skills, tagged"
     },
     {
       "from": "packs_api",
@@ -335,11 +335,11 @@
   "cards": [
     {
       "dot": "cyan",
-      "title": "Two libraries, two stores",
+      "title": "Two libraries, both files",
       "items": [
-        "The Public Library is markdown in site/library/, versioned in Git and shipped with each deploy. Nothing in the app writes to it: POST, PUT and DELETE on /api/prompts all go to the signed-in user's rows in Neon.",
-        "My Library is per user in Neon PostgreSQL. Reading or changing it needs a session: bcrypt-checked login, then a 30-day auth_token cookie looked up in user_sessions.",
-        "Add to My Library reads the public file, strips its frontmatter, refuses a duplicate title in the same section and category, and inserts a copy into user_prompts."
+        "The Public Library is markdown in site/library/, versioned in Git and shipped with each deploy. Nothing in the app writes to it: POST, PUT and DELETE on /api/prompts all go to My Library.",
+        "My Library is a local folder, site/my-library/ unless MY_LIBRARY_DIR moves it, with one markdown file per prompt and its title, section, category and tags in frontmatter. There are no accounts: the server listens on 127.0.0.1, and on the Vercel demo READ_ONLY refuses every write.",
+        "Add to My Library reads the public file, strips its frontmatter, refuses a duplicate title in the same section and category, and writes a copy as a new file whose name is its id."
       ]
     },
     {
@@ -356,7 +356,7 @@
       "title": "Skill packs",
       "items": [
         "Pack manifests are JSON under library/3_Skills/packs, each listing its skills' SKILL.md paths. api/skill-packs.ts is its own Vercel function, bundled with library/3_Skills/**.",
-        "Add to library copies every skill in the pack into user_prompts, tagged skill-pack:<id>, skips ones already there, and records the install in user_skill_pack_installs. Download zips each skill's whole directory.",
+        "Add to library copies every skill in the pack into My Library, tagged skill-pack:<id>, and skips ones already there; that tag is how the My Library pack list knows a pack is installed. Download zips each skill's whole directory.",
         "A single skill's directory also downloads as a ZIP from GET /api/skills/download/:path, which refuses any path outside 3_Skills/."
       ]
     },
@@ -365,8 +365,7 @@
       "title": "Where the content comes from",
       "items": [
         "Vendored skills and agents carry an upstream: block. The weekly Upstream drift workflow reports which are behind in one GitHub issue and never edits the library; resync-upstream.mjs is run by hand to pull a body back level.",
-        "After any library change, npm run build:index regenerates the index. CI rebuilds it and fails when the committed file differs, and vercel-build rebuilds it on every deploy.",
-        "USE_GITHUB_MODE=true swaps the filesystem reads for the GitHub contents API on full listings and body fetches. The lightweight public listing still uses the prebuilt index first."
+        "After any library change, npm run build:index regenerates the index. CI rebuilds it and fails when the committed file differs, and vercel-build rebuilds it on every deploy."
       ]
     }
   ]

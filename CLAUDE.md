@@ -6,17 +6,28 @@
 
 ## What this is
 
-Full-stack prompt-template manager deployed at **`my-prompt-library-demo.ai-automation-tools.dev`** (Vercel). The old `prompts.mikesailab.com` and `prompts.ax-platform.com` hosts were detached 2026-10-14. The bare `my-prompt-library.ai-automation-tools.dev` is the static homepage in `homepage/` (GitHub Pages).
-Two libraries: a **Public Library** (curated, file-backed under `library/`) and a
-per-user **My Library** (PostgreSQL/Neon). Also serves **Skill Packs** (zipped skill
-bundles) and a large **System Prompts** archive.
+Local-first prompt-template manager: you clone the repo and run it on your own machine.
+**`my-prompt-library-demo.ai-automation-tools.dev`** (Vercel) is a **read-only** demo of the
+Public Library. The old `prompts.mikesailab.com` and `prompts.ax-platform.com` hosts were detached
+2026-10-14. The bare `my-prompt-library.ai-automation-tools.dev` is the static homepage in `homepage/` (GitHub Pages).
+Two libraries: a **Public Library** (curated, file-backed under `library/`) and **My Library**
+(the user's own prompts, one markdown file each in a local folder, `lib/my-library.ts`). Also
+serves **Skill Packs** (zipped skill bundles) and a large **System Prompts** archive.
+
+**There are no accounts.** Login, Neon/Postgres and GitHub mode were removed 2026-10-21: whoever can
+reach the server owns My Library, so `server.ts` binds to `127.0.0.1`. Don't reintroduce auth or a
+database for the local app; if the hosted demo ever needs writes, that is a new decision for Mike.
 
 - **Frontend:** React 19 + TypeScript + Vite 6 + Tailwind v4, Fuse.js search, lucide-react icons, `motion`.
 - **Backend:** one Express app in `api/index.ts`, run by Vercel as a serverless function and
   by `server.ts` in dev. There is no second copy — `server.ts` imports it. `api/skill-packs.ts`
   is a separate Vercel function (see `vercel.json`); dev mounts it onto the same app.
-- **Data:** Public Library = markdown files in `library/` (Git-versioned). User data = Postgres (Neon).
-- **Deploy:** Vercel. Working branch **`mike_desktop`**, deploy branch **`main`**. `vercel-build` rebuilds the prompt index.
+- **Data:** Public Library = markdown files in `library/` (Git-versioned). My Library = markdown files in
+  `my-library/` (gitignored; `MY_LIBRARY_DIR` moves it), frontmatter holds title/section/category/tags/dates.
+- **Read-only mode:** `READ_ONLY=true`, or automatically on Vercel (`VERCEL` is set). The server 403s every
+  write route; the UI reads the same rule at build time (`__READ_ONLY__` in `vite.config.ts`,
+  `src/lib/mode.ts`) and hides the library switch, New prompt, Save to My Library and pack add/remove.
+- **Deploy (demo only):** Vercel. Working branch **`mike_desktop`**, deploy branch **`main`**. `vercel-build` rebuilds the prompt index.
 
 > **Repo layout:** the entire deployable app (source, `api/`, `library/`, build config,
 > `package.json`) lives under **`site/`**. Run all `npm` commands from `site/`. On Vercel,
@@ -28,15 +39,18 @@ bundles) and a large **System Prompts** archive.
 ```bash
 cd site
 npm install
-cp .env.example .env      # then set DATABASE_URL (Neon) — see .env
-npm run dev               # tsx server.ts → http://localhost:3010
+npm run dev               # tsx server.ts → http://localhost:3010 (Vite HMR)
+npm start                 # build, then serve dist/ the same way
 ```
+
+No `.env` is needed; `.env.example` lists the three optional settings (`MY_LIBRARY_DIR`, `HOST`, `READ_ONLY`).
 
 Other scripts: `npm run build` (build:index → tsc → vite build), `npm run build:index`
 (regenerates `api/prompt-index.json` from `library/`), `npm run lint` (`tsc --noEmit`),
-`npm run test:routes` (asserts the shared Express app still exposes all eight API routes).
+`npm run test:routes` (asserts the shared Express app still exposes all eight API routes and no auth router),
+`npm run test:my-library` (round-trips the My Library file store in a temp folder).
 
-CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → the two repo-root
+CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → `test:my-library` → the two repo-root
 provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →
 a rebuild of the prompt index, failing if the rebuilt file is not byte-identical to the committed one.
 Rebuild and commit `api/prompt-index.json` whenever you touch `library/`.
@@ -54,10 +68,10 @@ site/
                        usePromptPreviews (batched card blurbs — the listing has no body text)
                        usePromptContent (copy state + fetching a prompt's real body)
                        useLibraryRoute (section/category/subcategory/?prompt= URL state)
-    lib/               cn (clsx + tailwind-merge), sections (the six sections: tab id, folder,
+    lib/               mode (READ_ONLY), cn (clsx + tailwind-merge), sections (the six sections: tab id, folder,
                        label, icon, accent, blurb — every tab switch reads from here),
                        themes (the 16 theme ids + picker swatches + localStorage key)
-    components/        TopBar (breadcrumbs, ⌘K trigger, Resources menu, New prompt, account),
+    components/        TopBar (breadcrumbs, ⌘K trigger, Resources menu, New prompt),
                        Sidebar (library switch, section nav, category tree, ThemePicker),
                        CommandPalette (⌘K: prompts / sections / actions / themes),
                        AmbientBackground (constellation canvas + glow, tinted by the tokens),
@@ -65,29 +79,30 @@ site/
                        PromptListToolbar, PromptGrid (also exports PromptCardGrid,
                        PromptCardActions, LoadingSkeleton), PromptCard (spotlight card),
                        PromptDetail, SkillPacksView, EmptyState, Toast, ResourcesNav,
-                       ThemePicker, LoginModal, SignupModal, PromptEditorModal
+                       ThemePicker, PromptEditorModal
     components/ui/     primitives (Button, IconButton, Chip, Tag, Kbd, Modal*, Notice), CountUp
-    contexts/          AuthContext
     index.css          Design tokens on :root (org palette), base + component classes
                        (.btn, .input, .chip, .spot, .popover, .surface …) in Tailwind layers
     themes.css         16 [data-theme] overrides of those tokens + per-section accent (--c)
-  server.ts            71-line dev wrapper: imports the app `api/index.ts` exports,
-                       mounts the prod skill-packs handler, adds Vite HMR (port 3010)
-  api/index.ts         Vercel handler: prompts, auth, GitHub-mode public library.
+  server.ts            The local server: imports the app `api/index.ts` exports, mounts the
+                       skill-packs handler, adds Vite HMR (or serves dist/ with --production).
+                       Port 3010 on 127.0.0.1 (HOST overrides).
+  api/index.ts         The Express app (also the Vercel handler): Public Library + My Library.
                        `?lightweight=true` returns metadata only — a listing prompt's
                        `content` is NOT the prompt. Card blurbs come from
                        POST /api/prompts/previews, full bodies from GET /api/prompts/:id.
-  api/skill-packs.ts   Vercel handler for skill packs (bundles library/3_Skills/**)
-  routes/, middleware/ auth.ts (bcrypt + cookie sessions), rate-limit.ts (per-IP login/signup
-                       limiters, in-memory so per Vercel instance). No skill-packs router — dev
-                       runs the production api/skill-packs.ts handler.
-  db/postgres.ts       Postgres layer (users, user_prompts, user_sessions, user_skill_pack_installs)
+  api/skill-packs.ts   Skill packs handler (bundles library/3_Skills/**). A pack counts as in My
+                       Library while any My Library prompt carries its `skill-pack:<id>` tag.
+  lib/my-library.ts    My Library file store + READ_ONLY. Ids are file names, restricted to
+                       [a-z0-9-] so an id can never name a path outside the folder.
+  lib/safe-path.ts     resolveInside(): keeps library paths inside library/
   library/             Public content, numbered sections (see below)
   scripts/build-prompt-index.js   Walks library/ → api/prompt-index.json (site build step).
                        Sorts by id and skips files over 500 KB. Carries `lastModified` and
                        `buildTime` forward for unchanged entries, so rebuilding an untouched
                        library leaves the file byte-identical.
   scripts/api-routes.test.mjs     Pins the route table (npm run test:routes)
+  scripts/my-library.test.mjs     File-store self-check (npm run test:my-library)
   package.json, vite.config.ts, tsconfig.json, vercel.json, index.html
 
 (repo root, outside the deploy root)
@@ -133,11 +148,10 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
   sample code that imports packages the app does not depend on, so type-checking it just breaks
   `npm run lint` on the next content resync. The app never imports from `library/` — it reads it
   as data at runtime.
-- Auth = bcrypt hashes + cookie sessions (30-day). Secure cookies off in dev (`NODE_ENV`).
-- Login/signup are rate-limited and validated in `routes/auth.ts`. `app.set('trust proxy', 1)`
-  is what makes `req.ip` the client on Vercel; don't remove it. `helmet` runs with CSP off.
-- Parameterized SQL only (`db/postgres.ts`). Never expose `DATABASE_URL` client-side.
-- Never commit `.env*` (gitignored), `DATABASE_URL`, or GitHub tokens.
+- No auth. Every write route goes through `requireWritable` (api/index.ts) or the `READ_ONLY`
+  check (api/skill-packs.ts); a new write route must too, or the demo becomes writable.
+- `helmet` runs with CSP off.
+- Never commit `.env*` (gitignored) or anything under `site/my-library/`.
 - **LF only.** `.gitattributes` sets `eol=lf` repo-wide. `contentPreview` is embedded in
   `api/prompt-index.json` verbatim, so a CRLF file makes the index unreproducible on Linux and
   the CI gate fails.
@@ -150,9 +164,11 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
 
 ## Env vars
 
-| Var | Needed for | Notes |
-|:---|:---|:---|
-| `DATABASE_URL` | auth + My Library | Neon Postgres connection string. App runs read-only public library without it but auth/My-Library break. |
-| `NODE_ENV` | cookie security, dev branch | `development` locally. |
-| `USE_GITHUB_MODE` | public library source | `false` = read local `library/` files (default dev); `true` = fetch from GitHub. |
-| `GITHUB_TOKEN` / `GITHUB_OWNER` / `GITHUB_REPO` / `GITHUB_BRANCH` | GitHub mode only | Only when `USE_GITHUB_MODE=true`. |
+All optional; the app runs with none set.
+
+| Var | Effect |
+|:---|:---|
+| `MY_LIBRARY_DIR` | Where My Library lives. Relative paths resolve against `site/`. Default `site/my-library`. |
+| `HOST` | Listen address. Default `127.0.0.1`; `0.0.0.0` opens it to the network (there are no accounts). |
+| `READ_ONLY` | `true` = Public Library only, writes 403. Implied on Vercel by `VERCEL`. |
+| `NODE_ENV` | `production` serves `dist/` instead of Vite, same as `--production`. |
