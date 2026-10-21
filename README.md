@@ -177,6 +177,7 @@ honours `MY_LIBRARY_DIR` and `READ_ONLY` from `site/.env`. Details:
 - [API Reference](docs/features/API.md) - REST API endpoints
 - [Library Modes](docs/features/LIBRARY-MODE-IMPLEMENTATION.md) - Public vs My Library
 - [Featured Prompts](docs/features/FEATURED-PROMPTS.md) - Highlighting top prompts
+- [MCP Server](docs/features/MCP-SERVER.md) - The library as an MCP server: tools, prompts, install and how it stays current
 
 **Development**
 - [Debug Guide](docs/development/DEBUG_UI.md) - Troubleshooting

@@ -106,6 +106,8 @@ site/
                        prompts. docs/features/MCP-SERVER.md. Must never log to stdout:
   mcp/setup.ts         imported first; sends console.log/info/debug to stderr and loads .env
                        quietly (dotenv 17 prints to stdout otherwise)
+                       Adding a library section means adding it to SECTIONS in lib/library.ts
+                       too; test:mcp fails until the two lists match.
   library/             Public content, numbered sections (see below)
   scripts/build-prompt-index.js   Walks library/ → api/prompt-index.json (site build step).
                        Sorts by id and skips files over 500 KB. Carries `lastModified` and

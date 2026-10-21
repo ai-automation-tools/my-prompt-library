@@ -68,6 +68,25 @@ MCP prompts appear in clients as slash commands, and clients list all of them. R
 Each takes an optional `input`, appended after the prompt text as one user message. The
 factory runs per connection, so the My Library list is current as of connecting.
 
+## How it stays current
+
+The server reads the library from disk on every call, so **content needs no step of its own**:
+whatever the scheduled jobs add or fix is served as soon as the clone has it. What keeps the
+clone, the code and the dependencies current:
+
+| What | Kept current by |
+|:---|:---|
+| Library content (prompts, skills, agents, MCP cards, packs) | The Prompt-Library job fleet, merged to `main` by the Org PR Sweep |
+| The clone a user-scope MCP config runs from | The daily repo sync (`Sync-Repos.ps1`) merges `main` into `mike_desktop` |
+| `site/node_modules` after a dependency change | The same sync: `my-prompt-library` is in its `$repoInstallDirs` map, so a pulled change to `site/package-lock.json` runs `npm ci` in `site/`, after stopping the local app and any `node` process rooted in the repo (MCP sessions reconnect with `/mcp`), then restarts the app |
+| SDK minor and patch releases | Dependabot's weekly grouped PR for `/site` |
+| SDK majors and MCP spec revisions | The biweekly upstream check, from the `docs/UPSTREAMS.md` row |
+| Every change to any of the above | CI runs `npm run test:mcp` on every PR, including every automation PR |
+| A new library section | `test:mcp` fails until `SECTIONS` in `lib/library.ts` lists the same folders as `src/lib/sections.ts` |
+| This server's own card in `6_MCP_Servers/` | The Monthly Upkeep's `check-mcp-servers.mjs` |
+
+The count in the server's instructions comes from the index at start-up, so it never goes stale.
+
 ## Not built yet
 
 These are on the roadmap and need Mike's go-ahead, because each makes something public:
