@@ -1,3 +1,8 @@
+---
+title: "Comedian Personality"
+tags: ["agent","assistants","podcast-personalities"]
+---
+
 # Comedian Personality
 
 ## Role

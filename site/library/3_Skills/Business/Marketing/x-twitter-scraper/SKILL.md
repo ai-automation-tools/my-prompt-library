@@ -7,6 +7,7 @@ upstream:
   path: x-twitter-scraper/SKILL.md
   ref: ef87f447a8447badaa79050add2f8efed93bca87
   checked: 2026-10-13
+tags: ["skill","business","marketing"]
 ---
 
 # Xquik X (Twitter) data API

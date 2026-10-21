@@ -4,6 +4,7 @@ description: "Write persuasive marketing copy including landing pages, product d
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","copywriting"]
 ---
 
 # Copywriting — Persuasion, Conversion & Brand Voice

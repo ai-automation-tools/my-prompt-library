@@ -1,3 +1,8 @@
+---
+title: "Prompt: Use and Configure Claude Code's Built-in Tools"
+tags: ["prompt","ai-ml","claude-code"]
+---
+
 # Prompt: Use and Configure Claude Code's Built-in Tools
 
 **Use when:** You want to explicitly direct Claude Code to use specific built-in tools (Read, Write, Bash, WebFetch, Grep, Glob, etc.) effectively for complex tasks.

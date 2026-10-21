@@ -4,6 +4,7 @@ description: Define the visual identity of a game including art style, color pal
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","art-direction"]
 ---
 
 # Art Direction — Visual Identity & Style

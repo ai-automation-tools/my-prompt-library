@@ -1,3 +1,8 @@
+---
+title: "Budget Coach Agent"
+tags: ["agent","finance"]
+---
+
 # Budget Coach Agent
 
 ## Role

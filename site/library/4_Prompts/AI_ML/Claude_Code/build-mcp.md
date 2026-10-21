@@ -1,3 +1,8 @@
+---
+title: "Prompt: Build an MCP Server from Scratch"
+tags: ["prompt","ai-ml","claude-code"]
+---
+
 # Prompt: Build an MCP Server from Scratch
 
 **Use when:** You want Claude Code to scaffold, implement, test, and document a complete MCP server that exposes tools to Claude and other MCP clients.

@@ -9,6 +9,7 @@ upstream:
   copies: 3
   candidates: [microck/ordinary-claude-skills, ovachiever/droid-tings, thegovind/claude-scientific-skills]
   checked: 2026-08-26
+tags: ["skill","data","histolab"]
 ---
 
 # Histolab

@@ -1,5 +1,6 @@
 ---
 title: "🐙 end-daily-podcast-topic"
+tags: ["skill","content","podcasts"]
 name: "end-daily-podcast-topic"
 description: Collects the latest podcast topic discussion from the Podcast Writers Room workspace, compiles agent responses into a markdown document, publishes to GitHub, posts completion message, uploads context, and ALWAYS marks the associated task as complete in AX. Use when ending a podcast topic, closing daily discussion, finishing a debate round, or when asked to wrap up, complete, or publish podcast responses.
 upstream:

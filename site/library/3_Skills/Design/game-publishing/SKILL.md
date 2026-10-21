@@ -4,6 +4,7 @@ description: Plan game launches including store page optimization, platform subm
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","game-publishing"]
 ---
 
 # Game Publishing — Launch, Market & Sustain

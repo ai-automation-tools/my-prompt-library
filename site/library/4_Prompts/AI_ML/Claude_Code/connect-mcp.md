@@ -1,3 +1,8 @@
+---
+title: "Prompt: Connect an MCP Server to Claude Code"
+tags: ["prompt","ai-ml","claude-code"]
+---
+
 # Prompt: Connect an MCP Server to Claude Code
 
 **Use when:** You want to add a new MCP server (local or remote) to Claude Code so its tools are available in your sessions.

@@ -1,5 +1,6 @@
 ---
 title: "🎨 Flutter Widget Builder"
+tags: ["skill","development","mobile"]
 name: "flutter-widget-builder"
 description: Build Flutter widgets using BLoC pattern, Material Design, and clean architecture principles.
 metadata:

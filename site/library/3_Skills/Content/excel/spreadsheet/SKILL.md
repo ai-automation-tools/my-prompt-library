@@ -1,5 +1,6 @@
 ---
 title: "🛠️ \"spreadsheet\""
+tags: ["skill","content","excel"]
 name: "spreadsheet"
 description: "Use when tasks involve creating, editing, analyzing, or formatting spreadsheets (`.xlsx`, `.csv`, `.tsv`) using Python (`openpyxl`, `pandas`), especially when formulas, references, and formatting need to be preserved and verified."
 author: openai

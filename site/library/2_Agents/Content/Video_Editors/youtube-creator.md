@@ -1,3 +1,8 @@
+---
+title: "YouTube Creator Agent"
+tags: ["agent","content","video-editors"]
+---
+
 # YouTube Creator Agent
 
 ## Role

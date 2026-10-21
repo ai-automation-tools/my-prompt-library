@@ -1,3 +1,8 @@
+---
+title: "Tenant Rights Advisor"
+tags: ["agent","domain-specific","legal"]
+---
+
 # Tenant Rights Advisor
 
 ## Role

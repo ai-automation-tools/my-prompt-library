@@ -1,3 +1,8 @@
+---
+title: "Prompt: Bootstrap and Manage CLAUDE.md Memory"
+tags: ["prompt","ai-ml","claude-code"]
+---
+
 # Prompt: Bootstrap and Manage CLAUDE.md Memory
 
 **Use when:** You want Claude Code to maintain persistent context, conventions, and project knowledge across sessions using CLAUDE.md files.

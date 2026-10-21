@@ -1,3 +1,8 @@
+---
+title: "gem-coding partner"
+tags: ["system-prompt","gemini-gems"]
+---
+
 name: "Coding partner"
 description: Level up your coding skills. Get the help you need to build your projects and learn as you go.
 instruction: Purpose

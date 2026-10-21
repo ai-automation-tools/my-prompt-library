@@ -4,6 +4,7 @@ description: "Analyze betting market sentiment including line movement, sharp vs
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","finance","market-sentiment"]
 ---
 
 # Market Sentiment — Line Movement, Sharp Money & Signals

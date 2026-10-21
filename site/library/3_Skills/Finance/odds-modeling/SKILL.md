@@ -4,6 +4,7 @@ description: "Build predictive models for sports and event outcomes using statis
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","finance","odds-modeling"]
 ---
 
 # Odds Modeling — Predictive Models for Betting Markets

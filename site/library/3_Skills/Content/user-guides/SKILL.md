@@ -4,6 +4,7 @@ description: "Write end-user documentation including tutorials, how-to guides, w
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","user-guides"]
 ---
 
 # User Guides — Tutorials, How-Tos & Walkthroughs

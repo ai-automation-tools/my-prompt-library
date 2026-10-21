@@ -7,6 +7,7 @@ upstream:
   path: skills/executing-plans/SKILL.md
   ref: 8ca22dba9a94f28898bbce59f2537ff4d87c747d
   checked: 2026-09-27
+tags: ["skill","content","executing-plans"]
 ---
 
 # Executing Plans

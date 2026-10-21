@@ -1,3 +1,8 @@
+---
+title: "Prompt: Configure Claude Code Settings and Permissions"
+tags: ["prompt","ai-ml","claude-code"]
+---
+
 # Prompt: Configure Claude Code Settings and Permissions
 
 **Use when:** You want to set up project-level or global Claude Code configuration — permissions, allowed/denied tools, environment, hooks, and custom commands.

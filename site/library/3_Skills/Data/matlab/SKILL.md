@@ -11,6 +11,7 @@ upstream:
   path: matlab/SKILL.md
   ref: 92ace75ac21efe19a620434e0ca4e356081fe807
   checked: 2026-10-05
+tags: ["skill","data","matlab"]
 ---
 
 # MATLAB and GNU Octave

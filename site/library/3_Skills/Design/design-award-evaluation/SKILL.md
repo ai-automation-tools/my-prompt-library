@@ -12,6 +12,7 @@ upstream:
   match: unknown
   declared: "https://github.com/SeanJ1ang/design-judge-skills"
   checked: 2026-08-26
+tags: ["skill","design","design-award-evaluation"]
 ---
 
 # Design Award Evaluation

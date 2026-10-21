@@ -143,7 +143,7 @@ const PromptCard = memo(function PromptCard({
               {title}
             </h3>
             <p className="mono mt-1 truncate text-[10.5px] uppercase tracking-[0.1em] text-[var(--fg-4)]">
-              <span className="text-[color-mix(in_srgb,var(--c)_80%,#fff)]">{humanize(prompt.category)}</span>
+              <span className="text-[color-mix(in_srgb,var(--c)_var(--tint-k),var(--mix-ink))]">{humanize(prompt.category)}</span>
               {prompt.subcategory && <span> / {humanize(prompt.subcategory)}</span>}
             </p>
           </div>

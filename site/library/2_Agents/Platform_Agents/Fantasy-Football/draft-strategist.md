@@ -1,3 +1,8 @@
+---
+title: "Fantasy Football Draft Strategist Agent"
+tags: ["agent","platform-agents","fantasy-football"]
+---
+
 # Fantasy Football Draft Strategist Agent
 
 ## Role

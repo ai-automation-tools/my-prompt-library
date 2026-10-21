@@ -4,6 +4,7 @@ description: "Write business reports including executive summaries, status updat
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","report-writing"]
 ---
 
 # Report Writing — Analysis, Status & Decisions

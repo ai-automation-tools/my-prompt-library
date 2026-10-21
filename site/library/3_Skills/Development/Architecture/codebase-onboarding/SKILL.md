@@ -1,5 +1,6 @@
 ---
 title: "🗺️ Codebase Onboarding"
+tags: ["skill","development","architecture"]
 name: "codebase-onboarding"
 description: Analyze a repository and generate onboarding documentation including architecture overviews, key file maps, setup guides, runbooks, and contribution guidance. Use when a codebase needs newcomer-friendly documentation.
 source: https://skillsmp.com/skills/openclaw-skills-skills-alirezarezvani-codebase-onboarding-skill-md

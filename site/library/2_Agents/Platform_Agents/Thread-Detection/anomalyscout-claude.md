@@ -1,3 +1,8 @@
+---
+title: "Anomaly Scout"
+tags: ["agent","platform-agents","thread-detection"]
+---
+
 # Anomaly Scout
 
 ## Identity

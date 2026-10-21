@@ -7,6 +7,7 @@ upstream:
   copies: 7
   candidates: [automindtechnologie-jpg/ultimate-skill.md, congdon1207/agents.md, hainamchung/agent-assistant, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, vudovn/antigravity-kit, xfstudio/skills]
   checked: 2026-08-26
+tags: ["skill","content","documentation-templates"]
 ---
 
 # Documentation Templates

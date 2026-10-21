@@ -1,3 +1,8 @@
+---
+title: "Commit Guardian"
+tags: ["agent","development"]
+---
+
 # Commit Guardian
 
 Pre-commit verification agent that runs 10 automated checks before every git commit. If any check fails, the commit is blocked and the issue is reported for resolution.

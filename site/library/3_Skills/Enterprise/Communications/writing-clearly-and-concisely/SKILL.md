@@ -6,6 +6,7 @@ upstream:
   copies: 6
   candidates: [cachemoney/agent-toolkit, freeacger/loom, jssee/agents, pedronauck/skills, softaworks/agent-toolkit, visualxintelligence/agent-toolkit]
   checked: 2026-08-26
+tags: ["skill","enterprise","communications"]
 ---
 
 # Writing Clearly and Concisely

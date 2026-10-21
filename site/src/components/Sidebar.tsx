@@ -7,14 +7,10 @@ import { useMemo, useState } from 'react';
 import { BookOpen, ChevronDown, FolderOpen, Layers, Library, Package, Search, X } from 'lucide-react';
 import { AnimatePresence, LayoutGroup, m } from 'motion/react';
 import { cn } from '../lib/cn';
-import { SECTIONS, humanize } from '../lib/sections';
-import type { Theme } from '../lib/themes';
+import { getSection, humanize } from '../lib/sections';
 import type { LibraryTab } from '../hooks/useLibraryRoute';
 import type { Prompt } from './PromptCard';
-import ThemePicker from './ThemePicker';
 import { READ_ONLY } from '../lib/mode';
-
-export type { Theme } from '../lib/themes';
 
 export interface SkillPackSummary {
   id: string;
@@ -36,9 +32,6 @@ interface SidebarProps {
   libraryMode: 'public' | 'my';
   setLibraryMode: (mode: 'public' | 'my') => void;
   activeTab: LibraryTab;
-  setActiveTab: (tab: LibraryTab) => void;
-  /** Prompt count per section, for the nav badges. */
-  sectionCounts: Partial<Record<LibraryTab, number>>;
   skillPacks: SkillPackSummary[];
   categories: Record<string, Set<string>>;
   sectionPrompts: Prompt[];
@@ -48,31 +41,21 @@ interface SidebarProps {
   selectedSubcategory: { category: string; subcategory: string | 'ALL' } | null;
   handleSubcategoryClick: (category: string, subcategory: string | 'ALL') => void;
   handleShowAllPrompts: () => void;
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
 }
 
 export const SIDEBAR_WIDTH = 272;
 
-/** The brand mark: a small framed glyph in the accent. */
-function BrandMark() {
-  return (
-    <span className="glyph h-8 w-8 rounded-[8px]" style={{ ['--c' as string]: 'var(--accent)' }}>
-      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2.5l2.4 5.2 5.6.8-4.1 4 1 5.6L12 15.4l-4.9 2.7 1-5.6-4.1-4 5.6-.8z" />
-      </svg>
-    </span>
-  );
-}
-
+/**
+ * The categories panel: the Public | My Library switch, then the category
+ * tree for the current section. Sections themselves live in the top bar.
+ * A drawer over the page on phones, a column beside it from md up.
+ */
 export default function Sidebar({
   isSidebarOpen,
   setIsSidebarOpen,
   libraryMode,
   setLibraryMode,
   activeTab,
-  setActiveTab,
-  sectionCounts,
   skillPacks,
   categories,
   sectionPrompts,
@@ -82,8 +65,6 @@ export default function Sidebar({
   selectedSubcategory,
   handleSubcategoryClick,
   handleShowAllPrompts,
-  theme,
-  setTheme,
 }: SidebarProps) {
   const [categoryFilter, setCategoryFilter] = useState('');
 
@@ -106,43 +87,43 @@ export default function Sidebar({
   }, [categories, categoryFilter]);
 
   const showCategoryFilter = Object.keys(categories).length > 8;
+  const section = getSection(activeTab);
+  const SectionIcon = section.icon;
 
   return (
     <aside
       className={cn(
         'fixed inset-y-0 left-0 z-50 flex h-full shrink-0 flex-col overflow-hidden',
-        'border-r border-[var(--line)] bg-[var(--bg-2)]',
-        'transition-[transform,width] duration-500 ease-[cubic-bezier(.2,.7,.2,1)]',
+        'border-r border-[var(--rule)] bg-[var(--rail-bg)]',
+        'transition-[transform,width] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]',
         'md:relative md:translate-x-0',
-        'w-[272px]',
-        isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:w-0 md:border-r-0',
+        'w-[min(272px,85vw)] md:w-[272px]',
+        isSidebarOpen ? 'translate-x-0 shadow-[0_0_60px_-20px_var(--pop-shadow)] md:shadow-none' : '-translate-x-full md:w-0 md:border-r-0',
       )}
-      aria-label="Library navigation"
+      aria-label="Categories"
     >
       <div className="flex h-full flex-col" style={{ width: SIDEBAR_WIDTH }}>
-        {/* Brand */}
-        <div className="flex h-14 shrink-0 items-center gap-3 border-b border-[var(--line)] px-4">
+        {/* Panel head: lines up with the top bar's bottom rule. */}
+        <div className="flex h-14 shrink-0 items-center gap-3 border-b border-[var(--bar-line)] px-4">
           <button
             type="button"
-            onClick={() => {
-              setActiveTab('prompt-library');
-              handleShowAllPrompts();
-            }}
-            className="flex min-w-0 flex-1 items-center gap-2.5 rounded-[var(--r-md)] text-left transition-opacity hover:opacity-85"
+            onClick={handleShowAllPrompts}
+            className="flex min-w-0 flex-1 items-center gap-2.5 text-left"
+            style={{ ['--c' as string]: section.accent }}
           >
-            <BrandMark />
+            <span className="glyph h-8 w-8 rounded-[8px]">
+              <SectionIcon className="h-4 w-4" />
+            </span>
             <span className="min-w-0">
-              <span className="block truncate text-[13.5px] font-semibold tracking-tight text-[var(--fg)]">
-                Prompt Library
-              </span>
-              <span className="eyebrow block text-[9.5px] tracking-[0.16em]">Mike's AI Lab</span>
+              <span className="block truncate text-[13.5px] font-semibold tracking-tight text-[var(--fg)]">{section.label}</span>
+              <span className="eyebrow block text-[9.5px] tracking-[0.16em]">{libraryMode === 'my' ? 'My Library' : 'Public Library'}</span>
             </span>
           </button>
           <button
             type="button"
             onClick={() => setIsSidebarOpen(false)}
             className="icon-btn md:hidden"
-            aria-label="Close navigation"
+            aria-label="Close categories"
           >
             <X className="h-4 w-4" />
           </button>
@@ -179,73 +160,9 @@ export default function Sidebar({
         </div>
         )}
 
-        {/* Sections */}
-        <nav className="px-3 pt-4" aria-label="Sections">
-          <p className="eyebrow mb-2 px-2">Browse</p>
-          <LayoutGroup id="sections">
-            <ul className="space-y-0.5">
-              {SECTIONS.map(section => {
-                const Icon = section.icon;
-                const active = activeTab === section.id;
-                const count = sectionCounts[section.id];
-                return (
-                  <li key={section.id}>
-                    <button
-                      type="button"
-                      aria-current={active ? 'page' : undefined}
-                      onClick={() => {
-                        setActiveTab(section.id);
-                        handleShowAllPrompts();
-                        if (window.innerWidth < 768) setIsSidebarOpen(false);
-                      }}
-                      style={{ ['--c' as string]: section.accent }}
-                      className={cn(
-                        'group relative flex w-full items-center gap-2.5 rounded-[var(--r-md)] px-2 py-[7px] text-left text-[13.5px] transition-colors',
-                        active ? 'text-[var(--fg)]' : 'text-[var(--fg-3)] hover:text-[var(--fg)]',
-                      )}
-                    >
-                      {active && (
-                        <m.span
-                          layoutId="section-active"
-                          className="absolute inset-0 rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--surface-2)]"
-                          transition={{ type: 'spring', stiffness: 500, damping: 42 }}
-                        />
-                      )}
-                      {active && (
-                        <m.span
-                          layoutId="section-active-bar"
-                          className="absolute left-0 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-r-full"
-                          style={{ background: 'var(--c)', boxShadow: '0 0 10px var(--c)' }}
-                          transition={{ type: 'spring', stiffness: 500, damping: 42 }}
-                        />
-                      )}
-                      <span
-                        className={cn(
-                          'relative grid h-6 w-6 place-items-center rounded-[6px] transition-colors',
-                          active
-                            ? 'bg-[color-mix(in_srgb,var(--c)_14%,transparent)] text-[var(--c)]'
-                            : 'text-[var(--fg-4)] group-hover:text-[var(--c)]',
-                        )}
-                      >
-                        <Icon className="h-[15px] w-[15px]" />
-                      </span>
-                      <span className="relative flex-1 truncate font-medium">{section.label}</span>
-                      {count !== undefined && (
-                        <span className="mono relative text-[10.5px] tabular-nums text-[var(--fg-5)] group-hover:text-[var(--fg-4)]">
-                          {count.toLocaleString()}
-                        </span>
-                      )}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </LayoutGroup>
-        </nav>
-
         {/* Categories */}
-        <div className="mt-4 flex min-h-0 flex-1 flex-col border-t border-[var(--line)]">
-          <div className="flex items-center justify-between px-5 pb-1.5 pt-3.5">
+        <div className="flex min-h-0 flex-1 flex-col">
+          <div className="flex items-center justify-between px-5 pb-1.5 pt-4">
             <p className="eyebrow">{activeTab === 'skill-packs' ? 'Pack categories' : 'Categories'}</p>
             <span className="mono text-[10.5px] text-[var(--fg-5)]">
               {activeTab === 'skill-packs' ? packsByCategory.length : Object.keys(categories).length}
@@ -334,11 +251,6 @@ export default function Sidebar({
               </p>
             )}
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="shrink-0 border-t border-[var(--line)] p-2.5">
-          <ThemePicker theme={theme} setTheme={setTheme} />
         </div>
       </div>
     </aside>

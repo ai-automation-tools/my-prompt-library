@@ -1,5 +1,6 @@
 ---
 title: "Whisper"
+tags: ["skill","ai-ml","whisper"]
 name: "whisper"
 description: Speech-to-text, translation, and multilingual transcription workflows with OpenAI Whisper.
 source: https://skillsmp.com/skills/math-inc-opengauss-skills-mlops-models-whisper-skill-md

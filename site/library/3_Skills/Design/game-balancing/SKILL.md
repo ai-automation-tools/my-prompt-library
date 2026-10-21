@@ -4,6 +4,7 @@ description: Balance game systems including difficulty curves, stat tuning, econ
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","game-balancing"]
 ---
 
 # Game Balancing — Tuning for Fair & Engaging Play

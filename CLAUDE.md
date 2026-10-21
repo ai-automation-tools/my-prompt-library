@@ -68,22 +68,24 @@ site/
                        usePromptPreviews (batched card blurbs — the listing has no body text)
                        usePromptContent (copy state + fetching a prompt's real body)
                        useLibraryRoute (section/category/subcategory/?prompt= URL state)
+    hooks/useTheme     Light | Dark (`html.light`, key `my-prompt-library.theme`) and the colour palette
+                       (`html[data-palette]`, key `my-prompt-library.palette`, sky/violet/emerald/ember);
+                       index.html applies both before first paint
     lib/               mode (READ_ONLY), cn (clsx + tailwind-merge), sections (the six sections: tab id, folder,
-                       label, icon, accent, blurb — every tab switch reads from here),
-                       themes (the 16 theme ids + picker swatches + localStorage key)
-    components/        TopBar (breadcrumbs, ⌘K trigger, Resources menu, New prompt),
-                       Sidebar (library switch, section nav, category tree, ThemePicker),
+                       label, icon, accent token, blurb — every tab switch reads from here)
+    components/        TopBar (brand, section nav + phone sheet, ⌘K trigger, Resources menu,
+                       New prompt, Settings, ThemeSwitch), Sidebar (library switch, category tree),
+                       Breadcrumbs, SettingsModal (mode + palette, local data, shortcuts),
                        CommandPalette (⌘K: prompts / sections / actions / themes),
-                       AmbientBackground (constellation canvas + glow, tinted by the tokens),
                        LibraryHero (title, blurb, CountUp stats, in-section search),
                        PromptListToolbar, PromptGrid (also exports PromptCardGrid,
                        PromptCardActions, LoadingSkeleton), PromptCard (spotlight card),
                        PromptDetail, SkillPacksView, EmptyState, Toast, ResourcesNav,
-                       ThemePicker, PromptEditorModal
+                       ThemeSwitch, PromptEditorModal
     components/ui/     primitives (Button, IconButton, Chip, Tag, Kbd, Modal*, Notice), CountUp
-    index.css          Design tokens on :root (org palette), base + component classes
-                       (.btn, .input, .chip, .spot, .popover, .surface …) in Tailwind layers
-    themes.css         16 [data-theme] overrides of those tokens + per-section accent (--c)
+    index.css          House-style tokens (dark on :root, light on html.light), per-section accent
+                       (--c), base + component classes (.btn, .input, .chip, .spot, .popover,
+                       .topbar, .nav, .theme-sw, .site-footer …) in Tailwind layers
   server.ts            The local server: imports the app `api/index.ts` exports, mounts the
                        skill-packs handler, adds Vite HMR (or serves dist/ with --production).
                        Port 3010 on 127.0.0.1 (HOST overrides).
@@ -106,7 +108,12 @@ site/
   package.json, vite.config.ts, tsconfig.json, vercel.json, index.html
 
 (repo root, outside the deploy root)
-  scripts/             Utility scripts (add-frontmatter.mjs, prompt_generation/, *.py helpers)
+  scripts/             Library tooling: check-upstream-drift.mjs (the Monday issue, with a per-section
+                       health table), attribute-upstream.mjs + resync-upstream.mjs (provenance),
+                       sync-agent-skills.mjs (copies new skills from the org's agent-skills repo into
+                       3_Skills, stamped; run weekly by the Routines fleet with no model),
+                       backfill-tags.mjs (path-derived tags for any file with none; the Monthly
+                       Upkeep keeps it at zero), the two *.test.mjs self-checks, prompt_generation/
   homepage/            Static homepage (one index.html, no build) → GitHub Pages via
                        .github/workflows/homepage.yml; pinned by scripts/homepage.test.mjs
   docs/                Documentation (see docs/README.md; analysis in docs/audits/)
@@ -134,12 +141,16 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
 ## Conventions
 
 - React 19 functional components + hooks; strict TS, no `any`. Tailwind utility-first.
-- **Design system.** Colours are tokens on `:root` in `src/index.css` (`--bg`, `--surface`,
-  `--line`, `--fg`…`--fg-5`, `--accent`, `--c`), the same vocabulary as ai-automation-tools.dev:
-  `#060606` ground, zinc surfaces, sky-400 accent, Inter + JetBrains Mono, 12/8/6px radii.
-  Use the tokens (`text-[var(--fg-3)]`), never a raw Tailwind palette colour, so all 16 themes
-  stay correct. `--c` is the current section's accent (rose/cyan/violet/amber/emerald/teal,
-  set from `data-section` on `<html>`); cards, glyphs and tonal buttons tint from it.
+- **Design system: the org house style** (`web-house-style` skill). Colours are tokens on `:root`
+  in `src/index.css` (`--bg`, `--surface`, `--line`, `--fg`…`--fg-5`, `--accent`, `--c`), redefined
+  under `html.light`: `#060606` ground with a dot grid, zinc surfaces, sky accent (sky-700 in light),
+  Inter + JetBrains Mono, 12/8/6px radii. Use the tokens (`text-[var(--fg-3)]`), never a raw
+  Tailwind palette colour or a hex, so both themes stay correct; accent-tinted text mixes toward
+  `--mix-ink` by `--tint-k`. `--c` is the current section's accent (`--sec-*`, 400 shade dark /
+  700 light, set from `data-section` on `<html>`); cards, glyphs and tonal buttons tint from it.
+  Dark is the default whatever the OS says; the Light | Dark pill is the last control in the top bar.
+  Settings (gear) adds a colour palette on top of the mode: each `html[data-palette]` block swaps
+  only `--accent` (+ hover/ink/glow) and, in dark, tints `--bg` a hair; never the rest of the set.
   Shared controls are classes in `@layer components` (`.btn`, `.input`, `.chip`, `.spot`)
   wrapped by `components/ui/primitives.tsx`; reach for those before writing a new button.
 - Motion: `motion/react` with `LazyMotion` + `m.*` (never `motion.*`, it defeats the split).

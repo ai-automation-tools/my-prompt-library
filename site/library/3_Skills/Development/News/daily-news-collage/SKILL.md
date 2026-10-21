@@ -1,5 +1,6 @@
 ---
 title: "🖼️ daily-news-collage"
+tags: ["skill","development","news"]
 name: "daily-news-collage"
 description: Generate a cartoon-style illustrated news collage showing the biggest daily news stories. Use when the user wants to create a visual news summary, news illustration, illustrated news digest, or daily news image using nanobanana.
 upstream:

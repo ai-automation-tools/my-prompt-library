@@ -4,19 +4,115 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
-## 2026-10-19 — Two API-lifecycle prompts
+## 2026-10-21 — Every library section gets a job, and 430 files get tags
 
-Two new original prompts in `site/library/4_Prompts/Development/Api_Design/`, a folder that held one
-misfiled debugger prompt.
+Until today the content automations grew `4_Prompts` only (two prompts a week), skills and
+Skill Packs had no intake at all, and the two refresh passes each ran once a month. The fleet
+in `~\.claude\Routines` now covers every section, one lane per job, and the repo carries the
+scripts the model-free parts run on.
 
-- **API Breaking Change Review** — classifies each contract difference as breaking, risky or safe from the
-  consumer's side, including the silent ones (new nullable fields, new enum values, changed defaults).
-- **API Deprecation and Sunset Plan** — a dated retirement plan with `Deprecation`/`Sunset` headers,
-  brownouts, and a usage-based go/no-go for shutdown.
+**Content**
+- `scripts/backfill-tags.mjs` gives any indexed file with no `tags:` path-derived tags
+  (section, category, subcategory). Run once: **430 files** tagged (241 skills, 162 agents, 21
+  prompts, 6 system prompts) that the tag filter and ⌘K could not see. Text-level insert of one
+  line (or a prepended block for files with no frontmatter), so the drift check's body
+  comparison and the skill-frontmatter test are unaffected. The Monthly Upkeep re-runs it.
+- `scripts/sync-agent-skills.mjs` copies every skill in the org's `ai-automation-tools/agent-skills`
+  that `3_Skills` does not hold into the matching category, stamped with `title`, `tags` and an
+  `upstream:` block (`match: exact`) so the drift check tracks it from then on. Adds only. The
+  Routines fleet runs it Mondays with no Claude session (`Prompt-Library Skills Sync`); 40 skills
+  are waiting for the first run.
+- The six duplicate pack JSONs under `3_Skills/Development/` are gone: `api/skill-packs.ts` reads
+  `3_Skills/packs/` only, and these copies had drifted from the real ones.
 
-`site/api/prompt-index.json` rebuilt to include them.
+**Tooling**
+- `check-upstream-drift.mjs` adds a **Library health** table to the Monday issue: per section,
+  files, changed in the last 30 days, untagged, and (skills, real agents) without provenance.
+- Fleet changes, in the Routines repo: the Library Refresh split into a **Guides Refresh**
+  (alternate Tuesdays) and a **Catalog Refresh** (alternate Thursdays) so each lane runs twice a
+  month; Add Prompts adds **1 guide** a week beside its 2 prompts; the Monthly Upkeep checks every
+  Skill Pack's paths and adds one pack a month, keeps `featured` within per-section caps, and
+  keeps the untagged count at zero.
 
----
+_Touched: `scripts/{backfill-tags,sync-agent-skills,check-upstream-drift}.mjs`, 430 files under
+`site/library/`, `site/api/prompt-index.json`, `CLAUDE.md`, `docs/ROADMAP.md`; deleted
+`site/library/3_Skills/Development/*-pack.json`._
+
+## 2026-10-21 — Section buttons in the top bar
+
+**UI**
+- The six section links are bordered buttons now; the current one fills with its section's hue
+  (rose, cyan, violet, amber, emerald, teal) instead of an underline. Each gets its icon from
+  1536px up. The Resources menu and the brand wordmark move to the same wide-window gate so the
+  bar never overflows beside the categories panel; the ⌘K trigger is icon + keys only.
+
+_Touched: `site/src/index.css`, `site/src/components/{TopBar,ResourcesNav}.tsx`, `docs/ARCHITECTURE.md`._
+
+## 2026-10-21 — Settings dialog with colour palettes
+
+**UI**
+- A Settings button (gear) in the top bar, also reachable from ⌘K. The dialog holds Appearance
+  (the Light | Dark mode and a colour palette), Local data (clear favourites and recently viewed)
+  and the keyboard shortcuts.
+- Four palettes on top of the mode: Sky (the org default), Violet, Emerald and Ember, after the
+  retired Midnight Violet, Emerald Glass and Carbon Ember themes. Each swaps only the accent (400
+  shade dark, 700 light) and in dark tints the ground a hair toward the hue; surfaces, text and
+  lines stay the house set. Stored as `my-prompt-library.palette` and applied before first paint.
+
+_Touched: `site/index.html`, `site/src/index.css`, `site/src/hooks/useTheme.ts`,
+`site/src/components/{SettingsModal (new),TopBar,CommandPalette}.tsx`, `site/src/App.tsx`,
+`CLAUDE.md`, `README.md`, `homepage/index.html`, `docs/ARCHITECTURE.md`._
+
+## 2026-10-21 — The app on the org house style
+
+The app now wears the same chrome as ai-automation-tools.dev (the `web-house-style` skill):
+the sections sit in the top bar as nav links with a sliding underline, the categories panel is
+the sidebar, and the theme is a Light | Dark pill at the right end of the bar.
+
+**UI**
+- Top bar rebuilt as the house document-page bar: categories toggle, the app icon as the brand,
+  the six sections as links (a sheet under the bar below 1280px, opened by a menu button), then
+  ⌘K, Resources, New prompt and the theme switch. Breadcrumbs moved above the content, shown
+  once you are inside a category.
+- The 16-theme picker is gone. Dark is the default whatever the OS says; light is opt-in from the
+  switch and remembered as `my-prompt-library.theme`, applied in `index.html` before first paint so
+  a light-mode reload never flashes dark. The light set is the house light block (sky-700 accent,
+  section hues at their 700 shade so text in them passes contrast on white).
+- `index.css` carries the full house token set (dark on `:root`, light on `html.light`); every rule
+  below the token blocks references tokens only. `themes.css` deleted.
+- The constellation canvas and the two drifting glows are gone: one static glow behind the top of
+  the page, nothing else lit at rest.
+- A footer row at the end of the content (GitHub, Homepage, ai-automation-tools.dev, Cookie
+  settings), a skip link, and the phone pass: 16px fields, 36–40px tap targets, no sideways scroll
+  at 390px.
+- ⌘K keeps a Light / Dark pair under Themes instead of sixteen entries.
+
+_Touched: `site/index.html`, `site/src/index.css`, `site/src/App.tsx`, `site/src/hooks/useTheme.ts`
+(new), `site/src/components/{TopBar,Sidebar,ThemeSwitch,Breadcrumbs,CommandPalette,PromptCard,
+ResourcesNav}.tsx`, `site/src/components/ui/primitives.tsx`, `site/src/lib/sections.ts`; deleted
+`site/src/themes.css`, `site/src/lib/themes.ts`, `ThemePicker.tsx`, `AmbientBackground.tsx`;
+`CLAUDE.md`, `README.md`, `homepage/index.html`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`._
+
+## 2026-10-21 — Dev server's HMR socket pinned to 24678
+
+**Tooling**
+- `server.ts` runs Vite in middleware mode, which opens its hot-reload WebSocket on a port of its
+  own. It was left to Vite's default, so another middleware-mode app on the machine (edge-spectrum)
+  could take it first and leave this one without HMR. `site/vite.config.ts` now pins it to `24678`
+  explicitly (edge-spectrum moved to `24679`); `DISABLE_HMR=true` still turns it off.
+
+_Touched: `site/vite.config.ts`, `docs/CHANGELOG.md`._
+
+## 2026-10-21 — Neon deleted, Vercel env vars cleared
+
+**Ops**
+- The Neon project behind the old accounts is deleted, closing the never-rotated credential that
+  had been scrubbed from history. The `my-prompt-library` Vercel project no longer holds
+  `DATABASE_URL` or the GitHub-mode variables. Verified on the live demo after the #383 deploy:
+  writes return 403, `/api/auth/me` is 404, and the UI has no library switch or sign-in.
+
+_Touched: `docs/ROADMAP.md`, `docs/CHANGELOG.md`._
+
 ## 2026-10-21 — Local-first: no accounts, My Library on disk, a read-only demo
 
 The plan changed from a public site where people sign up and keep prompts, to an app people clone

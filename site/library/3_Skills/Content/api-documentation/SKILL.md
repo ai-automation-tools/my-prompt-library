@@ -4,6 +4,7 @@ description: "Write API documentation including endpoint references, OpenAPI/Swa
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","api-documentation"]
 ---
 
 # API Documentation — References, Guides & Specs

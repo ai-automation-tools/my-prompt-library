@@ -1,5 +1,6 @@
 ---
 title: "🛠️ Windows Privilege Escalation"
+tags: ["skill","security","windows-privilege-escalation"]
 name: "windows-privilege-escalation"
 description: This skill should be used when the user asks to "escalate privileges on Windows," "find Windows privesc vectors," "enumerate Windows for privilege escalation," "exploit Windows misconfigurations," or "perform post-exploitation privilege escalation." It provides comprehensive guidance for discovering and exploiting privilege escalation vulnerabilities in Windows environments.
 metadata:

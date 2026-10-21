@@ -1,3 +1,8 @@
+---
+title: "Project Manager Agent"
+tags: ["agent","enterprise","smes"]
+---
+
 # Project Manager Agent
 
 ## Role

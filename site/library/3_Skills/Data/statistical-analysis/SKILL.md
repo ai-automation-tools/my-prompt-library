@@ -9,6 +9,7 @@ upstream:
   copies: 3
   candidates: [jackspace/claudeskillz, ovachiever/droid-tings, thegovind/claude-scientific-skills]
   checked: 2026-08-26
+tags: ["skill","data","statistical-analysis"]
 ---
 
 # Statistical Analysis

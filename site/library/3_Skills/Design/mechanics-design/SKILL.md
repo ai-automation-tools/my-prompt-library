@@ -4,6 +4,7 @@ description: Design and document core game mechanics, systems interactions, feed
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","mechanics-design"]
 ---
 
 # Mechanics Design — Systems & Interactions

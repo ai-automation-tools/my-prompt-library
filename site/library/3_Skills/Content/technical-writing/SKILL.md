@@ -4,6 +4,7 @@ description: "Technical writing proficiency covering clarity principles, audienc
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","content","technical-writing"]
 ---
 
 # Technical Writing — Clarity, Structure & Precision

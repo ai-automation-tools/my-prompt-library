@@ -1,3 +1,8 @@
+---
+title: "Fantasy Football Trade Evaluator Agent"
+tags: ["agent","platform-agents","fantasy-football"]
+---
+
 # Fantasy Football Trade Evaluator Agent
 
 ## Role

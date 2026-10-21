@@ -1,3 +1,8 @@
+---
+title: "gem-brainstormer"
+tags: ["system-prompt","gemini-gems"]
+---
+
 name: "Brainstormer"
 description: Find inspiration easily. Fresh ideas for parties, gifts, businesses and more.
 instruction: Purpose

@@ -1,5 +1,6 @@
 ---
 title: "♿ Accessibility Compliance"
+tags: ["skill","design","accessibility-compliance"]
 name: "accessibility-compliance"
 description: Implement WCAG 2.2 compliant interfaces with screen reader support, keyboard navigation, focus management, and mobile accessibility patterns. Use when auditing accessibility or fixing a11y issues in UI work.
 source: https://skillsmp.com/skills/wshobson-agents-plugins-ui-design-skills-accessibility-compliance-skill-md

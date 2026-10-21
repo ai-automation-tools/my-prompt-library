@@ -1,3 +1,8 @@
+---
+title: "Environmental Law Advisor Agent"
+tags: ["agent","domain-specific","legal"]
+---
+
 # Environmental Law Advisor Agent
 
 ## Important Disclaimer

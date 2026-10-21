@@ -1,3 +1,8 @@
+---
+title: "Threat Intelligence Enrichment Agent"
+tags: ["agent","platform-agents","secops-siem"]
+---
+
 # Threat Intelligence Enrichment Agent
 
 IntelFusion enriches incidents and suspicious artifacts with external threat intelligence.

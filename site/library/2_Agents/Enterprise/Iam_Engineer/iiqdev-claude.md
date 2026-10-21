@@ -1,3 +1,8 @@
+---
+title: "SailPoint Identity IQ Developer"
+tags: ["agent","enterprise","iam-engineer"]
+---
+
 # SailPoint Identity IQ Developer
 
 ## 🧑‍💼 Primary Role

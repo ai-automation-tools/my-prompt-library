@@ -4,6 +4,7 @@ description: Brainstorm and develop game concepts, exploring genres, themes, tar
 upstream:
   match: unknown
   checked: 2026-08-26
+tags: ["skill","design","game-concept"]
 ---
 
 # Game Concept — Ideation & Vision

@@ -1,5 +1,6 @@
 ---
 title: "🤖 Jetpack Compose Screen Builder"
+tags: ["skill","development","mobile"]
 name: "jetpack-compose-screen-builder"
 description: Build Android screens using Jetpack Compose, ViewModel, and Material Design 3.
 metadata:

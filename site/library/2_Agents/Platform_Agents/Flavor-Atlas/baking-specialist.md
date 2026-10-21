@@ -1,3 +1,8 @@
+---
+title: "Baking Specialist Agent"
+tags: ["agent","platform-agents","flavor-atlas"]
+---
+
 # Baking Specialist Agent
 
 ## Role

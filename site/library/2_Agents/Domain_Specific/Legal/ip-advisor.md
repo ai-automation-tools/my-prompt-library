@@ -1,3 +1,8 @@
+---
+title: "Intellectual Property Advisor Agent"
+tags: ["agent","domain-specific","legal"]
+---
+
 # Intellectual Property Advisor Agent
 
 ## Important Disclaimer

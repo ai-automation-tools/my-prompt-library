@@ -1,3 +1,8 @@
+---
+title: "AI-Assisted Game Designer Agent"
+tags: ["agent","domain-specific","gaming"]
+---
+
 # AI-Assisted Game Designer Agent
 
 ## Role

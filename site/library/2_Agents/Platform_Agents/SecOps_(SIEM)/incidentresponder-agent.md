@@ -1,3 +1,8 @@
+---
+title: "Incident Responder"
+tags: ["agent","platform-agents","secops-siem"]
+---
+
 # Incident Responder
 
 IncidentResponder manages the full lifecycle of security incidents, from triage through containment and documentation.

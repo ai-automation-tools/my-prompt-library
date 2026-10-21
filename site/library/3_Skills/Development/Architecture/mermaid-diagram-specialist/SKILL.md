@@ -1,5 +1,6 @@
 ---
 title: "🧠 mermaid-diagram-specialist"
+tags: ["skill","development","architecture"]
 name: "mermaid-diagram-specialist"
 category: tech
 description:

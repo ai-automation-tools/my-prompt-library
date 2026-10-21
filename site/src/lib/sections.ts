@@ -5,9 +5,9 @@
  *
  * The accents are the per-tool hues from the org landing page
  * (ai-automation-tools.dev): rose is My Prompt Library's own colour there, and
- * the rest follow the same family so the sections read as siblings. themes.css
- * applies them through `--section-c` on `[data-section]`; themes other than
- * the default and Light collapse them to the theme accent.
+ * the rest follow the same family so the sections read as siblings. They are
+ * token references, not literals, so html.light can swap each for its 700
+ * shade; index.css also exposes the current one as `--c` via `[data-section]`.
  */
 
 import {
@@ -41,7 +41,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     label: 'Prompts',
     folder: '4_Prompts',
     icon: Sparkles,
-    accent: '#fb7185',
+    accent: 'var(--sec-prompts)',
     description: 'Reusable prompt templates, organised by domain and task.',
   },
   {
@@ -50,7 +50,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     label: 'Agents',
     folder: '2_Agents',
     icon: Bot,
-    accent: '#22d3ee',
+    accent: 'var(--sec-agents)',
     description: 'Agent personas and operating instructions, ready to drop into a harness.',
   },
   {
@@ -59,7 +59,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     label: 'Guides',
     folder: '1_Guides',
     icon: BookOpen,
-    accent: '#a78bfa',
+    accent: 'var(--sec-guides)',
     description: 'Setup and usage guides for the tools and providers the prompts target.',
   },
   {
@@ -68,7 +68,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     label: 'System Prompts',
     folder: '5_System_Prompts',
     icon: TerminalSquare,
-    accent: '#fbbf24',
+    accent: 'var(--sec-system-prompts)',
     description: 'An archive of production system prompts, for study and reuse.',
   },
   {
@@ -77,7 +77,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     label: 'Skills',
     folder: '3_Skills',
     icon: Wrench,
-    accent: '#34d399',
+    accent: 'var(--sec-skills)',
     description: 'SKILL.md bundles with their sample code, downloadable as a zip.',
   },
   {
@@ -86,7 +86,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     label: 'Skill Packs',
     folder: '',
     icon: Package,
-    accent: '#2dd4bf',
+    accent: 'var(--sec-skill-packs)',
     description: 'Curated collections of skills for a domain or workflow.',
   },
 ];
