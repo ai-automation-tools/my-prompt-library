@@ -11,7 +11,7 @@ unavailable to you, email the address listed under *Support* in the README with
 
 Include what you found, how to reproduce it, and what you think the impact is. You will get
 an acknowledgement within a few days. Fixes ship as ordinary commits to `main`, which
-deploys to `my-prompt-library-demo.ai-automation-tools.dev`, and are noted in `docs/CHANGELOG.md`.
+deploys to `promptbook-demo.ai-automation-tools.dev`, and are noted in `docs/CHANGELOG.md`.
 
 ## Threat model
 
@@ -22,7 +22,7 @@ Promptbook has no accounts and no database. It runs in two shapes:
   read and edit that folder through the API; binding to loopback is the access control.
   Setting `HOST` to a public address without `READ_ONLY=true` or your own auth in front is
   a configuration choice, not a vulnerability.
-- **The hosted demo** at `my-prompt-library-demo.ai-automation-tools.dev`. It is read-only:
+- **The hosted demo** at `promptbook-demo.ai-automation-tools.dev`. It is read-only:
   on Vercel every write route returns `403`, and it serves only the committed Public
   Library.
 

@@ -1,6 +1,6 @@
 # Hosted Demo
 
-The demo at [my-prompt-library-demo.ai-automation-tools.dev](https://my-prompt-library-demo.ai-automation-tools.dev)
+The demo at [promptbook-demo.ai-automation-tools.dev](https://promptbook-demo.ai-automation-tools.dev)
 is a read-only browser for the Public Library. It runs the same `site/` app as a local
 clone, on Vercel, with every write turned off. To keep your own prompts, clone the repo and
 run it locally ([Setup Guide](SETUP.md)).

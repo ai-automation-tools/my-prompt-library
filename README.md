@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <p align="center">
-  <a href="https://my-prompt-library-demo.ai-automation-tools.dev">
+  <a href="https://promptbook-demo.ai-automation-tools.dev">
     <img src="images/My-Prompt-Library-Images/logos/dark/landscape-01-template-vault.svg" alt="Promptbook - searchable prompt templates and skill packs" width="720">
   </a>
 </p>
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://my-prompt-library-demo.ai-automation-tools.dev">Browse the public library online (read-only)</a>
+  <a href="https://promptbook-demo.ai-automation-tools.dev">Browse the public library online (read-only)</a>
   ·
   <a href="https://github.com/ai-automation-tools/promptbook/issues">Report Bug</a>
   ·
@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-  <a href="https://my-prompt-library-demo.ai-automation-tools.dev"><img src="https://img.shields.io/badge/Read--only_Demo-my--prompt--library--demo.ai--automation--tools.dev-f59e0b?style=for-the-badge&logo=vercel&logoColor=white" alt="Read-only demo"></a>
+  <a href="https://promptbook-demo.ai-automation-tools.dev"><img src="https://img.shields.io/badge/Read--only_Demo-my--prompt--library--demo.ai--automation--tools.dev-f59e0b?style=for-the-badge&logo=vercel&logoColor=white" alt="Read-only demo"></a>
   <img src="https://img.shields.io/badge/runs-locally-2ea44f?style=for-the-badge" alt="Runs locally">
   <a href="docs/ROADMAP.md"><img src="https://img.shields.io/badge/plan-ROADMAP-8B5CF6?style=for-the-badge" alt="Roadmap"></a>
 </p>
@@ -72,7 +72,7 @@
 🔒 **Nothing To Sign Up For**
 - No accounts, no database, no API keys, no `.env` required
 - The server listens on `127.0.0.1` only
-- The [online demo](https://my-prompt-library-demo.ai-automation-tools.dev) is the same app in read-only mode
+- The [online demo](https://promptbook-demo.ai-automation-tools.dev) is the same app in read-only mode
 
 ---
 

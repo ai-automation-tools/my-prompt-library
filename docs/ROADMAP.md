@@ -27,7 +27,7 @@ marks one only Mike can do.
 > **Where we are, 2026-10-21.** Rewritten from scratch today; everything finished before this
 > date is in the [changelog](CHANGELOG.md). The app is local-first (clone and run, My Library
 > is a folder of markdown files) with a read-only demo at
-> `my-prompt-library-demo.ai-automation-tools.dev`. The library has six sections plus Skill
+> `promptbook-demo.ai-automation-tools.dev`. The library has six sections plus Skill
 > Packs, and seven scheduled jobs keep it growing and current. The local MCP server shipped the
 > same day, so an agent can search the library and pull a prompt, skill or agent straight into
 > its work. Phase 1's three remaining items each make something public and wait on Mike; the
@@ -65,7 +65,7 @@ read-only remote endpoint on the demo comes after it.
 
 - [x] CI green on push and PR: lint, the route table, the My Library store and safe-path tests, the homepage test, provenance self-checks and prompt-index freshness — done 2026-08-27, extended since: `.github/workflows/ci.yml`
 - [x] `LICENSE` (Apache 2.0), `NOTICE` for vendored content, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` — done 2026-10-05: see the changelog
-- [x] Live: homepage at `promptbook.ai-automation-tools.dev` — done 2026-10-12; the app at `my-prompt-library-demo.ai-automation-tools.dev` since 2026-10-19, read-only since 2026-10-21: see the changelog
+- [x] Live: homepage at `promptbook.ai-automation-tools.dev` — done 2026-10-12; the app at `promptbook-demo.ai-automation-tools.dev` since 2026-10-19, read-only since 2026-10-21: see the changelog
 - [ ] A full-history secret scan (`gitleaks detect` over all of history) run and its findings written to `docs/audits/`; the one known hit, the old Neon credential, is closed because that database was deleted on 2026-10-21
 
 ## After public release

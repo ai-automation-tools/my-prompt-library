@@ -2,7 +2,7 @@
 
 Documentation for **Promptbook**, a prompt library you clone and run locally. The
 Public Library is also browsable read-only at
-[my-prompt-library-demo.ai-automation-tools.dev](https://my-prompt-library-demo.ai-automation-tools.dev).
+[promptbook-demo.ai-automation-tools.dev](https://promptbook-demo.ai-automation-tools.dev).
 
 ---
 
@@ -223,7 +223,7 @@ utility-first), run `npm run lint` and `npm run build`, and open a PR describing
 - **Main README:** [../README.md](../README.md)
 - **Agent guide:** [../AGENTS.md](../AGENTS.md) (`CLAUDE.md` imports it)
 - **Repository:** [github.com/ai-automation-tools/promptbook](https://github.com/ai-automation-tools/promptbook)
-- **Read-only demo:** [my-prompt-library-demo.ai-automation-tools.dev](https://my-prompt-library-demo.ai-automation-tools.dev)
+- **Read-only demo:** [promptbook-demo.ai-automation-tools.dev](https://promptbook-demo.ai-automation-tools.dev)
 
 ---
 
