@@ -59,6 +59,7 @@ read-only remote endpoint on the demo comes after it.
 - [ ] Delete the stale `roadmap/auto-2026-08-31` branch (its PR #332 was closed unmerged) or recover its one commit 🔒 Needs Mike
 - [ ] Decide what happens to `4_Prompts/Awesome_ChatGPT/` (1,349 files from one upstream corpus): resync it on a schedule like the skills, or tag it `vendored` and freeze it 🔒 Needs Mike
 - [ ] `ai-automation-tools/agent-skills` gets a `LICENSE` file, so the 40 skills synced from it carry a stated licence in this public repo, and `NOTICE` names it 🔒 Needs Mike
+- [ ] `small` `scripts/resync-upstream.mjs` writes `tags: [...]---` on one line when `tags:` is the last frontmatter key of an agent (`stampUpstream` drops the newline), which breaks the frontmatter; hit on 3 agents on 2026-10-22. Fix it to always end the block with a newline. Done when resyncing `2_Agents/AI_ML/Other/model-evaluator.md` from a pre-sync copy yields valid frontmatter, with a case in `scripts/upstream.test.mjs`
 
 ## 🚦 Public release
 
