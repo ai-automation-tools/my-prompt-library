@@ -27,7 +27,7 @@ In that mode every route that writes to My Library returns:
 ```
 
 The write routes are `POST /api/prompts`, `PUT /api/prompts/:id`, `DELETE /api/prompts/:id`,
-`POST /api/prompts/:path/copy-to-my-prompts`, `POST /api/skill-packs/:packId/add-to-library`
+`POST /api/prompts/:path/copy-to-my-prompts`, `POST /api/prompts/:id/pull-upstream`, `POST /api/skill-packs/:packId/add-to-library`
 and `DELETE /api/skill-packs/:packId/remove-from-library`. All reads keep working.
 
 ## Two kinds of id
@@ -169,6 +169,12 @@ For a public prompt, `section`, `category` and `subcategory` come from the path 
 from frontmatter, the first `#` heading, or the file name. For a My Library prompt they come
 from the file's frontmatter and `isUserOwned` is `true`.
 
+A My Library prompt also carries `upstream`: `null` when it has no Public Library source, or
+`{ "source": "<public id>", "updateAvailable": bool, "localEdits": bool }`. `updateAvailable`
+means the public content changed since the copy was saved; `localEdits` means the copy was
+edited since. A copy saved before 2026-10-22 has no recorded source and is matched by section,
+category, subcategory and title; with no saved hash to compare, any difference counts as both.
+
 **Errors:**
 - `400 Bad Request`: the path escapes `library/`
 - `404 Not Found`: prompt not found
@@ -287,9 +293,11 @@ curl -X DELETE http://localhost:3010/api/prompts/my-custom-prompt-a41f0e
 
 ### POST /api/prompts/:path/copy-to-my-prompts
 
-Copy a public prompt into My Library as a new file. The library file's own frontmatter is
-dropped; `title` (or a skill's `name`) and `tags` carry over, and section, category and
-subcategory come from the path. **Write route: `403` in read-only mode.**
+Copy a public prompt into My Library as a new file. `title` (or a skill's `name`) and `tags`
+carry over, section, category and subcategory come from the path, and the rest of the library
+file's frontmatter (a skill's `name`, `description` and the like) is kept, minus provenance.
+The copy also gets `forked_from` (the public id) and `forked_hash` (a hash of the public content
+as copied), which `upstream` and `pull-upstream` compare against. **Write route: `403` in read-only mode.**
 
 **URL Parameters:**
 - `path`: public prompt path, e.g. `4_Prompts/Business/Marketing/market-research.md`
@@ -311,6 +319,24 @@ subcategory come from the path. **Write route: `403` in read-only mode.**
 ```bash
 curl -X POST "http://localhost:3010/api/prompts/4_Prompts%2FBusiness%2FMarketing%2Fmarket-research.md/copy-to-my-prompts"
 ```
+
+---
+
+### POST /api/prompts/:id/pull-upstream
+
+Replace a My Library copy's content with the current version of the public prompt it came
+from, and reset its `forked_hash`. Edits made to the copy are overwritten; the site asks first
+when `upstream.localEdits` is true. The public file is only read. **Write route: `403` in read-only mode.**
+
+**Request:** no body.
+
+**Response (200 OK):** the updated My Library prompt with `upstream`, and
+`"message": "Updated from the Public Library"`.
+
+**Errors:**
+- `403 Forbidden`: read-only mode
+- `404 Not Found`: no such My Library prompt, or it has no Public Library source
+- `500 Internal Server Error`: update failed
 
 ---
 

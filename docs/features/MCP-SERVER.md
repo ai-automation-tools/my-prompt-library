@@ -45,6 +45,7 @@ All tools return markdown text. Read tools carry `readOnlyHint`.
 | `get_skill_pack` | `id` | The pack's skills with their `SKILL.md` ids |
 | `save_to_my_library` | `id` to copy, or `title` + `content` (+ `section`, `category`, `subcategory`, `tags`) | The new My Library id. A copy refuses a duplicate title in the same place, as the app does, and keeps the item's own frontmatter (a skill's `name`, `description`, `license`…); new content may start with its own frontmatter block |
 | `update_my_prompt` | `id` + any of `title`, `content`, `category`, `subcategory`, `tags` | Confirmation |
+| `update_from_public` | `id` | Replaces a copy's body with the current version of the public item it was saved from |
 | `delete_my_prompt` | `id` | Confirmation. `destructiveHint`; the server's instructions tell the agent to ask first |
 
 **Writes.** The three write tools are not registered at all when `READ_ONLY` is true (or

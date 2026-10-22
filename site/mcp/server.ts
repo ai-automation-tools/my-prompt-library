@@ -19,10 +19,10 @@ import * as z from 'zod/v4';
 import { McpServer } from '@modelcontextprotocol/server';
 import { serveStdio } from '@modelcontextprotocol/server/stdio';
 import {
-  LIBRARY_PATH, SECTIONS, SECTION_KEYS, SKILLS_SECTION, carriedFrontmatter, loadIndex, readLibraryItem,
+  LIBRARY_PATH, SECTIONS, SECTION_KEYS, SKILLS_SECTION, loadIndex, readLibraryItem,
   type IndexEntry, type SectionKey,
 } from '../lib/library.js';
-import { myLibrary, READ_ONLY, type UserPrompt } from '../lib/my-library.js';
+import { forkExtra, myLibrary, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from '../lib/my-library.js';
 import { resolveInside } from '../lib/safe-path.js';
 import { getAllPacks } from '../api/skill-packs.js';
 
@@ -140,7 +140,11 @@ export function createServer(): McpServer {
       const body = mine.section === SKILLS_SECTION && mine.extra && Object.keys(mine.extra).length
         ? matter.stringify(mine.content, mine.extra)
         : mine.content;
-      return text(`# ${mine.title}\n\nMy Library · ${keyOf(mine.section)} › ${mine.category}${mine.tags.length ? ` · tags: ${mine.tags.join(', ')}` : ''}\n\n${body}`);
+      const up = upstreamStatus(mine);
+      const note = up?.updateAvailable
+        ? `\nPublic version \`${up.source}\` has changed${up.localEdits ? ' (this copy is edited too)' : ''}; update_from_public pulls it.`
+        : '';
+      return text(`# ${mine.title}\n\nMy Library · ${keyOf(mine.section)} › ${mine.category}${mine.tags.length ? ` · tags: ${mine.tags.join(', ')}` : ''}${note}\n\n${body}`);
     }
     const item = readLibraryItem(id);
     if (item === 'invalid') return fail(`"${id}" is not a library path. Ids look like "4_Prompts/<Category>/<file>.md".`);
@@ -282,7 +286,7 @@ export function createServer(): McpServer {
         const saved = myLibrary.create({
           title: title || item.title, section: item.section, category: item.category,
           subcategory: item.subcategory, tags: tags ?? item.tags, content: item.content,
-          extra: carriedFrontmatter(item.frontmatter),
+          extra: forkExtra(item),
         });
         return text(`Copied to My Library as \`${saved.id}\`.`);
       }
@@ -310,6 +314,17 @@ export function createServer(): McpServer {
       if (READ_ONLY) return fail('This library is read-only.');
       const updated = myLibrary.update(id, fields);
       return updated ? text(`Updated \`${updated.id}\`.`) : fail(`No My Library prompt "${id}".`);
+    });
+
+    server.registerTool('update_from_public', {
+      title: 'Update a My Library copy from the Public Library',
+      description: 'Replace a My Library copy\'s content with the current public version it was saved from. Overwrites edits made to the copy; ask the user first if get_item says it is edited. The public item is never changed.',
+      inputSchema: z.object({ id: z.string().describe('My Library id') }),
+      annotations: { ...writeHints, destructiveHint: true, idempotentHint: true },
+    }, async ({ id }) => {
+      if (READ_ONLY) return fail('This library is read-only.');
+      const pulled = pullUpstream(id);
+      return pulled ? text(`Updated \`${pulled.id}\` from \`${pulled.extra?.forked_from}\`.`) : fail(`No My Library copy "${id}" with a public source.`);
     });
 
     server.registerTool('delete_my_prompt', {

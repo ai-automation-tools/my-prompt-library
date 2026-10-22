@@ -39,6 +39,7 @@ The README also has the `mcpServers` JSON block for other clients.
 | `get_skill_pack` | One Skill Pack with every skill in it |
 | `save_to_my_library` | Copies a library item into My Library, or writes a new prompt (not registered when read-only) |
 | `update_my_prompt` | Changes a My Library prompt's title, content, tags or place (not registered when read-only) |
+| `update_from_public` | Pulls the current public version into a My Library copy; the public item is never changed (not registered when read-only) |
 | `delete_my_prompt` | Deletes one of the user's own prompts (not registered when read-only) |
 
 It also serves MCP prompts: `library_prompt` (any prompt, system prompt or agent by id), every

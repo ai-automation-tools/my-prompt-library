@@ -33,6 +33,7 @@ const expected = [
   "PUT /api/prompts/:id",
   "DELETE /api/prompts/:id",
   "POST /api/prompts/:path(*)/copy-to-my-prompts",
+  "POST /api/prompts/:id/pull-upstream",
   "GET /api/skills/download/:skillPath(*)",
 ];
 

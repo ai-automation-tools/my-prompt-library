@@ -7,9 +7,9 @@ import matter from "gray-matter";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import archiver from "archiver";
-import { myLibrary, READ_ONLY, type UserPrompt } from "../lib/my-library.js";
+import { forkExtra, myLibrary, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from "../lib/my-library.js";
 import { resolveInside } from "../lib/safe-path.js";
-import { LIBRARY_PATH, SKILLS_SECTION, carriedFrontmatter, extractFirstHeading, readLibraryItem, sourceUrlOf } from "../lib/library.js";
+import { LIBRARY_PATH, SKILLS_SECTION, extractFirstHeading, readLibraryItem, sourceUrlOf } from "../lib/library.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -308,7 +308,7 @@ app.get("/api/prompts/:id", async (req, res) => {
     if (!promptId.includes('/')) {
       const prompt = myLibrary.get(promptId);
       if (prompt) {
-        return res.json(toApiPrompt(prompt));
+        return res.json({ ...toApiPrompt(prompt), upstream: upstreamStatus(prompt) });
       }
     }
 
@@ -379,6 +379,20 @@ app.put("/api/prompts/:id", requireWritable, async (req, res) => {
   }
 });
 
+// Overwrite a My Library copy with the current Public Library version
+app.post("/api/prompts/:id/pull-upstream", requireWritable, async (req, res) => {
+  try {
+    const prompt = pullUpstream(decodeURIComponent(req.params.id));
+    if (!prompt) {
+      return res.status(404).json({ error: "No public source for this prompt" });
+    }
+    res.json({ ...toApiPrompt(prompt), upstream: upstreamStatus(prompt), message: "Updated from the Public Library" });
+  } catch (error) {
+    console.error("Error pulling upstream prompt:", error);
+    res.status(500).json({ error: "Failed to update from the Public Library" });
+  }
+});
+
 // Delete prompt
 app.delete("/api/prompts/:id", requireWritable, async (req, res) => {
   try {
@@ -432,7 +446,7 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", requireWritable, async (req
       subcategory,
       tags,
       content,
-      extra: carriedFrontmatter(item.frontmatter),
+      extra: forkExtra(item),
     });
 
     return res.json({ ...toApiPrompt(copiedPrompt), message: "Prompt copied to My Library" });

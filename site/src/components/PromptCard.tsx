@@ -4,7 +4,7 @@
  */
 
 import { memo, useCallback, type MouseEvent as ReactMouseEvent } from 'react';
-import { Check, Copy, Download, Edit, FileText, FolderPlus, Star, Trash2 } from 'lucide-react';
+import { Check, Copy, Download, FileText, FolderPlus, Pencil, Star, Trash2 } from 'lucide-react';
 import { m } from 'motion/react';
 import { cn } from '../lib/cn';
 import { humanize } from '../lib/sections';
@@ -24,6 +24,8 @@ export interface Prompt {
   isUserOwned?: boolean;
   anchor?: string;
   sourceUrl?: string;
+  /** My Library copies only: how this copy stands against the public item it came from. */
+  upstream?: { source: string; updateAvailable: boolean; localEdits: boolean } | null;
 }
 
 export function extractEmoji(text: string): { emoji: string | null; title: string } {
@@ -208,7 +210,7 @@ const PromptCard = memo(function PromptCard({
             )}
             {onEditPrompt && (
               <IconButton label="Edit prompt" onClick={stop(() => onEditPrompt(prompt))} className="h-7 w-7">
-                <Edit className="h-3.5 w-3.5" />
+                <Pencil className="h-3.5 w-3.5" />
               </IconButton>
             )}
             {onDeletePrompt && (

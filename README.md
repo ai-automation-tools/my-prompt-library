@@ -147,7 +147,7 @@ Any other MCP client, as an `mcpServers` entry:
 | `list_sections`, `list_categories` | What is in the library, with counts |
 | `get_skill`, `get_skill_file` | A skill's `SKILL.md` and its support files |
 | `list_skill_packs`, `get_skill_pack` | The Skill Packs and the skills in each |
-| `save_to_my_library`, `update_my_prompt`, `delete_my_prompt` | Write to My Library (not offered when `READ_ONLY=true`) |
+| `save_to_my_library`, `update_my_prompt`, `update_from_public`, `delete_my_prompt` | Write to My Library (not offered when `READ_ONLY=true`) |
 
 It also offers MCP prompts: `library_prompt` takes any library id, and every featured prompt
 and every My Library prompt is listed by name, so clients show them as slash commands. It
