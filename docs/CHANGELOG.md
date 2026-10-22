@@ -4,6 +4,19 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — A failed chunk load no longer blanks the app
+
+**Fixed**
+- Opening a prompt could turn the whole page black: a stale Vite dep cache made the lazy
+  `PromptDetail` chunk fail to import (`504 Outdated Optimize Dep`), and with no error boundary
+  React unmounted everything. The five lazy views now load through `lazyReload()`, which reloads
+  the page once on a failed chunk. It also covers an open demo tab whose chunks a new deploy replaced.
+  Troubleshooting entries added to the Debug Guide and SETUP.
+
+_Touched: `site/src/App.tsx`, `docs/development/DEBUG_UI.md`, `docs/setup/SETUP.md`._
+
+---
+
 ## 2026-10-22 — The app is addressed as promptbook-demo
 
 **Changed**

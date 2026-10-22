@@ -132,6 +132,27 @@ npm run build
 npm run dev
 ```
 
+### Issue 6: Black Screen When Opening a Prompt
+
+**Symptom:** Clicking a prompt (or loading a `?prompt=` link) turns the whole page black. The
+console shows `504 (Outdated Optimize Dep)` for `node_modules/.vite/deps/react-markdown.js`
+or `remark-gfm.js`, then `Failed to fetch dynamically imported module: .../PromptDetail.tsx`.
+
+**Cause:** Vite's pre-bundled dependency cache (`site/node_modules/.vite/deps`) went stale while
+the dev server was running, typically after an `npm install`. `PromptDetail` is a lazy chunk, so
+its imports are only requested when you first open a prompt. They come back with old version
+hashes, Vite rejects them, and the failed import used to unmount the whole React tree.
+
+**Fix:** Since 2026-10-22 the lazy views in `App.tsx` go through `lazyReload()`, which reloads the
+page once when a chunk fails to load (a `chunk-reload` flag in sessionStorage stops a loop).
+If you still hit it:
+```bash
+# Stop the dev server, drop the dep cache, restart
+rm -rf node_modules/.vite
+npm run dev
+```
+Then hard-refresh the tab (Ctrl+Shift+R).
+
 ## Debug Script
 
 Run this in the browser console to see what's happening:

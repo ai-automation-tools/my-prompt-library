@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from 'react';
+import { useState, useEffect, useMemo, useCallback, lazy, Suspense, type ComponentType } from 'react';
 import { ArrowLeft, Check, LayoutGrid, Link2, Plus, Sparkles } from 'lucide-react';
 import SourceBar from './components/SourceBar';
 import { LazyMotion, domAnimation, m, AnimatePresence } from 'motion/react';
@@ -27,11 +27,26 @@ import { READ_ONLY } from './lib/mode';
 // PromptDetail/PromptEditorModal each pull in react-markdown + remark-gfm.
 // The modals and the palette are only mounted while open, so opening one is
 // what fetches its chunk — mounting them closed would defeat the split.
-const SkillPacksView = lazy(() => import('./components/SkillPacksView'));
-const PromptDetail = lazy(() => import('./components/PromptDetail'));
-const PromptEditorModal = lazy(() => import('./components/PromptEditorModal'));
-const CommandPalette = lazy(() => import('./components/CommandPalette'));
-const SettingsModal = lazy(() => import('./components/SettingsModal'));
+// A chunk that fails to load (stale Vite dep cache in dev, a new deploy in prod)
+// would unmount the whole tree and leave a black screen; reload once instead.
+function lazyReload<P extends object>(load: () => Promise<{ default: ComponentType<P> }>) {
+  return lazy(() => load().then((mod) => {
+    try { sessionStorage.removeItem('chunk-reload'); } catch { /* storage blocked */ }
+    return mod;
+  }, (err) => {
+    let reloaded = false;
+    try { reloaded = sessionStorage.getItem('chunk-reload') === '1'; sessionStorage.setItem('chunk-reload', '1'); } catch { /* storage blocked */ }
+    if (reloaded) throw err;
+    location.reload();
+    return new Promise<never>(() => {});
+  }));
+}
+
+const SkillPacksView = lazyReload(() => import('./components/SkillPacksView'));
+const PromptDetail = lazyReload(() => import('./components/PromptDetail'));
+const PromptEditorModal = lazyReload(() => import('./components/PromptEditorModal'));
+const CommandPalette = lazyReload(() => import('./components/CommandPalette'));
+const SettingsModal = lazyReload(() => import('./components/SettingsModal'));
 
 const chunkSpinner = (
   <div className="flex h-64 items-center justify-center">
