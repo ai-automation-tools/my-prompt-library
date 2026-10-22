@@ -139,7 +139,21 @@ export default function SkillPacksView({ libraryMode, onToast }: SkillPacksViewP
       setDetailLoading(true);
       const response = await fetch(`/api/skill-packs/${encodeURIComponent(packId)}`);
       if (!response.ok) throw new Error('Failed to fetch pack details');
-      setSelectedPack(await response.json());
+      // Generated packs (scripts/build-skill-packs.mjs) carry no use_cases or
+      // prerequisites; only the hand-written ones do. Default them so the view can't crash.
+      const pack = await response.json();
+      setSelectedPack({
+        ...pack,
+        tags: pack.tags ?? [],
+        skills: pack.skills ?? [],
+        use_cases: pack.use_cases ?? [],
+        related_packs: pack.related_packs ?? [],
+        prerequisites: {
+          required_tools: pack.prerequisites?.required_tools ?? [],
+          optional_tools: pack.prerequisites?.optional_tools ?? [],
+          recommended_knowledge: pack.prerequisites?.recommended_knowledge ?? [],
+        },
+      });
     } catch (err) {
       onToast('error', err instanceof Error ? err.message : 'Failed to load pack details');
     } finally {

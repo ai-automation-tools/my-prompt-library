@@ -12,8 +12,11 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
   React unmounted everything. The five lazy views now load through `lazyReload()`, which reloads
   the page once on a failed chunk. It also covers an open demo tab whose chunks a new deploy replaced.
   Troubleshooting entries added to the Debug Guide and SETUP.
+- Opening any of the 21 generated Skill Packs also went black: they have no `use_cases` or
+  `prerequisites`, and the pack view read `.length` on both. `SkillPacksView` now defaults
+  every optional array when it loads a pack.
 
-_Touched: `site/src/App.tsx`, `docs/development/DEBUG_UI.md`, `docs/setup/SETUP.md`._
+_Touched: `site/src/App.tsx`, `site/src/components/SkillPacksView.tsx`, `docs/development/DEBUG_UI.md`, `docs/setup/SETUP.md`._
 
 ---
 
