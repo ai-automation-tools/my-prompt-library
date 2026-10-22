@@ -4,6 +4,22 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — Org layout: AGENTS.md and the MCP page
+
+**Changed**
+- The repo guide moved from `CLAUDE.md` to `AGENTS.md`, which Codex, Gemini CLI and opencode read.
+  `CLAUDE.md` is now `@AGENTS.md` plus a note on `.mcp.json`. Links in `docs/README.md` and
+  `docs/ARCHITECTURE.md` follow it.
+
+**Added**
+- `docs/mcp-server.md`: the MCP server on one page (entry file, launch, stdio transport, all eleven
+  tools, the MCP prompts, env var names, the install line), linked from the docs hub. The design
+  stays in `features/MCP-SERVER.md`.
+
+_Touched: `AGENTS.md`, `CLAUDE.md`, `docs/mcp-server.md`, `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/CHANGELOG.md`._
+
+---
+
 ## 2026-10-22 — Renamed to Promptbook
 
 The GitHub repo moved from `ai-automation-tools/my-prompt-library` to

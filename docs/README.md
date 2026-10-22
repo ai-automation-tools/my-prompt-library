@@ -23,7 +23,8 @@ Public Library is also browsable read-only at
 - **[API Reference](features/API.md)** — REST endpoints
 - **[Library Modes](features/LIBRARY-MODE-IMPLEMENTATION.md)** — Public vs My Library
 - **[Featured Prompts](features/FEATURED-PROMPTS.md)** — highlighting top prompts
-- **[MCP Server](features/MCP-SERVER.md)** — the library as an MCP server for agents
+- **[MCP Server](mcp-server.md)** — the server on one page: entry file, transport, tools, install line
+- **[MCP Server design](features/MCP-SERVER.md)** — how it works and why: stdout rules, containment, prompts
 
 ### Development
 - **[Debug Guide](development/DEBUG_UI.md)** — troubleshooting
@@ -59,6 +60,7 @@ docs/
 ├── CONTRIBUTING.md               # How to add content
 ├── DISCOVERY.md                  # Repo-intake ledger (Discovery job adds, Mike decides)
 ├── UPSTREAMS.md                  # App dependencies the upstream check watches
+├── mcp-server.md                 # The MCP server on one page
 │
 ├── audits/                       # Point-in-time health checks and retired plans
 │   ├── DIRECTION-2026-08-27.md   # The post-audit plan, historical
@@ -219,7 +221,7 @@ utility-first), run `npm run lint` and `npm run build`, and open a PR describing
 ## 📖 Additional Resources
 
 - **Main README:** [../README.md](../README.md)
-- **Agent guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent guide:** [../AGENTS.md](../AGENTS.md) (`CLAUDE.md` imports it)
 - **Repository:** [github.com/ai-automation-tools/promptbook](https://github.com/ai-automation-tools/promptbook)
 - **Read-only demo:** [my-prompt-library-demo.ai-automation-tools.dev](https://my-prompt-library-demo.ai-automation-tools.dev)
 
