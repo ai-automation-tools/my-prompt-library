@@ -1,6 +1,6 @@
 # AGENTS.md — Promptbook (`promptbook-demo.ai-automation-tools.dev`)
 
-> Repo-local guide for every coding agent (Codex, Gemini CLI, opencode; Claude Code imports it
+> Repo-local guide for every coding agent (Codex, opencode, Antigravity; Claude Code imports it
 > from `CLAUDE.md`). The workspace-wide rules live in
 > `D:\AI_Agents\Projects\Mikes_AI_Lab\Agents\Claude\CLAUDE.md` and still apply —
 > this file overrides them where they conflict.
