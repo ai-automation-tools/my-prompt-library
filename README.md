@@ -151,8 +151,8 @@ Any other MCP client, as an `mcpServers` entry:
 
 It also offers MCP prompts: `library_prompt` takes any library id, and every featured prompt
 and every My Library prompt is listed by name, so clients show them as slash commands. It
-honours `MY_LIBRARY_DIR` and `READ_ONLY` from `site/.env`. Details:
-[docs/features/MCP-SERVER.md](docs/features/MCP-SERVER.md).
+honours `MY_LIBRARY_DIR` and `READ_ONLY` from `site/.env`. Setup for each client:
+[docs/mcp-server.md](docs/mcp-server.md). How it works: [docs/features/MCP-SERVER.md](docs/features/MCP-SERVER.md).
 
 ---
 
@@ -178,6 +178,7 @@ honours `MY_LIBRARY_DIR` and `READ_ONLY` from `site/.env`. Details:
 - [API Reference](docs/features/API.md) - REST API endpoints
 - [Library Modes](docs/features/LIBRARY-MODE-IMPLEMENTATION.md) - Public vs My Library
 - [Featured Prompts](docs/features/FEATURED-PROMPTS.md) - Highlighting top prompts
+- [MCP Server Setup](docs/mcp-server.md) - Install the MCP server in Claude Code or any MCP client
 - [MCP Server](docs/features/MCP-SERVER.md) - The library as an MCP server: tools, prompts, install and how it stays current
 
 **Development**

@@ -4,6 +4,11 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — The README links the MCP setup page
+
+**Docs**
+- The root README links to `docs/mcp-server.md`, the one page with the install line for each client, so the MCP setup is one click from the repo's front page.
+
 ## 2026-10-22 — The MCP server and package are named promptbook
 
 **Changed**
