@@ -4,6 +4,23 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — Library refresh — prompts and agents
+
+**Agents** (synced to `davila7/claude-code-templates` @ `5bbe5a7`, MIT, `match: exact`):
+`task-decomposition-expert`, `hackathon-ai-strategist`, `model-evaluator`, `llms-maintainer`,
+`ai-ethics-advisor` (all `ai-specialists/`), `computer-vision-engineer` (`data-ai/`).
+
+**Prompts** (model names checked against
+[Anthropic's models overview](https://platform.claude.com/docs/en/about-claude/models/overview),
+[OpenAI's models page](https://developers.openai.com/api/docs/models) and
+[Google's Gemini models page](https://ai.google.dev/gemini-api/docs/models); stamped `checked: 2026-10-22`):
+- `AI_ML/Claude_Code/claude-advanced-reasoning.md`: Claude 3.5 Sonnet → Claude Sonnet 5.5.
+- `Business/Marketing/claude-seo-keyword-chain.md`: Claude 3.5 Sonnet → Claude Sonnet 5.5.
+- `Business/Ecommerce/business-plan-prompts.md`: GPT-4 / Claude 3 / Gemini Advanced → Claude Sonnet 5.5 / GPT-6.1 Sol / Gemini 3.8 Flash.
+
+---
+
+
 ## 2026-10-22 — Renamed to Promptbook
 
 The GitHub repo moved from `ai-automation-tools/my-prompt-library` to
