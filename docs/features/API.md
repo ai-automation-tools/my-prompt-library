@@ -6,7 +6,7 @@
 http://localhost:3010/api
 ```
 
-Hosted demo (read-only): `https://my-prompt-library-demo.ai-automation-tools.dev/api`
+Hosted demo (read-only): `https://promptbook-demo.ai-automation-tools.dev/api`
 
 The handlers live in `site/api/index.ts` (prompts, previews, skill downloads) and
 `site/api/skill-packs.ts` (skill packs). Locally `server.ts` mounts both on one Express app;

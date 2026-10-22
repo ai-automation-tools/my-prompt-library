@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 
 const read = (f) => readFileSync(new URL(`../homepage/${f}`, import.meta.url), 'utf8');
 const html = read('index.html');
-const APP = 'https://my-prompt-library-demo.ai-automation-tools.dev';
+const APP = 'https://promptbook-demo.ai-automation-tools.dev';
 const REPO = 'https://github.com/ai-automation-tools/promptbook';
 
 const required = [

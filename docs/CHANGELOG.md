@@ -4,6 +4,18 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — The app is addressed as promptbook-demo
+
+**Changed**
+- Every link to the hosted app now names `https://promptbook-demo.ai-automation-tools.dev`, including
+  `PUBLIC_SHARE_ORIGIN` in `site/src/App.tsx`, so new share links use the new host. The homepage, its
+  404 redirect, the README, `SECURITY.md` and the docs follow. `my-prompt-library-demo.` still serves
+  the same Vercel project, so old share links keep working.
+
+_Touched: `site/src/App.tsx`, `scripts/homepage.test.mjs`, `homepage/`, `README.md`, `SECURITY.md`, `docs/`._
+
+---
+
 ## 2026-10-22 — Org layout: AGENTS.md and the MCP page
 
 **Changed**
