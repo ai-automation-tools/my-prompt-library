@@ -20,6 +20,8 @@ import {
   Library,
   Link2,
   Mail,
+  Pencil,
+  RefreshCw,
   Tag,
   Trash2,
 } from 'lucide-react';
@@ -44,6 +46,8 @@ interface PromptDetailProps {
   onCopyShareLink: (prompt: Prompt) => void;
   onCopyToMyPrompts: (prompt: Prompt) => void;
   onDeletePrompt: (promptId: string) => void;
+  onEditPrompt: (prompt: Prompt) => void;
+  onPullUpstream: (prompt: Prompt) => void;
   onCopy: (content: string, promptId: string) => void;
   onSubcategoryClick: (category: string, subcategory: string | 'ALL') => void;
   onShowAllPrompts: () => void;
@@ -64,6 +68,8 @@ export default function PromptDetail({
   onCopyShareLink,
   onCopyToMyPrompts,
   onDeletePrompt,
+  onEditPrompt,
+  onPullUpstream,
   onCopy,
   onSubcategoryClick,
   onShowAllPrompts,
@@ -138,6 +144,11 @@ export default function PromptDetail({
           <IconButton label="Share by email" framed onClick={shareByEmail} className="h-[30px] w-[30px]">
             <Mail className="h-3.5 w-3.5" />
           </IconButton>
+          {libraryMode === 'my' && !READ_ONLY && (
+            <IconButton label="Edit prompt" framed onClick={() => onEditPrompt(prompt)} className="h-[30px] w-[30px]">
+              <Pencil className="h-3.5 w-3.5" />
+            </IconButton>
+          )}
           {libraryMode === 'my' && (
             <IconButton
               label="Remove from My Library"
@@ -159,6 +170,16 @@ export default function PromptDetail({
             className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full blur-3xl"
             style={{ background: 'color-mix(in srgb, var(--c) 10%, transparent)' }}
           />
+          {prompt.upstream?.updateAvailable && !READ_ONLY && (
+            <div className="relative mb-5 flex flex-wrap items-center justify-between gap-3 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--warn)_45%,var(--line))] bg-[color-mix(in_srgb,var(--warn)_8%,transparent)] px-3 py-2 text-[13px] text-[var(--fg)]">
+              <span>
+                The Public Library version has changed{prompt.upstream.localEdits && ' — updating replaces your edits'}.
+              </span>
+              <Button size="sm" onClick={() => onPullUpstream(prompt)} icon={<RefreshCw className="h-3.5 w-3.5" />}>
+                Update from public
+              </Button>
+            </div>
+          )}
           {prompt.sourceUrl && (
             <a
               href={prompt.sourceUrl}

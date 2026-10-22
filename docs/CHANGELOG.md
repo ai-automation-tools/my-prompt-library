@@ -4,6 +4,19 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — My Library copies know their public source
+
+**Added**
+- Saving a Public Library item records `forked_from` (its id) and `forked_hash` (its content as copied) in the copy's frontmatter, from the site and from `save_to_my_library`.
+- A copy whose public version has changed shows an **Update from public** banner on its page; `POST /api/prompts/:id/pull-upstream` and the MCP tool `update_from_public` replace the copy's body with the current public one. If the copy was edited too, the site asks first. The public file is only ever read.
+- `GET /api/prompts/:id` returns `upstream` for My Library items, and MCP `get_item` notes a changed public version. Copies saved before today have no `forked_from` and are matched by section, category, subcategory and title.
+- The My Library detail page has an Edit button.
+
+**Changed**
+- The edit button is the plain pencil (`Pencil`) instead of lucide's `Edit`, which is the pencil-in-a-square "compose" glyph.
+
+_Touched: `site/lib/my-library.ts`, `site/api/index.ts`, `site/mcp/server.ts`, `site/src/App.tsx`, `site/src/components/PromptCard.tsx`, `site/src/components/PromptDetail.tsx`, `site/scripts/*.test.mjs`, `README.md`, `AGENTS.md`, `docs/features/API.md`, `docs/features/MCP-SERVER.md`, `docs/mcp-server.md`, `docs/ARCHITECTURE.md`._
+
 ## 2026-10-22 — The README links the MCP setup page
 
 **Docs**

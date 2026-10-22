@@ -553,10 +553,31 @@ source: Promptbook
       }
 
       refreshPrompts();
+      if (prompt.id && selectedPrompt?.id === prompt.id) {
+        // The detail view holds its own copy; refetch so it shows the edit.
+        const fresh = await fetch(`/api/prompts/${encodeURIComponent(prompt.id)}`);
+        if (fresh.ok) setSelectedPrompt(await fresh.json());
+      }
       showToast('success', prompt.id ? 'Prompt updated successfully' : 'Prompt created successfully');
     } catch (error: any) {
       showToast('error', error.message || 'Failed to save prompt');
       throw error;
+    }
+  }, [refreshPrompts, selectedPrompt, showToast]);
+
+  const handlePullUpstream = useCallback(async (prompt: Prompt) => {
+    if (prompt.upstream?.localEdits && !confirm('Replace your edited copy with the current Public Library version? Your edits will be lost.')) {
+      return;
+    }
+    try {
+      const response = await fetch(`/api/prompts/${encodeURIComponent(prompt.id)}/pull-upstream`, { method: 'POST' });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || 'Failed to update from the Public Library');
+      setSelectedPrompt(payload);
+      refreshPrompts();
+      showToast('success', payload.message);
+    } catch (error: any) {
+      showToast('error', error.message || 'Failed to update from the Public Library');
     }
   }, [refreshPrompts, showToast]);
 
@@ -882,6 +903,8 @@ source: Promptbook
                   onCopyShareLink={handleCopyShareLink}
                   onCopyToMyPrompts={handleCopyToMyPrompts}
                   onDeletePrompt={handleDeletePrompt}
+                  onEditPrompt={handleEditPrompt}
+                  onPullUpstream={handlePullUpstream}
                   onCopy={copyContent}
                   onSubcategoryClick={handleSubcategoryClick}
                   onShowAllPrompts={handleShowAllPrompts}

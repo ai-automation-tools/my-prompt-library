@@ -67,6 +67,7 @@ There is no database and there are no accounts. The same app also runs on Vercel
 │  │  PUT  /api/prompts/:id      - Update          [write]│   │
 │  │  DELETE /api/prompts/:id    - Delete          [write]│   │
 │  │  POST /api/prompts/:path/copy-to-my-prompts   [write]│   │
+│  │  POST /api/prompts/:id/pull-upstream          [write]│   │
 │  │  GET  /api/skills/download/ - Skill directory ZIP    │   │
 │  │  /api/skill-packs/*         - api/skill-packs.ts     │   │
 │  └──────────────────────────────────────────────────────┘   │
@@ -174,8 +175,21 @@ requireWritable          → 403 if READ_ONLY
 resolveInside(library/)  → 400 if the path escapes
     ↓ parse the source file, derive section/category from its path
 duplicate title in the same section/category/subcategory? → 409
-myLibrary.create()       → new file in MY_LIBRARY_DIR
+myLibrary.create()       → new file in MY_LIBRARY_DIR, with forked_from + forked_hash
 ```
+
+### 4. Update a copy from its public source (`POST /api/prompts/:id/pull-upstream`)
+
+```
+GET /api/prompts/:id on a My Library copy
+    ↓ upstreamStatus(): find the source (forked_from, else section/category/title match)
+    ↓ hash public, copy and forked_hash
+upstream.updateAvailable → "Update from public" banner in PromptDetail
+    ↓ click (confirm first if upstream.localEdits)
+pullUpstream()           → copy's content = public content, forked_hash reset
+```
+
+The public file is only ever read. MCP has the same pull as `update_from_public`.
 
 ---
 

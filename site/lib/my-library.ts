@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { randomBytes } from 'node:crypto';
+import { createHash, randomBytes } from 'node:crypto';
 import { fileURLToPath } from 'url';
+import { carriedFrontmatter, loadIndex, readLibraryItem, type LibraryItem } from './library.js';
 
 /**
  * My Library: the user's own prompts, one markdown file each, in a local folder.
@@ -162,3 +163,62 @@ export const myLibrary = {
     return true;
   },
 };
+
+/**
+ * A copy remembers where it came from in two `extra` keys: `forked_from` (the
+ * Public Library id) and `forked_hash` (the public content as it was copied).
+ * That base is what tells "the public one changed" apart from "you edited yours".
+ */
+const hashOf = (content: string) => createHash('sha256').update(content.trim()).digest('hex').slice(0, 16);
+
+/** The `extra` a fresh copy of a library item carries. */
+export const forkExtra = (item: LibraryItem) => ({
+  ...carriedFrontmatter(item.frontmatter),
+  forked_from: item.id,
+  forked_hash: hashOf(item.content),
+});
+
+export interface UpstreamStatus {
+  source: string;
+  /** The public content changed since this copy was made (or, with no base, differs). */
+  updateAvailable: boolean;
+  /** This copy was edited since it was made. Unknown without a base, so true. */
+  localEdits: boolean;
+}
+
+/**
+ * The public item a copy came from. Copies made before 2026-10-22 carry no
+ * `forked_from`, so they are matched by place and title, as the duplicate check does.
+ */
+function sourceOf(prompt: UserPrompt): LibraryItem | null {
+  const recorded = typeof prompt.extra?.forked_from === 'string' ? prompt.extra.forked_from : null;
+  const title = prompt.title.trim().toLowerCase();
+  const id = recorded ?? loadIndex()?.prompts.find(e =>
+    e.section === prompt.section && e.category === prompt.category
+    && (e.subcategory || null) === (prompt.subcategory || null)
+    && e.title.trim().toLowerCase() === title)?.id;
+  if (!id) return null;
+  const item = readLibraryItem(id);
+  return item && item !== 'invalid' ? item : null;
+}
+
+export function upstreamStatus(prompt: UserPrompt): UpstreamStatus | null {
+  const item = sourceOf(prompt);
+  if (!item) return null;
+  const upstream = hashOf(item.content);
+  const mine = hashOf(prompt.content);
+  const base = typeof prompt.extra?.forked_hash === 'string' ? prompt.extra.forked_hash : null;
+  return {
+    source: item.id,
+    updateAvailable: upstream !== mine && (base ? upstream !== base : true),
+    localEdits: base ? mine !== base : upstream !== mine,
+  };
+}
+
+/** Replace a copy's content with the current public version. Never touches the public file. */
+export function pullUpstream(id: string): UserPrompt | null {
+  const prompt = myLibrary.get(id);
+  const item = prompt && sourceOf(prompt);
+  if (!prompt || !item) return null;
+  return myLibrary.update(id, { content: item.content, extra: forkExtra(item) });
+}

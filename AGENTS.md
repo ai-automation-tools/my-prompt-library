@@ -48,7 +48,7 @@ No `.env` is needed; `.env.example` lists the three optional settings (`MY_LIBRA
 
 Other scripts: `npm run build` (build:index → tsc → vite build), `npm run build:index`
 (regenerates `api/prompt-index.json` from `library/`), `npm run lint` (`tsc --noEmit`),
-`npm run test:routes` (asserts the shared Express app still exposes all eight API routes and no auth router),
+`npm run test:routes` (asserts the shared Express app still exposes all nine API routes and no auth router),
 `npm run test:my-library` (round-trips the My Library file store in a temp folder).
 
 CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → `test:my-library` → the two repo-root

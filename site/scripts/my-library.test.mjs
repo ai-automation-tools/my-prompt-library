@@ -60,6 +60,28 @@ try {
   assert.equal(myLibrary.delete(b.id), true);
   assert.equal(myLibrary.delete(b.id), false);
   assert.equal(myLibrary.list().length, 1);
+
+  // A copy tracks its public source: fresh is in sync, an edit is local, a pull
+  // restores the public body. The public file itself is only ever read.
+  const { forkExtra, upstreamStatus, pullUpstream } = await import("../lib/my-library.ts");
+  const { readLibraryItem } = await import("../lib/library.ts");
+  const pub = readLibraryItem("1_Guides/README.md");
+  const pubBefore = fs.readFileSync(path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/(\w:)/, "$1")), "..", "library", "1_Guides", "README.md"), "utf-8");
+  const fork = myLibrary.create({ title: pub.title, section: pub.section, category: pub.category, subcategory: pub.subcategory, tags: [], content: pub.content, extra: forkExtra(pub) });
+  assert.deepEqual(upstreamStatus(myLibrary.get(fork.id)), { source: pub.id, updateAvailable: false, localEdits: false });
+  myLibrary.update(fork.id, { content: "my edit" });
+  assert.deepEqual(upstreamStatus(myLibrary.get(fork.id)), { source: pub.id, updateAvailable: false, localEdits: true });
+  // The public one moved on since the copy: simulated by an older base hash
+  myLibrary.update(fork.id, { content: pub.content, extra: { forked_hash: "0000000000000000" } });
+  assert.equal(upstreamStatus(myLibrary.get(fork.id)).updateAvailable, false, "same body is in sync whatever the base");
+  myLibrary.update(fork.id, { content: "stale public body" });
+  assert.deepEqual(upstreamStatus(myLibrary.get(fork.id)), { source: pub.id, updateAvailable: true, localEdits: true });
+  const pulled = pullUpstream(fork.id);
+  assert.equal(pulled.content.trim(), pub.content.trim());
+  assert.deepEqual(upstreamStatus(pulled), { source: pub.id, updateAvailable: false, localEdits: false });
+  assert.equal(fs.readFileSync(path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/(\w:)/, "$1")), "..", "library", "1_Guides", "README.md"), "utf-8"), pubBefore, "public file untouched");
+  assert.equal(pullUpstream(a.id), null, "no source, nothing to pull");
+  myLibrary.delete(fork.id);
 } finally {
   fs.rmSync(dir, { recursive: true, force: true });
 }

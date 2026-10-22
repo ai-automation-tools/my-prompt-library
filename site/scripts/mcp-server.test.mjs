@@ -81,7 +81,7 @@ try {
   const tools = (await client.listTools()).tools.map((t) => t.name).sort();
   assert.deepEqual(tools, [
     'delete_my_prompt', 'get_item', 'get_skill', 'get_skill_file', 'get_skill_pack', 'list_categories',
-    'list_sections', 'list_skill_packs', 'save_to_my_library', 'search_library', 'update_my_prompt',
+    'list_sections', 'list_skill_packs', 'save_to_my_library', 'search_library', 'update_from_public', 'update_my_prompt',
   ]);
 
   const search = await ok(client, 'search_library', { query: 'code review', section: 'prompts', limit: 5 });
@@ -160,7 +160,7 @@ try {
   // ---------- read-only ----------
   client = await connect({ MY_LIBRARY_DIR: tmp, READ_ONLY: 'true' });
   const roTools = (await client.listTools()).tools.map((t) => t.name);
-  for (const w of ['save_to_my_library', 'update_my_prompt', 'delete_my_prompt']) {
+  for (const w of ['save_to_my_library', 'update_my_prompt', 'update_from_public', 'delete_my_prompt']) {
     assert.ok(!roTools.includes(w), `${w} must not be offered read-only`);
   }
   await ok(client, 'search_library', { query: 'git' });
