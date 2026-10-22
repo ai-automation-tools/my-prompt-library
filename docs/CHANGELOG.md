@@ -4,6 +4,24 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — Library refresh — catalog
+
+**Added**
+- MCP cards (`6_MCP_Servers/Cloud_Platforms/`), install lines read from each README on 2026-10-22:
+  `mongodb.md` (mongodb-js/mongodb-mcp-server, Apache-2.0) and `neon.md` (neondatabase/mcp-server-neon, MIT).
+  Databases had no card before.
+- Discovery intake, three `accept` rows set to `done`:
+  - DietrichGebert/ponytail (MIT, ref `09c434ab`): `ponytail`, `ponytail-audit`, `ponytail-debt`,
+    `ponytail-gain`, `ponytail-help`, `ponytail-review` → `3_Skills/Development/Engineering/`.
+  - tt-a1i/archify (MIT, ref `25cf3708`): `archify` (SKILL.md, LICENSE, references/) → `3_Skills/Design/archify/`.
+    The 18 MB of scripts, renderers and examples were left out.
+  - K-Dense-AI/scientific-agent-skills (MIT, ref `593377bb`): `scikit-learn`, `statsmodels`, `pymc`, `shap`,
+    `seaborn`, `networkx` → `3_Skills/Data/`.
+- No system prompts or agent definitions: no new vendor-published system prompt found that is not already here,
+  and no installable agent definition was added this run.
+
+---
+
 ## 2026-10-22 — The app is addressed as promptbook-demo
 
 **Changed**
