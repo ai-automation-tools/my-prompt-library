@@ -1,6 +1,6 @@
 # MCP server
 
-My Prompt Library as a [Model Context Protocol](https://modelcontextprotocol.io/) server, so an
+Promptbook as a [Model Context Protocol](https://modelcontextprotocol.io/) server, so an
 agent can search the library and use what it finds without anyone copying text out of a browser.
 Built 2026-10-21 (roadmap Phase 1). Install lines for users are in the
 [README](../../README.md#use-it-from-an-agent); this page is how it works and why.

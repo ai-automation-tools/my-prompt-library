@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "buildTime": "2026-10-21T19:33:39.061Z",
+  "buildTime": "2026-10-22T15:22:06.223Z",
   "promptCount": 2796,
   "prompts": [
     {
@@ -44869,7 +44869,7 @@
     },
     {
       "id": "6_MCP_Servers/Developer_Tools/my-prompt-library.md",
-      "title": "🔌 My Prompt Library",
+      "title": "🔌 Promptbook",
       "section": "6_MCP_Servers",
       "category": "Developer_Tools",
       "subcategory": "my-prompt-library",
@@ -44881,8 +44881,8 @@
         "agents",
         "featured"
       ],
-      "contentPreview": "\n# My Prompt Library MCP server\n\nThis library as an MCP server: search prompts, agents, skills and MCP cards, read any item, pull a skill with its files, and save to My Library.\n\n## Install\n\n**Claude ",
-      "lastModified": "2026-10-21T19:31:41.383Z",
+      "contentPreview": "\n# Promptbook MCP server\n\nThis library as an MCP server: search prompts, agents, skills and MCP cards, read any item, pull a skill with its files, and save to My Library.\n\n## Install\n\n**Claude Code** ",
+      "lastModified": "2026-10-22T15:21:04.066Z",
       "isUserOwned": false
     },
     {

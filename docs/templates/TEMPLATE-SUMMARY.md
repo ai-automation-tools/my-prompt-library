@@ -1,6 +1,6 @@
 # Template Summary
 
-Created **5 comprehensive templates** for the my-prompt-library project to guide agents and contributors when adding new content.
+Created **5 comprehensive templates** for the Promptbook project to guide agents and contributors when adding new content.
 
 ## Created Templates
 

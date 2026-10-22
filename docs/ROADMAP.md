@@ -64,7 +64,7 @@ read-only remote endpoint on the demo comes after it.
 
 - [x] CI green on push and PR: lint, the route table, the My Library store and safe-path tests, the homepage test, provenance self-checks and prompt-index freshness — done 2026-08-27, extended since: `.github/workflows/ci.yml`
 - [x] `LICENSE` (Apache 2.0), `NOTICE` for vendored content, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` — done 2026-10-05: see the changelog
-- [x] Live: homepage at `my-prompt-library.ai-automation-tools.dev` — done 2026-10-12; the app at `my-prompt-library-demo.ai-automation-tools.dev` since 2026-10-19, read-only since 2026-10-21: see the changelog
+- [x] Live: homepage at `promptbook.ai-automation-tools.dev` — done 2026-10-12; the app at `my-prompt-library-demo.ai-automation-tools.dev` since 2026-10-19, read-only since 2026-10-21: see the changelog
 - [ ] A full-history secret scan (`gitleaks detect` over all of history) run and its findings written to `docs/audits/`; the one known hit, the old Neon credential, is closed because that database was deleted on 2026-10-21
 
 ## After public release

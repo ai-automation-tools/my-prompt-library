@@ -2,12 +2,12 @@
 
 <p align="center">
   <a href="https://my-prompt-library-demo.ai-automation-tools.dev">
-    <img src="images/My-Prompt-Library-Images/logos/dark/landscape-01-template-vault.svg" alt="My Prompt Library - searchable prompt templates and skill packs" width="720">
+    <img src="images/My-Prompt-Library-Images/logos/dark/landscape-01-template-vault.svg" alt="Promptbook - searchable prompt templates and skill packs" width="720">
   </a>
 </p>
 
 <p align="center">
-  <em>A prompt library you clone and run on your own machine:<br>a curated public library to browse, and your own prompts as markdown files you own.</em>
+  <em><strong>Promptbook</strong> (formerly My Prompt Library) is a prompt library you clone and run on your own machine:<br>a curated public library to browse, and your own prompts as markdown files you own.</em>
 </p>
 
 <p align="center">
@@ -17,9 +17,9 @@
 <p align="center">
   <a href="https://my-prompt-library-demo.ai-automation-tools.dev">Browse the public library online (read-only)</a>
   ·
-  <a href="https://github.com/ai-automation-tools/my-prompt-library/issues">Report Bug</a>
+  <a href="https://github.com/ai-automation-tools/promptbook/issues">Report Bug</a>
   ·
-  <a href="https://github.com/ai-automation-tools/my-prompt-library/issues">Request Feature</a>
+  <a href="https://github.com/ai-automation-tools/promptbook/issues">Request Feature</a>
 </p>
 
 <p align="center">
@@ -81,8 +81,8 @@
 The app lives in `site/`. Run every `npm` command from there: the repo root has no `package.json`.
 
 ```bash
-git clone https://github.com/ai-automation-tools/my-prompt-library.git
-cd my-prompt-library/site
+git clone https://github.com/ai-automation-tools/promptbook.git
+cd promptbook/site
 npm install
 npm run dev        # or: npm start (build once, then serve)
 ```
@@ -166,7 +166,7 @@ honours `MY_LIBRARY_DIR` and `READ_ONLY` from `site/.env`. Details:
 - [Setup Guide](docs/setup/SETUP.md) - Run it locally, configure My Library
 - [Hosted Demo](docs/setup/DEPLOYMENT.md) - How the read-only demo is built on Vercel
 - [Architecture](docs/ARCHITECTURE.md) - System design
-- [Diagrams](docs/diagrams/README.md) - The library data flow shown on the [homepage](https://my-prompt-library.ai-automation-tools.dev/#diagram), interactive and linked to the code
+- [Diagrams](docs/diagrams/README.md) - The library data flow shown on the [homepage](https://promptbook.ai-automation-tools.dev/#diagram), interactive and linked to the code
 
 **Creating Content**
 - [Contributing Guide](docs/CONTRIBUTING.md) - How to add content
@@ -202,7 +202,7 @@ honours `MY_LIBRARY_DIR` and `READ_ONLY` from `site/.env`. Details:
 **Hosting:**
 - Your machine (the app)
 - Vercel (the read-only demo)
-- GitHub Pages (the [homepage](https://my-prompt-library.ai-automation-tools.dev))
+- GitHub Pages (the [homepage](https://promptbook.ai-automation-tools.dev))
 
 ---
 
@@ -311,7 +311,7 @@ Content under `site/library/` is a mix of original work and vendored third-party
 
 ## Support
 
-- **Issues:** [GitHub Issues](https://github.com/ai-automation-tools/my-prompt-library/issues)
+- **Issues:** [GitHub Issues](https://github.com/ai-automation-tools/promptbook/issues)
 - **Documentation:** [docs/](docs/)
 - **Email:** mikeschecht@gmail.com
 

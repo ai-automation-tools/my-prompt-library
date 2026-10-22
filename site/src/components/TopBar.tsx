@@ -56,10 +56,10 @@ export default function TopBar({
           <PanelLeft className="h-4 w-4" />
         </IconButton>
 
-        <button type="button" className="brand" onClick={() => pick('prompt-library')} aria-label="My Prompt Library home">
+        <button type="button" className="brand" onClick={() => pick('prompt-library')} aria-label="Promptbook home">
           <img src="/favicon.svg" alt="" width={24} height={24} />
           {/* The wordmark only on very wide windows: six section buttons come first. */}
-          <span className="hidden min-[1720px]:inline">My Prompt Library</span>
+          <span className="hidden min-[1720px]:inline">Promptbook</span>
         </button>
 
         <nav className="nav" aria-label="Sections">

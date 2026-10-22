@@ -444,7 +444,7 @@ category: ${prompt.category}
 subcategory: ${prompt.subcategory || 'None'}
 tags: ${prompt.tags.join(', ')}
 created: ${prompt.lastModified}
-source: My Prompt Library
+source: Promptbook
 ---
 
 `;
@@ -897,10 +897,10 @@ source: My Prompt Library
 
           <footer className="site-footer mt-auto">
             <div className="row">
-              <span className="mono">my-prompt-library</span>
+              <span className="mono">promptbook</span>
               <div className="right">
-                <a href="https://github.com/ai-automation-tools/my-prompt-library" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a href="https://my-prompt-library.ai-automation-tools.dev" target="_blank" rel="noopener noreferrer">Homepage</a>
+                <a href="https://github.com/ai-automation-tools/promptbook" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://promptbook.ai-automation-tools.dev" target="_blank" rel="noopener noreferrer">Homepage</a>
                 <a href="https://ai-automation-tools.dev" target="_blank" rel="noopener noreferrer">ai-automation-tools.dev</a>
                 <a href="#" data-ail-consent="manage">Cookie settings</a>
               </div>
