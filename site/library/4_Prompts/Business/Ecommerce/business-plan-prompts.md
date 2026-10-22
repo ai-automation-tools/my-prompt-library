@@ -2,6 +2,7 @@
 title: "📌 LLM Prompts For E Commerce Business Plan Generation V"
 tags: ["collections", "business", "ecommerce", "plan"]
 category: "Collections"
+checked: 2026-10-22
 subcategory: "Business"
 ---
 # LLM Prompts for E-commerce Business Plan Generation v2
@@ -12,7 +13,7 @@ This document contains an enhanced set of prompts designed to guide a Large Lang
 
 *   Use these prompts in sequence to build a complete and detailed business plan.
 *   Replace the bracketed placeholders (e.g., `[Your Niche]`) with your specific business details.
-*   These prompts are optimized for advanced LLMs like GPT-4, Claude 3, or Gemini Advanced.
+*   These prompts are optimized for advanced LLMs like Claude Sonnet 5.5, GPT-6.1 Sol, or Gemini 3.8 Flash.
 
 ---
 

@@ -2,13 +2,14 @@
 title: "📣 Claude SEO Keyword Research Chain"
 tags: ["claude", "seo", "marketing", "chain-prompt"]
 category: "Business"
+checked: 2026-10-22
 subcategory: "Marketing"
 ---
 
 # Claude SEO Keyword Research Chain
 
 ## Purpose
-This prompt utilizes a chain-of-thought strategy designed specifically for Claude 3.5 Sonnet to perform deep and structured SEO keyword research, analyzing user intent, competition, and search volume to identify the most valuable long-tail opportunities.
+This prompt utilizes a chain-of-thought strategy designed specifically for Claude Sonnet 5.5 to perform deep and structured SEO keyword research, analyzing user intent, competition, and search volume to identify the most valuable long-tail opportunities.
 
 ## Instructions
 I need to conduct comprehensive keyword research for my [Business Type: e.g., B2B SaaS company, e-commerce store] targeting the primary keyword: "[Primary Keyword: e.g., CRM software, sustainable running shoes]".
