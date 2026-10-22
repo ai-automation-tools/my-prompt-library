@@ -159,6 +159,13 @@ the server console.
 The server is in read-only mode. Unset `READ_ONLY` (and make sure `VERCEL` is not set in
 your shell).
 
+### The page goes black when opening a prompt
+
+Vite's dependency cache went stale under the running dev server. Stop it, delete
+`site/node_modules/.vite`, run `npm run dev` again and hard-refresh. A black screen on a
+Skill Pack was a separate bug, fixed the same day. Details in the
+[Debug Guide](../development/DEBUG_UI.md#issue-6-black-screen-when-opening-a-prompt).
+
 ### Build failures
 
 ```bash
