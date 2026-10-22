@@ -32,11 +32,11 @@ column, so never delete a row: change its status instead.
 
 | Repo | Kind | Stars | Licence | Pushed | Found | Status | Note |
 |:---|:---|---:|:---|:---|:---|:---|:---|
-| [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | skills | 53,545 | mit | 2026-10-19 | 2026-10-21 | accept | science skills; dedupe against 3_Skills/Data by purpose |
+| [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | skills | 53,545 | mit | 2026-10-19 | 2026-10-21 | done | 6 skills → 3_Skills/Data/ (scikit-learn, statsmodels, pymc, shap, seaborn, networkx); the other ~140 left, the science set is large |
 | [morluto/rea](https://github.com/morluto/rea) | mcp | 356,277 | mit | 2026-10-21 | 2026-10-21 | done | MCP card: 6_MCP_Servers/Developer_Tools/rea.md |
-| [tt-a1i/archify](https://github.com/tt-a1i/archify) | skills | 86,994 | mit | 2026-10-21 | 2026-10-21 | accept | one diagram skill (SKILL.md + references) |
+| [tt-a1i/archify](https://github.com/tt-a1i/archify) | skills | 86,994 | mit | 2026-10-21 | 2026-10-21 | done | SKILL.md + references/ → 3_Skills/Design/archify/ (bin, renderers and examples, 18 MB, left out) |
 | [n8n-io/n8n](https://github.com/n8n-io/n8n) | mcp | 208,240 | Other | 2026-10-21 | 2026-10-21 | reject | the n8n product, not content; the n8n-mcp card covers MCP |
-| [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | skills | 171,228 | mit | 2026-10-18 | 2026-10-21 | accept | anti-over-engineering skills |
+| [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | skills | 171,228 | mit | 2026-10-18 | 2026-10-21 | done | 6 skills → 3_Skills/Development/Engineering/ponytail* |
 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | skills | 109,256 | mit | 2026-10-13 | 2026-10-21 | accept | engineering skills; dedupe by purpose |
 | [paperclipai/paperclip](https://github.com/paperclipai/paperclip) | skills | 105,594 | mit | 2026-10-21 | 2026-10-21 | reject | an agent-management app, not content |
 | [nexu-io/open-design](https://github.com/nexu-io/open-design) | skills | 103,051 | apache-2.0 | 2026-10-21 | 2026-10-21 | reject | a design workspace app, not content |
