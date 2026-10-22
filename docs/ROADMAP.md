@@ -59,12 +59,13 @@ read-only remote endpoint on the demo comes after it.
 - [ ] Delete the stale `roadmap/auto-2026-08-31` branch (its PR #332 was closed unmerged) or recover its one commit 🔒 Needs Mike
 - [ ] Decide what happens to `4_Prompts/Awesome_ChatGPT/` (1,349 files from one upstream corpus): resync it on a schedule like the skills, or tag it `vendored` and freeze it 🔒 Needs Mike
 - [ ] `ai-automation-tools/agent-skills` gets a `LICENSE` file, so the 40 skills synced from it carry a stated licence in this public repo, and `NOTICE` names it 🔒 Needs Mike
+- [ ] `small` `scripts/resync-upstream.mjs` writes `tags: [...]---` on one line when `tags:` is the last frontmatter key of an agent (`stampUpstream` drops the newline), which breaks the frontmatter; hit on 3 agents on 2026-10-22. Fix it to always end the block with a newline. Done when resyncing `2_Agents/AI_ML/Other/model-evaluator.md` from a pre-sync copy yields valid frontmatter, with a case in `scripts/upstream.test.mjs`
 
 ## 🚦 Public release
 
 - [x] CI green on push and PR: lint, the route table, the My Library store and safe-path tests, the homepage test, provenance self-checks and prompt-index freshness — done 2026-08-27, extended since: `.github/workflows/ci.yml`
 - [x] `LICENSE` (Apache 2.0), `NOTICE` for vendored content, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` — done 2026-10-05: see the changelog
-- [x] Live: homepage at `my-prompt-library.ai-automation-tools.dev` — done 2026-10-12; the app at `my-prompt-library-demo.ai-automation-tools.dev` since 2026-10-19, read-only since 2026-10-21: see the changelog
+- [x] Live: homepage at `promptbook.ai-automation-tools.dev` — done 2026-10-12; the app at `my-prompt-library-demo.ai-automation-tools.dev` since 2026-10-19, read-only since 2026-10-21: see the changelog
 - [ ] A full-history secret scan (`gitleaks detect` over all of history) run and its findings written to `docs/audits/`; the one known hit, the old Neon credential, is closed because that database was deleted on 2026-10-21
 
 ## After public release

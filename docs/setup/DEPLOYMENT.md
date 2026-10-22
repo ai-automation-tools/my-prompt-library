@@ -5,7 +5,7 @@ is a read-only browser for the Public Library. It runs the same `site/` app as a
 clone, on Vercel, with every write turned off. To keep your own prompts, clone the repo and
 run it locally ([Setup Guide](SETUP.md)).
 
-The project homepage, [my-prompt-library.ai-automation-tools.dev](https://my-prompt-library.ai-automation-tools.dev),
+The project homepage, [promptbook.ai-automation-tools.dev](https://promptbook.ai-automation-tools.dev),
 is a separate static site in `homepage/` served by GitHub Pages. Nothing here changes it.
 
 ---

@@ -1,6 +1,6 @@
-# My Prompt Library Logo Proposals
+# Promptbook Logo Proposals
 
-Landscape My Prompt Library logo proposals for GitHub README art, website headers, and social preview-style placements.
+Landscape Promptbook logo proposals for GitHub README art, website headers, and social preview-style placements.
 
 Open [`../preview.html`](../preview.html) to compare these logos alongside the square icon proposals.
 

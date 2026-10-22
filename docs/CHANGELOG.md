@@ -4,6 +4,61 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — Org layout: AGENTS.md and the MCP page
+
+**Changed**
+- The repo guide moved from `CLAUDE.md` to `AGENTS.md`, which Codex, Gemini CLI and opencode read.
+  `CLAUDE.md` is now `@AGENTS.md` plus a note on `.mcp.json`. Links in `docs/README.md` and
+  `docs/ARCHITECTURE.md` follow it.
+
+**Added**
+- `docs/mcp-server.md`: the MCP server on one page (entry file, launch, stdio transport, all eleven
+  tools, the MCP prompts, env var names, the install line), linked from the docs hub. The design
+  stays in `features/MCP-SERVER.md`.
+
+_Touched: `AGENTS.md`, `CLAUDE.md`, `docs/mcp-server.md`, `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/CHANGELOG.md`._
+
+---
+
+## 2026-10-22 — Library refresh — prompts and agents
+
+**Agents** (synced to `davila7/claude-code-templates` @ `5bbe5a7`, MIT, `match: exact`):
+`task-decomposition-expert`, `hackathon-ai-strategist`, `model-evaluator`, `llms-maintainer`,
+`ai-ethics-advisor` (all `ai-specialists/`), `computer-vision-engineer` (`data-ai/`).
+
+**Prompts** (model names checked against
+[Anthropic's models overview](https://platform.claude.com/docs/en/about-claude/models/overview),
+[OpenAI's models page](https://developers.openai.com/api/docs/models) and
+[Google's Gemini models page](https://ai.google.dev/gemini-api/docs/models); stamped `checked: 2026-10-22`):
+- `AI_ML/Claude_Code/claude-advanced-reasoning.md`: Claude 3.5 Sonnet → Claude Sonnet 5.5.
+- `Business/Marketing/claude-seo-keyword-chain.md`: Claude 3.5 Sonnet → Claude Sonnet 5.5.
+- `Business/Ecommerce/business-plan-prompts.md`: GPT-4 / Claude 3 / Gemini Advanced → Claude Sonnet 5.5 / GPT-6.1 Sol / Gemini 3.8 Flash.
+
+---
+
+
+## 2026-10-22 — Renamed to Promptbook
+
+The GitHub repo moved from `ai-automation-tools/my-prompt-library` to
+`ai-automation-tools/promptbook`, and the product's display name is now **Promptbook**.
+
+**Changed**
+- Every GitHub link points at `ai-automation-tools/promptbook`; the homepage is
+  `promptbook.ai-automation-tools.dev` (canonical, `og:url`, `CNAME`, `scripts/homepage.test.mjs`).
+- The name reads "Promptbook" in the README, docs, homepage (title, headings, meta and og tags),
+  the app's page title, top bar and footer, the MCP server's instructions and its own library card,
+  the diagram titles, the logo proposals in `images/`, `SECURITY.md` and `NOTICE`.
+- Clone instructions now `cd promptbook/site`, matching the folder `git clone` creates.
+
+**Kept, on purpose**
+- Identifiers: the MCP server id `my-prompt-library` (and its `mcp__my-prompt-library__*` tool
+  names and config examples), the npm package name, the Vercel project, env var names, API
+  routes, localStorage keys, file and folder names, and the Skill Pack `author` field.
+- The demo stays on `my-prompt-library-demo.ai-automation-tools.dev` until a `promptbook-demo`
+  record exists.
+
+---
+
 ## 2026-10-21 — Monthly upkeep
 
 | File | Action | Reason / source |

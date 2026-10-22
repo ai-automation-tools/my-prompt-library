@@ -8,7 +8,7 @@ export default function SourceBar() {
         <strong>Open source</strong> · prompts, agents and skills for AI coding tools.
       </p>
       <a
-        href="https://github.com/ai-automation-tools/my-prompt-library"
+        href="https://github.com/ai-automation-tools/promptbook"
         target="_blank"
         rel="noopener noreferrer"
         className="src-link"

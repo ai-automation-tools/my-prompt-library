@@ -1,5 +1,5 @@
 /**
- * My Prompt Library as an MCP server (stdio).
+ * Promptbook as an MCP server (stdio).
  *
  *   npm run mcp            # from site/
  *
@@ -78,7 +78,7 @@ const promptMessages = (body: string, input?: string) => ({
   }],
 });
 
-const INSTRUCTIONS = `My Prompt Library: ${loadIndex()?.promptCount ?? 'thousands of'} prompts, agent definitions, guides, system prompts, skills and MCP server cards, plus the user's own My Library.
+const INSTRUCTIONS = `Promptbook: ${loadIndex()?.promptCount ?? 'thousands of'} prompts, agent definitions, guides, system prompts, skills and MCP server cards, plus the user's own My Library.
 Use search_library to find items (filter by section: ${SECTION_KEYS.join(', ')}), then get_item for the full text.
 Skills: get_skill returns SKILL.md and its file list; get_skill_file reads one support file.
 Ids are library paths like "4_Prompts/Engineering/Code_Generation/x.md"; My Library ids are bare slugs.

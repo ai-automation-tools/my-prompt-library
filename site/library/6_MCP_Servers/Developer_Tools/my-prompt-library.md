@@ -1,9 +1,9 @@
 ---
-title: "🔌 My Prompt Library"
+title: "🔌 Promptbook"
 description: "This library as an MCP server: search prompts, agents, skills and MCP cards, read any item, pull a skill with its files, and save to My Library."
 tags: ["mcp-server", "developer-tools", "prompts", "skills", "agents", "featured"]
 server:
-  repo: ai-automation-tools/my-prompt-library
+  repo: ai-automation-tools/promptbook
   path: site/mcp
   license: "Apache-2.0"
   maintainer: "ai-automation-tools (this project)"
@@ -11,7 +11,7 @@ server:
   checked: 2026-10-21
 ---
 
-# My Prompt Library MCP server
+# Promptbook MCP server
 
 This library as an MCP server: search prompts, agents, skills and MCP cards, read any item, pull a skill with its files, and save to My Library.
 
@@ -51,7 +51,7 @@ It reads the folders on your disk, so nothing else needs to be running and nothi
 
 | | |
 |:---|:---|
-| **Source** | [ai-automation-tools/my-prompt-library/site/mcp](https://github.com/ai-automation-tools/my-prompt-library/tree/main/site/mcp) |
+| **Source** | [ai-automation-tools/promptbook/site/mcp](https://github.com/ai-automation-tools/promptbook/tree/main/site/mcp) |
 | **Maintainer** | ai-automation-tools (this project) |
 | **Licence** | Apache-2.0 |
 | **Transport** | stdio |

@@ -1,6 +1,6 @@
 name: Homepage
 
-# Publishes homepage/ to GitHub Pages at my-prompt-library.ai-automation-tools.dev.
+# Publishes homepage/ to GitHub Pages at promptbook.ai-automation-tools.dev.
 # Nothing is built: the folder is one static HTML page and ships as-is. The app
 # itself is a separate Vercel project rooted at site/ and is not touched by this.
 on:

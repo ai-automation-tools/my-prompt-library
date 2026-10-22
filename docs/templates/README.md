@@ -1,6 +1,6 @@
 # Prompt Library Templates
 
-This directory contains standardized templates for each type of content in the my-prompt-library project. Use these templates as a guide when creating new prompts, agents, skills, or system instructions.
+This directory contains standardized templates for each type of content in the Promptbook project. Use these templates as a guide when creating new prompts, agents, skills, or system instructions.
 
 ## Available Templates
 

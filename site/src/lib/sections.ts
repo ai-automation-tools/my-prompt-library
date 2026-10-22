@@ -4,7 +4,7 @@
  * used to switch on a tab id reads from here instead.
  *
  * The accents are the per-tool hues from the org landing page
- * (ai-automation-tools.dev): rose is My Prompt Library's own colour there, and
+ * (ai-automation-tools.dev): rose is Promptbook's own colour there, and
  * the rest follow the same family so the sections read as siblings. They are
  * token references, not literals, so html.light can swap each for its 700
  * shade; index.css also exposes the current one as `--c` via `[data-section]`.

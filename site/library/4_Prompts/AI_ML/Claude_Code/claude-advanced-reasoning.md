@@ -2,13 +2,14 @@
 title: "🦞 Claude Advanced Strawberry Reasoning"
 tags: ["claude", "reasoning", "problem-solving"]
 category: "Ai_Tools"
+checked: 2026-10-22
 subcategory: "Claude_Code"
 ---
 
 # Claude Advanced Strawberry Reasoning
 
 ## Purpose
-This prompt utilizes `<thinking>` and `<step>` tags to instruct Claude 3.5 Sonnet to emulate the deep reasoning capabilities of OpenAI's o1 (Strawberry) models, breaking down complex tasks into deliberate, structured sub-steps before producing an answer.
+This prompt utilizes `<thinking>` and `<step>` tags to instruct Claude Sonnet 5.5 to emulate the deep reasoning capabilities of OpenAI's o1 (Strawberry) models, breaking down complex tasks into deliberate, structured sub-steps before producing an answer.
 
 ## Instructions
 Please act as an advanced AI reasoning engine. You must deeply consider the following problem before providing your final answer:

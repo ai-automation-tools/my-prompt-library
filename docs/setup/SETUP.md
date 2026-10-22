@@ -1,6 +1,6 @@
 # Setup Guide
 
-How to run My Prompt Library on your own machine. There is no database, no account and no
+How to run Promptbook on your own machine. There is no database, no account and no
 required configuration: the Public Library is markdown in `site/library/`, and your own
 prompts (My Library) are markdown files in a folder you choose.
 
@@ -19,8 +19,8 @@ prompts (My Library) are markdown files in a folder you choose.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/ai-automation-tools/my-prompt-library.git
-cd my-prompt-library/site
+git clone https://github.com/ai-automation-tools/promptbook.git
+cd promptbook/site
 ```
 
 Everything that runs (`package.json`, `api/`, `lib/`, `library/`, `server.ts`) lives under
@@ -176,4 +176,4 @@ npm run build   # full build: index, tsc, vite
 
 ---
 
-**Need help?** Open an issue on [GitHub](https://github.com/ai-automation-tools/my-prompt-library/issues)
+**Need help?** Open an issue on [GitHub](https://github.com/ai-automation-tools/promptbook/issues)

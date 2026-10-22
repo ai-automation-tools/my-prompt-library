@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "buildTime": "2026-10-21T22:04:47.905Z",
+  "buildTime": "2026-10-22T20:25:28.827Z",
   "promptCount": 2796,
   "prompts": [
     {
@@ -1576,7 +1576,7 @@
         "bias-mitigation"
       ],
       "contentPreview": "\nYou are an AI Ethics Advisor specializing in responsible AI development, bias mitigation, and ethical AI implementation. You help teams build AI systems that are fair, transparent, accountable, and a",
-      "lastModified": "2026-10-18T06:11:51.159Z",
+      "lastModified": "2026-10-22T19:30:25.850Z",
       "isUserOwned": false
     },
     {
@@ -1592,7 +1592,7 @@
         "competition"
       ],
       "contentPreview": "\nYou are an elite hackathon strategist with dual expertise as both a serial hackathon winner and an experienced judge at major AI competitions. You've won over 20 hackathons and judged at prestigious ",
-      "lastModified": "2026-10-18T06:11:51.159Z",
+      "lastModified": "2026-10-22T19:30:25.168Z",
       "isUserOwned": false
     },
     {
@@ -1625,7 +1625,7 @@
         "ai-crawlers"
       ],
       "contentPreview": "\nYou are the LLMs.txt Maintainer, a specialized agent responsible for generating and maintaining the llms.txt roadmap file that helps AI crawlers understand your site's structure and content.\n\nYour co",
-      "lastModified": "2026-10-18T06:11:51.160Z",
+      "lastModified": "2026-10-22T19:30:25.439Z",
       "isUserOwned": false
     },
     {
@@ -1855,8 +1855,8 @@
         "ai-ml",
         "other"
       ],
-      "contentPreview": "\nYou are a computer vision engineer specializing in building production-ready image analysis systems and visual AI applications. You excel at implementing cutting-edge computer vision models and optim",
-      "lastModified": "2026-10-21T18:07:05.727Z",
+      "contentPreview": "\nYou are a computer vision engineer specializing in building production-ready image analysis systems and visual AI applications. You excel at implementing cutting-edge computer vision models — from fo",
+      "lastModified": "2026-10-22T19:31:35.178Z",
       "isUserOwned": false
     },
     {
@@ -1871,7 +1871,7 @@
         "other"
       ],
       "contentPreview": "\nYou are an AI Model Evaluation specialist with deep expertise in comparing, benchmarking, and selecting the optimal AI models for specific use cases. You understand the nuances of different model fam",
-      "lastModified": "2026-10-21T18:07:05.728Z",
+      "lastModified": "2026-10-22T19:31:35.191Z",
       "isUserOwned": false
     },
     {
@@ -1900,8 +1900,8 @@
         "ai-ml",
         "other"
       ],
-      "contentPreview": "\nYou are a Task Decomposition Expert, a master architect of complex workflows and systems integration. Your expertise lies in analyzing user goals, breaking them down into manageable components, and i",
-      "lastModified": "2026-10-21T18:07:05.729Z",
+      "contentPreview": "\nYou are a Task Decomposition Expert, a master architect of complex workflows. Your expertise lies in analyzing user goals, breaking them down into a structured work breakdown with measurable effort e",
+      "lastModified": "2026-10-22T19:31:35.204Z",
       "isUserOwned": false
     },
     {
@@ -8530,8 +8530,8 @@
         "reasoning",
         "problem-solving"
       ],
-      "contentPreview": "\n# Claude Advanced Strawberry Reasoning\n\n## Purpose\nThis prompt utilizes `<thinking>` and `<step>` tags to instruct Claude 3.5 Sonnet to emulate the deep reasoning capabilities of OpenAI's o1 (Strawbe",
-      "lastModified": "2026-09-20T06:00:07.592Z",
+      "contentPreview": "\n# Claude Advanced Strawberry Reasoning\n\n## Purpose\nThis prompt utilizes `<thinking>` and `<step>` tags to instruct Claude Sonnet 5.5 to emulate the deep reasoning capabilities of OpenAI's o1 (Strawbe",
+      "lastModified": "2026-10-22T19:33:37.721Z",
       "isUserOwned": false
     },
     {
@@ -32755,7 +32755,7 @@
         "plan"
       ],
       "contentPreview": "# LLM Prompts for E-commerce Business Plan Generation v2\n\nThis document contains an enhanced set of prompts designed to guide a Large Language Model (LLM) in generating a comprehensive and strategic b",
-      "lastModified": "2026-09-20T06:00:08.531Z",
+      "lastModified": "2026-10-22T19:33:35.964Z",
       "isUserOwned": false
     },
     {
@@ -33459,8 +33459,8 @@
         "marketing",
         "chain-prompt"
       ],
-      "contentPreview": "\n# Claude SEO Keyword Research Chain\n\n## Purpose\nThis prompt utilizes a chain-of-thought strategy designed specifically for Claude 3.5 Sonnet to perform deep and structured SEO keyword research, analy",
-      "lastModified": "2026-09-20T06:00:08.550Z",
+      "contentPreview": "\n# Claude SEO Keyword Research Chain\n\n## Purpose\nThis prompt utilizes a chain-of-thought strategy designed specifically for Claude Sonnet 5.5 to perform deep and structured SEO keyword research, analy",
+      "lastModified": "2026-10-22T19:33:36.607Z",
       "isUserOwned": false
     },
     {
@@ -44865,7 +44865,7 @@
     },
     {
       "id": "6_MCP_Servers/Developer_Tools/my-prompt-library.md",
-      "title": "🔌 My Prompt Library",
+      "title": "🔌 Promptbook",
       "section": "6_MCP_Servers",
       "category": "Developer_Tools",
       "subcategory": "my-prompt-library",
@@ -44877,8 +44877,8 @@
         "agents",
         "featured"
       ],
-      "contentPreview": "\n# My Prompt Library MCP server\n\nThis library as an MCP server: search prompts, agents, skills and MCP cards, read any item, pull a skill with its files, and save to My Library.\n\n## Install\n\n**Claude ",
-      "lastModified": "2026-10-21T19:31:41.383Z",
+      "contentPreview": "\n# Promptbook MCP server\n\nThis library as an MCP server: search prompts, agents, skills and MCP cards, read any item, pull a skill with its files, and save to My Library.\n\n## Install\n\n**Claude Code** ",
+      "lastModified": "2026-10-22T15:21:04.066Z",
       "isUserOwned": false
     },
     {

@@ -1,12 +1,12 @@
 # System Architecture
 
-Technical architecture and design decisions for the Prompt Library application.
+Technical architecture and design decisions for the Promptbook application.
 
 ---
 
 ## Overview
 
-My Prompt Library is a local-first app: you clone it and run it on your own machine. It
+Promptbook is a local-first app: you clone it and run it on your own machine. It
 keeps everything as markdown files on disk:
 
 1. **Public Library**: curated prompts, agents, skills, guides and system prompts in
@@ -254,7 +254,8 @@ my-prompt-library/
 │   └── fix-skill-frontmatter.mjs # Enforce the Agent Skills spec
 ├── docs/                         # Documentation (see docs/README.md)
 ├── .github/workflows/            # ci.yml, upstream-drift.yml
-└── CLAUDE.md                     # Repo guide for coding agents
+├── AGENTS.md                     # Repo guide for coding agents
+└── CLAUDE.md                     # Imports AGENTS.md for Claude Code
 ```
 
 > The entire app lives under `site/`. Run every `npm` command from there, and keep the

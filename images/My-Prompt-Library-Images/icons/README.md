@@ -1,6 +1,6 @@
-# My Prompt Library Icon Proposals
+# Promptbook Icon Proposals
 
-Square My Prompt Library icon proposals for favicons, app icons, and clickable buttons.
+Square Promptbook icon proposals for favicons, app icons, and clickable buttons.
 
 Open [`../preview.html`](../preview.html) to compare these icons alongside the landscape logo proposals.
 
