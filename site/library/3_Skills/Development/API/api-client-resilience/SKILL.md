@@ -6,7 +6,7 @@ tags: ["skill","development","api","agent-skills"]
 upstream:
   match: exact
   repo: ai-automation-tools/agent-skills
-  path: Skills/Domain/API/api-client-resilience/SKILL.md
+  path: skills/domain/api/api-client-resilience/SKILL.md
   ref: 6f36b558eb82b55e9a68814da0941dd968dfe5f7
   checked: 2026-10-21
 ---

@@ -37,8 +37,8 @@ const REPO = "ai-automation-tools/agent-skills";
 const TODAY = new Date().toISOString().slice(0, 10);
 const MAX_FILE = 500 * 1024; // the index skips anything larger; so do we
 
-if (!fs.existsSync(path.join(SOURCE, "Skills"))) {
-  console.error(`ERROR: no Skills/ folder under ${SOURCE}; pass --source <agent-skills checkout>`);
+if (!fs.existsSync(path.join(SOURCE, "skills"))) {
+  console.error(`ERROR: no skills/ folder under ${SOURCE}; pass --source <agent-skills checkout>`);
   process.exit(2);
 }
 let REF = arg("--ref");
@@ -51,17 +51,17 @@ if (!REF) {
 // Platform_Integrations by project, which is where the library already keeps
 // tool-specific skills (linear, notion, n8n).
 const AREA = {
-  "Core/Automation": ["Development", "Automation"],
-  "Core/Business": ["Business", "Strategy"],
-  "Core/Cooking": ["Content", "Cooking"],
-  "Core/Documentation": ["Content", "Documentation"],
-  "Core/Image-Gen": ["Content", "Image_Generation"],
-  "Core/Web": ["Development", "Web_Development"],
-  "Domain/API": ["Development", "API"],
-  "Domain/Business": ["Business", "Strategy"],
-  "Domain/Engineering": ["Development", "Engineering"],
-  "Domain/Media": ["Content", "Media"],
-  "Domain/Security": ["Security", "Practice"],
+  "core/automation": ["Development", "Automation"],
+  "core/business": ["Business", "Strategy"],
+  "core/cooking": ["Content", "Cooking"],
+  "core/documentation": ["Content", "Documentation"],
+  "core/image-gen": ["Content", "Image_Generation"],
+  "core/web": ["Development", "Web_Development"],
+  "domain/api": ["Development", "API"],
+  "domain/business": ["Business", "Strategy"],
+  "domain/engineering": ["Development", "Engineering"],
+  "domain/media": ["Content", "Media"],
+  "domain/security": ["Security", "Practice"],
 };
 const EMOJI = {
   AI_ML: "🤖", Business: "💼", Content: "✍️", Data: "📊", Design: "🎨", Development: "💻",
@@ -71,7 +71,7 @@ const titleCase = (s) => s.split(/[-_\s]+/).filter(Boolean).map((w) => w[0].toUp
 const slug = (s) => s.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
 const destFor = (area, project) => {
-  if (area.startsWith("Projects/")) return ["Platform_Integrations", titleCase(project)];
+  if (area.startsWith("projects/")) return ["Platform_Integrations", titleCase(project)];
   if (AREA[area]) return AREA[area];
   const [, sub] = area.split("/");
   return ["Development", titleCase(sub || "General")];
@@ -116,11 +116,11 @@ const normBody = (raw) => splitFrontmatter(raw).body.replace(/\r\n/g, "\n").trim
 
 // ---------- candidates ----------
 const candidates = [];
-for (const f of walk(path.join(SOURCE, "Skills")).sort()) {
-  const rel = path.relative(SOURCE, f).split(path.sep).join("/"); // Skills/Core/Web/x/SKILL.md
+for (const f of walk(path.join(SOURCE, "skills")).sort()) {
+  const rel = path.relative(SOURCE, f).split(path.sep).join("/"); // skills/core/web/x/SKILL.md
   const parts = rel.split("/");
   const name = parts[parts.length - 2];
-  const area = parts.slice(1, -2).join("/"); // Core/Web  |  Projects/cronsole
+  const area = parts.slice(1, -2).join("/"); // core/web  |  projects/cronsole
   const project = parts.length > 4 ? parts[2] : "";
   candidates.push({ rel, dir: path.dirname(f), name, area, project });
 }
