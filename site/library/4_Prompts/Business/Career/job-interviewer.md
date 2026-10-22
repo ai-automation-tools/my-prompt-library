@@ -1,6 +1,6 @@
 ---
 title: "👔 Job Interviewer"
-tags: ["career", "interview", "business", "featured"]
+tags: ["career", "interview", "business"]
 category: "Business"
 subcategory: "Career"
 ---

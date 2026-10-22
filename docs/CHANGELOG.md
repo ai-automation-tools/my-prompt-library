@@ -59,6 +59,21 @@ The GitHub repo moved from `ai-automation-tools/my-prompt-library` to
 
 ---
 
+## 2026-10-21 — Monthly upkeep
+
+| File | Action | Reason / source |
+|:---|:---|:---|
+| `1_Guides/API_Providers/gemini_models_cli_guide.md` | fixed | Gemini 1.0/1.5/2.0 IDs retired (2.0 Flash shut down 2026-06-01); examples now use `gemini-3.6-flash` / `gemini-3.1-pro-preview`, model table rewritten, unverifiable price/limit tables and the GPT-4/Claude 3.5 comparison replaced by links. Sources: ai.google.dev/gemini-api/docs/models and /deprecations |
+| `1_Guides/API_Providers/google-gemini-studio-guide.md` | fixed | `gemini-1.5-pro` → `gemini-3.1-pro-preview` |
+| `4_Prompts/Automation/Serper/serper-mcp-prompts.md` | fixed | "Google Bard" → "Google Gemini" |
+| `n8n-mcp-prompts.md`, `nano-banana.md`, `job-interviewer.md`, `investor-pitch-deck.md` (4_Prompts) | unfeatured | 44 featured prompts, cap 40; oldest `lastModified` dropped |
+
+Checks with nothing to do: `check-mcp-servers.mjs` (20 cards, 0 flagged), `check-resources.mjs` (40 ok, 0 dead),
+`build-skill-packs.mjs --write` (21 unchanged, 0 hand packs fixed), `backfill-tags.mjs` (0 files). No `2_Agents` file lacks `name:`.
+No cross-folder pack theme this month, none added. Left alone: `localai_cli_guide.md` (`gpt-3.5-turbo` is a local model alias, not the OpenAI model).
+
+---
+
 ## 2026-10-21 — Tailscale access documented; stopping the app spares the MCP server
 
 Reviewed alongside the logon auto-start and `tailscale serve` set up earlier the same day

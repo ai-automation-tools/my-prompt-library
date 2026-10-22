@@ -14,7 +14,7 @@ This guide covers using Google AI Studio and the Gemini API for building and dep
 
 ### Basic Settings
 - **Agent Name:** Gemini Studio Client
-- **Model:** gemini-1.5-pro
+- **Model:** gemini-3.1-pro-preview
 - **Temperature:** 0.7
 - **Context Window:** 1M tokens
 

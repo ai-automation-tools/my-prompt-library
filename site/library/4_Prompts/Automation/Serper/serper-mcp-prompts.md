@@ -174,7 +174,7 @@ Monitor brand mentions for "OpenAI ChatGPT" across different content types:
    - Sentiment breakdown (positive/neutral/negative based on language in snippets)
    - Top publishers/channels discussing the brand
    - Emerging themes or concerns
-   - Comparison with competitor mentions (search "Google Bard" and "Microsoft Copilot" for comparison)
+   - Comparison with competitor mentions (search "Google Gemini" and "Microsoft Copilot" for comparison)
 ```
 
 ## 17. Job Market Research

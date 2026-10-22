@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "buildTime": "2026-10-22T19:34:01.867Z",
+  "buildTime": "2026-10-22T20:25:28.827Z",
   "promptCount": 2796,
   "prompts": [
     {
@@ -112,7 +112,7 @@
         "multimodal"
       ],
       "contentPreview": "## CLI Sync Notes (March 2026)\n\nMaintained as a **Gemini tooling overview**.\n\n### Current status\n- Local content is strong for Gemini API/SDK capabilities.\n- CLI-specific details should be validated a",
-      "lastModified": "2026-09-20T06:00:05.972Z",
+      "lastModified": "2026-10-21T22:03:48.174Z",
       "isUserOwned": false
     },
     {
@@ -127,7 +127,7 @@
         "api"
       ],
       "contentPreview": "\n# Google Gemini Studio Guide\n\n## Overview\nThis guide covers using Google AI Studio and the Gemini API for building and deploying AI models.\n\n## Agent Configuration\n\n### Basic Settings\n- **Agent Name:",
-      "lastModified": "2026-09-20T06:00:05.972Z",
+      "lastModified": "2026-10-21T22:02:56.316Z",
       "isUserOwned": false
     },
     {
@@ -10606,7 +10606,6 @@
       "category": "Automation",
       "subcategory": "N8n",
       "tags": [
-        "featured",
         "collections",
         "n8n",
         "workflow",
@@ -10614,7 +10613,7 @@
         "integration"
       ],
       "contentPreview": "\n# n8n Workflow Automation MCP Server Prompt Library\n\n## 1. Create Simple Workflow\n```\nCreate a new n8n workflow named \"GitHub to Slack Notifier\" with two nodes:\n1. GitHub Trigger node listening for n",
-      "lastModified": "2026-09-20T06:00:07.638Z",
+      "lastModified": "2026-10-21T22:04:43.577Z",
       "isUserOwned": false
     },
     {
@@ -10640,14 +10639,13 @@
       "category": "Automation",
       "subcategory": "Nano-Banana",
       "tags": [
-        "featured",
         "collections",
         "image-&-video",
         "nano",
         "banana"
       ],
       "contentPreview": "\n# Nano Banana Pro Prompts\n\n## Wide quote card with portrait and Chinese/English customization\n\n### Purpose\nA prompt for generating a wide quote card featuring a famous person’s portrait, with a brown",
-      "lastModified": "2026-09-20T06:00:07.641Z",
+      "lastModified": "2026-10-21T22:04:43.758Z",
       "isUserOwned": false
     },
     {
@@ -10710,7 +10708,7 @@
         "api"
       ],
       "contentPreview": "\n# Serper API MCP Server Prompt Library\n\n## 1. Basic Web Search\n```\nSearch Google for \"best AI coding assistants 2026\" and return the top 10 results with titles, URLs, and snippets.\n```\n\n## 2. News Se",
-      "lastModified": "2026-09-20T06:00:07.643Z",
+      "lastModified": "2026-10-21T22:03:06.538Z",
       "isUserOwned": false
     },
     {
@@ -32471,11 +32469,10 @@
       "tags": [
         "career",
         "interview",
-        "business",
-        "featured"
+        "business"
       ],
       "contentPreview": "\n# Job Interviewer\n\n## Purpose\nSimulates a job interview for practice.\n\n## Instructions\n\nI want you to act as an interviewer. I will be the candidate and you will ask me the interview questions for th",
-      "lastModified": "2026-09-20T06:00:08.525Z",
+      "lastModified": "2026-10-21T22:04:43.944Z",
       "isUserOwned": false
     },
     {
@@ -32551,7 +32548,6 @@
       "category": "Business",
       "subcategory": "Documentation",
       "tags": [
-        "featured",
         "business",
         "documentation",
         "investor",
@@ -32559,7 +32555,7 @@
         "deck"
       ],
       "contentPreview": "# [Company/Product Name] - Investor Pitch Deck\n\n<!-- One-line elevator pitch -->\n\n---\n\n## Metadata\n\n- **Pitch Type:** [Seed | Series A | Series B | Strategic Partnership | Angel]\n- **Target Audience:*",
-      "lastModified": "2026-09-20T06:00:08.527Z",
+      "lastModified": "2026-10-21T22:04:43.829Z",
       "isUserOwned": false
     },
     {
