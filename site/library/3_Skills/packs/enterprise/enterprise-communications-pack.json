@@ -4,7 +4,7 @@
   "description": "Every skill under 3_Skills/Enterprise/Communications (9), bundled so the whole folder installs in one click. Generated from the library tree; see the folder for the individual skills.",
   "icon": "🏢",
   "version": "1.0.0",
-  "author": "my-prompt-library",
+  "author": "promptbook",
   "generated": true,
   "tags": [
     "enterprise",

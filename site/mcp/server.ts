@@ -86,7 +86,7 @@ ${READ_ONLY ? 'This server is read-only.' : 'save_to_my_library, update_my_promp
 
 export function createServer(): McpServer {
   const server = new McpServer(
-    { name: 'my-prompt-library', version: '1.0.0' },
+    { name: 'promptbook', version: '1.0.0' },
     { instructions: INSTRUCTIONS },
   );
   const readOnlyHints = { readOnlyHint: true, openWorldHint: false } as const;
@@ -382,4 +382,4 @@ export function createServer(): McpServer {
 // A fresh instance per connection, from the factory, so My Library prompts
 // registered above reflect the folder at connect time.
 serveStdio(createServer, { onerror: err => console.error('[mcp]', err) });
-console.error(`[mcp] my-prompt-library ready: ${loadIndex()?.promptCount ?? 0} indexed items, My Library at ${process.env.MY_LIBRARY_DIR || 'site/my-library'}${READ_ONLY ? ' (read-only)' : ''}`);
+console.error(`[mcp] promptbook ready: ${loadIndex()?.promptCount ?? 0} indexed items, My Library at ${process.env.MY_LIBRARY_DIR || 'site/my-library'}${READ_ONLY ? ' (read-only)' : ''}`);

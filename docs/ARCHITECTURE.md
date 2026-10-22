@@ -199,7 +199,7 @@ sight.
 ## File Structure
 
 ```
-my-prompt-library/
+promptbook/
 ├── site/                         # The app — run npm here; Vercel Root Directory
 │   ├── api/
 │   │   ├── index.ts              # Express app: prompts, previews, skill downloads

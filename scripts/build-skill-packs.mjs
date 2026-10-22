@@ -126,7 +126,7 @@ for (const [key, skills] of [...groups].sort()) {
     description: `Every skill under 3_Skills/${key} (${skills.length}), bundled so the whole folder installs in one click. Generated from the library tree; see the folder for the individual skills.`,
     icon: EMOJI[category] || "🧰",
     version: prev?.version || "1.0.0",
-    author: "my-prompt-library",
+    author: "promptbook",
     generated: true,
     tags: [slug(category), sub && slug(sub), ...topTags].filter(Boolean),
     category,

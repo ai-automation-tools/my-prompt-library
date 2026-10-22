@@ -162,7 +162,7 @@ Minimal working pack:
   "description": "Core Git skills for version control and collaboration",
   "icon": "🔀",
   "version": "1.0.0",
-  "author": "my-prompt-library",
+  "author": "promptbook",
   "tags": ["git", "version-control", "collaboration"],
   "category": "Development",
   "skills": [

@@ -53,7 +53,7 @@ const LIB = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\
   "..", "site", "library");
 
 const TOKEN = process.env.GITHUB_TOKEN || "";
-const api = { "User-Agent": "my-prompt-library-drift-check", Accept: "application/vnd.github+json" };
+const api = { "User-Agent": "promptbook-drift-check", Accept: "application/vnd.github+json" };
 if (TOKEN) api.Authorization = `Bearer ${TOKEN}`;
 
 const norm = (s) => s.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();

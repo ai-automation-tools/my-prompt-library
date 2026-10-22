@@ -59,7 +59,7 @@ const LIB = path.join(ROOT, "site", "library");
 const SKILLS = path.join(LIB, "3_Skills");
 
 const TOKEN = process.env.GITHUB_TOKEN || "";
-const api = { "User-Agent": "my-prompt-library-resync", Accept: "application/vnd.github+json" };
+const api = { "User-Agent": "promptbook-resync", Accept: "application/vnd.github+json" };
 if (TOKEN) api.Authorization = `Bearer ${TOKEN}`;
 
 const splitFrontmatter = (raw) => {

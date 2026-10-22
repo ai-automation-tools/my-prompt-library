@@ -4,6 +4,23 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — The MCP server and package are named promptbook
+
+**Changed**
+- The MCP server id is now `promptbook` (`serverInfo.name` in `site/mcp/server.ts`, the install lines in
+  `README.md`, `docs/mcp-server.md`, the homepage and the server's own card). An install under the old
+  `my-prompt-library` id keeps working until you re-add it as `promptbook`; tool names become `mcp__promptbook__*`.
+- The card moved from `6_MCP_Servers/Developer_Tools/my-prompt-library.md` to `promptbook.md`, so its old
+  `?prompt=` link no longer resolves.
+- `site/package.json` is named `promptbook`; Skill Packs carry `"author": "promptbook"`
+  (`scripts/build-skill-packs.mjs` and the pack docs follow); the GitHub API scripts send `promptbook-*` user agents.
+  `AGENTS.md` and the bug template name the `promptbook-demo` host.
+- Kept on purpose: the `my-prompt-library.theme` / `.palette` localStorage keys, so saved preferences survive.
+
+_Touched: `site/mcp/server.ts`, `site/package.json`, `site/package-lock.json`, `site/library/`, `site/api/prompt-index.json`, `scripts/`, `homepage/index.html`, `README.md`, `AGENTS.md`, `docs/`._
+
+---
+
 ## 2026-10-22 — A failed chunk load no longer blanks the app
 
 **Fixed**

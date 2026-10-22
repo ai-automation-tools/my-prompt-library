@@ -86,7 +86,7 @@ Each pack is defined in a JSON file with the following format:
   "description": "What this pack does",
   "icon": "📦",
   "version": "1.0.0",
-  "author": "my-prompt-library",
+  "author": "promptbook",
   "tags": ["tag1", "tag2"],
   "category": "Category",
   "skills": [
@@ -135,7 +135,7 @@ POST /api/skill-packs/:packId/install
 
 ## Creating New Packs
 
-Official skill packs are curated by the my-prompt-library team. To suggest a new pack:
+Official skill packs are curated by the Promptbook team. To suggest a new pack:
 
 1. Identify a common use case or domain
 2. Select 5-15 related skills from the library

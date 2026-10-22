@@ -4,7 +4,7 @@
   "description": "Professional writing and documentation toolkit covering technical writing, API docs, user guides, proposals, reports, and content across multiple formats (PDF, DOCX, XLSX, PPTX, Markdown).",
   "icon": "\ud83d\udcdd",
   "version": "1.0.0",
-  "author": "my-prompt-library",
+  "author": "promptbook",
   "tags": [
     "writing",
     "documentation",

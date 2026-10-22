@@ -78,7 +78,7 @@ clone, the code and the dependencies current:
 |:---|:---|
 | Library content (prompts, skills, agents, MCP cards, packs) | The Prompt-Library job fleet, merged to `main` by the Org PR Sweep |
 | The clone a user-scope MCP config runs from | The daily repo sync (`Sync-Repos.ps1`) merges `main` into `mike_desktop` |
-| `site/node_modules` after a dependency change | The same sync: `my-prompt-library` is in its `$repoInstallDirs` map, so a pulled change to `site/package-lock.json` runs `npm ci` in `site/`, after stopping the local app and any `node` process rooted in the repo (MCP sessions reconnect with `/mcp`), then restarts the app |
+| `site/node_modules` after a dependency change | The same sync: `promptbook` is in its `$repoInstallDirs` map, so a pulled change to `site/package-lock.json` runs `npm ci` in `site/`, after stopping the local app and any `node` process rooted in the repo (MCP sessions reconnect with `/mcp`), then restarts the app |
 | SDK minor and patch releases | Dependabot's weekly grouped PR for `/site` |
 | SDK majors and MCP spec revisions | The biweekly upstream check, from the `docs/UPSTREAMS.md` row |
 | Every change to any of the above | CI runs `npm run test:mcp` on every PR, including every automation PR |

@@ -15,7 +15,7 @@ import path from "node:path";
 
 const ROOT = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1")), "..");
 const res = JSON.parse(fs.readFileSync(path.join(ROOT, "site", "library", "resources.json"), "utf8"));
-const UA = "Mozilla/5.0 (compatible; my-prompt-library-link-check; +https://github.com/ai-automation-tools/promptbook)";
+const UA = "Mozilla/5.0 (compatible; promptbook-link-check; +https://github.com/ai-automation-tools/promptbook)";
 
 const probe = async (href, method = "HEAD") => {
   const ctl = new AbortController();
