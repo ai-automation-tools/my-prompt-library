@@ -14,7 +14,7 @@ tags: ["skill","platform-integrations","edge-radar","agent-skills"]
 upstream:
   match: exact
   repo: ai-automation-tools/agent-skills
-  path: Skills/Projects/edge-radar/edge-radar-strategy-evidence/SKILL.md
+  path: skills/projects/edge-radar/edge-radar-strategy-evidence/SKILL.md
   ref: 6f36b558eb82b55e9a68814da0941dd968dfe5f7
   checked: 2026-10-21
 ---

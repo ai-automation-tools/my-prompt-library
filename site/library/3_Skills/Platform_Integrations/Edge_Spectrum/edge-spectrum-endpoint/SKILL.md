@@ -14,7 +14,7 @@ tags: ["skill","platform-integrations","edge-spectrum","agent-skills"]
 upstream:
   match: exact
   repo: ai-automation-tools/agent-skills
-  path: Skills/Projects/edge-spectrum/edge-spectrum-endpoint/SKILL.md
+  path: skills/projects/edge-spectrum/edge-spectrum-endpoint/SKILL.md
   ref: 6f36b558eb82b55e9a68814da0941dd968dfe5f7
   checked: 2026-10-21
 ---

@@ -18,7 +18,7 @@ tags: ["skill","content","cooking","agent-skills"]
 upstream:
   match: exact
   repo: ai-automation-tools/agent-skills
-  path: Skills/Core/Cooking/recipe-validator/SKILL.md
+  path: skills/core/cooking/recipe-validator/SKILL.md
   ref: 6f36b558eb82b55e9a68814da0941dd968dfe5f7
   checked: 2026-10-21
 ---

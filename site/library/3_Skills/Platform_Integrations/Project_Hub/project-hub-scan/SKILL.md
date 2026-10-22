@@ -15,7 +15,7 @@ tags: ["skill","platform-integrations","project-hub","agent-skills"]
 upstream:
   match: exact
   repo: ai-automation-tools/agent-skills
-  path: Skills/Projects/project-hub/project-hub-scan/SKILL.md
+  path: skills/projects/project-hub/project-hub-scan/SKILL.md
   ref: 6f36b558eb82b55e9a68814da0941dd968dfe5f7
   checked: 2026-10-21
 ---
