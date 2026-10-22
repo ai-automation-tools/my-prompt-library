@@ -90,7 +90,7 @@ library/3_Skills/packs/
   "description": "What this pack provides...",
   "icon": "💻",
   "version": "1.0.0",
-  "author": "my-prompt-library",
+  "author": "promptbook",
   "tags": ["tag1", "tag2", "tag3"],
   "category": "Category",
   "skills": [
@@ -158,7 +158,7 @@ touch my-new-pack.json
   "description": "A collection of skills for...",
   "icon": "🚀",
   "version": "1.0.0",
-  "author": "my-prompt-library",
+  "author": "promptbook",
   "tags": ["tag1", "tag2"],
   "category": "Development",
   "skills": [],

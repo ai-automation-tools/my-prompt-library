@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "buildTime": "2026-10-22T22:06:05.599Z",
+  "buildTime": "2026-10-22T22:23:19.107Z",
   "promptCount": 2811,
   "prompts": [
     {
@@ -4330,7 +4330,7 @@
         "science"
       ],
       "contentPreview": "\n# NetworkX\n\n## Overview\n\nNetworkX is a Python package for creating, manipulating, and analyzing complex networks and graphs. Use this skill when working with network or graph data structures, includi",
-      "lastModified": "2026-10-22T22:05:30.114Z",
+      "lastModified": "2026-10-22T22:23:05.447Z",
       "isUserOwned": false
     },
     {
@@ -4361,7 +4361,7 @@
         "science"
       ],
       "contentPreview": "\n# PyMC Bayesian Modeling\n\n## Version and scope\n\nTargets **PyMC 6.3.2**, **PyTensor 3.3.2**, and **ArviZ 1.3.0**. These are\nlocal Python APIs, with no service endpoint, credentials, or remote inferenc",
-      "lastModified": "2026-10-22T22:05:29.834Z",
+      "lastModified": "2026-10-22T22:23:05.453Z",
       "isUserOwned": false
     },
     {
@@ -4497,7 +4497,7 @@
         "science"
       ],
       "contentPreview": "\n# Scikit-learn\n\n## Overview\n\nThis skill provides comprehensive guidance for machine learning tasks using scikit-learn, the industry-standard Python library for classical machine learning. Use this sk",
-      "lastModified": "2026-10-22T22:05:29.631Z",
+      "lastModified": "2026-10-22T22:23:05.459Z",
       "isUserOwned": false
     },
     {
@@ -4529,7 +4529,7 @@
         "science"
       ],
       "contentPreview": "\n# Seaborn Statistical Visualization\n\n## Overview\n\nSeaborn is a Python visualization library for creating publication-quality statistical graphics. Use this skill for dataset-oriented plotting, multiv",
-      "lastModified": "2026-10-22T22:05:30.029Z",
+      "lastModified": "2026-10-22T22:23:05.472Z",
       "isUserOwned": false
     },
     {
@@ -4545,7 +4545,7 @@
         "science"
       ],
       "contentPreview": "\n# SHAP\n\nUse SHAP to describe how a fitted predictive model maps inputs to outputs. Work from the modern `shap.Explanation` API, make the explained output and background distribution explicit, and val",
-      "lastModified": "2026-10-22T22:05:29.936Z",
+      "lastModified": "2026-10-22T22:23:05.478Z",
       "isUserOwned": false
     },
     {
@@ -4576,7 +4576,7 @@
         "science"
       ],
       "contentPreview": "\n# Statsmodels: Statistical Modeling and Econometrics\n\n## Overview\n\nStatsmodels provides estimation, inference and diagnostics for regression, time series and econometric models. A successful fit esta",
-      "lastModified": "2026-10-22T22:05:29.727Z",
+      "lastModified": "2026-10-22T22:23:05.487Z",
       "isUserOwned": false
     },
     {
@@ -4652,7 +4652,7 @@
         "diagram"
       ],
       "contentPreview": "\n# Archify\n\nCreate checked standalone HTML as a native diagram or a one-page explainer that answers a question.\n\nRun commands from your working directory. Unless the user names another location, give ",
-      "lastModified": "2026-10-22T22:05:29.532Z",
+      "lastModified": "2026-10-22T22:23:05.497Z",
       "isUserOwned": false
     },
     {
@@ -5946,7 +5946,7 @@
         "simplicity"
       ],
       "contentPreview": "\nAudit the whole repo like the senior developer who just inherited it and\nwill be paged when it breaks. Order of importance: correct, safe, holds under\nload, tested, fast, lean. Lean still matters: ev",
-      "lastModified": "2026-10-22T22:05:28.983Z",
+      "lastModified": "2026-10-22T22:23:05.506Z",
       "isUserOwned": false
     },
     {
@@ -5962,7 +5962,7 @@
         "simplicity"
       ],
       "contentPreview": "\nEvery deliberate ponytail shortcut is marked with a `shortcut:` comment naming\nits ceiling and upgrade path (older code may say `ponytail:`). This collects them into one ledger so a deferral\ncan't qu",
-      "lastModified": "2026-10-22T22:05:29.078Z",
+      "lastModified": "2026-10-22T22:23:05.506Z",
       "isUserOwned": false
     },
     {
@@ -5978,7 +5978,7 @@
         "simplicity"
       ],
       "contentPreview": "\n# Ponytail Gain\n\nDisplay this scoreboard when invoked. One-shot: do NOT change mode, write flag\nfiles, or persist anything.\n\nThe figures are the published agentic benchmark of Ponytail 5: headless Cl",
-      "lastModified": "2026-10-22T22:05:29.169Z",
+      "lastModified": "2026-10-22T22:23:05.507Z",
       "isUserOwned": false
     },
     {
@@ -5994,7 +5994,7 @@
         "simplicity"
       ],
       "contentPreview": "\n# Ponytail Help\n\nDisplay this reference card when invoked. One-shot, do NOT change mode,\nwrite flag files, or persist anything.\n\n## Levels\n\n| Level | Trigger | What change |\n|-------|---------|------",
-      "lastModified": "2026-10-22T22:05:29.259Z",
+      "lastModified": "2026-10-22T22:23:05.508Z",
       "isUserOwned": false
     },
     {
@@ -6010,7 +6010,7 @@
         "simplicity"
       ],
       "contentPreview": "\nReview a change like the senior developer who will be paged when it breaks.\nOrder of importance: correct, safe, holds under load, tested, fast, lean.\nLean still matters: every extra line must be read",
-      "lastModified": "2026-10-22T22:05:29.454Z",
+      "lastModified": "2026-10-22T22:23:05.509Z",
       "isUserOwned": false
     },
     {
@@ -6026,7 +6026,7 @@
         "simplicity"
       ],
       "contentPreview": "\n# Ponytail\n\nYou are a lazy senior developer. The best code is the code never written. You solve the whole problem with the least new code. End your reply with one or two lines: what you skipped or di",
-      "lastModified": "2026-10-22T22:05:28.860Z",
+      "lastModified": "2026-10-22T22:23:05.510Z",
       "isUserOwned": false
     },
     {
@@ -45013,7 +45013,7 @@
         "official"
       ],
       "contentPreview": "\n# MongoDB MCP server\n\nQuery, inspect and manage MongoDB databases and MongoDB Atlas clusters in plain language, with a read-only mode for safe access.\n\n## Install\n\n**Claude Code**\n\n```bash\nclaude mcp",
-      "lastModified": "2026-10-22T22:02:12.711Z",
+      "lastModified": "2026-10-22T22:23:05.511Z",
       "isUserOwned": false
     },
     {
@@ -45031,7 +45031,7 @@
         "official"
       ],
       "contentPreview": "\n# Neon MCP server\n\nCreate Neon Postgres projects and branches, run queries and perform schema migrations by asking in natural language.\n\n## Install\n\n**Claude Code**\n\n```bash\nnpx neon@latest init\n```\n",
-      "lastModified": "2026-10-22T22:02:17.759Z",
+      "lastModified": "2026-10-22T22:23:05.511Z",
       "isUserOwned": false
     },
     {
@@ -45108,11 +45108,11 @@
       "isUserOwned": false
     },
     {
-      "id": "6_MCP_Servers/Developer_Tools/my-prompt-library.md",
+      "id": "6_MCP_Servers/Developer_Tools/promptbook.md",
       "title": "🔌 Promptbook",
       "section": "6_MCP_Servers",
       "category": "Developer_Tools",
-      "subcategory": "my-prompt-library",
+      "subcategory": "promptbook",
       "tags": [
         "mcp-server",
         "developer-tools",
@@ -45122,7 +45122,7 @@
         "featured"
       ],
       "contentPreview": "\n# Promptbook MCP server\n\nThis library as an MCP server: search prompts, agents, skills and MCP cards, read any item, pull a skill with its files, and save to My Library.\n\n## Install\n\n**Claude Code** ",
-      "lastModified": "2026-10-22T15:21:04.066Z",
+      "lastModified": "2026-10-22T22:15:58.415Z",
       "isUserOwned": false
     },
     {

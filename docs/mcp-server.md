@@ -12,7 +12,7 @@ guarded, how paths are contained, which prompts are registered) is in
 | Entry file | [`site/mcp/server.ts`](../site/mcp/server.ts), with [`site/mcp/setup.ts`](../site/mcp/setup.ts) imported first (sends console output to stderr, loads `.env` quietly) |
 | Launched by | `npm run mcp` in `site/` (`tsx mcp/server.ts`), started by the MCP client. Nothing else needs to be running |
 | Transport | stdio (`@modelcontextprotocol/server` 2.x, `serveStdio()`). Stdout carries only JSON-RPC |
-| MCP id | `my-prompt-library`, kept from the old repo name on purpose: it's the installed identifier |
+| MCP id | `promptbook` (was `my-prompt-library` until 2026-10-22; re-add it under the new name if you installed the old one) |
 | Test | `npm run test:mcp` (`site/scripts/mcp-server.test.mjs`), in CI |
 
 ## Install
@@ -20,7 +20,7 @@ guarded, how paths are contained, which prompts are registered) is in
 After `npm install` in `site/`, with the absolute path to your clone:
 
 ```bash
-claude mcp add my-prompt-library -- npm --prefix /path/to/my-prompt-library/site run --silent mcp
+claude mcp add promptbook -- npm --prefix /path/to/promptbook/site run --silent mcp
 ```
 
 The README also has the `mcpServers` JSON block for other clients.

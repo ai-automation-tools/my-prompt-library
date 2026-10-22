@@ -20,7 +20,7 @@ This library as an MCP server: search prompts, agents, skills and MCP cards, rea
 **Claude Code** (clone the repo and run `npm install` in `site/` first; use the absolute path)
 
 ```bash
-claude mcp add my-prompt-library -- npm --prefix /path/to/my-prompt-library/site run --silent mcp
+claude mcp add promptbook -- npm --prefix /path/to/promptbook/site run --silent mcp
 ```
 
 **Any MCP client** (`mcpServers` config)
@@ -28,9 +28,9 @@ claude mcp add my-prompt-library -- npm --prefix /path/to/my-prompt-library/site
 ```json
 {
   "mcpServers": {
-    "my-prompt-library": {
+    "promptbook": {
       "command": "npm",
-      "args": ["--prefix", "/path/to/my-prompt-library/site", "run", "--silent", "mcp"]
+      "args": ["--prefix", "/path/to/promptbook/site", "run", "--silent", "mcp"]
     }
   }
 }
@@ -58,4 +58,4 @@ It reads the folders on your disk, so nothing else needs to be running and nothi
 | **Auth** | None. Local files only |
 | **Needs** | Node.js 20+, a clone of this repo with `npm install` run in `site/` |
 
-_Install lines tested with Claude Code on 2026-10-21. The Monthly Upkeep re-checks every card._
+_Install lines tested with Claude Code on 2026-10-22. The Monthly Upkeep re-checks every card._

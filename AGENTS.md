@@ -1,4 +1,4 @@
-# AGENTS.md — Promptbook (`my-prompt-library-demo.ai-automation-tools.dev`)
+# AGENTS.md — Promptbook (`promptbook-demo.ai-automation-tools.dev`)
 
 > Repo-local guide for every coding agent (Codex, Gemini CLI, opencode; Claude Code imports it
 > from `CLAUDE.md`). The workspace-wide rules live in
@@ -8,7 +8,7 @@
 ## What this is
 
 Local-first prompt-template manager: you clone the repo and run it on your own machine.
-**`my-prompt-library-demo.ai-automation-tools.dev`** (Vercel) is a **read-only** demo of the
+**`promptbook-demo.ai-automation-tools.dev`** (Vercel) is a **read-only** demo of the
 Public Library. The old `prompts.mikesailab.com` and `prompts.ax-platform.com` hosts were detached
 2026-10-14. The bare `promptbook.ai-automation-tools.dev` is the static homepage in `homepage/` (GitHub Pages).
 Two libraries: a **Public Library** (curated, file-backed under `library/`) and **My Library**
@@ -70,7 +70,8 @@ site/
                        usePromptContent (copy state + fetching a prompt's real body)
                        useLibraryRoute (section/category/subcategory/?prompt= URL state)
     hooks/useTheme     Light | Dark (`html.light`, key `my-prompt-library.theme`) and the colour palette
-                       (`html[data-palette]`, key `my-prompt-library.palette`, sky/violet/emerald/ember);
+                       (`html[data-palette]`, key `my-prompt-library.palette`, sky/violet/emerald/ember;
+                       both keys keep the pre-rename name so saved preferences survive);
                        index.html applies both before first paint
     lib/               mode (READ_ONLY), cn (clsx + tailwind-merge), sections (the seven sections: tab id, folder,
                        label, icon, accent token, blurb — every tab switch reads from here)

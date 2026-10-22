@@ -124,7 +124,7 @@ Nothing else needs to be running. After `npm install` in `site/`, add it to your
 
 ```bash
 # Claude Code (use the absolute path to your clone)
-claude mcp add my-prompt-library -- npm --prefix /path/to/my-prompt-library/site run --silent mcp
+claude mcp add promptbook -- npm --prefix /path/to/promptbook/site run --silent mcp
 ```
 
 Any other MCP client, as an `mcpServers` entry:
@@ -132,9 +132,9 @@ Any other MCP client, as an `mcpServers` entry:
 ```json
 {
   "mcpServers": {
-    "my-prompt-library": {
+    "promptbook": {
       "command": "npm",
-      "args": ["--prefix", "/path/to/my-prompt-library/site", "run", "--silent", "mcp"]
+      "args": ["--prefix", "/path/to/promptbook/site", "run", "--silent", "mcp"]
     }
   }
 }
@@ -209,7 +209,7 @@ honours `MY_LIBRARY_DIR` and `READ_ONLY` from `site/.env`. Details:
 ## Project Structure
 
 ```
-my-prompt-library/
+promptbook/
 ├── site/                     # The app (run npm here; Vercel Root Directory = site)
 │   ├── api/                  # API handlers (one Express app, also run by Vercel)
 │   ├── lib/                  # library.ts (shared reader), my-library.ts (file store), safe-path.ts
