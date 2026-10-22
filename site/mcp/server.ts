@@ -19,7 +19,7 @@ import * as z from 'zod/v4';
 import { McpServer } from '@modelcontextprotocol/server';
 import { serveStdio } from '@modelcontextprotocol/server/stdio';
 import {
-  LIBRARY_PATH, SECTIONS, SECTION_KEYS, SKILLS_SECTION, loadIndex, readLibraryItem,
+  LIBRARY_PATH, SECTIONS, SECTION_KEYS, SKILLS_SECTION, carriedFrontmatter, loadIndex, readLibraryItem,
   type IndexEntry, type SectionKey,
 } from '../lib/library.js';
 import { forkExtra, myLibrary, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from '../lib/my-library.js';
@@ -32,6 +32,36 @@ const PREVIEW = 200;
 type Result = { content: { type: 'text'; text: string }[]; isError?: boolean };
 const text = (t: string): Result => ({ content: [{ type: 'text', text: t }] });
 const fail = (t: string): Result => ({ content: [{ type: 'text', text: t }], isError: true });
+
+/**
+ * Folders the `file` argument of the write tools may read from (IMPORT_ROOTS, split on
+ * the platform's path delimiter). Unset, `file` is refused: without a root the tool would
+ * read any markdown file the server can reach into My Library.
+ */
+const IMPORT_ROOTS = (process.env.IMPORT_ROOTS || '').split(path.delimiter).filter(Boolean);
+
+/**
+ * A markdown file under IMPORT_ROOTS, read by the server so a caller never has to pass a
+ * long body through the tool call. Real paths on both sides, so a junction can't step out.
+ * The file's own frontmatter becomes `extra` (a skill's name and description).
+ */
+function readImport(file: string): { content: string; extra: Record<string, unknown> } | string {
+  if (!IMPORT_ROOTS.length) return 'File import is off: set IMPORT_ROOTS to the folders it may read.';
+  let real: string;
+  try { real = fs.realpathSync(file); } catch { return `No file "${file}".`; }
+  if (!/\.md$/i.test(real)) return 'Only markdown (.md) files can be imported.';
+  const inside = IMPORT_ROOTS.some(root => {
+    try { return resolveInside(fs.realpathSync(root), real) !== null; } catch { return false; }
+  });
+  if (!inside) return `"${file}" is outside IMPORT_ROOTS.`;
+  if (fs.statSync(real).size > MAX_FILE) return `"${file}" is over ${MAX_FILE / 1024} KB.`;
+  const raw = fs.readFileSync(real, 'utf-8');
+  return { content: raw, extra: carriedFrontmatter(matter(raw).data) };
+}
+
+/** `content`, if given, goes above the imported file as a preface (a source line, say). */
+const withPreface = (preface: string | undefined, body: string) =>
+  (preface?.trim() ? `${preface.trimEnd()}\n\n${body}` : body);
 
 const folderOf = (key?: SectionKey) => (key ? SECTIONS[key].folder : undefined);
 const keyOf = (folder: string) => SECTION_KEYS.find(k => SECTIONS[k].folder === folder) ?? folder;
@@ -264,19 +294,30 @@ export function createServer(): McpServer {
 
     server.registerTool('save_to_my_library', {
       title: 'Save to My Library',
-      description: 'Copy a library item into My Library (pass id), or write a new prompt (pass title and content). Returns the new My Library id.',
+      description: 'Copy a library item into My Library (pass id), or write a new prompt (pass title and content, or title and file). Returns the new My Library id.',
       inputSchema: z.object({
         id: z.string().optional().describe('Library id to copy'),
         title: z.string().optional(),
-        content: z.string().optional(),
+        content: z.string().optional().describe('The body; with file, a preface placed above the file'),
+        file: z.string().optional().describe('Absolute path of a local .md file to use as the body, read by the server (only under IMPORT_ROOTS). Its frontmatter is kept'),
         section: z.enum(SECTION_KEYS).optional().describe('Default prompts'),
         category: z.string().optional(),
         subcategory: z.string().optional(),
         tags: z.array(z.string()).optional(),
       }),
       annotations: writeHints,
-    }, async ({ id, title, content, section, category, subcategory, tags }) => {
+    }, async ({ id, title, content, file, section, category, subcategory, tags }) => {
       if (READ_ONLY) return fail('This library is read-only.');
+      if (file && !id) {
+        const imported = readImport(file);
+        if (typeof imported === 'string') return fail(imported);
+        if (!title?.trim()) return fail('Pass a title with file.');
+        const saved = myLibrary.create({
+          title: title.trim(), content: withPreface(content, imported.content), section: folderOf(section) ?? '4_Prompts',
+          category: category || 'Uncategorized', subcategory: subcategory || null, tags: tags ?? [], extra: imported.extra,
+        });
+        return text(`Saved \`${file}\` to My Library as \`${saved.id}\`.`);
+      }
       if (id) {
         const item = readLibraryItem(id);
         if (item === 'invalid' || !item) return fail(`No library item "${id}" to copy.`);
@@ -300,19 +341,26 @@ export function createServer(): McpServer {
 
     server.registerTool('update_my_prompt', {
       title: 'Update a My Library prompt',
-      description: 'Change the title, content, tags or place of a My Library prompt. Fields left out stay as they are.',
+      description: 'Change the title, content, tags or place of a My Library prompt. Fields left out stay as they are. Pass file to replace the body with a local .md file the server reads.',
       inputSchema: z.object({
         id: z.string().describe('My Library id'),
         title: z.string().optional(),
-        content: z.string().optional(),
+        content: z.string().optional().describe('The new body; with file, a preface placed above the file'),
+        file: z.string().optional().describe('Absolute path of a local .md file to use as the new body (only under IMPORT_ROOTS). Its frontmatter is merged into the prompt\'s'),
         category: z.string().optional(),
         subcategory: z.string().optional(),
         tags: z.array(z.string()).optional(),
       }),
       annotations: { ...writeHints, idempotentHint: true },
-    }, async ({ id, ...fields }) => {
+    }, async ({ id, file, ...fields }) => {
       if (READ_ONLY) return fail('This library is read-only.');
-      const updated = myLibrary.update(id, fields);
+      let changes: Parameters<typeof myLibrary.update>[1] = fields;
+      if (file) {
+        const imported = readImport(file);
+        if (typeof imported === 'string') return fail(imported);
+        changes = { ...fields, content: withPreface(fields.content, imported.content), extra: imported.extra };
+      }
+      const updated = myLibrary.update(id, changes);
       return updated ? text(`Updated \`${updated.id}\`.`) : fail(`No My Library prompt "${id}".`);
     });
 
