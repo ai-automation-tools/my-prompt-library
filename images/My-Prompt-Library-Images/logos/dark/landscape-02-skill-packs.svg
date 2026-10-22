@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
-  <title id="title">My Prompt Library Skill Packs landscape logo concept</title>
+  <title id="title">Promptbook Skill Packs landscape logo concept</title>
   <desc id="desc">A packed template card with an AI sparkle Landscape logo proposal for GitHub README art and website headers.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="360" gradientUnits="userSpaceOnUse">
@@ -20,6 +20,6 @@
   <path d="M128 174v29" stroke="#f4f4f5" stroke-width="14" stroke-linecap="round"/>
   <path d="M187 53l9 22 22 9-22 9-9 22-9-22-22-9 22-9z" fill="#f59e0b"/>
   </g>
-  <text x="344" y="176" fill="#f4f4f5" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="0">My Prompt Library</text>
+  <text x="344" y="176" fill="#f4f4f5" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="0">Promptbook</text>
   <text x="350" y="232" fill="#a1a1aa" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="500" letter-spacing="0">Searchable prompt templates and skill packs</text>
 </svg>

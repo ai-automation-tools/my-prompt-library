@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
-  <title id="title">My Prompt Library Fuzzy Search landscape logo concept light</title>
+  <title id="title">Promptbook Fuzzy Search landscape logo concept light</title>
   <desc id="desc">A search lens over ranked prompt lines Landscape logo proposal for GitHub README art and website headers.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="360" gradientUnits="userSpaceOnUse">
@@ -21,6 +21,6 @@
   <circle cx="200" cy="112" r="8" fill="#10b981"/>
   <circle cx="63" cy="176" r="9" fill="#8b5cf6"/>
   </g>
-  <text x="344" y="176" fill="#18181b" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="0">My Prompt Library</text>
+  <text x="344" y="176" fill="#18181b" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="0">Promptbook</text>
   <text x="350" y="232" fill="#52525b" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="500" letter-spacing="0">Searchable prompt templates and skill packs</text>
 </svg>

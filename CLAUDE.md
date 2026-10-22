@@ -1,4 +1,4 @@
-# CLAUDE.md — my-prompt-library (`my-prompt-library-demo.ai-automation-tools.dev`)
+# CLAUDE.md — Promptbook (`my-prompt-library-demo.ai-automation-tools.dev`)
 
 > Repo-local guide. The workspace-wide rules live in
 > `D:\AI_Agents\Projects\Mikes_AI_Lab\Agents\Claude\CLAUDE.md` and still apply —
@@ -9,7 +9,7 @@
 Local-first prompt-template manager: you clone the repo and run it on your own machine.
 **`my-prompt-library-demo.ai-automation-tools.dev`** (Vercel) is a **read-only** demo of the
 Public Library. The old `prompts.mikesailab.com` and `prompts.ax-platform.com` hosts were detached
-2026-10-14. The bare `my-prompt-library.ai-automation-tools.dev` is the static homepage in `homepage/` (GitHub Pages).
+2026-10-14. The bare `promptbook.ai-automation-tools.dev` is the static homepage in `homepage/` (GitHub Pages).
 Two libraries: a **Public Library** (curated, file-backed under `library/`) and **My Library**
 (the user's own prompts, one markdown file each in a local folder, `lib/my-library.ts`). Also
 serves **Skill Packs** (zipped skill bundles) and a large **System Prompts** archive.

@@ -1,6 +1,6 @@
 # Contributing Guide
 
-Thank you for contributing to my-prompt-library! This guide will help you add high-quality content.
+Thank you for contributing to Promptbook! This guide will help you add high-quality content.
 
 ---
 

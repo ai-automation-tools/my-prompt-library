@@ -1,7 +1,7 @@
 <h1 align="center">🧭 Diagrams</h1>
 
 <p align="center">
-  <em>Where My Prompt Library's content and user data come from and where they go, drawn from the code and checked against it.</em>
+  <em>Where Promptbook's content and user data come from and where they go, drawn from the code and checked against it.</em>
 </p>
 
 <p align="center">
@@ -14,7 +14,7 @@
 
 ## 📚 Library data flow
 
-[![My Prompt Library data flow](library-data-flow.png)](library-data-flow.html)
+[![Promptbook data flow](library-data-flow.png)](library-data-flow.html)
 
 How a prompt reaches the browser: the Public Library is markdown in `site/library/`, which
 `build:index` walks on every build into `prompt-index.json`. The public library API serves that
@@ -25,8 +25,8 @@ copies a pack's skills into that folder, tagged with the pack's id. Upstream ski
 runs the resync script by hand. Below the map, four cards cover the two libraries, why the listing
 carries no bodies, skill packs, and where the content comes from.
 
-**See it on the [homepage](https://my-prompt-library.ai-automation-tools.dev/#diagram)**, or open the interactive version: [`library-data-flow.html`](library-data-flow.html) in a browser
-from a clone, or [render it from GitHub](https://raw.githack.com/ai-automation-tools/my-prompt-library/main/docs/diagrams/library-data-flow.html).
+**See it on the [homepage](https://promptbook.ai-automation-tools.dev/#diagram)**, or open the interactive version: [`library-data-flow.html`](library-data-flow.html) in a browser
+from a clone, or [render it from GitHub](https://raw.githack.com/ai-automation-tools/promptbook/main/docs/diagrams/library-data-flow.html).
 Each node links to the exact lines it describes at the pinned commit, and the viewer adds route
 tracing, search, light/dark, and SVG/PNG export.
 
@@ -78,5 +78,5 @@ PNG in place; the reason is in `docs/diagrams/.build/library-data-flow.finalize-
 ---
 
 <p align="center">
-  <sub>← <a href="../README.md">Documentation home</a> · <a href="../../README.md">My Prompt Library</a></sub>
+  <sub>← <a href="../README.md">Documentation home</a> · <a href="../../README.md">Promptbook</a></sub>
 </p>

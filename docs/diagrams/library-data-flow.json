@@ -2,12 +2,12 @@
   "schema_version": 1,
   "diagram_type": "dataflow",
   "meta": {
-    "title": "My Prompt Library — Library Data Flow",
+    "title": "Promptbook — Library Data Flow",
     "locale": "en",
     "quality_profile": "showcase",
     "output": "library-data-flow.html",
     "repository": {
-      "url": "https://github.com/ai-automation-tools/my-prompt-library.git",
+      "url": "https://github.com/ai-automation-tools/promptbook.git",
       "revision": "95638e65b8885a20227c7df2df894b566b4e54ec"
     }
   },

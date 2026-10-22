@@ -196,7 +196,7 @@ Look at the screen:
 
 ```bash
 # 1. Verify repo state
-cd my-prompt-library/site
+cd promptbook/site
 git status
 git pull origin mike_desktop
 
@@ -219,7 +219,7 @@ curl http://localhost:3010/api/prompts | jq '. | length'
 Run this and share the output:
 
 ```bash
-cd my-prompt-library/site
+cd promptbook/site
 
 echo "=== Environment ==="
 node --version

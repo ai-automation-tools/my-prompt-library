@@ -1,6 +1,6 @@
 # Documentation
 
-Documentation for **my-prompt-library**, a prompt library you clone and run locally. The
+Documentation for **Promptbook**, a prompt library you clone and run locally. The
 Public Library is also browsable read-only at
 [my-prompt-library-demo.ai-automation-tools.dev](https://my-prompt-library-demo.ai-automation-tools.dev).
 
@@ -12,7 +12,7 @@ Public Library is also browsable read-only at
 - **[Setup Guide](setup/SETUP.md)** — run it locally, configure My Library
 - **[Hosted Demo](setup/DEPLOYMENT.md)** — how the read-only demo is built on Vercel
 - **[Architecture](ARCHITECTURE.md)** — system design, repo layout, technology stack
-- **[Diagrams](diagrams/README.md)** — the library data-flow diagram the [homepage](https://my-prompt-library.ai-automation-tools.dev/#diagram) shows: `library/` → build index → API → React app, plus My Library and skill packs. Interactive, every node linked to its code, and drift-checked in CI
+- **[Diagrams](diagrams/README.md)** — the library data-flow diagram the [homepage](https://promptbook.ai-automation-tools.dev/#diagram) shows: `library/` → build index → API → React app, plus My Library and skill packs. Interactive, every node linked to its code, and drift-checked in CI
 
 ### Creating Content
 - **[Contributing Guide](CONTRIBUTING.md)** — how to add content of any type
@@ -220,7 +220,7 @@ utility-first), run `npm run lint` and `npm run build`, and open a PR describing
 
 - **Main README:** [../README.md](../README.md)
 - **Agent guide:** [../CLAUDE.md](../CLAUDE.md)
-- **Repository:** [github.com/ai-automation-tools/my-prompt-library](https://github.com/ai-automation-tools/my-prompt-library)
+- **Repository:** [github.com/ai-automation-tools/promptbook](https://github.com/ai-automation-tools/promptbook)
 - **Read-only demo:** [my-prompt-library-demo.ai-automation-tools.dev](https://my-prompt-library-demo.ai-automation-tools.dev)
 
 ---

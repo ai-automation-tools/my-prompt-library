@@ -1,12 +1,12 @@
 # System Architecture
 
-Technical architecture and design decisions for the Prompt Library application.
+Technical architecture and design decisions for the Promptbook application.
 
 ---
 
 ## Overview
 
-My Prompt Library is a local-first app: you clone it and run it on your own machine. It
+Promptbook is a local-first app: you clone it and run it on your own machine. It
 keeps everything as markdown files on disk:
 
 1. **Public Library**: curated prompts, agents, skills, guides and system prompts in

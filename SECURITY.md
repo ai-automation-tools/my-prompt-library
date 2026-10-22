@@ -15,7 +15,7 @@ deploys to `my-prompt-library-demo.ai-automation-tools.dev`, and are noted in `d
 
 ## Threat model
 
-My Prompt Library has no accounts and no database. It runs in two shapes:
+Promptbook has no accounts and no database. It runs in two shapes:
 
 - **A local app.** You clone it and run it. The server listens on `127.0.0.1` and stores
   My Library as markdown files in a folder on your disk. Whoever can reach the port can

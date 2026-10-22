@@ -4,6 +4,28 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — Renamed to Promptbook
+
+The GitHub repo moved from `ai-automation-tools/my-prompt-library` to
+`ai-automation-tools/promptbook`, and the product's display name is now **Promptbook**.
+
+**Changed**
+- Every GitHub link points at `ai-automation-tools/promptbook`; the homepage is
+  `promptbook.ai-automation-tools.dev` (canonical, `og:url`, `CNAME`, `scripts/homepage.test.mjs`).
+- The name reads "Promptbook" in the README, docs, homepage (title, headings, meta and og tags),
+  the app's page title, top bar and footer, the MCP server's instructions and its own library card,
+  the diagram titles, the logo proposals in `images/`, `SECURITY.md` and `NOTICE`.
+- Clone instructions now `cd promptbook/site`, matching the folder `git clone` creates.
+
+**Kept, on purpose**
+- Identifiers: the MCP server id `my-prompt-library` (and its `mcp__my-prompt-library__*` tool
+  names and config examples), the npm package name, the Vercel project, env var names, API
+  routes, localStorage keys, file and folder names, and the Skill Pack `author` field.
+- The demo stays on `my-prompt-library-demo.ai-automation-tools.dev` until a `promptbook-demo`
+  record exists.
+
+---
+
 ## 2026-10-21 — Tailscale access documented; stopping the app spares the MCP server
 
 Reviewed alongside the logon auto-start and `tailscale serve` set up earlier the same day
