@@ -70,7 +70,9 @@ Out of scope:
   capped at 1 MB.
 - Dependabot watches `site/`, and CI fails on a type error, a changed route table, a broken
   My Library store or boundary check, read-only mode serving private files, a broken
-  download or failed-load path, an MCP regression, or a stale prompt index.
+  download or failed-load path, a path or link escaping the library, an MCP regression, a
+  CSP that blocks the built page (or no longer matches its inline script), or a stale
+  prompt index.
 
 ## Supported versions
 

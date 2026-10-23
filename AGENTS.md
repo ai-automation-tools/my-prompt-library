@@ -127,6 +127,11 @@ site/
   scripts/api-routes.test.mjs     Pins the route table (npm run test:routes)
   scripts/my-library.test.mjs     File-store self-check (npm run test:my-library)
   scripts/mcp-server.test.mjs     MCP server end to end over stdio (npm run test:mcp)
+  scripts/browser-smoke.test.mjs  The built app in Chrome via playwright-core, with vercel.json's
+                       headers (npm run test:browser; run npm run build first)
+  scripts/bench-endpoints.mjs     Heavy-endpoint benchmark (npm run bench), against
+                       docs/development/PERFORMANCE.md
+  lib/safe-path.test.mjs          Path and link containment (npm run test:safe-path)
   package.json, vite.config.ts, tsconfig.json, vercel.json, index.html
 
 (repo root, outside the deploy root)
