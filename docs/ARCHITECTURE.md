@@ -376,9 +376,12 @@ forget to set a flag and end up writable.
   junction pointing out of `library/` is refused too. Skill downloads must also land under
   `3_Skills/`. ZIPs and the MCP file list walk folders with `filesUnder()`, which skips links. My Library ids are restricted to
   `^[a-z0-9-]+$`.
-- **Headers and limits:** `helmet` sets the standard response headers. CSP is off on purpose
-  (Vite's inline module preloads and Google Fonts); HSTS is Vercel's. JSON bodies are capped
-  at 1 MB.
+- **Headers and limits:** `helmet` sets the standard response headers on the API, with CSP off
+  there; HSTS is Vercel's. On the demo, `vercel.json` gives the HTML and assets a CSP (scripts
+  from self, the inline theme script by hash and `consent.js`; Google Fonts; inline styles),
+  `frame-ancestors 'none'`, `X-Frame-Options`, `nosniff` and a referrer policy.
+  `npm run test:browser` serves the same headers, so a change to `index.html`'s inline script
+  that the hash doesn't match fails CI. JSON bodies are capped at 1 MB.
 - **No secrets:** the app needs none. `site/.env.example` holds only optional settings.
 
 See [SECURITY.md](../SECURITY.md) for the threat model and reporting.

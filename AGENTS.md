@@ -190,7 +190,9 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
   check (api/skill-packs.ts); a new write route must too, or the demo becomes writable.
   Host and Origin are checked once, by the first middleware in `api/index.ts`, for every
   route on the app; don't add per-route copies.
-- `helmet` runs with CSP off.
+- `helmet` runs with CSP off on the API. The demo's pages get their CSP from `vercel.json`, which
+  allows `index.html`'s inline theme script by hash: edit that script and the new hash goes in
+  `vercel.json` too (`npm run test:browser` prints it).
 - Never commit `.env*` (gitignored) or anything under `site/my-library/`.
 - **LF only.** `.gitattributes` sets `eol=lf` repo-wide. `contentPreview` is embedded in
   `api/prompt-index.json` verbatim, so a CRLF file makes the index unreproducible on Linux and
