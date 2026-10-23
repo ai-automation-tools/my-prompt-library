@@ -12,7 +12,7 @@ import http from "node:http";
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), "my-library-test-"));
 process.env.MY_LIBRARY_DIR = dir;
-const { myLibrary } = await import("../lib/my-library.ts");
+const { myLibrary, InvalidPromptError } = await import("../lib/my-library.ts");
 
 try {
   assert.deepEqual(myLibrary.list(), []);
@@ -50,6 +50,41 @@ try {
   assert.deepEqual(skillRead.tags, ["edited"]);
   assert.match(fs.readFileSync(path.join(dir, `${skill.id}.md`), "utf-8"), /^---\nname: my-skill\n/);
   myLibrary.delete(skill.id);
+
+  // Field checks, shared by HTTP and MCP: a refused write changes no file
+  const valid = { title: "Ok", section: "4_Prompts", category: "Dev", subcategory: null, tags: [], content: "Body" };
+  const badCreates = {
+    "object category": { category: { a: 1 } },
+    "number title": { title: 42 },
+    "blank title": { title: "   " },
+    "missing content": { content: undefined },
+    "empty content": { content: " \t " },
+    "unknown section": { section: "../etc" },
+    "folder-less section": { section: "prompts" },
+    "tags not a list": { tags: "a,b" },
+    "non-text tag": { tags: ["ok", 7] },
+    "empty tag": { tags: [""] },
+    "too many tags": { tags: Array.from({ length: 51 }, (_, i) => `t${i}`) },
+    "long title": { title: "t".repeat(301) },
+    "long subcategory": { subcategory: "s".repeat(101) },
+    "oversized content": { content: "x".repeat(500 * 1024 + 1) },
+  };
+  const filesBefore = fs.readdirSync(dir).length;
+  for (const [name, change] of Object.entries(badCreates)) {
+    assert.throws(() => myLibrary.create({ ...valid, ...change }), InvalidPromptError, `create refuses ${name}`);
+  }
+  assert.equal(fs.readdirSync(dir).length, filesBefore, "no file written by a refused create");
+  const aBefore = fs.readFileSync(path.join(dir, `${a.id}.md`), "utf-8");
+  for (const change of [{ content: "" }, { title: "" }, { category: ["x"] }, { section: "Nope" }, { tags: [null] }]) {
+    assert.throws(() => myLibrary.update(a.id, change), InvalidPromptError, `update refuses ${JSON.stringify(change)}`);
+  }
+  assert.equal(fs.readFileSync(path.join(dir, `${a.id}.md`), "utf-8"), aBefore, "a refused update leaves the file alone");
+  const uni = myLibrary.create({ ...valid, title: "Résumé: 日本語 ✓", category: "Café", tags: ["naïve", "😀"], content: "Ünïcode body 🚀" });
+  const uniRead = myLibrary.get(uni.id);
+  assert.equal(uniRead.title, "Résumé: 日本語 ✓");
+  assert.deepEqual(uniRead.tags, ["naïve", "😀"]);
+  assert.equal(uniRead.content.trim(), "Ünïcode body 🚀");
+  myLibrary.delete(uni.id);
 
   // Ids can't climb out of the folder
   for (const bad of ["../x", "..\\x", "a/b", "A", ""]) {
@@ -124,6 +159,16 @@ try {
     assert.equal(await raw("GET", "/api/prompts?library=my", { Host: host }), 200, `trusted Host ${host}`);
   }
 
+  // The store's field checks come back as 400s over HTTP
+  const created = await fetch(`${base}/api/prompts`, { method: "POST", headers: json, body: JSON.stringify({ title: "Http", section: "4_Prompts", category: { x: 1 }, content: "b" }) });
+  assert.equal(created.status, 400, "object category refused over HTTP");
+  assert.match((await created.json()).error, /category must be text/);
+  const good = await (await fetch(`${base}/api/prompts`, { method: "POST", headers: json, body: JSON.stringify({ title: "Http", section: "4_Prompts", category: "Dev", content: "kept" }) })).json();
+  const emptied = await fetch(`${base}/api/prompts/${good.id}`, { method: "PUT", headers: json, body: JSON.stringify({ content: "" }) });
+  assert.equal(emptied.status, 400, "empty content refused over HTTP");
+  assert.equal(myLibrary.get(good.id).content.trim(), "kept");
+  myLibrary.delete(good.id);
+
   // Pack writes go through the same Origin check as prompt writes
   const [pack] = await getAllPacks();
   const confirm = JSON.stringify({ confirm: true });
@@ -139,4 +184,4 @@ try {
   fs.rmSync(dir, { recursive: true, force: true });
 }
 
-console.log("my-library: file store round-trips, updates in place, rejects path ids, cross-site writes (packs too) and foreign Hosts");
+console.log("my-library: file store round-trips, updates in place, rejects path ids and bad fields, cross-site writes (packs too) and foreign Hosts");

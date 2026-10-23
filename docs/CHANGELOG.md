@@ -4,6 +4,23 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — My Library writes check their fields
+
+**Changed**
+- Every My Library write is checked in one place, the store's `create` and `update`, so the HTTP routes, the MCP tools, copies and pack installs all apply the same rules. Title and category must be non-blank text, section one of the six library folders, subcategory text or null, tags a list of up to 50 non-blank strings, content non-blank and at most 500 KB. Limits sit well above anything in the Public Library. A refused write changes no file and comes back as `400` naming the field (an error result over MCP). Roadmap item F05.
+- An empty `content` (or title) on an update is now refused. Before, the store's `||` reported success and quietly kept the old body.
+
+**Fixed**
+- Objects, numbers and unknown sections no longer reach the frontmatter on disk.
+
+**Added**
+- `scripts/my-library.test.mjs` covers 14 bad creates, 5 bad updates (file unchanged), a Unicode round trip and the HTTP `400`s; `scripts/mcp-server.test.mjs` checks `update_my_prompt` refuses an empty body.
+
+**Docs**
+- `docs/features/API.md` has a field-rules table and the new `400`s; `docs/features/MCP-SERVER.md` and `docs/ARCHITECTURE.md` point at the shared check.
+
+_Touched: `site/lib/my-library.ts`, `site/api/index.ts`, `site/scripts/my-library.test.mjs`, `site/scripts/mcp-server.test.mjs`, `docs/features/API.md`, `docs/features/MCP-SERVER.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — A prompt that fails to load is not opened from its preview
 
 **Fixed**

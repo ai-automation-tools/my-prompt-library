@@ -160,8 +160,8 @@ library=public → cache hit?        → return cached
 PromptEditorModal
     ↓ fetch('/api/prompts', { method: 'POST', body })
 requireWritable          → 403 if READ_ONLY
-    ↓ validate title/section/category/content
-myLibrary.create()       → write <slug>-<hex>.md (exclusive create)
+myLibrary.create()       → field checks (400 InvalidPromptError, shared with MCP)
+                         → write <slug>-<hex>.md (exclusive create)
     ↓ return the prompt
 Frontend refreshes My Library
 ```

@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { createHash, randomBytes } from 'node:crypto';
 import { fileURLToPath } from 'url';
-import { carriedFrontmatter, loadIndex, readLibraryItem, type LibraryItem } from './library.js';
+import { carriedFrontmatter, loadIndex, readLibraryItem, SECTIONS, type LibraryItem } from './library.js';
 
 /**
  * My Library: the user's own prompts, one markdown file each, in a local folder.
@@ -99,6 +99,54 @@ function write(prompt: UserPrompt, flag: 'w' | 'wx' = 'w') {
   fs.writeFileSync(fileFor(prompt.id)!, matter.stringify(prompt.content, frontmatter), { encoding: 'utf-8', flag });
 }
 
+/** A write the store refuses. The message names the field; callers send it back as a 400. */
+export class InvalidPromptError extends Error {}
+
+// Well above anything in the Public Library (longest title 172, category 21,
+// subcategory 42, 10 tags of up to 40 characters). 500 KB is the size the
+// prompt index already skips.
+const LIMITS = { title: 300, label: 100, tags: 50, tag: 100, contentBytes: 500 * 1024 };
+const SECTION_FOLDERS: string[] = Object.values(SECTIONS).map(s => s.folder);
+
+/**
+ * The one field check for every write: HTTP create and update, the MCP tools,
+ * copies and pack installs all come through `create` and `update`, so they cannot
+ * disagree. `undefined` means "not given", which only an update allows.
+ */
+function checkFields(f: Partial<PromptFields>, creating: boolean) {
+  const fail = (msg: string): never => { throw new InvalidPromptError(msg); };
+  const text = (name: string, value: unknown, max: number) => {
+    if (value === undefined) return creating ? fail(`${name} is required`) : undefined;
+    if (typeof value !== 'string') return fail(`${name} must be text`);
+    if (!value.trim()) fail(`${name} can't be empty`);
+    if (value.length > max) fail(`${name} is over ${max} characters`);
+  };
+  text('title', f.title, LIMITS.title);
+  text('category', f.category, LIMITS.label);
+  if (f.subcategory != null && f.subcategory !== '') {
+    if (typeof f.subcategory !== 'string') fail('subcategory must be text');
+    if (f.subcategory.length > LIMITS.label) fail(`subcategory is over ${LIMITS.label} characters`);
+  }
+  if (f.section !== undefined || creating) {
+    if (typeof f.section !== 'string' || !SECTION_FOLDERS.includes(f.section)) {
+      fail(`section must be one of ${SECTION_FOLDERS.join(', ')}`);
+    }
+  }
+  if (f.tags !== undefined) {
+    if (!Array.isArray(f.tags)) fail('tags must be a list of text');
+    if (f.tags.length > LIMITS.tags) fail(`more than ${LIMITS.tags} tags`);
+    for (const tag of f.tags) {
+      if (typeof tag !== 'string' || !tag.trim()) fail('each tag must be non-empty text');
+      if (tag.length > LIMITS.tag) fail(`a tag is over ${LIMITS.tag} characters`);
+    }
+  }
+  // An empty body is refused, not ignored: the old `||` reported success and kept the old one.
+  text('content', f.content, Infinity);
+  if (typeof f.content === 'string' && Buffer.byteLength(f.content) > LIMITS.contentBytes) {
+    fail('content is over 500 KB');
+  }
+}
+
 const slugify = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'prompt';
 
@@ -122,6 +170,7 @@ export const myLibrary = {
   get: read,
 
   create(fields: PromptFields): UserPrompt {
+    checkFields(fields, true);
     const now = new Date().toISOString();
     // The suffix keeps two prompts with the same title apart; the file name
     // never changes after this, so a rename doesn't break links to it.
@@ -140,15 +189,16 @@ export const myLibrary = {
   update(id: string, updates: Partial<PromptFields>): UserPrompt | null {
     const existing = read(id);
     if (!existing) return null;
+    checkFields(updates, false);
 
     const prompt: UserPrompt = {
       ...existing,
-      title: updates.title || existing.title,
-      section: updates.section || existing.section,
-      category: updates.category || existing.category,
+      title: updates.title ?? existing.title,
+      section: updates.section ?? existing.section,
+      category: updates.category ?? existing.category,
       subcategory: updates.subcategory !== undefined ? updates.subcategory || null : existing.subcategory,
-      tags: updates.tags || existing.tags,
-      content: updates.content || existing.content,
+      tags: updates.tags ?? existing.tags,
+      content: updates.content ?? existing.content,
       extra: { ...existing.extra, ...updates.extra },
       updated_at: new Date().toISOString(),
     };

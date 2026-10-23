@@ -8,7 +8,7 @@ import matter from "gray-matter";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import archiver from "archiver";
-import { forkExtra, myLibrary, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from "../lib/my-library.js";
+import { forkExtra, InvalidPromptError, myLibrary, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from "../lib/my-library.js";
 import { resolveInside } from "../lib/safe-path.js";
 import { LIBRARY_PATH, SKILLS_SECTION, extractFirstHeading, readLibraryItem, sourceUrlOf } from "../lib/library.js";
 
@@ -365,21 +365,19 @@ app.post("/api/prompts", requireWritable, async (req, res) => {
   try {
     const { title, section, category, subcategory, tags, content } = req.body;
 
-    if (!title || !section || !category || !content) {
-      return res.status(400).json({ error: "Missing required fields: title, section, category, content" });
-    }
-
+    // Field checks live in the store (InvalidPromptError → 400 below), shared with MCP
     const prompt = myLibrary.create({
       title,
       section,
       category,
       subcategory: subcategory || null,
-      tags: tags || [],
+      tags: tags ?? [],
       content,
     });
 
     res.json({ ...toApiPrompt(prompt), message: "Prompt created successfully" });
   } catch (error: any) {
+    if (error instanceof InvalidPromptError) return res.status(400).json({ error: error.message });
     console.error("Error creating prompt:", error);
     res.status(500).json({ error: "Failed to create prompt" });
   }
@@ -406,6 +404,7 @@ app.put("/api/prompts/:id", requireWritable, async (req, res) => {
 
     res.json({ ...toApiPrompt(prompt), message: "Prompt updated successfully" });
   } catch (error) {
+    if (error instanceof InvalidPromptError) return res.status(400).json({ error: error.message });
     console.error("Error updating prompt:", error);
     res.status(500).json({ error: "Failed to update prompt" });
   }
