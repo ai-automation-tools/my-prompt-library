@@ -4,6 +4,19 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — A prompt that fails to load is not opened from its preview
+
+**Fixed**
+- When a prompt's full text could not be loaded (server error, network failure, bad response), the app fell back to the listing copy, which is a 200-character preview for My Library and nothing for the Public Library. Edit then opened on the preview, and saving wrote it over the real file. Download and card Copy reported success with the preview or an empty body, and the detail page opened on the preview, so its Copy did too. Now each shows an error and stops: the editor stays shut, nothing is downloaded or copied, and the page you were on stays put. Roadmap item F03.
+
+**Added**
+- `scripts/prompt-content.test.mjs` (`npm run test:prompt-content`, in CI) checks that `fetchFullPrompt` throws on 503, 404, a network failure, invalid JSON and a missing body, and returns a 5,000-character body whole.
+
+**Docs**
+- `README.md`, `AGENTS.md`, `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/features/API.md` and `docs/setup/SETUP.md` list the new test; `AGENTS.md` describes the fail-closed fetch.
+
+_Touched: `site/src/hooks/usePromptContent.ts`, `site/src/App.tsx`, `site/scripts/prompt-content.test.mjs`, `site/package.json`, `.github/workflows/ci.yml`, `README.md`, `AGENTS.md`, `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/features/API.md`, `docs/setup/SETUP.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — One Host and Origin check in front of every route
 
 **Security**

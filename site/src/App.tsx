@@ -17,7 +17,7 @@ import PromptGrid, { PromptCardGrid, type PromptCardActions } from './components
 import PromptListToolbar from './components/PromptListToolbar';
 import { Button } from './components/ui/primitives';
 import { usePromptFilters } from './hooks/usePromptFilters';
-import { usePromptContent } from './hooks/usePromptContent';
+import { fetchFullPrompt, usePromptContent } from './hooks/usePromptContent';
 import { useLibraryRoute, slugifyPromptPath, type LibraryTab } from './hooks/useLibraryRoute';
 import { usePalette, useTheme } from './hooks/useTheme';
 import { getSection, getSectionFolder, getSectionDisplayName, getTabForFolder, humanize, lowerLabel } from './lib/sections';
@@ -303,20 +303,19 @@ export default function App() {
   }, [expandedCategories, handleSubcategoryClick]);
 
   const handlePromptClick = useCallback(async (prompt: Prompt) => {
-    setPromptPathParam(prompt.isUserOwned ? null : slugifyPromptPath(prompt.id));
-    setCopiedShareLink(false);
-    let fullPrompt = prompt;
+    // The listing copy is only a preview; opening it would let Copy and Edit
+    // act on that instead of the prompt.
+    let fullPrompt: Prompt;
     try {
-      const response = await fetch(`/api/prompts/${encodeURIComponent(prompt.id)}`);
-      if (response.ok) {
-        fullPrompt = await response.json();
-      } else {
-        console.warn('Failed to fetch full content, using cached version');
-      }
+      fullPrompt = await fetchFullPrompt(prompt);
     } catch (err) {
       console.error('Failed to fetch full prompt content:', err);
+      showToast('error', 'Could not load this prompt. Try again.');
+      return;
     }
-    
+    setPromptPathParam(prompt.isUserOwned ? null : slugifyPromptPath(prompt.id));
+    setCopiedShareLink(false);
+
     setSelectedPrompt(fullPrompt);
     setSelectedSubcategory(null);
     setShowAllPrompts(false);
@@ -329,7 +328,7 @@ export default function App() {
       const filtered = prev.filter(id => id !== fullPrompt.id);
       return [fullPrompt.id, ...filtered].slice(0, 10);
     });
-  }, []);
+  }, [showToast]);
 
   const handleShowFavorites = useCallback(() => {
     setShowFavorites(true);
@@ -484,7 +483,15 @@ source: Promptbook
 ---
 
 `;
-      const content = frontmatter + (await fetchFullContent(prompt));
+      let body: string;
+      try {
+        body = await fetchFullContent(prompt);
+      } catch (err) {
+        console.error('Download error:', err);
+        showToast('error', 'Could not load this prompt, so nothing was downloaded');
+        return;
+      }
+      const content = frontmatter + body;
       const blob = new Blob([content], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -632,9 +639,16 @@ source: Promptbook
   const handleEditPrompt = useCallback(async (prompt: Prompt) => {
     // Seeding the editor from the listing copy would load the 200-character
     // preview and save it back over the real prompt.
-    setEditingPrompt({ ...prompt, content: await fetchFullContent(prompt) });
+    // On failure the editor stays shut, for the same reason.
+    try {
+      setEditingPrompt({ ...prompt, content: await fetchFullContent(prompt) });
+    } catch (err) {
+      console.error('Failed to load prompt for editing:', err);
+      showToast('error', 'Could not load this prompt, so the editor was not opened');
+      return;
+    }
     setIsEditorOpen(true);
-  }, [fetchFullContent]);
+  }, [fetchFullContent, showToast]);
 
   const handleNewPrompt = useCallback(() => {
     if (libraryMode !== 'my') {

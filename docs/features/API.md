@@ -504,6 +504,7 @@ hand-edited files.
 npm run test:routes      # the route table, and that no auth router is mounted
 npm run test:my-library  # the file store, against a temp folder
 npm run test:read-only   # read-only mode hides My Library
+npm run test:prompt-content  # the UI's full-prompt fetch fails closed
 ```
 
 **Quick cURL round trip** (local, not read-only):
