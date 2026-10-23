@@ -102,8 +102,9 @@ path under `library/` with forward slashes, e.g. `2_Agents/Developer/General/dev
 Section, category and subcategory come from the path; title and tags from frontmatter.
 
 `npm run build:index` walks the library and writes `api/prompt-index.json`. The API serves
-lightweight listings from that index (and a 5-minute in-memory cache), falling back to a
-filesystem walk when no index exists. CI fails if the committed index is stale.
+lightweight listings from that index, falling back to a filesystem walk when no index exists.
+The full listing (every body) always walks, asynchronously. Both are cached for five minutes as
+the bytes sent, with their ETag; see [PERFORMANCE.md](development/PERFORMANCE.md). CI fails if the committed index is stale.
 
 ### My Library
 
@@ -345,8 +346,9 @@ same way.
 ### 4. Prebuilt index + in-memory cache
 
 The public listing is built once at build time, so a cold Vercel function does not walk
-thousands of files. The 5-minute in-memory cache covers warm instances. No external cache:
-it is a read-only, read-heavy workload.
+thousands of files. A 5-minute in-memory cache of the serialized listings, lightweight and
+full, covers warm instances; concurrent requests share one build. No external cache: it is a
+read-only, read-heavy workload. `npm run bench` measures it ([PERFORMANCE.md](development/PERFORMANCE.md)).
 
 ### 5. Read-only by environment
 

@@ -4,6 +4,7 @@ import helmet from "helmet";
 import fs from "fs";
 import path from "path";
 import net from "net";
+import crypto from "crypto";
 import matter from "gray-matter";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -115,15 +116,36 @@ const toApiPrompt = (p: UserPrompt) => ({
   version: p.version,
 });
 
-// Simple in-memory cache for prompt listings
 /** A public listing row: index metadata, with `content` emptied in lightweight mode. */
 type ListedPrompt = Omit<IndexEntry, 'contentPreview'> & { content: string; isUserOwned?: boolean };
-let promptsCache: { data: ListedPrompt[], timestamp: number } | null = null;
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
-const isCacheValid = () => {
-  return promptsCache && (Date.now() - promptsCache.timestamp < CACHE_TTL);
-};
+// Public listings, cached as the bytes that get sent, with their ETag: the full
+// one reads every file in the library (10 MB), and even sending a cached string
+// costs a 10 MB Buffer copy plus Express hashing it for an ETag on every hit.
+// The promise is what's cached, so requests that arrive while a listing is
+// being built share it.
+// ponytail: 5-minute TTL, so a library edit shows up within 5 minutes locally; watch the folder if that matters.
+type Listing = { body: Buffer; etag: string };
+const listingCache = new Map<boolean, { listing: Promise<Listing>; at: number }>();
+const CACHE_TTL = 5 * 60 * 1000;
+
+function cachedListing(lightweight: boolean, build: () => Promise<ListedPrompt[]>): Promise<Listing> {
+  const hit = listingCache.get(lightweight);
+  if (hit && Date.now() - hit.at < CACHE_TTL) return hit.listing;
+  const listing = build().then(async rows => {
+    // Row by row, yielding every 200: one JSON.stringify of 10 MB held the loop ~150 ms.
+    const parts: string[] = [];
+    for (let i = 0; i < rows.length; i++) {
+      parts.push(JSON.stringify(rows[i]));
+      if (i % 200 === 199) await new Promise(setImmediate);
+    }
+    const body = Buffer.from(`[${parts.join(',')}]`);
+    return { body, etag: `"${crypto.createHash('sha1').update(body).digest('base64url')}"` };
+  });
+  listingCache.set(lightweight, { listing, at: Date.now() });
+  listing.catch(() => listingCache.delete(lightweight)); // a failed build isn't kept
+  return listing;
+}
 
 // Load prebuilt index if available (for faster cold starts)
 let prebuiltIndex: LibraryIndex | null = null;
@@ -178,121 +200,90 @@ app.get("/api/prompts", async (req, res) => {
     })));
   }
 
-  // Check cache for public library lightweight requests
-  if (libraryMode === 'public' && lightweight && isCacheValid()) {
-    console.log('[CACHE HIT] Returning cached prompts');
-    return res.json(promptsCache!.data);
-  }
-
-  // Use prebuilt index for lightweight public library requests
-  if (libraryMode === 'public' && lightweight && prebuiltIndex) {
-    console.log('[INDEX] Using prebuilt index for lightweight request');
-    // Previews are deliberately left out: nothing the client does with the whole
-    // listing (search, tag/category filters, sort, pagination) reads `content`,
-    // and shipping all 3,088 of them cost more gzipped than the entire JS bundle.
-    // Cards fetch the ~50 they actually render from /api/prompts/previews.
-    const indexedPrompts = prebuiltIndex.prompts.map(({ contentPreview, ...p }): ListedPrompt => ({
-      ...p,
-      content: '',
-    }));
-
-    // Cache it for subsequent requests
-    promptsCache = { data: indexedPrompts, timestamp: Date.now() };
-
-    return res.json(indexedPrompts);
-  }
+  // Lightweight comes from the prebuilt index when there is one. Previews are
+  // deliberately left out: nothing the client does with the whole listing
+  // (search, tag/category filters, sort, pagination) reads `content`, and
+  // shipping all 3,088 of them cost more gzipped than the entire JS bundle.
+  // Cards fetch the ~50 they actually render from /api/prompts/previews.
+  const index = prebuiltIndex;
+  const build = lightweight && index
+    ? async () => index.prompts.map(({ contentPreview, ...p }): ListedPrompt => ({ ...p, content: '' }))
+    : () => walkLibrary(lightweight);
 
   try {
-    const walkDir = (dir: string, baseDir: string = LIBRARY_PATH): ListedPrompt[] => {
-      if (!fs.existsSync(dir)) return [];
-
-      let results: ListedPrompt[] = [];
-      const list = fs.readdirSync(dir);
-
-      list.forEach(file => {
-        const filePath = path.join(dir, file);
-        const stat = fs.statSync(filePath);
-
-        if (stat.isDirectory()) {
-          if (dir === baseDir && file === LEGACY_SECTION) {
-            return;
-          }
-          results = results.concat(walkDir(filePath, baseDir));
-        } else if (file.endsWith('.md')) {
-          if (file === 'README.md') {
-            return;
-          }
-
-          const relativePath = path.relative(baseDir, filePath);
-
-          // For Skills section, only include SKILL.md files
-          if (relativePath.startsWith(SKILLS_SECTION + path.sep)) {
-            if (!file.endsWith('SKILL.md')) {
-              return; // Skip non-SKILL.md files in Skills section
-            }
-          }
-
-          // Skip files larger than 500KB (likely bulk collections, not individual prompts)
-          if (stat.size > 500 * 1024) {
-            console.log(`[SKIP] Large file: ${relativePath} (${(stat.size / 1024).toFixed(0)}KB)`);
-            return;
-          }
-
-          const rawContent = fs.readFileSync(filePath, 'utf-8');
-
-          // One file with malformed frontmatter must not empty the whole library
-          let data: Record<string, unknown>;
-          let content: string;
-          try {
-            ({ data, content } = matter(rawContent));
-          } catch (err) {
-            console.warn(`[WARN] Failed to parse frontmatter in ${relativePath}, skipping`);
-            return;
-          }
-
-          const pathParts = relativePath.replace('.md', '').split(path.sep);
-
-          const section = pathParts[0] || 'General';
-          const category = pathParts[1] || 'Uncategorized';
-          const subcategory = pathParts.length > 2 ? pathParts[2] : null;
-
-          // For Skills, use 'name' field instead of 'title'
-          const str = (v: unknown) => (typeof v === 'string' && v) || null;
-          const title = str(data.title) || str(data.name)
-            || extractFirstHeading(content) || path.basename(file, '.md');
-
-          results.push({
-            // Ids are URL/path keys — always forward-slashed, even on Windows
-            id: relativePath.split(path.sep).join('/'),
-            title: title,
-            section,
-            category,
-            subcategory,
-            tags: Array.isArray(data.tags) ? data.tags : [],
-            content: lightweight ? '' : content, // Lightweight drops the body; cards fetch previews
-            lastModified: stat.mtime.toISOString(),
-            isUserOwned: false,
-          });
-        }
-      });
-
-      return results;
-    };
-
-    const prompts = walkDir(LIBRARY_PATH);
-
-    // Cache lightweight public library requests
-    if (libraryMode === 'public' && lightweight) {
-      promptsCache = { data: prompts, timestamp: Date.now() };
-      console.log('[CACHE SET] Cached', prompts.length, 'prompts');
-    }
-
-    res.json(prompts);
+    const { body, etag } = await cachedListing(lightweight, build);
+    // Setting ETag first stops Express hashing the body again; it still answers 304s.
+    res.type('json').set('ETag', etag).send(body);
   } catch (error) {
     console.error("Error listing prompts:", error);
     res.json([]);
   }
 });
+
+/**
+ * Every listable file under library/, read with async I/O so a full listing
+ * (every body, ~10 MB) yields between files instead of holding the event loop
+ * for a second. Directory order is kept, so the output matches the old walk.
+ */
+async function walkLibrary(lightweight: boolean, dir: string = LIBRARY_PATH): Promise<ListedPrompt[]> {
+  let names: string[];
+  try { names = await fs.promises.readdir(dir); } catch { return []; }
+
+  const rows = await Promise.all(names.map(async (file): Promise<ListedPrompt[]> => {
+    const filePath = path.join(dir, file);
+    const stat = await fs.promises.stat(filePath);
+
+    if (stat.isDirectory()) {
+      if (dir === LIBRARY_PATH && file === LEGACY_SECTION) return [];
+      return walkLibrary(lightweight, filePath);
+    }
+    if (!file.endsWith('.md') || file === 'README.md') return [];
+
+    const relativePath = path.relative(LIBRARY_PATH, filePath);
+
+    // For Skills section, only include SKILL.md files
+    if (relativePath.startsWith(SKILLS_SECTION + path.sep) && !file.endsWith('SKILL.md')) return [];
+
+    // Skip files larger than 500KB (likely bulk collections, not individual prompts)
+    if (stat.size > 500 * 1024) {
+      console.log(`[SKIP] Large file: ${relativePath} (${(stat.size / 1024).toFixed(0)}KB)`);
+      return [];
+    }
+
+    const rawContent = await fs.promises.readFile(filePath, 'utf-8');
+
+    // One file with malformed frontmatter must not empty the whole library
+    let data: Record<string, unknown>;
+    let content: string;
+    try {
+      ({ data, content } = matter(rawContent));
+    } catch (err) {
+      console.warn(`[WARN] Failed to parse frontmatter in ${relativePath}, skipping`);
+      return [];
+    }
+
+    const pathParts = relativePath.replace('.md', '').split(path.sep);
+
+    // For Skills, use 'name' field instead of 'title'
+    const str = (v: unknown) => (typeof v === 'string' && v) || null;
+    const title = str(data.title) || str(data.name)
+      || extractFirstHeading(content) || path.basename(file, '.md');
+
+    return [{
+      // Ids are URL/path keys — always forward-slashed, even on Windows
+      id: relativePath.split(path.sep).join('/'),
+      title,
+      section: pathParts[0] || 'General',
+      category: pathParts[1] || 'Uncategorized',
+      subcategory: pathParts.length > 2 ? pathParts[2] : null,
+      tags: Array.isArray(data.tags) ? data.tags : [],
+      content: lightweight ? '' : content, // Lightweight drops the body; cards fetch previews
+      lastModified: stat.mtime.toISOString(),
+      isUserOwned: false,
+    }];
+  }));
+  return rows.flat();
+}
 
 // Card blurbs for a batch of library ids.
 //
@@ -530,7 +521,8 @@ app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
     res.setHeader('Content-Disposition', `attachment; filename="${zipFilename}"`);
 
     const archive = archiver('zip', {
-      zlib: { level: 9 }
+      // zlib default: measured 40% faster than 9 on the largest skill for 0.15% more bytes
+      zlib: { level: 6 }
     });
 
     archive.on('error', (err) => {

@@ -4,6 +4,21 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — The full listing no longer blocks the server
+
+**Measured first** (`npm run bench`, new). Before the change, a full listing (every body, 10.6 MB) walked the library with synchronous reads. It held the event loop for about a second, so a detail read that arrived meanwhile waited up to 927 ms. Five concurrent exports took 3.6 s each. The baseline, the results and the budgets are in [`docs/development/PERFORMANCE.md`](development/PERFORMANCE.md). Roadmap item F12.
+
+**Changed**
+- `GET /api/prompts` walks the library with async I/O (`walkLibrary`). The output is byte-identical to before in all three modes.
+- Public listings, lightweight and full, are cached for five minutes as the bytes sent, with their ETag. Requests that arrive while one is being built share it. Serialization yields every 200 rows. The detail read's p95 during a cold export is now 128 ms, the stall 126 ms (once per five minutes), and a warm export takes 149 ms. The lightweight list's stall dropped from 55 ms to 9 ms, and `304`s still work.
+- Skill and pack ZIPs use zlib's default level 6 instead of 9. On the largest skill that is about 40% less CPU for a 0.15% bigger file.
+- A library edit can now take up to five minutes to show in a listing (it already did for the lightweight list).
+
+**Fixed**
+- `test:browser` matched any text containing "N results". A card blurb mentioning "10 results" made it fail, so the match is now anchored.
+
+_Touched: `site/api/index.ts`, `site/api/skill-packs.ts`, `site/scripts/bench-endpoints.mjs`, `site/scripts/browser-smoke.test.mjs`, `site/package.json`, `docs/development/PERFORMANCE.md`, `docs/ARCHITECTURE.md`, `docs/features/API.md`, `docs/README.md`, `AGENTS.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — Resources links on phones and narrow windows
 
 **Fixed**

@@ -67,7 +67,8 @@ try {
 
   // Listing: cards render from the lightweight list, blurbs from /previews.
   await page.goto(`${base}/`);
-  await page.locator("main").getByText(/\d+ results/).waitFor();
+  // Anchored: a card blurb can mention "10 results" too.
+  await page.locator("main").getByText(/^[\d,]+ results$/).waitFor();
 
   // Detail: the full body loads and the hero counter names the section.
   await page.goto(`${base}/?section=mcp-servers&library=public`);
