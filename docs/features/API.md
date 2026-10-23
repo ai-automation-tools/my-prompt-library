@@ -218,6 +218,19 @@ mode.**
 
 `subcategory` and `tags` are optional.
 
+**Field rules** (the same for `PUT`, and for the MCP write tools, because the My Library store
+checks them):
+
+| Field | Rule |
+|:---|:---|
+| `title`, `category` | Text, not blank. Title up to 300 characters, category up to 100 |
+| `section` | One of `1_Guides`, `2_Agents`, `3_Skills`, `4_Prompts`, `5_System_Prompts`, `6_MCP_Servers` |
+| `subcategory` | Text up to 100 characters, or `null` |
+| `tags` | A list of up to 50 non-blank strings, each up to 100 characters |
+| `content` | Text, not blank, up to 500 KB |
+
+A refused write changes no file.
+
 **Response (200 OK):**
 ```json
 {
@@ -238,7 +251,8 @@ The id is the slugged title (up to 60 characters) plus 6 random hex characters. 
 the file name, and it does not change when the prompt is renamed later.
 
 **Errors:**
-- `400 Bad Request`: missing `title`, `section`, `category` or `content`
+- `400 Bad Request`: a field is missing or breaks a rule above; `error` names it, e.g.
+  `{ "error": "category must be text" }`
 - `403 Forbidden`: read-only mode
 - `500 Internal Server Error`: the file could not be written
 
@@ -264,12 +278,15 @@ Update a My Library prompt in place. **Write route: `403` in read-only mode.**
 - `id`: My Library id (e.g. `my-custom-prompt-a41f0e`)
 
 **Request:** any of `title`, `section`, `category`, `subcategory`, `tags`, `content`. Fields
-left out (or empty) keep their current value; send `"subcategory": null` to clear it.
+left out keep their current value; send `"subcategory": null` to clear it. A field that is
+sent must pass the field rules above: an empty `content` or `title` is refused with `400`,
+not ignored.
 
 **Response (200 OK):** the updated prompt, same shape as `POST /api/prompts`, with
 `"message": "Prompt updated successfully"`.
 
 **Errors:**
+- `400 Bad Request`: a field breaks a rule above
 - `403 Forbidden`: read-only mode
 - `404 Not Found`: no My Library file with that id
 
