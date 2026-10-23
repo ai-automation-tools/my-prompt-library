@@ -426,6 +426,9 @@ return `{ "error": "..." }` with a `4xx`/`5xx` status.
 ### Frontend
 
 - **Network errors:** toast, the app keeps running
+- **A prompt's full text fails to load:** toast, and nothing opens, copies or downloads;
+  the app never falls back to the listing's preview
+- **Save conflict (`409`):** the editor reloads with the saved version and says why
 - **Read-only 403s:** should not happen from the UI, since the controls are hidden
 - **Empty state:** an empty My Library offers to browse the Public Library
 

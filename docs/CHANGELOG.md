@@ -4,6 +4,16 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — Docs caught up with the audit fixes
+
+**Docs**
+- `docs/ROADMAP.md`: the status badge is now Phase 2, and the note records which audit items are done (F01–F03, F05–F07, F13) and what is next (F08). F09 and F20 note their progress so far.
+- `SECURITY.md` lists today's protections: read-only hiding My Library, the Host and Origin check, and checked, atomic, conflict-aware writes. Its CI line names the new tests.
+- `CONTRIBUTING.md` and the PR template ask for every `npm run test:*` script, not just `test:routes`.
+- `docs/ARCHITECTURE.md` describes how the UI handles a failed prompt load and a save conflict.
+
+_Touched: `docs/ROADMAP.md`, `SECURITY.md`, `CONTRIBUTING.md`, `.github/PULL_REQUEST_TEMPLATE.md`, `docs/ARCHITECTURE.md`._
+
 ## 2026-10-23 — Saves can't half-write a file or overwrite a newer edit
 
 **Changed**
