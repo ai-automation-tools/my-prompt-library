@@ -291,7 +291,7 @@ promptbook/
 App.tsx                       app shell, data fetching (routing state: hooks/useLibraryRoute)
 ├── SourceBar                 "View source" bar
 ├── Sidebar                   library-mode switcher (hidden when read-only) + category tree (a drawer on phones)
-├── TopBar                    brand, section nav (a sheet under the bar below 1360px), ⌘K, ResourcesNav (≥1536px),
+├── TopBar                    brand, section nav (a sheet under the bar below 1536px: sections below 1360px, Resources links below 1536px), ⌘K, ResourcesNav (≥1536px),
 │   │                         New prompt (hidden when read-only), Settings, Light | Dark ThemeSwitch
 │   └── ResourcesNav          data-driven external-link menus
 ├── Breadcrumbs               library › section › category › prompt, above the content
