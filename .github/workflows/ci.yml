@@ -49,6 +49,11 @@ jobs:
       - name: My Library file store
         run: npm run test:my-library
 
+      # READ_ONLY serves the Public Library only: a seeded personal prompt must
+      # not come back from the list, detail or installed-packs routes.
+      - name: Read-only hides My Library
+        run: npm run test:read-only
+
       - name: Library path containment
         run: node lib/safe-path.test.mjs
 

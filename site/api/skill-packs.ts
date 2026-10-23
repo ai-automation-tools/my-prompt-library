@@ -103,7 +103,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const libraryMode = (req.query.library as string) || 'public';
       let filtered = packs;
 
-      if (libraryMode === 'my') {
+      if (libraryMode === 'my' && READ_ONLY) {
+        filtered = [];
+      } else if (libraryMode === 'my') {
         const tags = new Set(myLibrary.list().flatMap(p => p.tags));
         filtered = packs.filter(pack => tags.has(installTag(pack.id)));
       }

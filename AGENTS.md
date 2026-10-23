@@ -49,9 +49,10 @@ No `.env` is needed; `.env.example` lists the three optional settings (`MY_LIBRA
 Other scripts: `npm run build` (build:index → tsc → vite build), `npm run build:index`
 (regenerates `api/prompt-index.json` from `library/`), `npm run lint` (`tsc --noEmit`),
 `npm run test:routes` (asserts the shared Express app still exposes all nine API routes and no auth router),
-`npm run test:my-library` (round-trips the My Library file store in a temp folder).
+`npm run test:my-library` (round-trips the My Library file store in a temp folder),
+`npm run test:read-only` (under `READ_ONLY`, My Library is neither listed nor served).
 
-CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → `test:my-library` → the two repo-root
+CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → `test:my-library` → `test:read-only` → the two repo-root
 provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →
 a rebuild of the prompt index, failing if the rebuilt file is not byte-identical to the committed one.
 Rebuild and commit `api/prompt-index.json` whenever you touch `library/`.

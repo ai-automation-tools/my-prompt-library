@@ -200,7 +200,8 @@ Vercel). It is checked in two places:
 
 - **Server:** `READ_ONLY` in `lib/my-library.ts`. The `requireWritable` middleware in
   `api/index.ts`, and the add/remove handlers in `api/skill-packs.ts`, return `403` for
-  every write.
+  every write. The reads hide My Library too: its list and installed packs come back empty
+  and a My Library id is not served, so a read-only server never hands out personal files.
 - **UI:** `vite.config.ts` bakes the same test into the bundle as `__READ_ONLY__`, which
   `src/lib/mode.ts` exports. When it is true the app forces the Public Library and hides
   the library switch, New prompt, Save to My Library and pack add/remove.
@@ -246,6 +247,7 @@ promptbook/
 │   ├── scripts/build-prompt-index.js   # Walks library/, sorts by id, skips >500 KB, keeps unchanged timestamps
 │   ├── scripts/api-routes.test.mjs     # Pins the route table (npm run test:routes)
 │   ├── scripts/my-library.test.mjs     # File-store round trip (npm run test:my-library)
+│   ├── scripts/read-only.test.mjs      # READ_ONLY hides My Library (npm run test:read-only)
 │   ├── scripts/mcp-server.test.mjs     # MCP server end to end over stdio (npm run test:mcp)
 │   ├── server.ts                 # Local server: imports api/index.ts's app, mounts
 │   │                             #   api/skill-packs.ts, adds Vite HMR or serves dist/ (:3010)
@@ -424,6 +426,7 @@ CI (`.github/workflows/ci.yml`) runs on every PR:
 - `npm run lint` — type-check
 - `npm run test:routes` — the route table, and that no auth router is mounted
 - `npm run test:my-library` — the file store round trip and id containment, in a temp folder
+- `npm run test:read-only` — under `READ_ONLY`, a seeded private prompt is never listed or served
 - provenance and Agent Skills frontmatter checks, homepage links, diagram drift (warning)
 - prompt index freshness
 

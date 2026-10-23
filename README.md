@@ -97,7 +97,7 @@ Copy `site/.env.example` to `site/.env` to change a default:
 |:---|:---|:---|
 | `MY_LIBRARY_DIR` | `my-library` | Where My Library is kept. Relative to `site/`, or absolute. |
 | `HOST` | `127.0.0.1` | Address to listen on. There are no accounts, so read [this](docs/setup/SETUP.md#exposing-it-beyond-localhost) before opening it up. |
-| `READ_ONLY` | `false` | `true` serves the Public Library only and refuses every write. |
+| `READ_ONLY` | `false` | `true` serves the Public Library only (My Library is neither listed nor served) and refuses every write. |
 | `ALLOWED_HOSTS` | (none) | Extra hostnames the dev server answers to, comma-separated, for a proxy such as `tailscale serve`. See [this](docs/setup/SETUP.md#over-tailscale). |
 
 ### Checks
@@ -106,6 +106,7 @@ Copy `site/.env.example` to `site/.env` to change a default:
 npm run lint             # tsc --noEmit
 npm run test:routes      # the API route table is intact
 npm run test:my-library  # the My Library file store
+npm run test:read-only   # read-only mode hides My Library
 npm run test:mcp         # the MCP server, end to end over stdio
 npm run build:index      # rebuild api/prompt-index.json after editing library/
 

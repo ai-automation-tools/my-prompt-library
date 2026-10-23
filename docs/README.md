@@ -168,6 +168,7 @@ npm run build               # build:index -> tsc -> vite build
 npm run lint                # tsc --noEmit
 npm run test:routes         # API route table
 npm run test:my-library     # My Library file store
+npm run test:read-only      # read-only mode hides My Library
 npm run build:index         # regenerate api/prompt-index.json from library/
 ```
 

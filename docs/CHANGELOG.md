@@ -4,6 +4,19 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — Read-only mode keeps My Library private
+
+**Fixed**
+- With `READ_ONLY` set (or on Vercel), the server no longer serves My Library: `GET /api/prompts?library=my` returns an empty list, a My Library id on `GET /api/prompts/:id` is not found, and `GET /api/skill-packs?library=my` lists no packs. Writes were already refused; reads were not, so a server exposed read-only as `docs/setup/SETUP.md` suggests could hand out a personal library. Roadmap item F01. The MCP server is unchanged: over stdio, read-only still reads My Library.
+
+**Added**
+- `scripts/read-only.test.mjs` (`npm run test:read-only`, in CI): seeds a private prompt in a temp folder, checks the three routes hide it and that public list, detail, skill download and packs still work. It fails with the guards removed.
+
+**Docs**
+- `docs/setup/SETUP.md` says `READ_ONLY` means Public Library only, instead of implying it shares My Library read-only. `README.md`, `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/features/API.md` and `docs/setup/DEPLOYMENT.md` describe the closed reads and list the new test.
+
+_Touched: `site/api/index.ts`, `site/api/skill-packs.ts`, `site/scripts/read-only.test.mjs`, `site/package.json`, `.github/workflows/ci.yml`, `AGENTS.md`, `README.md`, `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/features/API.md`, `docs/setup/SETUP.md`, `docs/setup/DEPLOYMENT.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — The audit's findings are on the roadmap
 
 **Docs**
