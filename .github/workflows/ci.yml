@@ -69,7 +69,7 @@ jobs:
         run: npm run test:markdown-file
 
       - name: Library path containment
-        run: node lib/safe-path.test.mjs
+        run: npm run test:safe-path
 
       # Spawns mcp/server.ts over real stdio with the SDK client: every tool, the
       # MCP prompts, path-traversal refusals, a My Library round trip in a temp

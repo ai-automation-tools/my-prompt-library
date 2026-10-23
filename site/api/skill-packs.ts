@@ -5,25 +5,16 @@ import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import archiver from 'archiver';
 import { myLibrary, READ_ONLY } from '../lib/my-library.js';
-import { carriedFrontmatter } from '../lib/library.js';
+import { carriedFrontmatter, LIBRARY_PATH } from '../lib/library.js';
+import { filesUnder, resolveInside } from '../lib/safe-path.js';
 
 // Recursively get all files in a directory
-async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): Promise<string[]> {
-  const files = await fs.readdir(dirPath);
-
-  for (const file of files) {
-    const filePath = path.join(dirPath, file);
-    const stat = await fs.stat(filePath);
-    
-    if (stat.isDirectory()) {
-      arrayOfFiles = await getAllFiles(filePath, arrayOfFiles);
-    } else {
-      arrayOfFiles.push(filePath);
-    }
-  }
-
-  return arrayOfFiles;
-}
+/**
+ * A manifest's `library/…` skill path, contained like any other library path:
+ * null when it climbs out with `..` or through a link.
+ */
+const packPath = (p: string) =>
+  (p.startsWith('library/') ? resolveInside(LIBRARY_PATH, p.slice('library/'.length)) : null);
 
 // App root. Resolve from this file, not process.cwd(): on Vercel the function
 // runs with cwd=/var/task while the app (Root Directory = site) is bundled at
@@ -90,7 +81,8 @@ export async function getAllPacks(): Promise<SkillPack[]> {
 // Helper to resolve skill paths and read skill metadata
 async function resolveSkillData(skillPath: string) {
   try {
-    const fullPath = path.join(APP_ROOT, skillPath);
+    const fullPath = packPath(skillPath);
+    if (!fullPath) return null;
     const content = await fs.readFile(fullPath, 'utf-8');
     const { data } = matter(content);
     
@@ -171,7 +163,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       let skipped = 0;
       try {
         for (const skill of pack.skills) {
-          const fullPath = path.join(APP_ROOT, skill.path);
+          const fullPath = packPath(skill.path);
+          if (!fullPath) throw new Error(`Pack path outside the library: ${skill.path}`);
           const raw = await fs.readFile(fullPath, 'utf-8');
           const { data, content } = matter(raw);
 
@@ -314,7 +307,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       
       // Add each skill's entire directory to the ZIP
       for (const skill of pack.skills) {
-        const skillPath = path.join(APP_ROOT, skill.path);
+        const skillPath = packPath(skill.path);
+        if (!skillPath) {
+          console.error(`  Skipping ${skill.path}: outside the library`);
+          continue;
+        }
         const skillDir = path.dirname(skillPath);
         const skillDirName = path.basename(skillDir);
         
@@ -335,7 +332,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           
           if (stats.isDirectory()) {
             // Read all files in the skill directory recursively
-            const allFiles = await getAllFiles(skillDir);
+            const allFiles = filesUnder(skillDir);
             
             console.log(`  Found ${allFiles.length} files in ${skillDirName}`);
             

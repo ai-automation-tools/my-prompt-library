@@ -223,7 +223,7 @@ promptbook/
 │   ├── lib/
 │   │   ├── library.ts            # Shared reader: library path, sections, index, readLibraryItem()
 │   │   ├── my-library.ts         # My Library file store + READ_ONLY (keeps unmanaged frontmatter)
-│   │   ├── safe-path.ts          # resolveInside(): path containment check
+│   │   ├── safe-path.ts          # resolveInside() + filesUnder(): path and link containment
 │   │   └── vercel-types.ts
 │   ├── mcp/
 │   │   ├── server.ts             # MCP server over stdio (npm run mcp), see features/MCP-SERVER.md
@@ -370,9 +370,11 @@ forget to set a flag and end up writable.
   temp file and are renamed over the original, so a crash never leaves half a prompt; an
   update that names a stale `version` (a hash of the file) is refused with `409`; a pack
   install deletes what it wrote if any skill fails.
-- **Path containment:** public-library reads go through `resolveInside()`
-  (`lib/safe-path.ts`), which resolves first and compares after, so `a/../../b` is refused.
-  Skill downloads must also land under `3_Skills/`. My Library ids are restricted to
+- **Path containment:** public-library reads, including Skill Pack manifest paths, go through
+  `resolveInside()` (`lib/safe-path.ts`), which resolves first and compares after, so
+  `a/../../b` is refused, and compares real paths for anything that exists, so a symlink or
+  junction pointing out of `library/` is refused too. Skill downloads must also land under
+  `3_Skills/`. ZIPs and the MCP file list walk folders with `filesUnder()`, which skips links. My Library ids are restricted to
   `^[a-z0-9-]+$`.
 - **Headers and limits:** `helmet` sets the standard response headers. CSP is off on purpose
   (Vite's inline module preloads and Google Fonts); HSTS is Vercel's. JSON bodies are capped
@@ -445,6 +447,7 @@ CI (`.github/workflows/ci.yml`) runs on every PR:
 - `npm run test:read-only` — under `READ_ONLY`, a seeded private prompt is never listed or served
 - `npm run test:prompt-content` — `fetchFullPrompt` throws on a failed load instead of returning the preview
 - `npm run test:markdown-file` — a downloaded `.md` reads back through the store unchanged
+- `npm run test:safe-path` — `../` escapes and real junctions/symlinks out of the library, for detail and ZIPs
 - `npm run test:browser` — after a build: the built app in Chrome, listing, detail and the dialog focus trap
 - provenance and Agent Skills frontmatter checks, homepage links, diagram drift (warning)
 - prompt index freshness

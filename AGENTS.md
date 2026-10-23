@@ -53,9 +53,10 @@ Other scripts: `npm run build` (build:index → tsc → vite build), `npm run bu
 `npm run test:read-only` (under `READ_ONLY`, My Library is neither listed nor served),
 `npm run test:prompt-content` (a failed full-prompt load throws instead of returning the preview),
 `npm run test:markdown-file` (a downloaded `.md` reads back through the store unchanged),
-`npm run test:browser` (after a build: the built app in Chrome, including the dialog focus trap).
+`npm run test:browser` (after a build: the built app in Chrome, including the dialog focus trap),
+`npm run test:safe-path` (`../` escapes and links out of `library/` are refused, for detail and ZIPs).
 
-CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `build` → `test:routes` → `test:my-library` → `test:read-only` → `test:prompt-content` → `test:markdown-file` → `test:mcp` → `test:browser` → the two repo-root
+CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `build` → `test:routes` → `test:my-library` → `test:read-only` → `test:prompt-content` → `test:markdown-file` → `test:safe-path` → `test:mcp` → `test:browser` → the two repo-root
 provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →
 a rebuild of the prompt index, failing if the rebuilt file is not byte-identical to the committed one.
 Rebuild and commit `api/prompt-index.json` whenever you touch `library/`.
@@ -104,7 +105,8 @@ site/
                        Library while any My Library prompt carries its `skill-pack:<id>` tag.
   lib/my-library.ts    My Library file store + READ_ONLY. Ids are file names, restricted to
                        [a-z0-9-] so an id can never name a path outside the folder.
-  lib/safe-path.ts     resolveInside(): keeps library paths inside library/
+  lib/safe-path.ts     resolveInside(): keeps library paths inside library/, by real path;
+                       filesUnder(): folder walks that skip symlinks and junctions
   lib/library.ts       Shared by the API and the MCP server: LIBRARY_PATH, the section keys,
                        the prebuilt-index loader and readLibraryItem(). Never writes to stdout.
   mcp/server.ts        The MCP server (npm run mcp; stdio, @modelcontextprotocol/server v2):

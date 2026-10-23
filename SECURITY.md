@@ -61,8 +61,9 @@ Out of scope:
   update made from a stale version of the file.
 - My Library ids must match `^[a-z0-9-]+$`, so an id can never name a path outside the
   folder (`site/lib/my-library.ts`, checked by `npm run test:my-library`).
-- Public Library, skill and skill-pack reads are confined to the library root
-  (`site/lib/safe-path.ts`).
+- Public Library, skill and skill-pack reads are confined to the library root, by real path,
+  so a symlink or junction pointing outside it is refused; ZIPs leave links out
+  (`site/lib/safe-path.ts`, checked by `npm run test:safe-path`).
 - `helmet` sets the standard response headers. CSP is intentionally off (see the comment
   in `site/api/index.ts`). Request bodies are capped at 1 MB.
 - Dependabot watches `site/`, and CI fails on a type error, a changed route table, a broken

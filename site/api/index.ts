@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import archiver from "archiver";
 import { forkExtra, InvalidPromptError, myLibrary, PromptConflictError, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from "../lib/my-library.js";
-import { resolveInside } from "../lib/safe-path.js";
+import { filesUnder, resolveInside } from "../lib/safe-path.js";
 import { LIBRARY_PATH, SKILLS_SECTION, carriedFrontmatter, extractFirstHeading, readLibraryItem, sourceUrlOf, type IndexEntry, type LibraryIndex } from "../lib/library.js";
 import type { IncomingMessage, ServerResponse } from "http";
 
@@ -541,7 +541,10 @@ app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
     });
 
     archive.pipe(res);
-    archive.directory(fullPath, false);
+    // File by file rather than archive.directory(), which would follow a link out of the library
+    for (const file of filesUnder(fullPath)) {
+      archive.file(file, { name: path.relative(fullPath, file).split(path.sep).join('/') });
+    }
     await archive.finalize();
   } catch (error) {
     console.error("Error creating skill download:", error);

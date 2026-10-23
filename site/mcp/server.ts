@@ -23,7 +23,7 @@ import {
   type IndexEntry, type SectionKey,
 } from '../lib/library.js';
 import { forkExtra, myLibrary, PromptConflictError, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from '../lib/my-library.js';
-import { resolveInside } from '../lib/safe-path.js';
+import { filesUnder, resolveInside } from '../lib/safe-path.js';
 import { getAllPacks } from '../api/skill-packs.js';
 
 const MAX_FILE = 500 * 1024;
@@ -89,14 +89,9 @@ function skillDir(id: string): string | null {
   return fs.existsSync(path.join(dir, 'SKILL.md')) ? dir : null;
 }
 
-const listFiles = (dir: string, base = dir, out: { path: string; bytes: number }[] = []) => {
-  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    const p = path.join(dir, e.name);
-    if (e.isDirectory()) listFiles(p, base, out);
-    else out.push({ path: path.relative(base, p).split(path.sep).join('/'), bytes: fs.statSync(p).size });
-  }
-  return out;
-};
+const listFiles = (dir: string) => filesUnder(dir).map(p => ({
+  path: path.relative(dir, p).split(path.sep).join('/'), bytes: fs.statSync(p).size,
+}));
 
 const slug = (s: string) => s.toLowerCase().replace(/\.md$/, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
 
