@@ -87,7 +87,7 @@ const stampUpstream = (fm, { ref, checked }) =>
     const keep = block.split("\n").filter((l) => l.trim() && !/^\s+(ref|checked|match):/.test(l));
     return ["upstream:", "  match: exact", ...keep, `  ref: ${ref}`, `  checked: ${checked}`]
       .join("\n") + "\n";
-  });
+  }).replace(/\n?$/, "\n");
 
 const before = "name: \"🛠️ thing\"\ntags: [\"a\"]\nupstream:\n  match: similar\n" +
   "  repo: a/b\n  path: skills/thing/SKILL.md\n  ref: old\n  checked: 2020-01-01\n";
@@ -104,6 +104,14 @@ assert.ok(after.includes("tags: [\"a\"]"), "local curation outside the block is 
 
 // Idempotent: stamping the result again changes nothing.
 assert.equal(stampUpstream(after, { ref: "newsha", checked: "2026-08-26" }), after);
+
+// `tags:` after the block, the way splitFrontmatter hands it over (no trailing
+// newline, as in 2_Agents/AI_ML/Other/model-evaluator.md): `---` gets its own line.
+const tagsLast = "name: model-evaluator\nupstream:\n  match: exact\n  repo: a/b\n" +
+  "  path: agents/model-evaluator.md\n  ref: old\n  checked: 2020-01-01\ntags: [\"agent\"]";
+const restamped = `---\n${stampUpstream(tagsLast, { ref: "newsha", checked: "2026-10-23" })}---\nbody`;
+assert.ok(restamped.endsWith("\ntags: [\"agent\"]\n---\nbody"), "frontmatter closes on its own line");
+assert.equal(readUpstream(stampUpstream(tagsLast, { ref: "newsha", checked: "2026-10-23" })).ref, "newsha");
 
 // --- the `match:` vocabulary is attribution confidence, never a drift verdict ---
 // `behind` is check-upstream-drift.mjs's verdict for "a quarter or more of

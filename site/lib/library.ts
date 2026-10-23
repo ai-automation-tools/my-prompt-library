@@ -65,7 +65,7 @@ export function loadIndex(): LibraryIndex | null {
   } catch {
     cachedIndex = null;
   }
-  return cachedIndex;
+  return cachedIndex ?? null;
 }
 
 export const extractFirstHeading = (content: string): string | null => {

@@ -10,7 +10,8 @@ import { dirname } from "path";
 import archiver from "archiver";
 import { forkExtra, InvalidPromptError, myLibrary, PromptConflictError, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from "../lib/my-library.js";
 import { resolveInside } from "../lib/safe-path.js";
-import { LIBRARY_PATH, SKILLS_SECTION, carriedFrontmatter, extractFirstHeading, readLibraryItem, sourceUrlOf } from "../lib/library.js";
+import { LIBRARY_PATH, SKILLS_SECTION, carriedFrontmatter, extractFirstHeading, readLibraryItem, sourceUrlOf, type IndexEntry, type LibraryIndex } from "../lib/library.js";
+import type { IncomingMessage, ServerResponse } from "http";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -115,7 +116,9 @@ const toApiPrompt = (p: UserPrompt) => ({
 });
 
 // Simple in-memory cache for prompt listings
-let promptsCache: { data: any[], timestamp: number } | null = null;
+/** A public listing row: index metadata, with `content` emptied in lightweight mode. */
+type ListedPrompt = Omit<IndexEntry, 'contentPreview'> & { content: string; isUserOwned?: boolean };
+let promptsCache: { data: ListedPrompt[], timestamp: number } | null = null;
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 const isCacheValid = () => {
@@ -123,12 +126,13 @@ const isCacheValid = () => {
 };
 
 // Load prebuilt index if available (for faster cold starts)
-let prebuiltIndex: any = null;
+let prebuiltIndex: LibraryIndex | null = null;
 try {
   const indexPath = path.join(__dirname, 'prompt-index.json');
   if (fs.existsSync(indexPath)) {
-    prebuiltIndex = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
-    console.log(`[INDEX] Loaded prebuilt index with ${prebuiltIndex.promptCount} prompts (built: ${prebuiltIndex.buildTime})`);
+    const loaded: LibraryIndex = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
+    prebuiltIndex = loaded;
+    console.log(`[INDEX] Loaded prebuilt index with ${loaded.promptCount} prompts (built: ${loaded.buildTime})`);
   }
 } catch (err) {
   console.warn('[INDEX] Failed to load prebuilt index:', err);
@@ -146,7 +150,7 @@ let previewIndex: Map<string, string> | null = null;
 const getPreviewIndex = (): Map<string, string> => {
   if (!previewIndex) {
     previewIndex = new Map(
-      (prebuiltIndex?.prompts ?? []).map((p: any) => [p.id, p.contentPreview ?? '']),
+      (prebuiltIndex?.prompts ?? []).map((p): [string, string] => [p.id, p.contentPreview ?? '']),
     );
   }
   return previewIndex;
@@ -187,7 +191,7 @@ app.get("/api/prompts", async (req, res) => {
     // listing (search, tag/category filters, sort, pagination) reads `content`,
     // and shipping all 3,088 of them cost more gzipped than the entire JS bundle.
     // Cards fetch the ~50 they actually render from /api/prompts/previews.
-    const indexedPrompts = prebuiltIndex.prompts.map(({ contentPreview, ...p }: any) => ({
+    const indexedPrompts = prebuiltIndex.prompts.map(({ contentPreview, ...p }): ListedPrompt => ({
       ...p,
       content: '',
     }));
@@ -199,10 +203,10 @@ app.get("/api/prompts", async (req, res) => {
   }
 
   try {
-    const walkDir = (dir: string, baseDir: string = LIBRARY_PATH): any[] => {
+    const walkDir = (dir: string, baseDir: string = LIBRARY_PATH): ListedPrompt[] => {
       if (!fs.existsSync(dir)) return [];
 
-      let results: any[] = [];
+      let results: ListedPrompt[] = [];
       const list = fs.readdirSync(dir);
 
       list.forEach(file => {
@@ -237,7 +241,7 @@ app.get("/api/prompts", async (req, res) => {
           const rawContent = fs.readFileSync(filePath, 'utf-8');
 
           // One file with malformed frontmatter must not empty the whole library
-          let data: Record<string, any>;
+          let data: Record<string, unknown>;
           let content: string;
           try {
             ({ data, content } = matter(rawContent));
@@ -253,7 +257,8 @@ app.get("/api/prompts", async (req, res) => {
           const subcategory = pathParts.length > 2 ? pathParts[2] : null;
 
           // For Skills, use 'name' field instead of 'title'
-          const title = data.title || data.name
+          const str = (v: unknown) => (typeof v === 'string' && v) || null;
+          const title = str(data.title) || str(data.name)
             || extractFirstHeading(content) || path.basename(file, '.md');
 
           results.push({
@@ -263,7 +268,7 @@ app.get("/api/prompts", async (req, res) => {
             section,
             category,
             subcategory,
-            tags: data.tags || [],
+            tags: Array.isArray(data.tags) ? data.tags : [],
             content: lightweight ? '' : content, // Lightweight drops the body; cards fetch previews
             lastModified: stat.mtime.toISOString(),
             isUserOwned: false,
@@ -283,7 +288,7 @@ app.get("/api/prompts", async (req, res) => {
     }
 
     res.json(prompts);
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error listing prompts:", error);
     res.json([]);
   }
@@ -356,7 +361,7 @@ app.get("/api/prompts/:id", async (req, res) => {
     const { frontmatter, ...rest } = item;
     // `extra` lets a download keep the file's own frontmatter (a skill's name, licence…)
     return res.json({ ...rest, extra: carriedFrontmatter(frontmatter), isUserOwned: false, sourceUrl: sourceUrlOf(frontmatter) });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching prompt:", error);
     res.status(500).json({ error: "Failed to fetch prompt" });
   }
@@ -378,7 +383,7 @@ app.post("/api/prompts", requireWritable, async (req, res) => {
     });
 
     res.json({ ...toApiPrompt(prompt), message: "Prompt created successfully" });
-  } catch (error: any) {
+  } catch (error) {
     if (error instanceof InvalidPromptError) return res.status(400).json({ error: error.message });
     console.error("Error creating prompt:", error);
     res.status(500).json({ error: "Failed to create prompt" });
@@ -489,9 +494,9 @@ app.post("/api/prompts/:path(*)/copy-to-my-prompts", requireWritable, async (req
     });
 
     return res.json({ ...toApiPrompt(copiedPrompt), message: "Prompt copied to My Library" });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error copying prompt to My Library:", error);
-    return res.status(500).json({ error: error.message || "Failed to copy prompt to My Library" });
+    return res.status(500).json({ error: (error instanceof Error && error.message) || "Failed to copy prompt to My Library" });
   }
 });
 
@@ -538,14 +543,14 @@ app.get("/api/skills/download/:skillPath(*)", async (req, res) => {
     archive.pipe(res);
     archive.directory(fullPath, false);
     await archive.finalize();
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating skill download:", error);
     if (!res.headersSent) {
-      return res.status(500).json({ error: error.message || "Failed to create download" });
+      return res.status(500).json({ error: (error instanceof Error && error.message) || "Failed to create download" });
     }
   }
 });
 
-export default function handler(req: any, res: any) {
+export default function handler(req: IncomingMessage, res: ServerResponse) {
   return app(req, res);
 }

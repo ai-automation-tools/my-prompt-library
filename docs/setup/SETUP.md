@@ -8,7 +8,7 @@ prompts (My Library) are markdown files in a folder you choose.
 
 ## Prerequisites
 
-- **Node.js** 22 ([download](https://nodejs.org/)) — CI pins 22; 20 works
+- **Node.js** 22 ([download](https://nodejs.org/)) or 24 — CI pins 22 (Node 20 is past end of life)
 - **npm**
 - **Git** ([download](https://git-scm.com/))
 

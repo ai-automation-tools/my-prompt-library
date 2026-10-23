@@ -78,7 +78,15 @@ try {
   // ---------- writable ----------
   client = await connect({ MY_LIBRARY_DIR: tmp, READ_ONLY: 'false', VERCEL: '', IMPORT_ROOTS: '' });
 
-  const tools = (await client.listTools()).tools.map((t) => t.name).sort();
+  const listed = (await client.listTools()).tools;
+  const tools = listed.map((t) => t.name).sort();
+  // Every write tool says whether it can lose data; the ones that overwrite or delete say so.
+  const destructive = { save_to_my_library: false, update_my_prompt: true, update_from_public: true, delete_my_prompt: true };
+  for (const [name, hint] of Object.entries(destructive)) {
+    const a = listed.find((t) => t.name === name)?.annotations;
+    assert.equal(a?.readOnlyHint, false, `${name} readOnlyHint`);
+    assert.equal(a?.destructiveHint, hint, `${name} destructiveHint`);
+  }
   assert.deepEqual(tools, [
     'delete_my_prompt', 'get_item', 'get_skill', 'get_skill_file', 'get_skill_pack', 'list_categories',
     'list_sections', 'list_skill_packs', 'save_to_my_library', 'search_library', 'update_from_public', 'update_my_prompt',

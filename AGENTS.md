@@ -54,7 +54,7 @@ Other scripts: `npm run build` (build:index → tsc → vite build), `npm run bu
 `npm run test:prompt-content` (a failed full-prompt load throws instead of returning the preview),
 `npm run test:markdown-file` (a downloaded `.md` reads back through the store unchanged).
 
-CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → `test:my-library` → `test:read-only` → `test:prompt-content` → `test:markdown-file` → the two repo-root
+CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `build` → `test:routes` → `test:my-library` → `test:read-only` → `test:prompt-content` → `test:markdown-file` → the two repo-root
 provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →
 a rebuild of the prompt index, failing if the rebuilt file is not byte-identical to the committed one.
 Rebuild and commit `api/prompt-index.json` whenever you touch `library/`.
@@ -164,7 +164,7 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
 
 ## Conventions
 
-- React 19 functional components + hooks; strict TS, no `any`. Tailwind utility-first.
+- React 19 functional components + hooks; `strict` is on in `tsconfig.json`, no `any`. Tailwind utility-first.
 - **Design system: the org house style** (`web-house-style` skill). Colours are tokens on `:root`
   in `src/index.css` (`--bg`, `--surface`, `--line`, `--fg`…`--fg-5`, `--accent`, `--c`), redefined
   under `html.light`: `#060606` ground with a dot grid, zinc surfaces, sky accent (sky-700 in light),

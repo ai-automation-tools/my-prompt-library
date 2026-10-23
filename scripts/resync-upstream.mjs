@@ -82,7 +82,10 @@ const readUpstream = (fm) => {
 };
 
 /** Rewrite ref/checked/match inside the existing upstream: block, leaving every
- *  other key (declared, path, repo) and the rest of the frontmatter untouched. */
+ *  other key (declared, path, repo) and the rest of the frontmatter untouched.
+ *  splitFrontmatter's `fm` has no trailing newline, so when a key such as `tags:`
+ *  follows the block the result must still end on one, or the file closes as
+ *  `tags: [...]---`. */
 const stampUpstream = (fm, { ref, checked }) =>
   fm.replace(/^upstream:\n((?:[ \t]+.*\n?)*)/m, (_all, block) => {
     const keep = block
@@ -90,7 +93,7 @@ const stampUpstream = (fm, { ref, checked }) =>
       .filter((l) => l.trim() && !/^\s+(ref|checked|match):/.test(l));
     return ["upstream:", "  match: exact", ...keep, `  ref: ${ref}`, `  checked: ${checked}`]
       .join("\n") + "\n";
-  });
+  }).replace(/\n?$/, "\n");
 
 const walk = (dir, out = []) => {
   let es;

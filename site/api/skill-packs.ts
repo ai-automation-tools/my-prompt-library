@@ -52,8 +52,24 @@ async function getAllPackFiles(dirPath: string): Promise<string[]> {
   return files.flat();
 }
 
+/** A pack manifest as stored in library/3_Skills/packs/**.json. */
+export interface SkillPack {
+  id: string;
+  name: string;
+  description: string;
+  icon?: string;
+  version?: string;
+  author?: string;
+  generated?: boolean;
+  tags: string[];
+  category: string;
+  skills: { path: string; name: string; description?: string }[];
+  created_at?: string;
+  updated_at?: string;
+}
+
 // Helper to read all pack files
-export async function getAllPacks(): Promise<any[]> {
+export async function getAllPacks(): Promise<SkillPack[]> {
   try {
     const packFiles = await getAllPackFiles(packsDir);
     
@@ -241,7 +257,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       
       // Resolve skill metadata for each skill in the pack
       const skillsWithData = await Promise.all(
-        pack.skills.map(async (skill: any) => {
+        pack.skills.map(async (skill) => {
           const skillData = await resolveSkillData(skill.path);
           return {
             ...skill,

@@ -45,10 +45,16 @@ export function usePromptContent(showToast: (type: 'success' | 'error', message:
   }, [showToast]);
 
   /** Copy text already in hand. Used by `PromptDetail`, which has the full body. */
-  const copyContent = useCallback((content: string, promptId: string) => {
-    navigator.clipboard.writeText(content);
-    markCopied(promptId);
-  }, [markCopied]);
+  const copyContent = useCallback(async (content: string, promptId: string) => {
+    try {
+      // `navigator.clipboard` is missing on plain-http origins; that throws here too.
+      await navigator.clipboard.writeText(content);
+      markCopied(promptId);
+    } catch (err) {
+      console.error('Failed to copy prompt:', err);
+      showToast('error', 'Failed to copy');
+    }
+  }, [markCopied, showToast]);
 
   /** The real body of a prompt. Throws when it can't be loaded; see `fetchFullPrompt`. */
   const fetchFullContent = useCallback(async (prompt: Prompt): Promise<string> =>

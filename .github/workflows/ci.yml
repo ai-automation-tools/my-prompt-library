@@ -39,6 +39,11 @@ jobs:
       - name: Type-check
         run: npm run lint
 
+      # The same build Vercel runs (index, tsc, vite), so a broken bundle or
+      # import fails the PR instead of the deploy.
+      - name: Build
+        run: npm run build
+
       # server.ts and the Vercel function serve the same Express app; this pins
       # the route table so a dropped handler fails here, not in the browser.
       - name: API route table

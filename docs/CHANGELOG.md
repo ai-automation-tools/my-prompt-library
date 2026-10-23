@@ -4,6 +4,23 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — Strict TypeScript, honest copy toasts, and a resync fix
+
+**Fixed**
+- Copy on the detail page, and both "copy link" buttons, wait for the clipboard: the success toast shows only when the write lands, and a refused or missing clipboard shows "Failed to copy" instead of an unhandled rejection. Roadmap item F19.
+- `scripts/resync-upstream.mjs` no longer writes `tags: [...]---` when `tags:` follows the `upstream:` block; `stampUpstream` always ends on a newline. A new case in `scripts/upstream.test.mjs` fails without the fix.
+- MCP `update_my_prompt` declares `destructiveHint: true`, since it replaces a body. `scripts/mcp-server.test.mjs` checks the hint on all four write tools. Roadmap item F15.
+
+**Changed**
+- `strict` is on in `site/tsconfig.json`. The three errors it raised are fixed, and the explicit `any`s at the API and UI boundaries are typed (`ListedPrompt`, `LibraryIndex`, `SkillPack`, `PromptDraft`). `@types/react` and `@types/react-dom` are direct dev dependencies. Roadmap item F11.
+- The hero's first counter names what the section holds (Servers, Skills, Agents…) from a new `noun` field in `src/lib/sections.ts`.
+- CI runs `npm run build` after the type-check, so a broken bundle fails the PR (part of F09).
+
+**Docs**
+- `docs/setup/SETUP.md` and `docs/README.md` drop "Node 20 works" (Node 20 is past end of life); the `server.ts` comment stops naming the removed `cookieParser` (part of F20). `AGENTS.md` and `docs/features/MCP-SERVER.md` follow.
+
+_Touched: `site/src/hooks/usePromptContent.ts`, `site/src/App.tsx`, `site/src/components/PromptEditorModal.tsx`, `site/src/lib/sections.ts`, `site/api/index.ts`, `site/api/skill-packs.ts`, `site/lib/library.ts`, `site/mcp/server.ts`, `site/scripts/mcp-server.test.mjs`, `site/server.ts`, `site/tsconfig.json`, `site/package.json`, `scripts/resync-upstream.mjs`, `scripts/upstream.test.mjs`, `.github/workflows/ci.yml`, `AGENTS.md`, `docs/setup/SETUP.md`, `docs/README.md`, `docs/features/MCP-SERVER.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — Docs caught up with the audit fixes
 
 **Docs**
