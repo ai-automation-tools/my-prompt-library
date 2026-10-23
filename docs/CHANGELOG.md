@@ -4,6 +4,13 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — A Favorites button in the sidebar
+
+**Added**
+- A **Favorites** row tops the sidebar's category list, set off by a thin rule, in every section but Skill Packs and in both libraries. Its count and the view it opens cover the starred prompts in the current section and library, sorted by title, laid out like a category page with a "Favorites" breadcrumb.
+
+_Touched: `site/src/App.tsx`, `site/src/components/Sidebar.tsx`._
+
 ## 2026-10-22 — The MCP write tools can import a local file
 
 **Added**

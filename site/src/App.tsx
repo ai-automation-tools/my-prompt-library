@@ -62,6 +62,7 @@ export default function App() {
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const [selectedSubcategory, setSelectedSubcategory] = useState<{category: string, subcategory: string | 'ALL'} | null>(null);
   const [showAllPrompts, setShowAllPrompts] = useState(true);
+  const [showFavorites, setShowFavorites] = useState(false);
   const [theme, setTheme] = useTheme();
   const [palette, setPalette] = usePalette();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -269,6 +270,12 @@ export default function App() {
     return prompts.filter(p => favorites.includes(p.id));
   }, [prompts, favorites]);
 
+  /** The sidebar's Favorites view: starred prompts in the current section and library. */
+  const sectionFavorites = useMemo(
+    () => sectionPrompts.filter(p => favorites.includes(p.id)).sort((a, b) => a.title.localeCompare(b.title)),
+    [sectionPrompts, favorites],
+  );
+
   const recentlyViewedPrompts = useMemo(() => {
     return recentlyViewed
       .map(id => prompts.find(p => p.id === id))
@@ -279,7 +286,8 @@ export default function App() {
     setSelectedSubcategory({ category, subcategory });
     setSelectedPrompt(null);
     setShowAllPrompts(false);
-    
+    setShowFavorites(false);
+
     setActiveCategory(category);
     setActiveSubcategory(subcategory === 'ALL' ? null : subcategory);
     if (window.innerWidth < 768) setIsSidebarOpen(false);
@@ -312,7 +320,8 @@ export default function App() {
     setSelectedPrompt(fullPrompt);
     setSelectedSubcategory(null);
     setShowAllPrompts(false);
-    
+    setShowFavorites(false);
+
     setActiveCategory(fullPrompt.category);
     setActiveSubcategory(null);
     
@@ -322,8 +331,20 @@ export default function App() {
     });
   }, []);
 
+  const handleShowFavorites = useCallback(() => {
+    setShowFavorites(true);
+    setShowAllPrompts(false);
+    setSelectedPrompt(null);
+    setSelectedSubcategory(null);
+    setActiveCategory(null);
+    setActiveSubcategory(null);
+    setPromptPathParam(null);
+    if (window.innerWidth < 768) setIsSidebarOpen(false);
+  }, []);
+
   const handleShowAllPrompts = useCallback(() => {
     setShowAllPrompts(true);
+    setShowFavorites(false);
     setSelectedPrompt(null);
     setSelectedSubcategory(null);
     setActiveCategory(null);
@@ -678,7 +699,9 @@ source: Promptbook
       { label: libraryMode === 'my' ? 'My Library' : 'Public Library', onClick: handleShowAllPrompts },
       { label: getSectionDisplayName(activeTab), onClick: handleShowAllPrompts },
     ];
-    if (selectedSubcategory) {
+    if (showFavorites) {
+      trail.push({ label: 'Favorites' });
+    } else if (selectedSubcategory) {
       trail.push({ label: humanize(selectedSubcategory.category), onClick: () => handleSubcategoryClick(selectedSubcategory.category, 'ALL') });
       if (selectedSubcategory.subcategory !== 'ALL') trail.push({ label: humanize(selectedSubcategory.subcategory) });
     } else if (selectedPrompt) {
@@ -688,7 +711,7 @@ source: Promptbook
       trail.push({ label: selectedPrompt.title });
     }
     return trail;
-  }, [libraryMode, activeTab, selectedSubcategory, selectedPrompt, handleShowAllPrompts, handleSubcategoryClick]);
+  }, [libraryMode, activeTab, showFavorites, selectedSubcategory, selectedPrompt, handleShowAllPrompts, handleSubcategoryClick]);
 
   const showFeatured =
     activeTab !== 'skill-packs' && libraryMode === 'public' && !debouncedSearch && selectedTags.length === 0 && featuredPrompts.length > 0;
@@ -728,6 +751,9 @@ source: Promptbook
         selectedSubcategory={selectedSubcategory}
         handleSubcategoryClick={handleSubcategoryClick}
         handleShowAllPrompts={handleShowAllPrompts}
+        favoriteCount={sectionFavorites.length}
+        showFavorites={showFavorites}
+        onShowFavorites={handleShowFavorites}
       />
 
       {/* Main Content */}
@@ -750,7 +776,7 @@ source: Promptbook
           <div className="relative mx-auto flex min-h-full w-full max-w-[1440px] flex-col">
           <Breadcrumbs crumbs={crumbs} />
           {/* Hero Section */}
-          {!selectedPrompt && !selectedSubcategory && (
+          {!selectedPrompt && !selectedSubcategory && !showFavorites && (
             <LibraryHero
               section={section}
               libraryMode={libraryMode}
@@ -843,6 +869,40 @@ source: Promptbook
                     onBrowsePublic={() => setLibraryMode('public')}
                     actions={promptCardActions}
                   />
+                )}
+              </m.div>
+
+            ) : showFavorites ? (
+              /* Favorites Grid */
+              <m.div
+                key={`favorites-${activeTab}-${libraryMode}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
+                className="w-full pt-6"
+              >
+                <div className="mb-6 flex min-w-0 items-start gap-3">
+                  <button type="button" onClick={handleShowAllPrompts} className="icon-btn icon-btn-framed mt-0.5 h-9 w-9 shrink-0" aria-label="Back to all">
+                    <ArrowLeft className="h-4 w-4" />
+                  </button>
+                  <div className="min-w-0">
+                    <p className="eyebrow mb-1.5">{getSectionDisplayName(activeTab)}</p>
+                    <h1 className="text-[1.5rem] font-semibold leading-tight tracking-[-0.02em] text-[var(--fg)] md:text-[1.85rem]">
+                      Favorites
+                    </h1>
+                    <p className="mono mt-1.5 text-[11px] text-[var(--fg-4)]">
+                      {sectionFavorites.length.toLocaleString()} {sectionFavorites.length === 1 ? 'prompt' : 'prompts'}
+                    </p>
+                  </div>
+                </div>
+
+                {sectionFavorites.length > 0 ? (
+                  <PromptCardGrid prompts={sectionFavorites} actions={promptCardActions} />
+                ) : (
+                  <p className="py-16 text-center text-[14px] text-[var(--fg-3)]">
+                    No favorites in this section yet. Star a prompt to pin it here.
+                  </p>
                 )}
               </m.div>
 
