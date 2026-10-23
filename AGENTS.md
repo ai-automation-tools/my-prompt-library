@@ -52,9 +52,10 @@ Other scripts: `npm run build` (build:index → tsc → vite build), `npm run bu
 `npm run test:my-library` (round-trips the My Library file store in a temp folder),
 `npm run test:read-only` (under `READ_ONLY`, My Library is neither listed nor served),
 `npm run test:prompt-content` (a failed full-prompt load throws instead of returning the preview),
-`npm run test:markdown-file` (a downloaded `.md` reads back through the store unchanged).
+`npm run test:markdown-file` (a downloaded `.md` reads back through the store unchanged),
+`npm run test:browser` (after a build: the built app in Chrome, including the dialog focus trap).
 
-CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `build` → `test:routes` → `test:my-library` → `test:read-only` → `test:prompt-content` → `test:markdown-file` → the two repo-root
+CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `build` → `test:routes` → `test:my-library` → `test:read-only` → `test:prompt-content` → `test:markdown-file` → `test:mcp` → `test:browser` → the two repo-root
 provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →
 a rebuild of the prompt index, failing if the rebuilt file is not byte-identical to the committed one.
 Rebuild and commit `api/prompt-index.json` whenever you touch `library/`.

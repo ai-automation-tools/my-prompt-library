@@ -4,6 +4,14 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — A browser smoke test in CI
+
+**Added**
+- `npm run test:browser` (`site/scripts/browser-smoke.test.mjs`) serves the built `dist/` with the real Express app and drives Chrome through `playwright-core`. It loads the listing, opens a detail page, checks the hero counter names its section, and checks that the Settings dialog keeps focus and returns it on Escape. Any page error, console error or failed request fails it. Removing the dialog's Tab trap turns it red. CI runs it after the MCP test. Roadmap item F09 is done.
+- `playwright-core` 1.64.0 is a dev dependency. It bundles no browser and uses the installed Chrome; `CHROME_PATH` points it at another Chromium.
+
+_Touched: `site/scripts/browser-smoke.test.mjs`, `site/package.json`, `site/package-lock.json`, `.github/workflows/ci.yml`, `AGENTS.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — Dialogs keep keyboard focus
 
 **Fixed**

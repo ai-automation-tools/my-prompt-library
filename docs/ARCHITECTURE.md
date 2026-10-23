@@ -251,6 +251,7 @@ promptbook/
 │   ├── scripts/read-only.test.mjs      # READ_ONLY hides My Library (npm run test:read-only)
 │   ├── scripts/prompt-content.test.mjs # Full prompt loads fail closed (npm run test:prompt-content)
 │   ├── scripts/markdown-file.test.mjs  # Download .md round trip (npm run test:markdown-file)
+│   ├── scripts/browser-smoke.test.mjs  # Built app in Chrome (npm run test:browser)
 │   ├── scripts/mcp-server.test.mjs     # MCP server end to end over stdio (npm run test:mcp)
 │   ├── server.ts                 # Local server: imports api/index.ts's app, mounts
 │   │                             #   api/skill-packs.ts, adds Vite HMR or serves dist/ (:3010)
@@ -444,6 +445,7 @@ CI (`.github/workflows/ci.yml`) runs on every PR:
 - `npm run test:read-only` — under `READ_ONLY`, a seeded private prompt is never listed or served
 - `npm run test:prompt-content` — `fetchFullPrompt` throws on a failed load instead of returning the preview
 - `npm run test:markdown-file` — a downloaded `.md` reads back through the store unchanged
+- `npm run test:browser` — after a build: the built app in Chrome, listing, detail and the dialog focus trap
 - provenance and Agent Skills frontmatter checks, homepage links, diagram drift (warning)
 - prompt index freshness
 
