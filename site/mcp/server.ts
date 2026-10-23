@@ -22,7 +22,7 @@ import {
   LIBRARY_PATH, SECTIONS, SECTION_KEYS, SKILLS_SECTION, carriedFrontmatter, loadIndex, readLibraryItem,
   type IndexEntry, type SectionKey,
 } from '../lib/library.js';
-import { forkExtra, myLibrary, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from '../lib/my-library.js';
+import { forkExtra, myLibrary, PromptConflictError, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from '../lib/my-library.js';
 import { resolveInside } from '../lib/safe-path.js';
 import { getAllPacks } from '../api/skill-packs.js';
 
@@ -174,7 +174,7 @@ export function createServer(): McpServer {
       const note = up?.updateAvailable
         ? `\nPublic version \`${up.source}\` has changed${up.localEdits ? ' (this copy is edited too)' : ''}; update_from_public pulls it.`
         : '';
-      return text(`# ${mine.title}\n\nMy Library · ${keyOf(mine.section)} › ${mine.category}${mine.tags.length ? ` · tags: ${mine.tags.join(', ')}` : ''}${note}\n\n${body}`);
+      return text(`# ${mine.title}\n\nMy Library · ${keyOf(mine.section)} › ${mine.category}${mine.tags.length ? ` · tags: ${mine.tags.join(', ')}` : ''} · version: ${mine.version}${note}\n\n${body}`);
     }
     const item = readLibraryItem(id);
     if (item === 'invalid') return fail(`"${id}" is not a library path. Ids look like "4_Prompts/<Category>/<file>.md".`);
@@ -350,9 +350,10 @@ export function createServer(): McpServer {
         category: z.string().optional(),
         subcategory: z.string().optional(),
         tags: z.array(z.string()).optional(),
+        version: z.string().optional().describe('The version get_item showed; the update is refused if the file changed since'),
       }),
       annotations: { ...writeHints, idempotentHint: true },
-    }, async ({ id, file, ...fields }) => {
+    }, async ({ id, file, version, ...fields }) => {
       if (READ_ONLY) return fail('This library is read-only.');
       let changes: Parameters<typeof myLibrary.update>[1] = fields;
       if (file) {
@@ -360,7 +361,13 @@ export function createServer(): McpServer {
         if (typeof imported === 'string') return fail(imported);
         changes = { ...fields, content: withPreface(fields.content, imported.content), extra: imported.extra };
       }
-      const updated = myLibrary.update(id, changes);
+      let updated;
+      try {
+        updated = myLibrary.update(id, changes, version);
+      } catch (err) {
+        if (err instanceof PromptConflictError) return fail(`\`${id}\` changed since version ${version}; it is now ${err.current.version}. get_item it again before updating.`);
+        throw err;
+      }
       return updated ? text(`Updated \`${updated.id}\`.`) : fail(`No My Library prompt "${id}".`);
     });
 

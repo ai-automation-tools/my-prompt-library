@@ -149,31 +149,38 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const existing = myLibrary.list();
       const existingKeys = new Set(existing.map(p => `${p.title}::${p.section}::${p.category}`));
 
-      let added = 0;
+      // All or nothing: a skill that fails to read or save takes back the ones
+      // this install already wrote, so a retry starts clean instead of half-done.
+      const created: string[] = [];
       let skipped = 0;
-      for (const skill of pack.skills) {
-        const fullPath = path.join(APP_ROOT, skill.path);
-        const raw = await fs.readFile(fullPath, 'utf-8');
-        const { data, content } = matter(raw);
+      try {
+        for (const skill of pack.skills) {
+          const fullPath = path.join(APP_ROOT, skill.path);
+          const raw = await fs.readFile(fullPath, 'utf-8');
+          const { data, content } = matter(raw);
 
-        const title = data.name || data.title || skill.name || path.basename(fullPath, '.md');
-        const section = '3_Skills';
-        const category = data.category || pack.category || 'Skill Packs';
-        const subcategory = data.subcategory || pack.name;
-        const tags = Array.isArray(data.tags) ? data.tags : (Array.isArray(pack.tags) ? pack.tags : []);
-        const tag = installTag(pack.id);
-        const tagsWithInstall = tags.includes(tag) ? tags : [...tags, tag];
+          const title = data.name || data.title || skill.name || path.basename(fullPath, '.md');
+          const section = '3_Skills';
+          const category = data.category || pack.category || 'Skill Packs';
+          const subcategory = data.subcategory || pack.name;
+          const tags = Array.isArray(data.tags) ? data.tags : (Array.isArray(pack.tags) ? pack.tags : []);
+          const tag = installTag(pack.id);
+          const tagsWithInstall = tags.includes(tag) ? tags : [...tags, tag];
 
-        const dedupeKey = `${title}::${section}::${category}`;
-        if (existingKeys.has(dedupeKey)) {
-          skipped++;
-          continue;
+          const dedupeKey = `${title}::${section}::${category}`;
+          if (existingKeys.has(dedupeKey)) {
+            skipped++;
+            continue;
+          }
+
+          created.push(myLibrary.create({ title, section, category, subcategory, tags: tagsWithInstall, content, extra: carriedFrontmatter(data) }).id);
+          existingKeys.add(dedupeKey);
         }
-
-        myLibrary.create({ title, section, category, subcategory, tags: tagsWithInstall, content, extra: carriedFrontmatter(data) });
-        existingKeys.add(dedupeKey);
-        added++;
+      } catch (err) {
+        for (const id of created) myLibrary.delete(id);
+        throw err;
       }
+      const added = created.length;
 
       return res.status(200).json({
         message: `Added ${added} skill${added === 1 ? '' : 's'} from ${pack.name}${skipped > 0 ? ` (${skipped} skipped)` : ''}`,

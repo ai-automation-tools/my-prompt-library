@@ -365,6 +365,10 @@ forget to set a flag and end up writable.
   (DNS rebinding), and a cross-site `Origin` on any write. Vercel skips the Host check: its
   edge routes by domain and the demo is read-only.
 - **Read-only enforcement:** on the server, for every write route, not only in the UI.
+- **My Library writes:** one field check in the store (`checkFields`); replacements go to a
+  temp file and are renamed over the original, so a crash never leaves half a prompt; an
+  update that names a stale `version` (a hash of the file) is refused with `409`; a pack
+  install deletes what it wrote if any skill fails.
 - **Path containment:** public-library reads go through `resolveInside()`
   (`lib/safe-path.ts`), which resolves first and compares after, so `a/../../b` is refused.
   Skill downloads must also land under `3_Skills/`. My Library ids are restricted to
