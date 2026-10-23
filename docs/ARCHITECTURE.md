@@ -253,6 +253,7 @@ promptbook/
 │   ├── scripts/prompt-content.test.mjs # Full prompt loads fail closed (npm run test:prompt-content)
 │   ├── scripts/markdown-file.test.mjs  # Download .md round trip (npm run test:markdown-file)
 │   ├── scripts/browser-smoke.test.mjs  # Built app in Chrome (npm run test:browser)
+│   ├── scripts/bench-endpoints.mjs     # Heavy-endpoint benchmark (npm run bench)
 │   ├── scripts/mcp-server.test.mjs     # MCP server end to end over stdio (npm run test:mcp)
 │   ├── server.ts                 # Local server: imports api/index.ts's app, mounts
 │   │                             #   api/skill-packs.ts, adds Vite HMR or serves dist/ (:3010)

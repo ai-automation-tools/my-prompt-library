@@ -4,6 +4,17 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — Docs caught up with the day's fixes
+
+**Docs**
+- The root `README.md`, `docs/README.md`, `docs/setup/SETUP.md` and `docs/features/API.md` list every check: `test:mcp`, `test:safe-path` and `test:browser` (after a build, needs Chrome). The root README and `docs/README.md` also list `npm run bench`.
+- `CONTRIBUTING.md` and the PR template name the new checks, and ask for `npm run bench` against [PERFORMANCE.md](development/PERFORMANCE.md) when a change touches the listing, the detail read or the ZIPs.
+- `SECURITY.md`'s CI line covers path and link escapes and the page CSP.
+- `AGENTS.md` and `docs/ARCHITECTURE.md` list the browser smoke test, the benchmark and the containment test in their layout trees.
+- `docs/ROADMAP.md`'s status note says what's done (F01–F03, F05–F09, F11–F16, F18–F20), what waits on Mike (F04, F10, Node 24), and that roadmap work is paused.
+
+_Touched: `README.md`, `CONTRIBUTING.md`, `.github/PULL_REQUEST_TEMPLATE.md`, `SECURITY.md`, `AGENTS.md`, `docs/README.md`, `docs/setup/SETUP.md`, `docs/features/API.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — The full listing no longer blocks the server
 
 **Measured first** (`npm run bench`, new). Before the change, a full listing (every body, 10.6 MB) walked the library with synchronous reads. It held the event loop for about a second, so a detail read that arrived meanwhile waited up to 927 ms. Five concurrent exports took 3.6 s each. The baseline, the results and the budgets are in [`docs/development/PERFORMANCE.md`](development/PERFORMANCE.md). Roadmap item F12.

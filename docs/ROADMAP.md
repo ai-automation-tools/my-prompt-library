@@ -38,10 +38,12 @@ marks one only Mike can do.
 > into it, tagged with the audit's id (F01–F20, O01–O04). The reports are kept outside the repo
 > in `.claude/temp/audits/2026-10-23/` because the secret-scan appendix must stay private.
 >
-> **End of 2026-10-23:** all three High findings are fixed (F01–F03), and so are F05, F06, F07
-> and F13, each with a test that fails when the fix is reverted (PRs #415–#420). F09 got most of
-> its contract tests along the way. Later the same day F08, F11, F15, F19 and the resync newline
-> bug were done too (PRs #422–#423). F09, F14 and F20 are done too (PRs #424–#425). F18 and F16 followed (PRs #426–#427). F12 followed (PR #428). Next up is the semantic-duplicates item, then the provenance items.
+> **End of 2026-10-23:** Phase 2's code work is done. All three High findings (F01–F03) are
+> fixed, and so are F05–F09, F11–F16 and F18–F20, each with a check that fails when its fix is
+> reverted (PRs #415–#428). What's left in Phase 2 waits on Mike: F04 (branch protection), F10
+> (the secret-scan triage) and the move to Node 24. The open work below it is content and
+> provenance (duplicates, attribution, F17), then the "after release" features (O01–O04).
+> Roadmap work is paused here by Mike's call; the docs were brought up to date the same day.
 
 ## 🔌 Phase 1: MCP server for the library
 

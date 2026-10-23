@@ -110,7 +110,10 @@ npm run test:read-only   # read-only mode hides My Library
 npm run test:prompt-content  # a failed prompt load never falls back to the preview
 npm run test:markdown-file   # a downloaded .md reads back unchanged
 npm run test:mcp         # the MCP server, end to end over stdio
+npm run test:safe-path   # ../ escapes and links out of library/ are refused
+npm run test:browser     # after npm run build: the built app in Chrome (needs Chrome installed)
 npm run build:index      # rebuild api/prompt-index.json after editing library/
+npm run bench            # latency and event-loop stall of the heavy endpoints (not a test)
 
 node scripts/upstream.test.mjs           # provenance frontmatter (run from the repo root)
 node scripts/skill-frontmatter.test.mjs  # Agent Skills spec compliance
@@ -231,7 +234,7 @@ promptbook/
 │   │   ├── 5_System_Prompts/
 │   │   └── 6_MCP_Servers/
 │   ├── my-library/           # Your prompts (gitignored, created on first save)
-│   ├── scripts/              # build-prompt-index.js, the route, My Library and MCP tests
+│   ├── scripts/              # build-prompt-index.js, the API, MCP and browser tests, the benchmark
 │   └── server.ts             # Local server around the same app api/ exports (port 3010)
 ├── homepage/                 # Static project homepage (GitHub Pages)
 ├── .github/workflows/ci.yml  # lint + route, store and MCP tests + provenance checks + index freshness
