@@ -18,6 +18,15 @@ other `/api/*` path to the first.
 There are no accounts, sessions or API keys. Every endpoint is open to whoever can reach the
 server, which by default is only this machine (the server binds to `127.0.0.1`).
 
+Two checks run before every route, locally:
+
+- **Host:** a request whose `Host` is not `localhost`, `*.localhost`, an IP address or a name
+  in `ALLOWED_HOSTS` gets `403 { "error": "Unknown Host refused. Add it to ALLOWED_HOSTS if it is yours." }`.
+  This is what stops DNS rebinding. Skipped on Vercel.
+- **Origin:** a write (`POST`, `PUT`, `DELETE`, `PATCH`) whose `Origin` is another site, or
+  `null`, gets `403 { "error": "Cross-site request refused" }`. Requests with no `Origin`
+  (curl, scripts) pass.
+
 **Read-only mode** is on when `READ_ONLY=true`, and always on Vercel (which sets `VERCEL`).
 It serves the Public Library only: the My Library list and `?library=my` packs are empty, and
 a My Library id on `GET /api/prompts/:id` is refused like any other non-library path. Every

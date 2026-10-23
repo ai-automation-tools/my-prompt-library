@@ -3,6 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import fs from "fs";
 import path from "path";
+import net from "net";
 import matter from "gray-matter";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -31,13 +32,24 @@ app.use(helmet({ contentSecurityPolicy: false, strictTransportSecurity: false })
 // legitimate approaches a megabyte.
 app.use(express.json({ limit: '1mb' }));
 
-// Debug middleware
-app.use((req, res, next) => {
-  if (req.path.startsWith('/api')) {
-    console.log(`[API] ${req.method} ${req.path}`);
+/**
+ * Hostnames this server answers to. Same rule as Vite's `allowedHosts`, so dev
+ * and `npm start` agree: localhost, *.localhost, any IP literal, and the
+ * ALLOWED_HOSTS names (a leading dot allows subdomains too). A DNS-rebinding
+ * page reaches the server under its own domain name, which none of these match.
+ */
+const ALLOWED_HOSTS = (process.env.ALLOWED_HOSTS ?? '').split(',').map(h => h.trim().toLowerCase()).filter(Boolean);
+const isTrustedHost = (host: string | undefined) => {
+  if (!host) return true; // HTTP/1.0 clients; a browser always sends Host
+  let name: string;
+  try {
+    name = new URL(`http://${host}`).hostname.toLowerCase().replace(/^\[|\]$/g, '');
+  } catch {
+    return false;
   }
-  next();
-});
+  if (name === 'localhost' || name.endsWith('.localhost') || net.isIP(name)) return true;
+  return ALLOWED_HOSTS.some(h => h.startsWith('.') ? name === h.slice(1) || name.endsWith(h) : name === h);
+};
 
 /** Browsers send Origin on cross-site writes; ours always matches the Host it was served from. */
 const isCrossSite = (req: express.Request) => {
@@ -51,20 +63,38 @@ const isCrossSite = (req: express.Request) => {
 };
 
 /**
- * Every route that writes to My Library. The hosted demo is read-only, and with
- * no accounts the Origin check is what stops any page you visit from posting a
- * form at localhost:3010 (copy-to-my-prompts needs no body, so it is a simple
- * request the browser sends without asking).
- * ponytail: no Host allowlist, so DNS rebinding is not covered; add one if the
- * local server ever holds anything more sensitive than prompts.
+ * The one trust boundary, in front of every route on this app: the prompt API,
+ * the skill-packs handler server.ts mounts, Vite and the built `dist/`.
+ * - An unknown Host is refused on every method (DNS rebinding). Vercel is
+ *   skipped: its edge routes by domain and the demo is read-only.
+ * - A cross-site Origin is refused on every write, so no page you visit can
+ *   post at localhost:3010 (copy-to-my-prompts needs no body, so it is a
+ *   simple request the browser sends without asking).
  */
+app.use((req, res, next) => {
+  if (!process.env.VERCEL && !isTrustedHost(req.headers.host)) {
+    res.status(403).json({ error: 'Unknown Host refused. Add it to ALLOWED_HOSTS if it is yours.' });
+    return;
+  }
+  if (!['GET', 'HEAD', 'OPTIONS'].includes(req.method) && isCrossSite(req)) {
+    res.status(403).json({ error: 'Cross-site request refused' });
+    return;
+  }
+  next();
+});
+
+// Debug middleware
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    console.log(`[API] ${req.method} ${req.path}`);
+  }
+  next();
+});
+
+/** Every route that writes to My Library. Host and Origin are checked above, for every route. */
 const requireWritable: express.RequestHandler = (req, res, next) => {
   if (READ_ONLY) {
     res.status(403).json({ error: 'This copy of the library is read-only. Clone the repo to keep your own prompts.' });
-    return;
-  }
-  if (isCrossSite(req)) {
-    res.status(403).json({ error: 'Cross-site request refused' });
     return;
   }
   next();

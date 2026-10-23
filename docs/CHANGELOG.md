@@ -4,6 +4,23 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — One Host and Origin check in front of every route
+
+**Security**
+- The local server refuses a request whose `Host` is not `localhost`, `*.localhost`, an IP address or a name in `ALLOWED_HOSTS`, on every route: the API, skill packs, and the pages in both `npm run dev` and `npm start`. A page that rebinds its own domain to `127.0.0.1` (DNS rebinding) can no longer read My Library. Until now only Vite checked Host, and only for pages in dev. Vercel skips the check. Roadmap item F02.
+- The cross-site `Origin` check moved out of `requireWritable` into the same middleware and now covers every write, so skill-pack add and remove refuse other sites too instead of relying on `READ_ONLY` and `confirm`. Roadmap item F13.
+
+**Changed**
+- `ALLOWED_HOSTS` now applies to the API and `npm start` as well as the dev server, and takes `.suffix` entries for subdomains, like Vite.
+
+**Added**
+- `scripts/my-library.test.mjs` covers foreign Hosts on reads, writes and packs, the trusted names, and cross-site versus same-origin pack add and remove. It fails with the middleware removed.
+
+**Docs**
+- `README.md`, `AGENTS.md`, `site/.env.example`, `docs/setup/SETUP.md`, `docs/ARCHITECTURE.md` and `docs/features/API.md` describe the Host and Origin checks and the wider reach of `ALLOWED_HOSTS`. `AGENTS.md` lists all five optional settings.
+
+_Touched: `site/api/index.ts`, `site/scripts/my-library.test.mjs`, `site/.env.example`, `README.md`, `AGENTS.md`, `docs/setup/SETUP.md`, `docs/ARCHITECTURE.md`, `docs/features/API.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — Read-only mode keeps My Library private
 
 **Fixed**
