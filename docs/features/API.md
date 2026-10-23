@@ -606,7 +606,9 @@ committed file byte for byte. CI relies on that.
 
 ### Caching
 
-- 5-minute in-memory cache for public library lightweight listings
+- 5-minute in-memory cache for public listings, lightweight and full, kept as the bytes sent with
+  their ETag, so a repeat request costs no parsing, stringifying or hashing; `If-None-Match` gets a `304`
+- A library edit can take up to five minutes to show in a listing
 - Resets on server restart (or a new Vercel instance)
 - The My Library listing is never cached; it reads the folder on every request, so
   hand-edits show up on the next load

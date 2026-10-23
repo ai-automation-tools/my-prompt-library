@@ -54,7 +54,9 @@ Other scripts: `npm run build` (build:index → tsc → vite build), `npm run bu
 `npm run test:prompt-content` (a failed full-prompt load throws instead of returning the preview),
 `npm run test:markdown-file` (a downloaded `.md` reads back through the store unchanged),
 `npm run test:browser` (after a build: the built app in Chrome, including the dialog focus trap),
-`npm run test:safe-path` (`../` escapes and links out of `library/` are refused, for detail and ZIPs).
+`npm run test:safe-path` (`../` escapes and links out of `library/` are refused, for detail and ZIPs),
+`npm run bench` (latency, size and event-loop stall of the heavy endpoints; compare with
+`docs/development/PERFORMANCE.md`, not run in CI).
 
 CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `build` → `test:routes` → `test:my-library` → `test:read-only` → `test:prompt-content` → `test:markdown-file` → `test:safe-path` → `test:mcp` → `test:browser` → the two repo-root
 provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →

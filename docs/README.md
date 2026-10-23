@@ -28,6 +28,7 @@ Public Library is also browsable read-only at
 
 ### Development
 - **[Debug Guide](development/DEBUG_UI.md)** — troubleshooting
+- **[Performance](development/PERFORMANCE.md)** — `npm run bench`, the baseline and the budgets
 
 ### Project policies (repo root)
 - **[LICENSE](../LICENSE)** — Apache 2.0 for the application code
@@ -95,7 +96,8 @@ docs/
 │   └── MCP-SERVER.md             # The library as an MCP server
 │
 └── development/
-    └── DEBUG_UI.md
+    ├── DEBUG_UI.md
+    └── PERFORMANCE.md
 ```
 
 > Superseded planning docs (`archive/`, `QUICK_REFERENCE.md`, `library-update-logs/`) were
