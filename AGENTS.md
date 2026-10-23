@@ -44,7 +44,7 @@ npm run dev               # tsx server.ts → http://localhost:3010 (Vite HMR)
 npm start                 # build, then serve dist/ the same way
 ```
 
-No `.env` is needed; `.env.example` lists the three optional settings (`MY_LIBRARY_DIR`, `HOST`, `READ_ONLY`).
+No `.env` is needed; `.env.example` lists the optional settings (`MY_LIBRARY_DIR`, `HOST`, `READ_ONLY`, `IMPORT_ROOTS`, `ALLOWED_HOSTS`).
 
 Other scripts: `npm run build` (build:index → tsc → vite build), `npm run build:index`
 (regenerates `api/prompt-index.json` from `library/`), `npm run lint` (`tsc --noEmit`),
@@ -182,6 +182,8 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
   as data at runtime.
 - No auth. Every write route goes through `requireWritable` (api/index.ts) or the `READ_ONLY`
   check (api/skill-packs.ts); a new write route must too, or the demo becomes writable.
+  Host and Origin are checked once, by the first middleware in `api/index.ts`, for every
+  route on the app; don't add per-route copies.
 - `helmet` runs with CSP off.
 - Never commit `.env*` (gitignored) or anything under `site/my-library/`.
 - **LF only.** `.gitattributes` sets `eol=lf` repo-wide. `contentPreview` is embedded in
@@ -203,4 +205,5 @@ All optional; the app runs with none set.
 | `MY_LIBRARY_DIR` | Where My Library lives. Relative paths resolve against `site/`. Default `site/my-library`. |
 | `HOST` | Listen address. Default `127.0.0.1`; `0.0.0.0` opens it to the network (there are no accounts). |
 | `READ_ONLY` | `true` = Public Library only, writes 403. Implied on Vercel by `VERCEL`. |
+| `ALLOWED_HOSTS` | Extra Host names the server answers to (comma-separated, `.suffix` for subdomains). Others get 403. |
 | `NODE_ENV` | `production` serves `dist/` instead of Vite, same as `--production`. |

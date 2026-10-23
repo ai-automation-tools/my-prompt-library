@@ -55,7 +55,7 @@ uncomment what you want:
 | `MY_LIBRARY_DIR` | `my-library` | Folder that holds My Library. Relative paths resolve against `site/`; absolute paths are used as-is. |
 | `HOST` | `127.0.0.1` | Address the server listens on. See [Exposing it beyond localhost](#exposing-it-beyond-localhost). |
 | `READ_ONLY` | `false` | `true` serves the Public Library only and refuses every write with `403`. Vercel turns this on automatically. |
-| `ALLOWED_HOSTS` | (none) | Extra hostnames the dev server answers to, comma-separated. Needed behind a proxy that forwards its own Host header, such as `tailscale serve`; see [Over Tailscale](#over-tailscale). |
+| `ALLOWED_HOSTS` | (none) | Extra hostnames the server answers to (pages and API, in `npm run dev` and `npm start`), comma-separated; a leading dot (`.ts.net`) allows subdomains. `localhost`, `*.localhost` and IP addresses always work. Needed behind a proxy that forwards its own Host header, such as `tailscale serve`; see [Over Tailscale](#over-tailscale). |
 
 ---
 
@@ -114,8 +114,9 @@ tailscale serve --bg --http=3010 http://127.0.0.1:3010
 ```
 
 Then set `ALLOWED_HOSTS` in `site/.env` to the names Tailscale forwards, for example
-`ALLOWED_HOSTS=my-pc,my-pc.tailnet-name.ts.net`. Vite answers `403` to any other Host,
-middleware mode included. The tailnet is the authentication here: every device on it can
+`ALLOWED_HOSTS=my-pc,my-pc.tailnet-name.ts.net`. The server answers `403` to any other
+Host name, on pages and API alike, so a site that rebinds its own domain to your PC cannot
+read My Library through it. The tailnet is the authentication here: every device on it can
 read **and edit** My Library, exactly as this PC can, while pages on other sites still cannot
 post to it (the Origin check). `READ_ONLY=true` turns the server into a Public Library
 browser for everyone, this PC included: My Library is neither shown nor served, not just

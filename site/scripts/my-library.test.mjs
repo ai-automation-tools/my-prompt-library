@@ -8,6 +8,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import http from "node:http";
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), "my-library-test-"));
 process.env.MY_LIBRARY_DIR = dir;
@@ -86,8 +87,12 @@ try {
   fs.rmSync(dir, { recursive: true, force: true });
 }
 
-// The write guard: a page on another site can't post into My Library
+// The trust boundary: a page on another site can't post into My Library, and a
+// DNS-rebinding page (a foreign Host) can't reach the server at all.
+process.env.ALLOWED_HOSTS = "my-pc, .tailnet.ts.net";
 const { app } = await import("../api/index.ts");
+const { default: skillPacksHandler, getAllPacks } = await import("../api/skill-packs.ts");
+app.all(/^\/api\/skill-packs(\/|$)/, (req, res) => skillPacksHandler(req, res)); // as server.ts mounts it
 const server = app.listen(0, "127.0.0.1");
 await new Promise((r) => server.once("listening", r));
 const base = `http://127.0.0.1:${server.address().port}`;
@@ -99,9 +104,39 @@ try {
   assert.equal(nullOrigin.status, 403, "null-origin write refused");
   const sameSite = await fetch(copy, { method: "POST", headers: { Origin: base } });
   assert.notEqual(sameSite.status, 403, "same-origin write allowed");
+
+  // fetch() won't send a custom Host header, so these go through node:http
+  const port = server.address().port;
+  const raw = (method, urlPath, headers = {}, body) => new Promise((resolve, reject) => {
+    const req = http.request({ host: "127.0.0.1", port, method, path: urlPath, agent: false,
+      headers: body ? { ...headers, "Content-Length": Buffer.byteLength(body) } : headers }, (res) => {
+      res.resume();
+      res.on("end", () => resolve(res.statusCode));
+    });
+    req.on("error", reject);
+    req.end(body);
+  });
+  const json = { "Content-Type": "application/json" };
+  assert.equal(await raw("GET", "/api/prompts?library=my", { Host: "evil.example" }), 403, "foreign Host refused on reads");
+  assert.equal(await raw("POST", "/api/prompts", { Host: "evil.example:3010", ...json }, "{}"), 403, "foreign Host refused on writes");
+  assert.equal(await raw("GET", "/api/skill-packs", { Host: "rebind.attacker.test" }), 403, "foreign Host refused on packs");
+  for (const host of [`localhost:${port}`, `127.0.0.1:${port}`, `[::1]:${port}`, "192.168.1.20:3010", "app.localhost", "my-pc", "box.tailnet.ts.net"]) {
+    assert.equal(await raw("GET", "/api/prompts?library=my", { Host: host }), 200, `trusted Host ${host}`);
+  }
+
+  // Pack writes go through the same Origin check as prompt writes
+  const [pack] = await getAllPacks();
+  const confirm = JSON.stringify({ confirm: true });
+  const addPath = `/api/skill-packs/${encodeURIComponent(pack.id)}/add-to-library`;
+  const removePath = `/api/skill-packs/${encodeURIComponent(pack.id)}/remove-from-library`;
+  assert.equal(await raw("POST", addPath, { Origin: "https://evil.example", ...json }, confirm), 403, "cross-site pack add refused");
+  assert.equal(await raw("DELETE", removePath, { Origin: "https://evil.example", ...json }, confirm), 403, "cross-site pack remove refused");
+  assert.equal(await raw("POST", addPath, { Origin: base, ...json }, confirm), 200, "same-origin pack add allowed");
+  assert.ok(myLibrary.list().some(p => p.tags.includes(`skill-pack:${pack.id}`)), "pack installed");
+  assert.equal(await raw("DELETE", removePath, { Origin: base, ...json }, confirm), 200, "same-origin pack remove allowed");
 } finally {
   server.close();
   fs.rmSync(dir, { recursive: true, force: true });
 }
 
-console.log("my-library: file store round-trips, updates in place, rejects path ids and cross-site writes");
+console.log("my-library: file store round-trips, updates in place, rejects path ids, cross-site writes (packs too) and foreign Hosts");

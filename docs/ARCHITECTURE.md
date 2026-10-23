@@ -356,6 +356,11 @@ forget to set a flag and end up writable.
 - **Binding:** the server listens on `127.0.0.1` unless `HOST` is set. With no accounts,
   loopback is the access control. Exposing it needs `READ_ONLY=true` or an auth layer in
   front.
+- **Host and Origin:** one middleware at the top of `api/index.ts` runs before every route
+  on the shared app (prompt API, the dev-mounted skill-packs handler, Vite, `dist/`). It
+  refuses a Host that is not `localhost`, `*.localhost`, an IP address or in `ALLOWED_HOSTS`
+  (DNS rebinding), and a cross-site `Origin` on any write. Vercel skips the Host check: its
+  edge routes by domain and the demo is read-only.
 - **Read-only enforcement:** on the server, for every write route, not only in the UI.
 - **Path containment:** public-library reads go through `resolveInside()`
   (`lib/safe-path.ts`), which resolves first and compares after, so `a/../../b` is refused.
