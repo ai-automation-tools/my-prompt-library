@@ -32,6 +32,11 @@ marks one only Mike can do.
 > same day, so an agent can search the library and pull a prompt, skill or agent straight into
 > its work. Phase 1's three remaining items each make something public and wait on Mike; the
 > roadmap routine moves on to Phase 2 meanwhile.
+>
+> **2026-10-23:** a full audit (health 6.4/10, no P0) found three High issues and seventeen
+> smaller ones. Its fixes are Phase 2 below; findings that matched an existing item were folded
+> into it, tagged with the audit's id (F01–F20, O01–O04). The reports are kept outside the repo
+> in `.claude/temp/audits/2026-10-23/` because the secret-scan appendix must stay private.
 
 ## 🔌 Phase 1: MCP server for the library
 
@@ -50,10 +55,32 @@ read-only remote endpoint on the demo comes after it.
 - [ ] Publish the stdio server as an npm package so `npx promptbook-mcp` works without a clone, with the library bundled or fetched from the demo 🔒 Needs Mike (npm account and package name)
 - [ ] List the server in the official MCP registry (`modelcontextprotocol/registry`) once it is on npm 🔒 Needs Mike
 
-## 🧹 Phase 2: Loose ends
+## 🛡️ Phase 2: Audit fixes (2026-10-23)
+
+The three High findings first, then the rest by priority. Each fix lands with a regression test
+that fails when the fix is reverted, run against a temporary `MY_LIBRARY_DIR`, never a real one.
+
+- [ ] **F01** `READ_ONLY` hides My Library, not only its writes: `GET /api/prompts?library=my`, a bare-id `GET /api/prompts/:id` and pack membership return nothing private when `READ_ONLY` or `VERCEL` is set, so following `docs/setup/SETUP.md`'s advice to expose a read-only server cannot leak a personal library. Done when a test seeds a private prompt and proves list, detail and membership hide it in read-only mode, public list/detail/download still work, and writable local mode is unchanged. The MCP server's read-only stdio mode keeps reading My Library
+- [ ] **F02** + **F13** One Host/Origin check in front of every API route: an unknown `Host` is refused before any handler (DNS rebinding), a mismatched `Origin` is refused on writes, and `api/skill-packs.ts` add/remove go through the same check instead of only `READ_ONLY` + `confirm`. Trusted names come from `127.0.0.1`, `localhost` and `ALLOWED_HOSTS`. Done when HTTP tests cover a foreign Host on GET and writes, a cross-origin pack add/remove (403), a same-origin confirmed pack write, local non-browser clients, and both dev (Vite) and `--production` mounting
+- [ ] **F03** Fail closed when a prompt's full body cannot load: `fetchFullContent` stops falling back to `prompt.content` (a 200-character preview, or nothing for public items). On a 503, a rejected fetch or invalid JSON the editor does not open, copy and download show an error, and the file on disk is unchanged. A body over 200 characters survives a successful edit intact
+- [ ] **F05** Field schemas on the HTTP write routes, shared with the MCP tools so the two cannot disagree: objects, numbers, unknown sections, malformed tags and oversized fields are refused with no file change; Unicode round-trips. Decide and test the empty-content contract (today the store's `||` reports success and keeps the old body)
+- [ ] **F06** Markdown export through a real YAML serializer: titles with `: `, quotes and newlines stay valid, `tags` stays a list, and extra frontmatter (a personal skill's `name` and `description`) survives. Done when exported files re-import with identical body and tags. Depends on F01 and F05
+- [ ] **F07** Atomic, conflict-aware My Library writes: write to a temp file and rename (checked on Windows), and refuse a stale update (the caller's `updated` or hash no longer matches the file) instead of silently overwriting an edit from the other process or an external editor. Pack install either completes or leaves nothing behind, and a retry after a failure makes no duplicates. Depends on F05
+- [ ] **F08** The shared modal manages focus: it moves focus inside on open, traps Tab and Shift+Tab, makes the page behind it inert, closes on Escape and returns focus to the trigger. The palette radios in Settings answer the arrow keys. Checked keyboard-only on the editor and Settings
+- [ ] `small` **F15** `update_my_prompt` declares `destructiveHint: true` (it overwrites a body, including from `file`); `tools/list` in `scripts/mcp-server.test.mjs` asserts the hint on every write tool
+- [ ] `small` **F19** The detail page's copy awaits `navigator.clipboard.writeText`: the success toast fires only when it resolves, and a rejection or a missing clipboard shows an error with no unhandled rejection
+- [ ] **F09** CI catches what it misses today: a `npm run build` step first (the cheap slice), then HTTP contract tests for read-only reads, Host checks, the content fallback and export, plus a browser smoke test on the built assets. Done when deliberately reverting F01, F02, F03 or F06 turns CI red
+- [ ] **F04** `main` requires a pull request and the CI `check` job before merge. Done when a throwaway PR with a failing check cannot merge and the PR sweep still merges a passing one without bypassing it 🔒 Needs Mike (repository ruleset)
+- [ ] **F14** Library paths resolve symlinks and junctions: `resolveInside()` compares real paths, and pack manifest paths go through it instead of a bare `path.join`. A temporary link pointing outside `library/` fails for detail, previews, MCP support-file reads and ZIP assembly; plain `../` traversal still fails
+- [ ] **F18** The demo's HTML and assets get the headers Express gives the API (CSP, frame policy, `nosniff`) from `vercel.json`. The CSP must allow the inline theme script, `consent.js` and Google Fonts. Checked on a Vercel preview: theme without a flash, fonts, consent, navigation and downloads all still work
+- [ ] `small` **F20** Stale setup and agent claims: `docs/setup/SETUP.md` drops "20 works" (Node 20 is past end of life); `AGENTS.md`'s env table and "three optional settings" match `site/.env.example` (`ALLOWED_HOSTS`, `IMPORT_ROOTS`); the read-only and containment wording matches what F01 and F14 enforce; `server.ts` comments stop mentioning the removed `cookieParser`. Depends on F01, F02, F14
+
+## 🧹 Phase 3: Loose ends
 
 - [ ] Move off Node 22 before its end of life on 2027-04-30: CI and `upstream-drift.yml` on `node-version: "24"`, `@types/node` `^24`, `engines` pinned in `site/package.json`, CI green. The Vercel project's Node setting is part of done 🔒 Needs Mike (dashboard)
-- [ ] `small` The Resources menu is reachable below 1536px: its groups appear in the section sheet the menu button opens, so phones and narrow windows get the links too. Checked at 390, 1280 and 1600px
+- [ ] `small` **F16** The Resources menu is reachable below 1536px: its groups appear in the section sheet the menu button opens, so phones and narrow windows get the links too. Checked at 390, 1280 and 1600px, by touch and keyboard, with no horizontal overflow or lost focus
+- [ ] `small` **F11** Turn on `strict` in `site/tsconfig.json` and fix what it reports (the audit counted three diagnostics, plus explicit `any` at the API and UI boundaries), with no blanket `@ts-ignore`. `npm run lint` and `npm run build` both pass
+- [ ] **F12** Measure, then bound, the expensive endpoints: record p50/p95 and bytes for the metadata list, a detail read and representative skill ZIPs under a small concurrency test, then stop the full public list from parsing every body synchronously and stop ZIPs recompressing at level 9 on every request (cache or lower the level). A full export must not block ordinary reads. Budgets come from the measured baseline
 - [ ] `small` The hero counters name what a section holds ("servers", "skills", "agents") instead of "prompts" everywhere, from a field in `sections.ts`
 - [ ] Resolve the semantic duplicates the byte-level dedupe cannot see: the two skill groups that share an upstream file (`skill-creator`, `brand-guidelines`), and any near-duplicates among the 49 backend specialists in `2_Agents/Development/Backend/`. Each merge or removal gets a changelog reason
 - [ ] Delete the stale `roadmap/auto-2026-08-31` branch (its PR #332 was closed unmerged) or recover its one commit 🔒 Needs Mike
@@ -66,7 +93,7 @@ read-only remote endpoint on the demo comes after it.
 - [x] CI green on push and PR: lint, the route table, the My Library store and safe-path tests, the homepage test, provenance self-checks and prompt-index freshness — done 2026-08-27, extended since: `.github/workflows/ci.yml`
 - [x] `LICENSE` (Apache 2.0), `NOTICE` for vendored content, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` — done 2026-10-05: see the changelog
 - [x] Live: homepage at `promptbook.ai-automation-tools.dev` — done 2026-10-12; the app at `promptbook-demo.ai-automation-tools.dev` since 2026-10-19, read-only since 2026-10-21: see the changelog
-- [ ] A full-history secret scan (`gitleaks detect` over all of history) run and its findings written to `docs/audits/`; the one known hit, the old Neon credential, is closed because that database was deleted on 2026-10-21
+- [ ] **F10** A full-history secret scan with every finding dispositioned. The scan ran on 2026-10-23 (Gitleaks 8.30.1, 1,103 commits): 138 redacted candidates over 40 file/rule pairs, mostly prompt examples and vendored docs, none confirmed live. Left: classify each pair privately, revoke any real credential at its issuer before closing, add narrow per-fingerprint allowlists for reviewed examples, and scan new commits in CI (proved with a seeded fake secret that the job catches without printing). The disposition record stays out of this public repo. The old Neon credential is already closed: that database was deleted on 2026-10-21 🔒 Needs Mike (private triage and any revocation)
 
 ## After public release
 
@@ -77,14 +104,16 @@ Nothing below blocks go-live.
 - [ ] Decide whether a skill's `description:` is our curation or upstream content. Resync keeps the whole local frontmatter, so bodies match upstream while some descriptions are a year old, and the drift check strips frontmatter so it cannot see the gap. Done when resync and the drift report both handle `description` per the decision 🔒 Needs Mike
 - [ ] Stamp `upstream:` provenance on `4_Prompts` and `5_System_Prompts` files that came from a public repo, with `attribute-upstream.mjs` learning single-file prompts. Done when the Monday health table's "no provenance" column drops for both sections
 - [ ] Raise skill attribution above its current share: 60 skills are `ambiguous` and 163 `unknown`. Matching support files as well as `SKILL.md` against the mirror is the likely lever
-- [ ] Show freshness in the UI: the index carries `upstream.checked` (and `server.checked` for MCP cards), the card shows a stale badge past 90 days, and the CI freshness gate knows the new field. Sourcing `lastModified` from `git log` instead of file mtime needs a Vercel preview to prove the shallow clone works 🔒 Needs Mike for that half
+- [ ] **F17** The provenance self-check tells original, attributed and unresolved records apart and checks each has the metadata its kind needs, and a sampled Skill Pack ZIP is verified to carry its `LICENSE`/`NOTICE` files. Today the frontmatter tests prove syntax and vocabulary, not that content may be redistributed
+- [ ] **O02** Show source and freshness in the UI: the index carries `upstream.checked` (and `server.checked` for MCP cards), cards and the detail page say whether an item is original, attributed or unresolved and show a stale badge past 90 days, with no "verified" claim the data cannot back. The index stays reproducible, no private path reaches a public payload, and the CI freshness gate knows the new field. Depends on F17. Sourcing `lastModified` from `git log` instead of file mtime needs a Vercel preview to prove the shallow clone works 🔒 Needs Mike for that half
 
 ### ✨ Features
 
 - [ ] Role-based starter collections for prompts and agents (a "frontend engineer" or "founder" set), served like Skill Packs and installable into My Library in one step
 - [ ] Skill Packs show whether a pack is generated from a folder or hand-picked, and the generated ones say which folder
-- [ ] Export My Library as a zip, and import one, from Settings
-- [ ] Library prompts with `[placeholder]` fields expose them as MCP prompt arguments, so a client asks for each value instead of one free-text `input`
+- [ ] **O01** Export My Library as a zip, and import one, from Settings. Done when a mixed library (Unicode names, tags, extra frontmatter, long bodies) round-trips identically, an import never overwrites without showing the conflicts first, archive traversal and oversized entries are refused, and a cancelled import changes nothing. Depends on F05, F06 and F07
+- [ ] **O03** Library prompts with `[placeholder]` fields expose them as MCP prompt arguments, so a client asks for each value instead of one free-text `input`. Driven by an explicit, optional `inputs:` list in frontmatter, not by guessing at every bracketed phrase: declared inputs are required, unknown placeholders and literals are left alone, no template code runs, and the free-text `input` keeps working for existing clients
+- [ ] **O04** Export selected prompts as an evaluation project (versioned prompt files plus synthetic examples) that an evaluator the user configures can run. Paths are relative and safe, and the export makes no network call and needs no provider key. Depends on O01
 
 ### 📣 Publish and promote
 
