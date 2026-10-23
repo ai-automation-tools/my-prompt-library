@@ -4,6 +4,16 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — The demo's pages get a CSP
+
+**Added**
+- `site/vercel.json` sends a Content Security Policy, `X-Frame-Options: DENY`, `nosniff` and `Referrer-Policy` with the demo's HTML and assets (everything but `/api/`, which keeps helmet's). Scripts may come from the site itself, from `index.html`'s inline theme script (allowed by hash) and from `consent.js`; styles from the site, Google Fonts and inline; no framing. Roadmap item F18.
+- `npm run test:browser` serves the same headers and checks that the hash matches `index.html`, so editing the theme script without updating `vercel.json` fails CI with the new hash in the message.
+
+**Checked** on the PR's Vercel preview: headers present, fonts load, the saved theme applies before paint, `consent.js` loads, navigation and a skill ZIP download work. Vercel's preview-only feedback toolbar is blocked by the policy; production doesn't load it.
+
+_Touched: `site/vercel.json`, `site/scripts/browser-smoke.test.mjs`, `AGENTS.md`, `SECURITY.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — Links can't reach outside the library
 
 **Fixed**
