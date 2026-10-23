@@ -64,8 +64,10 @@ Out of scope:
 - Public Library, skill and skill-pack reads are confined to the library root, by real path,
   so a symlink or junction pointing outside it is refused; ZIPs leave links out
   (`site/lib/safe-path.ts`, checked by `npm run test:safe-path`).
-- `helmet` sets the standard response headers. CSP is intentionally off (see the comment
-  in `site/api/index.ts`). Request bodies are capped at 1 MB.
+- `helmet` sets the standard response headers on the API, with CSP off there (see the comment
+  in `site/api/index.ts`). The demo's pages get a CSP, a frame policy and `nosniff` from
+  `site/vercel.json`, checked in a real browser by `npm run test:browser`. Request bodies are
+  capped at 1 MB.
 - Dependabot watches `site/`, and CI fails on a type error, a changed route table, a broken
   My Library store or boundary check, read-only mode serving private files, a broken
   download or failed-load path, an MCP regression, or a stale prompt index.
