@@ -47,6 +47,18 @@ export default function SettingsModal({
 }: SettingsModalProps) {
   const localCount = favoriteCount + recentCount;
 
+  // Radio-group keys: the arrows move the choice (and focus) and wrap; Tab skips
+  // the group's other options, since only the checked one is in the tab order.
+  const onPaletteKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+    if (!step) return;
+    e.preventDefault();
+    const i = PALETTES.findIndex(p => p.id === palette);
+    const next = PALETTES[(i + step + PALETTES.length) % PALETTES.length];
+    setPalette(next.id);
+    e.currentTarget.querySelectorAll<HTMLElement>('[role="radio"]')[PALETTES.indexOf(next)]?.focus();
+  };
+
   return (
     <Modal onClose={onClose} labelledBy="settings-title">
       <ModalHeader id="settings-title" title="Settings" description="Remembered in this browser only." onClose={onClose} />
@@ -69,7 +81,7 @@ export default function SettingsModal({
               ))}
             </div>
 
-            <div role="radiogroup" aria-label="Colour" className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <div role="radiogroup" aria-label="Colour" onKeyDown={onPaletteKey} className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {PALETTES.map(p => {
                 const active = p.id === palette;
                 const swatch = theme === 'light' ? p.light : p.dark;
@@ -79,6 +91,7 @@ export default function SettingsModal({
                     type="button"
                     role="radio"
                     aria-checked={active}
+                    tabIndex={active ? 0 : -1}
                     onClick={() => setPalette(p.id)}
                     className={cn(
                       'flex items-center gap-2.5 rounded-[var(--r-md)] border p-2.5 text-left transition-colors',

@@ -137,7 +137,7 @@ export default function PromptEditorModal({ isOpen, onClose, onSave, editingProm
               <label htmlFor="prompt-title" className={LABEL}>
                 Title <span className="text-[var(--danger)]">*</span>
               </label>
-              <input id="prompt-title" type="text" value={title} onChange={e => setTitle(e.target.value)} className="input" placeholder="A short, specific name" required autoFocus />
+              <input id="prompt-title" type="text" value={title} onChange={e => setTitle(e.target.value)} className="input" placeholder="A short, specific name" required data-autofocus />
             </div>
             <div>
               <label htmlFor="prompt-section" className={LABEL}>
