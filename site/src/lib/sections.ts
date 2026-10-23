@@ -28,6 +28,8 @@ export interface SectionMeta {
   /** Value of `data-section` on <html>; drives `--section-c`. */
   slug: string;
   label: string;
+  /** What the hero's first counter counts ("Servers", "Skills"), capitalised. */
+  noun: string;
   /** Folder under `library/`; empty for Skill Packs, which are served separately. */
   folder: string;
   icon: LucideIcon;
@@ -40,6 +42,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     id: 'prompt-library',
     slug: 'prompts',
     label: 'Prompts',
+    noun: 'Prompts',
     folder: '4_Prompts',
     icon: Sparkles,
     accent: 'var(--sec-prompts)',
@@ -49,6 +52,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     id: 'agents',
     slug: 'agents',
     label: 'Agents',
+    noun: 'Agents',
     folder: '2_Agents',
     icon: Bot,
     accent: 'var(--sec-agents)',
@@ -58,6 +62,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     id: 'agent-guides',
     slug: 'guides',
     label: 'Guides',
+    noun: 'Guides',
     folder: '1_Guides',
     icon: BookOpen,
     accent: 'var(--sec-guides)',
@@ -67,6 +72,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     id: 'system-prompts',
     slug: 'system-prompts',
     label: 'System Prompts',
+    noun: 'System prompts',
     folder: '5_System_Prompts',
     icon: TerminalSquare,
     accent: 'var(--sec-system-prompts)',
@@ -76,6 +82,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     id: 'skills',
     slug: 'skills',
     label: 'Skills',
+    noun: 'Skills',
     folder: '3_Skills',
     icon: Wrench,
     accent: 'var(--sec-skills)',
@@ -85,6 +92,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     id: 'mcp-servers',
     slug: 'mcp',
     label: 'MCP Servers',
+    noun: 'Servers',
     folder: '6_MCP_Servers',
     icon: Plug,
     accent: 'var(--sec-mcp)',
@@ -94,6 +102,7 @@ export const SECTIONS: readonly SectionMeta[] = [
     id: 'skill-packs',
     slug: 'skill-packs',
     label: 'Skill Packs',
+    noun: 'Packs',
     folder: '',
     icon: Package,
     accent: 'var(--sec-skill-packs)',

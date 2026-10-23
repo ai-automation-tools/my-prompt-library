@@ -158,7 +158,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 
 ## 🔧 Development
 
-Prerequisites: Node.js 22 (20 works), Git. No database, no `.env` needed.
+Prerequisites: Node.js 22 or 24, Git. No database, no `.env` needed.
 
 ```bash
 cd site                     # the whole app lives here

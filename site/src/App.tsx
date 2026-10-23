@@ -9,6 +9,7 @@ import SourceBar from './components/SourceBar';
 import { LazyMotion, domAnimation, m, AnimatePresence } from 'motion/react';
 import { ToastContainer, type ToastProps } from './components/Toast';
 import { type Prompt } from './components/PromptCard';
+import type { PromptDraft } from './components/PromptEditorModal';
 import Sidebar, { type SkillPackSummary } from './components/Sidebar';
 import TopBar from './components/TopBar';
 import Breadcrumbs, { type Crumb } from './components/Breadcrumbs';
@@ -230,13 +231,13 @@ export default function App() {
   const heroStats = useMemo(() => {
     if (activeTab === 'skill-packs') {
       return [
-        { label: 'Packs', value: skillPacks.length },
+        { label: getSection(activeTab).noun, value: skillPacks.length },
         { label: 'Categories', value: new Set(skillPacks.map(p => p.category)).size },
         { label: 'Skills', value: skillPacks.reduce((n, p) => n + p.skillCount, 0) },
       ];
     }
     return [
-      { label: 'Prompts', value: sectionPrompts.length },
+      { label: getSection(activeTab).noun, value: sectionPrompts.length },
       { label: 'Categories', value: Object.keys(categories).length },
       { label: 'Tags', value: allTags.length },
     ];
@@ -395,7 +396,13 @@ export default function App() {
     if (prompt.subcategory) shareUrl.searchParams.set('subcategory', prompt.subcategory);
     else shareUrl.searchParams.delete('subcategory');
 
-    await navigator.clipboard.writeText(shareUrl.toString());
+    try {
+      await navigator.clipboard.writeText(shareUrl.toString());
+    } catch (err) {
+      console.error('Failed to copy link:', err);
+      showToast('error', 'Failed to copy link');
+      return;
+    }
     setCopiedShareLink(true);
     setTimeout(() => setCopiedShareLink(false), 2000);
     showToast('success', 'Direct link copied');
@@ -410,7 +417,13 @@ export default function App() {
     else shareUrl.searchParams.delete('subcategory');
     shareUrl.searchParams.delete('prompt');
 
-    await navigator.clipboard.writeText(shareUrl.toString());
+    try {
+      await navigator.clipboard.writeText(shareUrl.toString());
+    } catch (err) {
+      console.error('Failed to copy link:', err);
+      showToast('error', 'Failed to copy link');
+      return;
+    }
     setCopiedShareLink(true);
     setTimeout(() => setCopiedShareLink(false), 2000);
     showToast('success', 'Subsection link copied');
@@ -546,14 +559,14 @@ export default function App() {
 
       refreshPrompts();
       showToast('success', payload.message || 'Copied to My Prompts');
-    } catch (error: any) {
-      showToast('error', error.message || 'Failed to copy prompt to My Prompts');
+    } catch (error) {
+      showToast('error', (error instanceof Error && error.message) || 'Failed to copy prompt to My Prompts');
     } finally {
       setCopyingToMyPromptsId(null);
     }
   }, [refreshPrompts, showToast]);
 
-  const handleSavePrompt = useCallback(async (prompt: Omit<Prompt, 'lastModified'>) => {
+  const handleSavePrompt = useCallback(async (prompt: PromptDraft) => {
     const method = prompt.id ? 'PUT' : 'POST';
     const url = prompt.id ? `/api/prompts/${encodeURIComponent(prompt.id)}` : '/api/prompts';
 
@@ -585,8 +598,8 @@ export default function App() {
         if (fresh.ok) setSelectedPrompt(await fresh.json());
       }
       showToast('success', prompt.id ? 'Prompt updated successfully' : 'Prompt created successfully');
-    } catch (error: any) {
-      showToast('error', error.message || 'Failed to save prompt');
+    } catch (error) {
+      showToast('error', (error instanceof Error && error.message) || 'Failed to save prompt');
       throw error;
     }
   }, [refreshPrompts, selectedPrompt, showToast, editingPrompt]);
@@ -602,8 +615,8 @@ export default function App() {
       setSelectedPrompt(payload);
       refreshPrompts();
       showToast('success', payload.message);
-    } catch (error: any) {
-      showToast('error', error.message || 'Failed to update from the Public Library');
+    } catch (error) {
+      showToast('error', (error instanceof Error && error.message) || 'Failed to update from the Public Library');
     }
   }, [refreshPrompts, showToast]);
 
@@ -629,8 +642,8 @@ export default function App() {
         setSelectedPrompt(null);
         setShowAllPrompts(true);
       }
-    } catch (error: any) {
-      showToast('error', error.message || 'Failed to delete prompt');
+    } catch (error) {
+      showToast('error', (error instanceof Error && error.message) || 'Failed to delete prompt');
     }
   }, [refreshPrompts, selectedPrompt, showToast]);
 

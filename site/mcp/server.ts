@@ -352,7 +352,8 @@ export function createServer(): McpServer {
         tags: z.array(z.string()).optional(),
         version: z.string().optional().describe('The version get_item showed; the update is refused if the file changed since'),
       }),
-      annotations: { ...writeHints, idempotentHint: true },
+      // Destructive: it replaces the body, including wholesale from `file`.
+      annotations: { ...writeHints, destructiveHint: true, idempotentHint: true },
     }, async ({ id, file, version, ...fields }) => {
       if (READ_ONLY) return fail('This library is read-only.');
       let changes: Parameters<typeof myLibrary.update>[1] = fields;

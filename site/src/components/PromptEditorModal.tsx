@@ -12,7 +12,8 @@ import { cn } from '../lib/cn';
 import { SECTIONS } from '../lib/sections';
 import { Button, Modal, ModalFooter, ModalHeader, Notice } from './ui/primitives';
 
-interface Prompt {
+/** What the editor opens and saves: no `id` yet for a new prompt, no `lastModified`. */
+export interface PromptDraft {
   id?: string;
   title: string;
   section: string;
@@ -25,8 +26,8 @@ interface Prompt {
 interface PromptEditorModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (prompt: Prompt) => Promise<void>;
-  editingPrompt?: Prompt | null;
+  onSave: (prompt: PromptDraft) => Promise<void>;
+  editingPrompt?: PromptDraft | null;
   defaultSection?: string;
 }
 
