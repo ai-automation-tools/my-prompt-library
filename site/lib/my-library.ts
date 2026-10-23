@@ -30,9 +30,15 @@ export interface UserPrompt {
    * and before 2026-10-21 every save dropped them.
    */
   extra?: Record<string, unknown>;
+  /**
+   * A hash of the file as it is on disk. An update that names the version it
+   * started from is refused once the file has changed, whoever changed it: the
+   * app in another tab, the MCP server, or a text editor that never touches `updated`.
+   */
+  version?: string;
 }
 
-type PromptFields = Omit<UserPrompt, 'id' | 'created_at' | 'updated_at'>;
+type PromptFields = Omit<UserPrompt, 'id' | 'created_at' | 'updated_at' | 'version'>;
 
 /** The keys `write()` owns; everything else in a file's frontmatter is `extra`. */
 const MANAGED = new Set(['title', 'section', 'category', 'subcategory', 'tags', 'created', 'updated']);
@@ -67,7 +73,8 @@ function read(id: string): UserPrompt | null {
   const file = fileFor(id);
   if (!file || !fs.existsSync(file)) return null;
 
-  const { data, content } = matter(fs.readFileSync(file, 'utf-8'));
+  const raw = fs.readFileSync(file, 'utf-8');
+  const { data, content } = matter(raw);
   const updated = asString(data.updated) || fs.statSync(file).mtime.toISOString();
   return {
     id,
@@ -80,10 +87,18 @@ function read(id: string): UserPrompt | null {
     created_at: asString(data.created) || updated,
     updated_at: updated,
     extra: extraOf(data),
+    version: versionOf(raw),
   };
 }
 
-function write(prompt: UserPrompt, flag: 'w' | 'wx' = 'w') {
+const versionOf = (raw: string) => createHash('sha256').update(raw).digest('hex').slice(0, 16);
+
+/**
+ * Writes the file and returns its new version. A replacement goes to a temp file
+ * in the same folder and is renamed over the old one, so a crash mid-write leaves
+ * the old file whole. The temp name doesn't end in `.md`, so `list()` never sees it.
+ */
+function write(prompt: UserPrompt, flag: 'w' | 'wx' = 'w'): string {
   fs.mkdirSync(MY_LIBRARY_DIR, { recursive: true });
   // Unmanaged keys first, so a skill's file still opens with name/description.
   const frontmatter = {
@@ -96,11 +111,32 @@ function write(prompt: UserPrompt, flag: 'w' | 'wx' = 'w') {
     created: prompt.created_at,
     updated: prompt.updated_at,
   };
-  fs.writeFileSync(fileFor(prompt.id)!, matter.stringify(prompt.content, frontmatter), { encoding: 'utf-8', flag });
+  const raw = matter.stringify(prompt.content, frontmatter);
+  const file = fileFor(prompt.id)!;
+  if (flag === 'wx') {
+    fs.writeFileSync(file, raw, { encoding: 'utf-8', flag }); // a new id: nothing to lose, and wx keeps it exclusive
+  } else {
+    const tmp = path.join(MY_LIBRARY_DIR, `.${prompt.id}.${randomBytes(4).toString('hex')}.tmp`);
+    try {
+      fs.writeFileSync(tmp, raw, 'utf-8');
+      fs.renameSync(tmp, file); // replaces the target on Windows too
+    } catch (err) {
+      fs.rmSync(tmp, { force: true });
+      throw err;
+    }
+  }
+  return versionOf(raw);
 }
 
 /** A write the store refuses. The message names the field; callers send it back as a 400. */
 export class InvalidPromptError extends Error {}
+
+/** An update made from a version the file has since moved past. Callers send back a 409 with `current`. */
+export class PromptConflictError extends Error {
+  constructor(public current: UserPrompt) {
+    super('This prompt was changed somewhere else since you opened it');
+  }
+}
 
 // Well above anything in the Public Library (longest title 172, category 21,
 // subcategory 42, 10 tags of up to 40 characters). 500 KB is the size the
@@ -182,13 +218,15 @@ export const myLibrary = {
       created_at: now,
       updated_at: now,
     };
-    write(prompt, 'wx');
+    prompt.version = write(prompt, 'wx');
     return prompt;
   },
 
-  update(id: string, updates: Partial<PromptFields>): UserPrompt | null {
+  /** `version`, when given, must match the file on disk (see `UserPrompt.version`). */
+  update(id: string, updates: Partial<PromptFields>, version?: string): UserPrompt | null {
     const existing = read(id);
     if (!existing) return null;
+    if (version !== undefined && version !== existing.version) throw new PromptConflictError(existing);
     checkFields(updates, false);
 
     const prompt: UserPrompt = {
@@ -202,7 +240,7 @@ export const myLibrary = {
       extra: { ...existing.extra, ...updates.extra },
       updated_at: new Date().toISOString(),
     };
-    write(prompt);
+    prompt.version = write(prompt);
     return prompt;
   },
 

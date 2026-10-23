@@ -12,7 +12,7 @@ import http from "node:http";
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), "my-library-test-"));
 process.env.MY_LIBRARY_DIR = dir;
-const { myLibrary, InvalidPromptError } = await import("../lib/my-library.ts");
+const { myLibrary, InvalidPromptError, PromptConflictError } = await import("../lib/my-library.ts");
 
 try {
   assert.deepEqual(myLibrary.list(), []);
@@ -85,6 +85,33 @@ try {
   assert.deepEqual(uniRead.tags, ["naïve", "😀"]);
   assert.equal(uniRead.content.trim(), "Ünïcode body 🚀");
   myLibrary.delete(uni.id);
+
+  // Versions: two editors open v1; the first save wins, the stale one is refused
+  const v = myLibrary.create({ ...valid, content: "v1 body" });
+  const v1 = myLibrary.get(v.id).version;
+  assert.equal(v.version, v1, "create returns the version a read sees");
+  const saved = myLibrary.update(v.id, { content: "tab A" }, v1);
+  assert.notEqual(saved.version, v1);
+  assert.throws(() => myLibrary.update(v.id, { content: "tab B" }, v1), PromptConflictError, "stale writer refused");
+  assert.equal(myLibrary.get(v.id).content.trim(), "tab A", "the first save survives");
+  // A text editor changes the body but not `updated`: still a new version
+  const vFile = path.join(dir, `${v.id}.md`);
+  fs.writeFileSync(vFile, fs.readFileSync(vFile, "utf-8").replace("tab A", "hand edit"));
+  assert.throws(() => myLibrary.update(v.id, { content: "tab A again" }, saved.version), PromptConflictError, "hand edit detected");
+  assert.equal(myLibrary.update(v.id, { tags: ["no-version"] }).tags[0], "no-version", "no version given = no check");
+
+  // Replacement is atomic: a failed rename leaves the old file whole and no temp behind
+  const beforeCrash = fs.readFileSync(vFile, "utf-8");
+  const realRename = fs.renameSync;
+  fs.renameSync = () => { throw Object.assign(new Error("simulated crash"), { code: "EIO" }); };
+  try {
+    assert.throws(() => myLibrary.update(v.id, { content: "never lands" }), /simulated crash/);
+  } finally {
+    fs.renameSync = realRename;
+  }
+  assert.equal(fs.readFileSync(vFile, "utf-8"), beforeCrash, "old file intact after a failed write");
+  assert.deepEqual(fs.readdirSync(dir).filter(n => n.endsWith(".tmp")), [], "temp file cleaned up");
+  myLibrary.delete(v.id);
 
   // Ids can't climb out of the folder
   for (const bad of ["../x", "..\\x", "a/b", "A", ""]) {
@@ -167,6 +194,12 @@ try {
   const emptied = await fetch(`${base}/api/prompts/${good.id}`, { method: "PUT", headers: json, body: JSON.stringify({ content: "" }) });
   assert.equal(emptied.status, 400, "empty content refused over HTTP");
   assert.equal(myLibrary.get(good.id).content.trim(), "kept");
+  const stale = await fetch(`${base}/api/prompts/${good.id}`, { method: "PUT", headers: json, body: JSON.stringify({ content: "stale", version: "0000000000000000" }) });
+  assert.equal(stale.status, 409, "stale version refused over HTTP");
+  assert.equal((await stale.json()).current.content.trim(), "kept", "409 carries the saved version");
+  const fresh = await (await fetch(`${base}/api/prompts/${good.id}`)).json();
+  const ok = await fetch(`${base}/api/prompts/${good.id}`, { method: "PUT", headers: json, body: JSON.stringify({ content: "new", version: fresh.version }) });
+  assert.equal(ok.status, 200, "current version accepted");
   myLibrary.delete(good.id);
 
   // Pack writes go through the same Origin check as prompt writes
@@ -179,9 +212,27 @@ try {
   assert.equal(await raw("POST", addPath, { Origin: base, ...json }, confirm), 200, "same-origin pack add allowed");
   assert.ok(myLibrary.list().some(p => p.tags.includes(`skill-pack:${pack.id}`)), "pack installed");
   assert.equal(await raw("DELETE", removePath, { Origin: base, ...json }, confirm), 200, "same-origin pack remove allowed");
+
+  // A pack install that fails part-way takes back what it wrote; a retry adds each skill once
+  const big = (await getAllPacks()).find(p => p.skills.length >= 2);
+  const bigAdd = `/api/skill-packs/${encodeURIComponent(big.id)}/add-to-library`;
+  const countBefore = myLibrary.list().length;
+  const realCreate = myLibrary.create;
+  let calls = 0;
+  myLibrary.create = (f) => { if (++calls === 2) throw new Error("simulated failure"); return realCreate(f); };
+  try {
+    assert.equal(await raw("POST", bigAdd, { Origin: base, ...json }, confirm), 500, "failed install reports failure");
+  } finally {
+    myLibrary.create = realCreate;
+  }
+  assert.equal(myLibrary.list().length, countBefore, "nothing left behind by the failed install");
+  assert.equal(await raw("POST", bigAdd, { Origin: base, ...json }, confirm), 200, "retry succeeds");
+  const installed = myLibrary.list().filter(p => p.tags.includes(`skill-pack:${big.id}`));
+  assert.equal(new Set(installed.map(p => p.title)).size, installed.length, "no duplicates after the retry");
+  for (const p of installed) myLibrary.delete(p.id);
 } finally {
   server.close();
   fs.rmSync(dir, { recursive: true, force: true });
 }
 
-console.log("my-library: file store round-trips, updates in place, rejects path ids and bad fields, cross-site writes (packs too) and foreign Hosts");
+console.log("my-library: file store round-trips, updates in place, rejects path ids, bad fields and stale versions, writes atomically, rolls back failed pack installs, refuses cross-site writes (packs too) and foreign Hosts");

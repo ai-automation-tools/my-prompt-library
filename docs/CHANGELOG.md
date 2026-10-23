@@ -4,6 +4,27 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — Saves can't half-write a file or overwrite a newer edit
+
+**Changed**
+- My Library replaces a file by writing a temp file in the same folder and renaming it over the original, so a crash or a full disk mid-save leaves the old prompt whole.
+- Every My Library prompt carries a `version`, a hash of the file on disk. The editor sends back the version it opened. If the file changed in the meantime (another tab, an agent over MCP, or a text editor, which `updated` alone would miss), the save is refused with `409`. The editor then reloads with the saved text and says so, instead of silently overwriting it. MCP `update_my_prompt` takes the same optional `version`, and `get_item` shows it. Roadmap item F07.
+- Adding a skill pack is all or nothing: if one skill fails, the ones that request already wrote are deleted, so a retry starts clean.
+
+**Added**
+- `scripts/my-library.test.mjs`:
+  - two stale writers (the first save wins);
+  - a hand edit that leaves `updated` alone;
+  - an injected rename failure (old file intact, no temp left);
+  - the HTTP `409` and its `current`;
+  - a pack install that fails on its second skill (nothing left behind, and the retry adds each skill once).
+- `scripts/mcp-server.test.mjs` checks a stale `version` is refused.
+
+**Docs**
+- `docs/features/API.md` documents `version`, the `409` and the all-or-nothing pack install; `docs/features/MCP-SERVER.md`, `docs/mcp-server.md`, `docs/ARCHITECTURE.md` and `docs/setup/SETUP.md` follow.
+
+_Touched: `site/lib/my-library.ts`, `site/api/index.ts`, `site/api/skill-packs.ts`, `site/mcp/server.ts`, `site/src/App.tsx`, `site/src/components/PromptCard.tsx`, `site/scripts/my-library.test.mjs`, `site/scripts/mcp-server.test.mjs`, `docs/features/API.md`, `docs/features/MCP-SERVER.md`, `docs/mcp-server.md`, `docs/ARCHITECTURE.md`, `docs/setup/SETUP.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — Downloaded prompts are valid markdown files
 
 **Fixed**

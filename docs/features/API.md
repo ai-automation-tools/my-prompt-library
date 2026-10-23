@@ -180,7 +180,8 @@ For a public prompt, `section`, `category` and `subcategory` come from the path 
 from frontmatter, the first `#` heading, or the file name. For a My Library prompt they come
 from the file's frontmatter and `isUserOwned` is `true`.
 
-Both carry `extra`: the file's frontmatter beyond the fields above (a skill's `name`,
+A My Library prompt also carries `version`, the value a `PUT` sends back to detect a
+conflicting edit. Both carry `extra`: the file's frontmatter beyond the fields above (a skill's `name`,
 `description`, `license`, `allowed-tools`…; never `upstream`). The Download button writes it
 back into the `.md`, so a downloaded skill still loads.
 
@@ -286,6 +287,12 @@ left out keep their current value; send `"subcategory": null` to clear it. A fie
 sent must pass the field rules above: an empty `content` or `title` is refused with `400`,
 not ignored.
 
+Send `version` (from `GET /api/prompts/:id`, a hash of the file on disk) to make the update
+conditional: if the file changed since, from another tab, the MCP server or a text editor,
+the update is refused with `409` and nothing is written. Leave it out for an unconditional
+update. The file is replaced atomically (temp file, then rename), so a crash mid-write
+leaves the old one whole.
+
 **Response (200 OK):** the updated prompt, same shape as `POST /api/prompts`, with
 `"message": "Prompt updated successfully"`.
 
@@ -293,6 +300,8 @@ not ignored.
 - `400 Bad Request`: a field breaks a rule above
 - `403 Forbidden`: read-only mode
 - `404 Not Found`: no My Library file with that id
+- `409 Conflict`: `version` is stale. The body carries `current`, the prompt as it is now
+  (with its new `version`); the app reloads its editor with it
 
 **Example:**
 ```bash
@@ -411,7 +420,10 @@ cannot be read are left out.
 ### POST /api/skill-packs/:packId/add-to-library
 
 Copy every skill in the pack into My Library, in section `3_Skills`, tagged
-`skill-pack:<packId>`. **Write route: `403` in read-only mode.**
+`skill-pack:<packId>`. All or nothing: if any skill fails to read or save, the skills this
+request already wrote are deleted and it returns `500`, so a retry starts clean. Skills
+already in My Library are skipped, so a retry never duplicates. **Write route: `403` in
+read-only mode.**
 
 **Body:**
 ```json

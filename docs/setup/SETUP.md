@@ -85,7 +85,9 @@ file in `MY_LIBRARY_DIR` (default `site/my-library/`, which is gitignored).
 
 - **Hand-editing is fine.** Missing fields fall back to defaults (`section` → `4_Prompts`,
   `category` → `Uncategorized`, `updated` → the file's modified time). A file you add by
-  hand must use a lowercase `a-z0-9-` name to be picked up as an id.
+  hand must use a lowercase `a-z0-9-` name to be picked up as an id. If you change a file
+  while the app's editor has it open, saving in the app is refused and the editor reloads
+  your version instead of overwriting it.
 - **Skill packs** you add are ordinary My Library files tagged `skill-pack:<packId>`.
   Removing the pack deletes the files with that tag.
 

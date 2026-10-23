@@ -131,6 +131,7 @@ try {
   assert.match(await ok(client, 'search_library', { library: 'my' }), new RegExp(myId));
   await ok(client, 'update_my_prompt', { id: myId, content: 'UPDATED-BODY' });
   await refused(client, 'update_my_prompt', { id: myId, content: '' }); // the store's field check, as over HTTP
+  await refused(client, 'update_my_prompt', { id: myId, content: 'STALE', version: '0000000000000000' }); // changed since that version
   assert.match(await ok(client, 'get_item', { id: myId }), /UPDATED-BODY/);
   const fresh = await ok(client, 'save_to_my_library', { title: 'Fresh prompt', content: 'Hello', section: 'prompts', tags: ['t1'] });
   assert.match(fresh, /Saved to My Library/);

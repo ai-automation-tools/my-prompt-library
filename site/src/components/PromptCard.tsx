@@ -28,6 +28,8 @@ export interface Prompt {
   upstream?: { source: string; updateAvailable: boolean; localEdits: boolean } | null;
   /** From `GET /api/prompts/:id` only: frontmatter beyond the fields above (a skill's name, description…). */
   extra?: Record<string, unknown>;
+  /** My Library only: the file's version, sent back on save so a stale edit is refused (409). */
+  version?: string;
 }
 
 export function extractEmoji(text: string): { emoji: string | null; title: string } {

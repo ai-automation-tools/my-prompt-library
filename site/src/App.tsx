@@ -113,7 +113,7 @@ export default function App() {
 
   // Copy-button state plus the "go get the real body" helpers the card actions
   // need, since a listing prompt carries only a blurb. See usePromptContent.
-  const { copied, copyContent, copyPrompt, fetchFullContent } = usePromptContent(showToast);
+  const { copied, copyContent, copyPrompt } = usePromptContent(showToast);
 
   // Persist favorites and recently viewed to localStorage
   useEffect(() => {
@@ -561,9 +561,18 @@ export default function App() {
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(prompt)
+        // The version the editor opened; the server refuses it if the file moved on since
+        body: JSON.stringify({ ...prompt, version: prompt.id ? editingPrompt?.version : undefined })
       });
 
+      if (response.status === 409) {
+        // Changed elsewhere (another tab, an agent, a text editor): show that
+        // version instead of overwriting it. The editor reloads with it.
+        const { current } = await response.json();
+        setEditingPrompt(current);
+        refreshPrompts();
+        throw new Error('This prompt changed somewhere else since you opened it. The editor now shows the saved version; make your edit again.');
+      }
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.error || 'Failed to save prompt');
@@ -580,7 +589,7 @@ export default function App() {
       showToast('error', error.message || 'Failed to save prompt');
       throw error;
     }
-  }, [refreshPrompts, selectedPrompt, showToast]);
+  }, [refreshPrompts, selectedPrompt, showToast, editingPrompt]);
 
   const handlePullUpstream = useCallback(async (prompt: Prompt) => {
     if (prompt.upstream?.localEdits && !confirm('Replace your edited copy with the current Public Library version? Your edits will be lost.')) {
@@ -630,14 +639,14 @@ export default function App() {
     // preview and save it back over the real prompt.
     // On failure the editor stays shut, for the same reason.
     try {
-      setEditingPrompt({ ...prompt, content: await fetchFullContent(prompt) });
+      setEditingPrompt({ ...prompt, ...(await fetchFullPrompt(prompt)) }); // carries `version` for the save
     } catch (err) {
       console.error('Failed to load prompt for editing:', err);
       showToast('error', 'Could not load this prompt, so the editor was not opened');
       return;
     }
     setIsEditorOpen(true);
-  }, [fetchFullContent, showToast]);
+  }, [showToast]);
 
   const handleNewPrompt = useCallback(() => {
     if (libraryMode !== 'my') {

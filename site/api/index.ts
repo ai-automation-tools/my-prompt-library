@@ -8,7 +8,7 @@ import matter from "gray-matter";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import archiver from "archiver";
-import { forkExtra, InvalidPromptError, myLibrary, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from "../lib/my-library.js";
+import { forkExtra, InvalidPromptError, myLibrary, PromptConflictError, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from "../lib/my-library.js";
 import { resolveInside } from "../lib/safe-path.js";
 import { LIBRARY_PATH, SKILLS_SECTION, carriedFrontmatter, extractFirstHeading, readLibraryItem, sourceUrlOf } from "../lib/library.js";
 
@@ -111,6 +111,7 @@ const toApiPrompt = (p: UserPrompt) => ({
   content: p.content,
   lastModified: p.updated_at,
   isUserOwned: true,
+  version: p.version,
 });
 
 // Simple in-memory cache for prompt listings
@@ -388,7 +389,10 @@ app.post("/api/prompts", requireWritable, async (req, res) => {
 app.put("/api/prompts/:id", requireWritable, async (req, res) => {
   try {
     const promptId = decodeURIComponent(req.params.id);
-    const { title, tags, content, category, subcategory, section } = req.body;
+    const { title, tags, content, category, subcategory, section, version } = req.body;
+    if (version !== undefined && typeof version !== 'string') {
+      return res.status(400).json({ error: 'version must be text' });
+    }
 
     const prompt = myLibrary.update(promptId, {
       title,
@@ -397,7 +401,7 @@ app.put("/api/prompts/:id", requireWritable, async (req, res) => {
       category,
       subcategory,
       section,
-    });
+    }, version);
 
     if (!prompt) {
       return res.status(404).json({ error: "Prompt not found" });
@@ -406,6 +410,9 @@ app.put("/api/prompts/:id", requireWritable, async (req, res) => {
     res.json({ ...toApiPrompt(prompt), message: "Prompt updated successfully" });
   } catch (error) {
     if (error instanceof InvalidPromptError) return res.status(400).json({ error: error.message });
+    if (error instanceof PromptConflictError) {
+      return res.status(409).json({ error: error.message, current: { ...toApiPrompt(error.current), extra: error.current.extra ?? {} } });
+    }
     console.error("Error updating prompt:", error);
     res.status(500).json({ error: "Failed to update prompt" });
   }
