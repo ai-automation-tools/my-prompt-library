@@ -41,7 +41,7 @@ marks one only Mike can do.
 > **End of 2026-10-23:** all three High findings are fixed (F01–F03), and so are F05, F06, F07
 > and F13, each with a test that fails when the fix is reverted (PRs #415–#420). F09 got most of
 > its contract tests along the way. Later the same day F08, F11, F15, F19 and the resync newline
-> bug were done too (PRs #422–#423). F09, F14 and F20 are done too (PRs #424–#425). F18 followed (PR #426). Next up is F16.
+> bug were done too (PRs #422–#423). F09, F14 and F20 are done too (PRs #424–#425). F18 and F16 followed (PRs #426–#427). Next up is F12 (measure, then bound, the expensive endpoints).
 
 ## 🔌 Phase 1: MCP server for the library
 
@@ -83,7 +83,7 @@ that fails when the fix is reverted, run against a temporary `MY_LIBRARY_DIR`, n
 ## 🧹 Phase 3: Loose ends
 
 - [ ] Move off Node 22 before its end of life on 2027-04-30: CI and `upstream-drift.yml` on `node-version: "24"`, `@types/node` `^24`, `engines` pinned in `site/package.json`, CI green. The Vercel project's Node setting is part of done 🔒 Needs Mike (dashboard)
-- [ ] `small` **F16** The Resources menu is reachable below 1536px: its groups appear in the section sheet the menu button opens, so phones and narrow windows get the links too. Checked at 390, 1280 and 1600px, by touch and keyboard, with no horizontal overflow or lost focus
+- [x] `small` **F16** The Resources menu is reachable below 1536px: its groups appear in the section sheet the menu button opens, so phones and narrow windows get the links too. Checked at 390, 1280 and 1600px, by touch and keyboard, with no horizontal overflow or lost focus — done 2026-10-23: the menu button and sheet now last until 1536px (they stopped at 1360px, leaving 1360–1535px with neither), and the sheet lists every Resources group under the sections; the section buttons in it hide from 1360px, where the bar shows them. Checked at 390, 1280, 1440 and 1600px: keyboard reaches the links, no horizontal overflow
 - [x] `small` **F11** Turn on `strict` in `site/tsconfig.json` and fix what it reports (the audit counted three diagnostics, plus explicit `any` at the API and UI boundaries), with no blanket `@ts-ignore`. `npm run lint` and `npm run build` both pass — done 2026-10-23: the three diagnostics fixed (`loadIndex`'s return, an editor `PromptDraft` type, `@types/react-dom`), and the boundary `any`s typed (`ListedPrompt`, `LibraryIndex`, `SkillPack`, `catch (error)` narrowed)
 - [ ] **F12** Measure, then bound, the expensive endpoints: record p50/p95 and bytes for the metadata list, a detail read and representative skill ZIPs under a small concurrency test, then stop the full public list from parsing every body synchronously and stop ZIPs recompressing at level 9 on every request (cache or lower the level). A full export must not block ordinary reads. Budgets come from the measured baseline
 - [x] `small` The hero counters name what a section holds ("servers", "skills", "agents") instead of "prompts" everywhere, from a field in `sections.ts` — done 2026-10-23: `noun` on each section

@@ -537,6 +537,27 @@ html.light[data-palette='ember'] {
 
   .mobile-nav.open {
     display: block;
+    max-height: 75dvh;
+    overflow-y: auto;
+  }
+
+  .mobile-nav-group {
+    padding: 14px 20px 6px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .mobile-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: var(--fg-3);
+  }
+
+  .mobile-nav a:hover {
+    color: var(--fg);
+    background: var(--hover-bg);
   }
 
   .mobile-nav button {
@@ -557,10 +578,17 @@ html.light[data-palette='ember'] {
   }
 
   /* Seven section links plus the right cluster need ~1060px beside the 272px
-     categories panel, so the links fold into the sheet below 1360px. */
+     categories panel, so the links fold into the sheet below 1360px. The sheet
+     (and its button) stays until 1536px for the Resources links, whose
+     dropdown only fits from there. */
   @media (min-width: 1360px) {
     .nav { display: flex; }
-    .menu-btn { display: none; }
+    .mobile-nav-sections { display: none; }
+  }
+
+  @media (min-width: 1536px) {
+    .menu-btn,
+    .mobile-nav.open { display: none; }
   }
 
   @media (min-width: 768px) {

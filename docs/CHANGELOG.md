@@ -4,6 +4,13 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — Resources links on phones and narrow windows
+
+**Fixed**
+- The Resources links were only reachable from 1536px up. Between 1360 and 1535px there was neither a Resources dropdown nor a menu button. The menu button and its sheet now last until 1536px. The sheet lists every Resources group under the sections, and its section buttons hide from 1360px, where the bar already shows them. The sheet scrolls when it is taller than three quarters of the screen. Roadmap item F16.
+
+_Touched: `site/src/components/TopBar.tsx`, `site/src/components/ResourcesNav.tsx`, `site/src/index.css`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — The demo's pages get a CSP
 
 **Added**

@@ -9,7 +9,7 @@ import { SECTIONS } from '../lib/sections';
 import type { LibraryTab } from '../hooks/useLibraryRoute';
 import type { Theme } from '../hooks/useTheme';
 import { READ_ONLY } from '../lib/mode';
-import ResourcesNav from './ResourcesNav';
+import ResourcesNav, { RESOURCE_GROUPS } from './ResourcesNav';
 import ThemeSwitch from './ThemeSwitch';
 import { Button, IconButton, Kbd, MOD_KEY } from './ui/primitives';
 
@@ -28,8 +28,9 @@ interface TopBarProps {
 /**
  * The house-style top bar: categories toggle, brand, the seven sections as nav
  * bordered buttons (the current one filled in its section hue), then ⌘K, Resources,
- * New prompt, Settings and the Light | Dark switch. Below 1360px the sections
- * fold into a sheet under the bar, opened by the menu button.
+ * New prompt, Settings and the Light | Dark switch. Below 1536px a menu button
+ * opens a sheet under the bar: the sections (below 1360px, where they leave the
+ * bar) and the Resources links, whose dropdown only fits from 1536px.
  */
 export default function TopBar({
   sidebarOpen,
@@ -118,7 +119,8 @@ export default function TopBar({
         </div>
       </header>
 
-      <nav id="mobile-nav" className={menuOpen ? 'mobile-nav open' : 'mobile-nav'} aria-label="Sections">
+      <nav id="mobile-nav" className={menuOpen ? 'mobile-nav open' : 'mobile-nav'} aria-label="Sections and resources">
+        <div className="mobile-nav-sections">
         {SECTIONS.map(section => {
           const Icon = section.icon;
           return (
@@ -134,6 +136,21 @@ export default function TopBar({
             </button>
           );
         })}
+        </div>
+        {RESOURCE_GROUPS.map(group => (
+          <div key={group.id} style={{ ['--c' as string]: group.accent }}>
+            <p className="mobile-nav-group eyebrow">{group.label}</p>
+            {group.links.map(link => {
+              const Icon = link.icon;
+              return (
+                <a key={link.href + link.label} href={link.href} target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
+                  <Icon className="h-4 w-4 text-[var(--c)]" aria-hidden="true" />
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
+        ))}
       </nav>
     </>
   );
