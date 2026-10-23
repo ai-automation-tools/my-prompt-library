@@ -539,6 +539,7 @@ npm run test:my-library  # the file store, against a temp folder
 npm run test:read-only   # read-only mode hides My Library
 npm run test:prompt-content  # the UI's full-prompt fetch fails closed
 npm run test:markdown-file   # the Download button's .md round-trips
+npm run test:browser         # after npm run build: the built app in Chrome
 ```
 
 **Quick cURL round trip** (local, not read-only):

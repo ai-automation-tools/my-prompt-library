@@ -78,6 +78,12 @@ jobs:
       - name: MCP server
         run: npm run test:mcp
 
+      # Serves the dist/ the Build step made and drives the runner's Google
+      # Chrome: listing, detail page, hero counter and the Settings dialog's
+      # focus trap, failing on any page error, console error or failed request.
+      - name: Browser smoke test
+        run: npm run test:browser
+
       # The provenance scripts live at the repo root, outside site/. They are
       # dependency-free except for gray-matter, which npm ci above installed.
       # The library walk in upstream.test.mjs is what pins the `match:`
