@@ -26,6 +26,8 @@ export interface Prompt {
   sourceUrl?: string;
   /** My Library copies only: how this copy stands against the public item it came from. */
   upstream?: { source: string; updateAvailable: boolean; localEdits: boolean } | null;
+  /** From `GET /api/prompts/:id` only: frontmatter beyond the fields above (a skill's name, description…). */
+  extra?: Record<string, unknown>;
 }
 
 export function extractEmoji(text: string): { emoji: string | null; title: string } {

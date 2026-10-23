@@ -51,9 +51,10 @@ Other scripts: `npm run build` (build:index → tsc → vite build), `npm run bu
 `npm run test:routes` (asserts the shared Express app still exposes all nine API routes and no auth router),
 `npm run test:my-library` (round-trips the My Library file store in a temp folder),
 `npm run test:read-only` (under `READ_ONLY`, My Library is neither listed nor served),
-`npm run test:prompt-content` (a failed full-prompt load throws instead of returning the preview).
+`npm run test:prompt-content` (a failed full-prompt load throws instead of returning the preview),
+`npm run test:markdown-file` (a downloaded `.md` reads back through the store unchanged).
 
-CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → `test:my-library` → `test:read-only` → `test:prompt-content` → the two repo-root
+CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → `test:my-library` → `test:read-only` → `test:prompt-content` → `test:markdown-file` → the two repo-root
 provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →
 a rebuild of the prompt index, failing if the rebuilt file is not byte-identical to the committed one.
 Rebuild and commit `api/prompt-index.json` whenever you touch `library/`.
@@ -76,7 +77,7 @@ site/
                        (`html[data-palette]`, key `my-prompt-library.palette`, sky/violet/emerald/ember;
                        both keys keep the pre-rename name so saved preferences survive);
                        index.html applies both before first paint
-    lib/               mode (READ_ONLY), cn (clsx + tailwind-merge), sections (the seven sections: tab id, folder,
+    lib/               mode (READ_ONLY), cn (clsx + tailwind-merge), markdown-file (the Download .md), sections (the seven sections: tab id, folder,
                        label, icon, accent token, blurb — every tab switch reads from here)
     components/        TopBar (brand, section nav + phone sheet, ⌘K trigger, Resources menu,
                        New prompt, Settings, ThemeSwitch), Sidebar (library switch, category tree),

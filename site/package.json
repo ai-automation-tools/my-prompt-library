@@ -16,6 +16,7 @@
     "test:my-library": "tsx scripts/my-library.test.mjs",
     "test:read-only": "tsx scripts/read-only.test.mjs",
     "test:prompt-content": "tsx scripts/prompt-content.test.mjs",
+    "test:markdown-file": "tsx scripts/markdown-file.test.mjs",
     "mcp": "tsx mcp/server.ts",
     "test:mcp": "tsx scripts/mcp-server.test.mjs"
   },

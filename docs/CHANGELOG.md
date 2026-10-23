@@ -4,6 +4,23 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — Downloaded prompts are valid markdown files
+
+**Fixed**
+- The Download button built the file's frontmatter by pasting values into a template. A title containing `: ` made the YAML invalid. Tags came out as one comma-separated string, a missing subcategory as the word `None`, and every other frontmatter key was dropped, so a downloaded My Library skill lost the `name` and `description` it needs to load. Now `src/lib/markdown-file.ts` writes each value as JSON, which YAML reads as-is. The skill's own keys come first, and the body follows unchanged. Roadmap item F06.
+- Download file names no longer start with dashes when a title opens with an emoji.
+
+**Changed**
+- `GET /api/prompts/:id` returns `extra`, the file's frontmatter beyond the standard fields, for both libraries.
+
+**Added**
+- `scripts/markdown-file.test.mjs` (`npm run test:markdown-file`, in CI) downloads four awkward prompts and reads each back through the My Library store unchanged: colons, quotes, a newline in the title, emoji tags, a body containing `---`, and a skill with `name`, `description`, `license`, `allowed-tools` and nested `metadata`.
+
+**Docs**
+- `docs/features/API.md` documents `extra`. `README.md`, `AGENTS.md`, `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/features/API.md` and `docs/setup/SETUP.md` list the new test and file.
+
+_Touched: `site/src/lib/markdown-file.ts`, `site/src/App.tsx`, `site/src/components/PromptCard.tsx`, `site/api/index.ts`, `site/scripts/markdown-file.test.mjs`, `site/package.json`, `.github/workflows/ci.yml`, `README.md`, `AGENTS.md`, `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/features/API.md`, `docs/setup/SETUP.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — My Library writes check their fields
 
 **Changed**

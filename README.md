@@ -108,6 +108,7 @@ npm run test:routes      # the API route table is intact
 npm run test:my-library  # the My Library file store
 npm run test:read-only   # read-only mode hides My Library
 npm run test:prompt-content  # a failed prompt load never falls back to the preview
+npm run test:markdown-file   # a downloaded .md reads back unchanged
 npm run test:mcp         # the MCP server, end to end over stdio
 npm run build:index      # rebuild api/prompt-index.json after editing library/
 

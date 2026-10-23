@@ -18,6 +18,7 @@ import PromptListToolbar from './components/PromptListToolbar';
 import { Button } from './components/ui/primitives';
 import { usePromptFilters } from './hooks/usePromptFilters';
 import { fetchFullPrompt, usePromptContent } from './hooks/usePromptContent';
+import { toMarkdownFile } from './lib/markdown-file';
 import { useLibraryRoute, slugifyPromptPath, type LibraryTab } from './hooks/useLibraryRoute';
 import { usePalette, useTheme } from './hooks/useTheme';
 import { getSection, getSectionFolder, getSectionDisplayName, getTabForFolder, humanize, lowerLabel } from './lib/sections';
@@ -472,38 +473,26 @@ export default function App() {
         showToast('error', 'Failed to download skill');
       }
     } else {
-      const frontmatter = `---
-title: ${prompt.title}
-section: ${prompt.section}
-category: ${prompt.category}
-subcategory: ${prompt.subcategory || 'None'}
-tags: ${prompt.tags.join(', ')}
-created: ${prompt.lastModified}
-source: Promptbook
----
-
-`;
-      let body: string;
+      let content: string;
       try {
-        body = await fetchFullContent(prompt);
+        content = toMarkdownFile({ ...prompt, ...(await fetchFullPrompt(prompt)) });
       } catch (err) {
         console.error('Download error:', err);
         showToast('error', 'Could not load this prompt, so nothing was downloaded');
         return;
       }
-      const content = frontmatter + body;
       const blob = new Blob([content], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${prompt.title.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.md`;
+      a.download = `${prompt.title.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase() || 'prompt'}.md`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       showToast('success', prompt.section === '3_Skills' ? 'Skill downloaded as markdown!' : 'Prompt downloaded!');
     }
-  }, [showToast, fetchFullContent]);
+  }, [showToast]);
 
   const toggleFavorite = useCallback((promptId: string, e?: React.MouseEvent) => {
     if (e) {

@@ -59,6 +59,10 @@ jobs:
       - name: Full prompt loads fail closed
         run: npm run test:prompt-content
 
+      # The Download button's .md must read back through the store unchanged.
+      - name: Markdown download round trip
+        run: npm run test:markdown-file
+
       - name: Library path containment
         run: node lib/safe-path.test.mjs
 
