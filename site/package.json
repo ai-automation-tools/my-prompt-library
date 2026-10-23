@@ -19,7 +19,8 @@
     "test:markdown-file": "tsx scripts/markdown-file.test.mjs",
     "mcp": "tsx mcp/server.ts",
     "test:mcp": "tsx scripts/mcp-server.test.mjs",
-    "test:browser": "tsx scripts/browser-smoke.test.mjs"
+    "test:browser": "tsx scripts/browser-smoke.test.mjs",
+    "test:safe-path": "tsx lib/safe-path.test.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "^2.3.1",

@@ -62,8 +62,9 @@ preface, such as a `> Source:` line.
 
 **Containment.** Every caller-supplied path goes through `resolveInside()`: library ids against
 `site/library/`, skill folders against `site/library/3_Skills/` (and the folder must hold a
-`SKILL.md`), support files against their skill folder. The test tries `../` escapes against
-each and fails if one returns anything.
+`SKILL.md`), support files against their skill folder. It compares real paths too, so a link inside a skill
+that points elsewhere is refused, and `get_skill`'s file list skips links. The test tries `../`
+escapes against each and fails if one returns anything; `npm run test:safe-path` covers links.
 
 ## Prompts
 

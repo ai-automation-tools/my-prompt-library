@@ -4,6 +4,21 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — Links can't reach outside the library
+
+**Fixed**
+- `resolveInside()` compares real paths as well as strings. A symlink or junction inside `library/` that points elsewhere is refused for detail reads, skill downloads, MCP support files and Skill Pack reads. Roadmap item F14.
+- The skill ZIP used `archive.directory()`, which followed a junction inside a skill folder and zipped whatever it pointed at. The skill ZIP, the pack ZIP and the MCP file list now walk with `filesUnder()`, which skips links.
+- Skill Pack manifest paths go through `resolveInside()` instead of a bare `path.join`, so a manifest can't name a file outside the library.
+
+**Added**
+- `npm run test:safe-path` replaces the old mirrored self-check. It imports the real module and makes real junctions (and file symlinks where the OS allows), including two temporary ones in `site/library/3_Skills` for the HTTP checks, removed afterwards. It fails with either fix reverted.
+
+**Docs**
+- `ARCHITECTURE.md`, `SECURITY.md`, `MCP-SERVER.md` and `AGENTS.md` describe the real-path check, which closes F20.
+
+_Touched: `site/lib/safe-path.ts`, `site/lib/safe-path.test.mjs`, `site/api/index.ts`, `site/api/skill-packs.ts`, `site/mcp/server.ts`, `site/package.json`, `.github/workflows/ci.yml`, `AGENTS.md`, `SECURITY.md`, `docs/ARCHITECTURE.md`, `docs/features/MCP-SERVER.md`, `docs/features/API.md`, `docs/README.md`, `docs/setup/SETUP.md`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — A browser smoke test in CI
 
 **Added**
