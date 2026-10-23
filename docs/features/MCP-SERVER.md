@@ -13,7 +13,7 @@ Built 2026-10-21 (roadmap Phase 1). Install lines for users are in the
 | SDK | `@modelcontextprotocol/server` 2.x (the v2 line; v1 `@modelcontextprotocol/sdk` is maintenance-only) |
 | Transport | stdio, through `serveStdio()`, which serves both 2026-era and 2025-era clients from one factory |
 | Reads | `site/library/` and `api/prompt-index.json` through `site/lib/library.ts`, My Library through `site/lib/my-library.ts`, Skill Packs through `getAllPacks()` in `api/skill-packs.ts` |
-| Config | `site/.env` (`MY_LIBRARY_DIR`, `READ_ONLY`), loaded quietly by `site/mcp/setup.ts` |
+| Config | `site/.env` (`MY_LIBRARY_DIR`, `READ_ONLY`, `IMPORT_ROOTS`), loaded quietly by `site/mcp/setup.ts` |
 | Test | `npm run test:mcp` (`site/scripts/mcp-server.test.mjs`), in CI |
 
 The server shares code with the API instead of copying it. `lib/library.ts` holds the library
@@ -43,14 +43,22 @@ All tools return markdown text. Read tools carry `readOnlyHint`.
 | `get_skill_file` | `skill`, `path` | One text file inside the skill. Refuses paths outside the folder, files over 500 KB and binaries |
 | `list_skill_packs` | none | Every pack: id, name, skill count, generated or hand-picked |
 | `get_skill_pack` | `id` | The pack's skills with their `SKILL.md` ids |
-| `save_to_my_library` | `id` to copy, or `title` + `content` (+ `section`, `category`, `subcategory`, `tags`) | The new My Library id. A copy refuses a duplicate title in the same place, as the app does, and keeps the item's own frontmatter (a skill's `name`, `description`, `license`…); new content may start with its own frontmatter block |
-| `update_my_prompt` | `id` + any of `title`, `content`, `category`, `subcategory`, `tags` | Confirmation |
+| `save_to_my_library` | `id` to copy, or `title` + `content`, or `title` + `file` (+ `section`, `category`, `subcategory`, `tags`) | The new My Library id. A copy refuses a duplicate title in the same place, as the app does, and keeps the item's own frontmatter (a skill's `name`, `description`, `license`…); new content may start with its own frontmatter block |
+| `update_my_prompt` | `id` + any of `title`, `content`, `file`, `category`, `subcategory`, `tags` | Confirmation |
 | `update_from_public` | `id` | Replaces a copy's body with the current version of the public item it was saved from |
 | `delete_my_prompt` | `id` | Confirmation. `destructiveHint`; the server's instructions tell the agent to ask first |
 
-**Writes.** The three write tools are not registered at all when `READ_ONLY` is true (or
+**Writes.** The four write tools are not registered at all when `READ_ONLY` is true (or
 `VERCEL` is set), and each handler checks again. They go through `lib/my-library.ts`, whose ids
 are `[a-z0-9-]` file names, so no id can name a path outside the folder.
+
+**File import.** `file` on `save_to_my_library` and `update_my_prompt` is the absolute path of a
+local `.md` file the server reads itself, so a long body (a 60 KB `SKILL.md`) never has to be
+retyped into a tool call. It is off unless `IMPORT_ROOTS` lists the folders it may read (split
+on `;` on Windows, `:` elsewhere); a path outside them, a junction that resolves outside, a
+non-markdown file or one over 500 KB is refused. The file's frontmatter becomes the prompt's
+(a skill's `name` and `description`), and `content`, if also passed, goes above the file as a
+preface, such as a `> Source:` line.
 
 **Containment.** Every caller-supplied path goes through `resolveInside()`: library ids against
 `site/library/`, skill folders against `site/library/3_Skills/` (and the folder must hold a

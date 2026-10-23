@@ -4,6 +4,17 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-22 — The MCP write tools can import a local file
+
+**Added**
+- `save_to_my_library` and `update_my_prompt` take `file`: the absolute path of a local `.md` file the server reads, so an agent can save or refresh a long `SKILL.md` without retyping it into the call. The file's frontmatter is kept; `content` becomes a preface above it.
+- `IMPORT_ROOTS` lists the folders `file` may read. Unset, `file` is refused; outside paths, junctions that resolve outside, non-markdown and files over 500 KB are refused too. Covered in `scripts/mcp-server.test.mjs`.
+
+**Docs**
+- `docs/features/MCP-SERVER.md` and `docs/mcp-server.md` describe `file` and `IMPORT_ROOTS`, and count four write tools, not three.
+
+_Touched: `site/mcp/server.ts`, `site/scripts/mcp-server.test.mjs`, `docs/features/MCP-SERVER.md`, `docs/mcp-server.md`._
+
 ## 2026-10-22 — My Library copies know their public source
 
 **Added**

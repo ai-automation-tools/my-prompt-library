@@ -76,7 +76,7 @@ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'mcp-my-library-'));
 let client;
 try {
   // ---------- writable ----------
-  client = await connect({ MY_LIBRARY_DIR: tmp, READ_ONLY: 'false', VERCEL: '' });
+  client = await connect({ MY_LIBRARY_DIR: tmp, READ_ONLY: 'false', VERCEL: '', IMPORT_ROOTS: '' });
 
   const tools = (await client.listTools()).tools.map((t) => t.name).sort();
   assert.deepEqual(tools, [
@@ -155,6 +155,40 @@ try {
   await ok(client, 'delete_my_prompt', { id: myId });
   await refused(client, 'get_item', { id: myId });
   await refused(client, 'delete_my_prompt', { id: '../escape' });
+  await client.close();
+
+  // ---------- file import ----------
+  // Off unless IMPORT_ROOTS is set; inside a root, the server reads the file so a long
+  // body never travels through the tool call; outside one, or not markdown, it refuses.
+  const importRoot = path.join(tmp, 'import-root');
+  fs.mkdirSync(importRoot);
+  const skillFile = path.join(importRoot, 'SKILL.md');
+  fs.writeFileSync(skillFile, '---\nname: file-skill\ndescription: Use when testing file import.\n---\n\n# File skill\n\nFILE-BODY-V1\n');
+  const outside = path.join(tmp, 'outside.md');
+  fs.writeFileSync(outside, 'secret');
+  client = await connect({ MY_LIBRARY_DIR: tmp, READ_ONLY: 'false', VERCEL: '', IMPORT_ROOTS: '' });
+  await refused(client, 'save_to_my_library', { title: 'off', file: skillFile });
+  await client.close();
+  client = await connect({ MY_LIBRARY_DIR: tmp, READ_ONLY: 'false', VERCEL: '', IMPORT_ROOTS: importRoot });
+  await refused(client, 'save_to_my_library', { title: 'outside', file: outside });
+  await refused(client, 'save_to_my_library', { title: 'climb', file: path.join(importRoot, '..', 'outside.md') });
+  await refused(client, 'save_to_my_library', { file: skillFile }); // no title
+  const imported = await ok(client, 'save_to_my_library', {
+    title: 'file-skill', section: 'skills', category: 'Development', file: skillFile, content: '> Source: test',
+  });
+  const importedId = imported.match(/as `([a-z0-9-]+)`/)?.[1];
+  const importedBack = await ok(client, 'get_item', { id: importedId });
+  assert.match(importedBack, /> Source: test/, 'content is kept as a preface');
+  assert.match(importedBack, /FILE-BODY-V1/, 'file body imported');
+  assert.match(importedBack, /description: Use when testing file import\./, 'file frontmatter kept');
+  fs.writeFileSync(skillFile, '---\nname: file-skill\ndescription: Changed description.\n---\n\nFILE-BODY-V2\n');
+  await ok(client, 'update_my_prompt', { id: importedId, file: skillFile, content: '> Source: test' });
+  const updatedBack = await ok(client, 'get_item', { id: importedId });
+  assert.match(updatedBack, /FILE-BODY-V2/, 'update re-reads the file');
+  assert.doesNotMatch(updatedBack, /FILE-BODY-V1/);
+  assert.match(updatedBack, /description: Changed description\./, 'update takes the new frontmatter');
+  await refused(client, 'update_my_prompt', { id: importedId, file: outside });
+  await ok(client, 'delete_my_prompt', { id: importedId });
   await client.close();
 
   // ---------- read-only ----------
