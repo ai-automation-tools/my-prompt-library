@@ -52,7 +52,13 @@ Out of scope:
 
 - The server binds to `127.0.0.1` unless `HOST` says otherwise.
 - Read-only mode (`READ_ONLY=true`, or automatic on Vercel) is enforced on the server, not
-  only by hiding buttons in the UI.
+  only by hiding buttons in the UI. It refuses every write and stops serving My Library
+  (checked by `npm run test:read-only`).
+- One middleware in front of every route refuses a `Host` that is not `localhost`,
+  `*.localhost`, an IP address or a name in `ALLOWED_HOSTS` (DNS rebinding), and a
+  cross-site `Origin` on any write, skill packs included (checked by `npm run test:my-library`).
+- My Library writes are field-checked in one place, replace files atomically, and refuse an
+  update made from a stale version of the file.
 - My Library ids must match `^[a-z0-9-]+$`, so an id can never name a path outside the
   folder (`site/lib/my-library.ts`, checked by `npm run test:my-library`).
 - Public Library, skill and skill-pack reads are confined to the library root
@@ -60,7 +66,8 @@ Out of scope:
 - `helmet` sets the standard response headers. CSP is intentionally off (see the comment
   in `site/api/index.ts`). Request bodies are capped at 1 MB.
 - Dependabot watches `site/`, and CI fails on a type error, a changed route table, a broken
-  My Library store or a stale prompt index.
+  My Library store or boundary check, read-only mode serving private files, a broken
+  download or failed-load path, an MCP regression, or a stale prompt index.
 
 ## Supported versions
 

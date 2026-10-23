@@ -18,7 +18,8 @@ The full guide, with the content templates and formatting rules, is at
 ## Code
 
 1. Work from `site/`: `npm install`, `npm run dev`.
-2. `npm run lint` and `npm run test:routes` must pass. Both run in CI.
+2. `npm run lint` and the `npm run test:*` scripts must pass (`routes`, `my-library`,
+   `read-only`, `prompt-content`, `markdown-file`, `mcp`). All of them run in CI.
 3. Strict TypeScript, no `any`. Prefer adding to `src/components/` or `src/hooks/` over
    growing `App.tsx`.
 4. Parameterized SQL only. Never commit `.env*`.

@@ -10,7 +10,7 @@
 
 ## Checklist
 
-- [ ] `npm run lint` and `npm run test:routes` pass (from `site/`)
+- [ ] `npm run lint` and the `npm run test:*` scripts pass (from `site/`)
 - [ ] If `site/library/` changed: `npm run build:index` run and `site/api/prompt-index.json` committed
 - [ ] If a skill was vendored: its LICENSE kept and an `upstream:` block added
 - [ ] No personal contact details or credentials, including sample ones

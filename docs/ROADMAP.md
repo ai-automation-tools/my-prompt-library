@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/now-phase_1:_MCP_server-F59E0B?style=for-the-badge" alt="Now: Phase 1, MCP server">
+  <img src="https://img.shields.io/badge/now-phase_2:_audit_fixes-F59E0B?style=for-the-badge" alt="Now: Phase 2, audit fixes">
   <img src="https://img.shields.io/badge/stage-public_since_2026--10--12-2ea44f?style=for-the-badge" alt="Stage: public since 2026-10-12">
   <a href="README.md"><img src="https://img.shields.io/badge/↩-docs_home-6B7280?style=for-the-badge" alt="Back to docs"></a>
 </p>
@@ -37,6 +37,11 @@ marks one only Mike can do.
 > smaller ones. Its fixes are Phase 2 below; findings that matched an existing item were folded
 > into it, tagged with the audit's id (F01–F20, O01–O04). The reports are kept outside the repo
 > in `.claude/temp/audits/2026-10-23/` because the secret-scan appendix must stay private.
+>
+> **End of 2026-10-23:** all three High findings are fixed (F01–F03), and so are F05, F06, F07
+> and F13, each with a test that fails when the fix is reverted (PRs #415–#420). F09 got most of
+> its contract tests along the way. Next up is F08 (modal focus), then the `small` items F15
+> and F19.
 
 ## 🔌 Phase 1: MCP server for the library
 
@@ -69,11 +74,11 @@ that fails when the fix is reverted, run against a temporary `MY_LIBRARY_DIR`, n
 - [ ] **F08** The shared modal manages focus: it moves focus inside on open, traps Tab and Shift+Tab, makes the page behind it inert, closes on Escape and returns focus to the trigger. The palette radios in Settings answer the arrow keys. Checked keyboard-only on the editor and Settings
 - [ ] `small` **F15** `update_my_prompt` declares `destructiveHint: true` (it overwrites a body, including from `file`); `tools/list` in `scripts/mcp-server.test.mjs` asserts the hint on every write tool
 - [ ] `small` **F19** The detail page's copy awaits `navigator.clipboard.writeText`: the success toast fires only when it resolves, and a rejection or a missing clipboard shows an error with no unhandled rejection
-- [ ] **F09** CI catches what it misses today: a `npm run build` step first (the cheap slice), then HTTP contract tests for read-only reads, Host checks, the content fallback and export, plus a browser smoke test on the built assets. Done when deliberately reverting F01, F02, F03 or F06 turns CI red
+- [ ] **F09** CI catches what it misses today: a `npm run build` step first (the cheap slice), then HTTP contract tests for read-only reads, Host checks, the content fallback and export, plus a browser smoke test on the built assets. Done when deliberately reverting F01, F02, F03 or F06 turns CI red. Progress 2026-10-23: the contract tests are in CI and each was checked to fail against its reverted fix (`test:read-only` for F01, the Host cases in `test:my-library` for F02, `test:prompt-content` for F03, `test:markdown-file` for F06). Left: the `npm run build` step and a browser smoke test on the built assets
 - [ ] **F04** `main` requires a pull request and the CI `check` job before merge. Done when a throwaway PR with a failing check cannot merge and the PR sweep still merges a passing one without bypassing it 🔒 Needs Mike (repository ruleset)
 - [ ] **F14** Library paths resolve symlinks and junctions: `resolveInside()` compares real paths, and pack manifest paths go through it instead of a bare `path.join`. A temporary link pointing outside `library/` fails for detail, previews, MCP support-file reads and ZIP assembly; plain `../` traversal still fails
 - [ ] **F18** The demo's HTML and assets get the headers Express gives the API (CSP, frame policy, `nosniff`) from `vercel.json`. The CSP must allow the inline theme script, `consent.js` and Google Fonts. Checked on a Vercel preview: theme without a flash, fonts, consent, navigation and downloads all still work
-- [ ] `small` **F20** Stale setup and agent claims: `docs/setup/SETUP.md` drops "20 works" (Node 20 is past end of life); `AGENTS.md`'s env table and "three optional settings" match `site/.env.example` (`ALLOWED_HOSTS`, `IMPORT_ROOTS`); the read-only and containment wording matches what F01 and F14 enforce; `server.ts` comments stop mentioning the removed `cookieParser`. Depends on F01, F02, F14
+- [ ] `small` **F20** Stale setup and agent claims: `docs/setup/SETUP.md` drops "20 works" (Node 20 is past end of life); `AGENTS.md`'s env table and "three optional settings" match `site/.env.example` (`ALLOWED_HOSTS`, `IMPORT_ROOTS`); the read-only and containment wording matches what F01 and F14 enforce; `server.ts` comments stop mentioning the removed `cookieParser`. Depends on F01, F02, F14. Progress 2026-10-23: `AGENTS.md` lists all five settings, including `ALLOWED_HOSTS`; the read-only wording matches F01. Left: the Node 20 line, the `cookieParser` comment and the containment wording, after F14
 
 ## 🧹 Phase 3: Loose ends
 
