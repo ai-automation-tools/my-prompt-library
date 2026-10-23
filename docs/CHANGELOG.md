@@ -4,6 +4,14 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — The audit's findings are on the roadmap
+
+**Docs**
+- `docs/ROADMAP.md` gains **Phase 2: Audit fixes**, from the 2026-10-23 audit (health 6.4/10, no P0): read-only mode hiding My Library (F01), one Host/Origin check including pack writes (F02, F13), failing closed when a prompt body cannot load (F03), shared write schemas, lossless export, atomic conflict-aware writes, modal focus, MCP hint and clipboard fixes, CI build and contract tests, required checks on `main`, symlink-safe paths, demo headers and stale setup claims. Loose ends becomes Phase 3 and gains strict TypeScript (F11) and endpoint budgets (F12).
+- Findings that matched an existing item were merged into it: the Resources menu (F16), the history secret scan (F10, now run, with 138 candidates left to triage), provenance (F17), source and freshness badges (O02), export/import (O01) and placeholder arguments (O03). Evaluation export (O04) is new.
+
+_Touched: `docs/ROADMAP.md`._
+
 ## 2026-10-23 — A Favorites button in the sidebar
 
 **Added**
