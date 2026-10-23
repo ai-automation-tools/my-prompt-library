@@ -132,6 +132,8 @@ app.get("/api/prompts", async (req, res) => {
   const lightweight = req.query.lightweight === 'true'; // Only return metadata, not full content
 
   if (libraryMode === 'my') {
+    // Read-only serves the Public Library only: personal prompts stay private too
+    if (READ_ONLY) return res.json([]);
     // My Library keeps its inline preview where the public listing dropped one:
     // it is one person's own prompts, not 3,088, so the bytes are not worth a
     // round trip — and /api/prompts/previews only knows about library files.
@@ -305,7 +307,7 @@ app.get("/api/prompts/:id", async (req, res) => {
     const promptId = decodeURIComponent(req.params.id);
 
     // My Library ids are bare file names; library ids are always section/…/file.md
-    if (!promptId.includes('/')) {
+    if (!promptId.includes('/') && !READ_ONLY) {
       const prompt = myLibrary.get(promptId);
       if (prompt) {
         return res.json({ ...toApiPrompt(prompt), upstream: upstreamStatus(prompt) });

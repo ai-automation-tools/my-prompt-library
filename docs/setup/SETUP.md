@@ -117,12 +117,14 @@ Then set `ALLOWED_HOSTS` in `site/.env` to the names Tailscale forwards, for exa
 `ALLOWED_HOSTS=my-pc,my-pc.tailnet-name.ts.net`. Vite answers `403` to any other Host,
 middleware mode included. The tailnet is the authentication here: every device on it can
 read **and edit** My Library, exactly as this PC can, while pages on other sites still cannot
-post to it (the Origin check). Add `READ_ONLY=true` if the other devices should only read.
+post to it (the Origin check). `READ_ONLY=true` turns the server into a Public Library
+browser for everyone, this PC included: My Library is neither shown nor served, not just
+locked against edits.
 
 The MCP server is not affected by any of this: it talks to agents over stdio on this machine.
 
 > [!NOTE]
-> `READ_ONLY` is read twice: by the server, which refuses writes, and by `vite build`, which
+> `READ_ONLY` is read twice: by the server, which refuses writes and stops serving My Library, and by `vite build`, which
 > hides the write controls in the UI. Both load `site/.env`, so one line there covers
 > `npm run dev` and `npm start` alike.
 
@@ -134,6 +136,7 @@ The MCP server is not affected by any of this: it talks to agents over stdio on 
 npm run lint             # tsc --noEmit
 npm run test:routes      # the API route table is intact
 npm run test:my-library  # My Library file store round-trip, in a temp folder
+npm run test:read-only   # read-only mode hides My Library
 npm run build:index      # rebuild api/prompt-index.json after editing library/
 ```
 

@@ -19,7 +19,9 @@ There are no accounts, sessions or API keys. Every endpoint is open to whoever c
 server, which by default is only this machine (the server binds to `127.0.0.1`).
 
 **Read-only mode** is on when `READ_ONLY=true`, and always on Vercel (which sets `VERCEL`).
-In that mode every route that writes to My Library returns:
+It serves the Public Library only: the My Library list and `?library=my` packs are empty, and
+a My Library id on `GET /api/prompts/:id` is refused like any other non-library path. Every
+route that writes to My Library returns:
 
 ```
 403 Forbidden
@@ -62,8 +64,8 @@ List prompts.
 **My Library (`?library=my`):**
 - Every `.md` file in the My Library folder, newest `updated` first
 - `isUserOwned: true`
-- Returns `[]` when the folder does not exist yet (and always on the read-only demo, which
-  has none)
+- Returns `[]` when the folder does not exist yet, and always in read-only mode, whatever
+  the folder holds
 
 **Lightweight Mode (`?lightweight=true`):**
 - Public library: `content` is an empty string. No body text of any kind, not even a
@@ -366,8 +368,8 @@ List packs as summaries (`id`, `name`, `description`, `icon`, `version`, `tags`,
 `category`, `skillCount`, `author`, `created_at`, `updated_at`).
 
 - `public` (default): every pack
-- `my`: only packs with at least one My Library prompt tagged `skill-pack:<packId>`. On the
-  read-only demo this is always empty.
+- `my`: only packs with at least one My Library prompt tagged `skill-pack:<packId>`. Always empty
+  in read-only mode.
 
 ### GET /api/skill-packs/:packId
 
@@ -492,6 +494,7 @@ hand-edited files.
 ```bash
 npm run test:routes      # the route table, and that no auth router is mounted
 npm run test:my-library  # the file store, against a temp folder
+npm run test:read-only   # read-only mode hides My Library
 ```
 
 **Quick cURL round trip** (local, not read-only):
