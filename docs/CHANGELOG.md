@@ -4,6 +4,14 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — Dialogs keep keyboard focus
+
+**Fixed**
+- The editor and Settings dialogs manage focus. Opening one moves focus inside (the editor's title field, or the first control), Tab and Shift+Tab wrap within it, and the page behind is `inert`, so it can't be clicked, tabbed into or read by a screen reader. Escape closes it and focus returns to the button that opened it. Roadmap item F08.
+- The colour palette in Settings is a proper radio group: one tab stop, and the arrow keys move the choice.
+
+_Touched: `site/src/components/ui/primitives.tsx`, `site/src/components/SettingsModal.tsx`, `site/src/components/PromptEditorModal.tsx`, `docs/ROADMAP.md`._
+
 ## 2026-10-23 — Strict TypeScript, honest copy toasts, and a resync fix
 
 **Fixed**
