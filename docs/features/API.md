@@ -180,6 +180,10 @@ For a public prompt, `section`, `category` and `subcategory` come from the path 
 from frontmatter, the first `#` heading, or the file name. For a My Library prompt they come
 from the file's frontmatter and `isUserOwned` is `true`.
 
+Both carry `extra`: the file's frontmatter beyond the fields above (a skill's `name`,
+`description`, `license`, `allowed-tools`…; never `upstream`). The Download button writes it
+back into the `.md`, so a downloaded skill still loads.
+
 A My Library prompt also carries `upstream`: `null` when it has no Public Library source, or
 `{ "source": "<public id>", "updateAvailable": bool, "localEdits": bool }`. `updateAvailable`
 means the public content changed since the copy was saved; `localEdits` means the copy was
@@ -522,6 +526,7 @@ npm run test:routes      # the route table, and that no auth router is mounted
 npm run test:my-library  # the file store, against a temp folder
 npm run test:read-only   # read-only mode hides My Library
 npm run test:prompt-content  # the UI's full-prompt fetch fails closed
+npm run test:markdown-file   # the Download button's .md round-trips
 ```
 
 **Quick cURL round trip** (local, not read-only):
