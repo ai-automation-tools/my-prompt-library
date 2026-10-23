@@ -54,6 +54,11 @@ jobs:
       - name: Read-only hides My Library
         run: npm run test:read-only
 
+      # Edit, Copy, Download and the detail page act on fetchFullPrompt's result,
+      # so a failed load must throw rather than hand back the 200-char preview.
+      - name: Full prompt loads fail closed
+        run: npm run test:prompt-content
+
       - name: Library path containment
         run: node lib/safe-path.test.mjs
 

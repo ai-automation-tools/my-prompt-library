@@ -138,6 +138,7 @@ npm run lint             # tsc --noEmit
 npm run test:routes      # the API route table is intact
 npm run test:my-library  # My Library file store round-trip, in a temp folder
 npm run test:read-only   # read-only mode hides My Library
+npm run test:prompt-content  # a failed prompt load never falls back to the preview
 npm run build:index      # rebuild api/prompt-index.json after editing library/
 ```
 

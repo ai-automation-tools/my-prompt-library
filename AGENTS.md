@@ -50,9 +50,10 @@ Other scripts: `npm run build` (build:index → tsc → vite build), `npm run bu
 (regenerates `api/prompt-index.json` from `library/`), `npm run lint` (`tsc --noEmit`),
 `npm run test:routes` (asserts the shared Express app still exposes all nine API routes and no auth router),
 `npm run test:my-library` (round-trips the My Library file store in a temp folder),
-`npm run test:read-only` (under `READ_ONLY`, My Library is neither listed nor served).
+`npm run test:read-only` (under `READ_ONLY`, My Library is neither listed nor served),
+`npm run test:prompt-content` (a failed full-prompt load throws instead of returning the preview).
 
-CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → `test:my-library` → `test:read-only` → the two repo-root
+CI (`.github/workflows/ci.yml`) runs `npm ci` → `lint` → `test:routes` → `test:my-library` → `test:read-only` → `test:prompt-content` → the two repo-root
 provenance self-checks (`scripts/upstream.test.mjs`, `scripts/skill-frontmatter.test.mjs`) →
 a rebuild of the prompt index, failing if the rebuilt file is not byte-identical to the committed one.
 Rebuild and commit `api/prompt-index.json` whenever you touch `library/`.
@@ -68,7 +69,8 @@ site/
     App.tsx            ~1,050 lines — the app shell: state, data fetching, handlers, layout
     hooks/             usePromptFilters (search, tags, sort, pagination)
                        usePromptPreviews (batched card blurbs — the listing has no body text)
-                       usePromptContent (copy state + fetching a prompt's real body)
+                       usePromptContent (copy state + fetchFullPrompt, which throws rather than
+                       return the listing's preview; callers show an error and stop)
                        useLibraryRoute (section/category/subcategory/?prompt= URL state)
     hooks/useTheme     Light | Dark (`html.light`, key `my-prompt-library.theme`) and the colour palette
                        (`html[data-palette]`, key `my-prompt-library.palette`, sky/violet/emerald/ember;
