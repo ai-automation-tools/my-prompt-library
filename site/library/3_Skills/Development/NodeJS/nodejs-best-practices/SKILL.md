@@ -3,10 +3,13 @@ name: nodejs-best-practices
 description: Node.js development principles and decision-making. Framework selection, async patterns, security, and architecture. Teaches thinking, not copying.
 allowed-tools: Read, Write, Edit, Glob, Grep
 upstream:
-  match: ambiguous
-  copies: 8
-  candidates: [automindtechnologie-jpg/ultimate-skill.md, congdon1207/agents.md, hainamchung/agent-assistant, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, vudovn/antigravity-kit, xfstudio/skills]
-  checked: 2026-08-26
+  match: exact
+  repo: congdon1207/agents.md
+  path: .agent/skills/nodejs-best-practices/SKILL.md
+  ref: 9f1aa55395ca949e4484040899fe3333dd10fa6b
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [xfstudio/skills, poletron/custom-rules, sickn33/antigravity-awesome-skills, vudovn/antigravity-kit, hainamchung/agent-assistant]
 tags: ["skill","development","nodejs"]
 ---
 

@@ -4,8 +4,13 @@ tags: ["skill","finance","portfolio-management"]
 name: "tax-loss-harvesting"
 description: "Execute a complete tax-loss harvesting workflow from candidate identification through post-harvest monitoring. Use when the user asks about finding TLH candidates, gain/loss budgeting, replacement security selection, wash-sale compliance, or harvest execution planning. Also trigger when users mention 'unrealized losses in my portfolio', 'swap ETFs for tax purposes', 'harvest losses before year-end', 'substantially identical security', 'wash-sale window', 'NIIT offset', 'loss carryforward', or ask how much tax they can save by harvesting."
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: similar
+  repo: JoelLewis/finance_skills
+  path: plugins/wealth-management/skills/tax-loss-harvesting/SKILL.md
+  ref: 5c498eacf7057e31238c4c5a8012a1afe9ec7c8a
+  checked: 2026-10-23
+  was: unknown
+  candidates: [feliksness/Quartzite-Prompt-Library]
 ---
 
 # Tax-Loss Harvesting

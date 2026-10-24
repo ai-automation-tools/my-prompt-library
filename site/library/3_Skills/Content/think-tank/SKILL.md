@@ -2,8 +2,13 @@
 name: think-tank
 description: Run a Virtual Think Tank — a structured multi-persona debate — before planning or making architectural/design/strategic decisions. Use this skill whenever the user is about to plan a system, make a technology choice, evaluate trade-offs, decide on an approach, or faces any decision where multiple perspectives would sharpen the outcome. Also trigger when the user says "think tank", "debate this", "perspectives on", "trade-offs", "should I use X or Y", "help me decide", "before we plan", or asks for pros/cons of competing approaches. This skill should run BEFORE any implementation planning begins — it produces a structured analysis that feeds into better plans.
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/skills/productivity/think-tank/SKILL.md
+  ref: d42dc5a73cf63fd6c36fa1d1e83c5e2d3f87b3d0
+  checked: 2026-10-23
+  was: unknown
+  candidates: [aicodedecode/awesome-muse-skills, GOlinkup/steroids, Sansar35/claude-agent, TanNhatCMS/jarvis, GongYuanCaiJi/dsh-claude-code-templates, marnixGeerkens/rocketlauncher-claude-code, metinduraktr-44/claude-otonom-sistem, onfire7777/universal-ai-skills-library]
 tags: ["skill","content","think-tank"]
 ---
 

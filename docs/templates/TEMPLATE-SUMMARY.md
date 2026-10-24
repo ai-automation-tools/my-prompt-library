@@ -26,9 +26,8 @@ Created **5 comprehensive templates** for the Promptbook project to guide agents
 - **Use Case:** Installable subagent definitions (`name:` + `description:` frontmatter); role-play prompts go in `4_Prompts`
 
 ### 4. 📝 System Prompts Template
-- **Purpose:** Complete LLM system instructions and platform configurations
-- **Size:** 6.8 KB
-- **Key Sections:** System identity, Capabilities, Response formatting, Domain knowledge, Examples
+- **Purpose:** A real system prompt, copied verbatim, with its source
+- **Key Sections:** Frontmatter with an `upstream:` block (repo, path, commit, or a vendor `url`), then the prompt unchanged
 - **Icon:** 📝
 - **Use Case:** Full AI platform system prompts (v0.dev, Claude, etc.)
 

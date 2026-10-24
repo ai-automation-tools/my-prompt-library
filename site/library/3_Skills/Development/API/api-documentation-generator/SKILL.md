@@ -4,10 +4,13 @@ tags: ["skill","development","api"]
 name: "api-documentation-generator"
 description: "Generate comprehensive, developer-friendly API documentation from code, including endpoints, parameters, examples, and best practices"
 upstream:
-  match: ambiguous
-  copies: 5
-  candidates: [hainamchung/agent-assistant, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
-  checked: 2026-08-26
+  match: exact
+  repo: xfstudio/skills
+  path: api-documentation-generator/SKILL.md
+  ref: 1bf6044db21c12c62695a6732f1273d66ff4882e
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [poletron/custom-rules, sickn33/antigravity-awesome-skills]
 ---
 
 # API Documentation Generator

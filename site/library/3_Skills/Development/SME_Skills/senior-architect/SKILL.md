@@ -4,10 +4,13 @@ tags: ["skill","development","sme-skills"]
 name: "senior-architect"
 description: Comprehensive software architecture skill for designing scalable, maintainable systems using ReactJS, NextJS, NodeJS, Express, React Native, Swift, Kotlin, Flutter, Postgres, GraphQL, Go, Python. Includes architecture diagram generation, system design patterns, tech stack decision frameworks, and dependency analysis. Use when designing system architecture, making technical decisions, creating architecture diagrams, evaluating trade-offs, or defining integration patterns.
 upstream:
-  match: ambiguous
-  copies: 12
-  candidates: [atalovesyou/claude-skills-pack, automindtechnologie-jpg/ultimate-skill.md, dereknex/skills, jpropato/siba, maslennikov-ig/claude-code-orchestrator-kit, nilecui/skillsbase, ovachiever/droid-tings, poletron/custom-rules]
-  checked: 2026-08-26
+  match: exact
+  repo: maslennikov-ig/claude-code-orchestrator-kit
+  path: .claude/skills/senior-architect/SKILL.md
+  ref: 8c3b576cc6f216539cc3f447d12705787a44dd3a
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [ovachiever/droid-tings, nilecui/skillsbase, poletron/custom-rules]
 ---
 
 # Senior Architect

@@ -4,8 +4,13 @@ tags: ["skill","development","api"]
 name: "api-integration-specialist"
 description: Expert in integrating third-party APIs with proper authentication, error handling, rate limiting, and retry logic. Use when integrating REST APIs, GraphQL endpoints, webhooks, or external services. Specializes in OAuth flows, API key management, request/response transformation, and building robust API clients.
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/skills/development/api-integration-specialist/SKILL.md
+  ref: d42dc5a73cf63fd6c36fa1d1e83c5e2d3f87b3d0
+  checked: 2026-10-23
+  was: unknown
+  candidates: [ynulihao/AgentSkillOS, aiskillstore/marketplace, diegosouzapw/awesome-omni-skill, ComeOnOliver/skillshub, christopherkarani/Zoni, aicodedecode/awesome-muse-skills, lxyeternal/MalSkillBench]
 ---
 
 # API Integration Specialist

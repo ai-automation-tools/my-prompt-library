@@ -4,10 +4,13 @@ tags: ["skill","business","marketing"]
 name: "content-research-writer"
 description: Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing process from solo effort to collaborative partnership.
 upstream:
-  match: ambiguous
-  copies: 26
-  candidates: [aaaaqwq/agi-super-skills, aaaaqwq/claude-code-skills, cafe3310/public-agent-skills, codingheader/myskills, commandcodeai/agent-skills, composio-community/awesome-codex-skills, composiohq/awesome-claude-skills, composiohq/awesome-codex-skills]
-  checked: 2026-08-26
+  match: exact
+  repo: composiohq/awesome-claude-skills
+  path: content-research-writer/SKILL.md
+  ref: be2a406907dbc61b73e6827ded415c96139d13a2
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [composio-community/awesome-codex-skills, composiohq/awesome-codex-skills, cafe3310/public-agent-skills, commandcodeai/agent-skills, aaaaqwq/agi-super-skills, aaaaqwq/claude-code-skills, codingheader/myskills]
 ---
 
 # Content Research Writer

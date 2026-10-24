@@ -42,6 +42,23 @@ subcategory: "Subcategory_Name"    # Required: Second-level category
 ---
 ```
 
+**Skills, agents, system prompts and MCP server cards also name their source** (since
+2026-10-23). This library keeps copies of things maintained elsewhere, and the weekly drift
+check can only keep a copy current if it knows where it came from:
+
+```yaml
+upstream:
+  match: exact                 # exact | similar
+  repo: owner/repo             # on GitHub
+  path: path/in/repo.md
+  ref: <full commit sha>       # the commit you copied from
+  checked: YYYY-MM-DD
+```
+
+MCP cards use `server.repo` instead (see the MCP template). A system prompt the vendor publishes
+only on its own docs page uses `match: vendor` + `url`. `scripts/upstream.test.mjs` fails CI on
+any of these files without a source, so an item with no repo doesn't go in.
+
 ### Field Rules
 
 **1. `title`**
@@ -163,12 +180,12 @@ library/
 - Integration points
 
 ### 📝 System Prompts
-- Complete system identity
-- Capabilities and constraints
-- Response formatting rules
-- Multiple examples
+- The real prompt, copied verbatim; never written or reconstructed
+- An `upstream:` block (or `match: vendor` + `url`) naming where it was copied from
+- One capture per file; a newer version is a new file
 
 ### 🔧 Skills
+- An `upstream:` block naming the GitHub repo the skill lives in
 - Prerequisites and setup
 - Usage examples with real commands
 - Configuration options
@@ -182,6 +199,7 @@ Before submitting, verify:
 
 - [ ] Used correct template for content type
 - [ ] All 4 required metadata fields present
+- [ ] Skill, agent, system prompt or MCP card: its source is named (`upstream:` or `server.repo`)
 - [ ] Title includes appropriate emoji icon
 - [ ] Tags are relevant (3-6)
 - [ ] File name is lowercase with hyphens

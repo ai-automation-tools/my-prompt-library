@@ -2,10 +2,13 @@
 name: invoice-organizer
 description: Automatically organizes invoices and receipts for tax preparation by reading messy files, extracting key information, renaming them consistently, and sorting them into logical folders. Turns hours of manual bookkeeping into minutes of automated organization.
 upstream:
-  match: ambiguous
-  copies: 17
-  candidates: [aaaaqwq/agi-super-skills, aaaaqwq/claude-code-skills, codingheader/myskills, commandcodeai/agent-skills, composio-community/awesome-codex-skills, composiohq/awesome-claude-skills, composiohq/awesome-codex-skills, hainamchung/agent-assistant]
-  checked: 2026-08-26
+  match: exact
+  repo: composiohq/awesome-claude-skills
+  path: invoice-organizer/SKILL.md
+  ref: be2a406907dbc61b73e6827ded415c96139d13a2
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [composio-community/awesome-codex-skills, composiohq/awesome-codex-skills, commandcodeai/agent-skills, codingheader/myskills]
 tags: ["skill","content","invoice-organizer"]
 ---
 

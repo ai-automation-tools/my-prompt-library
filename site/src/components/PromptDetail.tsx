@@ -28,6 +28,7 @@ import {
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { m } from 'motion/react';
+import SourcePanel from './SourcePanel';
 import { cn } from '../lib/cn';
 import { humanize } from '../lib/sections';
 import type { Prompt } from './PromptCard';
@@ -180,7 +181,9 @@ export default function PromptDetail({
               </Button>
             </div>
           )}
-          {prompt.sourceUrl && (
+          {prompt.source ? (
+            <SourcePanel source={prompt.source} />
+          ) : prompt.sourceUrl && (
             <a
               href={prompt.sourceUrl}
               target="_blank"

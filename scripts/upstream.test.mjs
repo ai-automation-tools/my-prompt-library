@@ -122,7 +122,8 @@ assert.equal(readUpstream(stampUpstream(tagsLast, { ref: "newsha", checked: "202
 {
   const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^[/]([A-Za-z]:)/, "$1"));
   const LIB = path.join(HERE, "..", "site", "library");
-  const KNOWN = new Set(["exact", "prefix", "similar", "ambiguous", "unknown", "fork"]);
+  // `vendor`: a system prompt the vendor publishes only on its own page (`url`, no repo).
+  const KNOWN = new Set(["exact", "prefix", "similar", "ambiguous", "unknown", "fork", "vendor"]);
   const walk = (dir, match, out = []) => {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
       const p = path.join(dir, e.name);
@@ -137,6 +138,8 @@ assert.equal(readUpstream(stampUpstream(tagsLast, { ref: "newsha", checked: "202
   const files = [
     ...walk(path.join(LIB, "3_Skills"), (n) => n === "SKILL.md"),
     ...walk(path.join(LIB, "2_Agents"), (n) => n.endsWith(".md")),
+    // System prompts since 2026-10-23 (attribute-system-prompts.mjs).
+    ...walk(path.join(LIB, "5_System_Prompts"), (n) => n.endsWith(".md") && n.toLowerCase() !== "readme.md"),
   ];
   for (const f of files) {
     const u = readUpstream(splitFrontmatter(fs.readFileSync(f, "utf8")).fm);
@@ -145,7 +148,30 @@ assert.equal(readUpstream(stampUpstream(tagsLast, { ref: "newsha", checked: "202
     if (!KNOWN.has(u.match)) bad.push(path.relative(LIB, f) + ": match: " + u.match);
   }
   assert.deepEqual(bad, [], "every upstream.match must be a known attribution verdict");
-  console.log("  " + stamped + " stamped skills and agents, every match: value in the vocabulary");
+  console.log("  " + stamped + " stamped skills, agents and system prompts, every match: value in the vocabulary");
+
+  // --- every vendored item names its source (Mike, 2026-10-23) ---
+  // Skills, agents and system prompts carry an `upstream:` block with a GitHub
+  // `repo` (unknown/ambiguous do not count: they name no single repo), or, for a
+  // system prompt a vendor publishes only on its own page, `match: vendor` + `url`.
+  // MCP cards name theirs in `server.repo`. Folder README files are not items.
+  const unsourced = [];
+  const block = (fm, key) => {
+    const m = fm.match(new RegExp(`^${key}:\\n((?:[ \\t]+.*\\n?)*)`, "m"));
+    return m ? Object.fromEntries(m[1].split("\n").map((l) => l.match(/^\s+([a-z_]+):\s*(.*)$/)).filter(Boolean)
+      .map(([, k, v]) => [k, v.trim().replace(/^["']|["']$/g, "")])) : null;
+  };
+  for (const f of files) {
+    if (path.basename(f).toLowerCase() === "readme.md") continue;
+    const u = readUpstream(splitFrontmatter(fs.readFileSync(f, "utf8")).fm);
+    const named = u && ((u.repo && u.match !== "unknown" && u.match !== "ambiguous") || (u.match === "vendor" && u.url));
+    if (!named) unsourced.push(path.relative(LIB, f).split(path.sep).join("/"));
+  }
+  for (const f of walk(path.join(LIB, "6_MCP_Servers"), (n) => n.endsWith(".md") && n.toLowerCase() !== "readme.md")) {
+    if (!block(splitFrontmatter(fs.readFileSync(f, "utf8")).fm, "server")?.repo) unsourced.push(path.relative(LIB, f).split(path.sep).join("/"));
+  }
+  assert.deepEqual(unsourced, [], "every skill, agent, system prompt and MCP card must name its source (upstream.repo, match: vendor + url, or server.repo)");
+  console.log("  every skill, agent, system prompt and MCP card names a source");
 }
 
 console.log("upstream: all checks passed");

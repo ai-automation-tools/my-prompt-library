@@ -26,11 +26,11 @@ interface TopBarProps {
 }
 
 /**
- * The house-style top bar: categories toggle, brand, the seven sections as nav
- * bordered buttons (the current one filled in its section hue), then ⌘K, Resources,
- * New prompt, Settings and the Light | Dark switch. Below 1536px a menu button
- * opens a sheet under the bar: the sections (below 1360px, where they leave the
- * bar) and the Resources links, whose dropdown only fits from 1536px.
+ * The house-style top bar: categories toggle (phones), then search (⌘K), Resources,
+ * New prompt and the Light | Dark switch. From md the sections, brand and
+ * Settings live in SectionRail; on phones the brand and Settings stay here and
+ * the sections are in the menu sheet. Below 1536px that menu button opens a
+ * sheet under the bar with the Resources links, whose dropdown only fits from 1536px.
  */
 export default function TopBar({
   sidebarOpen,
@@ -53,37 +53,19 @@ export default function TopBar({
   return (
     <>
       <header className="topbar">
-        <IconButton label={sidebarOpen ? 'Hide categories' : 'Show categories'} onClick={onToggleSidebar} aria-expanded={sidebarOpen}>
+        {/* Phones only: from md the panel closes from its own head and reopens from the rail. */}
+        <IconButton label={sidebarOpen ? 'Hide categories' : 'Show categories'} onClick={onToggleSidebar} aria-expanded={sidebarOpen} className="md:hidden">
           <PanelLeft className="h-4 w-4" />
         </IconButton>
 
-        <button type="button" className="brand" onClick={() => pick('prompt-library')} aria-label="Promptbook home">
+        <button type="button" className="brand md:hidden" onClick={() => pick('prompt-library')} aria-label="Promptbook home">
           <img src="/favicon.svg" alt="" width={24} height={24} />
-          {/* The wordmark only on very wide windows: six section buttons come first. */}
-          <span className="hidden min-[1720px]:inline">Promptbook</span>
         </button>
-
-        <nav className="nav" aria-label="Sections">
-          {SECTIONS.map(section => {
-            const Icon = section.icon;
-            return (
-              <button
-                key={section.id}
-                type="button"
-                aria-current={section.id === activeTab ? 'true' : undefined}
-                onClick={() => pick(section.id)}
-                style={{ ['--c' as string]: section.accent }}
-              >
-                <Icon aria-hidden="true" />
-                {section.label}
-              </button>
-            );
-          })}
-        </nav>
 
         <div className="topbar-right">
           <button type="button" className="kbd-btn" onClick={onOpenPalette} aria-label="Search the library">
             <Search className="h-3.5 w-3.5" aria-hidden="true" />
+            <span className="mr-auto">Search the library…</span>
             <Kbd>{MOD_KEY}</Kbd>
             <Kbd>K</Kbd>
           </button>
@@ -100,7 +82,7 @@ export default function TopBar({
             </Button>
           )}
 
-          <IconButton label="Settings" framed onClick={onOpenSettings}>
+          <IconButton label="Settings" framed onClick={onOpenSettings} className="md:hidden">
             <Settings className="h-4 w-4" />
           </IconButton>
 

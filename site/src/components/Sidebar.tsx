@@ -4,10 +4,10 @@
  */
 
 import { useMemo, useState } from 'react';
-import { BookOpen, ChevronDown, FolderOpen, Layers, Library, Package, Search, Star, X } from 'lucide-react';
+import { BookOpen, ChevronDown, Layers, Library, Package, PanelLeftClose, Search, Star, X } from 'lucide-react';
 import { AnimatePresence, LayoutGroup, m } from 'motion/react';
 import { cn } from '../lib/cn';
-import { getSection, humanize } from '../lib/sections';
+import { categoryHue, getSection, humanize } from '../lib/sections';
 import type { LibraryTab } from '../hooks/useLibraryRoute';
 import type { Prompt } from './PromptCard';
 import { READ_ONLY } from '../lib/mode';
@@ -51,7 +51,8 @@ export const SIDEBAR_WIDTH = 272;
 
 /**
  * The categories panel: the Public | My Library switch, then the category
- * tree for the current section. Sections themselves live in the top bar.
+ * tree for the current section, each category in its own hue. Sections live in
+ * SectionRail, whose current tab joins onto this panel's section-tinted ground.
  * A drawer over the page on phones, a column beside it from md up.
  */
 export default function Sidebar({
@@ -101,7 +102,7 @@ export default function Sidebar({
     <aside
       className={cn(
         'fixed inset-y-0 left-0 z-50 flex h-full shrink-0 flex-col overflow-hidden',
-        'border-r border-[var(--rule)] bg-[var(--rail-bg)]',
+        'border-r border-[var(--rule)] bg-[var(--side-bg)]',
         'transition-[transform,width] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]',
         'md:relative md:translate-x-0',
         'w-[min(272px,85vw)] md:w-[272px]',
@@ -129,10 +130,12 @@ export default function Sidebar({
           <button
             type="button"
             onClick={() => setIsSidebarOpen(false)}
-            className="icon-btn md:hidden"
-            aria-label="Close categories"
+            className="icon-btn"
+            aria-label="Hide categories"
+            title="Hide categories (click the section in the rail to bring them back)"
           >
-            <X className="h-4 w-4" />
+            <X className="h-4 w-4 md:hidden" />
+            <PanelLeftClose className="hidden h-4 w-4 md:block" />
           </button>
         </div>
 
@@ -247,9 +250,8 @@ export default function Sidebar({
                   const expanded = !!expandedCategories[cat];
                   const subcategories = Array.from(categories[cat] ?? []).sort();
                   return (
-                    <div key={cat}>
+                    <div key={cat} className="hue" style={{ ['--hue' as string]: categoryHue(cat) }}>
                       <CategoryRow
-                        icon={FolderOpen}
                         label={humanize(cat)}
                         count={categoryCounts[cat] ?? 0}
                         expanded={expanded}
@@ -295,7 +297,8 @@ function CategoryRow({
   active,
   onClick,
 }: {
-  icon: React.ComponentType<{ className?: string }>;
+  /** Omitted: a dot in the row's --c (the category hue). */
+  icon?: React.ComponentType<{ className?: string }>;
   label: string;
   count: number;
   expanded: boolean;
@@ -310,16 +313,20 @@ function CategoryRow({
       className={cn(
         'group flex w-full items-center gap-2 rounded-[var(--r-md)] px-2 py-[6px] text-left text-[13px] transition-colors',
         expanded || active
-          ? 'bg-[var(--surface)] text-[var(--fg)]'
+          ? 'bg-[color-mix(in_srgb,var(--c)_14%,transparent)] text-[var(--fg)]'
           : 'text-[var(--fg-3)] hover:bg-[var(--surface)] hover:text-[var(--fg)]',
       )}
     >
-      <Icon
-        className={cn(
-          'h-3.5 w-3.5 shrink-0 transition-colors',
-          expanded || active ? 'text-[var(--c)]' : 'text-[var(--fg-4)] group-hover:text-[var(--fg-3)]',
-        )}
-      />
+      {Icon ? (
+        <Icon
+          className={cn(
+            'h-3.5 w-3.5 shrink-0 transition-colors',
+            expanded || active ? 'text-[var(--c)]' : 'text-[var(--fg-4)] group-hover:text-[var(--fg-3)]',
+          )}
+        />
+      ) : (
+        <span className="hue-dot" aria-hidden="true" />
+      )}
       <span className="flex-1 truncate font-medium">{label}</span>
       <span className="mono text-[10.5px] tabular-nums text-[var(--fg-5)]">{count}</span>
       <ChevronDown

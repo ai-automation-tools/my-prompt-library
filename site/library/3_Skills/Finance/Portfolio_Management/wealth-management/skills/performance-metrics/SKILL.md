@@ -4,8 +4,13 @@ tags: ["skill","finance","portfolio-management"]
 name: "performance-metrics"
 description: "Evaluate investment performance on a risk-adjusted basis using industry-standard ratios and capture analysis. Use when the user asks about Sharpe ratio, Sortino ratio, Information Ratio, Treynor ratio, Calmar ratio, Omega ratio, or upside/downside capture. Also trigger when users mention 'risk-adjusted returns', 'return per unit of risk', 'M-squared', 'is this fund worth the volatility', 'how to compare two managers', 'capture ratio', or ask which investment performed better after accounting for risk."
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: JadeGate/jadegate
+  path: skills/performance-metrics/SKILL.md
+  ref: 8f83aba05cfe54f0fc22dd15e2bc0567f232d3e2
+  checked: 2026-10-23
+  was: unknown
+  candidates: [JoelLewis/finance_skills, feliksness/Quartzite-Prompt-Library]
 ---
 
 # Performance Metrics

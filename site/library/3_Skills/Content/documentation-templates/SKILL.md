@@ -3,10 +3,13 @@ name: documentation-templates
 description: Documentation templates and structure guidelines. README, API docs, code comments, and AI-friendly documentation.
 allowed-tools: Read, Glob, Grep
 upstream:
-  match: ambiguous
-  copies: 7
-  candidates: [automindtechnologie-jpg/ultimate-skill.md, congdon1207/agents.md, hainamchung/agent-assistant, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, vudovn/antigravity-kit, xfstudio/skills]
-  checked: 2026-08-26
+  match: exact
+  repo: congdon1207/agents.md
+  path: .agent/skills/documentation-templates/SKILL.md
+  ref: 9f1aa55395ca949e4484040899fe3333dd10fa6b
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [xfstudio/skills, sickn33/antigravity-awesome-skills, vudovn/antigravity-kit]
 tags: ["skill","content","documentation-templates"]
 ---
 

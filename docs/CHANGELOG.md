@@ -4,6 +4,65 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — Every vendored item names its source
+
+**Library**
+- Deleted the 150 skills and agents the attribution pass could not trace to any repo (141 skills, 9 agents; Mike). Skills 375 → 234, agents 87 → 78. `build-skill-packs.mjs --write` regenerated the folder packs and dropped the dead paths from 6 hand packs; `game-design-pack` lost all 15 skills and was removed.
+- System prompts got provenance for the first time. `scripts/attribute-system-prompts.mjs` (new) matched each file against seven public collections (jujumilk3/leaked-system-prompts, asgeirtj/system_prompts_leaks, elder-plinius/CL4R1T4S, x1xhlol/system-prompts-and-models-of-ai-tools, 0xeb/TheBigPromptLibrary, LouisShark/chatgpt_system_prompt, dontriskit/awesome-ai-system-prompts), including their git history: 142 matched (5 only as earlier captures, stamped `match: fork`), 3 are Anthropic's own release notes (`match: vendor` + `url`).
+- Deleted the 63 system prompts with no source (Mike). They matched nothing anywhere, and 38 shared one generated `<system_info>` template, one of them for a "Claude 3.5 Opus" that never shipped. 211 → 148 files.
+- The drift check now covers system prompts too (reported and shown on the item page, never auto-resynced: each is a dated capture).
+
+**CI**
+- `scripts/upstream.test.mjs` fails on any skill, agent, system prompt or MCP card that names no source (`upstream.repo`, `match: vendor` + `url`, or `server.repo`). Folder READMEs are exempt. `vendor` joins the `match:` vocabulary.
+
+**Docs**
+- `docs/audits/` removed (the 2026-08 repo audit, the direction plan and three drift reports; git history keeps them); `docs/README.md` and `AGENTS.md` no longer link there.
+- `docs/templates/system-prompts-template.md` was the `<system_info>` template the invented prompts were written from; it is now a frontmatter-plus-verbatim-capture template with the `upstream:` block. The agent and skill templates carry the block too, and `CONTRIBUTING.md` states the rule.
+
+_Touched: `scripts/attribute-system-prompts.mjs` (new), `scripts/upstream.test.mjs`, `scripts/check-upstream-drift.mjs`, `.github/workflows/upstream-drift.yml`, `site/lib/library.ts`, `site/src/components/SourcePanel.tsx`, `site/library/` (213 deletions, 145 stamped, packs), `site/api/upstream-status.json`, `site/api/prompt-index.json`, `docs/templates/`, `docs/CONTRIBUTING.md`, `AGENTS.md`, `docs/README.md`, `docs/ARCHITECTURE.md`._
+
+---
+
+## 2026-10-23 — Change control for vendored skills and agents
+
+**Library**
+- The Monday `upstream-drift.yml` no longer only reports. It still posts to the rolling issue, then resyncs every skill and agent whose local copy adds under 10% of its own lines (skipping `ai-automation-tools/agent-skills`, which the fleet's Skills Sync refreshes), writes `site/api/upstream-status.json`, rebuilds the index and opens one **Resync from upstream** PR on `upstream/resync`. Never merged automatically: it is third-party text people install.
+- First run, done by hand: 8 skills resynced (`x-twitter-scraper`, `repo-docs-builder`, `agent-workspace-builder`, three `edge-spectrum-*`, two `project-hub-*`).
+- `scripts/reattribute-unclear.mjs` (new) re-checked the 231 skills and agents with no single upstream by GitHub code search: 81 now resolve (75 exact, 6 similar; 59 of the 60 `ambiguous`, 22 of the 171 `unknown`) and carry `repo`/`path`/`ref` plus `was:`. 150 still have no source found; that list waits on Mike before anything is deleted. 28 of the new matches are repos with no licence.
+- 305 items are now drift-tracked, up from 224.
+
+**App**
+- An item's page shows a Source panel for skills, agents and MCP cards: the GitHub repo (or the exact file), the commit it was copied at, its verdict at the last weekly check (up to date, minor upstream changes, behind, removed upstream, kept copy) and a link to everything upstream changed since that commit. MCP `get_item` adds the same source line.
+- `check-upstream-drift.mjs --json` writes the status file; `lib/library.ts` `sourceOf()` reads it.
+
+_Touched: `.github/workflows/upstream-drift.yml`, `scripts/check-upstream-drift.mjs`, `scripts/reattribute-unclear.mjs` (new), `scripts/sync-agent-skills.mjs` (header), `site/api/upstream-status.json` (new), `site/lib/library.ts`, `site/api/index.ts`, `site/mcp/server.ts`, `site/src/components/SourcePanel.tsx` (new), `PromptDetail.tsx`, `PromptCard.tsx`, 108 files under `site/library/`, `site/api/prompt-index.json`, `AGENTS.md`, `docs/README.md`, `docs/ARCHITECTURE.md`._
+
+---
+
+## 2026-10-23 — Twelve themes, no source bar locally
+
+**UI**
+- Settings → Appearance offers twelve themes instead of four accent swaps: Sky (the house default), Midnight, Forest, Ember, Wine, Ocean, Slate, Sand, Solar, Synthwave, Sakura and Mono. Each washes the ground, panels, lines and secondary text in its own hue, in light and dark, and the picker previews each one's ground with its accent. Saved violet / emerald / ember choices carry over as Midnight / Forest / Ember.
+- The "Open source · View source" bar shows only on the read-only demo.
+- The categories toggle left the top-left of the content area: from md the panel closes from its own head, and clicking the current section in the rail hides or shows it. Phones keep the toggle in the top bar.
+- `vercel.json` carries the new hash for index.html's pre-paint script.
+
+_Touched: `site/src/index.css`, `hooks/useTheme.ts`, `components/SettingsModal.tsx`, `SectionRail.tsx`, `Sidebar.tsx`, `TopBar.tsx`, `App.tsx`, `site/index.html`, `site/vercel.json`, `AGENTS.md`, `README.md`, `docs/ARCHITECTURE.md`._
+
+---
+
+## 2026-10-23 — Colour-rail redesign (design 1a)
+
+**UI**
+- The sections leave the top bar for an always-visible icon rail on the left (md up): one hue tile per section, Settings at the foot. The current section's cell takes the categories panel's colour and runs into it, with inverted corners, so the open section and its categories read as one tab.
+- The categories panel is tinted with the current section's hue; each category gets its own stable hue (`categoryHue()`), shown as a dot in the tree, as a colour band across the top of its cards and in the card's glyph and hover ring.
+- A category or sub-category page shows its sub-categories as pills, so you can hop sideways without going back to the tree.
+- The top bar's ⌘K button is now a search field; the hero glow follows the section hue. Phones keep the menu sheet for sections.
+
+_Touched: `site/src/components/SectionRail.tsx` (new), `TopBar.tsx`, `Sidebar.tsx`, `PromptCard.tsx`, `App.tsx`, `lib/sections.ts`, `index.css`, `AGENTS.md`, `docs/ARCHITECTURE.md`._
+
+---
+
 ## 2026-10-23 — Docs caught up with the day's fixes
 
 **Docs**

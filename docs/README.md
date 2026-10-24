@@ -42,11 +42,8 @@ Public Library is also browsable read-only at
 - **[Upstreams](UPSTREAMS.md)** — what the app depends on, checked biweekly
 - **[Roadmap](ROADMAP.md)** — what's next
 - **[Changelog](CHANGELOG.md)** — shipped work, newest first
-- **[Repository Audit (2026-08-26)](audits/REPO-AUDIT-2026-08-26.md)** — whole-repo health check
-- **[Upstream Drift (latest)](audits/upstream-drift-2026-09-16.md)** — current state: all 93
-  tracked skills byte-identical to upstream
-- **[Upstream Drift Baseline](audits/upstream-drift-2026-08-26.md)** — the first drift report,
-  kept for comparison ([2026-08-27](audits/upstream-drift-2026-08-27.md) is the second)
+- Upstream drift: the rolling **Upstream drift** issue on GitHub (weekly report) and
+  `site/api/upstream-status.json` (each item's verdict, shown on its page)
 
 ---
 
@@ -62,13 +59,6 @@ docs/
 ├── DISCOVERY.md                  # Repo-intake ledger (Discovery job adds, Mike decides)
 ├── UPSTREAMS.md                  # App dependencies the upstream check watches
 ├── mcp-server.md                 # The MCP server on one page
-│
-├── audits/                       # Point-in-time health checks and retired plans
-│   ├── DIRECTION-2026-08-27.md   # The post-audit plan, historical
-│   ├── REPO-AUDIT-2026-08-26.md
-│   ├── upstream-drift-2026-08-26.md
-│   ├── upstream-drift-2026-08-27.md
-│   └── upstream-drift-2026-09-16.md
 │
 ├── setup/
 │   ├── SETUP.md                  # Local setup
@@ -116,9 +106,9 @@ docs/
 
 **...understand the codebase** → [Architecture](ARCHITECTURE.md) → [API Reference](features/API.md)
 
-**...know what needs doing** → [Roadmap](ROADMAP.md) → [Repository Audit](audits/REPO-AUDIT-2026-08-26.md)
+**...know what needs doing** → [Roadmap](ROADMAP.md)
 
-**...understand why the plan looks like this** → [Roadmap](ROADMAP.md) → [Changelog](CHANGELOG.md) (the 2026-08-27 plan is kept in [audits/DIRECTION-2026-08-27.md](audits/DIRECTION-2026-08-27.md))
+**...understand why the plan looks like this** → [Roadmap](ROADMAP.md) → [Changelog](CHANGELOG.md) (older audits and the 2026-08-27 plan are in git history)
 
 **...troubleshoot** → [Debug Guide](development/DEBUG_UI.md)
 
@@ -183,16 +173,20 @@ npm run bench               # heavy endpoints vs development/PERFORMANCE.md
 Repo-level tooling lives in `scripts/`, outside the deploy root:
 
 ```bash
-node scripts/check-upstream-drift.mjs      # what has drifted from upstream
+node scripts/check-upstream-drift.mjs      # what has drifted from upstream (--json: the status file)
 node scripts/resync-upstream.mjs <skill>   # pull a skill (or 2_Agents/….md) level with upstream
 node scripts/attribute-upstream.mjs        # re-stamp provenance; --agents for 2_Agents (see header)
+node scripts/reattribute-unclear.mjs       # code-search pass over unknown/ambiguous items (needs GITHUB_TOKEN)
+node scripts/attribute-system-prompts.mjs  # stamp 5_System_Prompts from clones of the collections (see header)
 node scripts/fix-skill-frontmatter.mjs     # enforce the Agent Skills spec
 node scripts/upstream.test.mjs             # self-checks (CI runs both)
 node scripts/skill-frontmatter.test.mjs
 ```
 
 Provenance vocabulary: `upstream.match` records *attribution confidence* — `exact`,
-`prefix`, `similar`, `ambiguous`, `unknown`, `fork`. It never records freshness.
+`prefix`, `similar`, `ambiguous`, `unknown`, `fork`, and `vendor` (a system prompt from the
+vendor's own page, with `url`). It never records freshness. Every skill, agent, system prompt
+and MCP card must name a source; `upstream.test.mjs` fails CI on one that doesn't.
 `behind` is a verdict `check-upstream-drift.mjs` assigns at run time and belongs
 only in its report; `upstream.test.mjs` fails if it ever lands in frontmatter.
 
@@ -209,9 +203,12 @@ closed, `helmet` sets headers, and the library carries no personal contact detai
 sample credentials. See [SECURITY.md](../SECURITY.md) for the threat model and
 [ROADMAP.md](ROADMAP.md) for open work.
 
-A weekly GitHub Action (`.github/workflows/upstream-drift.yml`) reports which vendored
-skills have fallen behind their upstream. It never edits content; it updates one rolling
-issue for a human to triage.
+A weekly GitHub Action (`.github/workflows/upstream-drift.yml`) checks every vendored skill
+and agent against its upstream repo. It posts the report to one rolling issue, resyncs the
+items whose local copy adds under 10% of its own lines, refreshes `site/api/upstream-status.json`
+and opens one **Resync from upstream** pull request. Nothing merges without a person reading
+the diff. Each item's page shows its repo, the commit it was copied at, its status at the last
+check and a link to what changed upstream since.
 
 ---
 

@@ -4,10 +4,13 @@ tags: ["skill","development","sme-skills"]
 name: "senior-computer-vision"
 description: World-class computer vision skill for image/video processing, object detection, segmentation, and visual AI systems. Expertise in PyTorch, OpenCV, YOLO, SAM, diffusion models, and vision transformers. Includes 3D vision, video analysis, real-time processing, and production deployment. Use when building vision AI systems, implementing object detection, training custom vision models, or optimizing inference pipelines.
 upstream:
-  match: ambiguous
-  copies: 3
-  candidates: [congdon1207/agents.md, ovachiever/droid-tings, questnova502/claude-skills-sync]
-  checked: 2026-08-26
+  match: exact
+  repo: ovachiever/droid-tings
+  path: skills/senior-computer-vision/SKILL.md
+  ref: 7acd12a7547ded8f801615e69c3b881a584ce323
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [congdon1207/agents.md]
 ---
 
 # Senior Computer Vision Engineer

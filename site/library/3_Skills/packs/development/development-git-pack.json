@@ -1,17 +1,14 @@
 {
   "name": "Git Pack",
   "id": "development-git-pack",
-  "description": "Every skill under 3_Skills/Development/Git (9), bundled so the whole folder installs in one click. Generated from the library tree; see the folder for the individual skills.",
+  "description": "Every skill under 3_Skills/Development/Git (8), bundled so the whole folder installs in one click. Generated from the library tree; see the folder for the individual skills.",
   "icon": "💻",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "promptbook",
   "generated": true,
   "tags": [
     "development",
-    "git",
-    "github",
-    "search",
-    "code-search"
+    "git"
   ],
   "category": "Development",
   "skills": [
@@ -51,16 +48,11 @@
       "description": "Use when the user wants to create, generate, or set up a GitHub Actions workflow."
     },
     {
-      "path": "library/3_Skills/Development/Git/github-search/SKILL.md",
-      "name": "Github-Search",
-      "description": "Search GitHub code, repositories, issues, and pull requests with focused queries instead of broad manual browsing."
-    },
-    {
       "path": "library/3_Skills/Development/Git/github-workflow-automation/SKILL.md",
       "name": "Github-Workflow-Automation",
       "description": "Automate GitHub workflows with AI assistance."
     }
   ],
   "created_at": "2026-10-21",
-  "updated_at": "2026-10-21"
+  "updated_at": "2026-10-23"
 }

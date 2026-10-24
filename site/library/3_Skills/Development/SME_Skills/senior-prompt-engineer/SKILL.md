@@ -4,10 +4,13 @@ tags: ["skill","development","sme-skills"]
 name: "senior-prompt-engineer"
 description: World-class prompt engineering skill for LLM optimization, prompt patterns, structured outputs, and AI product development. Expertise in Claude, GPT-4, prompt design patterns, few-shot learning, chain-of-thought, and AI evaluation. Includes RAG optimization, agent design, and LLM system architecture. Use when building AI products, optimizing LLM performance, designing agentic systems, or implementing advanced prompting techniques.
 upstream:
-  match: ambiguous
-  copies: 3
-  candidates: [maslennikov-ig/claude-code-orchestrator-kit, ovachiever/droid-tings, questnova502/claude-skills-sync]
-  checked: 2026-08-26
+  match: exact
+  repo: maslennikov-ig/claude-code-orchestrator-kit
+  path: .claude/skills/senior-prompt-engineer/SKILL.md
+  ref: 8c3b576cc6f216539cc3f447d12705787a44dd3a
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [ovachiever/droid-tings]
 ---
 
 # Senior Prompt Engineer

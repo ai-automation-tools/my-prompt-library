@@ -2,8 +2,13 @@
 name: google-analytics
 description: Analyze Google Analytics data, review website performance metrics, identify traffic patterns, and suggest data-driven improvements. Use when the user asks about analytics, website metrics, traffic analysis, conversion rates, user behavior, or performance optimization.
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/skills/analytics/google-analytics/SKILL.md
+  ref: d42dc5a73cf63fd6c36fa1d1e83c5e2d3f87b3d0
+  checked: 2026-10-23
+  was: unknown
+  candidates: [kwakseongjae/oh-my-design, aAAaqwq/AGI-Super-Team, JeffGreen311/eve-agent-v2-unleashed, aicodedecode/awesome-muse-skills, tools-only/X-Skills, thatrebeccarae/claude-marketing, lxyeternal/MalSkillBench]
 tags: ["skill","development","analytics"]
 ---
 

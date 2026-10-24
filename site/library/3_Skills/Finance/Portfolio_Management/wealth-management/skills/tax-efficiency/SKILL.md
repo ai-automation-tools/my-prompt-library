@@ -4,8 +4,12 @@ tags: ["skill","finance","portfolio-management"]
 name: "tax-efficiency"
 description: "Maximize after-tax returns through strategic asset location, tax-loss harvesting, gain/loss management, and withdrawal sequencing. Use when the user asks about asset location, tax-loss harvesting, Roth conversions, tax-efficient withdrawals, tax lot selection, or charitable giving with appreciated securities. Also trigger when users mention 'which account should I hold bonds in', 'wash-sale rule', 'tax drag', 'Roth vs Traditional', 'RMD planning', 'bracket stuffing', 'HIFO vs FIFO', or ask how to minimize taxes on investments."
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: JadeGate/jadegate
+  path: skills/tax-efficiency/SKILL.md
+  ref: 8f83aba05cfe54f0fc22dd15e2bc0567f232d3e2
+  checked: 2026-10-23
+  was: unknown
 ---
 
 # Tax-Efficient Investing

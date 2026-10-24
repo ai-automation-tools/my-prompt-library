@@ -1,9 +1,9 @@
 {
   "name": "Portfolio Management Pack",
   "id": "finance-portfolio-management-pack",
-  "description": "Every skill under 3_Skills/Finance/Portfolio_Management (34), bundled so the whole folder installs in one click. Generated from the library tree; see the folder for the individual skills.",
+  "description": "Every skill under 3_Skills/Finance/Portfolio_Management (33), bundled so the whole folder installs in one click. Generated from the library tree; see the folder for the individual skills.",
   "icon": "💰",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "promptbook",
   "generated": true,
   "tags": [
@@ -16,11 +16,6 @@
       "path": "library/3_Skills/Finance/Portfolio_Management/analyzing-financial-statements/SKILL.md",
       "name": "Analyzing-Financial-Statements",
       "description": "This skill calculates key financial ratios and metrics from financial statement data for investment analysis"
-    },
-    {
-      "path": "library/3_Skills/Finance/Portfolio_Management/financial-analysis/SKILL.md",
-      "name": "Financial-Analysis",
-      "description": "Conduct comprehensive financial market analysis including stock market analysis, investment strategy insights, global market developments, earnings reports, and market sentiment scoring."
     },
     {
       "path": "library/3_Skills/Finance/Portfolio_Management/wealth-management/skills/alternatives/SKILL.md",
@@ -184,5 +179,5 @@
     }
   ],
   "created_at": "2026-10-21",
-  "updated_at": "2026-10-21"
+  "updated_at": "2026-10-23"
 }

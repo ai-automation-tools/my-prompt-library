@@ -5,10 +5,13 @@ license: Apache-2.0 license
 metadata:
     skill-author: K-Dense Inc.
 upstream:
-  match: ambiguous
-  copies: 3
-  candidates: [microck/ordinary-claude-skills, ovachiever/droid-tings, thegovind/claude-scientific-skills]
-  checked: 2026-08-26
+  match: exact
+  repo: microck/ordinary-claude-skills
+  path: skills_all/claude-scientific-skills/scientific-skills/histolab/SKILL.md
+  ref: 1056d293d41a3a3b86518d8ab6ec0a79091ccedb
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [ovachiever/droid-tings]
 tags: ["skill","data","histolab"]
 ---
 

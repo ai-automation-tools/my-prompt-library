@@ -4,10 +4,13 @@ tags: ["skill","development","sme-skills"]
 name: "senior-frontend"
 description: Comprehensive frontend development skill for building modern, performant web applications using ReactJS, NextJS, TypeScript, Tailwind CSS. Includes component scaffolding, performance optimization, bundle analysis, and UI best practices. Use when developing frontend features, optimizing performance, implementing UI/UX designs, managing state, or reviewing frontend code.
 upstream:
-  match: ambiguous
-  copies: 6
-  candidates: [atalovesyou/claude-skills-pack, hongquandev/team-os, nilecui/skillsbase, ovachiever/droid-tings, questnova502/claude-skills-sync, ralphjohn29/my-claude-skills]
-  checked: 2026-08-26
+  match: exact
+  repo: ovachiever/droid-tings
+  path: skills/senior-frontend/SKILL.md
+  ref: 7acd12a7547ded8f801615e69c3b881a584ce323
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [nilecui/skillsbase, ralphjohn29/my-claude-skills]
 ---
 
 # Senior Frontend

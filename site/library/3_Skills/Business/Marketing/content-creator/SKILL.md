@@ -13,10 +13,13 @@ metadata:
   python-tools: brand_voice_analyzer.py, seo_optimizer.py
   tech-stack: SEO, social-media-platforms
 upstream:
-  match: ambiguous
-  copies: 8
-  candidates: [automindtechnologie-jpg/ultimate-skill.md, hainamchung/agent-assistant, jpropato/siba, ovachiever/droid-tings, questnova502/claude-skills-sync, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
-  checked: 2026-08-26
+  match: exact
+  repo: ovachiever/droid-tings
+  path: skills/content-creator/SKILL.md
+  ref: 7acd12a7547ded8f801615e69c3b881a584ce323
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [xfstudio/skills, sickn33/antigravity-awesome-skills]
 ---
 
 # Content Creator

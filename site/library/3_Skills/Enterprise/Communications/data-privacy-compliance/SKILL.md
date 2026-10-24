@@ -4,8 +4,13 @@ tags: ["skill","enterprise","communications"]
 name: "data-privacy-compliance"
 description: Data privacy and regulatory compliance specialist for GDPR, CCPA, HIPAA, and international data protection laws. Use when implementing privacy controls, conducting data protection impact assessments, ensuring regulatory compliance, or managing data subject rights. Expert in consent management, data minimization, and privacy-by-design principles.
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/skills/enterprise-communication/data-privacy-compliance/SKILL.md
+  ref: d42dc5a73cf63fd6c36fa1d1e83c5e2d3f87b3d0
+  checked: 2026-10-23
+  was: unknown
+  candidates: [aiskillstore/marketplace, diegosouzapw/awesome-omni-skill, ComeOnOliver/skillshub, aicodedecode/awesome-muse-skills, tools-only/X-Skills, GOlinkup/steroids, lxyeternal/MalSkillBench]
 ---
 
 # Data Privacy Compliance

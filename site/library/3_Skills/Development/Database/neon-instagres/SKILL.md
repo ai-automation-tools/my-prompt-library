@@ -7,8 +7,13 @@ allowed-tools: Read, Write, Bash, Grep, Glob
 model: sonnet
 user-invocable: true
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/skills/database/neon-instagres/SKILL.md
+  ref: d42dc5a73cf63fd6c36fa1d1e83c5e2d3f87b3d0
+  checked: 2026-10-23
+  was: unknown
+  candidates: [aicodedecode/awesome-muse-skills, tools-only/X-Skills, GOlinkup/steroids, Richard0901/SKILL-warehouse, Sansar35/claude-agent, GongYuanCaiJi/dsh-claude-code-templates, fabioeducacross/DesignSystem-Vuexy]
 ---
 
 # Neon Instagres - Instant Postgres Provisioning

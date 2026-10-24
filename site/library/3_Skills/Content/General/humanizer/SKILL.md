@@ -12,10 +12,13 @@ description: |
   attributions, em dash overuse, rule of three, AI vocabulary words, negative
   parallelisms, and excessive conjunctive phrases.
 upstream:
-  match: ambiguous
-  copies: 22
-  candidates: [alexdcd/mafia-claude-skills, autohandai/community-skills, blader/humanizer, cachemoney/agent-toolkit, callstack/react-native-testing-library, christopher-buss/skills, connorads/dotfiles, dodatech/approved-skills]
-  checked: 2026-08-26
+  match: similar
+  repo: alexdcd/mafia-claude-skills
+  path: skills/humanizer/SKILL.md
+  ref: d78699ce936947f4042c0496351a0e2beda713f8
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [cachemoney/agent-toolkit, dodatech/approved-skills]
 ---
 
 # Humanizer: Remove AI Writing Patterns

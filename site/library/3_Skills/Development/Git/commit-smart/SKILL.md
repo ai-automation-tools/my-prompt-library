@@ -4,8 +4,13 @@ tags: ["skill","development","git"]
 name: "commit-smart"
 description: Analyze staged/unstaged changes and create semantic conventional commits with context about WHY, not just WHAT. Auto-detects commit type and scope from the diff. Supports optional type/scope arguments. Usage - /commit-smart, /commit-smart fix, /commit-smart refactor api
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/skills/git/commit-smart/SKILL.md
+  ref: d42dc5a73cf63fd6c36fa1d1e83c5e2d3f87b3d0
+  checked: 2026-10-23
+  was: unknown
+  candidates: [aicodedecode/awesome-muse-skills, GOlinkup/steroids, Richard0901/SKILL-warehouse, Sansar35/claude-agent, GongYuanCaiJi/dsh-claude-code-templates, thimslugga/agent-skills, MihnixArch0n/Kronyka, marnixGeerkens/rocketlauncher-claude-code, zico-io/orbal-network]
 ---
 
 # Smart Commit

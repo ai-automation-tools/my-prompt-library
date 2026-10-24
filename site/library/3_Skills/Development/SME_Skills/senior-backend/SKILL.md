@@ -4,10 +4,13 @@ tags: ["skill","development","sme-skills"]
 name: "senior-backend"
 description: Comprehensive backend development skill for building scalable backend systems using NodeJS, Express, Go, Python, Postgres, GraphQL, REST APIs. Includes API scaffolding, database optimization, security implementation, and performance tuning. Use when designing APIs, optimizing database queries, implementing business logic, handling authentication/authorization, or reviewing backend code.
 upstream:
-  match: ambiguous
-  copies: 3
-  candidates: [ovachiever/droid-tings, questnova502/claude-skills-sync, ralphjohn29/my-claude-skills]
-  checked: 2026-08-26
+  match: exact
+  repo: ovachiever/droid-tings
+  path: skills/senior-backend/SKILL.md
+  ref: 7acd12a7547ded8f801615e69c3b881a584ce323
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [ralphjohn29/my-claude-skills]
 ---
 
 # Senior Backend

@@ -6,8 +6,12 @@ tags: ["agent-skills"]
 category: "Skills"
 subcategory: "Enterprise"
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: baojie/shiji-kb
+  path: kg/ontology/ontology-v1/skus/procedural/skill_123/SKILL.md
+  ref: 6b836e3fac1b900ccc6e9299fd6896c0e18ec132
+  checked: 2026-10-23
+  was: unknown
 ---
 
 # Popular Support Building Strategy
