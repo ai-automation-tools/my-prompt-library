@@ -4,6 +4,15 @@ Shipped work, newest first. Forward-looking plans live in [ROADMAP.md](ROADMAP.m
 
 ---
 
+## 2026-10-23 — body-parser 1.20.9 (Dependabot #14)
+
+**Security**
+- `body-parser` 1.20.8 → 1.20.9 (via Express 4.22.3) in `site/package-lock.json`: a high-severity denial of service from trailing bytes after a compressed request body. In-range update, lockfile only; `npm audit --omit=dev` reports 0 vulnerabilities.
+
+_Touched: `site/package-lock.json`._
+
+---
+
 ## 2026-10-23 — Every vendored item names its source
 
 **Library**
