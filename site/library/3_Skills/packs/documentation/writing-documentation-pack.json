@@ -2,8 +2,8 @@
   "name": "Writing & Documentation Pack",
   "id": "writing-documentation-pack",
   "description": "Professional writing and documentation toolkit covering technical writing, API docs, user guides, proposals, reports, and content across multiple formats (PDF, DOCX, XLSX, PPTX, Markdown).",
-  "icon": "\ud83d\udcdd",
-  "version": "1.0.0",
+  "icon": "📝",
+  "version": "1.0.1",
   "author": "promptbook",
   "tags": [
     "writing",
@@ -15,21 +15,6 @@
   ],
   "category": "Documentation",
   "skills": [
-    {
-      "path": "library/3_Skills/Content/api-documentation/SKILL.md",
-      "name": "API Documentation",
-      "description": "Write clear, comprehensive API documentation"
-    },
-    {
-      "path": "library/3_Skills/Content/content-strategy/SKILL.md",
-      "name": "Content Strategy",
-      "description": "Develop content strategies and editorial calendars"
-    },
-    {
-      "path": "library/3_Skills/Content/copywriting/SKILL.md",
-      "name": "Copywriting",
-      "description": "Write persuasive marketing and sales copy"
-    },
     {
       "path": "library/3_Skills/Content/General/document-writer/SKILL.md",
       "name": "Document Writer",
@@ -46,11 +31,6 @@
       "description": "Work with Microsoft Word documents"
     },
     {
-      "path": "library/3_Skills/Content/github-readme/SKILL.md",
-      "name": "GitHub README",
-      "description": "Write effective GitHub README files"
-    },
-    {
       "path": "library/3_Skills/Content/General/humanizer/SKILL.md",
       "name": "Humanizer",
       "description": "Make technical content more accessible"
@@ -59,11 +39,6 @@
       "path": "library/3_Skills/Content/json-canvas/SKILL.md",
       "name": "JSON Canvas",
       "description": "Work with JSON Canvas format for knowledge graphs"
-    },
-    {
-      "path": "library/3_Skills/Content/knowledge-base/SKILL.md",
-      "name": "Knowledge Base",
-      "description": "Build and organize knowledge base articles"
     },
     {
       "path": "library/3_Skills/Content/obsidian/obsidian-bases/SKILL.md",
@@ -86,39 +61,9 @@
       "description": "Create compelling slide presentations"
     },
     {
-      "path": "library/3_Skills/Content/proposal-writing/SKILL.md",
-      "name": "Proposal Writing",
-      "description": "Write winning business proposals"
-    },
-    {
-      "path": "library/3_Skills/Content/release-notes/SKILL.md",
-      "name": "Release Notes",
-      "description": "Document software releases and changelogs"
-    },
-    {
-      "path": "library/3_Skills/Content/report-writing/SKILL.md",
-      "name": "Report Writing",
-      "description": "Create professional business and technical reports"
-    },
-    {
       "path": "library/3_Skills/Content/excel/spreadsheet/SKILL.md",
       "name": "Spreadsheet Documentation",
       "description": "Document and explain spreadsheet data"
-    },
-    {
-      "path": "library/3_Skills/Content/style-guide/SKILL.md",
-      "name": "Style Guide",
-      "description": "Create and maintain writing style guides"
-    },
-    {
-      "path": "library/3_Skills/Content/technical-writing/SKILL.md",
-      "name": "Technical Writing",
-      "description": "Write clear, concise technical documentation"
-    },
-    {
-      "path": "library/3_Skills/Content/user-guides/SKILL.md",
-      "name": "User Guides",
-      "description": "Create user-friendly product documentation"
     },
     {
       "path": "library/3_Skills/Content/xlsx/SKILL.md",
@@ -155,5 +100,5 @@
     "developer-essentials-pack"
   ],
   "created_at": "2026-03-30",
-  "updated_at": "2026-04-01"
+  "updated_at": "2026-10-23"
 }

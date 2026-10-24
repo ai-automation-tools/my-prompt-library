@@ -15,8 +15,8 @@ upstream:
   match: exact
   repo: ai-automation-tools/agent-skills
   path: skills/projects/edge-spectrum/edge-spectrum-hub-tool/SKILL.md
-  ref: 6f36b558eb82b55e9a68814da0941dd968dfe5f7
-  checked: 2026-10-21
+  ref: abbfc6537c23437de45c2d1ec602364e52cc6a2a
+  checked: 2026-10-23
 ---
 
 # Adding a tool to the hub
@@ -117,7 +117,7 @@ new client route 404s on Vercel but works in dev, that rewrite is the first plac
 6. `npm run lint` — `tsc --noEmit` catches an accent key that is not in the union.
 7. `npm run dev` and **click the tile**, then reload on the deep link. The `*` fallback hides a
    bad `href` behind a working-looking page.
-8. Update `CLAUDE.md`'s layout block if the tool added a directory.
+8. Update `AGENTS.md`'s layout block if the tool added a directory.
 
 ---
 
@@ -140,4 +140,4 @@ new client route 404s on Vercel but works in dev, that rewrite is the first plac
 | The calculator page pattern, `odds.ts` and `CalcUi` reuse | [`references/page-patterns.md`](references/page-patterns.md) |
 | The 187-record dataset behind the `/spectrum` static tool | the `edge-spectrum-dataset` skill |
 | Adding an API endpoint a new tool needs | the `edge-spectrum-endpoint` skill |
-| Branch flow, preview deploys, CI gate order | the repo's `CLAUDE.md` |
+| Branch flow, preview deploys, CI gate order | the repo's `AGENTS.md` |

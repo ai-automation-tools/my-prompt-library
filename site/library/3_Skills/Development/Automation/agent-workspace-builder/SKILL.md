@@ -7,8 +7,8 @@ upstream:
   match: exact
   repo: ai-automation-tools/agent-skills
   path: skills/core/automation/agent-workspace-builder/SKILL.md
-  ref: 6f36b558eb82b55e9a68814da0941dd968dfe5f7
-  checked: 2026-10-21
+  ref: abbfc6537c23437de45c2d1ec602364e52cc6a2a
+  checked: 2026-10-23
 ---
 
 # Agent workspace builder
@@ -45,7 +45,7 @@ Read this file first, then the reference for the job:
 ├── SECURITY.md            how to report a problem; what the guardrails are
 ├── .env.example           secret NAMES, committed; real values in .env (gitignored)
 ├── .claude/               wired config: skills/ agents/ commands/ rules/ hooks/ settings.json + settings.md
-├── .agents/ .codex/ .gemini/ .geminiignore   GENERATED from .claude/ for other CLIs
+├── .agents/ .codex/      GENERATED from .claude/ for Codex and Antigravity
 ├── skills/                PORTABLE skills (vendor-neutral SKILL.md) + README.md catalog
 ├── docs/
 │   ├── README.md          docs index        ┐
@@ -93,13 +93,14 @@ the shared frame, never the work folders.
    days out, applied automatically unless the owner objects. Subjective gates ("the owner
    says it's in daily use") become measured ones (`scripts/usage.py`). Details:
    `references/automations.md`, *Autonomy*.
-10. **One setup, every CLI.** `.claude/` and `.mcp.json` are the source; Codex, Gemini CLI
-    and Antigravity get theirs from `scripts/gen-vendor-configs.py`, never a hand-kept
-    copy. What a CLI's format can't express (a file-read deny in Codex, an ask tier in
-    Gemini, any repo-level permission in Antigravity) is written into
+10. **One setup, every CLI.** `.claude/` and `.mcp.json` are the source; Codex and
+    Antigravity get theirs from `scripts/gen-vendor-configs.py`, never a hand-kept copy,
+    and opencode reads `AGENTS.md` by name. What a CLI's format can't express (a file-read
+    deny in Codex, any repo-level permission in Antigravity) is written into
     `docs/reference/OTHER-CLIS.md`, so an agent there knows which guardrail is missing.
-    A hook that finds the project through `$CLAUDE_PROJECT_DIR` needs a fallback
-    (`GEMINI_PROJECT_DIR`, then the working directory), or it fails open elsewhere.
+    A hook that finds the project through `$CLAUDE_PROJECT_DIR` needs a fallback to the
+    working directory, or it fails open elsewhere. Gemini CLI is no longer a target: the
+    generator deletes any `.gemini/` or `.geminiignore` an older version wrote.
 
 ## Procedure: create a new workspace
 
@@ -120,7 +121,8 @@ the shared frame, never the work folders.
 5. **Seed the portable skills**: two or three field skills that don't overlap the wired
    ones, cataloged in `skills/README.md`.
 6. **Write the docs with `repo-docs-builder`** (if installed; otherwise follow its house
-   style): root README, `docs/README.md` index linking every subfolder, `docs/ROADMAP.md`
+   style; folder spelling and the shared `docs/`, `skills/`, `prompts/`, `scripts/`, `tests/`
+   paths follow the org repo layout reference that ships with `repo-docs-builder`): root README, `docs/README.md` index linking every subfolder, `docs/ROADMAP.md`
    in the roadmap standard with a Go-live split (`## After public release` if it's headed
    public, `## After go-live` if it stays private), and `docs/CHANGELOG.md` with the first entry.
 7. **Seed RESOURCES.md and intel** by research, not memory: 15–30 resources across the
@@ -178,7 +180,7 @@ Copy all seven into the workspace's `scripts/`. Each is stdlib-only Python 3.11+
 | `scripts/validate-skills.py` | Every `.claude/skills/` and `skills/` SKILL.md against the Agent Skills spec; command and agent frontmatter |
 | `scripts/gen-capabilities.py` | Writes `docs/reference/CAPABILITIES.md` from `.claude/` and `skills/`; `--check` fails CI when stale |
 | `scripts/check-links.py` | Every relative link in every Markdown file resolves |
-| `scripts/gen-vendor-configs.py` | Writes Codex, Gemini CLI and Antigravity config (`.agents/`, `.codex/`, `.gemini/`, `.geminiignore`) and `docs/reference/OTHER-CLIS.md` from `.claude/` and `.mcp.json`; `--check` fails CI when stale |
+| `scripts/gen-vendor-configs.py` | Writes Codex and Antigravity config (`.agents/`, `.codex/`) and `docs/reference/OTHER-CLIS.md` from `.claude/` and `.mcp.json`; `--check` fails CI when stale |
 | `scripts/usage.py` | Not run in CI (needs local logs): counts sessions and active days in this clone from Claude Code's transcripts; `--check --min-days 10` is the measured "in daily use" gate |
 | `scripts/envfile.py` | Not a check: loads `.env` (`load_env()` for scripts; `envfile.py -- <cmd>` to launch an MCP server with it; `--names` lists names, never values) |
 

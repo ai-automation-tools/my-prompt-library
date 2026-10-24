@@ -7,10 +7,13 @@ metadata:
   author: zebbern
   version: "1.1"
 upstream:
-  match: ambiguous
-  copies: 6
-  candidates: [hainamchung/agent-assistant, jpropato/siba, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills, zebbern/claude-code-guide]
-  checked: 2026-08-26
+  match: exact
+  repo: zebbern/claude-code-guide
+  path: skills/aws-penetration-testing/SKILL.md
+  ref: 4836a62bf566255f566bdb70ad3065c42c99e02d
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [xfstudio/skills, sickn33/antigravity-awesome-skills]
 ---
 
 # AWS Penetration Testing

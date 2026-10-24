@@ -4,10 +4,13 @@ tags: ["skill","development","sme-skills"]
 name: "senior-data-scientist"
 description: World-class data science skill for statistical modeling, experimentation, causal inference, and advanced analytics. Expertise in Python (NumPy, Pandas, Scikit-learn), R, SQL, statistical methods, A/B testing, time series, and business intelligence. Includes experiment design, feature engineering, model evaluation, and stakeholder communication. Use when designing experiments, building predictive models, performing causal analysis, or driving data-driven decisions.
 upstream:
-  match: ambiguous
-  copies: 5
-  candidates: [borghei/claude-skills, congdon1207/agents.md, eyh0602/skillshub, ovachiever/droid-tings, questnova502/claude-skills-sync]
-  checked: 2026-08-26
+  match: exact
+  repo: ovachiever/droid-tings
+  path: skills/senior-data-scientist/SKILL.md
+  ref: 7acd12a7547ded8f801615e69c3b881a584ce323
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [congdon1207/agents.md]
 ---
 
 # Senior Data Scientist

@@ -4,10 +4,13 @@ tags: ["skill","security","api-security-best-practices"]
 name: "api-security-best-practices"
 description: "Implement secure API design patterns including authentication, authorization, input validation, rate limiting, and protection against common API vulnerabilities"
 upstream:
-  match: ambiguous
-  copies: 7
-  candidates: [automindtechnologie-jpg/ultimate-skill.md, baotoq/agent-skills, hainamchung/agent-assistant, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
-  checked: 2026-08-26
+  match: exact
+  repo: xfstudio/skills
+  path: api-security-best-practices/SKILL.md
+  ref: 1bf6044db21c12c62695a6732f1273d66ff4882e
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [poletron/custom-rules]
 ---
 
 # API Security Best Practices

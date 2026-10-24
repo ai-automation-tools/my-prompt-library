@@ -7,8 +7,9 @@ import { memo, useCallback, type MouseEvent as ReactMouseEvent } from 'react';
 import { Check, Copy, Download, FileText, FolderPlus, Pencil, Star, Trash2 } from 'lucide-react';
 import { m } from 'motion/react';
 import { cn } from '../lib/cn';
-import { humanize } from '../lib/sections';
+import { categoryHue, humanize } from '../lib/sections';
 import { IconButton } from './ui/primitives';
+import type { ItemSource } from './SourcePanel';
 import { READ_ONLY } from '../lib/mode';
 
 export interface Prompt {
@@ -24,6 +25,8 @@ export interface Prompt {
   isUserOwned?: boolean;
   anchor?: string;
   sourceUrl?: string;
+  /** Library items from `GET /api/prompts/:id` only: the GitHub repo it is copied from and how it stands. */
+  source?: ItemSource;
   /** My Library copies only: how this copy stands against the public item it came from. */
   upstream?: { source: string; updateAvailable: boolean; localEdits: boolean } | null;
   /** From `GET /api/prompts/:id` only: frontmatter beyond the fields above (a skill's name, description…). */
@@ -127,7 +130,8 @@ const PromptCard = memo(function PromptCard({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: Math.min(index * 0.025, 0.4), ease: [0.2, 0.7, 0.2, 1] }}
-      className="spot group flex cursor-pointer flex-col"
+      className="spot hue group flex cursor-pointer flex-col"
+      style={{ ['--hue' as string]: categoryHue(prompt.category) }}
       onMouseMove={trackSpotlight}
       onClick={open}
       onKeyDown={e => {
@@ -140,6 +144,7 @@ const PromptCard = memo(function PromptCard({
       role="button"
       aria-label={`Open ${title}`}
     >
+      <span className="card-band" aria-hidden="true" />
       <div className="flex flex-1 flex-col gap-3 p-4 pb-3.5">
         <div className="flex items-start gap-3">
           <span className="glyph">

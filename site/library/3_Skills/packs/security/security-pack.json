@@ -1,16 +1,16 @@
 {
   "name": "Security Pack",
   "id": "security-pack",
-  "description": "Every skill under 3_Skills/Security (13), bundled so the whole folder installs in one click. Generated from the library tree; see the folder for the individual skills.",
+  "description": "Every skill under 3_Skills/Security (11), bundled so the whole folder installs in one click. Generated from the library tree; see the folder for the individual skills.",
   "icon": "🛡️",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "promptbook",
   "generated": true,
   "tags": [
     "security",
-    "prompt-injection",
     "active-directory-attacks",
-    "api-security-best-practices"
+    "api-security-best-practices",
+    "aws-penetration-testing"
   ],
   "category": "Security",
   "skills": [
@@ -30,11 +30,6 @@
       "description": "This skill should be used when the user asks to \"pentest AWS\", \"test AWS security\", \"enumerate IAM\", \"exploit cloud infrastructure\", \"AWS privilege escalation\", \"S3 bucket testing\", \"metadata SSRF\", \"Lambda exploitation\""
     },
     {
-      "path": "library/3_Skills/Security/bagman/SKILL.md",
-      "name": "Bagman",
-      "description": "Secure key and secret handling for AI agents, especially agents that interact with wallets, private keys, API credentials, or systems where prompt injection could expose sensitive material."
-    },
-    {
       "path": "library/3_Skills/Security/broken-authentication/SKILL.md",
       "name": "Broken-Authentication",
       "description": "This skill should be used when the user asks to \"test for broken authentication vulnerabilities\", \"assess session management security\", \"perform credential stuffing tests\", \"evaluate password policies\", \"test for session"
@@ -43,11 +38,6 @@
       "path": "library/3_Skills/Security/linux-privilege-escalation/SKILL.md",
       "name": "Linux-Privilege-Escalation",
       "description": "This skill should be used when the user asks to \"escalate privileges on Linux\", \"find privesc vectors on Linux systems\", \"exploit sudo misconfigurations\", \"abuse SUID binaries\", \"exploit cron jobs for root access\", \"enum"
-    },
-    {
-      "path": "library/3_Skills/Security/openclaw-action/SKILL.md",
-      "name": "Openclaw-Action",
-      "description": "Set up CI security scanning for agent workspaces and skill repositories."
     },
     {
       "path": "library/3_Skills/Security/pentest-checklist/SKILL.md",
@@ -81,5 +71,5 @@
     }
   ],
   "created_at": "2026-10-21",
-  "updated_at": "2026-10-21"
+  "updated_at": "2026-10-23"
 }

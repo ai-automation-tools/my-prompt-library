@@ -4,10 +4,13 @@ tags: ["skill","development","sme-skills"]
 name: "senior-data-engineer"
 description: World-class data engineering skill for building scalable data pipelines, ETL/ELT systems, and data infrastructure. Expertise in Python, SQL, Spark, Airflow, dbt, Kafka, and modern data stack. Includes data modeling, pipeline orchestration, data quality, and DataOps. Use when designing data architectures, building data pipelines, optimizing data workflows, or implementing data governance.
 upstream:
-  match: ambiguous
-  copies: 5
-  candidates: [congdon1207/agents.md, dodatech/approved-skills, nilecui/skillsbase, ovachiever/droid-tings, questnova502/claude-skills-sync]
-  checked: 2026-08-26
+  match: exact
+  repo: ovachiever/droid-tings
+  path: skills/senior-data-engineer/SKILL.md
+  ref: 7acd12a7547ded8f801615e69c3b881a584ce323
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [nilecui/skillsbase, dodatech/approved-skills, congdon1207/agents.md]
 ---
 
 # Senior Data Engineer

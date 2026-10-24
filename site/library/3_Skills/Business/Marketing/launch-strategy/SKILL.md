@@ -4,10 +4,13 @@ tags: ["skill","business","marketing"]
 name: "launch-strategy"
 description: "When the user wants to plan a product launch, feature announcement, or release strategy. Also use when the user mentions 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'beta launch,' 'early access,' 'waitlist,' or 'product update.' This skill covers phased launches, channel strategy, and ongoing launch momentum."
 upstream:
-  match: ambiguous
-  copies: 10
-  candidates: [aitytech/agentkits-marketing, automindtechnologie-jpg/ultimate-skill.md, bradycassidy/marketingskills, dirnbauer/webconsulting-skills, phrazzld/claude-config, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills]
-  checked: 2026-08-26
+  match: exact
+  repo: aitytech/agentkits-marketing
+  path: skills/launch-strategy/SKILL.md
+  ref: 651201edf940a4ce78d36258347835f0bb8f1b9e
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [poletron/custom-rules, sickn33/antigravity-awesome-skills, dirnbauer/webconsulting-skills]
 ---
 
 # Launch Strategy

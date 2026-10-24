@@ -13,8 +13,13 @@ input:
   Process description, data model, architecture requirements, workflow steps
 output: Mermaid diagrams (flowchart, sequence, ERD, C4, state, etc.) in markdown
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/skills/development/mermaid-diagram-specialist/SKILL.md
+  ref: d42dc5a73cf63fd6c36fa1d1e83c5e2d3f87b3d0
+  checked: 2026-10-23
+  was: unknown
+  candidates: [aicodedecode/awesome-muse-skills, Aniket-a14/SRA, tools-only/X-Skills, GOlinkup/steroids, Richard0901/SKILL-warehouse, arnaudbracchetti/gaslands-manager, thimslugga/agent-skills, GongYuanCaiJi/dsh-claude-code-templates]
 ---
 
 # Mermaid Diagram Specialist

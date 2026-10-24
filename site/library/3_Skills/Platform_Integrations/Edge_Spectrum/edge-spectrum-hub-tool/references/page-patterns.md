@@ -52,7 +52,7 @@ gets in.
 3. Add `"check:<name>": "tsx scripts/check-<name>.ts"` to `package.json`.
 4. Add `- run: npm run check:<name>` to `.github/workflows/ci.yml`, in the existing block —
    before `npm run build`.
-5. Note the module in `CLAUDE.md`'s layout block, saying which script holds it.
+5. Note the module in `AGENTS.md`'s layout block, saying which script holds it.
 
 Step 4 is the one people skip. A guard nobody runs is a comment.
 

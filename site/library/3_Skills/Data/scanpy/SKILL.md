@@ -5,10 +5,12 @@ license: SD-3-Clause license
 metadata:
     skill-author: K-Dense Inc.
 upstream:
-  match: ambiguous
-  copies: 3
-  candidates: [jackspace/claudeskillz, ovachiever/droid-tings, thegovind/claude-scientific-skills]
-  checked: 2026-08-26
+  match: exact
+  repo: ovachiever/droid-tings
+  path: skills/scanpy/SKILL.md
+  ref: 7acd12a7547ded8f801615e69c3b881a584ce323
+  checked: 2026-10-23
+  was: ambiguous
 tags: ["skill","data","scanpy"]
 ---
 

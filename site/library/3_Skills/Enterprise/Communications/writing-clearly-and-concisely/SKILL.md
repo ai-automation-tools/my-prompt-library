@@ -2,10 +2,13 @@
 name: writing-clearly-and-concisely
 description: Use when writing prose humans will read—documentation, commit messages, error messages, explanations, reports, or UI text. Applies Strunk's timeless rules for clearer, stronger, more professional writing.
 upstream:
-  match: ambiguous
-  copies: 6
-  candidates: [cachemoney/agent-toolkit, freeacger/loom, jssee/agents, pedronauck/skills, softaworks/agent-toolkit, visualxintelligence/agent-toolkit]
-  checked: 2026-08-26
+  match: exact
+  repo: softaworks/agent-toolkit
+  path: dist/plugins/writing-clearly-and-concisely/skills/writing-clearly-and-concisely/SKILL.md
+  ref: 3027f20f3181758385a1bb8c022d4041dfb4de84
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [pedronauck/skills, cachemoney/agent-toolkit, freeacger/loom, visualxintelligence/agent-toolkit]
 tags: ["skill","enterprise","communications"]
 ---
 

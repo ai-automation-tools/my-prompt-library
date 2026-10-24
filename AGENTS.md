@@ -77,20 +77,23 @@ site/
                        usePromptContent (copy state + fetchFullPrompt, which throws rather than
                        return the listing's preview; callers show an error and stop)
                        useLibraryRoute (section/category/subcategory/?prompt= URL state)
-    hooks/useTheme     Light | Dark (`html.light`, key `my-prompt-library.theme`) and the colour palette
-                       (`html[data-palette]`, key `my-prompt-library.palette`, sky/violet/emerald/ember;
+    hooks/useTheme     Light | Dark (`html.light`, key `my-prompt-library.theme`) and the theme
+                       (`html[data-palette]`, key `my-prompt-library.palette`, 12 themes in PALETTES;
                        both keys keep the pre-rename name so saved preferences survive);
                        index.html applies both before first paint
     lib/               mode (READ_ONLY), cn (clsx + tailwind-merge), markdown-file (the Download .md), sections (the seven sections: tab id, folder,
-                       label, icon, accent token, blurb — every tab switch reads from here)
-    components/        TopBar (brand, section nav + phone sheet, ⌘K trigger, Resources menu,
-                       New prompt, Settings, ThemeSwitch), Sidebar (library switch, category tree),
-                       Breadcrumbs, SettingsModal (mode + palette, local data, shortcuts),
+                       label, rail label, icon, accent token, blurb — every tab switch reads from here;
+                       categoryHue() gives each category a stable hue, applied with the .hue class)
+    components/        SectionRail (md up: logo, the seven sections as hue tiles, Settings; the current
+                       one's cell bleeds into the categories panel), TopBar (⌘K search, Resources menu,
+                       New prompt, ThemeSwitch; brand, Settings and the section sheet on phones),
+                       Sidebar (section-tinted: library switch, category tree with hue dots),
+                       Breadcrumbs, SettingsModal (mode + theme, local data, shortcuts),
                        CommandPalette (⌘K: prompts / sections / actions / themes),
                        LibraryHero (title, blurb, CountUp stats, in-section search),
                        PromptListToolbar, PromptGrid (also exports PromptCardGrid,
                        PromptCardActions, LoadingSkeleton), PromptCard (spotlight card),
-                       PromptDetail, SkillPacksView, EmptyState, Toast, ResourcesNav,
+                       PromptDetail, SourcePanel (repo, copied-at commit, drift status), SkillPacksView, EmptyState, Toast, ResourcesNav,
                        ThemeSwitch, PromptEditorModal
     components/ui/     primitives (Button, IconButton, Chip, Tag, Kbd, Modal*, Notice), CountUp
     index.css          House-style tokens (dark on :root, light on html.light), per-section accent
@@ -136,7 +139,12 @@ site/
 
 (repo root, outside the deploy root)
   scripts/             Library tooling: check-upstream-drift.mjs (the Monday issue, with a per-section
-                       health table), attribute-upstream.mjs + resync-upstream.mjs (provenance),
+                       health table; --json writes site/api/upstream-status.json, which the item
+                       page's Source panel and MCP get_item read), attribute-upstream.mjs +
+                       resync-upstream.mjs (provenance; upstream-drift.yml resyncs the safe ones
+                       into one weekly PR), reattribute-unclear.mjs (code-search pass over
+                       unknown/ambiguous items), attribute-system-prompts.mjs (matches
+                       5_System_Prompts against the public collections' clones and history),
                        sync-agent-skills.mjs (copies new skills from the org's agent-skills repo into
                        3_Skills, stamped, and refreshes the ones already here; run weekly by the
                        Routines fleet with no model), build-skill-packs.mjs (one generated pack per
@@ -150,7 +158,7 @@ site/
                        zero), the two *.test.mjs self-checks, prompt_generation/
   homepage/            Static homepage (one index.html, no build) → GitHub Pages via
                        .github/workflows/homepage.yml; pinned by scripts/homepage.test.mjs
-  docs/                Documentation (see docs/README.md; analysis in docs/audits/)
+  docs/                Documentation (see docs/README.md)
   docs/diagrams/       Code-pinned Archify data-flow diagram. Edit only the .json, rebuild with
                        node scripts/build-diagram.mjs --pin-head (copies into homepage/diagram/)
   images/              README / branding assets
@@ -183,8 +191,11 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
   `--mix-ink` by `--tint-k`. `--c` is the current section's accent (`--sec-*`, 400 shade dark /
   700 light, set from `data-section` on `<html>`); cards, glyphs and tonal buttons tint from it.
   Dark is the default whatever the OS says; the Light | Dark pill is the last control in the top bar.
-  Settings (gear) adds a colour palette on top of the mode: each `html[data-palette]` block swaps
-  only `--accent` (+ hover/ink/glow) and, in dark, tints `--bg` a hair; never the rest of the set.
+  Settings (gear) adds a theme on top of the mode: each `html[data-palette]` block sets only `--tone`
+  and `--accent`, and the shared `html[data-palette]` / `html.light[data-palette]` blocks derive the
+  ground, panels, lines and secondary text from them. A new theme is those two lines per mode, plus
+  a PALETTES entry in useTheme.ts and its id in index.html's pre-paint regex (whose CSP hash then
+  changes in `vercel.json`). The "View source" bar (SourceBar) shows only under READ_ONLY (the demo).
   Shared controls are classes in `@layer components` (`.btn`, `.input`, `.chip`, `.spot`)
   wrapped by `components/ui/primitives.tsx`; reach for those before writing a new button.
 - Motion: `motion/react` with `LazyMotion` + `m.*` (never `motion.*`, it defeats the split).
@@ -201,6 +212,11 @@ folders via `getSectionFolder()` in `App.tsx`. After adding/removing content, ru
   allows `index.html`'s inline theme script by hash: edit that script and the new hash goes in
   `vercel.json` too (`npm run test:browser` prints it).
 - Never commit `.env*` (gitignored) or anything under `site/my-library/`.
+- **Every skill, agent, system prompt and MCP card names its source** (Mike, 2026-10-23): an
+  `upstream:` block with a GitHub `repo` (`path`, `ref`, `checked`), `match: vendor` + `url` for a
+  system prompt published only on the vendor's page, or `server.repo` on an MCP card.
+  `scripts/upstream.test.mjs` fails CI otherwise. No repo, no file. System prompts are copied
+  verbatim, never written.
 - **LF only.** `.gitattributes` sets `eol=lf` repo-wide. `contentPreview` is embedded in
   `api/prompt-index.json` verbatim, so a CRLF file makes the index unreproducible on Linux and
   the CI gate fails.

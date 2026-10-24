@@ -4,10 +4,13 @@ tags: ["skill","development","git"]
 name: "github-workflow-automation"
 description: "Automate GitHub workflows with AI assistance. Includes PR reviews, issue triage, CI/CD integration, and Git operations. Use when automating GitHub workflows, setting up PR review automation, creating GitHub Actions, or triaging issues."
 upstream:
-  match: ambiguous
-  copies: 7
-  candidates: [automindtechnologie-jpg/ultimate-skill.md, hainamchung/agent-assistant, jpropato/siba, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
-  checked: 2026-08-26
+  match: exact
+  repo: xfstudio/skills
+  path: github-workflow-automation/SKILL.md
+  ref: 1bf6044db21c12c62695a6732f1273d66ff4882e
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [poletron/custom-rules]
 ---
 
 # 🔧 GitHub Workflow Automation

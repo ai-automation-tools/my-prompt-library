@@ -68,18 +68,16 @@ This template defines a subagent: frontmatter with `name:` and `description:` (p
 
 ### 4. 📝 System Prompts Template
 **File:** `system-prompts-template.md`  
-**Use for:** Complete LLM system instructions and platform configurations
+**Use for:** A real system prompt, copied verbatim from a source you can link
 
-This template documents the full system prompts used by AI platforms like v0.dev, Claude, ChatGPT, etc. These are comprehensive instruction sets that define how an AI system behaves.
+`5_System_Prompts` archives the prompts AI products actually run. Nothing here is written or
+reconstructed: the body is the source's text, unchanged.
 
 **Key Features:**
 - Required frontmatter: title (with 📝 icon), tags, category, subcategory
-- XML-style structured tags (`<system_info>`, `<capability>`, etc.)
-- System identity and capabilities
-- Response formatting rules
-- Domain knowledge sections
-- Citation and refusal guidelines
-- Multiple interaction examples
+- An `upstream:` block naming the GitHub repo, path and commit it was copied from, or
+  `match: vendor` + `url` for a prompt the vendor publishes only on its own page
+- CI (`scripts/upstream.test.mjs`) fails on a file with neither
 
 **Example Subcategories:**
 - 5_System_Prompts/V0.Dev/

@@ -1,5 +1,5 @@
 /**
- * Settings: appearance (mode + colour palette), the local data this browser
+ * Settings: appearance (mode + theme), the local data this browser
  * keeps, and the keyboard shortcuts. Mounted only while open.
  */
 
@@ -64,7 +64,7 @@ export default function SettingsModal({
       <ModalHeader id="settings-title" title="Settings" description="Remembered in this browser only." onClose={onClose} />
 
       <div className="max-h-[70vh] overflow-y-auto">
-        <Section title="Appearance" hint="Dark is the default; the palette swaps the accent on top of it.">
+        <Section title="Appearance" hint="Dark is the default. A theme washes the whole page in its colour, in either mode.">
           <div className="flex flex-col gap-4">
             <div className="segmented w-full sm:w-72" role="group" aria-label="Mode">
               {(
@@ -81,10 +81,16 @@ export default function SettingsModal({
               ))}
             </div>
 
-            <div role="radiogroup" aria-label="Colour" onKeyDown={onPaletteKey} className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <div role="radiogroup" aria-label="Theme" onKeyDown={onPaletteKey} className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {PALETTES.map(p => {
                 const active = p.id === palette;
-                const swatch = theme === 'light' ? p.light : p.dark;
+                const accent = theme === 'light' ? p.light : p.dark;
+                // The same mixes index.css derives --bg from, so the swatch shows the real ground.
+                const ground = p.tone
+                  ? theme === 'light'
+                    ? `color-mix(in srgb, ${p.tone} 9%, #fbfbfb)`
+                    : `color-mix(in srgb, ${p.tone} 12%, #040404)`
+                  : theme === 'light' ? '#fafafa' : '#060606';
                 return (
                   <button
                     key={p.id}
@@ -101,11 +107,16 @@ export default function SettingsModal({
                     )}
                   >
                     <span
-                      className="grid h-7 w-7 shrink-0 place-items-center rounded-full"
-                      style={{ background: swatch, color: theme === 'light' ? '#fff' : '#09090b' }}
+                      className="grid h-8 w-8 shrink-0 place-items-center rounded-[8px] border border-[var(--line-2)]"
+                      style={{ background: ground }}
                       aria-hidden="true"
                     >
-                      {active && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
+                      <span
+                        className="grid h-4 w-4 place-items-center rounded-full"
+                        style={{ background: accent, color: theme === 'light' ? '#fff' : '#09090b' }}
+                      >
+                        {active && <Check className="h-2.5 w-2.5" strokeWidth={3.5} />}
+                      </span>
                     </span>
                     <span className="min-w-0">
                       <span className="block text-[13px] font-medium text-[var(--fg)]">{p.name}</span>

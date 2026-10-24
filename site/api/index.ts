@@ -11,7 +11,7 @@ import { dirname } from "path";
 import archiver from "archiver";
 import { forkExtra, InvalidPromptError, myLibrary, PromptConflictError, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from "../lib/my-library.js";
 import { filesUnder, resolveInside } from "../lib/safe-path.js";
-import { LIBRARY_PATH, SKILLS_SECTION, carriedFrontmatter, extractFirstHeading, readLibraryItem, sourceUrlOf, type IndexEntry, type LibraryIndex } from "../lib/library.js";
+import { LIBRARY_PATH, SKILLS_SECTION, carriedFrontmatter, extractFirstHeading, readLibraryItem, sourceOf, sourceUrlOf, type IndexEntry, type LibraryIndex } from "../lib/library.js";
 import type { IncomingMessage, ServerResponse } from "http";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -351,7 +351,7 @@ app.get("/api/prompts/:id", async (req, res) => {
 
     const { frontmatter, ...rest } = item;
     // `extra` lets a download keep the file's own frontmatter (a skill's name, licence…)
-    return res.json({ ...rest, extra: carriedFrontmatter(frontmatter), isUserOwned: false, sourceUrl: sourceUrlOf(frontmatter) });
+    return res.json({ ...rest, extra: carriedFrontmatter(frontmatter), isUserOwned: false, sourceUrl: sourceUrlOf(frontmatter), source: sourceOf(item.id, frontmatter) });
   } catch (error) {
     console.error("Error fetching prompt:", error);
     res.status(500).json({ error: "Failed to fetch prompt" });

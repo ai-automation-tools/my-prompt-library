@@ -16,8 +16,8 @@ upstream:
   match: exact
   repo: ai-automation-tools/agent-skills
   path: skills/projects/edge-spectrum/edge-spectrum-dataset/SKILL.md
-  ref: 6f36b558eb82b55e9a68814da0941dd968dfe5f7
-  checked: 2026-10-21
+  ref: abbfc6537c23437de45c2d1ec602364e52cc6a2a
+  checked: 2026-10-23
 ---
 
 # The dataset and its artifacts
@@ -41,14 +41,13 @@ site/src/data/edges.ts          ← the ONLY file you edit
         │  npm run gen:edges
         ├─→ site/public/spectrum/index.html   (the inlined `const RAW = [ … ]` block)
         ├─→ site/public/spectrum/edges.json   (machine-readable, for the eventual React port)
-        ├─→ Versions/Streamlit/data.py        (the `RAW = [ … ]` list)
-        └─→ Data/edge_dataset.md              (the human-readable tables)
+        └─→ data/edge_dataset.md              (the human-readable tables)
 ```
 
 `npm run gen:edges -- --check` is the CI form — it rewrites nothing and exits 1 listing every
-drifted file. **Edit `edges.ts`, run `gen:edges`, commit all five files together.**
+drifted file. **Edit `edges.ts`, run `gen:edges`, commit all four files together.**
 
-`Data/edge_analysis*.md` are **frozen archives, not inputs.** Their horizon columns were computed
+`data/edge_analysis*.md` (and `data/Legacy/`) are **frozen archives, not inputs.** Their horizon columns were computed
 under the single-axis model retired on 2026-08-31 and nothing recomputes them. Do not sync them.
 
 ## 2. The record shape
@@ -75,23 +74,23 @@ removing one requires `npm run check:edges -- --write-baseline` and an explanati
 
 | Guard | Holds |
 |:---|:---|
-| `npm run gen:edges -- --check` | all four artifacts byte-match a fresh generation (LF-normalised, so CRLF working trees pass) |
+| `npm run gen:edges -- --check` | all three artifacts byte-match a fresh generation (LF-normalised, so CRLF working trees pass) |
 | `npm run check:market` | guards `dataGenerator.ts`'s simulated market hold — runs between `gen:edges --check` and `check:edges` in CI, but doesn't test the edge dataset itself |
 | `npm run check:edges` | record count matches `provenance-baseline.json`; every category has ≥1 record and no record has an unlisted one; names unique; `a > -100`; `du > 0`; `0 < ced ≤ 100`; the provenance ratchet |
 | `npm run check:spectrum` | the three measures — see [`references/measures.md`](references/measures.md) |
 
 **Two counts must agree and they live in different files.** `EXPECTED_RECORDS = 187` is hardcoded
 in `scripts/check-spectrum.ts`; `totalRecords` lives in `src/data/provenance-baseline.json`. Adding
-or removing a record means updating **both**, plus `Docs/roadmap.md` — `check-spectrum` says so in
+or removing a record means updating **both**, plus `docs/ROADMAP.md` — `check-spectrum` says so in
 its own failure message.
 
 ## 4. Changing the record count
 
 1. Edit `EDGES` in `site/src/data/edges.ts`.
-2. `npm run gen:edges` — rewrites all four artifacts.
+2. `npm run gen:edges` — rewrites all three artifacts.
 3. `npm run check:edges -- --write-baseline` — records the new `totalRecords` / `withSource`.
 4. Update `EXPECTED_RECORDS` in `scripts/check-spectrum.ts`.
-5. Update the count wherever prose states it: `Docs/roadmap.md`, `CLAUDE.md`, and the `spectrum`
+5. Update the count wherever prose states it: `docs/ROADMAP.md`, `AGENTS.md`, and the `spectrum`
    tool's `blurb` in `src/tools.ts` (it says "187 financial & betting activities").
 6. `npm run check:edges && npm run check:spectrum` — then `npm run lint`.
 
@@ -135,14 +134,14 @@ the result. That creates a contract in an unusual place:
 
 ## 7. Anti-patterns
 
-- **Hand-editing `RAW`, `edges.json`, `data.py` or `Data/edge_dataset.md`.** Reverted by the next
+- **Hand-editing `RAW`, `edges.json` or `data/edge_dataset.md`.** Reverted by the next
   `gen:edges`; fails CI before that.
 - **Committing `edges.ts` without the regenerated artifacts.** The PR goes red on `--check`.
 - **Changing the record count in one place.** Three files and three prose mentions carry it.
 - **Flooring `expectedTurnoverCost`,** or plotting it against `returnOnCapital` on one axis.
 - **Renaming a section banner in `index.html`** while "tidying up".
 - **Storing a derivable field on a record.** Derive it in `toSpectrumRow`.
-- **Syncing `Data/edge_analysis*.md`.** Frozen archives, computed under a retired model.
+- **Syncing `data/edge_analysis*.md`.** Frozen archives, computed under a retired model.
 - **Dropping a `source` to "clean up" a record.** The ratchet only goes one way.
 
 ---
@@ -152,6 +151,6 @@ the result. That creates a contract in an unusual place:
 | For | See |
 |:---|:---|
 | The three measures, ruin point, and the banner contract in full | [`references/measures.md`](references/measures.md) |
-| The DU/CED framework and ruin formulas | the repo's `Docs/methodology.md` |
-| Why the two measures are no longer on one axis | `Docs/Ideas/hub_improvement_plan.md` §8 |
+| The DU/CED framework and ruin formulas | the repo's `docs/methodology.md` |
+| Why the two measures are no longer on one axis | `docs/ideas/hub_improvement_plan.md` §8 |
 | The `/spectrum` tile and hub registry | the `edge-spectrum-hub-tool` skill |

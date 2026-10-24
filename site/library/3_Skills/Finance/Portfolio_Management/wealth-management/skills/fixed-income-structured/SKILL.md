@@ -4,8 +4,12 @@ tags: ["skill","finance","portfolio-management"]
 name: "fixed-income-structured"
 description: "Analyze structured fixed income products including mortgage-backed securities, asset-backed securities, and CLOs. Use when the user asks about MBS, ABS, CLOs, CDOs, prepayment risk, tranching, or waterfall structures. Also trigger when users mention 'mortgage bonds', 'agency MBS', 'pass-through securities', 'PSA prepayment speed', 'negative convexity', 'extension risk', 'contraction risk', 'CMO tranches', 'securitization', or ask how structured products redistribute credit and prepayment risk."
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: JadeGate/jadegate
+  path: skills/fixed-income-structured/SKILL.md
+  ref: 8f83aba05cfe54f0fc22dd15e2bc0567f232d3e2
+  checked: 2026-10-23
+  was: unknown
 ---
 
 # Fixed Income — Structured Products

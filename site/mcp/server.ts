@@ -19,7 +19,7 @@ import * as z from 'zod/v4';
 import { McpServer } from '@modelcontextprotocol/server';
 import { serveStdio } from '@modelcontextprotocol/server/stdio';
 import {
-  LIBRARY_PATH, SECTIONS, SECTION_KEYS, SKILLS_SECTION, carriedFrontmatter, loadIndex, readLibraryItem,
+  LIBRARY_PATH, SECTIONS, SECTION_KEYS, SKILLS_SECTION, carriedFrontmatter, loadIndex, readLibraryItem, sourceOf,
   type IndexEntry, type SectionKey,
 } from '../lib/library.js';
 import { forkExtra, myLibrary, PromptConflictError, pullUpstream, READ_ONLY, upstreamStatus, type UserPrompt } from '../lib/my-library.js';
@@ -175,7 +175,9 @@ export function createServer(): McpServer {
     if (item === 'invalid') return fail(`"${id}" is not a library path. Ids look like "4_Prompts/<Category>/<file>.md".`);
     if (!item) return fail(`No library item "${id}".`);
     const head = `${keyOf(item.section)} › ${[item.category, item.subcategory].filter(Boolean).join(' › ')}${item.tags.length ? ` · tags: ${item.tags.join(', ')}` : ''}`;
-    return text(`# ${item.title}\n\n\`${item.id}\` · ${head}\n\n${item.content}`);
+    const src = sourceOf(item.id, item.frontmatter);
+    const from = src ? ` · source: ${src.url}${src.verdict ? ` (${src.verdict} at the ${src.checked} check)` : ''}` : '';
+    return text(`# ${item.title}\n\n\`${item.id}\` · ${head}${from}\n\n${item.content}`);
   });
 
   // ---------- browse ----------

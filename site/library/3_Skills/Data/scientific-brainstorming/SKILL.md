@@ -4,10 +4,13 @@ tags: ["skill","data","scientific-brainstorming"]
 name: "scientific-brainstorming"
 description: "Research ideation partner. Generate hypotheses, explore interdisciplinary connections, challenge assumptions, develop methodologies, identify research gaps, for creative scientific problem-solving."
 upstream:
-  match: ambiguous
-  copies: 5
-  candidates: [hkphysics/scientific-agent-skills, k-dense-ai/scientific-agent-skills, microck/ordinary-claude-skills, ovachiever/droid-tings, thegovind/claude-scientific-skills]
-  checked: 2026-08-26
+  match: exact
+  repo: microck/ordinary-claude-skills
+  path: skills_all/claude-scientific-skills/scientific-skills/scientific-brainstorming/SKILL.md
+  ref: 1056d293d41a3a3b86518d8ab6ec0a79091ccedb
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [ovachiever/droid-tings]
 ---
 
 # Scientific Brainstorming

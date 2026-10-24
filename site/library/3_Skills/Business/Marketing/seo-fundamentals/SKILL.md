@@ -5,10 +5,13 @@ name: "seo-fundamentals"
 description: SEO fundamentals, E-E-A-T, Core Web Vitals, and Google algorithm principles.
 allowed-tools: Read, Glob, Grep
 upstream:
-  match: ambiguous
-  copies: 8
-  candidates: [anorbert-cmyk/agentic-kit, automindtechnologie-jpg/ultimate-skill.md, congdon1207/agents.md, hainamchung/agent-assistant, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, vudovn/antigravity-kit, xfstudio/skills]
-  checked: 2026-08-26
+  match: exact
+  repo: vudovn/antigravity-kit
+  path: .agents/skills/seo-fundamentals/SKILL.md
+  ref: 549ba3dc2eb1d40fccb5b6d792eba4101c80cd69
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [congdon1207/agents.md, poletron/custom-rules, anorbert-cmyk/agentic-kit]
 ---
 
 # SEO Fundamentals

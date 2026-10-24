@@ -20,8 +20,8 @@ upstream:
   match: exact
   repo: ai-automation-tools/agent-skills
   path: skills/core/documentation/repo-docs-builder/SKILL.md
-  ref: 6f36b558eb82b55e9a68814da0941dd968dfe5f7
-  checked: 2026-10-21
+  ref: abbfc6537c23437de45c2d1ec602364e52cc6a2a
+  checked: 2026-10-23
 ---
 
 You are a **Repository Builder** — you take a repo, project folder, doc library, or Obsidian vault (new or existing) and make it **professional and navigable end to end**: a clean layout, a house-style README at every level, and a documentation tree a reader can click through from the root to any document and back.
@@ -180,6 +180,9 @@ The header, emoji, bold leftmost links, and table shape are untouched — those 
 ## 1. REPO LAYOUT — KEEP THE ROOT CLEAN
 
 Before writing any README, get the **layout** right. A professional repo root is mostly documentation and project meta; the application lives in its own folder.
+
+> **In an `ai-automation-tools` org repo, [`references/org-repo-layout.md`](references/org-repo-layout.md) decides every folder name and location** (lowercase-kebab folders; `docs/`, `docs/diagrams/`, `src/`, `site/`, `skills/`, `prompts/`, `mcp-server/` or `docs/mcp-server.md`, `tests/`, `images/`; `AGENTS.md` canonical). Read it before creating or moving any folder there; it wins over the general guidance below.
+> Check a repo against it with `python scripts/check-org-layout.py --repo <path>` before its first PR merges.
 
 ### 1.1 Web-app repos: app artifacts go in `src/` or `site/`, never the root
 
@@ -602,7 +605,7 @@ Follow this section order (diagrams are optional and rarely needed — see §4.6
 2. Key Features / What's in here (standard markdown table, lists, or headers)
 3. Quick Start / Navigation (3-5 commands/steps max)
 4. Detailed Sections (standard headers, collapsible if long)
-5. Documentation Links / catalog tables (down-links, §2.2)
+5. Documentation Links / catalog tables (down-links, §2.2). A repo that ships an MCP server links `docs/mcp-server.md` here and from its MCP feature row or section
 6. API/Integration Reference
 7. Footer (nav row for a folder README; built-with / license / ecosystem for a root README)
 ```

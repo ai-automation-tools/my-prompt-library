@@ -4,8 +4,12 @@ tags: ["skill","finance","investing"]
 name: "order-lifecycle"
 description: "Guide the design and implementation of order lifecycle management in trading systems. Use when building an order state machine for an OMS or EMS, implementing or debugging FIX protocol connectivity to exchanges, handling cancel/replace race conditions, defining pre-submission validation rules (buying power, position limits, restricted lists), selecting order types and time-in-force instructions, designing multi-leg or OCO or bracket orders, building CAT-compliant audit trails, troubleshooting order rejections or unexpected state transitions, hardening an OMS against edge cases, or implementing order persistence and recovery for failover. Also covers FIX message flows, ClOrdID chaining, and partial fill aggregation."
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: JadeGate/jadegate
+  path: skills/order-lifecycle/SKILL.md
+  ref: 8f83aba05cfe54f0fc22dd15e2bc0567f232d3e2
+  checked: 2026-10-23
+  was: unknown
 ---
 
 # Order Lifecycle

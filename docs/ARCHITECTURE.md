@@ -265,8 +265,10 @@ promptbook/
 ├── homepage/                     # Static project homepage (GitHub Pages)
 ├── scripts/                      # Repo utilities, outside the app
 │   ├── attribute-upstream.mjs    # Stamp upstream provenance on skills (--agents: agents)
-│   ├── check-upstream-drift.mjs  # Weekly drift report
+│   ├── check-upstream-drift.mjs  # Weekly drift report; --json → site/api/upstream-status.json
 │   ├── resync-upstream.mjs       # Pull a skill or agent back level with its upstream
+│   ├── reattribute-unclear.mjs   # Code-search pass for unknown/ambiguous provenance
+│   ├── attribute-system-prompts.mjs # Stamp system prompts from the public collections
 │   ├── sync-agent-skills.mjs     # Add and refresh skills from ai-automation-tools/agent-skills
 │   ├── build-skill-packs.mjs     # One generated Skill Pack per skills folder; repairs hand packs
 │   ├── backfill-tags.mjs         # Path-derived tags for any file without them
@@ -291,10 +293,11 @@ promptbook/
 
 ```
 App.tsx                       app shell, data fetching (routing state: hooks/useLibraryRoute)
-├── SourceBar                 "View source" bar
-├── Sidebar                   library-mode switcher (hidden when read-only) + category tree (a drawer on phones)
-├── TopBar                    brand, section nav (a sheet under the bar below 1536px: sections below 1360px, Resources links below 1536px), ⌘K, ResourcesNav (≥1536px),
-│   │                         New prompt (hidden when read-only), Settings, Light | Dark ThemeSwitch
+├── SourceBar                 "View source" bar (READ_ONLY demo only)
+├── SectionRail               md up: logo, the seven sections, Settings; the current section's cell joins the Sidebar
+├── Sidebar                   library-mode switcher (hidden when read-only) + category tree in per-category hues (a drawer on phones)
+├── TopBar                    ⌘K search, ResourcesNav (≥1536px; a sheet below, which also holds the sections on phones),
+│   │                         New prompt (hidden when read-only), Light | Dark ThemeSwitch; brand + Settings on phones only
 │   └── ResourcesNav          data-driven external-link menus
 ├── Breadcrumbs               library › section › category › prompt, above the content
 ├── LibraryHero               section heading + search field
@@ -303,10 +306,11 @@ App.tsx                       app shell, data fetching (routing state: hooks/use
 │   └── PromptCardGrid        responsive card grid (also used by featured + subcategory views)
 │       └── PromptCard        title, tags, preview, row actions
 ├── PromptDetail              single-prompt view
+│   └── SourcePanel           GitHub repo, copied-at commit, weekly drift verdict, compare link
 ├── SkillPacksView            skill-pack catalog (own tab)
 ├── EmptyState                empty My Library
 ├── PromptEditorModal         create / edit a My Library prompt
-├── SettingsModal             appearance (mode + colour palette), local data, keyboard shortcuts
+├── SettingsModal             appearance (mode + one of 12 themes), local data, keyboard shortcuts
 ├── CommandPalette            ⌘K across prompts, sections, actions and the two themes
 └── ToastContainer
 ```

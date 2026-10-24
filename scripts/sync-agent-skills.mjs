@@ -4,9 +4,10 @@
  * `site/library/3_Skills`, with provenance stamped the way every other vendored
  * skill carries it.
  *
- * Adds only. A skill that is already here (same upstream path, or a directory of
- * the same name anywhere in 3_Skills) is left alone: the weekly drift check and
- * the Saturday resync own updates, and this script must not fight them.
+ * Adds new skills, and refreshes the ones already taken from agent-skills (same
+ * upstream path) when their body moved. A directory of the same name from another
+ * source is left alone. This job owns agent-skills items: the weekly resync PR
+ * (.github/workflows/upstream-drift.yml) skips that repo so the two never collide.
  *
  * Why a script and not a model: agent-skills is validated, licensed and already
  * fed by the Skill Harvest. Copying a folder and writing a frontmatter block is a

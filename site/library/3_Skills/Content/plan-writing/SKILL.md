@@ -3,10 +3,13 @@ name: plan-writing
 description: Structured task planning with clear breakdowns, dependencies, and verification criteria. Use when implementing features, refactoring, or any multi-step work.
 allowed-tools: Read, Glob, Grep
 upstream:
-  match: ambiguous
-  copies: 7
-  candidates: [ag47-pt/website, automindtechnologie-jpg/ultimate-skill.md, poletron/custom-rules, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, vudovn/antigravity-kit, xfstudio/skills]
-  checked: 2026-08-26
+  match: exact
+  repo: xfstudio/skills
+  path: plan-writing/SKILL.md
+  ref: 1bf6044db21c12c62695a6732f1273d66ff4882e
+  checked: 2026-10-23
+  was: ambiguous
+  candidates: [ag47-pt/website, poletron/custom-rules, sickn33/antigravity-awesome-skills, vudovn/antigravity-kit]
 tags: ["skill","content","plan-writing"]
 ---
 

@@ -17,8 +17,8 @@ upstream:
   match: exact
   repo: ai-automation-tools/agent-skills
   path: skills/projects/project-hub/project-hub-client/SKILL.md
-  ref: 6f36b558eb82b55e9a68814da0941dd968dfe5f7
-  checked: 2026-10-21
+  ref: abbfc6537c23437de45c2d1ec602364e52cc6a2a
+  checked: 2026-10-23
 ---
 
 # Working in index.html
@@ -132,6 +132,7 @@ Per-viewer preferences are localStorage, never the scan payload:
 | `hub.side` `hub.websrc` | active activity-bar view, chosen browser profile for Favorites |
 | `hub.zoom` `hub.links` `hub.favsource` | interface size (also read by the pre-paint script), hub tabs on/off, manual or synced favorites |
 | `hub.bookmarks` `hub.recent` | paths only — via `navigation.mjs`, which is where the list logic is tested |
+| `hub.bmgroups` | `{closed, empty}` bookmark-group names: which are folded, which were created empty |
 
 Every read and write is wrapped in `try/catch`. Private windows throw on access, and a
 throwing preference read must not take the page down.
@@ -154,7 +155,7 @@ Opening `index.html` over `file://` or a static preview serves the shell but not
 working; it is the first thing a new user hits.
 
 > [!WARNING]
-> **`Demo/build-demo.mjs` rewrites exact string literals in this file** and asserts the
+> **`demo/build-demo.mjs` rewrites exact string literals in this file** and asserts the
 > match count. Editing the `/api/raw?path=` / `/api/preview?path=` call sites, the
 > `<script type="module">` tag or a placeholder will fail the demo build in CI — which is
 > the point. Fix the `sub()` call in the same commit; see the `project-hub-demo` skill.
@@ -169,8 +170,8 @@ working; it is the first thing a new user hits.
 4. Clickable → `activate()`. Text → `textContent`. Never `innerHTML` on scan data.
 5. Hold ids, not nodes. Durable UI state on `S`. Async appends check `isConnected`.
 6. New `<script>` → `nonce="%NONCE%"`.
-7. Touched a literal the demo rewrites → update `sub()` in `Demo/build-demo.mjs`.
-8. `npm test` from `Hub/` — the byte-level control-character test covers `index.html`, and
+7. Touched a literal the demo rewrites → update `sub()` in `demo/build-demo.mjs`.
+8. `npm test` from `hub/` — the byte-level control-character test covers `index.html`, and
    it exists because scripted edits corrupted this file three times.
 9. Load the page, rescan, resize the sidebar, follow a deep link, hit back.
 

@@ -4,8 +4,13 @@ tags: ["skill","development","git"]
 name: "github-actions-creator"
 description: "Use when the user wants to create, generate, or set up a GitHub Actions workflow. Handles CI/CD pipelines, testing, deployment, linting, security scanning, release automation, Docker builds, scheduled tasks, and any custom workflow for any language or framework."
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: davila7/claude-code-templates
+  path: cli-tool/components/skills/development/github-actions-creator/SKILL.md
+  ref: d42dc5a73cf63fd6c36fa1d1e83c5e2d3f87b3d0
+  checked: 2026-10-23
+  was: unknown
+  candidates: [FNOSP/FlyNarwhal, diegosouzapw/awesome-omni-skill, aicodedecode/awesome-muse-skills, 4gentic/obelus, aibot88/sec_skill_store, GOlinkup/steroids, Richard0901/SKILL-warehouse]
 ---
 
 # GitHub Actions Creator

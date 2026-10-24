@@ -3,11 +3,12 @@ name: twilio-communications
 description: "Build communication features with Twilio: SMS messaging, voice calls, WhatsApp Business API, and user verification (2FA). Covers the full spectrum from simple notifications to complex IVR systems and multi-channel authentication. Critical focus on compliance, rate limits, and error handling. Use when: twilio, send SMS, text message, voice call, phone verification."
 source: vibeship-spawner-skills (Apache 2.0)
 upstream:
-  match: ambiguous
-  copies: 5
-  candidates: [automindtechnologie-jpg/ultimate-skill.md, hainamchung/agent-assistant, sebas-aikon-intelligence/antigravity-awesome-skills, sickn33/antigravity-awesome-skills, xfstudio/skills]
-  declared: "vibeship-spawner-skills (Apache 2.0)"
-  checked: 2026-08-26
+  match: exact
+  repo: xfstudio/skills
+  path: twilio-communications/SKILL.md
+  ref: 1bf6044db21c12c62695a6732f1273d66ff4882e
+  checked: 2026-10-23
+  was: ambiguous
 tags: ["skill","enterprise","communications"]
 ---
 

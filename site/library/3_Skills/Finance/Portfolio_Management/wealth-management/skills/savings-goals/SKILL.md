@@ -4,8 +4,12 @@ tags: ["skill","finance","portfolio-management"]
 name: "savings-goals"
 description: "Plan and track savings for specific financial goals including retirement, education, and home purchase. Use when the user asks about required savings rates, 529 plans, retirement accumulation targets, down payment planning, or goal prioritization. Also trigger when users mention 'how much do I need to save each month', 'am I on track for retirement', 'college savings', 'safe withdrawal rate', '4% rule', 'FIRE savings rate', 'catch-up contributions', 'employer match', or ask how to balance competing savings goals."
 upstream:
-  match: unknown
-  checked: 2026-08-26
+  match: exact
+  repo: JadeGate/jadegate
+  path: skills/savings-goals/SKILL.md
+  ref: 8f83aba05cfe54f0fc22dd15e2bc0567f232d3e2
+  checked: 2026-10-23
+  was: unknown
 ---
 
 # Savings Goals

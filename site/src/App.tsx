@@ -12,6 +12,7 @@ import { type Prompt } from './components/PromptCard';
 import type { PromptDraft } from './components/PromptEditorModal';
 import Sidebar, { type SkillPackSummary } from './components/Sidebar';
 import TopBar from './components/TopBar';
+import SectionRail from './components/SectionRail';
 import Breadcrumbs, { type Crumb } from './components/Breadcrumbs';
 import LibraryHero from './components/LibraryHero';
 import PromptGrid, { PromptCardGrid, type PromptCardActions } from './components/PromptGrid';
@@ -22,7 +23,7 @@ import { fetchFullPrompt, usePromptContent } from './hooks/usePromptContent';
 import { toMarkdownFile } from './lib/markdown-file';
 import { useLibraryRoute, slugifyPromptPath, type LibraryTab } from './hooks/useLibraryRoute';
 import { usePalette, useTheme } from './hooks/useTheme';
-import { getSection, getSectionFolder, getSectionDisplayName, getTabForFolder, humanize, lowerLabel } from './lib/sections';
+import { categoryHue, getSection, getSectionFolder, getSectionDisplayName, getTabForFolder, humanize, lowerLabel } from './lib/sections';
 import { READ_ONLY } from './lib/mode';
 
 // Split out of the entry chunk: none of these render on first paint, and
@@ -745,8 +746,17 @@ export default function App() {
     <LazyMotion features={domAnimation} strict>
     <div className="app-shell flex flex-col overflow-hidden">
     <a href="#main" className="skip">Skip to content</a>
-    <SourceBar />
+    {/* The org's "View source" bar is for the hosted demo; the local app doesn't need it. */}
+    {READ_ONLY && <SourceBar />}
     <div className="relative flex min-h-0 flex-1 overflow-hidden">
+      <SectionRail
+        activeTab={activeTab}
+        onSelectSection={tab => (tab === activeTab ? setIsSidebarOpen(open => !open) : openSectionFromPalette(tab))}
+        onHome={() => openSectionFromPalette('prompt-library')}
+        onOpenSettings={() => setIsSettingsOpen(true)}
+        joined={isSidebarOpen}
+      />
+
       {/* Mobile sidebar overlay */}
       <AnimatePresence>
         {isSidebarOpen && (
@@ -939,9 +949,10 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
-                className="w-full pt-6"
+                className="hue w-full pt-6"
+                style={{ ['--hue' as string]: categoryHue(selectedSubcategory.category) }}
               >
-                <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+                <div className="mb-5 flex flex-wrap items-start justify-between gap-4">
                   <div className="flex min-w-0 items-start gap-3">
                     <button type="button" onClick={handleShowAllPrompts} className="icon-btn icon-btn-framed mt-0.5 h-9 w-9 shrink-0" aria-label="Back to all">
                       <ArrowLeft className="h-4 w-4" />
@@ -970,6 +981,23 @@ export default function App() {
                     {copiedShareLink ? 'Link copied' : 'Copy section link'}
                   </Button>
                 </div>
+
+                {/* Sub-category pills: hop sideways without going back to the tree. */}
+                {(categories[selectedSubcategory.category]?.size ?? 0) > 0 && (
+                  <div className="mb-6 flex flex-wrap gap-2" role="group" aria-label="Sub-categories">
+                    {['ALL', ...Array.from(categories[selectedSubcategory.category]).sort()].map(sub => (
+                      <button
+                        key={sub}
+                        type="button"
+                        className="pill"
+                        aria-pressed={selectedSubcategory.subcategory === sub}
+                        onClick={() => handleSubcategoryClick(selectedSubcategory.category, sub)}
+                      >
+                        {sub === 'ALL' ? 'All' : humanize(sub)}
+                      </button>
+                    ))}
+                  </div>
+                )}
 
                 <PromptCardGrid prompts={subcategoryPrompts} actions={promptCardActions} />
               </m.div>
